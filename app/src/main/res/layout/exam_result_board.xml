@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/page_background"
+    android:weightSum="100" >
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/note"
+        android:layout_marginTop="18dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_weight="98"
+            android:ems="10"
+            android:text="Answer Sheet"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:textColor="#4267b2"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="98"
+        android:divider="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/_12sdp"
+        android:listSelector="@color/lightgray" >
+    </ListView>
+
+
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/page_background"
+        android:weightSum="90" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=""
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

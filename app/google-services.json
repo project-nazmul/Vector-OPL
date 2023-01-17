@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "564334864134",
+    "firebase_url": "https://vector-bc674.firebaseio.com",
+    "project_id": "vector-bc674",
+    "storage_bucket": "vector-bc674.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564334864134:android:05a04f66be696a11",
+        "android_client_info": {
+          "package_name": "com.opl.pharmavector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564334864134-u8u7m27eq4kld168nuo8a8l0ncvjtjvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOnNy-fd-3nW3E4pzub1aGeXr0QFsGEEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564334864134-u8u7m27eq4kld168nuo8a8l0ncvjtjvs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

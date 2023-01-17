@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="1dp"
+    android:weightSum="16" >
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@color/bg_gradient_start"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/header_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:layout_margin="@dimen/_2sdp"
+            android:text="List of Promotion item"
+            android:textColor="@color/ef_white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/dcr_sl"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/darkblue"
+            />
+
+        <TextView
+            android:id="@+id/dco_chem_name"
+            android:text="PPM CODE"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/_10sdp"
+            />
+
+
+
+        <TextView
+            android:id="@+id/all_re"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="right"
+            android:text="Promotional item\nDescription"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10sdp"
+            android:focusable="true" />
+
+
+        <TextView
+            android:id="@+id/am_pm_shift"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="right"
+            android:text="Month of\nPromotion"
+            android:textColor="@color/green1"
+            android:textSize="@dimen/_10sdp"
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/slistLayout0"
+        android:layout_weight="6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+
+        >
+
+
+        <ListView
+            android:id="@+id/pListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:focusable="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:clickable="true"
+            >
+        </ListView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/slistLayouttext"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/bg_gradient_start"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/detail_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:layout_margin="@dimen/_2sdp"
+            android:text="Area wise promotional item information"
+            android:textColor="@color/ef_white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:ignore="RtlSymmetry" />
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <!--0.5-->
+
+    <LinearLayout
+        android:id="@+id/s_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/sl"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/darkblue"
+            />
+
+        <TextView
+
+            android:text="AM CODE"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:textSize="@dimen/_10sdp"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/pink"
+            />
+
+        <TextView
+            android:id="@+id/v_date2"
+            android:text="Name of Area"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:textSize="@dimen/_10sdp"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/doc_name2"
+            android:text="Total Sold quantity"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="0dp"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:textColor="@color/green1"
+
+            />
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <!--0.25-->
+
+
+    <LinearLayout
+
+        android:id="@+id/slistLayout3"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        >
+
+
+
+        <ListView
+            android:id="@+id/pListView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:focusable="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:clickable="true"
+
+
+            >
+        </ListView>
+
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+
+        android:id="@+id/slistLayouttext3"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/bg_gradient_start"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:id="@+id/detail_head3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:layout_margin="@dimen/_2sdp"
+            android:text="Territory wise promotional item information"
+            android:textColor="@color/ef_white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:ignore="RtlSymmetry" />
+
+
+
+
+
+
+
+
+    </LinearLayout><!--0.5-->
+
+    <LinearLayout
+        android:id="@+id/s_head2"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/sl2"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/darkblue"
+            />
+
+        <TextView
+
+            android:text="Name of Territory"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10sdp"
+            />
+
+        <TextView
+            android:id="@+id/doc_name3"
+            android:text="Total Sold quantity"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:textColor="@color/green1"
+            android:textSize="@dimen/_10sdp"
+
+            />
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout><!--0.25-->
+
+
+    <LinearLayout
+
+        android:id="@+id/slistLayout4"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        >
+
+
+
+        <ListView
+            android:id="@+id/pListView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:focusable="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:clickable="true" >
+        </ListView>
+
+    </LinearLayout><!--4-->
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

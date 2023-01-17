@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="12">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/acme"
+            android:text="Date:"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:fontFamily="@font/acme"
+            android:textAlignment="textStart"
+            android:text="@string/appointment_date"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp" />
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/acme"
+            android:text="Mpo Code:"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp" />
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/acme"
+            android:text="@string/code_of_mpo"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvbrandcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:fontFamily="@font/acme"
+        android:text="@string/code_of_mpo"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/mPicture"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:gravity="center" />
+</LinearLayout>

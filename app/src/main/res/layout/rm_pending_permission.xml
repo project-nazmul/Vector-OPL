@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+
+    <LinearLayout
+
+        android:id="@+id/searchbar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:orientation="horizontal"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        android:weightSum="20"
+        >
+        <EditText
+            android:id="@+id/p_search"
+            android:layout_width="200dp"
+            android:layout_height="44dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:hint="Search for Product"
+            android:inputType="textNoSuggestions"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark">
+
+            <requestFocus />
+        </EditText>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="username"
+            android:visibility="visible"
+            android:gravity="center"
+            android:textColor="@android:color/background_dark"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/user_show2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:ems="10"
+            android:hint="region"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@android:color/background_dark"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+        <Button
+
+            android:id="@+id/back"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/userinput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/conference_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Conference Month"
+                android:textStyle="normal"
+                android:inputType="number"
+                android:textColorHint="@color/darkblue"
+                android:textColor="#009688"
+                android:textSize="@dimen/_10sdp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                />
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="match_parent"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Regular"
+                    android:layout_weight="1"
+                    android:checked="true" />
+
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Special" />
+
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/successmsg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_25sdp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/succ_msg"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignLeft="@+id/user_show"
+                android:gravity="center"
+                android:text="Total submited Territory for this month is "
+                android:textColor="@color/darkblue"
+                android:textStyle="bold"
+                android:textIsSelectable="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/permision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Assign Pending Conference to MPO"
+            android:textSize="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:background="@color/ef_colorPrimary"
+            android:textColor="@color/white"
+            />
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#00B4D4"
+            android:text="Cancel Conference Permission of MPO"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="80">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="1dp">
+
+            <LinearLayout
+                android:id="@+id/slistLayout"
+                android:layout_width="match_parent"
+                android:weightSum="11"
+                android:background="@android:color/transparent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Sl"
+                    android:paddingLeft="@dimen/_2sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_10sdp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="MPO Code"
+                    android:textStyle="bold"
+                    android:textColor="#009688"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Territory name"
+                    android:textColor="@color/ef_colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:layout_weight="5"
+                    android:textSize="@dimen/_10sdp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+
+                <TextView
+                    android:id="@+id/ssel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Select"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="#009688"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ListView
+            android:id="@+id/category_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:layout_weight="80"/>
+
+        <Button
+            android:id="@+id/selectCategoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit to assign Persmission to Mpo"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textSize="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:descendantFocusability="afterDescendants"
+            android:background="@color/ef_colorPrimary"
+            android:textColor="@color/white"
+            />
+
+
+
+        <Button
+            android:id="@+id/delete_mpo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit to cancel Persmission to Mpo"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:descendantFocusability="afterDescendants"
+            android:textSize="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:background="#00B4D4"
+            android:visibility="gone"
+            android:textColor="@color/white"
+
+            />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/alert_light_frame"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/user_show"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="username"
+                android:textColor="@android:color/background_dark"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="region"
+                android:textColor="@android:color/background_dark"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="&lt;"
+                android:textColor="#FFF"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/successmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_alignLeft="@+id/linearLayout1"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/succ_msg"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="29"
+                android:gravity="center"
+                android:text="Msg"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/green"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ordno"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignLeft="@+id/user_show"
+                android:layout_weight="70"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Ordno"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/orangered"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/newversion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/note"
+            android:layout_alignLeft="@+id/note"
+            android:gravity="center_horizontal"
+            android:text="Offline order"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/userinput"
+            android:layout_alignLeft="@+id/userinput"
+            android:gravity="center_horizontal"
+            android:text="Please fill the below feilds to an make offline order."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorAccent" />
+
+
+        <LinearLayout
+            android:id="@+id/userinput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttons"
+            android:layout_alignLeft="@+id/buttons"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="true"
+                android:hint="Reference"
+                android:inputType="text"
+                android:visibility="gone">
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/orderpage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Order page"
+                android:inputType="text"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <TextView
+                    android:id="@+id/deliverydate"
+                    android:layout_width="158dp"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:text="Delivery Date"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+
+                <Spinner
+                    android:id="@+id/ampm"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/spinner_dropdown_background"
+                    android:ems="10"
+                    android:entries="@array/am_pm"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/customerlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="48dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:focusable="true"
+                    android:hint="Input Customer (eg. dh..)"
+                    android:inputType="textPhonetic"
+                    android:singleLine="false"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/customer"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:fontFamily="sans-serif"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+
+            <Spinner
+                android:id="@+id/onik"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/errordt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="0.61"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/cust_status"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:clickable="false"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Cash/Credit"
+                android:soundEffectsEnabled="true"
+
+                android:textColor="@android:color/holo_red_dark"
+                android:textColorHint="@color/deeppurple"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                tools:ignore="UnusedAttribute" />
+
+
+            <Spinner
+                android:id="@+id/credit"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:ems="10"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <LinearLayout
+                android:id="@+id/paymentmode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/cashcredit"
+                    android:layout_width="190dp"
+                    android:layout_height="45dp"
+                    android:background="@android:drawable/spinner_dropdown_background"
+                    android:ems="10"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    android:visibility="gone"
+                    tools:ignore="UnusedAttribute" />
+
+
+                <TextView
+                    android:id="@+id/errorpayment"
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="0.61"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="44dp">
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=">"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <Button
+                android:id="@+id/view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <Button
+                android:id="@+id/update"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/view"
+                android:background="@drawable/white_button_selector"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="25sp"
+                android:visibility="invisible"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <!---
+                    <Button
+                        android:id="@+id/offline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/update"
+                        android:layout_toLeftOf="@+id/achivbtn"
+                        android:background="@drawable/page_background"
+                        android:gravity="center_horizontal|center"
+                        android:hapticFeedbackEnabled="false"
+                        android:soundEffectsEnabled="false"
+                        android:text="OFFLINE"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="12sp"
+                        tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+               -->
+
+            <Button
+                android:id="@+id/offline"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="Sync"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+
+
+            <Button
+                android:id="@+id/achivbtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/next"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="Achi"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="25sp"
+                android:visibility="invisible"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/percent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/note"
+
+            android:layout_alignLeft="@+id/successmsg">
+
+
+            <TextView
+                android:id="@+id/target"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:text="Inv"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/invoice"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="19dp"
+                android:layout_toLeftOf="@+id/target"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:text="Tar"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/achivement"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@+id/target"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/percent">
+
+            <TextView
+                android:id="@+id/tartext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="Sale"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/achtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="34dp"
+                android:layout_toRightOf="@+id/tartext"
+                android:text="Achivement"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/invtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="50dp"
+                android:layout_toLeftOf="@+id/tartext"
+                android:text="Target"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="8sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

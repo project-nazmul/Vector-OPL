@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+
+
+    <TextView
+        android:id="@+id/serial"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:focusable="true"
+        android:text="@string/serial"
+        android:textColor="#005CE6" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="20dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:layout_marginLeft="10px"
+        android:layout_gravity="left"
+        android:textAlignment="gravity"
+        android:text="@string/pn"
+        android:textColor="#005CE6"
+        />
+
+    <TextView
+        android:id="@+id/qnty_3"
+        android:layout_width="20dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:layout_marginLeft="0dp"
+        android:textAlignment="gravity"
+        android:layout_gravity="left"
+        android:text="target quantity"
+        android:textColor="@color/colorAccent"
+      />
+
+    <TextView
+        android:id="@+id/value_3"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:textAlignment="gravity"
+        android:layout_gravity="left"
+        android:text="tar"
+        android:textColor="#005CE6" />
+
+
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="left"
+            android:text="extra1"
+            android:textColor="#005CE6" />
+
+        <TextView
+            android:id="@+id/value_5"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="extra2"
+            android:textColor="@color/pink" />
+
+        <TextView
+            android:id="@+id/value_6"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="extra2"
+            android:textColor="@color/pink" />
+
+
+        <TextView
+            android:id="@+id/value_7"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="extra2"
+            android:textColor="@color/pink" />
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+

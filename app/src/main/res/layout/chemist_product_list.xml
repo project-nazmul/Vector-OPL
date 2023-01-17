@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="20">
+
+    <TextView
+        android:id="@+id/serial"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:text="@string/serial"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="4"
+        android:focusable="true"
+        android:text="@string/pn"
+        android:hint="quantity"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/blue" />
+
+
+
+    <TextView
+        android:id="@+id/ppm_desc"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="5"
+        android:focusable="true"
+        android:text="ppm desc"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/green1" />
+
+    <TextView
+        android:id="@+id/ppm_typ"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:text="ppm type"
+        android:hint="quantity"
+        android:gravity="left"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/darkblue" />
+
+
+    <TextView
+        android:id="@+id/alloc"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.5"
+        android:focusable="true"
+        android:text="alloc"
+        android:hint="quantity"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/blue" />
+
+
+
+    <TextView
+        android:id="@+id/remain"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.5"
+        android:focusable="true"
+        android:text="remain"
+        android:hint="quantity"
+        android:gravity="right"
+        android:textSize="@dimen/_8sdp"
+        android:textColor="@color/colorAccent" />
+
+
+    <TextView
+        android:id="@+id/ppm_error"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:focusable="false"
+        android:maxLines="3"
+        android:textSize="@dimen/_6sdp"
+        android:ellipsize="end"
+        android:singleLine="false"
+        />
+
+
+    <EditText
+        android:id="@+id/qnty"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:inputType="number"
+        android:maxLength="7"
+        android:focusable="true"
+        android:hint="Quant"
+        android:gravity="right"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/blue"
+        />
+
+
+
+
+
+</LinearLayout>

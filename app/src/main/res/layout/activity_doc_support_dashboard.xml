@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/user_show1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ems="10"
+            android:hint="username"
+            android:visibility="visible"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/background_dark"
+            />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/dcr_page_button"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:id="@+id/layout_mpo_doc_support"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/mpo_exam"
+            android:orientation="vertical"
+            android:background="@color/lightgray"
+            android:gravity="center_horizontal"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_doc_support_req"
+                    style="@android:style/Widget.Button.Toggle"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lightgray"
+                    android:fontFamily="cursive"
+                    android:text="Doctor Support"
+                    android:textAlignment="center"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/bar_doc_support_req"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/circle_shape"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+
+                <TextView
+                    android:id="@+id/txt_doc_support_req"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="cursive"
+                    android:gravity="center"
+                    android:text="Requisition"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:id="@+id/mpo_pc_followup"
+            android:background="@color/lightgray"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_doc_support_followup"
+                    style="@android:style/Widget.Button.Toggle"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lightgray"
+                    android:fontFamily="cursive"
+                    android:text="Doctor Support"
+                    android:textAlignment="center"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/bar_doc_support_followup"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/circle_shape"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+
+                <TextView
+                    android:id="@+id/txt_doc_support_followup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="cursive"
+                    android:gravity="center"
+                    android:text="Followup"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:id="@+id/layout_msd_program"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@color/lightgray"
+            android:gravity="center_horizontal"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_msd_program_followup"
+                    style="@android:style/Widget.Button.Toggle"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/lightgray"
+                    android:fontFamily="cursive"
+                    android:text="MSD Program"
+                    android:textAlignment="center"
+                    android:textAppearance="@android:style/TextAppearance"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/bar_msd_program_followup"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@drawable/circle_shape"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressDrawable="@drawable/circular_progress_bar" />
+
+                <TextView
+                    android:id="@+id/txt_msd_program_followup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="cursive"
+                    android:gravity="center"
+                    android:text="Followup"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

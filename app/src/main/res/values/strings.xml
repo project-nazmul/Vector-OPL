@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vector</string>
+    <string name="hello_world">Welcome!  Please Fill out the neccesery feilds</string>
+    <string name="menu_settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="login_user">Login user</string>
+    <string name="login_pass">Login pass</string>
+    <string name="appname">Vector</string>
+    <string name="ordersi">OrderSi:</string>
+    <string name="orderpage">Order Page No:</string>
+    <string name="orderdate">Order Date</string>
+    <string name="cust">Customer</string>
+    <string name="ref">Reference No</string>
+    <string name="delidate">Delivery Date</string>
+    <string name="instruct">Please Fill out the necessery feilds</string>
+    <string name="note">If you face problem with login, please go to setting.</string>
+    <string name="packsize">Size</string>
+    <string name="menu_header">Order  Book</string>
+    <string name="save_btn">Save</string>
+    <string name="sub_menu_header">Order Items</string>
+    <string name="qnty">Order Qnty</string>
+    <string name="tp">TP</string>
+    <string name="tv">TV</string>
+    <string name="dv">DV</string>
+    <string name="vv">VV</string>
+    <string name="net">Net</string>
+    <string name="pn">Product Name</string>
+    <string name="chk">CHK</string>
+    <string name="p_code">Code</string>
+    <string name="serial">SI</string>
+    <string name="backBtn">Back</string>
+    <string name="submitBtn">Submit</string>
+    <string name="company">Opsonin Pharma Limited</string>
+    <string name="rate">rate</string>
+    <string name="val">value</string>
+    <string name="help">Help</string>
+    <string name="help_line">If you feel that something went wrong then please inform Opsonin IT Dept.</string>
+    <string name="search">Search Products (eg. zo..)</string>
+    <string name="handle">Handle</string>
+    <string name="vieworders">My Sales</string>
+    <string name="value">(BDT)</string>
+    <string name="customerspin">Select Customer</string>
+    <string name="update">update</string>
+    <string name="home">Home</string>
+    <string name="error_network_timeout">error_network_timeout</string>
+    <string name="action_settings">Settings</string>
+    <string name="subscribe_to_weather">Subscribe To Vector</string>
+    <string name="log_token">Log Token</string>
+    <string name="msg_subscribed">Subscribed to weather topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="toolbar_title">Doctors name</string>
+    <string name="action_search">Search Doctor</string>
+    <string name="search_hint">Type Doctor name</string>
+
+    <string-array name="fieldspinner">
+
+        <item>Territory</item>
+        <item>Area</item>
+        <item>Region</item>
+        <item>Zone</item>
+
+    </string-array>
+
+    <string-array name="am_pm">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
+    <string-array name="cord">
+        <item>Doctor</item>
+        <item>Chemist</item>
+        <item>Doctor cum Chemist (DCC)</item>
+    </string-array>
+    <string-array name="visitstatus">
+        <item>Full Day</item>
+        <item>Half Day</item>
+    </string-array>
+    <string-array name="yes_no">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="yes_no_am">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+    <string-array name="both_t">
+        <item>Both T/A ?</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="userorle">
+        <item>MPO</item>
+        <item>Area Manager</item>
+        <item>Regional Manager</item>
+        <item>ASM</item>
+        <item>DSM</item>
+        <item>SM</item>
+        <item>GM</item>
+    </string-array>
+    <string-array name="shift">
+        <item>Morning</item>
+        <item>Evening</item>
+    </string-array>
+    <string-array name="location">
+        <item>1.Head Quarter</item>
+        <item>2.Ex. Head Quarter</item>
+        <item>3.Outstation</item>
+    </string-array>
+    <string-array name="type">
+        <item>Regular</item>
+        <item>Journey</item>
+        <item>Conference</item>
+        <item>Training</item>
+        <item>Meeting</item>
+        <item>Holiday</item>
+        <item>Leave</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="type2">
+        <item>Regular</item>
+        <item>Special</item>
+    </string-array>
+    <string-array name="cash_creditu">
+        <item>Select payment mode</item>
+        <item>1.Cash</item>
+        <item>2.Eid Credit</item>
+        <item>3.Campaign Credit</item>
+    </string-array>
+    <string-array name="creditu">
+        <item>Credit</item>
+    </string-array>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="tap_on_mic">Tap on mic to speak</string>
+    <string name="visitorspin">Click to select</string>
+    <string name="for_all">GMSAM</string>
+    <string name="opsonin_pharma_limited">Opsonin Pharma Limited</string>
+    <string name="value_bdt">Value(BDT)</string>
+    <string name="from_date_vcd">From Date</string>
+    <string name="to_date_vcd">To Date</string>
+    <string name="enter_customer_name_vcd">Enter Customer name</string>
+    <string name="customer_ord_no_vcd">Customer/Ord No.</string>
+    <string name="status_vcd">Status</string>
+    <string name="order_value_vcd">Order Value</string>
+    <string name="from_date_orinv">From Date</string>
+    <string name="to_date_ordinv">To Date</string>
+    <string name="sale_quantity_ordinv">Sale quantity</string>
+    <string name="total_value_ord_inv">Total Value:</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="sale_value">Sale value</string>
+    <string name="user_id">User id</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="change_password">Change Password</string>
+    <string name="exit_app">Exit app</string>
+    <string name="currently_you_are_using">Currently you are using:</string>
+    <string name="todo">TODO</string>
+    <string name="party_name">Party Name</string>
+    <string name="invoice_value">Invoice Value</string>
+    <string name="percent">(%)</string>
+    <string name="order_page">Order page</string>
+    <string name="delivery_date">Delivery Date</string>
+    <string name="input_order_number_eg_2015">Input Order Number (eg. 2015..)</string>
+    <string name="visited_with">Visited with</string>
+    <string name="target_quantity">target quantity</string>
+    <string name="text">text</string>
+    <string name="enter_customer_name">Enter Customer name</string>
+    <string name="enter_order_no">Enter Order No.</string>
+    <string name="order_value">Order Value</string>
+    <string name="ord_value">Ord. Value:</string>
+    <string-array name="rxval">
+        <item>RX</item>
+    </string-array>
+    <string-array name="rx_location">
+        <item>1.OutDoor</item>
+        <item>2.Indoor</item>
+        <item>3.GP</item>
+    </string-array>
+    <string name="online">Online</string>
+    <string name="order_menu">Order Menu</string>
+    <string name="offline">Offline</string>
+    <string name="dcr">DCR</string>
+    <string name="rx">RX</string>
+    <string name="personal_expenses">Personal Expenses</string>
+    <string name="report">Report</string>
+    <string name="am_monitor">AM Monitor</string>
+    <string name="summary">Summary</string>
+    <string name="mpo_dcr">Mpo DCR</string>
+    <string name="version_2">Version 2</string>
+    <string name="lt"><![CDATA[<]]></string>
+    <string name="dcr_screen">DCR Screen</string>
+    <string name="reference_date">Reference Date</string>
+    <string name="select_shift">Select Shift</string>
+    <string name="visited_to">Visited to</string>
+    <string name="visited_with_promotional_material">Visited with Promotional Material ?</string>
+    <string name="select_doctor_type_00_or_doc_name">Select Doctor (Type 00 or doc name)</string>
+    <string name="select_chemist_type_00_or_chem_name">Select Chemist (Type 00 or Chem name)</string>
+    <string name="visit_with_emp">Visit with Emp</string>
+    <string name="no_of_rx">No of Rx</string>
+    <string name="no_of_opsonin_products">No of Opsonin Products</string>
+    <string name="no_of_products">No of Products</string>
+    <string name="of_opsonin_produc">% of Opsonin Produc</string>
+    <string name="starttime">StartTime</string>
+    <string name="endtime">EndTime</string>
+    <string name="remarks">Remarks</string>
+    <string name="competitors_activity_analysis">Competitors activity analysis</string>
+    <string name="msg">Msg</string>
+    <string name="ordno">Ordno</string>
+    <string name="tar2">tar</string>
+    <string name="am_name">AM Name</string>
+    <string name="code">Code</string>
+    <string name="doctor">Doctor</string>
+    <string name="chemist">Chemist</string>
+    <string name="total_am">Total AM</string>
+    <string name="submitted_by">Submitted By</string>
+    <string name="not_submitted">Not Submitted</string>
+    <string name="total_mpo">Total Mpo</string>
+    <string name="dcr_submitted_by">Dcr Submitted by</string>
+    <string name="dcr_required_by">Dcr Required by</string>
+    <string name="code_of_mpo">Mpo</string>
+    <string name="name_of_mpo">name of mpo</string>
+    <string name="summary_of_am">Summary of AM</string>
+    <string name="am_submitted_dcr">AM Submitted Dcr</string>
+    <string name="am_not_submitted_dcr">AM Not Submitted Dcr</string>
+    <string name="select_mpo">Select MPO</string>
+    <string name="select_date">Select Date</string>
+    <string name="total">Total</string>
+    <string name="given">Given</string>
+    <string name="mpo_name">Mpo Name</string>
+    <string name="visit_to5">Visit To</string>
+    <string name="newversion">newversion</string>
+    <string name="please_fill_the_below_feilds_to_make_offline_order">Please fill the below feilds to make offline order.</string>
+    <string name="input_customer_eg_dh">Input Customer (eg. dh..)</string>
+    <string name="type">Type||</string>
+    <string name="quant">Quant||</string>
+    <string name="rest">Rest||</string>
+    <string name="promo_mat">Promo Mat</string>
+    <string name="shift">Shift</string>
+    <string name="opsonin_notification_text">Opsonin Pharma Limited (OPL) develops, manufactures and markets generic medicines for human use. Our value-added products improve the quality of life of people in Bangladesh as well as abroad and help them to enjoy longer, healthier, and more productive lives. OPL has been known for long as a provider of quality medicine at affordable prices</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_photos">Photos</string>
+    <string name="nav_movies">Movies</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about_us">About Us</string>
+    <string name="permission_read_phone_state_rationale">Allow To get IMEI Number</string>
+    <string name="ADMIN_NAME">Admin</string>
+    <string name="sales_manager_name">Sales Manager</string>
+    <string name="selectdepot">Select Depot</string>
+    <string name="dcr_date_type_date_like_01_or_11">DCR Date (Type date like : 01 or 11 )</string>
+    <string name="journey_mode_type_vechile_name_mo_for_motorcycle">Journey Mode ( Type Vechile name : Mo for Motorcycle )</string>
+    <string name="dcr_serial_number">dcr serial number</string>
+    <string name="tour_date">Tour Date</string>
+    <string name="tour_nature">Tour Nature</string>
+    <string name="reference">Reference</string>
+    <string name="other_t_a_particul">Other T/A Particul</string>
+    <string name="d_a">D/A</string>
+    <string name="dermagyn">Dermagyn</string>
+    <string name="pack">Pack</string>
+    <string name="group">Group</string>
+    <string name="general">General</string>
+    <string name="quantity">Quantity</string>
+    <string name="gallant">Gallant</string>
+    <string name="vergence">Vergence</string>
+    <string name="titan">Titan</string>
+    <string name="aspiron">Aspiron</string>
+    <string name="text_title">Medicine Name</string>
+    <string name="text_description">Medicne Shared Quantity</string>
+    <string name="doctor_share">Doctor Share</string>
+    <string name="appointment_date">Select a Date</string>
+    <string name="mis_company">Company</string>
+    <string name="pres_share">Share</string>
+    <string name="com_code">Code</string>
+    <string name="doctor_name">Doc\nname</string>
+    <string name="base">Base</string>
+    <string name="pres">Pres</string>
+    <string name="share_n">Share\n%</string>
+    <string name="territory_wise_prescription_details">Territory Wise Prescription Details</string>
+    <string name="mrd">MRD</string>
+    <string name="_4p">4P</string>
+    <string name="doctor_share_details">Doctor Share Details</string>
+    <string name="capture_image_from_camera">Capture image from Camera</string>
+    <string name="select_from_gallery">Select from Gallery</string>
+    <string name="username">username</string>
+    <string name="show">show</string>
+    <string name="type_brand_name">Type Brand Name</string>
+    <string name="rx_doctor">RX Doctor</string>
+    <string name="click_to_nsubmit_gift_feedback">Click to \nSubmit Gift Feedback</string>
+    <string name="passwordforgotten">Forgot Password</string>
+    <string name="please_wait">Please wait</string>
+    <string name="search_for_product">Search for Product</string>
+    <string name="order_quantity">Order Quantity</string>
+    <string name="total_sale_price_bdt">Total Sale Price (TP+VAT):</string>
+    <string name="user_spinner_hint">Select Field Force Type</string>
+    <string name="textview">TextView</string>
+    <string name="personal_expense_entry">Personal Expense Entry</string>
+    <string name="doctor_address_from_opsonin_database">Doctor Address from Opsonin Database</string>
+    <string name="your_current_physical_address">Your current Physical Address</string>
+    <string name="doctor_chamber_locate">Doctor Chamber Locate</string>
+    <string name="in_chamber">In Chamber</string>
+    <string name="capture_image_from_camara">Capture image from Camara</string>
+    <string name="submit_chamber_location">Submit Chamber Location</string>
+    <string name="vector_version">65.2.3</string>
+    <string name="user_code">UserCode</string>
+    <string name="vector_feedback">Feedback</string>
+    <string name="excelon">Excelon</string>
+    <string name="msd_doctor_support">MSD Doctor Support</string>
+    <string name="doctors_support_name">Select Supports Type</string>
+    <string name="add_description">Description of Requirements</string>
+    <string name="requirement_date">Requirement Date</string>
+    <string name="you_ve_submitted_your_doctor_support_requistion">You\'ve submitted your Doctor Support Requisition</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="service_number">Service Number</string>
+    <string name="regional_manager">Regional Manager</string>
+    <string name="search_for_usercode">Search for UserCode</string>
+    <string name="select_month">Select Month</string>
+    <string name="notification">Notification</string>
+    <string name="rx_capture">Rx Capture</string>
+    <string name="dailycallreport">Daily Call Report</string>
+    <string name="mpo_product_order">Product Order</string>
+
+
+</resources>
+

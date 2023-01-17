@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+        <TextView
+        android:id="@+id/newversion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/note"
+        android:layout_alignLeft="@+id/note"
+        android:gravity="center_horizontal"
+        android:text="newversion"
+         android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+      />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/userinput"
+        android:layout_alignLeft="@+id/userinput"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:text="Please enter the below fields to make an order."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/background_dark" />
+
+    <LinearLayout
+        android:id="@+id/successmsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="100" >
+
+        <TextView
+            android:id="@+id/succ_msg"
+            android:layout_width="30dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="29"
+            android:gravity="center"
+            android:text="Msg"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/ordno"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignLeft="@+id/user_show"
+            android:layout_weight="70"
+            android:gravity="left"
+            android:text="Ordno"
+            android:textIsSelectable="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="7sp" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/note"
+        android:layout_marginTop="18dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="204dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/logout"
+            android:layout_weight="80"
+            android:ems="10"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/logout"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text=">"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <Button
+            android:id="@+id/view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/view"
+            android:background="@drawable/white_button_selector"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+        <Button
+            android:id="@+id/online"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/white_button_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="Home"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14dp"
+            tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+
+        <Button
+            android:id="@+id/achivbtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/next"
+            android:background="@drawable/white_button_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="Achievment"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/userinput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttons"
+        android:layout_alignLeft="@+id/buttons"
+        android:layout_marginBottom="23dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/reference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="true"
+            android:hint="Reference"
+            android:inputType="text"
+            android:visibility="gone" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/orderpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Order page"
+            android:inputType="text"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="98" >
+
+            <TextView
+                android:id="@+id/deliverydate"
+                android:layout_width="158dp"
+                android:layout_height="42dp"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="Delivery Date"
+                android:textSize="18sp"
+                tools:ignore="RtlSymmetry" />
+
+            <Spinner
+                android:id="@+id/ampm"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:ems="10"
+                android:entries="@array/am_pm"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                tools:ignore="UnusedAttribute" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/customerlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="98" >
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView1"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentLeft="true"
+                android:background="@android:drawable/editbox_background"
+                android:ems="5"
+                android:hint="Input Customer (eg. dh..)"
+                android:inputType="textCapCharacters"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/customer"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:ems="5"
+            android:filterTouchesWhenObscured="true"
+            android:hapticFeedbackEnabled="true"
+            android:prompt="@string/customerspin"
+            android:soundEffectsEnabled="true"
+            android:spinnerMode="dialog"
+            android:textSize="22sp"
+            android:visibility="gone"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/errordt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="0.61"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp" />
+
+                <Spinner
+                android:id="@+id/credit"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:ems="10"
+
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                tools:ignore="UnusedAttribute" />
+
+            <LinearLayout
+            android:id="@+id/paymentmode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="98" >
+
+         <Spinner
+                android:id="@+id/cashcredit"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:ems="10"
+
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                tools:ignore="UnusedAttribute" />
+
+
+
+
+
+
+
+
+
+         <TextView
+            android:id="@+id/errorpayment"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="0.61"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/percent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/note"
+        android:layout_alignLeft="@+id/successmsg" >
+
+
+
+
+
+        <TextView
+            android:id="@+id/target"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/white_button_selector"
+            android:gravity="center"
+            android:text="Inv"
+            android:visibility="gone"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/invoice"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="19dp"
+            android:layout_toLeftOf="@+id/target"
+            android:background="@drawable/white_button_selector"
+            android:gravity="center"
+            android:text="Tar"
+            android:visibility="gone"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/achivement"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/target"
+            android:background="@drawable/white_button_selector"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/percent" >
+
+        <TextView
+            android:id="@+id/tartext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Sale"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/achtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="34dp"
+            android:layout_toRightOf="@+id/tartext"
+            android:text="Achivement"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/invtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="50dp"
+            android:layout_toLeftOf="@+id/tartext"
+            android:text="Target"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,746 @@
+#view {
+	height: 100%;
+	//background-color: #008080;
+	background-position: center 15px;
+	background-repeat: repeat;
+
+}
+
+
+
+
+
+
+
+#username,#password {
+	width: 96%;
+	left: 1%;
+  // font-family: "Acme";
+}
+
+
+#reference, #orderpage, #customer,#dtype,#loc,#sh,#ppm_type {
+	background-color: white;
+	width: 96%;
+	left: 0px;
+	//font-weight:bold;
+	font-size:10px !important;
+	color: green;
+}
+
+
+#btnLayout {
+	width: 98%;
+	left: 0px;
+
+}
+
+#buttonlayout {
+	width: 92%;
+	top: 85%;
+	left: 2%;
+	margin: 0px;
+}
+
+
+
+#p_listLayout {
+	width: 98%;
+	border-bottom: 1px solid white;
+	color: white;
+
+}
+#listLayout{
+    width: 100%;
+	font-size: 10px;
+
+}
+#polistLayout{
+	//border-bottom: 1px solid gold;
+	//border-bottom: 1px solid black;
+  border-bottom: 1px solid #66000000 ;
+}
+
+#slistLayout1{
+
+
+        border-top: 1p solid #66000000;
+        border-bottom: 1px solid #66000000 ;
+}
+
+
+#serial {
+	color: black;
+}
+
+
+#product_name {
+	color: blue;
+	font-size: 12px;
+	font-family:Open Sans;
+
+}
+
+
+#mpo_ter {
+	color: #7C4DFF;
+	font-size: 10px;
+	font-family:Open Sans;
+    font-weight:bold;
+}
+
+#mpo_code {
+  	color: #7C4DFF;
+  	font-size: 12px;
+  }
+
+#p_1 {
+	color: blue;
+	font-size: 10px;
+	font-family:Open Sans;
+}
+
+
+#am_code {
+ 	color: blue;
+ 	font-size: 12px;
+
+ }
+
+ #serial_vacant {
+ 	color: red;
+ 	font-size: 12px;
+
+ }
+
+  #rm_pex_other {
+  	color: red;
+
+  }
+
+
+#territory {
+	color: green;
+	font-size: 12px;
+
+
+
+}
+#mpo_pwd {
+	color: red;
+	font-size: 12px;
+
+
+}
+
+#stock_product_name {
+	color: white;
+	font-size: 1px;
+	font-family:Open Sans;
+
+}
+
+
+#qnty{
+	color: deeppurple;
+}
+
+#qnty_2 {
+	color: black;
+	text-align:left;
+
+}
+
+
+
+
+#remain {
+	color: red;
+	font-size: 10px;
+}
+
+
+#serial_stock{
+	color: black;
+	text-align:left;
+	font-size: 10px;
+
+}
+#product_name_stock{
+	color: blue;
+	text-align:left;
+	font-size: 10px;
+
+}
+#qntystock{
+	color: red;
+	text-align:left;
+	font-size: 10px;
+
+}
+
+#doc_alloc {
+	color: deeppurple;
+	font-size: 10px;
+}
+
+
+
+#alloc {
+	color: blue;
+	font-size: 10px;
+}
+
+#ppm_typ {
+	color: black;
+	font-size: 10px;
+}
+
+#ppm_desc {
+	color: #008000;
+	font-size: 10px;
+	font-family:Open Sans;
+}
+
+#ppm_error {
+	color: red;
+	font-size: 8px;
+	font-weight:bold;
+}
+
+
+#qnty_3{
+    color:blue;
+	text-align:left;
+	margin-left:2dp;
+}
+
+#qnty_rm_gift{
+    color:blue;
+	text-align:left;
+	margin-left:2dp;
+	font-size: 8px;
+}
+
+
+
+
+#camp_brand{
+    color:blue;
+	text-align:left;
+	font-size: 10px;
+	font-weight:bold;
+}
+
+
+
+#achv{
+    color:#147171;
+	text-align:center;
+}
+
+
+#amachivement{
+    color:#147171;
+	text-align:right;
+}
+#amachivement1{
+    color:#008000;
+	text-align:center;
+}
+
+
+#amvalue{
+    color:blue;
+	text-align:center;
+}
+
+#amvalue1{
+    color:blue;
+	text-align:right;
+}
+
+
+#amvalue2{
+    color:blue;
+	text-align:center;
+}
+
+
+#amqnty1{
+    color:#ff4081;
+	text-align:right;
+}
+
+
+#amqnty2{
+    color:#ffcc0000;
+	text-align:center;
+}
+
+#amqnty{
+     color:#ff4081;
+	text-align:center;
+}
+
+#qnty_report{
+    color:blue;
+	text-align:center;
+}
+
+
+
+
+
+#value_2 {
+color: black;
+text-align:left;
+
+}
+
+#value_3 {
+color: black;
+text-align:center;
+
+}
+
+#dcc_ppm {
+color: green;
+text-align:left;
+font-size: 8px;
+}
+
+
+
+
+#camp_gift {
+color: green;
+text-align:left;
+font-size: 10px;
+}
+
+#value_10{
+color: green;
+}
+
+#value_9{
+color: blue;
+}
+
+
+
+
+#value_alloc {
+color: green;
+text-align:left;
+}
+
+#camp_chem {
+color: green;
+text-align:left;
+
+}
+
+#value_issue {
+color: #7C4DFF;
+text-align:left;
+}
+
+#camp_chem_name{
+color: #7C4DFF;
+text-align:left;
+
+}
+
+
+#value_rest {
+color: #FF4500;
+text-align:left;
+}
+
+#camp_doc_code {
+color: red;
+text-align:left;
+
+}
+
+#value {
+color: black;
+text-align:right;
+
+}
+
+
+#value_4 {
+color: red;
+text-align:left;
+
+}
+
+
+#value_5 {
+color: #7c4dff;
+text-align:left;
+
+}
+
+
+#value_6 {
+color: #147171;
+text-align:left;
+
+}
+
+
+
+#value_8 {
+color: #7C4DFF;
+text-align:right;
+
+}
+
+
+#totalshow{
+	//border-top: 1px solid gold;
+	//border-top: 1px solid black;
+
+}
+/*
+#totalshow {
+	width: 98%;
+	padding: 1% 0 1% 0;
+	color: white;
+	border-top: 1px solid yellow;
+} */
+
+
+#successmsg {
+
+	width: 100%;
+	font-size: 10px !important;
+}
+
+#succ_msg {
+
+	color: green !important;
+	width: 30%;
+	font-size: 10px !important;
+}
+
+#ordno {
+
+	color: red !important;
+	width: 68%;
+	font-size: 10px !important;
+
+}
+
+#exit {
+	border-radius: 50%;
+}
+
+#lang {
+	left: 0px;
+	width: 96%;
+	color: black;
+	padding-left: 3%;
+	font-weight: bold;
+	background-color: transparent;
+	border: 1px solid aqua;
+	font-weight: bold;
+}
+
+#pListView {
+	top: 1%;
+	margin-left : 0px;
+	color:blue;
+	font-size:12px !important;
+	width: 99%;
+
+}
+
+
+
+#pListView1 {
+	top: 1%;
+	margin-left : 0px;
+	color:blue;
+	font-size:12px !important;
+	width: 99%;
+}
+
+#pListView2 {
+
+	color:blue;
+	font-size:9px !important;
+	width: 100%;
+}
+
+
+#pListView3 {
+
+	color:blue;
+	font-size:9px !important;
+	width: 100%;
+}
+
+#pListView4 {
+	top: 1%;
+	margin-left : 0px;
+	color:blue;
+	font-size:9px !important;
+	width: 99%;
+}
+
+
+#pListView5 {
+	top: 1%;
+	margin-left : 0px;
+	color:blue;
+	font-size:9px !important;
+	width: 99%;
+}
+
+#pListView6,#pListView7,#pListView8,#pListView9,#pListView10,#pListView11,#pListView12 {
+	top: 1%;
+	margin-left : 0px;
+	color:blue;
+	font-size:9px !important;
+	width: 99%;
+}
+
+
+
+
+
+
+
+#value_1r,#value_2r,#value_3r,#value_4r,#value_5r,#value_6r,#value_7r,#value_8r,#value_9r,#value_10r,#value_11r,#value_12r,#value_13r{
+color: red;
+text-align:left;
+}
+
+
+
+
+
+#autoCompleteTextView1,#autoCompleteTextView2,#autoCompleteTextView3,#location,#shift,#starttime,#endtime,#dcrtype,#marketcode,#doccode,#ampm{
+	font-size: 10px !important;
+	color: #23283a;
+	font-weight: bold;
+
+}
+
+
+#deliverydate{
+	font-size: 10px !important;
+	color: blue;
+	font-weight: bold;
+
+}
+
+
+#parms {
+	top: 3%;
+	width: 98%;
+	border-bottom: 1px solid white;
+	width: 98%;
+}
+
+#year {
+	top: 5%;
+	width: 30%;
+	border: 1px solid menu;
+	color: white;
+	line-height: 1.5px;
+	padding: 5px;
+}
+
+#month {
+	top: 5%;
+	width: 40%;
+	line-height: 1.5px;
+	color: white;
+	border: 1px solid menu;
+	padding: 5px;
+}
+
+
+#serial_1{
+color: red;
+}
+
+#promo_item_code{
+color: red;
+font-size: 8px;
+}
+
+#qnty_31{
+ color: green;
+ font-size: 10px;
+ }
+
+#value_doctor,#value_41,#value_71{
+ color: #CC0000;
+ font-size: 10px;
+}
+
+
+#value_61, #value_51{
+  color: blue;
+  font-size: 10px;
+}
+#value_7{
+color: red;
+ font-size: 10px;
+}
+
+ #value_91,#value_111{
+   color: #0099CC ;
+   font-size: 10px;
+}
+
+
+#value_131{
+ color: #0099CC ;
+ font-size: 10px;
+}
+
+#pc_product_name,#mpo_value_pc,#value_14{
+ color: blue ;
+ font-size: 10px;
+}
+
+
+
+
+
+#value_81{
+  color:#FF4500 ;
+  font-size: 10px;
+}
+
+#value_101{
+  color: #FE104D;
+   font-size: 10px;
+}
+
+ #value_11{
+  color: red;
+}
+
+
+ #value_12{
+  color: blue;
+}
+
+
+
+ #value_121{
+   color: #7C4DFF;
+   font-size: 10px;
+  }
+
+
+  #value_doctor1{
+   color: #FF4500;
+    font-size: 10px;
+   }
+
+
+   #product_name_viewbycustomer{
+   color:blue;
+   }
+
+   #qnty_viewbycustomer{
+       color:blue;
+    }
+
+    #product_name_target_value,#product_name_target_quant,#product_name_return,#brand_target_quant,#salequant_brand{
+       color:blue;
+    }
+
+#achivement{
+       color:blue;
+
+}
+
+
+    #amqnty1_target_value,#amqnty_target_quant,#qnty_viewbycustomer,#qnty_return{
+       color:#ff4081;  //coloraccent
+      text-align:right;
+
+    }
+
+     #amvalue1_target_value,#amvalue_target_quant,#value_viewbycustomer,#value_return{
+        color:blue;
+        text-align:right;
+        }
+
+     #amachivement_target_value,#returnpercentage_return,#achv_target_quant,#statuse_val{
+        color:green;
+        text-align:right;
+      }
+
+#dcr_remain,#dcr_type{
+{
+    color: green;
+}
+
+#dcr_visit_to{
+{
+    color: blue;
+}
+
+
+
+#dcr_given{
+    color: #7C4DFF;
+}
+
+
+#mpo_brand,#amqnty_brand{
+
+    color:#ffcc0000;
+}
+
+#mpo_brand,#amqnty_brand{
+
+     color:#ffcc0000;
+ }
+
+
+ #dcr_shift,#dcr_name,#rm_pex_loc{
+        color:#ff4081;
+
+ }
+
+
+ #salevalue_brand,#pack_size,#mrp_val,#achivement_sales_admin{
+
+    color:green;
+  }
+
+#product_name_admin,#TP_VT{
+    color:#ff4081;
+
+}
+
+#brand_code{
+  color:#7C4DFF;
+}
+
+
+#notice_title{
+        color:#4267b2;
+        font-weight: bold;
+        font-size: 12px !important;
+}
+
+#rm_pex_ta,#rm_pex_da{
+   color:#147171; //bggradientend
+}
+
+
+
+

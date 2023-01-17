@@ -1,0 +1,1167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:baselineAligned="false"
+            android:background="@color/bg_gradient_start"
+            >
+
+            <TextView
+                android:id="@+id/newversion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:text="DCR Screen "
+                android:textColor="@color/darkblue"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/note"
+            android:layout_marginTop="18dp"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="horizontal"
+            android:weightSum="98" >
+
+            <TextView
+                android:id="@+id/user_show"
+                android:layout_width="204dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/logout"
+                android:layout_weight="80"
+                android:ems="10"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/logout"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/add_button_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:visibility="gone"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/successmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/linearLayout1"
+            android:layout_below="@+id/linearLayout1"
+            android:background="@color/bg_gradient_start"
+            android:orientation="horizontal"
+            android:weightSum="100" >
+
+            <TextView
+                android:id="@+id/succ_msg"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="29"
+                android:gravity="center"
+                android:text="Msg"
+                android:textColor="@color/darkblue"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/ordno"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignLeft="@+id/user_show"
+                android:layout_weight="70"
+                android:gravity="left"
+                android:text="Ordno"
+                android:textColor="@color/darkblue"
+                android:textIsSelectable="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="5sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/userinput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="true"
+                android:hint="Reference"
+                android:inputType="text"
+                android:visibility="gone">
+
+            </EditText>
+
+
+
+            <Spinner
+                android:id="@+id/dcr_date_extend"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                tools:ignore="UnusedAttribute"
+                android:visibility="gone"
+                />
+
+
+            <EditText
+                android:id="@+id/date_extend"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                tools:ignore="UnusedAttribute"
+                android:visibility="gone"
+                />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+
+                <TextView
+                    android:id="@+id/deliverydate"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:text="Reference Date"
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/dtype"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/dcrtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    android:entries="@array/rxval"
+                    android:clickable="false"
+                    tools:ignore="RtlSymmetry" />
+
+                <requestFocus />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/sh"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/ampm"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:entries="@array/shift"
+                    android:hint="Select Shift"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    android:visibility="gone"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/loc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98"
+                android:visibility="gone">
+
+                <Spinner
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:entries="@array/location"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute"
+
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/sh_spin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/shift_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:hint="Select Shift"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/cord"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/chemordoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:hint="Visited to "
+                    android:entries="@array/cord"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    android:soundEffectsEnabled="true"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/p_t"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/ppm_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:entries="@array/yes_no"
+                    android:hint="Visited with Promotional Material ?"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/customerlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:hint="Select Doctor (Type 00 or doc name)"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/rxlay"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98"
+
+
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:hint="Select Doctor for RX (Type 00 or doc name)"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:visibility="visible" />
+
+
+                <requestFocus />
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/chemistlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:hint="Select Chemist (Type 00 or Chem name)"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/visit_with_emp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:hint="Visit with Emp"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+
+            <com.opl.pharmavector.MultiSelectionSpinner
+                android:id="@+id/input1"
+                android:layout_width="fill_parent"
+                android:layout_height="42dp"
+                android:layout_margin="2dp"
+                android:background="@android:drawable/editbox_background"
+                />
+
+            <!--- start rx layout -->
+
+            <LinearLayout
+                android:id="@+id/visit_pos"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98"
+                >
+
+                <Spinner
+                    android:id="@+id/v_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:entries="@array/rx_location"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:selectAllOnFocus="true"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    tools:ignore="UnusedAttribute"
+
+                    />
+
+
+            </LinearLayout>
+
+
+
+            <!-- row for rx-->
+            <LinearLayout
+                android:id="@+id/rx_row"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+
+                <EditText
+                    android:id="@+id/no_of_rx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:hint="No of Rx"
+                    android:inputType="number"
+                    tools:ignore="RtlSymmetry" />
+
+
+
+
+            </LinearLayout>
+
+            <!-- end row for rx-->
+
+
+            <LinearLayout
+                android:id="@+id/count_prod"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/no_of_prod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:hint="No of Products"
+                    android:inputType="number"
+                    tools:ignore="RtlSymmetry"
+
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/opso_prod"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/prod_of_opsonin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:layout_weight="1"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:hint="No of Opsonin Products"
+                    android:inputType="number"
+                    tools:ignore="RtlSymmetry" />
+
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ratio"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/ratio_of_opso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:layout_weight="1"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:visibility="gone"
+                    android:hint="% of Opsonin Produc"
+                    android:inputType="numberDecimal"
+                    tools:ignore="RtlSymmetry" />
+
+                />
+
+            </LinearLayout>
+
+
+
+            <!---  end  rx layout -->
+
+
+
+            <Spinner
+                android:id="@+id/visitor"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/visitorspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                tools:ignore="UnusedAttribute"
+                android:visibility="gone"
+                />
+
+            <Button
+                android:id="@+id/show_multiple_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:text="Visited with "
+                android:visibility="gone"
+                android:gravity="left|center_vertical"
+                android:background="@android:drawable/editbox_background"
+                />
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/s_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <TextView
+                    android:id="@+id/starttime"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:text="StartTime"
+                    tools:ignore="RtlSymmetry"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/e_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <TextView
+                    android:id="@+id/endtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:text=" EndTime"
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+            <Spinner
+                android:id="@+id/dcrspinner"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@android:color/holo_green_dark"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:visibility="gone"
+                tools:ignore="InvalidId,UnusedAttribute" />
+
+
+
+            <LinearLayout
+                android:id="@+id/text_input2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+
+                <TextView
+                    android:id="@+id/comp_ana"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:visibility="gone"
+                    android:text="Competitors activity analysis "
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/text_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+
+                <TextView
+                    android:id="@+id/remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="8"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:inputType="textMultiLine"
+                    android:paddingLeft="10dp"
+                    android:selectAllOnFocus="true"
+                    android:text="Remarks"
+                    android:visibility="gone"
+                    tools:ignore="RtlSymmetry" />
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            <Spinner
+                android:id="@+id/doc"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@android:color/holo_green_dark"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:visibility="gone"
+                tools:ignore="InvalidId,UnusedAttribute" />
+
+
+            <LinearLayout
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/marketcode"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:hint="Market code"
+                        android:soundEffectsEnabled="true"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:visibility="gone"
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/doccode"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:hint="Doc code"
+                        android:soundEffectsEnabled="true"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:visibility="gone"
+
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+                    <AutoCompleteTextView
+                        android:id="@+id/visitorcode"
+                        android:layout_width="140dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@android:drawable/editbox_background"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:hint="Doc code"
+                        android:soundEffectsEnabled="true"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:visibility="gone"
+
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/chemist"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <Spinner
+                android:id="@+id/customer"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+            <Spinner
+                android:id="@+id/onik"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/errordt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp" />
+            <Spinner
+                android:id="@+id/credit"
+                android:layout_width="190dp"
+                android:layout_height="45dp"
+                android:background="@android:drawable/spinner_dropdown_background"
+                android:ems="8"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+            <LinearLayout
+                android:id="@+id/paymentmode"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="98">
+
+                <Spinner
+                    android:id="@+id/cashcredit"
+                    android:layout_width="190dp"
+                    android:layout_height="45dp"
+                    android:background="@android:drawable/spinner_dropdown_background"
+                    android:ems="10"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    android:visibility="gone"
+                    tools:ignore="UnusedAttribute" />
+
+
+                <TextView
+                    android:id="@+id/errorpayment"
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/relative_layout_background">
+
+                <Button
+                    android:id="@+id/rx_page"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:paddingTop="0px"
+                    android:soundEffectsEnabled="true"
+                    android:text="Product list"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+
+
+
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="back"
+                    android:textColor="@android:color/white"
+                    android:textSize="9sp"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+
+                <Button
+                    android:id="@+id/offline"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/back"
+                    android:background="@drawable/dcr_page_button"
+                    android:textColor="@android:color/white"
+                    android:textSize="9sp"
+                    android:visibility="gone"
+                    android:text="Other Company Products"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:layout_toLeftOf="@+id/offline"
+                    android:soundEffectsEnabled="true"
+                    android:text="Doctor's PM"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    android:visibility="gone"
+                    android:layout_marginRight="5dp"
+                    tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+
+                <Button
+                    android:id="@+id/chemist_ppm"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/offline"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="Chemists PM"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    android:layout_marginRight="5dp"
+                    tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute"
+                    android:visibility="gone"
+                    />
+
+                <Button
+                    android:id="@+id/achivbtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_toLeftOf="@+id/next"
+                    android:background="@drawable/white_button_selector"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="Achi"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="25sp"
+                    android:visibility="gone"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

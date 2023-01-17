@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">ok</string>
+    <string name="search_for_product">Search for Product</string>
+    <string name="pack">Pack</string>
+    <string name="group">Group</string>
+    <string name="general">General</string>
+    <string name="quantity">Quantity</string>
+    <string name="aspiron">Aspiron</string>
+    <string name="capture_image_from_camera">Capture image from Camera</string>
+    <string name="select_from_gallery">Select from Gallery</string>
+    <string name="show">show</string>
+    <string name="select_date">Select Date</string>
+    <string name="personal_expense_entry">Personal Expense Entry</string>
+    <string name="vector_version">1.0.1</string>
+    <string name="user_code">UserCode</string>
+</resources>

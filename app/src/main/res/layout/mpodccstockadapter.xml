@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/serial"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:focusable="false"
+            android:clickable="false"
+            android:text="@string/serial"
+            android:layout_weight="0.5"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/darkblue" />
+
+        <TextView
+            android:id="@+id/stock_product_name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:focusable="false"
+            android:clickable="false"
+            android:layout_gravity="start"
+            android:textAlignment="gravity"
+            android:text="@string/pn"
+            android:textSize="@dimen/_1sdp"
+            android:textColor="@color/ef_white"
+          />
+
+
+        <TextView
+            android:id="@+id/p_1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:focusable="false"
+            android:clickable="false"
+            android:layout_gravity="start"
+            android:textAlignment="gravity"
+            android:text="@string/pn"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue"
+           />
+
+
+
+        <TextView
+            android:id="@+id/qnty_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:layout_marginStart="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="target quantity"
+            android:clickable="false"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="0dp" />
+
+        <TextView
+            android:id="@+id/dcc_ppm"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:clickable="false"
+            android:focusable="false"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="tar"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="start"
+            android:text="ratio"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/value_5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="extra2"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/deeppurple" />
+
+        <TextView
+            android:id="@+id/value_6"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="extra2"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+
+        <TextView
+            android:id="@+id/value_7"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="extra2"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/colorAccent" />
+
+
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+

@@ -1,0 +1,25 @@
+<resources>
+
+    <!--
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <!-- API 11 theme customizations can go here. -->
+    </style>
+    <style name="pcbilltheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#ff29549f</item>
+        <item name="colorPrimaryVariant">#ff29549f</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#ff29549f</item>
+        <item name="colorSecondaryVariant">#ff29549f</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorError">#F44336</item>
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#ff29549f</item>
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="colorOnBackground">#ff29549f</item>
+    </style>
+
+</resources>

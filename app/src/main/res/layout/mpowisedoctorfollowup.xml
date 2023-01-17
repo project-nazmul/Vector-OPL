@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/textview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:visibility="gone"
+        >
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:background="@drawable/page_background"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:clickable="false"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="MPO wise Doctor Followup"
+            android:fontFamily="@font/acme"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            tools:ignore="RtlSymmetry" />
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/sl_code"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="SL"
+            android:textColor="@color/pink"
+            />
+
+        <TextView
+            android:id="@+id/rm_code"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="Doc\nCode"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/acme"
+            />
+
+        <TextView
+            android:id="@+id/doc_call_total"
+            android:text="Doctor Name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:focusable="true"
+            android:layout_marginLeft="0px"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/green1"
+            android:fontFamily="@font/acme"
+            />
+
+        <TextView
+            android:id="@+id/doc_call_last_Day"
+            android:text="No of\ncall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:textColor="@color/orangered"
+            android:fontFamily="@font/acme"
+            />
+        <TextView
+            android:id="@+id/chem_call_total"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
+            android:text="Sample\nGiven"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/acme"
+            />
+        <TextView
+            android:id="@+id/chem_call_last_Day"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_gravity="center"
+            android:text="Gift\nGiven"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/acme"
+            />
+
+        <TextView
+            android:id="@+id/no_of_order"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="left"
+            android:text="PPM\nGiven"
+            android:textColor="@color/colorAccentEditor"
+            android:fontFamily="@font/acme"
+            />
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="95.71"
+        android:listSelector="@drawable/active"
+        android:divider="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true" >
+    </ListView>
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

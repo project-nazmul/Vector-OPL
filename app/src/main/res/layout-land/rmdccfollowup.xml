@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:gravity="center"
+        android:weightSum="6"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+           >
+
+        <TextView
+            android:id="@+id/hea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:text="Doctor cum Chemist Gift Campaign Summary"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/slistLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightgray"
+            android:orientation="horizontal">
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="fill_parent"
+                android:focusable="true"
+                android:text="Sl."
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:textColor="@color/darkblue"
+
+                />
+
+            <TextView
+
+                android:text="MPO"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+                android:id="@+id/user_id"
+
+                />
+
+            <TextView
+                android:text="Month"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+
+
+                />
+
+
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.5"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Gift name"
+                android:textColor="@color/green1"
+
+
+                />
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Brand"
+                android:textColor="@color/pink"
+
+
+                />
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Ratio"
+                android:textColor="@color/green1"
+                android:lines="2"
+                />
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.5"
+                android:clickable="true"
+                android:textSize="@dimen/_8sdp"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textAlignment="gravity"
+                android:text="Total gift\nallocate"
+                android:textColor="@color/deeppurple"
+                android:lines="2"
+                android:focusable="true" />
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.5"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Total gift\nquantity"
+                android:textColor="@color/pink"
+                />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Total gift\npending"
+                android:textColor="@color/deeppurple"
+                android:focusable="true" />
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Total sales\ntarget"
+                android:textColor="@color/blue"
+                />
+
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Total DCC\nsales"
+                android:textColor="@color/green1"
+                />
+
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="Total DCC\npending"
+                android:textColor="@color/pink"
+                />
+
+
+
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:layout_marginTop="0dp"
+                android:gravity="left"
+                android:textSize="@dimen/_8sdp"
+                android:textAlignment="gravity"
+                android:text="CarryOver\nGift"
+                android:textColor="@color/blue"
+                android:id="@+id/am_mpo"
+                />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/jan"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_weight="5">
+
+
+            <TextView
+                android:id="@+id/header_jan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="Summary"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal"
+                android:visibility="gone"
+                />
+
+
+
+
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:fillViewport="true"
+                android:padding="1dp">
+
+
+
+
+
+                <ListView
+                    android:id="@+id/pListView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants"
+                    android:fadeScrollbars="false"
+
+                    android:nestedScrollingEnabled="true"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarStyle="insideInset"
+                    android:divider="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true" >
+                </ListView>
+
+
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <!-- dec-->
+        <LinearLayout
+            android:id="@+id/dec"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:layout_weight="0">
+
+
+            <TextView
+                android:id="@+id/header_dec"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="December"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <!-- dec-->
+
+        <View
+            android:id="@+id/v_dec"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_dec"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+        <!-- dec-->
+
+        </LinearLayout>
+        <!--  end dec-->
+
+        <!-- nov-->
+        <LinearLayout
+            android:id="@+id/nov"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:layout_weight="0">
+
+
+            <TextView
+                android:id="@+id/header_nov"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="November"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_nov"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_nov"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+        <!-- oct-->
+        </LinearLayout>
+        <!-- end nov-->
+
+
+        <!-- oct-->
+        <LinearLayout
+            android:id="@+id/oct"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_oct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="October"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_oct"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_oct"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+        <!-- end oct-->
+
+
+
+
+
+
+        <!-- sep-->
+        <LinearLayout
+            android:id="@+id/sep"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_sep"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="September"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/v_sep"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_sep"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+        <!-- end sep-->
+
+
+
+        <!-- aug-->
+        <LinearLayout
+            android:id="@+id/aug"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_aug"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="August"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_aug"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_aug"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+        <!-- end aug-->
+
+
+
+
+        <!-- jul-->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/jul"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_jul"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="July"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/v_jul"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:visibility="gone"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_jul"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true"  >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+        <!-- end jul-->
+
+
+
+
+        <!-- june -->
+        <LinearLayout
+            android:id="@+id/jun"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:visibility="gone"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_jun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="June"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_jun"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_jun"
+            android:visibility="gone"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true" >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+        <!--- end june-->
+
+
+
+
+        <!--- may   -->
+        <LinearLayout
+            android:id="@+id/may"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:visibility="gone"
+            android:paddingBottom="0dp"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_may"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="May"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_may"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:visibility="gone"
+            android:background="@drawable/page_background"
+            android:id="@+id/n_may"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true" >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+        <!---end may   -->
+
+        <!--- APRIL  -->
+
+        <LinearLayout
+            android:id="@+id/apr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:visibility="gone"
+            android:paddingBottom="0dp"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_apr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="April"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:id="@+id/v_apr"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:id="@+id/n_apr"
+            android:visibility="gone"
+            android:background="@drawable/page_background"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true" >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+        <!---END APRIL     -->
+
+
+        <!--- march  -->
+        <LinearLayout
+            android:id="@+id/mar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:visibility="gone"
+            android:paddingBottom="0dp"
+            android:weightSum="0">
+
+
+            <TextView
+                android:id="@+id/header_mar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="March"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/v_mar"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:id="@+id/n_mar"
+            android:visibility="gone"
+            android:background="@drawable/page_background"
+            android:padding="1dp">
+            <ListView
+                android:id="@+id/pListView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true" >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <!---  end march   -->
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+        <!---  feb   -->
+        <LinearLayout
+            android:id="@+id/feb"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:visibility="gone"
+            android:paddingBottom="0dp"
+            android:layout_weight="0">
+
+
+            <TextView
+                android:id="@+id/header_feb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:text="February"
+                android:visibility="gone"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="normal"
+                />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/v_feb"
+            android:visibility="gone"
+            android:background="@color/black_overlay"/>
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="0dp"
+            android:fillViewport="true"
+            android:id="@+id/n_feb"
+            android:visibility="gone"
+            android:background="@drawable/page_background"
+            android:padding="1dp">
+
+
+
+
+            <ListView
+                android:id="@+id/pListView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarStyle="insideInset"
+                android:clickable="true"
+                android:focusable="true" >
+            </ListView>
+
+
+
+        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+
+        <!--- end feb  -->
+
+
+
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp">
+
+            <Button
+                android:id="@+id/detail"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:paddingTop="0px"
+                android:soundEffectsEnabled="true"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:text="&gt;"
+
+                android:visibility="invisible"
+                />
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/dcr_page_button"
+                android:text="&lt;"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+
+                android:visibility="invisible" />
+
+
+            <Button
+                android:id="@+id/backbt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="finishActivity"
+                android:padding="@dimen/_4sdp"
+                android:soundEffectsEnabled="true"
+                android:text="&lt;"
+                android:textColor="#FFF"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/chemist_ppm"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute"
+                />
+
+            <Button
+                android:id="@+id/achivbtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/next"
+                android:background="@drawable/white_button_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="Achi"
+                android:textAllCaps="true"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="25sp"
+                android:visibility="gone"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+

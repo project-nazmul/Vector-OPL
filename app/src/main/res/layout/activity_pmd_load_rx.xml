@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboard_back"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/user_show1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ems="10"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:hint="Rx View"
+            android:textColor="@color/colorAccentEditor"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/user_show2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="region"
+            android:textColor="@android:color/background_dark"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <AutoCompleteTextView
+                android:id="@+id/mpo_actv"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="0sp"
+                android:layout_marginBottom="0sp"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_medicine"
+                android:textAlignment="center"
+                android:ems="0"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:hint="Enter Mpo Code"
+                android:textSize="12sp"
+                android:paddingLeft="10dp" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="0sp"
+                android:layout_marginBottom="0sp"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_medicine"
+                android:textAlignment="center"
+                android:ems="0"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:hint="Enter Brand Name"
+                android:textSize="12sp"
+                android:paddingLeft="10dp" />
+
+
+
+            <Spinner
+                android:id="@+id/customer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+            <Spinner
+                android:id="@+id/mpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute" />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/fromdate"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_today_1"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:selectAllOnFocus="true"
+                android:text="Start Date"
+                android:textSize="@dimen/_10sdp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/todate"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="3"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_today_1"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:selectAllOnFocus="true"
+                android:text="End Date"
+                android:textSize="@dimen/_10sdp"
+                tools:ignore="RtlSymmetry" />
+
+            <Button
+                android:id="@+id/fab"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/submit_btton_selector"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="show"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="100.00">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+

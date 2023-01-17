@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.opl.pharmavector.activity.MessageShowActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/featureGraphics"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/arrowstars"/>
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/featureGraphics"
+            android:background="@android:color/holo_blue_dark"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="This is Headline"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/timeStamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:fontFamily="@font/roboto"
+            android:gravity="right"
+            android:padding="@dimen/_10sdp"
+            android:text="12-12-2017 21:45"
+            android:textAlignment="gravity"
+            android:textColor="@color/darkblue"
+            android:textSize="@dimen/_10sdp" />
+
+
+        <TextView
+            android:id="@+id/article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timeStamp"
+
+            android:fontFamily="@font/roboto"
+            android:padding="@dimen/_20sdp"
+            android:text="@string/opsonin_notification_text"
+            android:textSize="@dimen/_12sdp" />
+
+    </RelativeLayout>
+
+
+</ScrollView>

@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+    android:id="@+id/txt_col1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Team \nName"
+    android:textAlignment="center"
+    android:textColor="#E91E63"
+    android:background="#FAEB6D"
+    />
+    <TextView
+        android:id="@+id/txt_col2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="#4CAF50"
+        android:background="#FAEB6D"
+        android:text="Adj. \nType" />
+    <TextView
+        android:id="@+id/txt_col3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingRight="@dimen/_5sdp"
+        android:textColor="#FF5722"
+        android:background="#FAEB6D"
+        android:text="Adj. \nValue" />
+    <TextView
+        android:id="@+id/txt_col4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:paddingRight="@dimen/_5sdp"
+        android:textColor="#3F51B5"
+        android:background="#FAEB6D"
+        android:text="Credit \nNote no" />
+
+</LinearLayout>

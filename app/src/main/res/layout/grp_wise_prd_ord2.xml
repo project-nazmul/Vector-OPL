@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <RelativeLayout
+        android:id="@+id/searchbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/p_search"
+            android:layout_width="200dp"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="Search for Product"
+            android:inputType="textAutoComplete"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark"
+            android:visibility="gone">
+
+
+        </EditText>
+
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="@string/select_date"
+            android:inputType="textAutoComplete"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark"
+            />
+
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_5sdp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:text="Opsonin Product List"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/mic"
+            android:layout_width="27dp"
+            android:layout_height="0dp"
+            android:background="@drawable/white_button_selector"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/showorders"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/slistLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/lightgray"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/rname"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.6"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Region"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10px"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Doctor Call"
+            android:textAlignment="gravity"
+            android:textColor="@color/bg_gradient_end" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.5"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Chemist Call "
+            android:textAlignment="gravity"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Sample"
+            android:textColor="@color/orangered" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="PPM"
+            android:textAlignment="gravity"
+            android:textColor="@color/pink" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Gift"
+            android:textAlignment="gravity"
+            android:textColor="@color/deeppurple" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/serial"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/mpo_value_pc"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/serial"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/pn"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Prod\ngroup"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/value_51"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pack\nsize"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_41"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="4"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Brand\ncode"
+                android:textColor="@color/deeppurple"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_dis"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pack\nsize"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/value_61"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="extra3"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_71"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1.4"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@color/bg_gradient_end"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_14"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_81"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="SAMPLE ALLOCATE"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/value_131"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Order\nquantity"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/_10sdp" />
+
+
+            <TextView
+                android:id="@+id/value_91"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Order\nvalue"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_10sdp" />
+
+
+            <TextView
+                android:id="@+id/value_101"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/value_111"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/value_adj"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight=".7"
+                android:clickable="false"
+                android:focusable="false"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="adjust"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/value_doctor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="Venue\nCharge"
+                android:textAlignment="gravity"
+                android:textColor="#D500F9"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/value_121"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="left"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:paddingTop="@dimen/_1sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:text="Food\nBudget"
+                android:textAlignment="gravity"
+                android:textColor="#D500F9"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="95.00"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/_1sdp"
+        android:focusable="true"
+        android:listSelector="@drawable/active">
+    </ListView>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

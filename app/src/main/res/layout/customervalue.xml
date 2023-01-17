@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="120sp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            tools:ignore="RtlSymmetry" />
+
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="Click"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="20">
+
+        <TextView
+            android:id="@+id/sserial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/serial"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/sproduct_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="15.85"
+            android:gravity="start"
+            android:text="@string/pn"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/sqnty1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="target quantity"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/ssellvelue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="Sale quantity"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_10sdp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="95.71"
+           android:listSelector="@drawable/active"
+        android:divider="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/alert_light_frame"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="72"
+            android:gravity="center"
+            android:text="Total Value:"
+            android:textColor="@color/darkblue" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:visibility="gone"
+            android:gravity="end"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="24"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

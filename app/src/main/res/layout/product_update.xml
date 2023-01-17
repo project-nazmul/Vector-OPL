@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    
+    android:weightSum="100" >
+
+    <TextView
+        android:id="@+id/serial"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:focusable="true"
+        android:text="@string/serial"
+        android:textColor="#005CE6" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="37dp"
+        android:layout_height="fill_parent"
+       
+        android:layout_weight="45"
+        android:focusable="true"
+          android:gravity="start"
+        android:text="@string/pn"
+        android:textColor="#005CE6" />
+
+   <TextView
+        android:id="@+id/p_id"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="15"
+        android:clickable="true"
+        android:gravity="start"
+        android:text="Order Quantity"
+        android:visibility="gone"
+        android:textColor="#005CE6" />
+    
+    
+    
+        <EditText
+        android:id="@+id/qnty1"
+        android:layout_width="17dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="25"
+        android:gravity="end"
+            android:digits="0123456789"
+            android:inputType="phone"
+        android:maxLength="7"
+      
+        android:textColor="#E68A00" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="20dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="22"
+        android:clickable="true"
+        android:gravity="end"
+        android:text="Tk"
+       android:visibility="gone"
+        android:textColor="#005CE6" />
+
+</LinearLayout>

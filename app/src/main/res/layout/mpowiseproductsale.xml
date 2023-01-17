@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="120sp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/date2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/_2sdp"
+         >
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView1"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:hint="Type Product name"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <requestFocus />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_8sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <Spinner
+            android:id="@+id/dcrlist"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:ems="5"
+            android:filterTouchesWhenObscured="true"
+            android:hapticFeedbackEnabled="true"
+            android:prompt="@string/customerspin"
+            android:soundEffectsEnabled="true"
+            android:spinnerMode="dropdown"
+            android:textSize="22sp"
+            android:visibility="gone"
+            tools:ignore="UnusedAttribute" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <TextView
+            android:id="@+id/sserial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/serial"
+            android:textSize="11sp"
+
+            android:textColor="@android:color/black" />
+
+
+        <TextView
+            android:id="@+id/mpo_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:gravity="start"
+            android:text="Mpo"
+            android:textSize="11sp"
+            android:textColor="@color/colorAccent"
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/sproduct_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="start"
+            android:text="Product"
+            android:textSize="11sp"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/sqnty1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target"
+            android:layout_weight="3"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/ssellvelue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="start"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:text=" Sale"
+            android:textColor="@color/blue"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/achivement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="start"
+            android:text="To date Sale"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:textColor="@color/green1"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="98.71"
+        android:listSelector="@drawable/active"
+        android:clickable="true"
+        android:focusable="true" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/alert_light_frame"
+        android:visibility="gone"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="72"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/darkblue" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+
+            android:gravity="end"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="24"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

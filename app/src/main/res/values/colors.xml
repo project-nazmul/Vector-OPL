@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="bg_gradient_start">#73B2B2</color>
+    <color name="bg_gradient_end">#147171</color>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="backgroundcolor">#fcfcfc</color>
+    <color name="lightgray">#EDEDED</color>
+    <color name="deeppurple">#7C4DFF</color>
+    <color name="yello">#ffb300</color>
+    <color name="green">#00bfa5</color>
+    <color name="green1">#008000</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="darkblue">#040404</color>
+    <color name="testcolorblue">#152b38</color>
+    <color name="pink">#FE104D</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="de">#f6cdc6</color>
+    <color name="orangered">#FF4500</color>
+    <color name="quiz">#246899</color>
+    <color name="vergence">#9933FF</color>
+    <color name="gallan">#CC0000</color>
+    <color name="darma">#006666</color>
+    <color name="colorAccentEditor">#006199</color>
+
+    <color name="contact_name">#333333</color>
+    <color name="contact_number">#8c8c8c</color>
+    <color name="vector_logo_color">#34438d</color>
+    <color name="mySnackbarBackgroundColor">#006199</color>
+    <color name="base">#354592</color>
+    <color name="text1">#1e73be</color>
+    <color name="head">#344955</color>
+</resources>

@@ -1,0 +1,151 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/orderno"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/editbox_dropdown_light_frame"
+            android:visibility="gone" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView1"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:hint="Input order number(eg. 201505-XXXXX)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="20" >
+
+        <TextView
+            android:id="@+id/sserial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/serial"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/sproduct_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="15.85"
+            android:gravity="start"
+            android:text="@string/pn"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/sqnty1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qnty"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/ssellvelue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="@string/value"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="95.71"
+           android:listSelector="@drawable/active"
+        android:clickable="true"
+        android:focusable="true" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/alert_light_frame"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="72"
+            android:gravity="end"
+            android:text="Total Value:" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:visibility="gone"
+            android:gravity="end"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="24"
+            android:gravity="end"
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_12sdp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <!--Button
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="view"
+            android:textColor="#000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="27dp" /-->
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_6sdp"
+    android:paddingBottom="@dimen/_8sdp"
+    android:paddingTop="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/serial"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Serial"
+        android:visibility="gone"
+        android:textColor="@color/quiz"
+        android:textSize="@dimen/_8sdp" />
+    <!-- visibility off -->
+
+
+    <TextView
+        android:id="@+id/mpocode"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Mpo\ncode"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Month"
+        android:textColor="#D500F9"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/sample_name"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Sample\nName"
+        android:textColor="@color/colorAccentEditor"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/pack_size"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Pack\nSize"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Type"
+        android:textColor="@color/orangered"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week1"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="week1"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week2"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="start"
+        android:text="Territory"
+        android:textColor="#D500F9"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week3"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="end"
+        android:text="week3"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+
+    <TextView
+        android:id="@+id/week4"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="end"
+        android:text="week4"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:gravity="end"
+        android:text="Total"
+        android:textColor="@color/colorAccentEditor"
+        android:textSize="@dimen/_8sdp" />
+
+
+
+
+
+    <!-- new add-->
+
+    <TextView
+        android:id="@+id/msd"
+        android:layout_width="@dimen/_20sdp"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="MSD"
+        android:textSize="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccentEditor"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/gm"
+        android:layout_width="@dimen/_20sdp"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="GM"
+        android:textSize="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccentEditor"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:id="@+id/finance"
+        android:layout_width="@dimen/_20sdp"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="F A"
+        android:textSize="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccentEditor"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/challan"
+        android:layout_width="@dimen/_50sdp"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="Challan"
+        android:textSize="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccentEditor"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="@dimen/_50sdp"
+        android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="Cost"
+        android:textSize="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/green1"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

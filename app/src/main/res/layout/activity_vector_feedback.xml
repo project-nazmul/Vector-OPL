@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/alert_light_frame"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/newversion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/acme"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Vector Feedback"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="98">
+
+            <TextView
+                android:id="@+id/user_show"
+                android:layout_width="204dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/logout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_weight="80"
+                android:ems="10"
+                android:gravity="center"
+
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/logout"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/add_button_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:visibility="gone"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="10dp">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/mspinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:ms_hint="Select Type"
+                app:ms_hint_color="@color/vector_logo_color"
+                app:ms_text_color="@color/vector_logo_color"
+                />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                />
+
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/mspinner2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:ms_hint="Select Detail"
+                app:ms_hint_color="@color/vector_logo_color"
+                app:ms_text_color="@color/vector_logo_color"
+                />
+
+        </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:id="@+id/userinput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@android:drawable/alert_light_frame"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColorHint="@android:color/black">
+                <EditText
+                    android:id="@+id/ed_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/acme"
+                    android:hint="Feedback Title"
+                    android:inputType="text|textCapWords"
+                    android:padding="@dimen/_6sdp"
+                    android:maxLines="10"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+<!--
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:textColorHint="@color/darkblue">
+                <EditText
+                    android:id="@+id/ed_feedback_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:fontFamily="@font/acme"
+                    android:hint="Feedback Description (i.e: Describe problem)"
+                    android:inputType="text"
+                    android:padding="@dimen/_6sdp"
+                    android:singleLine="false"
+                    android:maxLines="6"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/darkblue"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="1000"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:passwordToggleEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_feedback_detail"
+                    android:hint="Feedback description"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:maxLength="1000"
+                    android:padding="@dimen/_6sdp"
+                    android:gravity="top|start"
+                    android:fontFamily="@font/acme"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:inputType="textMultiLine|textNoSuggestions"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColorHint="@android:color/black">
+
+                <EditText
+                    android:id="@+id/ed_setName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/acme"
+                    android:hint="Write your Mobile set Name (i.e: Samsung J4)"
+                    android:inputType="text|textCapWords"
+                    android:padding="@dimen/_6sdp"
+                    android:maxLines="10"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/buttonChoose"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="@string/submitBtn"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute"  />
+
+
+    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/_20sdp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/todo"
+            android:cropToPadding="true"
+            android:layout_gravity="center"
+            android:visibility="gone"
+           />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp">
+
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:text=""
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="@string/submitBtn"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+                <Button
+                    android:id="@+id/chemist_ppm"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="Chemists\nPM"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+                <Button
+                    android:id="@+id/offline"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:paddingTop="0px"
+                    android:soundEffectsEnabled="true"
+                    android:text="Save"
+                    android:textColor="@android:color/white"
+                    android:textSize="25sp"
+                    android:visibility="gone"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorAccentEditor"
+            android:clickable="true"
+            android:descendantFocusability="afterDescendants"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="Vector Feedback Follow-up"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp" />
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>

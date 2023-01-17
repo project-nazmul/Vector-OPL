@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <RelativeLayout
+        android:id="@+id/searchbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:orientation="horizontal"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:visibility="visible"
+        >
+
+        <EditText
+            android:id="@+id/p_search"
+            android:layout_width="200dp"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="Search for Product"
+            android:inputType="textAutoComplete"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark">
+            <requestFocus />
+        </EditText>
+
+
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="44dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:background="@android:drawable/editbox_background"
+                android:ems="5"
+                android:focusable="true"
+                android:textStyle="bold"
+                android:fontFamily="cursive"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="Opsonin Product List"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@android:color/holo_blue_dark"/>
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/mic"
+            android:layout_height="0dp"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:background="@drawable/white_button_selector"
+            android:layout_width="27dp"/>
+
+
+
+        <TextView
+            android:id="@+id/showorders"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText,UnusedAttribute"/>
+
+
+
+        <TextView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="0dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/polistLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgray"
+        android:layout_margin="@dimen/_1sdp"
+        android:weightSum="20" >
+
+        <TextView
+            android:id="@+id/hserial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/serial"
+            android:textColor="@color/darkblue" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp"
+            android:text="Product\ncode"
+            android:textColor="@color/blue" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp"
+            android:text="Product\nname"
+            android:textColor="@color/colorAccent" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Pack\nsize"
+            android:textColor="@color/green1" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp"
+            android:text="Prod\ngroup"
+            android:textColor="@color/deeppurple" />
+
+
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="TP"
+            android:textColor="@color/ef_colorPrimaryDark" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp"
+            android:text="VAT"
+
+            android:textColor="@color/pink" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="start"
+            android:text="MRP"
+            android:fontFamily="@font/acme"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/green1" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:listSelector="@color/lightgray"
+        android:divider="@android:color/transparent"
+        android:layout_weight="98"
+        android:descendantFocusability="beforeDescendants"
+        android:padding="@dimen/_4sdp"
+      >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgray"
+        android:visibility="gone"
+        android:weightSum="98" >
+
+        <TextView
+            android:id="@+id/clickme"
+            android:layout_width="20dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:background="@drawable/view" />
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Total Sale Price(BDT):"
+            android:textColor="@color/darkblue" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="30"
+            android:layout_gravity="right"
+            android:textStyle="bold"
+            android:textColor="@color/pink" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="70"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/darkblue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/screen_background_light"
+        android:orientation="horizontal"
+        android:divider="#dfdfdf"
+        android:dividerHeight="2dp"
+
+        android:weightSum="90" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/calc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="finishActivity"
+                android:soundEffectsEnabled="true"
+                android:text="&lt;"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:visibility="gone"
+
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=""
+                android:textColor="#FFF"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=">"
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                android:visibility="gone"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

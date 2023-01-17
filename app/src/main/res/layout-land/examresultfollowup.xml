@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="1">
+
+
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:clickable="false"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="MRC Exam Result Follow-up"
+            android:fontFamily="@font/acme"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            tools:ignore="RtlSymmetry" />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout1"
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgray"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/rname"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:layout_weight="0.6"
+            android:text="Region"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:text="Doctor Call"
+            android:layout_width="25dp"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/bg_gradient_end"
+            />
+
+        <TextView
+            android:text="Chemist Call "
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.5"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="@color/blue"
+
+            />
+
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_marginTop="0dp"
+            android:text="Sample"
+            android:textColor="@color/orangered"
+
+            />
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:text="PPM"
+            android:textColor="@color/pink"
+
+            />
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:text="Gift"
+            android:textColor="@color/deeppurple"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EDEDED"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/sl_0"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="Sl"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/rm_code"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="MPO "
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/doc_call_total"
+            android:text="JAN"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="0px"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/bg_gradient_end"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/doc_call_last_Day"
+            android:text="FEB"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp"
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/chem_call_total"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
+            android:text="MARCH"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp"
+            />
+        <TextView
+            android:id="@+id/chem_call_last_Day"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:textSize="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:text="APR"
+            android:textColor="@android:color/holo_red_dark"
+
+            />
+
+        <TextView
+            android:id="@+id/no_of_order"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="left"
+            android:text="MAY"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp"
+            />
+
+
+        <TextView
+            android:id="@+id/last_day_order"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="left"
+            android:text="JUN"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp"
+            />
+
+
+
+
+
+        <TextView
+            android:id="@+id/sample_allocate"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="JULY"
+            android:textColor="@color/orangered"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/sample_given"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="AUG"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/_8sdp" />
+
+
+        <TextView
+            android:id="@+id/ppm_allocate"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="SEP"
+            android:textColor="@color/pink"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/ppm_given"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="OCT"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <!--
+            android:textColor="@android:color/holo_blue_dark"  #0099CC
+        -->
+        <TextView
+            android:id="@+id/gift_allocate"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="NOV"
+            android:textColor="@color/deeppurple"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/gift_given"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:text="DEC"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/_8sdp"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="95.00"
+        android:listSelector="@drawable/active"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/_1sdp"
+        android:focusable="true" >
+    </ListView>
+
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

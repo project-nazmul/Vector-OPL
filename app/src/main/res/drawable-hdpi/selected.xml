@@ -1,0 +1,4 @@
+  <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+        <solid android:color="#FF9900" /> <!-- Orange color -->
+           <stroke android:dashWidth="2dp" android:color="#008080" />
+    </shape>

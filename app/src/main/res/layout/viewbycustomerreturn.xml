@@ -1,0 +1,299 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="3dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/customer"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+
+            android:background="@android:drawable/editbox_dropdown_light_frame"
+            android:textSize="10sp"
+            android:visibility="gone"
+
+            />
+
+
+        <!--Spinner
+            android:id="@+id/ord"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+
+            android:textSize="10sp"
+            android:background="@android:drawable/editbox_dropdown_light_frame"
+            android:visibility="gone"
+
+            / -->
+
+
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="2"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            android:textSize="12sp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="0"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            android:textSize="12sp"
+            tools:ignore="RtlSymmetry" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView1"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="0sp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="0"
+            android:hint="Enter Customer name"
+            android:paddingLeft="10dp"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+    </LinearLayout>
+
+
+    <!--LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView2"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginTop="0sp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="1"
+            android:paddingLeft="10dp"
+            android:hint="Enter Order No."
+            android:textSize="12sp" />
+
+
+
+
+    </LinearLayout -->
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/slistLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="25">
+
+                <TextView
+                    android:id="@+id/sseal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="start"
+                    android:text="@string/serial"
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/spruct_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="11"
+                    android:gravity="start"
+                    android:text="Party Name"
+                    android:textColor="@color/blue"
+
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/snty1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="right"
+                    android:text="Order(TK)"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/sselllue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="right"
+                    android:text="Invoice(TK)"
+                    android:textColor="@color/blue"
+
+                    android:textSize="@dimen/_8sdp" />
+
+
+                <TextView
+                    android:id="@+id/returnpercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="Return(%)"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="95.71"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:focusable="true"
+        android:listSelector="@drawable/active"
+        android:paddingTop="@dimen/_2sdp"></ListView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/totalshow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:weightSum="98">
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="32"
+                    android:gravity="left"
+                    android:text=""
+                    android:textColor="@color/darkblue" />
+
+                <TextView
+                    android:id="@+id/totalsellquantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="32"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/totalsellvalue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="32"
+                    android:gravity="end"
+                    android:text=""
+                    android:textColor="@color/blue" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_12sdp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

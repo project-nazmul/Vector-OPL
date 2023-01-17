@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/alert_light_frame"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/user_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="username"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@android:color/background_dark"
+                    android:fontFamily="@font/roboto"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/user_show2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="region"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="&lt;"
+                    android:textColor="#FFF"
+                 />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <EditText
+                    android:id="@+id/deliverydate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:hint="Select Month"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:textColor="#009688"
+                    android:textColorHint="@color/darkblue"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="normal" />
+
+                <Spinner
+                    android:id="@+id/ampm"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@android:drawable/spinner_dropdown_background"
+                    android:ems="10"
+                    android:entries="@array/am_pm"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    android:visibility="gone"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/acme"
+                app:tabIndicatorColor="@color/blue"
+                app:tabIndicatorHeight="1dp"
+                app:tabSelectedTextColor="@color/blue" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/count_brand_gift"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto"
+                app:tabTextAppearance="@style/TabLayoutStyle"
+                app:tabIndicatorColor="@color/white"
+                app:tabIndicatorHeight="0dp"
+                android:clickable="false"
+                android:focusable="false"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabSelectedTextColor="@android:color/background_dark" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/ef_white" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/gift_item_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/acme"
+                app:tabBackground="@color/ef_white"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/green"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/green" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/question_mark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="1= Very Low, 2= Low, 3= Good, 4= Very Good, 5= Excellent "
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                android:textSize="@dimen/_8sdp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/layout_feedback_question"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:stepSize="1.0"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1.0"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginTop="60dp"
+                    android:progressBackgroundTint="@color/ef_black_alpha_50"
+                    android:progressTint="@color/colorAccentEditor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+            <!--
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/ratingBar4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/ratingBar5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+-->
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@color/green"
+                android:fitsSystemWindows="true"
+                android:fontFamily="@font/acme"
+                android:text="@string/click_to_nsubmit_gift_feedback"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/buttons_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/online"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/submit_btton_selector"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:soundEffectsEnabled="true"
+                        android:text=">"
+                        android:textColor="#FFF"
+                        android:textSize="25sp"
+                        android:visibility="gone"
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+                    <Button
+                        android:id="@+id/logout"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/p_background"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:soundEffectsEnabled="true"
+                        android:text="Home"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:visibility="gone">
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Spinner
+        android:id="@+id/customer"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:ems="5"
+        android:filterTouchesWhenObscured="true"
+        android:hapticFeedbackEnabled="true"
+        android:prompt="@string/customerspin"
+        android:soundEffectsEnabled="true"
+        android:spinnerMode="dialog"
+        android:textSize="@dimen/_14sdp"
+        android:visibility="gone"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:id="@+id/errordt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.61"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp" />
+</LinearLayout>

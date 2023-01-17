@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".geolocation.DoctorChamberLocate">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#ff29549f"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:theme="@style/BasicToolbar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/acme"
+                android:text="@string/doctor_chamber_locate"
+                android:textColor="@android:color/white" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:tabMode="fixed">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/patient_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/in_chamber" />
+
+            <!--
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/doc_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map Indicator" />
+-->
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textColor="#006199"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <RadioButton
+                android:id="@+id/patientRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="#006199"
+                android:checked="true"
+                android:textColor="#006199"
+                android:textSize="18sp"
+                tools:targetApi="lollipop" />
+
+            <RadioButton
+                android:id="@+id/doctorRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:buttonTint="#006199"
+                android:text="@string/doctor"
+                android:textColor="#006199"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:id="@+id/inchamber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radiogroup">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewDoctor"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/edittextstyle"
+                android:focusable="true"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:hint="Please  Select Doctor Name..."
+                android:inputType="textPhonetic"
+                android:minLines="2"
+                android:padding="@dimen/_10sdp"
+                android:singleLine="false"
+                android:textColor="#23283a"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+
+            <Spinner
+                android:id="@+id/customer"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:ems="5"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:prompt="@string/customerspin"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textSize="22sp"
+                android:visibility="gone"
+                tools:ignore="UnusedAttribute"
+                tools:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/doc_opl_db_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/edittextstyle"
+                    android:focusable="true"
+                    android:hint="@string/doctor_address_from_opsonin_database"
+                    android:minLines="2"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="false"
+                    android:textColor="#23283a"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tv_doc_chamber_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/edittextstyle"
+                    android:focusable="true"
+                    android:hint="@string/your_current_physical_address"
+                    android:minLines="2"
+                    android:padding="@dimen/_10sdp"
+                    android:singleLine="false"
+                    android:textColor="#23283a"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/buttonCapture"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@color/colorAccentEditor"
+                android:fitsSystemWindows="true"
+                android:fontFamily="@font/acme"
+                android:text="@string/capture_image_from_camara"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@color/colorAccentEditor"
+                android:fitsSystemWindows="true"
+                android:fontFamily="@font/acme"
+                android:text="@string/submit_chamber_location"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inchamber">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_20sdp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/todo"
+                android:cropToPadding="true"
+                app:srcCompat="@drawable/ic_taskreport"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lay_imageView">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="@drawable/dcr_page_button"
+                android:textColor="@android:color/white"
+
+                android:visibility="visible"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+
+
+
+
+
+
+
+
+
+
+    <!--
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".geolocation.DoctorChamberLocate">
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:baselineAligned="true"
+                app:tabMode="fixed">
+
+            <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Chamber" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map Locate"
+                android:visibility="visible" />
+            </com.google.android.material.tabs.TabLayout>
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewDoctor"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@android:drawable/editbox_background"
+            android:focusable="true"
+            android:hint="Please  Select Doctor Name..."
+            android:inputType="textPhonetic"
+            android:minLines="2"
+            android:padding="@dimen/_10sdp"
+            android:singleLine="false"
+            android:textColor="#23283a"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:layout_marginTop="96dp"
+            app:layout_constraintBottom_toTopOf="@+id/autoCompleteTextViewDoctor"
+           />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="MyText "
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/autoCompleteTextViewDoctor" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    -->

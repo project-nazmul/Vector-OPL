@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+
+            <TextView
+                android:id="@+id/serial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:clickable="false"
+                android:focusable="false"
+                android:hint="serial" />
+
+            <TextView
+                android:id="@+id/notice_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/serial"
+                android:layout_alignParentLeft="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:padding="@dimen/_2sdp"
+                android:text="Title"
+                android:textColor="#4267b2"
+                android:textStyle="bold"
+                android:typeface="normal"
+                android:visibility="visible" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/notice_title"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="#dfdfdf" />
+
+
+            <TextView
+                android:id="@+id/order_qnty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="0"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="right"
+                android:hint="01-Aug-2019"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textAlignment="gravity"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/order_qnty"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="@dimen/_4sdp"
+                android:text="Topic Details" />
+
+
+
+            <TextView
+                android:id="@id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/topic"
+                android:layout_alignParentRight="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="@dimen/_4sdp"
+                android:text="message" />
+
+
+
+
+            <TextView
+                android:id="@+id/feedback_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/product_name"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="@dimen/_4sdp"
+                android:text="feedback_title" />
+
+
+            <TextView
+                android:id="@+id/feedback_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/feedback_title"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="@dimen/_4sdp"
+                android:text="feedback_details" />
+
+            <TextView
+                android:id="@+id/admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/feedback_details"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="@dimen/_4sdp"
+                android:text="Admin Response" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+
+
+
+
+

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_weight="15"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="1dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/serial"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_weight="0.5"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/darkblue" />
+
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="3"
+            android:focusable="true"
+            android:text="Jmode"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+
+        <TextView
+            android:id="@+id/qnty_report"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="Distance"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/value_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="tar"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@android:color/background_dark" />
+
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="ta"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/value_5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="DA"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/deeppurple" />
+
+        <TextView
+            android:id="@+id/value_6"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="2"
+            android:clickable="true"
+            android:text="Other value"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+
+        <TextView
+            android:id="@+id/value_7"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="start"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:text="extra2"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/holo_purple"
+            android:visibility="gone"
+            android:focusable="true" />
+
+
+
+</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+

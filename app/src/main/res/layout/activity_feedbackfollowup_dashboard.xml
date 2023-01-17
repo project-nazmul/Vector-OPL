@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="98">
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="98"
+            android:ems="10"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:text="@string/vector_feedback"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#4267b2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="98"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:focusable="true"
+        android:listSelector="@color/lightgray"
+        android:paddingTop="@dimen/_12sdp">
+
+    </ListView>
+
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/dcr_page_button"
+        android:layout_gravity="center"
+        android:hapticFeedbackEnabled="true"
+        android:soundEffectsEnabled="true"
+        android:textColor="#FFF"
+        android:textSize="25sp"
+        tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </LinearLayout>
+

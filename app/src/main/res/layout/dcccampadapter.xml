@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/serial"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:descendantFocusability="blocksDescendants"
+            android:text="@string/serial"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/darkblue"
+
+            />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="Mpo"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue"
+
+             />
+
+        <TextView
+            android:id="@+id/camp_brand"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginStart="0dp"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="Month"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="0dp" />
+
+        <TextView
+            android:id="@+id/camp_gift"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="Gift name"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.75"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="ratio"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/camp_chem"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="chemist code"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+        <TextView
+            android:id="@+id/camp_chem_name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="issue"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/deeppurple" />
+
+
+        <TextView
+            android:id="@+id/camp_doc_code"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.75"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:text="Doctor code"
+            android:textSize="@dimen/_8sdp"
+            android:visibility="visible"
+            android:textColor="@color/pink" />
+
+
+
+
+        <TextView
+            android:id="@+id/value_8"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:text="valu8"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/deeppurple" />
+
+        <TextView
+            android:id="@+id/value_9"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="right"
+            android:textAlignment="gravity"
+            android:text="valu9"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/value_10"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="right"
+            android:textAlignment="gravity"
+            android:text="valu10"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/green1" />
+
+
+        <TextView
+            android:id="@+id/value_11"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="right"
+            android:textAlignment="gravity"
+            android:text="valu11"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/pink" />
+
+
+
+        <TextView
+            android:id="@+id/value_12"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="0dp"
+            android:gravity="right"
+            android:textAlignment="gravity"
+            android:text="valu11"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/blue" />
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

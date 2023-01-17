@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background" >
+
+    <FrameLayout
+        android:id="@+id/vv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <VideoView
+            android:id="@+id/tutorials"
+            android:layout_width="wrap_content"
+            android:layout_height="245dp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/help_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vv"
+
+        android:layout_below="@+id/vv"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/help_line"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/back"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/back" />
+
+</RelativeLayout>

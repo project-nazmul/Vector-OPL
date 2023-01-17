@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="98">
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="98"
+            android:ems="10"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:text="@string/notification"
+            android:textColor="@color/vector_logo_color"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+    <include
+        android:id="@+id/view"
+        layout="@layout/view_pmd_sub"
+        >
+    </include>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="96"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:focusable="true"
+        android:paddingTop="@dimen/_12sdp"
+        android:layout_marginStart="5dp">
+
+    </ListView>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=""
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText,UnusedAttribute,SpeakableTextPresentCheck" />
+
+
+        </RelativeLayout>
+
+
+</LinearLayout>

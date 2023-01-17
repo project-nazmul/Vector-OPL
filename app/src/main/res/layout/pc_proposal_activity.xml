@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/searchbar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:orientation="horizontal"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        android:weightSum="20"
+        >
+        <EditText
+            android:id="@+id/p_search"
+            android:layout_width="200dp"
+            android:layout_height="44dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:hint="Search for Product"
+            android:inputType="textNoSuggestions"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark">
+            <requestFocus />
+        </EditText>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/user_show"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ems="10"
+            android:hint="username"
+            android:visibility="visible"
+            android:gravity="center"
+            android:textColor="@android:color/background_dark"
+            />
+
+        <TextView
+            android:id="@+id/user_show2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:ems="10"
+            android:hint="region"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@android:color/background_dark"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+        <Button
+
+            android:id="@+id/logback"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/pc_btn_back"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+
+            />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="80">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="1dp">
+
+            <LinearLayout
+                android:id="@+id/slistLayout"
+                android:layout_width="match_parent"
+                android:weightSum="11"
+                android:background="@android:color/transparent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Sl"
+                    android:paddingLeft="@dimen/_2sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_10sdp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Doctor Code"
+                    android:textStyle="bold"
+                    android:textColor="#009688"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Doctor name"
+                    android:textColor="@color/ef_colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:layout_weight="5"
+                    android:textSize="@dimen/_10sdp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+
+                <TextView
+                    android:id="@+id/ssel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Select"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="#009688"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <ListView
+            android:id="@+id/category_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:layout_weight="80"/>
+
+        <Button
+            android:id="@+id/selectCategoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit to PC Conference Requisition"
+            android:clickable="true"
+            android:focusable="false"
+            android:background="#009688"
+            android:textColor="@color/white"
+            android:focusableInTouchMode="false"
+            android:textSize="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:descendantFocusability="afterDescendants"
+
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

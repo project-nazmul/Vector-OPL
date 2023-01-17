@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/row_0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            android:textSize="15sp"
+            android:visibility="invisible"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="120sp"
+            android:layout_height="30dp"
+            android:background="@drawable/relative_layout_background"
+            android:ems="10"
+            android:layout_weight="2"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            android:textSize="15sp"
+      
+            tools:ignore="RtlSymmetry" />
+
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute"
+            android:visibility="gone"/>
+
+
+        <Button
+            android:id="@+id/submitBtn_2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/dcr_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="@color/white"
+                android:textSize="@dimen/_8sdp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/textview"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        >
+
+        
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_weight="1"
+                android:background="@color/lightgray"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    
+                    <Button
+                        android:id="@+id/btn_1"
+                        style="@android:style/Widget.Button.Toggle"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:background="@color/lightgray"
+                        android:fontFamily="cursive"
+                        android:text="Total Mpo"
+                        android:textAppearance="@android:style/TextAppearance"
+                        android:textColor="@color/deeppurple"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:id="@+id/bar_1"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="26dp"
+                        android:background="@drawable/am_circle_shape3"
+                        android:indeterminate="false"
+                        android:max="8"
+                        android:progress="8"
+                        android:progressDrawable="@drawable/circular_progress_bar1" />
+
+                    <EditText
+                        android:id="@+id/val_mpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:fontFamily="cursive"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/deeppurple"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/lightgray"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_2"
+                        style="@android:style/Widget.Button.Toggle"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:background="@color/lightgray"
+                        android:fontFamily="cursive"
+                        android:text="Submitted By"
+                        android:textAppearance="@android:style/TextAppearance"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+
+                    <ProgressBar
+                        android:id="@+id/bar_2"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                         android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="26dp"
+                        android:background="@drawable/am_circle_shape"
+                        android:indeterminate="false"
+                        android:max="7"
+                        android:progress="8"
+                        android:progressDrawable="@drawable/circular_progress_bar" />
+
+                    <EditText
+                        android:id="@+id/submit_mpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:fontFamily="cursive"
+                        android:gravity="center"
+                        android:textColor="@color/green"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/lightgray"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_3"
+                        style="@android:style/Widget.Button.Toggle"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:background="@color/lightgray"
+                        android:fontFamily="cursive"
+                        android:text="Not Submitted"
+                        android:textAppearance="@android:style/TextAppearance"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+
+                    <ProgressBar
+                        android:id="@+id/bar_3"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                         android:layout_height="@dimen/_150sdp"
+                        android:layout_marginTop="26dp"
+                        android:background="@drawable/circle_shape2"
+                        android:max="7"
+                        android:progress="8"
+                        android:progressDrawable="@drawable/circular_progress_bar3" />
+
+                    <EditText
+                        android:id="@+id/req_mpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:fontFamily="cursive"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+<!--- progrss bar end -->
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/userinput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+
+        
+        <LinearLayout
+            android:id="@+id/col_1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            >
+
+            <TextView
+                android:id="@+id/txt_1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="Total Mpo"
+               
+                android:textColor="@color/bg_gradient_end"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/namesmpo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/col_2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            >
+
+            <TextView
+                android:id="@+id/txt_2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="Dcr Submitted by"
+               
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+
+            <EditText
+                android:id="@+id/date_ex"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:typeface="monospace"
+                tools:ignore="RtlSymmetry" />
+
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/dcrbympo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@drawable/relative_layout_background"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                tools:ignore="RtlSymmetry"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/col_3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            >
+
+            <TextView
+                android:id="@+id/txt_3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="Dcr Required by"
+               
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/dcrreqmpo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/col_4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5"
+            >
+
+            <TextView
+                android:id="@+id/codeofmpo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:background="@android:drawable/editbox_background"
+                android:layout_weight="2"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:hint="Code of Mpo  "
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/dcrreqbympo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:hint="name of mpo"
+                tools:ignore="RtlSymmetry" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/header_1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="Summary of Mpo"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        tools:ignore="RtlSymmetry" />
+    
+    <TextView
+        android:id="@+id/header_2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:textColor="@color/green"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry" />
+
+
+
+    <TextView
+        android:id="@+id/header_3"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:text="Mpo Not Submitted Dcr"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        android:visibility="gone"
+        tools:ignore="RtlSymmetry" />
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout2"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/row_1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/row_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10px"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:text="Mpo Name "
+            android:textAlignment="gravity"
+                android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/row_3"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Code"
+            android:textAllCaps="true"
+                android:textSize="@dimen/_8sdp" />
+
+
+
+
+        <TextView
+            android:id="@+id/row_6"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Doctor"
+                android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/row_7"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Chemist"
+                android:textSize="@dimen/_8sdp" />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="99.00"
+        android:listSelector="@android:drawable/dialog_holo_light_frame"
+        android:clickable="true"
+        android:focusable="true"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideInset"
+        android:background="@drawable/layout_background"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/alert_light_frame"
+        android:weightSum="98"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text=""
+            android:textStyle="bold"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:textStyle="bold"
+            android:textSize="11sp"
+
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

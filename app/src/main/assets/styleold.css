@@ -1,0 +1,233 @@
+#view {
+	height: 100%;
+	background-color: #008080;
+	background-position: center 15px;
+	background-repeat: repeat;
+	font-family: url("http://fonts.googleapis.com/css?family=Ubuntu:300");
+}
+
+#username,#password {
+	background-color: white;
+	width: 96%;
+	border: 1px solid #3B5998;
+	left: 1%;
+}
+
+
+#reference, #orderpage, #date, #customer {
+	background-color: white;
+	font-weight:normal !important;
+
+	width: 96%;
+	left: 0px;
+	font-family: cursive;
+}
+
+#p_search {
+	color: white;
+	width: 60%;
+	left: 0px;
+	font-weight: bold;
+	font-family: cursive;
+}
+
+#searchbar {
+	background: cornflowerblue;
+	color: white;
+	padding: 1px;
+	border-radius: 5px;
+	border-bottom: 1px solid yellow;
+	width: 97%;
+	padding: 1%;
+}
+
+button#login {
+	top: 56%;
+	left: 2%;
+	width: 92%;
+	color: white;
+	padding-left: 0;
+	font-weight: bold;
+	background-color: transparent;
+	border: 1px solid aqua;
+	font-weight: bold;
+	border-radius: 5px;
+}
+
+#appname {
+	color: aqua;
+	border: white
+}
+
+#btnLayout {
+	width: 98%;
+	left: 0px;
+	clear: both;
+	position: relative
+}
+
+#buttonlayout {
+	width: 92%;
+	top: 85%;
+	left: 2%;
+	margin: 0px;
+}
+
+button#backBtn {
+	left: 0px;
+	width: 50%;
+	color: white;
+	font-weight: bold;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 16px;
+	border-radius: 5px;
+	border-color: #d43f3a;
+}
+
+button#submitBtn {
+	left: 0px;
+	width: 50%;
+	color: white;
+	font-weight: bold;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	display: inline-block;
+	margin-bottom: 0;
+	font-size: 16px;
+	border-radius: 5px;
+	border-color: #d43f3a;
+}
+
+#p_listLayout {
+	width: 98%;
+	border-bottom: 1px solid white;
+	color: white;
+	
+}
+
+#slistLayout {a
+	left: 2%;
+	width: 92%;
+	border-bottom: 1px solid yellow;
+	color: white;
+	background:#030;
+	font-size: 10px;
+	padding: 1% 0 1% 0;
+}
+
+#polistLayout {
+	width: 98%;
+	background:#00592d;
+	border-bottom: 1px solid yellow;
+	color: white;
+	font-size: 11px;
+	padding: 1% 0 1% 0;
+}
+
+/* #serial {
+	width: 5%;
+	padding-left: 1px;
+	margin: 0px;
+}
+
+#product_name {
+	width: 50%;
+	margin: 0px !important;
+	color: white;
+}
+
+#qnty {
+	margin: 0px !important;
+	width: auto;
+}
+
+#value {
+	width: 28%;
+	padding-right: 2px;
+	margin: 0px !important;
+} */
+
+#totalshow {
+	width: 98%;
+	padding: 1% 0 1% 0;
+	color: white;
+	border-top: 1px solid yellow;
+}
+
+button#backbt {
+	left: 2%;
+	width: 92%;
+	padding: 1%;
+	color: white;
+}
+
+#successmsg {
+	background: transparent !important;
+	left: 0px;
+	color: white !important;
+	width: 100%;
+}
+
+#succ_msg {
+	background: transparent !important;
+	left: 0px;
+	color: #ffff00 !important;
+	width: 48%
+}
+
+#ordno {
+	background: transparent !important;
+	left: 0px;
+	color: white !important;
+	width: 50%;
+}
+
+#exit {
+	border-radius: 50%;
+}
+
+#lang {
+	left: 0px;
+	width: 96%;
+	color: white;
+	padding-left: 3%;
+	font-weight: bold;
+	background-color: transparent;
+	border: 1px solid aqua;
+	font-weight: bold;
+}
+
+#pListView {
+	top: 2%; margin-left : 1px;
+	font-size: 10px;
+	width: 98%;
+	margin-left: 1px;
+}
+
+#parms {
+	top: 3%;
+	width: 98%;
+	border-bottom: 1px solid white;
+	width: 98%;
+}
+
+#year {
+	top: 5%;
+	width: 30%;
+	border: 1px solid menu;
+	color: white;
+	line-height: 1.5px;
+	padding: 5px;
+}
+
+#month {
+	top: 5%;
+	width: 40%;
+	line-height: 1.5px;
+	color: white;
+	border: 1px solid menu;
+	padding: 5px;
+}

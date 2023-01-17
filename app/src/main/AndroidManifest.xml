@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.opl.pharmavector">
+
+    <uses-sdk tools:overrideLibrary="timber.log" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+<!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
+<!--    <uses-permission android:name="android.permission.SEND_SMS" />-->
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name=".app.AppController"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/logo_22"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".pmdVector.sales_4p.Activity_4p_Sales"
+            android:exported="false" />
+        <activity
+            android:name=".pmdVector.ff_contact.ff_contact_activity"
+            android:exported="false" />
+        <activity
+            android:name=".contact.Activity_PMD_Contact"
+            android:exported="false" />
+        <activity
+            android:name=".pmdVector.pmd_sales_reports.Pmd_Sales_Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".depot_report.CustReplacementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".depot_report.CustOutstandingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".depot_report.Cust_Sp_Pct_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".depot_report.CustCreditActivity"
+            android:exported="false" />
+
+        <receiver android:name=".service.MyLocationService" /> <!-- android:name=".activity.MainActivity" -->
+        <activity
+            android:name=".Login"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- ./Firebase Notifications -->
+        <!--
+    <activity
+        android:name=".Login"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"  />
+        -->
+        <activity
+            android:name=".geolocation.DoctorChamberLocate"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".msd_doc_support.DocSupportReq"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".giftfeedback.GiftFeedbackEntry"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".giftfeedback.FieldFeedBack"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".util.SubmitNewPassActivity"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".prescriptionsurvey.PrescroptionImageSearch"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".prescriptionsurvey.imageloadmore.ImageLoadActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".prescriptionsurvey.imageloadmore.ImageLoadParam"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".pmdVector.pmdRX.ImageLoadActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".prescriptionsurvey.PrescriptionFollowup"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".pmdVector.pmdRX.PMDRXSummary"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".pmdVector.pmdRX.PMDRXSummary2"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".prescriptionsurvey.PrescriptionFollowup2"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".prescriptionsurvey.PrescriptionDashboard"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".prescriptionsurvey.PrescriptionSurveyReport"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".exam.QuizActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".exam.ExamDashboard"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".exam.ExamAnswerBoard"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.MessageShowActivity"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Register"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".pcconference.PcProposalDoc"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PCPendingProposal"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" /> <!-- Notice this tag which provides the database version -->
+        <activity
+            android:name=".PendingProposalDoc"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pcconference.PcApproval"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".doctorservice.DoctorServiceFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".doctorservice.DoctorServiceAck"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".doctorservice.ManagerDoctorServiceFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".doctorservice.DoctorServiceTrackMonthly"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".PcBillApproval"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".prescriptionsurvey.PrescriptionEntry"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pcconference.PcProposal"
+            android:theme="@style/pcbilltheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pcconference.PcConferenceEdit"
+            android:theme="@style/pcbilltheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AddComment"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".PCDashboard"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".doctorservice.DoctorServiceDashboard"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".promomat.PromomaterialDashboard"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".promomat.PromoMaterialFollowup"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMWiseProductSale"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".FMwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SegmentSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".order_online.ReadComments"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DoctorGiftActivity"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".GroupwiseProductOrderSummary"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".GroupwiseProductOrderSummary2"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AdminProductList"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Changepassword"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar" />
+        <activity
+            android:name=".ProductOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPOwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ASMWiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SMWiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".NoticeBoard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pmdVector.utils.PMDNotification"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".giftfeedback.FeedbackDetails"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".giftfeedback.FieldFeedbackMaster"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AMwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AMfollowMpoAchv"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMfollowMpoAchv"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".order_online.ProductOrdernew"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".Sellview"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Report"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Viewbycustomer"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Viewbycustomersale"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Viewbycustomerreturn"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Viewbycustomerorderstatus"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPODCCSplit"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ManagersSalesFollowup"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ViewbyTargetsale"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ViewbyDate"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Customervalue"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Orderinvoice"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".OrderWise"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Targetquantity"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Targetvalue"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".NoticeBoardDetails"
+            android:label="Sale Matrix"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Stokeview"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ViewbyProduct"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".setting"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Help"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".Updateview"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Achievement"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ProductupdateOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Offlinereport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".OfflineProductOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ManagersSalesFollowup2"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AMwiseProductSale2"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AMfollowMpoAchv2"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" /> <!-- created by AORM plugin at 2015-04-05 14:13:25 -->
+        <activity
+            android:name=".Offlineordupdate"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Offlineupdateview"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditOffline"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UpdateOnline"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".EditOrdProdView"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Offlinereadcomments"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Dashboard"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".login_dashboard.MPODashboard"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".mpodcr.Dcr"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".mpodcr.GiftOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
+            android:name=".BrandwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".FMBrandwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ASMBrandwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".SMBrandwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AdminReportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMBrandwiseProductSale"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChemistGiftOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ReportPersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDashboard"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMPCPendingPermission"
+            android:label="Sale Matrix"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDcr"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DcrReport"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDcrReport"
+            android:label="Sale Matrix"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmRxCompany"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmRX"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmChemistGiftOrder"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmReportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmPersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmReportPersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmMPODailyReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmMpoDcrMonitorDaily"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDoctorDailyReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmNotVisitedDoctor"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmDcr"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMDcrReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMReportPersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".master_code.MasterCode"
+            android:label="@string/app_name"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ReportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPODailyReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmSalesReportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmTargetquantity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmTargetvalue"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmAchievment"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RMPersonalExpenses"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MpoDcrMonitorDaily"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmSalesReportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPOChangepassword"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".VacantMpoPwd"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmAchievement"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmTargetquantity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RmTargetvalue"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".DcrReportScreen"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDCCFollowup"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MPODccStock"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPODccFollowup"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ChemistGiftCampaign"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".rxdcc.DccRxCamp"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".FMfollowupreport"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".SalesManagerDCCFollowup"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MPODCCFollowupgift"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MPOfollowupreport"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".MPODCCFollowupnew"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AssistantManagerDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pcconference.RMPCPermission"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".MPODCCDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".AmDCCFollowupnew"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AssistantManagerDCCFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RmDCCFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".RmDCCFollowupnew"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".SalesManagerDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".GMDashboard1"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MPODCRDetail"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".FollowupReport"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ASMFollowupReport"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".GMDCCFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".exam.ExamResultFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".PCBillFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".pcconference.PcConferenceFollowup"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".GMDashboard"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".PCBill"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".PCBillEdit"
+            android:label="@string/app_name"
+            android:theme="@style/pcbilltheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PCBillSubmit"
+            android:theme="@style/pcbilltheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".msd_doc_support.DocSupportDashboard"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".msd_doc_support.DocSupportFollowup"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".msd_doc_support.MSDProgramFollowup"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".mrd_pres_report.MRDPresReport"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".pmdVector.DashBoardPMD"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" /> <!-- - REZWAN CODE -->
+        <activity
+            android:name=".doctorgift.DocGiftLoad"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".doctorgift.DocGiftDashBoard"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".doctorgift.GiftEntryFollowup"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".doctorgift.DocGiftEntryApproval"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- - REZWAN CODE -->
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="offline_order.db" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.example.mysqltest.database.CategoryDB" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="true" />
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+
+</manifest>

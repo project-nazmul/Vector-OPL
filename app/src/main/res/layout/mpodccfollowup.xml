@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="0sp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/mpotext"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="@color/bg_gradient_start"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center"
+
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:text="MPO DCC FOLLOWUP"
+            android:textSize="15sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:baselineAligned="false"
+
+            tools:ignore="RtlSymmetry"
+            android:textColor="@color/darkblue"
+            />
+
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute"
+            android:visibility="gone"/>
+
+
+
+        <Button
+            android:id="@+id/submitBtn_2"
+            style="@style/DefaultButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textStyle="bold" />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/textview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="98"
+
+        >
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/slistLayout"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/dcr_sl"
+            android:layout_gravity="left"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:text="@string/serial"
+            android:textColor="@color/darkblue"
+            />
+
+        <TextView
+            android:id="@+id/dco_chem_name"
+            android:text="Visit\nDate"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:layout_marginLeft="10px"
+            android:layout_gravity="left"
+            android:textAlignment="gravity"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/ppm_pm_name"
+            android:text="Doctor"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:textColor="@color/blue"
+
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/shift_gift"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="center"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
+            android:text="Product"
+            android:textColor="@color/green1"
+
+            />
+        <TextView
+            android:id="@+id/all_rest_quant"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_gravity="right"
+            android:text="PPM"
+            android:textColor="@color/pink"
+
+            />
+
+        <TextView
+            android:id="@+id/all_re"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textAlignment="gravity"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:text="Chemist"
+            android:textColor="@color/deeppurple"
+            />
+
+
+
+
+        <TextView
+            android:id="@+id/am_pm_shift"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="right"
+            android:text="Given"
+            android:textColor="@color/darkblue"
+            />
+
+
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="95.00"
+        android:listSelector="@drawable/active"
+        android:clickable="true"
+        android:focusable="true" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/status_bar_item_background"
+        android:weightSum="98"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text=""
+            android:textStyle="bold"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:textColor="@color/darkblue"
+            android:textStyle="bold"
+            android:textSize="11sp"
+
+            android:text="" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

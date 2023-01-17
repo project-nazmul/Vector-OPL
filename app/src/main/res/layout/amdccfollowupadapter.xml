@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/serial"
+            android:layout_gravity="start"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="fill_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:text="@string/serial"
+            android:textColor="#005CE6" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginStart="10px"
+            android:layout_gravity="start"
+            android:textAlignment="gravity"
+            android:text="Mpo"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="10px" />
+
+        <TextView
+            android:id="@+id/qnty_3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.5"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginStart="0dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="brand"
+            android:textColor="@color/blue"
+            android:layout_marginLeft="0dp" />
+
+        <TextView
+            android:id="@+id/dcc_ppm"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="ppm"
+            android:textColor="@color/green1" />
+
+
+
+        <TextView
+            android:id="@+id/value_4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:textAlignment="gravity"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="start"
+            android:text="ratio"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/value_alloc"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="alloca"
+
+            android:textColor="@color/green1" />
+
+        <TextView
+            android:id="@+id/value_issue"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="issue"
+
+            android:textColor="@color/deeppurple" />
+
+
+        <TextView
+            android:id="@+id/value_rest"
+            android:layout_width="10dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:focusable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_marginTop="20dp"
+            android:textAlignment="gravity"
+            android:layout_gravity="start"
+            android:text="rest"
+            android:textColor="@color/pink" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

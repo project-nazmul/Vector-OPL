@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/c"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView3"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:focusable="true"
+            android:hint="Enter Area Code"
+            android:inputType="textPhonetic"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_8sdp"
+            android:textStyle="bold" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView2"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:focusable="true"
+            android:hint="Enter Territory Code"
+            android:inputType="textPhonetic"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_8sdp"
+            android:textStyle="bold" />
+
+
+        <Spinner
+            android:id="@+id/sp_territory"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_weight="0"
+            android:background="@android:drawable/editbox_background"
+            android:ellipsize="none"
+            android:ems="10"
+            android:filterTouchesWhenObscured="true"
+            android:hapticFeedbackEnabled="true"
+            android:maxLines="100"
+            android:scrollHorizontally="false"
+            android:soundEffectsEnabled="true"
+            android:spinnerMode="dialog"
+            android:textColor="@color/blue"
+            android:textSize="22sp"
+            android:visibility="gone"
+            android:weightSum="1"
+            tools:ignore="UnusedAttribute" />
+
+
+        <Spinner
+            android:id="@+id/sp_area"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_weight="0"
+            android:background="@android:drawable/editbox_background"
+            android:ellipsize="none"
+            android:ems="10"
+            android:filterTouchesWhenObscured="true"
+            android:hapticFeedbackEnabled="true"
+            android:maxLines="100"
+            android:scrollHorizontally="false"
+            android:soundEffectsEnabled="true"
+            android:spinnerMode="dialog"
+            android:textColor="@color/blue"
+            android:textSize="22sp"
+            android:visibility="gone"
+            android:weightSum="1"
+            tools:ignore="UnusedAttribute" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/doc_lay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+
+        <TextView
+            android:id="@+id/division_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:hint="Division name"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp"
+            tools:ignore="RtlSymmetry" />
+
+
+        <TextView
+            android:id="@+id/zone_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:hint="Zone name"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp"
+            tools:ignore="RtlSymmetry" />
+
+
+        <TextView
+            android:id="@+id/region_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:hint="Region name"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp"
+
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/area_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:hint="Area name"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/ter_name"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:hint="Territory name"
+            android:paddingLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp"
+            tools:ignore="RtlSymmetry" />
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/mpoli"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/t1"
+                android:layout_width="0sp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="To Date"
+                android:textSize="15sp"
+                android:visibility="gone"
+                tools:ignore="RtlSymmetry" />
+
+            <LinearLayout
+                android:id="@+id/customerlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="48dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:hint="Type Doctor name "
+                    android:inputType="textPhonetic"
+                    android:textColor="#23283a"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/mpo"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="0"
+                android:background="@android:drawable/editbox_background"
+                android:ellipsize="none"
+                android:ems="10"
+                android:filterTouchesWhenObscured="true"
+                android:hapticFeedbackEnabled="true"
+                android:maxLines="100"
+                android:scrollHorizontally="false"
+                android:soundEffectsEnabled="true"
+                android:spinnerMode="dialog"
+                android:textColor="@color/blue"
+                android:textSize="22sp"
+                android:visibility="gone"
+                android:weightSum="2"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/t2"
+                android:layout_width="20sp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/editbox_background"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:selectAllOnFocus="true"
+                android:text="To Date"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgray"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/doc_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/doc_name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_person_outline"
+                android:ems="10"
+                android:enabled="true"
+                android:fontFamily="@font/acme"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:selectAllOnFocus="true"
+                android:text="Doctor Name"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp"
+                tools:ignore="RtlSymmetry" />
+
+
+            <TextView
+                android:id="@+id/doc_address"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_offer"
+                android:ems="10"
+                android:enabled="true"
+                android:fontFamily="@font/acme"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:paddingLeft="20dp"
+                android:selectAllOnFocus="true"
+                android:text="Doctor Details "
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp"
+                tools:ignore="RtlSymmetry" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/lightgray"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/conference_date"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_today_1"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:selectAllOnFocus="true"
+                android:text="Start Date"
+                android:textSize="@dimen/_8sdp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/conference_date2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_today_1"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:selectAllOnFocus="true"
+                android:text="End Date"
+                android:textSize="15sp"
+                tools:ignore="RtlSymmetry" />
+
+            <Button
+                android:id="@+id/submitBtn_2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="show"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!--- doctor detail layput end-->
+
+    <LinearLayout
+        android:id="@+id/mpo_am_report"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="12">
+
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/dcr_page_button"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/darkblue"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/lightgray"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="5dp">
+
+        <LinearLayout
+            android:id="@+id/slistLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/dcr_sl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:focusable="false"
+                android:fontFamily="@font/acme"
+                android:text="Service\nNo"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/ppm_pm_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Service\nmonth"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorAccentEditor"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/Rest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Request\nDate"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/am_pm_shift"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Service\nType"
+                android:textColor="@color/colorAccentEditor"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/mpo_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Service\nCost"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/v_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:text="Doc Code"
+                android:textColor="@color/bg_gradient_end"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ListView
+        android:id="@+id/pListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1px"
+        android:layout_weight="70.00"
+        android:background="@drawable/layout_background"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:focusable="true"></ListView>
+
+
+    <LinearLayout
+        android:id="@+id/lay_3"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_weight="1"
+        android:background="@color/bg_gradient_start"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/detail_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_2sdp"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:text="Service Status"
+            android:textColor="@color/ef_white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/lightgray"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="5dp">
+
+
+        <LinearLayout
+            android:id="@+id/l4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:focusable="false"
+                android:fontFamily="@font/acme"
+                android:text="MRD\nChecked"
+                android:textColor="@color/colorAccentEditor"
+                android:textSize="@dimen/_8sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Sales\nApproved Date"
+                android:textAlignment="gravity"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Payment\nApprove Date"
+                android:textColor="@color/colorAccentEditor"
+                android:textSize="@dimen/_8sdp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="MPO\nAckonowledge"
+                android:textColor="@color/vector_logo_color"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:clickable="false"
+                android:fontFamily="@font/acme"
+                android:text="Ackonowledge\nDate "
+                android:textColor="@color/deeppurple"
+                android:textSize="@dimen/_10sdp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ListView
+        android:id="@+id/pListView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25.00"
+        android:background="@drawable/layout_background"
+        android:clickable="true"
+        android:divider="@android:color/transparent"
+        android:focusable="true"></ListView>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>
