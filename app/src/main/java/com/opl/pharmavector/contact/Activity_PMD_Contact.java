@@ -71,20 +71,22 @@ public class Activity_PMD_Contact extends Activity {
     private Spinner spin_brand;
     private String brand_url = BASE_URL+"prescription_survey/get_brand.php";
     private String product_name,product_code,p_brand_code,mpo_code,selected_number,selected_person;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pmd_contact);
+
         initViews();
         progressBar.setVisibility(View.GONE);
         hideKeyBoard();
         new GetBrand().execute();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recyclerView.setAdapter(null);
                 getContact();
-
             }
         });
 
@@ -97,7 +99,6 @@ public class Activity_PMD_Contact extends Activity {
                     ViewDialog alert = new ViewDialog();
                     alert.showDialog();
                 }
-
             }
             @Override
             public void onLongClick(View view, int position) {
@@ -117,12 +118,9 @@ public class Activity_PMD_Contact extends Activity {
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
 
                 }
-
             }
         });
         actv.setOnTouchListener(new View.OnTouchListener() {
@@ -133,23 +131,18 @@ public class Activity_PMD_Contact extends Activity {
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     String first_split[] = inputorder.split("//");
@@ -160,19 +153,14 @@ public class Activity_PMD_Contact extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             private void length() {
-                // TODO Auto-generated method stub
 
             }
-
-
         });
-
-
     }
+
     @SuppressLint("SetTextI18n")
     public void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -193,7 +181,6 @@ public class Activity_PMD_Contact extends Activity {
         Bundle b=new Bundle();
         mpo_code=b.getString("UserName");
         //Log.e("MPO Code---->",mpo_code);
-
     }
 
     class GetBrand extends AsyncTask<Void, Void, Void> {
@@ -201,6 +188,7 @@ public class Activity_PMD_Contact extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -251,40 +239,33 @@ public class Activity_PMD_Contact extends Activity {
         p_brand_code       = actv.getText().toString().trim();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ArrayList<RecyclerData>> call = apiInterface.getcontactinfo("mpo_code", product_code);
-        Log.e("Brand Code---->",product_code);
+        Log.e("Brand Code---->", product_code);
+
         call.enqueue(new Callback<ArrayList<RecyclerData>>() {
             @Override
             public void onResponse(Call<ArrayList<RecyclerData>> call, Response<ArrayList<RecyclerData>> response) {
-
                 if (response.isSuccessful()) {
                     recyclerDataArrayList = response.body();
                     Log.e("DATA-- : ", String.valueOf(recyclerDataArrayList));
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
                         recyclerViewAdapter = new contact_adapter(Activity_PMD_Contact.this,recyclerDataArrayList);
-
-                        LinearLayoutManager manager = new LinearLayoutManager(Activity_PMD_Contact.this, LinearLayoutManager.VERTICAL, true);
-
+                        LinearLayoutManager manager = new LinearLayoutManager(Activity_PMD_Contact.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(manager);
-
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<RecyclerData>> call, Throwable t) {
-                Log.e("Data load problem--->", "Failed to Retrived Data For-- "+ t);
-                Toast toast =Toast.makeText(getBaseContext(),"Failed to Retrived Data ",Toast.LENGTH_SHORT);
+                Log.e("Data load problem--->", "Failed to Retrieved Data -- "+ t);
+                Toast toast =Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
     }
 
-
-
     public class ViewDialog {
-
         public void showDialog( ){
-
             final Dialog dialog = new Dialog(Activity_PMD_Contact.this);
 
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

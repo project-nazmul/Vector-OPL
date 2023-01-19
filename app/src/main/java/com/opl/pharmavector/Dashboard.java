@@ -111,7 +111,6 @@ import com.opl.pharmavector.util.PreferenceManager;
 import com.squareup.picasso.Picasso;
 
 public class Dashboard extends Activity implements View.OnClickListener {
-
     public String userName_1, userName, userName_2, UserName_2,global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -149,7 +148,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private ProgressDialog pDialog;
     private String log_status ="A";
     private String vector_version;
-
     double fetchedlang,fetchedlat;
 
     Context context;
@@ -175,21 +173,16 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     LocationManager locationManager;
 
-
-
-
-
     public static Dashboard getInstance() {
         return instance;
     }
 
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.O)
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
+
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initViews();
         preferenceManager = new PreferenceManager(this);
@@ -1882,20 +1875,15 @@ public class Dashboard extends Activity implements View.OnClickListener {
         tv_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
         });
-
     }
 
     private void pmdContact() {
-
         cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -1904,12 +1892,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
 
         img_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -1919,46 +1905,39 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
             }
         });
+
         btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("new_version", Login.version);
                 i.putExtra("message_3", message_3);
                 startActivity(i);
-
             }
         });
+
         tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("new_version", Login.version);
                 i.putExtra("message_3", message_3);
                 startActivity(i);
-
             }
         });
-
-
     }
 
     private void vectorFeedback() {
-
         btn_vector_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1978,23 +1957,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
             }
         });
-
     }
-
-
 
     private void mrcExamEvent() {
         practiceCard5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                // new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
