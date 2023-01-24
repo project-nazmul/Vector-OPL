@@ -1,216 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eeef"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:weightSum="100"
-        tools:context=".pmdVector.sales_4p.Activity_4p_Sales"
-        android:id="@+id/ff_contact_layout">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ff_contact_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeef"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:weightSum="100"
+    tools:context=".pmdVector.sales_4p.Activity_4p_Sales">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview4"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:id="@+id/layout4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="7"
-                android:gravity="center"
-                android:background="#80D8FF"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="2">
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/mspinner1"
-                    android:layout_width="0dp"
-                    android:layout_height="57dp"
-                    android:layout_weight="1"
-                    app:ms_hint="Select Month"
-                    app:ms_hint_color="@color/colorAccentEditor"
-                    app:ms_text_color="@color/colorAccentEditor" />
-
-                <View
-                    android:layout_width="5dp"
-                    android:layout_height="match_parent" />
-
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/mspinner2"
-                    android:layout_width="0dp"
-                    android:layout_height="57dp"
-                    android:layout_weight="1"
-                    app:ms_hint="Cycle"
-                    app:ms_hint_color="@color/colorAccentEditor"
-                    app:ms_text_color="@color/colorAccentEditor" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingRight="@dimen/_10sdp">
-
-            <Button
-                android:id="@+id/backbt"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/dcr_page_button"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="Back"
-                android:textColor="#FFF"
-                android:textSize="@dimen/_5sdp"
-                android:layout_alignParentLeft="true"
-                tools:ignore="HardcodedText,UnusedAttribute" />
-
-            <Button
-                android:id="@+id/submitBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/submit_btton_selector"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:soundEffectsEnabled="true"
-                android:text="show"
-                android:textColor="#FFF"
-                android:textSize="@dimen/_5sdp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,UnusedAttribute" />
-        </RelativeLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_2sdp"
-            android:fontFamily="@font/acme"
-            card_view:cardCornerRadius="2dp"
-            card_view:contentPadding="4dp"
-            android:id="@+id/cardview_title">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/acme"
-                android:background="#FFFF8D">
-
-                <TextView
-                    android:id="@+id/txt_col1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:text="Brand"
-                    android:textSize="12dp"
-                    android:textAlignment="center"
-                    android:textColor="#E91E63" />
-                <TextView
-                    android:id="@+id/txt_col2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.3"
-                    android:gravity="left"
-                    android:textColor="#4CAF50"
-                    android:textSize="12dp"
-                    android:text="Field Force Name" />
-                <TextView
-                    android:id="@+id/txt_col3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
-                    android:gravity="left"
-                    android:textColor="#FF5722"
-                    android:textSize="12dp"
-                    android:text="Employee name" />
-                <TextView
-                    android:id="@+id/txt_col4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
-                    android:textAlignment="center"
-                    android:textColor="#3F51B5"
-                    android:textSize="12dp"
-                    android:text="Contact no." />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview_title"
-            android:background="@android:color/white"
-            android:divider="@android:color/transparent"
-            android:padding="4dp"
-            android:scrollbars="vertical">
-        </androidx.recyclerview.widget.RecyclerView>
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardview4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="4dp"
+            android:id="@+id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#80D8FF"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/mspinner1"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                app:ms_hint="Select Month"
+                app:ms_hint_color="@color/colorAccentEditor"
+                app:ms_text_color="@color/colorAccentEditor" />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/mspinner2"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                app:ms_hint="Cycle"
+                app:ms_hint_color="@color/colorAccentEditor"
+                app:ms_text_color="@color/colorAccentEditor" />
+        </LinearLayout>
+
+            <AutoCompleteTextView
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/_32sdp"
+                android:id="@+id/autoBrandName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_24sdp"
+                android:background="@drawable/autocomplete_background"
+                android:drawableStart="@drawable/ic_medicine"
+                android:ems="0"
+                android:hint="Select Brand"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:textAlignment="center"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp">
+
+        <Button
+            android:id="@+id/backbt"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="Back"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_5sdp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_5sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_2sdp"
         android:fontFamily="@font/acme"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="4dp"
-        android:id="@+id/cardview_title_2">
+        card_view:contentPadding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/acme"
-            android:background="#B9F6CA">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Brand"
-                android:textSize="12dp"
-                android:textAlignment="center"
-                android:textColor="#E91E63" />
+            android:background="#FFFF8D"
+            android:fontFamily="@font/acme">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.3"
+                android:text="Brand"
+                android:textAlignment="textStart"
+                android:textColor="#E91E63"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="left"
+                android:text="Value Share"
                 android:textColor="#4CAF50"
-                android:textSize="12dp"
-                android:text="Field Force Name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
-                android:gravity="left"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Rank (Value)"
                 android:textColor="#FF5722"
-                android:textSize="12dp"
-                android:text="Employee name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
+                android:text="Unite Share"
                 android:textAlignment="center"
                 android:textColor="#3F51B5"
-                android:textSize="12dp"
-                android:text="Contact no." />
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rank (Unite)"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Brandwise"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Regionwise"
+                android:textAlignment="textEnd"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/brandRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/cardview_title"
+        android:background="@android:color/white"
+        android:divider="@android:color/transparent"
+        android:padding="4dp"
+        android:scrollbars="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_title_2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_2sdp"
+        android:fontFamily="@font/acme"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B9F6CA"
+            android:fontFamily="@font/acme">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.3"
+                android:text="Company Name"
+                android:textAlignment="textStart"
+                android:textColor="#E91E63"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="left"
+                android:text="Brand Name"
+                android:textColor="#4CAF50"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Value Share"
+                android:textColor="#FF5722"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rank"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Unite Share"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rank"
+                android:textAlignment="textEnd"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -218,60 +290,110 @@
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
         android:padding="4dp"
-        android:scrollbars="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/cardview_title3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_2sdp"
         android:fontFamily="@font/acme"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="4dp"
-        android:id="@+id/cardview_title3">
+        card_view:contentPadding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/acme"
-            android:background="#6FC0A5F1">
+            android:background="#6FC0A5F1"
+            android:fontFamily="@font/acme">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Brand"
-                android:textSize="12dp"
-                android:textAlignment="center"
-                android:textColor="#E91E63" />
+                android:layout_weight="1"
+                android:text="Region Name"
+                android:textAlignment="textStart"
+                android:textColor="#E91E63"
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.3"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
                 android:gravity="left"
+                android:text="OPL Brand"
                 android:textColor="#4CAF50"
-                android:textSize="12dp"
-                android:text="Field Force Name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
+                android:layout_weight="0.5"
                 android:gravity="left"
+                android:text="Share"
                 android:textColor="#FF5722"
-                android:textSize="12dp"
-                android:text="Employee name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
+                android:text="Competitor 1"
                 android:textAlignment="center"
                 android:textColor="#3F51B5"
-                android:textSize="12dp"
-                android:text="Contact no." />
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Competitor 2"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Competitor 3"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="textEnd"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recyclerView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -279,60 +401,110 @@
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
         android:padding="4dp"
-        android:scrollbars="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/cardview_title4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_2sdp"
         android:fontFamily="@font/acme"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="4dp"
-        android:id="@+id/cardview_title4">
+        card_view:contentPadding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/acme"
-            android:background="#FF80AB">
+            android:background="#6FC0A5F1"
+            android:fontFamily="@font/acme">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Brand"
-                android:textSize="12dp"
-                android:textAlignment="center"
-                android:textColor="#E91E63" />
+                android:layout_weight="1"
+                android:text="Region Name"
+                android:textAlignment="textStart"
+                android:textColor="#E91E63"
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.3"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
                 android:gravity="left"
+                android:text="OPL Brand"
                 android:textColor="#4CAF50"
-                android:textSize="12dp"
-                android:text="Field Force Name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
+                android:layout_weight="0.5"
                 android:gravity="left"
+                android:text="Share"
                 android:textColor="#FF5722"
-                android:textSize="12dp"
-                android:text="Employee name" />
+                android:textSize="12dp" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
+                android:text="Competitor 1"
                 android:textAlignment="center"
                 android:textColor="#3F51B5"
-                android:textSize="12dp"
-                android:text="Contact no." />
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Competitor 2"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Competitor 3"
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Share"
+                android:textAlignment="textEnd"
+                android:textColor="#3F51B5"
+                android:textSize="12dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recyclerView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -340,7 +512,6 @@
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
         android:padding="4dp"
-        android:scrollbars="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
 

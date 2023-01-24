@@ -5,10 +5,13 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.44351851851851853" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/drawable-hdpi/active.xml" value="0.1795" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/drawable/autocomplete_background.xml" value="0.1555" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/drawable/selector_spinner.xml" value="0.1555" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/drawable/spinner_background.xml" value="0.1555" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" value="0.33" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/activity_rx_report.xml" value="0.398711943793911" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-large-land/activity_pmd_notice_board.xml" value="0.398711943793911" />
-        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_4p_sales.xml" value="0.53203125" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_4p_sales.xml" value="0.67" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_dashboardpmd.xml" value="1.0479651162790697" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_pmd_contact.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_promo_material_followup.xml" value="0.2552473763118441" />
@@ -18,10 +21,12 @@
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_vector_gm_dashboard.xml" value="0.5" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_vector_mpo_dashboard.xml" value="0.75" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/activity_vector_rm_dashboard.xml" value="1.41875" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/adapter_promomat_row.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/admin_product_list.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/adminreportdashboard.xml" value="0.33" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/amdccfollowup.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/amtargetquantity.xml" value="0.53203125" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/brand_data_row.xml" value="0.2552473763118441" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/brandwisesale.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/brandwisesaleadapter.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/chemistgiftorder.xml" value="0.53203125" />
@@ -36,6 +41,7 @@
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/productorder.xml" value="0.33" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/readcomments_new.xml" value="0.2552473763118441" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/scroll.xml" value="0.53203125" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/spinner_text_view.xml" value="0.53203125" />
         <entry key="..\:/Onik/vector-48/vector/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" value="0.55" />
         <entry key="..\:/Onik/vector-48/vector/SALEMATRIX/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" value="0.41217798594847777" />
         <entry key="..\:/Vector/vector-48/vector/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" value="0.27487864077669905" />

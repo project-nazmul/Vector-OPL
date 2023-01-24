@@ -2,7 +2,9 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
+import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.pmdVector.model.RXModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
@@ -13,6 +15,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @FormUrlEncoded
@@ -204,6 +207,16 @@ public interface ApiInterface {
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();
 
+    @GET("pmd_vector/sales_4p/get_brandwise_data.php")
+    Call<BrandModel> getBrandWiseList(@Query("mnyr") String param);
+
+    @GET("pmd_vector/sales_4p/get_companywise_brand.php")
+    Call<BrandModel> getCompanyWiseList(@Query("mnyr") String mnyr, @Query("brand") String brand);
+
+    @FormUrlEncoded
+    @POST("pmd_vector/get_brandList.php")
+    Call<ProductModel> getProductBrandList(@Field("manager_code") String manager_code);
+
     @FormUrlEncoded
     @POST("prescription_survey/loadimage.php")
     Call<List<MovieModel>> getMovies(
@@ -225,6 +238,7 @@ public interface ApiInterface {
             @Field("manager_code") String manager_code,
             @Field("user_code") String user_code
     );
+
     @FormUrlEncoded
     @POST("prescription_survey/loadmpoimage.php")
     Call<List<MovieModel>> loadmpoimage(

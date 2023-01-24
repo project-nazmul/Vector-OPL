@@ -1,11 +1,9 @@
 package com.opl.pharmavector.promomat.model;
 
-
 import com.google.gson.annotations.SerializedName;
 import com.opl.pharmavector.R;
 
-public class Promo
-{
+public class Promo {
     @SerializedName("serial")
     public String serial;
 

@@ -14,14 +14,9 @@ import android.view.ViewGroup;
 import java.util.HashSet;
 import java.util.List;
 
-
-public class FixedGridLayoutManager extends RecyclerView.LayoutManager
-{
-
+public class FixedGridLayoutManager extends RecyclerView.LayoutManager {
     private static final String TAG = FixedGridLayoutManager.class.getSimpleName();
-
     private static final int DEFAULT_COUNT = 1;
-
     /* View Removal Constants */
     private static final int REMOVE_VISIBLE = 0;
     private static final int REMOVE_INVISIBLE = 1;
@@ -48,13 +43,11 @@ public class FixedGridLayoutManager extends RecyclerView.LayoutManager
     private int mFirstChangedPosition;
     private int mChangedPositionCount;
 
-
     public void setTotalColumnCount(int count)
     {
         mTotalColumnCount = count;
         requestLayout();
     }
-
 
     @Override
     public boolean supportsPredictiveItemAnimations()
@@ -68,7 +61,6 @@ public class FixedGridLayoutManager extends RecyclerView.LayoutManager
         mFirstChangedPosition = positionStart;
         mChangedPositionCount = itemCount;
     }
-
 
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state)

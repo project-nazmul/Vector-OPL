@@ -1,7 +1,6 @@
 package com.opl.pharmavector.pmdVector.adapter;
 
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 
@@ -30,7 +29,6 @@ import java.text.MessageFormat;
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
     @SuppressLint("StaticFieldLeak")
@@ -59,7 +57,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
             isLoading = true;
             loadMoreListener.onLoadMore();
@@ -85,7 +82,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return movies.size();
     }
 
-
     static class MovieHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvRating,tvbrandcount;
@@ -103,17 +99,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         void bindData(RXModel movieModel) {
-
-
             if (movieModel.title.length()>19){
                 tvTitle.setText(MessageFormat.format("Image source:\t\t{0}", movieModel.title));
                 tvTitle.setTextColor(Color.rgb(153, 0, 0));
-            }else{
+            } else {
                 tvTitle.setText(MessageFormat.format("Capture time:\t\t\t{0}", movieModel.title));
                 tvTitle.setTextColor(Color.rgb(0, 0, 153));
                 tvTitle.setTypeface(null, Typeface.BOLD);
             }
-
             tvRating.setText(MessageFormat.format("Mpo code:\t {0}", movieModel.rating));
             tvbrandcount.setText(MessageFormat.format(" Brand:\t {0}", movieModel.brandcount));
 
@@ -125,8 +118,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .load(doctor_image)
                     .apply(requestOptions)
                     .into(mPicture);
-
-
         }
     }
 
@@ -140,7 +131,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         isMoreDataAvailable = moreDataAvailable;
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
     public void notifyDataChanged() {
         notifyDataSetChanged();
@@ -150,7 +140,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void loadDestroy() {
         isLoading = false;
     }
-
 
     public interface OnLoadMoreListener {
         void onLoadMore();

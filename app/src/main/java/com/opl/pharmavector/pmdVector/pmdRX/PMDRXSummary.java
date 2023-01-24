@@ -67,9 +67,7 @@ import me.srodrigo.androidhintspinner.HintSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
 public class PMDRXSummary extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
@@ -123,22 +121,17 @@ public class PMDRXSummary extends Activity implements OnClickListener {
     private final String URL_LIST = BASE_URL+"pmd_vector/pmd_rx/get_List.php";
     private final String URL_BRAND = BASE_URL+"pmd_vector/pmd_rx/get_brandList.php";
 
-
-
     private HintSpinner<User> userHintSpinner;
     private List<User> users;
     String passed_manager_code;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_report);
 
         manager_code = DashBoardPMD.pmd_loccode;
         manager_detail = DashBoardPMD.pmd_type;
         passed_manager_code = manager_code;
-
-
 
         initViews();
         initCalender();
@@ -236,12 +229,9 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             cardview4.setVisibility(View.GONE);
             initTypeHintSpinner();
         }
-
-
     }
 
     private void initUserHintSpinner() {
-
         MaterialSpinner mspinner = findViewById(R.id.mspinner);
         mspinner.setItems("National", "Division", "Zone", "Region", "Area", "Territory");
 
@@ -265,7 +255,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                    new GetCategories().execute();
                     postPrescriptionCount();
                     postSubTotal();
-
                 } else {
                     actv_rm.setText("");
                     actv_brand_name.setText("");
@@ -274,18 +263,14 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 }
             }
         });
-
-
     }
 
     private void initTypeHintSpinner() {
-
         MaterialSpinner mspinner2 = findViewById(R.id.mspinner2);
         mspinner2.setItems("All", "Regular", "Special", "Brand Loyalty");
 
         mspinner2.setVisibility(View.GONE);
         mspinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar snackbar = Snackbar.make(view, "Prescription Type: " + item, Snackbar.LENGTH_LONG)
@@ -306,22 +291,15 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 }
             }
         });
-
-
     }
-
 
     private void paraMeterCheck() {
-
         new GetList().execute();
         new GetBrandList().execute();
-
     }
-
 
     @SuppressLint("SimpleDateFormat")
     private void initCalender() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
@@ -392,8 +370,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
     }
 
     private void autoCompleteEvents() {
-
-
         actv_brand_name.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -409,7 +385,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             }
         });
         actv_brand_name.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -428,7 +403,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             public void afterTextChanged(final Editable s) {
                 // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
                     if (inputorder.indexOf("//") != -1) {
@@ -438,24 +412,18 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                         brand_code = first_split[1].trim();
                         actv_brand_name.setText(brand_name);
                         KeyboardUtils.hideKeyboard(PMDRXSummary.this);
-
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             private void length() {
-                // TODO Auto-generated method stub
 
             }
-
         });
-
 
         actv_rm.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -545,7 +513,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             }
         });
         submitBtn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(final View v) {
                 try {
@@ -566,12 +533,10 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                         if (actv_brand_name.getText().toString() == null || actv_brand_name.getText().toString().equals("")) {
                             brand_code = "xx";
                         }
-
                         categoriesList.clear();
                         new GetCategories().execute();
                         postPrescriptionCount();
                         postSubTotal();
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -593,7 +558,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
     }
 
     public void postPrescriptionCount() {
-
         if (actv_brand_name.getText().toString().equals("")) {
             brand_code = "xx";
         }
@@ -602,7 +566,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         Call<List<Patient>> call = apiInterface.pmd_prescriptioncount(passed_manager_code, brand_code, fromdate.getText().toString(),
                 todate.getText().toString(), pres_type,DashBoardPMD.pmd_loccode);
         Log.e("postPrescriptionCount", passed_manager_code+"----"+brand_code+"---"+DashBoardPMD.pmd_loccode);
-
 
         call.enqueue(new Callback<List<Patient>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -768,7 +731,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", passed_manager_code));
             params.add(new BasicNameValuePair("to_date", todate1));
@@ -921,11 +883,9 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             super.onPostExecute(result);
             populateSpinnerRM();
         }
-
     }
 
     private void populatebrandSpinner() {
-
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < departmentlist.size(); i++) {
             lables.add(departmentlist.get(i).getName());
@@ -937,7 +897,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         actv_brand_name.setThreshold(2);
         actv_brand_name.setAdapter(Adapter);
         actv_brand_name.setTextColor(Color.BLUE);
-
     }
 
     class GetBrandList extends AsyncTask<Void, Void, Void> {
@@ -963,15 +922,12 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
                         departmentlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -983,21 +939,16 @@ public class PMDRXSummary extends Activity implements OnClickListener {
 
     }
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(PMDRXSummary.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

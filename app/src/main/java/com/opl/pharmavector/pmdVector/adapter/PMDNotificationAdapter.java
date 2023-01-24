@@ -1,8 +1,6 @@
 package com.opl.pharmavector.pmdVector.adapter;
 //PMDNotificationAdapter
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,10 +31,8 @@ import com.opl.pharmavector.NoticeBoard;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.pmdVector.utils.PMDNotification;
 
-
 @SuppressLint("ViewHolder")
 public class PMDNotificationAdapter extends BaseAdapter implements Filterable {
-
     Context mContext;
     ArrayList<String> p_names;
     ArrayList<String> sl;

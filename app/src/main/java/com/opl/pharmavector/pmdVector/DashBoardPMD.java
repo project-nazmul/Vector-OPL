@@ -84,39 +84,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class DashBoardPMD extends Activity implements View.OnClickListener{
-
-    TextView executive_name,executive_code,executive_loc;
+public class DashBoardPMD extends Activity implements View.OnClickListener {
+    TextView executive_name, executive_code, executive_loc;
     Bundle b;
-    public static String pmd_name,pmd_loc,pmd_loccode,pmd_locpass,pmd_type,pmd_code;
+    public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
 
-    public String base_url =  ApiClient.BASE_URL+"pmd_vector/pmd_images/";
-    CardView practiceCard2,cardview_sales_reports, cardview_ff_contact,cardview_4p_sales;
+    public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
+    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales;
 
-    ImageButton img_btn_rx,img_btn_sales_reports,img_btn_ff_contact,img_btn_4p_sales;
+    ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
 
-    TextView tv_sales_reports,tv_ff_contact,tv_4p_sales;
+    TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
 
-    Button btn_sales_reports,btn_ff_contact,btn_4p_sales;
+    Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
 
     public static String profile_image;
     PreferenceManager preferenceManager;
     int count;
-    public static String track_lat, vector_version,track_lang, track_add,build_model,build_brand,build_manufac,build_id,build_device,build_version;
+    public static String track_lat, vector_version, track_lang, track_add, build_model, build_brand, build_manufac, build_id, build_device, build_version;
     static DashBoardPMD instance;
-    public static String vectorToken="xxxx";
+    public static String vectorToken = "xxxx";
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private String log_status ="P";
-    double fetchedlang,fetchedlat;
+    private String log_status = "P";
+    double fetchedlang, fetchedlat;
     Context context;
     private DatabaseHandler db;
     BroadcastReceiver updateUIReciver;
     CardView practiceCard1;
-    Button logout,btn_dashboard_1,btn_dashboard_2;
+    Button logout, btn_dashboard_1, btn_dashboard_2;
     ImageButton img_btn_notice;
 
     public static DashBoardPMD getInstance() {
@@ -127,101 +125,96 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboardpmd);
+        preferenceManager = new PreferenceManager(this);
+        count = preferenceManager.getTasbihCounter();
+        initViews();
+        firebaseEvent();
+        getDevicedetails();
+        rxEvent();
+        notificationEvent();
+        sales_reports();
+        FF_Contact_Event();
+        Sales_4p_Event();
+        instance = this;
 
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_dashboardpmd);
-            preferenceManager = new PreferenceManager(this);
-            count = preferenceManager.getTasbihCounter();
-            initViews();
-            firebaseEvent();
-            getDevicedetails();
-            rxEvent();
-            notificationEvent();
-            sales_reports();
-            FF_Contact_Event();
-            Sales_4p_Event();
-            instance = this;
-
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
-                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                        checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    ){
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
-                        builder.setTitle("App Require Location");
-                        builder.setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running");
-                        builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            ) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
+                builder.setTitle("App Require Location");
+                builder.setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running");
+                builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         Thread server = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                            dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
-                        else {
-                            dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
-                        }
-                        }
+                            @Override
+                            public void run() {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                                    dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                else {
+                                    dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                }
+                            }
                         });
                         server.start();
-                        }
-                        });
-                        builder.setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                         preferenceManager.clearPreferences();
                         count = 0;
                         Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
                         startActivity(logoutIntent);
                         finish();
 
-                        }
-                        });
-                        builder.show();
                     }
-
-
+                });
+                builder.show();
             }
 
-            logout.setOnClickListener(new View.OnClickListener() {
+
+        }
+
+        logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
-            builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Thread server = new Thread(new Runnable() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
+                builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
-                            public void run() {
-                                log_status = "N";
-                                preferenceManager.clearPreferences();
-                                count = 0;
-                               // unregisterReceiver(updateUIReciver);
-                                Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
-                                startActivity(logoutIntent);
-                                finish();
+                            public void onClick(DialogInterface dialog, int which) {
+                                Thread server = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        log_status = "N";
+                                        preferenceManager.clearPreferences();
+                                        count = 0;
+                                        // unregisterReceiver(updateUIReciver);
+                                        Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
+                                        startActivity(logoutIntent);
+                                        finish();
+                                    }
+                                });
+                                server.start();
                             }
-                        });
-                        server.start();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .show();
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
 
             }
 
-            });
+        });
 
-            initBroadcastReceiver();
-            registerReceiver(updateUIReciver,new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
+        initBroadcastReceiver();
+        registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
 
     }
 
@@ -320,8 +313,8 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
 
                             } else {
                                 Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
-                               // i.putExtra("UserName", DashBoardPMD.pmd_loccode);
-                               // i.putExtra("UserName_2", DashBoardPMD.pmd_code);
+                                // i.putExtra("UserName", DashBoardPMD.pmd_loccode);
+                                // i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -502,6 +495,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         });
 
     }
+
     private void initBroadcastReceiver() {
         updateUIReciver = new BroadcastReceiver() {
             @Override
@@ -512,7 +506,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
                 fetchedlat = Double.parseDouble(parselat);
                 track_lang = parselang;
                 track_lat = parselat;
-                getAddress(fetchedlat,fetchedlang);
+                getAddress(fetchedlat, fetchedlang);
                 userLog(log_status);
             }
         };
@@ -526,43 +520,43 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         executive_loc = findViewById(R.id.executive_loc);
         imageView2 = findViewById(R.id.imageView2);
         logout = findViewById(R.id.logout);
-        btn_dashboard_1= findViewById(R.id.btn_dashboard_1);
-        btn_dashboard_2= findViewById(R.id.btn_dashboard_2);
+        btn_dashboard_1 = findViewById(R.id.btn_dashboard_1);
+        btn_dashboard_2 = findViewById(R.id.btn_dashboard_2);
 
-        img_btn_rx= findViewById(R.id.img_btn_rx);
-        img_btn_notice= findViewById(R.id.img_btn_notice);
+        img_btn_rx = findViewById(R.id.img_btn_rx);
+        img_btn_notice = findViewById(R.id.img_btn_notice);
 
 
         practiceCard1 = findViewById(R.id.practiceCard1);
         practiceCard2 = findViewById(R.id.practiceCard2);
 
-        btn_sales_reports       = findViewById(R.id.btn_sales_reports);
-        img_btn_sales_reports  = findViewById(R.id.img_btn_sales_reports);
-        tv_sales_reports       = findViewById(R.id.tv_sales_reports);
-        cardview_sales_reports  = findViewById(R.id.cardview_sales_reports);
+        btn_sales_reports = findViewById(R.id.btn_sales_reports);
+        img_btn_sales_reports = findViewById(R.id.img_btn_sales_reports);
+        tv_sales_reports = findViewById(R.id.tv_sales_reports);
+        cardview_sales_reports = findViewById(R.id.cardview_sales_reports);
 
-        btn_4p_sales       = findViewById(R.id.btn_4p_sales);
-        img_btn_4p_sales  = findViewById(R.id.img_btn_4p_sales);
-        tv_4p_sales       = findViewById(R.id.tv_4p_sales);
-        cardview_4p_sales  = findViewById(R.id.cardview_4p_sales);
+        btn_4p_sales = findViewById(R.id.btn_4p_sales);
+        img_btn_4p_sales = findViewById(R.id.img_btn_4p_sales);
+        tv_4p_sales = findViewById(R.id.tv_4p_sales);
+        cardview_4p_sales = findViewById(R.id.cardview_4p_sales);
 
-        btn_ff_contact       = findViewById(R.id.btn_ff_contact);
-        img_btn_ff_contact  = findViewById(R.id.img_btn_ff_contact);
-        tv_ff_contact       = findViewById(R.id.tv_ff_contact);
-        cardview_ff_contact  = findViewById(R.id.cardview_ff_contact);
+        btn_ff_contact = findViewById(R.id.btn_ff_contact);
+        img_btn_ff_contact = findViewById(R.id.img_btn_ff_contact);
+        tv_ff_contact = findViewById(R.id.tv_ff_contact);
+        cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
 
         b = getIntent().getExtras();
         assert b != null;
         pmd_code = b.getString("executive_code");
         pmd_name = b.getString("executive_name");
-        pmd_loc  = b.getString("executive_loc");
+        pmd_loc = b.getString("executive_loc");
         pmd_loccode = b.getString("executive_loccode");
         pmd_locpass = b.getString("executive_locpass");
         pmd_type = b.getString("executive_type");
         executive_code.setText(pmd_code);
         executive_name.setText(pmd_name);
         executive_loc.setText(pmd_loc);
-        profile_image= base_url+pmd_code+"."+"jpg" ;
+        profile_image = base_url + pmd_code + "." + "jpg";
         vector_version = getString(R.string.vector_version);
         Picasso.get()
                 .load(profile_image)
@@ -591,7 +585,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
                 Intent i = new Intent(DashBoardPMD.this, ImageLoadActivity.class);
                 startActivity(i);
                 //Toast.makeText(getApplicationContext(), "layout_rx_image is Clicked ", Toast.LENGTH_LONG).show();
-               // bottomSheetDialog.dismiss();
+                // bottomSheetDialog.dismiss();
             }
         });
 
@@ -606,12 +600,12 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
 
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
-               // Toast.makeText(getApplicationContext(), "layout_rx_report_b is Clicked ", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "layout_rx_report_b is Clicked ", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(DashBoardPMD.this, PMDRXSummary2.class);
                 startActivity(i);
-               // bottomSheetDialog.dismiss();
+                // bottomSheetDialog.dismiss();
 
             }
         });
@@ -619,7 +613,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-               // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -656,11 +650,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
     }
 
 
-
-
-
-
-
     public void getAddress(double lat, double lng) {
         Geocoder geocoder = new Geocoder(DashBoardPMD.this, Locale.getDefault());
         try {
@@ -672,7 +661,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
             track_add = obj.getAddressLine(0);
             track_add = track_add + "\n" + obj.getCountryName();
             track_add = track_add + "\n" + obj.getCountryCode();
-            Log.e("address-->",track_add);
+            Log.e("address-->", track_add);
             userLog(log_status);
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -685,7 +674,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         build_version = Build.VERSION.RELEASE;
         build_model = Build.MODEL;
         build_device = Build.DEVICE;
-        build_brand =Build.BRAND;
+        build_brand = Build.BRAND;
         build_id = Build.ID;
     }
 
@@ -695,7 +684,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 vectorToken = instanceIdResult.getToken();
-                Log.e("vectorToken-->",vectorToken);
+                Log.e("vectorToken-->", vectorToken);
             }
         });
 
@@ -707,7 +696,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
                         if (!task.isSuccessful()) {
                             msg = getString(R.string.msg_subscribe_failed);
                         }
-                       // Log.d(TAG, msg);
+                        // Log.d(TAG, msg);
                     }
                 });
 
@@ -728,20 +717,19 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
     private void userLog(final String key) {
 
 
-
-
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key,vector_version,vectorToken, String.valueOf(fetchedlat),String.valueOf(fetchedlang),
-                build_model,build_brand,pmd_loccode,track_add);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, String.valueOf(fetchedlat), String.valueOf(fetchedlang),
+                build_model, build_brand, pmd_loccode, track_add);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
                 assert response.body() != null;
-                int success           = response.body().getSuccess();
-                String message        = response.body().getMassage();
-                Log.e("serverResponse->",message);
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+                Log.e("serverResponse->", message);
 
             }
+
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
 
@@ -749,50 +737,49 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         });
     }
 
-    private void dexterPermission(Context context,String... permissions) {
+    private void dexterPermission(Context context, String... permissions) {
         Dexter.withContext(this)
                 .withPermissions(permissions).withListener(new MultiplePermissionsListener() {
-            @Override
-            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                if (!report.areAllPermissionsGranted()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
-                    builder.setTitle("App Require Location").setMessage("All permission must be Granted")
-                            .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Thread server = new Thread(new Runnable() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (!report.areAllPermissionsGranted()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
+                            builder.setTitle("App Require Location").setMessage("All permission must be Granted")
+                                    .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                                         @Override
-                                        public void run() {
-                                            dexterPermission(DashBoardPMD.this);
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Thread server = new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dexterPermission(DashBoardPMD.this);
+                                                }
+                                            });
+                                            server.start();
                                         }
-                                    });
-                                    server.start();
-                                }
-                            })
-                            .setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    preferenceManager.clearPreferences();
-                                    count = 0;
-                                    Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
-                                    startActivity(logoutIntent);
-                                    finish();
+                                    })
+                                    .setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            preferenceManager.clearPreferences();
+                                            count = 0;
+                                            Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
+                                            startActivity(logoutIntent);
+                                            finish();
 
-                                }
-                            })
-                            .show();
-                }
-                else{
-                    updateLocation();
-                }
-            }
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                            updateLocation();
+                        }
+                    }
 
-            @Override
-            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
 
-            }
+                    }
 
-        }).check();
+                }).check();
 
 
     }
@@ -807,7 +794,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
-        registerReceiver(updateUIReciver,new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
+        registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
 
         NotificationUtils.clearNotifications(getApplicationContext());
         preferenceManager.setTasbihCounter(count);
@@ -857,6 +844,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener{
         updateLocation();
         super.onStop();
     }
+
     private void sales_reports() {
 
         cardview_sales_reports.setOnClickListener(new View.OnClickListener() {

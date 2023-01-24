@@ -183,7 +183,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
 
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        // this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -222,7 +222,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -249,14 +248,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                             }
                         })
                         .show();
-
             }
-
         });
 
         instance = this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
                 checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
@@ -302,14 +298,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
         autoLogout();
         TeamLogo();
         userLogIn();
-
     }
 
     private void TeamLogo() {
-
         String team = ff_type;
         team_logo = ApiClient.BASE_URL+"team_logo/" ;
-
 
         switch (team) {
             case "G":
@@ -335,7 +328,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
-
                 break;
             case "C":
                 logo_image = team_logo+"g"+"."+"png";
@@ -344,12 +336,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         .into(logo_team);
                 break;
         }
-
-
     }
 
     private void autoLogout() {
-
         if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")){
             log_status = "N";
             preferenceManager.clearPreferences();
@@ -358,20 +347,16 @@ public class Dashboard extends Activity implements View.OnClickListener {
             startActivity(logoutIntent);
             finish();
         }
-
     }
-    
 
     @SuppressLint("CutPasteId")
     private void initViews(){
-
         logout= findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4= findViewById(R.id.t4);
         t5= findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team =findViewById(R.id.logo_team);
-
 
         btn_productorder     = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -388,7 +373,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         tv_dcc         = findViewById(R.id.tv_dcc);
         practiceCard2  = findViewById(R.id.practiceCard2);
 
-
         btn_docservice       = findViewById(R.id.btn_docservice);
         img_btn_docservice   = findViewById(R.id.img_btn_docservice);
         tv_docservice        = findViewById(R.id.tv_docservice);
@@ -398,7 +382,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         img_btn_docgiftfeedback   = findViewById(R.id.img_btn_docgiftfeedback);
         tv_docgiftfeedback        = findViewById(R.id.tv_docgiftfeedback);
         practiceCard4             = findViewById(R.id.practiceCard4);
-
 
         btn_notification       = findViewById(R.id.btn_notification);
         img_btn_notification   = findViewById(R.id.img_btn_notification);
@@ -477,12 +460,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
         t4.setText(globalmpocode);
         t5.setText(globalterritorycode);
-
         lock_emp_check(globalempCode);
-
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog() {
@@ -497,7 +476,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button btn_1   = bottomSheetDialog.findViewById(R.id.btn_1);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-
         imageView3.setBackgroundResource(R.drawable.ic_product_order);
 
         Objects.requireNonNull(textView4).setText("Order\nOnline");
@@ -507,7 +485,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(button2).setText("7.2");
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
 
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -520,7 +497,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                // bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -532,21 +508,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
             }
         });
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
@@ -574,7 +547,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -591,7 +563,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                // bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -602,22 +573,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
               //  bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PE() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -658,7 +624,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -669,22 +634,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                // bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DCC() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -737,21 +697,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
             }
         });
 
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_MSD() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -786,7 +742,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, DocSupportReq.class);
                 i.putExtra("user_code", Dashboard.globalmpocode);
                 i.putExtra("user_name", Dashboard.globalterritorycode);
@@ -824,15 +779,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
-
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PROMOMAT() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -904,21 +855,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("user_code", globalmpocode);
                 startActivity(i);
                 //  bottomSheetDialog.dismiss();
-
             }
         });
-
         bottomSheetDialog.show();
-
     }
-
-
-
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DOCSUPPORT() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -942,7 +885,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, DoctorServiceFollowup.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -955,7 +897,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, DoctorServiceAck.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -968,7 +909,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, DoctorServiceTrackMonthly.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -985,7 +925,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                     Intent i = new Intent(Dashboard.this, DoctorChamberLocate.class);
                     startActivity(i);
-                }else{
+                } else {
                     showGPSDisabledAlertToUser();
                 }
             }
@@ -997,13 +937,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog2.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PCCONFERENCE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -1012,9 +950,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -1036,7 +972,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
-
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1061,7 +996,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, PcConferenceFollowup.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -1081,7 +1015,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, PCBillFollowup.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
@@ -1091,14 +1024,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                // bottomSheetDialog2.dismiss();
             }
         });
-
-
         bottomSheetDialog2.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RXCAPTURE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -1107,9 +1037,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -1133,7 +1061,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView6).setText("RX\nSummary");
         Objects.requireNonNull(textView7).setText("RX\nSummary B");
 
-
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview4).setVisibility(View.GONE);
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
@@ -1146,7 +1073,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(Dashboard.this, PrescriptionEntry.class);
                 startActivity(i);
                // bottomSheetDialog2.dismiss();
@@ -1161,7 +1087,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_detail",Dashboard.globalterritorycode);
                 i.putExtra("manager_flag", "MPO");
                 startActivity(i);
-
             }
         });
 
@@ -1185,18 +1110,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_detail",Dashboard.globalterritorycode);
                 i.putExtra("manager_flag", "MPO");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
-
-
-
-
-
 
     private void dcrClickEvent() {
         cardview_dcr.setOnClickListener(new View.OnClickListener() {
@@ -1221,14 +1138,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 showBottomSheetDialog_DCR();
             }
         });
-
-
-
-
     }
 
     private void dccfollowupEvent() {
-
         practiceCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1253,63 +1165,42 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 showBottomSheetDialog_DCC();
             }
         });
-
     }
 
     private void doctorServiceEvent(){
-
         practiceCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_DOCSUPPORT();
-
             }
         });
-
-
         img_btn_docservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
-
                 showBottomSheetDialog_DOCSUPPORT();
-
             }
         });
-
         btn_docservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_DOCSUPPORT();
-
-
             }
         });
-
         tv_docservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                   showBottomSheetDialog_DOCSUPPORT();
-
-
             }
         });
-
     }
 
     private void doctorGiftEvent() {
-
         btn_docgiftfeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1334,11 +1225,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         tv_docgiftfeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1363,11 +1252,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         img_btn_docgiftfeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1393,11 +1280,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         practiceCard4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1419,22 +1304,15 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
-
     }
 
-
-
     private void noticeBoradEvent() {
-
         practiceCard6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1450,22 +1328,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1480,22 +1353,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         tv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1511,22 +1379,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1541,53 +1404,41 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     private void prescriptionEvent() {
-
         practiceCard8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         img_btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         tv_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
-
-
     }
 
     private void orderEvents() {
-
         practiceCard7.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog();
@@ -1608,11 +1459,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 showBottomSheetDialog();
             }
         });
-
     }
 
     private void personalExpenseEvent(){
-
         practiceCard9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_PE();
@@ -1633,92 +1482,69 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 showBottomSheetDialog_PE();
             }
         });
-
     }
 
     private void pcConferenceEvent() {
-
         cardview_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
-
             }
         });
         btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         tv_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         img_btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
-
     }
-
-
-
 
     private void promoMaterialFollowupEvent(){
         btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
-
             }
         });
         img_btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         tv_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         cardview_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
-
     }
 
-
-
-
     private void salesReportEvent() {
-
         cardview_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();

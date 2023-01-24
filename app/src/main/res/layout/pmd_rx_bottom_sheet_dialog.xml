@@ -251,16 +251,13 @@
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-
-            >
+            app:cardUseCompatPadding="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView6">
-
 
                 <TextView
                     android:id="@+id/textView6"

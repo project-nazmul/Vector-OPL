@@ -265,23 +265,15 @@
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccentEditor"
                 android:layout_height="match_parent" />
-
         </LinearLayout>
-
     </HorizontalScrollView>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rvCompany"
         android:layout_height="0dp"
-        android:layout_weight="98"
-
-        >
+        android:layout_weight="98">
     </androidx.recyclerview.widget.RecyclerView>
-
-
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -302,8 +294,5 @@
             android:textColor="#FFF"
             android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

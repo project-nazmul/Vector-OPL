@@ -195,6 +195,7 @@ public class Activity_PMD_Contact extends Activity {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(brand_url, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -214,12 +215,14 @@ public class Activity_PMD_Contact extends Activity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             populateSpinner();
         }
     }
+
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < brandlist.size(); i++) {
@@ -265,6 +268,7 @@ public class Activity_PMD_Contact extends Activity {
     }
 
     public class ViewDialog {
+        @SuppressLint("SetTextI18n")
         public void showDialog( ){
             final Dialog dialog = new Dialog(Activity_PMD_Contact.this);
 
@@ -325,18 +329,14 @@ public class Activity_PMD_Contact extends Activity {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
-
             dialog.show();
         }
-
     }
 
     private void hideKeyBoard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(PrescroptionImageSearch.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
-
 }

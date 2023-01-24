@@ -869,11 +869,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         img_btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -891,18 +889,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         tv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -916,22 +910,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -945,12 +934,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
@@ -987,11 +973,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         tv_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1008,22 +992,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         img_btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1040,22 +1020,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1072,20 +1048,15 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
 
-
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PCCONFERENCE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -1094,9 +1065,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -1139,20 +1108,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalAdmin);
                 Log.e("globalAdmin==>",globalAdmin);
                 startActivity(i);
-
             }
         });
 
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(GMDashboard1.this, PcConferenceFollowup.class);
                 i.putExtra("UserName", globalAdmin);
                 i.putExtra("UserName_2", globalAdminDtl);
                 i.putExtra("user_flag", "GM");
                 startActivity(i);
-
             }
         });
 
@@ -1165,7 +1131,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 i.putExtra("new_version", new_version);
                 i.putExtra("userName", globalAdmin);
                 startActivity(i);
-
             }
         });
 
@@ -1177,51 +1142,39 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 i.putExtra("UserName_2", globalAdminDtl);
                 i.putExtra("user_flag", "GM");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
     private void pcConferenceEvent() {
-
         cardview_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
-
             }
         });
         btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         tv_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         img_btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RXCAPTURE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -1229,7 +1182,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         CardView cardview2 = bottomSheetDialog2.findViewById(R.id.cardview_2);
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
-
 
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
 
@@ -1255,8 +1207,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
         Objects.requireNonNull(textView7).setText("RX\nSummary B");
-
-
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
 
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
@@ -1268,8 +1218,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             }
         });
 
-
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1278,7 +1226,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 i.putExtra("manager_detail",GMDashboard1.globalAdminDtl);
                 i.putExtra("manager_flag","AD");
                 startActivity(i);
-
             }
         });
 
@@ -1300,30 +1247,20 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 i.putExtra("manager_code",GMDashboard1.globalAdmin);
                 i.putExtra("manager_detail", "AD");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
+
     private void prescriptionentry(){
-
-
         practiceCard8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
-
                // startActivity(i);
-
             }
         });
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -1338,7 +1275,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         }
     }
 
-
     private void logoutUser() {
         session.setLogin(false);
         session.invalidate();
@@ -1346,7 +1282,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
 
     private void showSnack() {
@@ -1361,7 +1296,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 });
             }
         }.start();
-
     }
 
     private void FeedbackshowSnack() {
@@ -1376,9 +1310,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 });
             }
         }.start();
-
     }
-
 
     @Override
     protected void onResume() {
@@ -1418,7 +1350,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         preferenceManager.setAdmin_Name(global_admin_name);
         preferenceManager.setAdmin_Terri(global_admin_terri);
         Log.e("onPause----->",global_admin_Code);
-
     }
 
 
@@ -1442,9 +1373,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
 
     public void onBackPressed() {
         moveTaskToBack(true);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -1452,7 +1381,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     }
 
     private void lock_emp_check(String emp_code) {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
@@ -1476,15 +1404,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                     startActivity(logoutIntent);
                     finish();
                 }
-
             }
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();
-
             }
         });
-
     }
 }
 

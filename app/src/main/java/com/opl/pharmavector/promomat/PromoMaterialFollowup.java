@@ -1,20 +1,16 @@
 package com.opl.pharmavector.promomat;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -45,24 +41,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.gson.Gson;
 import com.opl.pharmavector.MonthYearPickerDialog;
-
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.Dashboard;
-
-
 import com.opl.pharmavector.MonthYearPickerDialog;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.model.Patient;
-
 import com.opl.pharmavector.pmdVector.pmdRX.PMDRXSummary;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.promomat.adapter.PromoAdapter;
@@ -73,7 +63,6 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.KeyboardUtils;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,21 +102,18 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
     private ArrayList<Customer> departmentlist;
     public android.widget.Spinner spin_brand;
 
-
-
-
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_promo_material_followup);
+
         initViews();
         calenderUI();
         new GetBrandList().execute();
         checkSubtype();
         autoEvent();
-        switch (promo_type) {
 
+        switch (promo_type) {
             case "S":
                 if (user_flag.equals("MPO")) {
                     user_show1.setText(String.format("%s - MPO Promo Sample Followup", userName));
@@ -144,10 +130,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     week3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                     week4.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                     prepareMPOPromo();
-
                 }
-                if (user_flag.equals("AM")) {
 
+                if (user_flag.equals("AM")) {
                     Log.e("AMsTARTS-->","prepareFMPromo()");
 
                     user_show1.setText(userName + " - " + "Promo Sample Followup");
@@ -169,7 +154,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                         @Override
                         public void onClick(View view, int position) {
-                          
                             String sm_code = promoList.get(position).getCode();
                             Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                             i.putExtra("UserName", sm_code);
@@ -181,13 +165,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
 
                         }
                     }));
-
                 }
+
                 if (user_flag.equals("AMMPO")) {
                     Log.e("clicked==>","AMMPO--272");
                     user_show1.setText("MPO Promo Sample Followup");
@@ -210,7 +195,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                         public void onClick(View view, int position) {
                             //String sm_code = (String) productListView.getAdapter().getItem(position);
                             String sm_code = promoList.get(position).getCode();
-                           // Log.e("smcode-->",sm_code);
+                            //Log.e("smcode-->",sm_code);
                             Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                             i.putExtra("UserName", sm_code);
                             i.putExtra("UserName_2", sm_code);
@@ -221,15 +206,13 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
-                        public void onLongClick(View view, int position) {
-                        }
+                        public void onLongClick(View view, int position) {}
                     }));
-
                 }
+
                 if (user_flag.equals("RM")) {
-
-
                     user_show1.setText(String.format("%s - Promo Sample Followup", userName));
                     mpo_code.setText("RM\nCode");
                     mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -260,15 +243,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
-
                 }
-                if (user_flag.equals("RMAM")) {
 
+                if (user_flag.equals("RMAM")) {
                     Log.e("clicked==>","RMAM--272");
                     user_show1.setText("Area Manager Promo Sample Followup");
                     mpo_code.setText("AM\nCode");
@@ -301,11 +284,12 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                            startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
                 }
                 break;
 
@@ -328,10 +312,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     sqnty1.setText("Promo\nType");
 
                     prepareMPOPromo();
-
                 }
-                if (user_flag.equals("AM")) {
 
+                if (user_flag.equals("AM")) {
                     user_show1.setText(userName + " - " + "Promo PPM Followup");
                     mpo_code.setText("AM\nCode");
                     mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -353,7 +336,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                         @Override
                         public void onClick(View view, int position) {
-                          
                             String sm_code = promoList.get(position).getCode();
                             Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                             i.putExtra("UserName", sm_code);
@@ -365,14 +347,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
 
                         }
                     }));
-
-
                 }
+
                 if (user_flag.equals("AMMPO")) {
                     user_show1.setText("MPO Promo PPM Followup");
                     mpo_code.setText("MPO\nCode");
@@ -407,15 +389,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
-
-
-
                 }
+
                 if (user_flag.equals("RM")) {
                     user_show1.setText(userName + " - " + "Promo PPM Followup");
                     mpo_code.setText("RM\nCode");
@@ -432,7 +413,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     week4.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                     ssellvelue.setText("PPM\nName");
                     sqnty1.setText("Promo\nType");
+
                     prepareRMPromo();
+
                     rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                         @Override
                         public void onClick(View view, int position) {
@@ -448,11 +431,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
                 }
+
                 if (user_flag.equals("RMAM")) {
                     user_show1.setText("Area Manager Promo PPM Followup");
                     mpo_code.setText("AM\nCode");
@@ -486,16 +472,16 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
                 }
                 break;
 
             case "G":
-
                 if (user_flag.equals("RM")) {
                     user_show1.setText(userName + " - " + "Promo Gift Followup");
                     mpo_code.setText("RM\nCode");
@@ -530,13 +516,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
-
                 }
+
                 if (user_flag.equals("RMAM")) {
                     user_show1.setText("Area Manager Promo Gift Followup");
                     mpo_code.setText("AM\nCode");
@@ -570,14 +557,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
                 }
-                if (user_flag.equals("AM")) {
 
+                if (user_flag.equals("AM")) {
                     user_show1.setText(userName + " - " + "Promo Gift Followup");
                     mpo_code.setText("AM\nCode");
                     mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -601,7 +589,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                         @Override
                         public void onClick(View view, int position) {
-                          
                             String sm_code = promoList.get(position).getCode();
                             Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                             i.putExtra("UserName", sm_code);
@@ -613,15 +600,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                             startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
 
                         }
                     }));
-
                 }
-                if (user_flag.equals("AMMPO")) {
 
+                if (user_flag.equals("AMMPO")) {
                     user_show1.setText("MPO Gift PPM Followup");
                     mpo_code.setText("MPO\nCode");
                     mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -654,12 +641,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             i.putExtra("user_code", sm_code);
                            startActivity(i);
                         }
+
                         @Override
                         public void onLongClick(View view, int position) {
+
                         }
                     }));
-
                 }
+
                 if (user_flag.equals("MPO")) {
                     user_show1.setText(userName + " - " + "Promo Gift Followup");
                     mpo_code.setText("MPO\nCode");
@@ -679,12 +668,10 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     gval.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 
                     prepareMPOPromo();
-
                 }
                 break;
-
-
         }
+
         setUpRecyclerView();
         rvCompany.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -698,8 +685,8 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-        submitBtn.setOnClickListener(new OnClickListener() {
 
+        submitBtn.setOnClickListener(new OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
@@ -724,10 +711,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 week3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                                 week4.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                                 prepareMPOPromo();
-
                             }
-                            if (user_flag.equals("AM")) {
 
+                            if (user_flag.equals("AM")) {
                                 Log.e("AMsTARTS-->","prepareFMPromo()");
 
                                 user_show1.setText(userName + " - " + "Promo Sample Followup");
@@ -749,7 +735,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-
                                         String sm_code = promoList.get(position).getCode();
                                         Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                                         i.putExtra("UserName", sm_code);
@@ -761,15 +746,17 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
 
                                     }
                                 }));
-
                             }
+
                             if (user_flag.equals("AMMPO")) {
                                 Log.e("clicked==>","AMMPO--272");
+
                                 user_show1.setText("MPO Promo Sample Followup");
                                 mpo_code.setText("MPO\nCode");
                                 mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -801,15 +788,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
                             }
+
                             if (user_flag.equals("RM")) {
-
-
                                 user_show1.setText(String.format("%s - Promo Sample Followup", userName));
                                 mpo_code.setText("RM\nCode");
                                 mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -840,15 +827,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
-
                             }
-                            if (user_flag.equals("RMAM")) {
 
+                            if (user_flag.equals("RMAM")) {
                                 Log.e("clicked==>","RMAM--272");
                                 user_show1.setText("Area Manager Promo Sample Followup");
                                 mpo_code.setText("AM\nCode");
@@ -881,11 +868,12 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
                             }
                             break;
 
@@ -908,10 +896,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 sqnty1.setText("Promo\nType");
 
                                 prepareMPOPromo();
-
                             }
-                            if (user_flag.equals("AM")) {
 
+                            if (user_flag.equals("AM")) {
                                 user_show1.setText(userName + " - " + "Promo PPM Followup");
                                 mpo_code.setText("AM\nCode");
                                 mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -933,7 +920,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-
                                         String sm_code = promoList.get(position).getCode();
                                         Intent i = new Intent(PromoMaterialFollowup.this, PromoMaterialFollowup.class);
                                         i.putExtra("UserName", sm_code);
@@ -945,14 +931,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
 
                                     }
                                 }));
-
-
                             }
+
                             if (user_flag.equals("AMMPO")) {
                                 user_show1.setText("MPO Promo PPM Followup");
                                 mpo_code.setText("MPO\nCode");
@@ -987,15 +973,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
-
-
-
                             }
+
                             if (user_flag.equals("RM")) {
                                 user_show1.setText(userName + " - " + "Promo PPM Followup");
                                 mpo_code.setText("RM\nCode");
@@ -1012,7 +997,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 week4.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
                                 ssellvelue.setText("PPM\nName");
                                 sqnty1.setText("Promo\nType");
+
                                 prepareRMPromo();
+
                                 rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
@@ -1028,11 +1015,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
                             }
+
                             if (user_flag.equals("RMAM")) {
                                 user_show1.setText("Area Manager Promo PPM Followup");
                                 mpo_code.setText("AM\nCode");
@@ -1066,16 +1056,16 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
                             }
                             break;
 
                         case "G":
-
                             if (user_flag.equals("RM")) {
                                 user_show1.setText(userName + " - " + "Promo Gift Followup");
                                 mpo_code.setText("RM\nCode");
@@ -1110,13 +1100,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
-
                             }
+
                             if (user_flag.equals("RMAM")) {
                                 user_show1.setText("Area Manager Promo Gift Followup");
                                 mpo_code.setText("AM\nCode");
@@ -1150,14 +1141,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
                             }
-                            if (user_flag.equals("AM")) {
 
+                            if (user_flag.equals("AM")) {
                                 user_show1.setText(userName + " - " + "Promo Gift Followup");
                                 mpo_code.setText("AM\nCode");
                                 mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -1193,15 +1185,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
 
                                     }
                                 }));
-
                             }
-                            if (user_flag.equals("AMMPO")) {
 
+                            if (user_flag.equals("AMMPO")) {
                                 user_show1.setText("MPO Gift PPM Followup");
                                 mpo_code.setText("MPO\nCode");
                                 mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
@@ -1219,6 +1211,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 sqnty1.setText("Promo\nType");
 
                                 prepareAMMpo();
+
                                 rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
@@ -1234,12 +1227,14 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                         i.putExtra("user_code", sm_code);
                                         startActivity(i);
                                     }
+
                                     @Override
                                     public void onLongClick(View view, int position) {
+
                                     }
                                 }));
-
                             }
+
                             if (user_flag.equals("MPO")) {
                                 user_show1.setText(userName + " - " + "Promo Gift Followup");
                                 mpo_code.setText("MPO\nCode");
@@ -1259,11 +1254,8 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                                 gval.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 
                                 prepareMPOPromo();
-
                             }
                             break;
-
-
                     }
                         setUpRecyclerView();
                         rvCompany.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -1284,12 +1276,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                 }
             }
         });
-
     }
 
-
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         departmentlist = new ArrayList<Customer>();
         spin_brand = findViewById(R.id.spin_brand);
@@ -1324,15 +1313,15 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
         promo_type = b.getString("promo_type");
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
-
     }
 
     private  void calenderUI(){
-
         ed_date.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 MonthYearPickerDialog pickerDialog = new MonthYearPickerDialog();
+
                 pickerDialog.setListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int i2) {
@@ -1379,33 +1368,26 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                             month_name_val = "December";
                             month_name ="DEC";
                         }
-
                         proposed_date2 = "01" + "-" + month_name + "-" + year;
                         Log.e("proposed_date1", proposed_date1);
                         Log.e("proposed_date1", proposed_date2);
                         ed_date.setText(proposed_date2);
-
                     }
                 });
                 pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
-
-
             }
         });
-
     }
 
     private void checkSubtype(){
-
         if (actv_type.getText().toString().equals("")|| actv_type.getText().toString().equals(null)){
             promo_subtype = "xx";
-        }else{
+        } else {
             promo_subtype = actv_type.getText().toString();
         }
     }
 
     private void autoEvent(){
-
         actv_type.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -1415,25 +1397,25 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                 return false;
             }
         });
-
     }
 
     public void prepareMPOPromo() {
-
-
         pDialog = new ProgressDialog(PromoMaterialFollowup.this);
         pDialog.setMessage("Promo Loading...");
         pDialog.setTitle("Promo Followup");
         pDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.mpo_sample_followup(user_code,user_flag,promo_type,proposed_date2,promo_subtype);
         promoList.clear();
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NonNull Call<List<Patient>> call, @NonNull retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
+
                 if (response.isSuccessful()) {
                     for (int i = 0; i < giftitemCount.size(); i++) {
                         promoList.add(new Promo( giftitemCount.get(i).getSerial(),
@@ -1446,7 +1428,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(PromoMaterialFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -1456,22 +1438,22 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
             public void onFailure(@NonNull Call<List<Patient>> call, @NonNull Throwable t) {
                   pDialog.dismiss();
                   prepareMPOPromo();
-
             }
         });
     }
 
     public void prepareFMPromo() {
-
         Log.e("fm_promo_followup",user_code+user_flag+promo_type+proposed_date2+promo_subtype);
 
         pDialog = new ProgressDialog(PromoMaterialFollowup.this);
         pDialog.setMessage("Promo Loading...");
         pDialog.setTitle("Promo Followup");
         pDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.fm_promo_followup(user_code,user_flag,promo_type,proposed_date2,promo_subtype);
         promoList.clear();
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -1491,7 +1473,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(PromoMaterialFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -1501,20 +1483,20 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
                 prepareMPOPromo();
-
             }
         });
     }
 
     public void prepareRMPromo() {
-
         pDialog = new ProgressDialog(PromoMaterialFollowup.this);
        
         pDialog.setMessage("Promo Loading...");
         pDialog.setTitle("Promo Followup");
         pDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.rm_promo_followup(user_code,user_flag,promo_type,proposed_date2,promo_subtype);
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -1534,7 +1516,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(PromoMaterialFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -1549,18 +1531,18 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
     }
 
     public void prepareAMMpo() {
-
         promoList.clear();
         Log.e("prepareAMMPO==>",promo_subtype+"\n" +user_code + "\n"+ user_flag + "\n"+ promo_type);
-
 
         pDialog = new ProgressDialog(PromoMaterialFollowup.this);
         //pDialog.setMax(100);
         pDialog.setMessage("Promo Loading...");
         pDialog.setTitle("Promo Followup");
         pDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.fm_mpo_promo_followup(user_code,user_flag,promo_type,proposed_date2,promo_subtype);
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -1581,7 +1563,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(PromoMaterialFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -1591,19 +1573,18 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
                 prepareMPOPromo();
-
             }
         });
     }
 
     public void prepareRMAM() {
-
         Log.e("PreapreRMAM==>",user_code+user_flag+promo_type+proposed_date2+promo_subtype);
 
         pDialog = new ProgressDialog(PromoMaterialFollowup.this);
         pDialog.setMessage("Promo Loading...");
         pDialog.setTitle("Promo Followup");
         pDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.fm_mpo_promo_followup(user_code,user_flag,promo_type,proposed_date2,promo_subtype);
         promoList.clear();
@@ -1626,8 +1607,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                        }
                        promoAdapter.notifyDataSetChanged();
                        pDialog.dismiss();
-
-                   }else{
+                   } else {
                        pDialog.dismiss();
                        Toast.makeText(PromoMaterialFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                    }
@@ -1641,8 +1621,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
         });
     }
 
-
-
     private void populatebrandSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < departmentlist.size(); i++) {
@@ -1655,9 +1633,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
         actv_type.setThreshold(1);
         actv_type.setAdapter(Adapter);
         actv_type.setTextColor(Color.BLUE);
-
         promo_subtype = actv_type.getText().toString();
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -1670,7 +1646,6 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
         @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Log.e("userflag==>",user_flag+"---"+user_code);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("user_code", user_code));
@@ -1685,6 +1660,7 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
             String json;
             json = jsonParser.makeServiceCall(URL_BRAND, ServiceHandler.POST, params);
             departmentlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -1694,15 +1670,12 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
                         departmentlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -1711,47 +1684,37 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
             super.onPostExecute(result);
             populatebrandSpinner();
         }
-
     }
 
     public void setUpRecyclerView() {
-
         promoAdapter = new PromoAdapter(PromoMaterialFollowup.this, promoList);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvCompany.setLayoutManager(manager);
         rvCompany.setAdapter(promoAdapter);
         rvCompany.addItemDecoration(new DividerItemDecoration(PromoMaterialFollowup.this, DividerItemDecoration.VERTICAL));
-
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     public void finishActivity(View v) {
         finish();
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(PromoMaterialFollowup.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 
