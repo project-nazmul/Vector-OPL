@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -103,9 +104,11 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         }));
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
-        productBrandDataInfo();
         manager_code = DashBoardPMD.pmd_loccode;
+        productBrandDataInfo();
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         back_btn = findViewById(R.id.backbt);
         submitBtn = findViewById(R.id.submitBtn);
@@ -124,6 +127,14 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         //brandRecycler.setLayoutManager(layoutManager1);
         recyclerDataArrayList1 = new ArrayList<>();
         new GetMonth().execute();
+
+        autoBrandName.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                autoBrandName.showDropDown();
+                return false;
+            }
+        });
     }
 
     private void populateProductSpinner() {
@@ -296,7 +307,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                                 productData.get(i).getId()));
                     }
                     populateProductSpinner();
-                    //Log.d("product List", productDatalist.get(0).getName());
+                    Log.d("product List", productDatalist.get(0).getName());
                     //brandAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
                 } else {

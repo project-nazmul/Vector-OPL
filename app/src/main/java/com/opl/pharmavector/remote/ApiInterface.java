@@ -8,12 +8,15 @@ import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.pmdVector.model.RXModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -54,7 +57,7 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-   // @POST("vector_login/vector_pmd_login.php")
+    // @POST("vector_login/vector_pmd_login.php")
     @POST("vector_login/vectorlogin_newversion.php")
     Call<Patient> vectorlogin(
             @Field("username") String tempLogin,
@@ -64,14 +67,12 @@ public interface ApiInterface {
     );
 
 
-
     @FormUrlEncoded
     @POST("vector_login/oniktest.php")
     Call<List<Patient>> pmdImage(
             @Field("mpo_code") String mpo_code
 
     );
-
 
 
     @FormUrlEncoded
@@ -150,10 +151,9 @@ public interface ApiInterface {
     );
 
 
-
     @POST("prescription_survey/getDoctorDegree.php")
     Call<List<Patient>> getDoctorDegree(
-            );
+    );
 
     @FormUrlEncoded
     @POST("doctor_gift/getGiftType.php")
@@ -214,7 +214,9 @@ public interface ApiInterface {
     Call<BrandModel> getCompanyWiseList(@Query("mnyr") String mnyr, @Query("brand") String brand);
 
     @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("pmd_vector/get_brandList.php")
+    //@POST("pmd_vector/pmd_rx/get_brandList.php")
     Call<ProductModel> getProductBrandList(@Field("manager_code") String manager_code);
 
     @FormUrlEncoded
@@ -274,6 +276,7 @@ public interface ApiInterface {
             @Field("ff_code") String ff_code,
             @Field("cust_code") String cust_code
     );
+
     @FormUrlEncoded
     @POST("pmd_vector/pmd_rx/loadimage.php")
     Call<List<RXModel>> getMovies2(

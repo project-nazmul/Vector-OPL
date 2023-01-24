@@ -490,8 +490,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             }
 
         });
-
-
     }
 
     private void btnClickEvent() {
