@@ -1,10 +1,12 @@
 package com.opl.pharmavector.pmdVector.sales_4p;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,6 +14,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
@@ -28,26 +33,34 @@ import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.contact.contact_adapter;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.pmdVector.adapter.BrandAdapter;
+import com.opl.pharmavector.pmdVector.adapter.CompanyAdapter;
 import com.opl.pharmavector.pmdVector.model.BrandList;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
+import com.opl.pharmavector.pmdVector.model.CompanyList;
+import com.opl.pharmavector.pmdVector.model.CompanyModel;
 import com.opl.pharmavector.pmdVector.model.ProductList;
 import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+import com.opl.pharmavector.util.KeyboardUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    public ProgressDialog pDialog;
-    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX", place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX";;
+    public ProgressDialog pDialog, qDialog;
+    public String json, brand_name = "xx", brand_code = "00", team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX", place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX";;
     Button back_btn, submitBtn;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2, autoBrandName;
@@ -55,7 +68,8 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     private ArrayList<Customer> customerlist;
     private ArrayList<BrandList> brandDatalist = new ArrayList<>();
     private ArrayList<ProductList> productDatalist = new ArrayList<>();
-    private RecyclerView brandRecycler, recyclerView2, recyclerView3, recyclerView4;
+    private ArrayList<CompanyList> companyDatalist = new ArrayList<>();
+    private RecyclerView brandRecycler, companyRecycler, recyclerView3, recyclerView4;
     private RecyclerView.LayoutManager layoutManager1, layoutManager2, layoutManager3, layoutManager4;
     private ArrayList<RecyclerData> recyclerDataArrayList1, recyclerDataArrayList2, recyclerDataArrayList3, recyclerDataArrayList4;
     private contact_adapter recyclerViewAdapter1, recyclerViewAdapter2, recyclerViewAdapter3, recyclerViewAdapter4;
@@ -65,6 +79,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     MaterialSpinner mspinner1;
     private int monthPosition = -1;
     private BrandAdapter brandAdapter;
+    private CompanyAdapter companyAdapter;
 
     private final String url_getMonth = BASE_URL + "pmd_vector/sales_4p/get_month.php";
 
@@ -82,32 +97,36 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             public void onClick(View view) {
                 //brandRecycler.setAdapter(null);
                 //getContact();
-                brandWiseDataInfo();
+                if (monthPosition != -1 && !brand_code.equals("00")) {
+                    brandWiseDataInfo();
+                    companyWiseDataInfo();
+                } else {
+                    Toast.makeText(Activity_4p_Sales.this, getResources().getString(R.string.instruct), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         brandRecycler.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), brandRecycler, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                selected_number = recyclerDataArrayList1.get(position).getCol4();
-                selected_month = recyclerDataArrayList1.get(position).getCol3();
+                //selected_number = recyclerDataArrayList1.get(position).getCol4();
+                //selected_month = recyclerDataArrayList1.get(position).getCol3();
+
                 if (selected_number != null && !selected_number.isEmpty() && !selected_number.equals("null")) {
-                    //ff_contact_activity.ViewDialog alert = new ff_contact_activity.ViewDialog();
+                    //,ff_contact_activity.ViewDialog alert = new ff_contact_activity.ViewDialog();
                     //alert.showDialog();
                 }
             }
 
             @Override
-            public void onLongClick(View view, int position) {
-
-            }
+            public void onLongClick(View view, int position) {}
         }));
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
         manager_code = DashBoardPMD.pmd_loccode;
-        productBrandDataInfo();
+        productWiseDataInfo();
 
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         back_btn = findViewById(R.id.backbt);
@@ -123,6 +142,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         brandRecycler = findViewById(R.id.brandRecycler);
+        companyRecycler = findViewById(R.id.companyRecycler);
         //layoutManager1 = new LinearLayoutManager(this);
         //brandRecycler.setLayoutManager(layoutManager1);
         recyclerDataArrayList1 = new ArrayList<>();
@@ -133,6 +153,36 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             public boolean onTouch(View v, MotionEvent event) {
                 autoBrandName.showDropDown();
                 return false;
+            }
+        });
+        autoBrandName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                autoBrandName.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                autoBrandName.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String inputOrder = s.toString();
+                    if (inputOrder.contains("//")) {
+                        String actv_brand_code = inputOrder.substring(inputOrder.indexOf("//") + 1);
+                        String[] first_split = inputOrder.split("//");
+                        brand_name = first_split[0].trim();
+                        brand_code = first_split[1].trim();
+                        if (!Objects.equals(brand_name, "xx")) {
+                            autoBrandName.setText(brand_name);
+                        }
+                        KeyboardUtils.hideKeyboard(Activity_4p_Sales.this);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -154,7 +204,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     }
 
     private void initPlaceSpinner() {
-        MaterialSpinner mspinner2 = findViewById(R.id.mspinner2);
+        MaterialSpinner mSpinner2 = findViewById(R.id.mspinner2);
         if (monthPosition > -1) {
             int cyclePosition = Integer.parseInt(customerlist.get(monthPosition).getCycle_n());
             List<String> cycle = new ArrayList<String>();
@@ -162,9 +212,9 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                 cycle.add(String.valueOf(i));
             }
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, cycle);
-            mspinner2.setAdapter(spinnerAdapter);
+            mSpinner2.setAdapter(spinnerAdapter);
         }
-        //mspinner2.setItems("1", "2", "3", "4", "5");
+        //mSpinner2.setItems("1", "2", "3", "4", "5");
     }
 
     private void populateMonthAuto() {
@@ -189,13 +239,20 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         Log.d("select month", String.valueOf(position));
     }
 
-    public void setUpRecyclerView() {
+    public void setUpBrandRecyclerView() {
         brandAdapter = new BrandAdapter(Activity_4p_Sales.this, brandDatalist);
         LinearLayoutManager manager = new LinearLayoutManager(Activity_4p_Sales.this);
-        //manager.setTotalColumnCount(1);
         brandRecycler.setLayoutManager(manager);
         brandRecycler.setAdapter(brandAdapter);
         brandRecycler.addItemDecoration(new DividerItemDecoration(Activity_4p_Sales.this, DividerItemDecoration.VERTICAL));
+    }
+
+    public void setUpCompanyRecyclerView() {
+        companyAdapter = new CompanyAdapter(Activity_4p_Sales.this, companyDatalist);
+        LinearLayoutManager manager = new LinearLayoutManager(Activity_4p_Sales.this);
+        companyRecycler.setLayoutManager(manager);
+        companyRecycler.setAdapter(companyAdapter);
+        companyRecycler.addItemDecoration(new DividerItemDecoration(Activity_4p_Sales.this, DividerItemDecoration.VERTICAL));
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -244,7 +301,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         pDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<BrandModel> call = apiInterface.getBrandWiseList(customerlist.get(monthPosition).getName());
+        Call<BrandModel> call = apiInterface.getBrandWiseList(customerlist.get(monthPosition).getName(), brand_code);
         brandDatalist.clear();
 
         call.enqueue(new Callback<BrandModel>() {
@@ -265,10 +322,9 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                                 brandData.get(i).getOplRank(),
                                 brandData.get(i).getNatRank()));
                     }
-                    setUpRecyclerView();
-                    Log.d("brand List", brandDatalist.get(0).getBrandName());
-                    //brandAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
+                    setUpBrandRecyclerView();
+                    //Log.d("brand List", brandDatalist.get(0).getBrandName())
                 } else {
                     pDialog.dismiss();
                     Toast.makeText(Activity_4p_Sales.this, "No data Available", Toast.LENGTH_LONG).show();
@@ -283,7 +339,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         });
     }
 
-    public void productBrandDataInfo() {
+    public void productWiseDataInfo() {
         pDialog = new ProgressDialog(Activity_4p_Sales.this);
         pDialog.setMessage("Product Loading...");
         pDialog.setTitle("Product Followup");
@@ -306,10 +362,9 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                         productDatalist.add(new ProductList(productData.get(i).getName(),
                                 productData.get(i).getId()));
                     }
-                    populateProductSpinner();
-                    Log.d("product List", productDatalist.get(0).getName());
-                    //brandAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
+                    populateProductSpinner();
+                    //Log.d("product List", productDatalist.get(0).getName());
                 } else {
                     pDialog.dismiss();
                     Toast.makeText(Activity_4p_Sales.this, "No data Available", Toast.LENGTH_LONG).show();
@@ -319,7 +374,56 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             @Override
             public void onFailure(@NonNull Call<ProductModel> call, @NonNull Throwable t) {
                 pDialog.dismiss();
-                brandWiseDataInfo();
+                productWiseDataInfo();
+            }
+        });
+    }
+
+    public void companyWiseDataInfo() {
+        qDialog = new ProgressDialog(Activity_4p_Sales.this);
+        qDialog.setMessage("Company Loading...");
+        qDialog.setTitle("Company Followup");
+        qDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<CompanyModel> call = apiInterface.getCompanyWiseList(customerlist.get(monthPosition).getName(), brand_code);
+        companyDatalist.clear();
+
+        call.enqueue(new Callback<CompanyModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<CompanyModel> call, @NonNull retrofit2.Response<CompanyModel> response) {
+                List<CompanyList> companyData = null;
+                if (response.body() != null) {
+                    companyData = response.body().getCompanyList();
+                }
+
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < (companyData != null ? companyData.size() : 0); i++) {
+                        companyDatalist.add(new CompanyList(
+                                companyData.get(i).getComDesc(),
+                                companyData.get(i).getBrandCode(),
+                                companyData.get(i).getBrandName(),
+                                companyData.get(i).getValShare(),
+                                companyData.get(i).getUniteShare(),
+                                companyData.get(i).getOplUnitRank(),
+                                companyData.get(i).getOplValRank(),
+                                companyData.get(i).getNatUnitRank(),
+                                companyData.get(i).getNatValRank()));
+                    }
+                    qDialog.dismiss();
+                    setUpCompanyRecyclerView();
+                    //Log.d("company List", companyDatalist.get(0).getComDesc());
+                } else {
+                    qDialog.dismiss();
+                    Toast.makeText(Activity_4p_Sales.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CompanyModel> call, @NonNull Throwable t) {
+                qDialog.dismiss();
+                companyWiseDataInfo();
             }
         });
     }

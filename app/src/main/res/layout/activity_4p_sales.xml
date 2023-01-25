@@ -63,12 +63,14 @@
         </LinearLayout>
 
             <AutoCompleteTextView
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginStart="@dimen/_32sdp"
                 android:layout_marginEnd="@dimen/_32sdp"
                 android:id="@+id/autoBrandName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_24sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/autocomplete_background"
                 android:drawableStart="@drawable/ic_medicine"
                 android:ems="0"
@@ -200,9 +202,10 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="12dp"
         android:id="@+id/brandRecycler"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/cardview_title"
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
@@ -282,15 +285,15 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/recyclerView2"
+        android:id="@+id/companyRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardview_title"
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
         android:padding="4dp"
-        android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
+        android:scrollbars="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.cardview.widget.CardView
         android:visibility="gone"

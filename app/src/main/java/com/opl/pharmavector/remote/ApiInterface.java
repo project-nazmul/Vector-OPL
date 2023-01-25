@@ -3,6 +3,7 @@ package com.opl.pharmavector.remote;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
+import com.opl.pharmavector.pmdVector.model.CompanyModel;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
 import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.pmdVector.model.RXModel;
@@ -207,11 +208,15 @@ public interface ApiInterface {
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();
 
-    @GET("pmd_vector/sales_4p/get_brandwise_data.php")
-    Call<BrandModel> getBrandWiseList(@Query("mnyr") String param);
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("pmd_vector/sales_4p/get_brandwise_data.php")
+    Call<BrandModel> getBrandWiseList(@Field("mnyr") String mnyr, @Field("brand_code") String brand_code);
 
-    @GET("pmd_vector/sales_4p/get_companywise_brand.php")
-    Call<BrandModel> getCompanyWiseList(@Query("mnyr") String mnyr, @Query("brand") String brand);
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("pmd_vector/sales_4p/get_companywise_brand.php")
+    Call<CompanyModel> getCompanyWiseList(@Field("mnyr") String mnyr, @Field("brand_code") String brand_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

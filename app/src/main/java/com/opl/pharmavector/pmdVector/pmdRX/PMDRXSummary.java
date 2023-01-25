@@ -166,14 +166,11 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 Log.e("passedforLoadImage==>",passed_brandcode+"\n"+passed_mpo+"\n"+pres_type+"\n"+
                         fromdate.getText().toString()+"\n"+todate.getText().toString());
                 startActivity(i);
-
-
             }
         });
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = findViewById(R.id.pListView);
         back_btn = findViewById(R.id.backbt);
@@ -313,7 +310,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -333,7 +329,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -348,8 +343,8 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
+
         fromdate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -357,11 +352,10 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        todate.setOnClickListener(new OnClickListener() {
 
+        todate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(PMDRXSummary.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -380,28 +374,21 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         });
         actv_brand_name.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_brand_name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv_brand_name.setTextColor(Color.RED);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv_brand_name.setTextColor(Color.GREEN);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
@@ -420,9 +407,7 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
 
         actv_rm.setOnTouchListener(new View.OnTouchListener() {
@@ -433,34 +418,26 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 return false;
             }
         });
+
         actv_rm.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
-        actv_rm.addTextChangedListener(new TextWatcher() {
 
+        actv_rm.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv_rm.setTextColor(Color.BLUE);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv_rm.setTextColor(Color.BLUE);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
                     if (inputorder.contains("-")) {
@@ -473,22 +450,15 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                         passed_manager_code = rm_code;
 
                         KeyboardUtils.hideKeyboard(PMDRXSummary.this);
-
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
     }
 
@@ -496,20 +466,16 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
+
         submitBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -547,7 +513,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
-
         }
     }
 
@@ -556,11 +521,8 @@ public class PMDRXSummary extends Activity implements OnClickListener {
     }
 
     public void postPrescriptionCount() {
-        if (actv_brand_name.getText().toString().equals("")) {
-            brand_code = "xx";
-        }
+        if (actv_brand_name.getText().toString().equals("")) { brand_code = "xx"; }
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
         Call<List<Patient>> call = apiInterface.pmd_prescriptioncount(passed_manager_code, brand_code, fromdate.getText().toString(),
                 todate.getText().toString(), pres_type,DashBoardPMD.pmd_loccode);
         Log.e("postPrescriptionCount", passed_manager_code+"----"+brand_code+"---"+DashBoardPMD.pmd_loccode);
@@ -583,30 +545,30 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(PMDRXSummary.this, "Server error! Please try moments later", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 // pDialog.dismiss();
-                //  Toast.makeText(RXSummary.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(RXSummary.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
                 postPrescriptionCount();
             }
         });
     }
 
     public void postSubTotal() {
-        if (actv_brand_name.getText().toString().equals("")){
-            brand_code ="xx";
-        }
+        if (actv_brand_name.getText().toString().equals("")){ brand_code ="xx"; }
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.pres_sub_total(passed_manager_code,brand_code,fromdate.getText().toString(), todate.getText().toString(),pres_type);
+
         call.enqueue(new Callback<List<Patient>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
                 assert giftitemCount != null;
+
                 if (response.isSuccessful()) {
                     if (giftitemCount.size() == 0) {
                         Toast.makeText(PMDRXSummary.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
@@ -625,13 +587,12 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(PMDRXSummary.this, "Server error! Please try moments later", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 // pDialog.dismiss();
-                //  Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
                 postSubTotal();
             }
         });
@@ -650,12 +611,10 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             ArrayList<String> growth = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
 
-
             ArrayList<String> r_target = new ArrayList<String>();
             ArrayList<String> sg_target = new ArrayList<String>();
             ArrayList<String> bl_target = new ArrayList<String>();
             ArrayList<String> total_target = new ArrayList<String>();
-
 
             int quantity = 0;
             String prod_rate, brandname;
@@ -690,17 +649,13 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                 sg_target.add(sgtarget);
                 bl_target.add(bltarget);
                 total_target.add(totaltarget);
-
             }
-
             RXShowAdapter adapter = new RXShowAdapter(PMDRXSummary.this, brand_name, quanty, value, achv, growth, mpo_code,
                     r_target, sg_target, bl_target, total_target);
-
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -778,17 +733,14 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                                         catObj.getString("SHIFT_CODE"),  //SG_TARGET
                                         catObj.getString("PACK_CODE"), //BL_TARGET
                                         catObj.getString("TOTAL_CODE") //TOTAL_TARGET
-
                                 );
                                 categoriesList.add(cat);
                             }
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Toast.makeText(PMDRXSummary.this, "No data available on this search", Toast.LENGTH_SHORT).show();
             }
@@ -799,6 +751,7 @@ public class PMDRXSummary extends Activity implements OnClickListener {
         protected void onPostExecute(Void result) {
             Log.e("onpostexecute=>", "on post execute");
             super.onPostExecute(result);
+
             try {
                 if ((pDialog != null) && pDialog.isShowing()) {
                     pDialog.dismiss();
@@ -815,7 +768,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             popSpinner();
             postPrescriptionCount();
             postSubTotal();
-
         }
     }
 
@@ -853,6 +805,7 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             json = jsonParser.makeServiceCall(URL_LIST, ServiceHandler.POST, params);
             customerlist.clear();
             Log.e("getList==>", json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -864,15 +817,12 @@ public class PMDRXSummary extends Activity implements OnClickListener {
                             customerlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -934,7 +884,6 @@ public class PMDRXSummary extends Activity implements OnClickListener {
             super.onPostExecute(result);
             populatebrandSpinner();
         }
-
     }
 
     @Override

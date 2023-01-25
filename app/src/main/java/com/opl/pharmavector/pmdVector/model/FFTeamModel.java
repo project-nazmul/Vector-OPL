@@ -7,13 +7,13 @@ import java.util.List;
 public class FFTeamModel {
     @SerializedName("team")
     @Expose
-    private List<FFTeamList> team;
+    private List<FFTeamList> teamList;
 
-    public List<FFTeamList> getTeam() {
-        return team;
+    public List<FFTeamList> getTeamList() {
+        return teamList;
     }
 
-    public void setTeam(List<FFTeamList> team) {
-        this.team = team;
+    public void setTeamList(List<FFTeamList> teamList) {
+        this.teamList = teamList;
     }
 }

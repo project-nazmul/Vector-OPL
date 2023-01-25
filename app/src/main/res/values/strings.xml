@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Vector</string>
-    <string name="hello_world">Welcome!  Please Fill out the neccesery feilds</string>
+    <string name="hello_world">Welcome! Please Fill out the neccesery feilds</string>
     <string name="menu_settings">Settings</string>
     <string name="logout">Logout</string>
     <string name="login_user">Login user</string>
@@ -13,7 +13,7 @@
     <string name="cust">Customer</string>
     <string name="ref">Reference No</string>
     <string name="delidate">Delivery Date</string>
-    <string name="instruct">Please Fill out the necessery feilds</string>
+    <string name="instruct">Please Fill out the necessary fields!</string>
     <string name="note">If you face problem with login, please go to setting.</string>
     <string name="packsize">Size</string>
     <string name="menu_header">Order  Book</string>
@@ -58,12 +58,10 @@
     <string name="search_hint">Type Doctor name</string>
 
     <string-array name="fieldspinner">
-
         <item>Territory</item>
         <item>Area</item>
         <item>Region</item>
         <item>Zone</item>
-
     </string-array>
 
     <string-array name="am_pm">
@@ -235,7 +233,7 @@
     <string name="mpo_name">Mpo Name</string>
     <string name="visit_to5">Visit To</string>
     <string name="newversion">newversion</string>
-    <string name="please_fill_the_below_feilds_to_make_offline_order">Please fill the below feilds to make offline order.</string>
+    <string name="please_fill_the_below_feilds_to_make_offline_order">Please fill the below fields to make offline order.</string>
     <string name="input_customer_eg_dh">Input Customer (eg. dh..)</string>
     <string name="type">Type||</string>
     <string name="quant">Quant||</string>
@@ -327,7 +325,5 @@
     <string name="rx_capture">Rx Capture</string>
     <string name="dailycallreport">Daily Call Report</string>
     <string name="mpo_product_order">Product Order</string>
-
-
 </resources>
 

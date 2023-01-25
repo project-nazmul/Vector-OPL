@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,34 +13,48 @@
         android:fontFamily="@font/acme">
 
         <TextView
-            android:id="@+id/brandName"
+            android:id="@+id/companyName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.3"
-            android:text="Brand"
+            android:text="Company Name"
             android:textAlignment="textStart"
             android:textColor="#E91E63"
-            android:textSize="12dp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/brandName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="start"
+            android:text="Brand Name"
+            android:textColor="#4CAF50"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/valueShare"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left"
+            android:gravity="start"
             android:text="Value Share"
-            android:textColor="#4CAF50"
-            android:textSize="12dp" />
+            android:textColor="#FF5722"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/valueRank"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
             android:text="Rank"
-            android:textColor="#FF5722"
-            android:textSize="12dp" />
+            android:textAlignment="center"
+            android:textColor="#3F51B5"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/uniteShare"
@@ -49,7 +64,8 @@
             android:text="Unite Share"
             android:textAlignment="center"
             android:textColor="#3F51B5"
-            android:textSize="12dp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/uniteRank"
@@ -57,30 +73,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Rank"
-            android:textAlignment="center"
-            android:textColor="#3F51B5"
-            android:textSize="12dp" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/brandwise"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Brandwise"
-            android:textAlignment="center"
-            android:textColor="#3F51B5"
-            android:textSize="12dp" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/regionwise"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Regionwise"
             android:textAlignment="textEnd"
             android:textColor="#3F51B5"
-            android:textSize="12dp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

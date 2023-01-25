@@ -173,7 +173,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                     pDialog.dismiss();
                     List<FFTeamList> teamList = null;
                     if (response.body() != null) {
-                        teamList = (response.body()).getTeam();
+                        teamList = (response.body()).getTeamList();
                     }
                     initTeamSpinner(teamList);
                     Log.d("Team List -- : ", String.valueOf(teamList));

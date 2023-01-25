@@ -16,10 +16,10 @@ public class BrandList {
     @SerializedName("UNITE_SHARE")
     @Expose
     private String uniteShare;
-    @SerializedName("OPL_RANK")
+    @SerializedName("OPL_UNIT_RANK")
     @Expose
     private String oplRank;
-    @SerializedName("NAT_RANK")
+    @SerializedName("NAT_UNIT_RANK")
     @Expose
     private String natRank;
 
