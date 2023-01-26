@@ -89,16 +89,11 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     Bundle b;
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
-
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
     CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales;
-
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
-
     TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
-
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
-
     public static String profile_image;
     PreferenceManager preferenceManager;
     int count;
@@ -123,10 +118,10 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
 
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
     @RequiresApi(api = Build.VERSION_CODES.O)
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboardpmd);
+
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         initViews();
@@ -170,18 +165,14 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
                         startActivity(logoutIntent);
                         finish();
-
                     }
                 });
                 builder.show();
             }
-
-
         }
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -208,57 +199,44 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                             }
                         })
                         .show();
-
             }
-
         });
-
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
-
     }
 
-
     private void rxEvent() {
-
         btn_dashboard_1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_RX();
             }
         });
-
         img_btn_rx.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_RX();
             }
         });
-
         practiceCard1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_RX();
             }
         });
-
     }
 
     private void notificationEvent() {
-
         btn_dashboard_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
                             } else {
                                 Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
-                                // i.putExtra("UserName", DashBoardPMD.pmd_loccode);
-                                // i.putExtra("UserName_2", DashBoardPMD.pmd_code);
+                                //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
+                                //i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -267,26 +245,21 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
                             } else {
                                 Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
-                                // i.putExtra("UserName", DashBoardPMD.pmd_loccode);
-                                // i.putExtra("UserName_2", DashBoardPMD.pmd_code);
+                                //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
+                                //i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -295,26 +268,21 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         practiceCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
                             } else {
                                 Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
-                                // i.putExtra("UserName", DashBoardPMD.pmd_loccode);
-                                // i.putExtra("UserName_2", DashBoardPMD.pmd_code);
+                                //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
+                                //i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -323,24 +291,17 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     private void Sales_4p_Event() {
-
         btn_4p_sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -354,19 +315,14 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_4p_sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -380,19 +336,14 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         cardview_4p_sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -406,24 +357,17 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     private void FF_Contact_Event() {
-
         btn_ff_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -437,19 +381,14 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_ff_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -463,19 +402,14 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         cardview_ff_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -489,11 +423,8 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     private void initBroadcastReceiver() {
@@ -512,9 +443,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         };
     }
 
-
     private void initViews() {
-
         executive_name = findViewById(R.id.executive_name);
         executive_code = findViewById(R.id.executive_code);
         executive_loc = findViewById(R.id.executive_loc);
@@ -525,7 +454,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
 
         img_btn_rx = findViewById(R.id.img_btn_rx);
         img_btn_notice = findViewById(R.id.img_btn_notice);
-
 
         practiceCard1 = findViewById(R.id.practiceCard1);
         practiceCard2 = findViewById(R.id.practiceCard2);
@@ -558,14 +486,10 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         executive_loc.setText(pmd_loc);
         profile_image = base_url + pmd_code + "." + "jpg";
         vector_version = getString(R.string.vector_version);
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
+        Picasso.get().load(profile_image).into(imageView2);
     }
 
-
     private void showBottomSheetDialog_RX() {
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_rx_image = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -576,19 +500,16 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
-
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
         Objects.requireNonNull(cardview_rx_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DashBoardPMD.this, ImageLoadActivity.class);
                 startActivity(i);
                 //Toast.makeText(getApplicationContext(), "layout_rx_image is Clicked ", Toast.LENGTH_LONG).show();
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_rx_summary_A).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -597,32 +518,25 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // Toast.makeText(getApplicationContext(), "layout_rx_report_b is Clicked ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "layout_rx_report_b is Clicked ", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(DashBoardPMD.this, PMDRXSummary2.class);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
-
+                //bottomSheetDialog.dismiss();
             }
         });
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
-
     private void updateLocation() {
-
         buildLocationRequest();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -630,11 +544,9 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, getPendingIntent());
-
     }
 
     private void buildLocationRequest() {
-
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(100);
@@ -642,19 +554,16 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         locationRequest.setSmallestDisplacement(10f);
     }
 
-
     private PendingIntent getPendingIntent() {
         Intent myIntent = new Intent(this, MyLocationService.class);
         myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
         return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_IMMUTABLE);
     }
 
-
     public void getAddress(double lat, double lng) {
         Geocoder geocoder = new Geocoder(DashBoardPMD.this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-
             //List<Address> addresses = geocoder.getFromLocation(fetchedlat, fetchedlang, 1);
 
             Address obj = addresses.get(0);
@@ -664,9 +573,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
             Log.e("address-->", track_add);
             userLog(log_status);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-
         }
     }
 
@@ -678,7 +585,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         build_id = Build.ID;
     }
 
-
     private void firebaseEvent() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(DashBoardPMD.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
@@ -687,7 +593,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 Log.e("vectorToken-->", vectorToken);
             }
         });
-
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -696,10 +601,9 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         if (!task.isSuccessful()) {
                             msg = getString(R.string.msg_subscribe_failed);
                         }
-                        // Log.d(TAG, msg);
+                        //Log.d(TAG, msg);
                     }
                 });
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -713,10 +617,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         };
     }
 
-
     private void userLog(final String key) {
-
-
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, String.valueOf(fetchedlat), String.valueOf(fetchedlang),
                 build_model, build_brand, pmd_loccode, track_add);
@@ -727,13 +628,10 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 int success = response.body().getSuccess();
                 String message = response.body().getMassage();
                 Log.e("serverResponse->", message);
-
             }
 
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
     }
 
@@ -765,7 +663,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                                             Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
                                             startActivity(logoutIntent);
                                             finish();
-
                                         }
                                     })
                                     .show();
@@ -773,21 +670,13 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                             updateLocation();
                         }
                     }
-
                     @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-
-                    }
-
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {}
                 }).check();
-
-
     }
 
     @Override
-    public void onClick(View view) {
-
-    }
+    public void onClick(View view) {}
 
     @Override
     protected void onResume() {
@@ -821,7 +710,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         preferenceManager.setuserdtl(pmd_name);
         preferenceManager.setfftype(pmd_type);
         preferenceManager.setexecutive_name(pmd_loc);
-
     }
 
     @Override
@@ -836,7 +724,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         preferenceManager.setfftype(pmd_type);
         preferenceManager.setexecutive_name(pmd_loc);
         updateLocation();
-
     }
 
     @Override
@@ -846,15 +733,12 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     }
 
     private void sales_reports() {
-
         cardview_sales_reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 Toast.makeText(getApplicationContext(),
@@ -868,32 +752,23 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
         img_btn_sales_reports.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Toast.makeText(getApplicationContext(),
-                                        "Check Internet connection", Toast.LENGTH_LONG).show();
-
+                                Toast.makeText(getApplicationContext(), "Check Internet connection", Toast.LENGTH_LONG).show();
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -905,22 +780,17 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         tv_sales_reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 Toast.makeText(getApplicationContext(),
@@ -936,32 +806,23 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
         btn_sales_reports.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -973,14 +834,10 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 }

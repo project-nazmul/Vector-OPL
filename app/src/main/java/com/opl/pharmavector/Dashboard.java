@@ -149,28 +149,21 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private String log_status ="A";
     private String vector_version;
     double fetchedlang,fetchedlat;
-
     Context context;
     BroadcastReceiver updateUIReciver;
-
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard4,practiceCard5,practiceCard6,
-            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd,cardview_pmd_contact;
-
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
+             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact;
     ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
             img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,
             img_pmd_contact;
-
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,tv_notification,tv_rx,tv_personalexpense,
             tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_pmd_contact;
-
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,
             btn_msd,btn_exam,btn_vector_feedback,btn_pmd_contact;
-
     public TextView t4,t5;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
     public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
-
     LocationManager locationManager;
 
     public static Dashboard getInstance() {
@@ -183,7 +176,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
 
-        // this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -427,7 +419,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         img_pmd_contact      = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
-
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
@@ -1561,23 +1552,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1594,23 +1579,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         tv_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1627,23 +1606,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
         img_btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1660,42 +1634,30 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
-    private void msdDocSupport() {
 
+    private void msdDocSupport() {
         cardview_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
             }
         });
-
-
-
         img_btn_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
         });
         btn_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
         });
         tv_msd.setOnClickListener(new View.OnClickListener() {
@@ -1718,7 +1680,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
         img_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1728,10 +1689,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("new_version", Login.version);
                 i.putExtra("message_3", message_3);
                 startActivity(i);
-
             }
         });
-
         btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1743,7 +1702,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
         tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1806,31 +1764,25 @@ public class Dashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
+
         img_btn_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
-
                             } else {
                                 Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
                                 i.putExtra("mpo_code", Dashboard.globalmpocode);
@@ -1843,24 +1795,19 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
-
-
             }
         });
+
         btn_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                // new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1872,31 +1819,25 @@ public class Dashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
+
         tv_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
-
                             } else {
                                 Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
                                 i.putExtra("mpo_code", Dashboard.globalmpocode);
@@ -1909,20 +1850,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
-
-
             }
         });
     }
-
-
-
 
     private void dexterPermission(Context context,String... permissions) {
         Dexter.withContext(this)
@@ -1966,14 +1899,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
             public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
 
             }
-
         }).check();
-
-
     }
 
     private void userLog(final String key) {
-
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userData(key,vector_version,vectorToken,Dashboard.track_lat,Dashboard.track_lang,build_model,build_brand,Dashboard.globalmpocode,Dashboard.track_add);
         call.enqueue(new Callback<Patient>() {
@@ -1983,7 +1912,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 int success           = response.body().getSuccess();
                 String message        = response.body().getMassage();
                 Log.e("mpoLocationUpdate->",message+"===>"+Dashboard.track_lat+"-----"+Dashboard.track_lang);
-
             }
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
@@ -1993,7 +1921,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void userLogIn() {
-
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userLogIn(globalempCode,globalmpocode,vector_version,Dashboard.track_lat,Dashboard.track_lang,build_model,build_brand,Dashboard.globalmpocode,Dashboard.track_add);
         call.enqueue(new Callback<Patient>() {
@@ -2009,6 +1936,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             }
         });
     }
+
     private void initBroadcastReceiver() {
         updateUIReciver = new BroadcastReceiver() {
             @Override

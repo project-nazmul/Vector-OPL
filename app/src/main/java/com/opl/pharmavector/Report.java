@@ -39,7 +39,6 @@ import android.widget.Toast;
 import es.dmoral.toasty.Toasty;
 
 public class Report extends Activity implements OnClickListener {
-
 	public static final String TAG_SUCCESS = "success";
 	public static final String TAG_MESSAGE = "message";
 	public static final String TAG_MESSAGE_1 = "message_1";
@@ -68,17 +67,15 @@ public class Report extends Activity implements OnClickListener {
 	Button orderinvoice_btn,achivement_btn,admin_product_list,group_wise_product_ord_summary,back_btn,mrd_pres_report,fourp_pres_report,msp_pres_report;
 	String message_3;
 
-
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.scroll);
-		initViews();
+
 //==============================================added by rezwan===============================================
+		initViews();
 		btn_cust_credit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -88,7 +85,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, CustCreditActivity.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -100,12 +96,9 @@ public class Report extends Activity implements OnClickListener {
 				mysells.start();
 			}
 		});
-
-//==============================
 		btn_cust_sp_pct.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -115,7 +108,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Cust_Sp_Pct_Activity.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -127,11 +119,9 @@ public class Report extends Activity implements OnClickListener {
 				mysells.start();
 			}
 		});
-//==============================
 		btn_cust_outstanding.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -141,7 +131,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, CustOutstandingActivity.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -153,11 +142,9 @@ public class Report extends Activity implements OnClickListener {
 				mysells.start();
 			}
 		});
-//==============================
 		btn_cust_replacement.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -167,7 +154,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, CustReplacementActivity.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -179,14 +165,9 @@ public class Report extends Activity implements OnClickListener {
 				mysells.start();
 			}
 		});
-
-//=============================================end added by rezwan============================================
-
 		targetquantity_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -196,14 +177,10 @@ public class Report extends Activity implements OnClickListener {
 					@Override
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Targetquantity.class);
-
 							i.putExtra("UserName", UserName);
 							i.putExtra("new_version", userName);
 							i.putExtra("UserName_1", UserName_1);
@@ -217,15 +194,11 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		targetvalue_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -234,15 +207,11 @@ public class Report extends Activity implements OnClickListener {
 					String UserName_2 = b.getString("userName_2");
 					@Override
 					public void run() {
-
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Targetvalue.class);
-
 							i.putExtra("UserName", UserName);
 							i.putExtra("new_version", userName);
 							i.putExtra("UserName_1", UserName_1);
@@ -256,26 +225,20 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		viewbycustomer_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					@Override
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Viewbycustomer.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -285,32 +248,23 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		viewbycustomersale_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					@Override
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Viewbycustomersale.class);
 							System.out.println("userName ");
 							Log.d("Changepassword", "Login");
-
-
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
 							i.putExtra("new_version", userName);
@@ -319,16 +273,11 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		viewbycustomerreturn_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
@@ -336,11 +285,8 @@ public class Report extends Activity implements OnClickListener {
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
 							showSnack();
-
 						}
 						else {
-
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Viewbycustomerreturn.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -350,27 +296,20 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		viewbycustomerorderstatus_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					@Override
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Viewbycustomerorderstatus.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
@@ -380,32 +319,22 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		viewstock_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					@Override
 					public void run() {
-
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						} else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Stokeview.class);
 							System.out.println("userName ");
 							Log.d("Changepassword", "Login");
-
-
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_1", userName);
 							i.putExtra("new_version", userName);
@@ -414,42 +343,29 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		back_btn.setOnClickListener(new OnClickListener() {
 			Bundle b = getIntent().getExtras();
 
 			@Override
 			public void onClick(final View v) {
-				// TODO Auto-generated method stub
 				Thread backthred = new Thread(new Runnable() {
-
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
 						finish();
-
 					}
 				});
-
 				backthred.start();
 			}
 		});
-
 		achivement_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-
 				if (!NetInfo.isOnline(getBaseContext())) {
-
 					showSnack();
 				}
-
 				else {
-
 					final JSONParser jsonParser = new JSONParser();
 					final List<NameValuePair> params = new ArrayList<NameValuePair>();
 					Bundle b = getIntent().getExtras();
@@ -461,10 +377,10 @@ public class Report extends Activity implements OnClickListener {
 					pDialog.show();
 					String userName = b.getString("UserName");
 					params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
+
 					Thread server = new Thread(new Runnable() {
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
 							JSONObject json = jsonParser.makeHttpRequest(URL_Achievement, "POST", params);
 							try {
 								success = json.getInt(TAG_SUCCESS);
@@ -478,9 +394,7 @@ public class Report extends Activity implements OnClickListener {
 								} else {
 									SaveToDataBase();
 								}
-
 							} catch (JSONException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							Intent in = getIntent();
@@ -501,77 +415,50 @@ public class Report extends Activity implements OnClickListener {
 							sameint.putExtra("UserName_2", UserName_2);
 							startActivity(sameint);
 							pDialog.dismiss();
-
-
 						}
 
-
-						private void SaveToDataBase() {
-							// TODO Auto-generated method stub
-
-						}
-
+						private void SaveToDataBase() {}
 					});
-
 					server.start();
-
-
 				}
 			}
-
 		});
-
-
-
 		admin_product_list.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
-
 					@Override
 					public void run() {
-
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, AdminProductList.class);
 							i.putExtra("userName", userName);
 							i.putExtra("UserName", userName);
 							i.putExtra("UserName_2", UserName_2);
 							startActivity(i);
-
 						}
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		group_wise_product_ord_summary.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
-
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					String UserName_1 = b.getString("userName_1");
 					String UserName_2 = b.getString("userName_2");
+
 					@Override
 					public void run() {
 						if (!NetInfo.isOnline(getBaseContext())) {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, GroupwiseProductOrderSummary2.class);
 							i.putExtra("UserName", userName);
 							i.putExtra("new_version", userName);
@@ -586,36 +473,25 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		customervalue_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
-
 					//String userName = b.getString("UserName");
 					String UserName_1 = b.getString("userName_1");
 					String UserName_2 = b.getString("userName_2");
+
 					@Override
 					public void run() {
-
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-
-
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Customervalue.class);
-
 							i.putExtra("UserName", UserName);
 							i.putExtra("new_version", userName);
 							i.putExtra("UserName_1", UserName_1);
@@ -624,47 +500,33 @@ public class Report extends Activity implements OnClickListener {
 							i.putExtra("new_version", userName);
 							i.putExtra("userName_1", UserName_1);
 							i.putExtra("userName_2", UserName_2);
-
 							Log.d("userName", "UserName" + userName);
-
 							Log.d("UserName_1", "UserName_1" + UserName_1);
 							Log.d("UserName_2", "UserName_2" + UserName_2);
 							startActivity(i);
 						}
-
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 		orderinvoice_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
-
 					//String userName = b.getString("UserName");
 					String UserName_1 = b.getString("userName_1");
 					String UserName_2 = b.getString("userName_2");
+
 					@Override
 					public void run() {
-
 						if (!NetInfo.isOnline(getBaseContext())) {
-
 							showSnack();
-
 						}
 						else {
-
-
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, Orderinvoice.class);
-
 							i.putExtra("UserName", UserName);
 							i.putExtra("new_version", userName);
 							i.putExtra("UserName_1", UserName_1);
@@ -673,9 +535,7 @@ public class Report extends Activity implements OnClickListener {
 							i.putExtra("new_version", userName);
 							i.putExtra("userName_1", UserName_1);
 							i.putExtra("userName_2", UserName_2);
-
 							Log.d("userName", "UserName" + userName);
-
 							Log.d("UserName_1", "UserName_1" + UserName_1);
 							Log.d("UserName_2", "UserName_2" + UserName_2);
 							startActivity(i);
@@ -683,15 +543,12 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 
 		mrd_pres_report.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -699,7 +556,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							//showSnack();
 							Intent i = new Intent(Report.this, MRDPresReport.class);
 							i.putExtra("userName", userName);
@@ -716,13 +572,11 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
 		msp_pres_report.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -730,7 +584,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, MRDPresReport.class);
 							i.putExtra("userName", userName);
 							i.putExtra("UserName", userName);
@@ -746,16 +599,11 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
-		//
-
 		fourp_pres_report.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -763,7 +611,6 @@ public class Report extends Activity implements OnClickListener {
 							showSnack();
 						}
 						else {
-							// TODO Auto-generated method stub
 							Intent i = new Intent(Report.this, MRDPresReport.class);
 							i.putExtra("userName", userName);
 							i.putExtra("UserName", userName);
@@ -779,12 +626,9 @@ public class Report extends Activity implements OnClickListener {
 					}
 				});
 				mysells.start();
-
 			}
 		});
-
 	}
-
 	private void initViews() {
 		Typeface fontFamily = Typeface.createFromAsset(getAssets(),	"fonts/fontawesome.ttf");
 		viewbycustomer_btn =  findViewById(R.id.viewbycustomer);
@@ -817,7 +661,6 @@ public class Report extends Activity implements OnClickListener {
 		message_3 = b.getString("message_3");
 	}
 
-
 	private void showSnack() {
 		new Thread()
 		{
@@ -835,18 +678,10 @@ public class Report extends Activity implements OnClickListener {
 				});
 			}
 		}.start();
-
 	}
-
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) {}
 
-
-	}
-
-	protected void onPostExecute() {
-
-	}
-
+	protected void onPostExecute() {}
 }

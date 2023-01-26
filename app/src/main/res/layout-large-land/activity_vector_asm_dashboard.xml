@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,16 +8,14 @@
     android:background="#FCF9F5"
     tools:ignore="HardcodedText">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
+
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -56,7 +52,6 @@
                         android:textColor="#354592"
                         android:textSize="12sp"
                         android:textStyle="bold"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,10 +103,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0" />
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
             <View
@@ -122,7 +114,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -150,9 +141,7 @@
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-
-                    >
+                    app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -207,7 +196,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -224,9 +212,7 @@
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-
-                    >
+                    app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -283,9 +269,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
 
             <LinearLayout
@@ -313,8 +297,7 @@
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-                    >
+                    app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -369,7 +352,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -443,9 +425,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
 
             <LinearLayout
@@ -530,9 +510,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/practiceCard6"
@@ -605,10 +583,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -693,8 +668,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -768,10 +741,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -857,14 +827,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
-
-
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -877,7 +840,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_salesfollowup"
@@ -950,10 +912,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_salereports"
@@ -1026,10 +985,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
 
             <LinearLayout
@@ -1043,10 +999,150 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_pmd_contact"
+                    android:layout_width="137dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#D2F6F4"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_pmd_contact"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_pmd_contact"
+                        app:layout_constraintStart_toStartOf="@+id/tv_pmd_contact"
+                        app:layout_constraintTop_toTopOf="@+id/tv_pmd_contact">
 
+                        <ImageButton
+                            android:id="@+id/img_pmd_contact"
+                            android:layout_width="40dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="8dp"
+                            android:background="@drawable/ic_phone_call"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_pmd_contact"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.862" />
 
+                        <TextView
+                            android:id="@+id/tv_pmd_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="PMD Contact"
+                            android:textColor="@android:color/black"
+                            android:textSize="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_pmd_contact"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.68" />
 
+                        <Button
+                            android:id="@+id/btn_pmd_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:background="@drawable/top_button_shape"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:text="11"
+                            android:textColor="@android:color/black"
+                            android:textSize="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_doctor_list"
+                    android:layout_width="137dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B8D596"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_pmd_contact"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_pmd_contact"
+                        app:layout_constraintStart_toStartOf="@+id/tv_pmd_contact"
+                        app:layout_constraintTop_toTopOf="@+id/tv_pmd_contact">
+
+                        <ImageButton
+                            android:id="@+id/img_doctor_list"
+                            android:layout_width="40dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/doctor_list"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_doctor_list"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.862" />
+
+                        <TextView
+                            android:id="@+id/tv_doctor_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Doctor List"
+                            android:textColor="@android:color/black"
+                            android:textSize="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_doctor_list"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.68" />
+
+                        <Button
+                            android:id="@+id/btn_doctor_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:background="@drawable/top_button_shape"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:text="12"
+                            android:textColor="@android:color/black"
+                            android:textSize="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
             <View
@@ -1055,9 +1151,7 @@
                 android:layout_height="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_msd"
-
-                />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_msd" />
 
             <LinearLayout
                 android:id="@+id/linearLayout7"
@@ -1088,9 +1182,7 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     app:cornerRadius="8dp" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/linearLayout8"
@@ -1120,8 +1212,6 @@
                     android:textAllCaps="false" />
             </LinearLayout>
 
-
-
             <LinearLayout
                 android:id="@+id/linearLayout9"
                 android:layout_width="match_parent"
@@ -1141,10 +1231,7 @@
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/opl_logo" />
-
             </LinearLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -1154,8 +1241,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/login_bg" />
     </RelativeLayout>
-
-
 </ScrollView>
 
 

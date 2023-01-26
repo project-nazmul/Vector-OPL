@@ -8,12 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <LinearLayout
             android:id="@+id/li"
@@ -22,6 +20,7 @@
             android:background="@android:drawable/alert_light_frame"
             android:orientation="horizontal"
             android:weightSum="3">
+
             <TextView
                 android:id="@+id/head_report"
                 android:layout_width="wrap_content"
@@ -36,8 +35,8 @@
                 android:textStyle="bold"
                 android:typeface="normal"
                 android:visibility="visible" />
-
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -58,13 +57,11 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-            
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
 
             <Button
                 android:id="@+id/targetvalue"
@@ -78,13 +75,12 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="2.Product wise target vs Sales value"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -102,13 +98,12 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="3.Brandproduct wise target vs Sales value"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -125,14 +120,13 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="4.Customer wise Order vs Sales value"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:visibility="gone"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -153,8 +147,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -175,8 +169,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -193,20 +187,18 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="5.Return Status(by Customer)"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/viewstock"
-
                 style="@android:style/Widget.Button.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,20 +209,18 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="6.Available current stock product"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/viewbycustomerorderstatus"
-
                 style="@android:style/Widget.Button.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,17 +231,15 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="7.Party wise Order status"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
 
             <Button
                 android:id="@+id/achivement_btn"
@@ -264,17 +252,15 @@
                 android:hapticFeedbackEnabled="true"
                 android:soundEffectsEnabled="true"
                 android:text="8.Target, Sales, Achievement\nand Growth"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
 
             <Button
                 android:id="@+id/admin_product_list"
@@ -290,13 +276,12 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="9.Opsonin Product List"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -315,13 +300,12 @@
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
                 android:text="10.Group wise Product Order Summary"
-
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -344,8 +328,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -368,8 +352,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -393,6 +377,7 @@
                 android:textStyle="bold"
                 android:typeface="normal" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -414,7 +399,6 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -438,8 +422,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -461,8 +445,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -484,8 +468,8 @@
                 android:textColor="@android:color/background_dark"
                 android:textStyle="bold"
                 android:typeface="normal" />
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:padding="@dimen/_10sdp"
@@ -504,11 +488,7 @@
                 android:soundEffectsEnabled="true"
                 android:text="&lt;"
                 android:textColor="#FFF"
-                android:textSize="@dimen/_12sdp"
-
-
-                />
-
+                android:textSize="@dimen/_12sdp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -519,5 +499,4 @@
             android:scaleType="fitCenter"
             android:src="@drawable/login_bg" />
     </RelativeLayout>
-
 </ScrollView>

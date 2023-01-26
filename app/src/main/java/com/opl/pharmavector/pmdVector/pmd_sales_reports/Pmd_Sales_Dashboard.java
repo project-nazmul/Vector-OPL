@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opl.pharmavector.ASMWiseProductSale;
+import com.opl.pharmavector.AdminProductList;
 import com.opl.pharmavector.AdminReportDashboard;
 import com.opl.pharmavector.GMDashboard1;
 import com.opl.pharmavector.GroupwiseProductOrderSummary2;
@@ -33,67 +34,52 @@ import es.dmoral.toasty.Toasty;
 public class Pmd_Sales_Dashboard extends Activity {
     private SessionManager session;
     Button back_btn;
-    CardView cardview1,cardview2,cardview3,cardview4,cardview5,cardview6;
-
+    String userName,userName_1,userName_2,message_3;
+    CardView cardview1,cardview2,cardview3,cardview4,cardview5,cardview6,admin_product_list;
     ImageView img1,img2,img3,img4,img5,img6;
-
     TextView txt_vw1,txt_vw2,txt_vw3,txt_vw4,txt_vw5,txt_vw6;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pmd_sales_dashboard);
+
         initViews();
-
         cardview1.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-
                             Intent i = new Intent(Pmd_Sales_Dashboard.this, SMWiseProductSale.class);
                             i.putExtra("userName", DashBoardPMD.pmd_code);
                             i.putExtra("UserName", DashBoardPMD.pmd_code);
                             i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                             startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
         cardview2.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-
                         Intent i = new Intent(Pmd_Sales_Dashboard.this, SMBrandwiseProductSale.class);
                         i.putExtra("userName", DashBoardPMD.pmd_code);
                         i.putExtra("UserName", DashBoardPMD.pmd_code);
                         i.putExtra("UserName_2", DashBoardPMD.pmd_code);
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
         cardview3.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -101,7 +87,6 @@ public class Pmd_Sales_Dashboard extends Activity {
                             showSnack();
                         }
                         else {
-                            // TODO Auto-generated method stub
                             Intent i = new Intent(Pmd_Sales_Dashboard.this, GroupwiseProductOrderSummary2.class);
                             i.putExtra("userName", DashBoardPMD.pmd_code);
                             i.putExtra("UserName", DashBoardPMD.pmd_code);
@@ -111,29 +96,42 @@ public class Pmd_Sales_Dashboard extends Activity {
                     }
                 });
                 mysells.start();
-
             }
         });
-
-
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             Bundle b = getIntent().getExtras();
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
-
                 backthred.start();
             }
         });
-
+        admin_product_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread mysells = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!NetInfo.isOnline(getBaseContext())) {
+                            showSnack();
+                        }
+                        else {
+                            Intent i = new Intent(Pmd_Sales_Dashboard.this, AdminProductList.class);
+                            i.putExtra("userName", userName);
+                            i.putExtra("UserName", userName);
+                            i.putExtra("UserName_2", userName_2);
+                            startActivity(i);
+                        }
+                    }
+                });
+                mysells.start();
+            }
+        });
     }
 
     private void initViews() {
@@ -165,6 +163,13 @@ public class Pmd_Sales_Dashboard extends Activity {
         cardview6 = findViewById(R.id.cardview6);
         txt_vw6      = findViewById(R.id.txt_vw6);
         img6        = findViewById(R.id.img6);
+        admin_product_list =  findViewById(R.id.admin_product_list);
+
+        Bundle b = getIntent().getExtras();
+        userName = b.getString("UserName");
+        userName_1 = b.getString("userName_1");
+        userName_2 = b.getString("UserName_2");
+        message_3 = b.getString("message_3");
     }
 
     private void logoutUser() {
@@ -174,7 +179,6 @@ public class Pmd_Sales_Dashboard extends Activity {
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
 
     private void showSnack() {
@@ -189,9 +193,5 @@ public class Pmd_Sales_Dashboard extends Activity {
                 });
             }
         }.start();
-
     }
-
-
-
 }

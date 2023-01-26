@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,11 +11,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/dashboard_back">
-
 
         <View
             android:id="@+id/view"
@@ -108,14 +106,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 -->
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
@@ -147,7 +140,6 @@
                         android:textColor="#354592"
                         android:textSize="12sp"
                         android:textStyle="bold"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -199,13 +191,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="1.0" />
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
-
 
         <View
             android:id="@+id/view2"
@@ -215,7 +202,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -243,9 +229,7 @@
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-
-                >
+                app:cardUseCompatPadding="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -300,7 +284,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -317,9 +300,7 @@
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-
-                >
+                app:cardUseCompatPadding="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -377,9 +358,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -407,9 +386,7 @@
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-
-                >
+                app:cardUseCompatPadding="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -464,7 +441,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -481,9 +457,7 @@
                 app:cardCornerRadius="15dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-
-                >
+                app:cardUseCompatPadding="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -540,9 +514,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -627,9 +599,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/practiceCard6"
@@ -702,10 +672,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -718,7 +685,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/practiceCard7"
@@ -791,7 +757,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -865,10 +830,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -953,10 +915,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_pc"
@@ -1029,11 +988,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -1046,7 +1001,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_promomat"
@@ -1119,10 +1073,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_salereports"
@@ -1195,10 +1146,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -1211,7 +1159,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_msd"
@@ -1284,11 +1231,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_pmd_contact"
@@ -1316,14 +1259,14 @@
 
                     <ImageButton
                         android:id="@+id/img_pmd_contact"
-                        android:layout_width="42dp"
-                        android:layout_height="40dp"
+                        android:layout_width="40dp"
+                        android:layout_height="36dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
                         android:padding="8dp"
-                        android:background="@drawable/contact"
+                        android:background="@drawable/ic_phone_call"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_pmd_contact"
@@ -1361,10 +1304,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
         <View
@@ -1373,9 +1313,7 @@
             android:layout_height="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout_msd"
-
-            />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_msd" />
 
         <LinearLayout
             android:id="@+id/linearLayout7"
@@ -1406,9 +1344,7 @@
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 app:cornerRadius="8dp" />
-
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/linearLayout8"
@@ -1438,8 +1374,6 @@
                 android:textAllCaps="false"  />
         </LinearLayout>
 
-
-
         <LinearLayout
             android:id="@+id/linearLayout9"
             android:layout_width="match_parent"
@@ -1459,10 +1393,7 @@
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:src="@drawable/dynamos" />
-
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView

@@ -31,6 +31,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorservice.DoctorServiceFollowup;
@@ -121,20 +122,20 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     PreferenceManager preferenceManager;
     private int count;
-    public static String ff_type,password,globalempCode,globalempName,new_version, message_3,vector_version;
+    public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode;
     Typeface fontFamily;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,
-            practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6,
+             practiceCard7, practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact;
     ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
-            img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode;
+            img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode, img_pmd_contact;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,
-            tv_notification,tv_rx,tv_pc,tv_salereports,tv_msd,tv_salesfollowup,tv_mastercode;
+            tv_notification,tv_rx,tv_pc,tv_salereports,tv_msd,tv_salesfollowup,tv_mastercode, tv_pmd_contact;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,btn_notification,btn_rx,btn_pc,btn_salereports,btn_msd,btn_salesfollowup,btn_vector_feedback,
-            btn_mastercode;
+            btn_mastercode, btn_pmd_contact;
     public TextView t4,t5;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
-    public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
+    public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
     private String log_status ="A";
 
     @SuppressLint("CutPasteId")
@@ -162,10 +163,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         if (!task.isSuccessful()) {
                             msg = getString(R.string.msg_subscribe_failed);
                         }
-
                     }
                 });
-
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -178,7 +177,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             }
         };
 
-
         dcrfollowup();
         docservicefollowup();
         msdDocSupport();
@@ -188,11 +186,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         managersreport();
         pcConferenceEvent();
         prescriptionentry();
+        pmdContact();
 
         logout.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -207,7 +204,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                                         Intent logoutIntent = new Intent(GMDashboard1.this, Login.class);
                                         startActivity(logoutIntent);
                                         finish();
-
                                     }
                                 });
                                 server.start();
@@ -221,24 +217,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                             }
                         })
                         .show();
-
-
             }
         });
         btn_vector_feedback.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-
                 FeedbackshowSnack();
             }
         });
-
         autoLogout();
-
     }
 
     private void autoLogout() {
-
         if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")){
             log_status = "N";
             preferenceManager.clearPreferences();
@@ -247,7 +236,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             startActivity(logoutIntent);
             finish();
         }
-
     }
 
     private void initViews(){
@@ -258,7 +246,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         imageView2 = findViewById(R.id.imageView2);
         logo_team =findViewById(R.id.logo_team);
         btn_vector_feedback =findViewById(R.id.btn_vector_feedback);
-
 
         btn_productorder     = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -275,14 +262,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         tv_dcc         = findViewById(R.id.tv_dcc);
         practiceCard2  = findViewById(R.id.practiceCard2);
 
-
         btn_docservice       = findViewById(R.id.btn_docservice);
         img_btn_docservice   = findViewById(R.id.img_btn_docservice);
         tv_docservice        = findViewById(R.id.tv_docservice);
         practiceCard3        = findViewById(R.id.practiceCard3);
-
-
-
 
         btn_notification       = findViewById(R.id.btn_notification);
         img_btn_notification   = findViewById(R.id.img_btn_notification);
@@ -294,8 +277,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         tv_rx        = findViewById(R.id.tv_rx);
         practiceCard8 = findViewById(R.id.practiceCard8);
 
-
-
         btn_pc       = findViewById(R.id.btn_pc);
         img_btn_pc   = findViewById(R.id.img_btn_pc);
         tv_pc        = findViewById(R.id.tv_pc);
@@ -306,12 +287,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         tv_salesfollowup       = findViewById(R.id.tv_salesfollowup);
         cardview_salesfollowup = findViewById(R.id.cardview_salesfollowup);
 
-
         btn_salereports      = findViewById(R.id.btn_salereports);
         img_btn_salereports  = findViewById(R.id.img_btn_salereports);
         tv_salereports       = findViewById(R.id.tv_salereports);
         cardview_salereports = findViewById(R.id.cardview_salereports);
-
 
         btn_msd = findViewById(R.id.btn_msd);
         img_btn_msd  = findViewById(R.id.img_btn_msd);
@@ -323,7 +302,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         tv_mastercode       = findViewById(R.id.tv_mastercode);
         cardview_mastercode  = findViewById(R.id.cardview_mastercode);
 
-
+        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
@@ -341,7 +323,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         global_admin_Code=preferenceManager.getAdmin_Code();
         global_admin_name=preferenceManager.getAdmin_Name();
         global_admin_terri=preferenceManager.getAdmin_Terri();
-
         Log.e("UserCode------>",global_admin_Code+"-----------"+global_admin_name+"-----------"+global_admin_terri);
 
         //user_show1.setText(globalempName);
@@ -366,15 +347,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     }
 
     private void dcrfollowup() {
-
         cardview_dcr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Bundle b = getIntent().getExtras();
                         String userName = b.getString("UserName");
                         String userName_1 = b.getString("UserName_1");
@@ -397,20 +375,15 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DOCSUPPORT() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -424,10 +397,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         cardview4.setVisibility(View.GONE);
 
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
-
-
         Objects.requireNonNull(textView4).setText("Tracking\nDoctor");
-
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
@@ -438,7 +408,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(GMDashboard1.this, ManagerDoctorServiceFollowup.class);
                 i.putExtra("userName", globalAdmin);
                 i.putExtra("UserName_2", globalAdminDtl);
@@ -452,7 +421,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(GMDashboard1.this, DoctorServiceTrackMonthly.class);
                 i.putExtra("userName", globalAdmin);
                 i.putExtra("UserName_2", globalAdminDtl);
@@ -462,29 +430,20 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 bottomSheetDialog2.dismiss();
             }
         });
-
-
-
-
-
         bottomSheetDialog2.show();
     }
+
     private void docservicefollowup() {
         practiceCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_DOCSUPPORT();
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_MSD() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -558,7 +517,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
@@ -566,28 +524,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         cardview_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
-
-
         });
-
-
     }
 
-
     private void masterCode() {
-
         cardview_mastercode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -602,24 +550,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
         btn_mastercode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -634,24 +576,19 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
         img_btn_mastercode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -666,24 +603,19 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
         tv_mastercode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -1260,6 +1192,56 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                // startActivity(i);
             }
         });
+    }
+
+    private void pmdContact() {
+            cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                    i.putExtra("UserName", globalAdmin);
+                    i.putExtra("UserName_2", globalAdminDtl);
+                    i.putExtra("new_version", Login.version);
+                    i.putExtra("message_3", message_3);
+                    startActivity(i);
+                }
+            });
+
+            img_pmd_contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                    i.putExtra("UserName", globalAdmin);
+                    i.putExtra("UserName_2", globalAdminDtl);
+                    i.putExtra("new_version", Login.version);
+                    i.putExtra("message_3", message_3);
+                    startActivity(i);
+                }
+            });
+
+            btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                    i.putExtra("UserName", globalAdmin);
+                    i.putExtra("UserName_2", globalAdminDtl);
+                    i.putExtra("new_version", Login.version);
+                    i.putExtra("message_3", message_3);
+                    startActivity(i);
+                }
+            });
+
+            tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                    i.putExtra("UserName", globalAdmin);
+                    i.putExtra("UserName_2", globalAdminDtl);
+                    i.putExtra("new_version", Login.version);
+                    i.putExtra("message_3", message_3);
+                    startActivity(i);
+                }
+            });
     }
 
     @Override

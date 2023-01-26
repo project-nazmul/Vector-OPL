@@ -28,6 +28,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -120,24 +121,25 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type,build_model,build_brand,
             build_manufac,build_id,build_device,build_version,password,globalempCode,globalempName,new_version, message_3,vector_version;
     CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard4,practiceCard5,practiceCard6,
-            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd;
+            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd,cardview_pmd_contact;
     ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
-            img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam;
+            img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,img_pmd_contact;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,
-            tv_notification,tv_rx,tv_personalexpense,tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam;
+            tv_notification,tv_rx,tv_personalexpense,tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_pmd_contact;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,
-            btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback;
+            btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback,btn_pmd_contact;
     public TextView t4,t5;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
-    public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
+    public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-      // setContentView(R.layout.amdashboard);
+        //setContentView(R.layout.amdashboard);
         setContentView(R.layout.activity_vector_fm_dashboard);
+
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -150,6 +152,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 vectorToken = instanceIdResult.getToken();
             }
         });
+
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -173,7 +176,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             }
         };
 
-/*
+       /*
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1909,10 +1912,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         */
 
         session = new SessionManager(getApplicationContext());
-
-
         logout.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AmDashboard.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
@@ -1930,7 +1930,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
                                     }
                                 });
-
                                 server.start();
                                 logoutUser();
                             }
@@ -1942,10 +1941,8 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                             }
                         })
                         .show();
-
             }
         });
-
         dcrClickEvent();
         dccfollowupEvent();
         docservicefollowup();
@@ -1961,16 +1958,13 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         TeamLogo();
         mpoDCREvent();
         vacantMpoPwd();
-       // autoLogout();
-
-
+        pmdContact();
+        //autoLogout();
     }
 
     private void TeamLogo() {
-
         String team = ff_type;
         team_logo = ApiClient.BASE_URL+"team_logo/" ;
-
 
         switch (team) {
             case "G":
@@ -1996,7 +1990,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
-
                 break;
             case "C":
                 logo_image = team_logo+"g"+"."+"png";
@@ -2005,12 +1998,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         .into(logo_team);
                 break;
         }
-
-
     }
 
     private void autoLogout() {
-
         if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")){
             log_status = "N";
             preferenceManager.clearPreferences();
@@ -2019,20 +2009,16 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             startActivity(logoutIntent);
             finish();
         }
-
     }
-
 
     @SuppressLint("CutPasteId")
     private void initViews(){
-
         logout= findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4= findViewById(R.id.t4);
         t5= findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team =findViewById(R.id.logo_team);
-
 
         btn_productorder     = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -2049,7 +2035,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         tv_dcc         = findViewById(R.id.tv_dcc);
         practiceCard2  = findViewById(R.id.practiceCard2);
 
-
         btn_docservice       = findViewById(R.id.btn_docservice);
         img_btn_docservice   = findViewById(R.id.img_btn_docservice);
         tv_docservice        = findViewById(R.id.tv_docservice);
@@ -2059,7 +2044,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         img_btn_docgiftfeedback   = findViewById(R.id.img_btn_docgiftfeedback);
         tv_docgiftfeedback        = findViewById(R.id.tv_docgiftfeedback);
         practiceCard4             = findViewById(R.id.practiceCard4);
-
 
         btn_notification       = findViewById(R.id.btn_notification);
         img_btn_notification   = findViewById(R.id.img_btn_notification);
@@ -2076,7 +2060,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         tv_personalexpense        = findViewById(R.id.tv_personalexpense);
         practiceCard9             = findViewById(R.id.practiceCard9);
 
-
         btn_pc       = findViewById(R.id.btn_pc);
         img_btn_pc   = findViewById(R.id.img_btn_pc);
         tv_pc        = findViewById(R.id.tv_pc);
@@ -2087,26 +2070,25 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         tv_promomat       = findViewById(R.id.tv_promomat);
         cardview_promomat  = findViewById(R.id.cardview_promomat);
 
-
         btn_salereports       = findViewById(R.id.btn_salereports);
         img_btn_salereports  = findViewById(R.id.img_btn_salereports);
         tv_salereports       = findViewById(R.id.tv_salereports);
         cardview_salereports  = findViewById(R.id.cardview_salereports);
-
 
         btn_msd = findViewById(R.id.btn_msd);
         img_btn_msd  = findViewById(R.id.img_btn_msd);
         tv_msd       = findViewById(R.id.tv_msd);
         cardview_msd  = findViewById(R.id.cardview_msd);
 
-
-
         btn_exam = findViewById(R.id.btn_exam);
         img_btn_exam  = findViewById(R.id.img_btn_exam);
         tv_exam       = findViewById(R.id.tv_exam);
         practiceCard5  = findViewById(R.id.practiceCard5);
 
-
+        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
@@ -2124,28 +2106,19 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
         user_show1.setText(globalempName);
         profile_image= base_url+globalempCode+"."+"jpg" ;
-
         Picasso.get()
                 .load(profile_image)
                 .into(imageView2);
-
-
         globalFMCode = userName;
         globalAreaCode = UserName_2;
         globalFMCode = userName;
 
         t4.setText(globalFMCode);
         t5.setText(globalAreaCode);
-
         lock_emp_check(globalempCode);
     }
 
-
-
-
     private void showBottomSheetDialog_MPODCR() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -2168,7 +2141,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2182,10 +2154,8 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("UserName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2197,31 +2167,22 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("sm_code", "XXX");
                 i.putExtra("admin_flag", "N");
                 startActivity(i);
-
             }
         });
-
-
-
         bottomSheetDialog.show();
     }
-    private void mpoDCREvent(){
 
+    private void mpoDCREvent(){
         practiceCard4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MPODCR();
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DCR() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -2243,8 +2204,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2258,10 +2217,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("UserName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2269,35 +2227,29 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("UserName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 startActivity(i);
-                //  bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
+
     private void dcrClickEvent() {
-
-
         cardview_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 showBottomSheetDialog_DCR();
             }
         });
-
         btn_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_DCR();
             }
         });
-
         img_btn_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_DCR();
@@ -2308,14 +2260,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 showBottomSheetDialog_DCR();
             }
         });
-
-
-
-
     }
 
     private void dccfollowupEvent() {
-
         practiceCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -2372,15 +2319,10 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 startActivity(i);
             }
         });
-
     }
-
-
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DOCSUPPORT() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -2394,10 +2336,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         cardview4.setVisibility(View.GONE);
 
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
-
-
         Objects.requireNonNull(textView4).setText("Tracking\nDoctor");
-
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
@@ -2416,21 +2355,18 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(AmDashboard.this, ManagerDoctorServiceFollowup.class);
                 i.putExtra("userName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 i.putExtra("new_version", new_version);
                 i.putExtra("user_flag", "F");
                 startActivity(i);
-                //  bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(AmDashboard.this, DoctorServiceTrackMonthly.class);
                 i.putExtra("userName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
@@ -2440,30 +2376,20 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 bottomSheetDialog2.dismiss();
             }
         });
-
-
-
-
-
         bottomSheetDialog2.show();
     }
+
     private void docservicefollowup() {
         practiceCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_DOCSUPPORT();
             }
         });
-
     }
-
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PE() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -2485,7 +2411,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2502,7 +2427,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2513,19 +2437,16 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 // bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
-    private void personalExpenseEvent(){
 
+    private void personalExpenseEvent(){
         practiceCard9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_PE();
@@ -2546,14 +2467,10 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 showBottomSheetDialog_PE();
             }
         });
-
     }
-
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PCCONFERENCE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -2562,9 +2479,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -2587,16 +2502,13 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
 
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(changepassword).setText("PC Conference");
-
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2606,23 +2518,18 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("new_version", R.string.vector_version);
                 i.putExtra("UserName", globalFMCode);
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(AmDashboard.this, PcConferenceFollowup.class);
                 i.putExtra("UserName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 i.putExtra("user_flag", "A");
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2632,10 +2539,8 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("new_version", new_version);
                 i.putExtra("userName", globalFMCode);
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2644,57 +2549,45 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("UserName_2", globalAreaCode);
                 i.putExtra("user_flag", "A");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
-    private void pcConferenceEvent() {
 
+    private void pcConferenceEvent() {
         cardview_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
-
             }
         });
         btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         tv_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         img_btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
-
     }
 
     private void noticeBoradEvent() {
-
         practiceCard6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2708,22 +2601,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2737,22 +2625,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         tv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2766,22 +2649,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2795,17 +2673,12 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RXCAPTURE() {
@@ -2818,7 +2691,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -2845,14 +2717,12 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
         Objects.requireNonNull(cardview4).setVisibility(View.GONE);
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2863,7 +2733,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 startActivity(i);
             }
         });
-
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2871,10 +2740,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("manager_code",AmDashboard.globalFMCode);
                 i.putExtra("manager_detail", "FM");
                 startActivity(i);
-                // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2897,21 +2765,18 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         img_btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         tv_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
@@ -2942,16 +2807,13 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         Objects.requireNonNull(textView4).setText("Sample\nRequisition");
         Objects.requireNonNull(textView5).setText("PPM\nFollow up");
         Objects.requireNonNull(textView6).setText("Gift\nFollow up");
-
         Objects.requireNonNull(changepassword).setText("Promo Material");
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -2965,7 +2827,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2976,7 +2837,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("promo_type", "P");
                 i.putExtra("user_code", globalFMCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
@@ -2989,63 +2850,50 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("promo_type", "G");
                 i.putExtra("user_code", globalFMCode);
                 startActivity(i);
-                //  bottomSheetDialog.dismiss();
-
+                //bottomSheetDialog.dismiss();
             }
         });
-
         bottomSheetDialog.show();
-
     }
+
     private void promoMaterialFollowupEvent(){
         btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
-
             }
         });
         img_btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         tv_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         cardview_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
-
     }
 
-
     private void salesReportEvent() {
-
         cardview_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(AmDashboard.this, AmSalesReportDashboard.class);
                                 i.putExtra("UserName", globalFMCode);
                                 i.putExtra("userName_1", globalAreaCode);
@@ -3057,23 +2905,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3089,23 +2931,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         tv_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3121,23 +2957,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         img_btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3153,23 +2983,15 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
-
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_MSD() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -3193,21 +3015,17 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(changepassword).setText("MSD");
         cardview_rx_summary_B.setVisibility(View.GONE);
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(AmDashboard.this, MSDProgramFollowup.class);
                 i.putExtra("user_code", globalFMCode);
                 i.putExtra("user_name", globalAreaCode);
@@ -3223,52 +3041,40 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("user_name", globalAreaCode);
                 i.putExtra("user_flag", "FM");
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
+
     private void msdDocSupport() {
         cardview_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
-
-
         });
-
-
     }
-
-
 
     private void vectorFeedback() {
         btn_vector_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3281,33 +3087,25 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "FM");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
-
-
     }
 
-
     private void mrcExamEvent() {
-
         practiceCard5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3319,27 +3117,22 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "A");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
         img_btn_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3351,29 +3144,22 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "A");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
-
-
         tv_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3385,27 +3171,22 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "A");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
         btn_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -3417,26 +3198,18 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "A");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
-
                 backthred.start();
             }
         });
-
     }
 
-
-
     private void vacantMpoPwd() {
-
         practiceCard7.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(AmDashboard.this, VacantMpoPwd.class);
@@ -3465,7 +3238,53 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 startActivity(i);
             }
         });
+    }
 
+    private void pmdContact() {
+        cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        img_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
     }
 
     private void showSnack() {
@@ -3480,33 +3299,26 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 });
             }
         }.start();
-
     }
-
 
     private void logoutUser() {
         session.setLogin(false);
-        // session.removeAttribute();
+        //session.removeAttribute();
         session.invalidate();
         Intent intent = new Intent(AmDashboard.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
-
 
     public void onBackPressed() {
-        // Toast.makeText(this, "Press the back button to close the application.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Press the back button to close the application.", Toast.LENGTH_SHORT).show();
         moveTaskToBack(true);
-        //	super.onBackPressed();
+        //super.onBackPressed();
     }
-
 
     @Override
-    public void onClick(View v) {
-    }
-
+    public void onClick(View v) {}
 
     @Override
     protected void onResume() {
@@ -3541,7 +3353,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
         Log.e("onPause----->",global_admin_Code);
-
     }
 
     @Override
@@ -3562,7 +3373,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     }
 
     private void lock_emp_check(String emp_code) {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
@@ -3586,14 +3396,11 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                     startActivity(logoutIntent);
                     finish();
                 }
-
             }
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();
-
             }
         });
-
     }
 }

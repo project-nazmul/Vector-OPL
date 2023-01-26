@@ -28,6 +28,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
@@ -79,7 +80,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SalesManagerDashboard extends Activity implements View.OnClickListener {
-
     public String userName_1, userName, userName_2, user, sm_code,global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -106,49 +106,37 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     public static final String TAG_MESSAGE = "message";
     public static String IMEINumber = "0000", DeviceID = "XXXX";
     private static final int REQUEST_CODE = 101;
-
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    Button followup_report, sales_report, managers_report, notification, am_dcc_camp, pc_conference_btn, doctor_service_followup, prescription_entry,btn_vacant_rm,
+    Button followup_report, sales_report, managers_report, notification, am_dcc_camp, pc_conference_btn, doctor_service_followup, prescription_entry,btn_vacant_rm, btn_pmd_contact,
     btn_msd_doctor_support;
-
     ProgressBar bar_11, bar_2, bar_21, bar_22, bar_15, bar_16, bar_prescription, bar_10,bar_vacant_rm, bar_msd_doctor_support;
     String UserName_2, mpo_code_i;
     Bundle b;
     Typeface fontFamily;
     ArrayList<String> mpo_code_interna;
-
-
     PreferenceManager preferenceManager;
     private int count;
-
-    public static String globalempCode,globalempName ;
-
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard4,practiceCard5,practiceCard6,
-            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode;
-
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
-            img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,img_btn_salesfollowup,
-            img_btn_mastercode;
-
-    TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,
-            tv_notification,tv_rx,tv_personalexpense,tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_salesfollowup,tv_mastercode;
-
+    public static String globalempCode, globalempName ;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
+             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact;
+    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
+             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup,
+             img_btn_mastercode, img_pmd_contact;
+    TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
+             tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd,tv_exam, tv_salesfollowup, tv_mastercode, tv_pmd_contact;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,
             btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback,btn_mastercode,btn_salesfollowup;
-
     public TextView t4,t5,textView3;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
     public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
     public String get_ext_dt, date_flag, check_flag;
-
     public static String password,vectorToken, globalSMCode, globalDivisionCode,message_3,new_version,vector_version,ff_type;
 
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.assistantmanager);
+        //setContentView(R.layout.assistantmanager);
         setContentView(R.layout.activity_vector_asm_dashboard);
 
         initViews();
@@ -171,6 +159,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         prescriptionentry();
         pcConferenceEvent();
         dccFollowup();
+        pmdContact();
 
         /*
         prescriptionEntry();
@@ -179,18 +168,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         notificationEvent();
         adminSalesReport();
         dcrFollowup();
-
         salesreportDashboard();
-
         VacantPassword();
         msdDocSupport();
-*/
-
-
+        */
     }
 /*
     private void initViews() {
-
         followup_report = (Button) findViewById(R.id.followup_report);
         bar_11 = (ProgressBar) findViewById(R.id.progressBar11);
         sales_report = (Button) findViewById(R.id.sales_report);
@@ -235,22 +219,16 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         }
         user_show1.setText(String.format("%s(%s)", UserName_2, userName));
         session = new SessionManager(getApplicationContext());
-
         sm.setText(R.string.sales_manager_name);
 
         globalSMCode = userName;
         globalDivisionCode = UserName_2;
-
-
-
     }
 */
-
 
     private void TeamLogo() {
         String team = ff_type;
         team_logo = ApiClient.BASE_URL+"team_logo/" ;
-
 
         switch (team) {
             case "G":
@@ -276,7 +254,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
-
                 break;
             case "C":
                 logo_image = team_logo+"g"+"."+"png";
@@ -285,13 +262,10 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         .into(logo_team);
                 break;
         }
-
-
     }
 
     @SuppressLint("CutPasteId")
     private void initViews(){
-
         logout= findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4= findViewById(R.id.t4);
@@ -299,7 +273,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         textView3 = findViewById(R.id.textView3);
         imageView2 = findViewById(R.id.imageView2);
         logo_team =findViewById(R.id.logo_team);
-
 
         btn_productorder     = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -316,7 +289,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         tv_dcc         = findViewById(R.id.tv_dcc);
         practiceCard2  = findViewById(R.id.practiceCard2);
 
-
         btn_docservice       = findViewById(R.id.btn_docservice);
         img_btn_docservice   = findViewById(R.id.img_btn_docservice);
         tv_docservice        = findViewById(R.id.tv_docservice);
@@ -326,7 +298,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         img_btn_docgiftfeedback   = findViewById(R.id.img_btn_docgiftfeedback);
         tv_docgiftfeedback        = findViewById(R.id.tv_docgiftfeedback);
         practiceCard4             = findViewById(R.id.practiceCard4);
-
 
         btn_notification       = findViewById(R.id.btn_notification);
         img_btn_notification   = findViewById(R.id.img_btn_notification);
@@ -343,7 +314,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         tv_personalexpense        = findViewById(R.id.tv_personalexpense);
         practiceCard9             = findViewById(R.id.practiceCard9);
 
-
         btn_pc       = findViewById(R.id.btn_pc);
         img_btn_pc   = findViewById(R.id.img_btn_pc);
         tv_pc        = findViewById(R.id.tv_pc);
@@ -354,12 +324,10 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         tv_promomat       = findViewById(R.id.tv_promomat);
         cardview_promomat  = findViewById(R.id.cardview_promomat);
 
-
         btn_salereports       = findViewById(R.id.btn_salereports);
         img_btn_salereports  = findViewById(R.id.img_btn_salereports);
         tv_salereports       = findViewById(R.id.tv_salereports);
         cardview_salereports  = findViewById(R.id.cardview_salereports);
-
 
         btn_msd = findViewById(R.id.btn_msd);
         img_btn_msd  = findViewById(R.id.img_btn_msd);
@@ -371,19 +339,20 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         tv_salesfollowup       = findViewById(R.id.tv_salesfollowup);
         cardview_salesfollowup  = findViewById(R.id.cardview_salesfollowup);
 
-
         btn_exam = findViewById(R.id.btn_exam);
         img_btn_exam  = findViewById(R.id.img_btn_exam);
         tv_exam       = findViewById(R.id.tv_exam);
         practiceCard5  = findViewById(R.id.practiceCard5);
-
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
         img_btn_mastercode  = findViewById(R.id.img_btn_mastercode);
         tv_mastercode      = findViewById(R.id.tv_mastercode);
         cardview_mastercode  = findViewById(R.id.cardview_mastercode);
 
-
+        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
@@ -406,22 +375,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 .load(profile_image)
                 .into(imageView2);
 
-
         globalSMCode = userName;
         globalDivisionCode = UserName_2;
         globalSMCode = userName;
         t4.setText(globalSMCode);
         t5.setText(globalDivisionCode);
         textView3.setText("Sales Manager");
-
         lock_emp_check(globalempCode);
     }
 
     private void logoutEvent() {
-
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(SalesManagerDashboard.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -443,16 +408,12 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
-
             }
-
         });
     }
-
 
     private void showSnack() {
         new Thread() {
@@ -466,14 +427,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 });
             }
         }.start();
-
     }
+
     private void firebaseToken() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(SalesManagerDashboard.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 vectorToken = instanceIdResult.getToken();
-
                 //new SaveDeviceToken().execute();
             }
         });
@@ -1314,7 +1274,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
 
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1332,22 +1291,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 i.putExtra("UserName_2", globalDivisionCode);
                 i.putExtra("new_version", R.string.vector_version);
                 i.putExtra("UserName", globalSMCode);
-
                 startActivity(i);
-
             }
         });
 
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(SalesManagerDashboard.this, PcConferenceFollowup.class);
                 i.putExtra("UserName", globalSMCode);
                 i.putExtra("UserName_2", globalDivisionCode);
                 i.putExtra("user_flag", "SM");
                 startActivity(i);
-
             }
         });
 
@@ -1358,9 +1313,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 i.putExtra("userName", globalSMCode);
                 i.putExtra("UserName_2", globalDivisionCode);
                 i.putExtra("new_version", new_version);
-
                 startActivity(i);
-
             }
         });
 
@@ -1372,58 +1325,45 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 i.putExtra("UserName_2", globalDivisionCode);
                 i.putExtra("user_flag", "SM");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
-    private void pcConferenceEvent() {
 
+    private void pcConferenceEvent() {
         cardview_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
-
             }
         });
         btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         tv_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
         img_btn_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PCCONFERENCE();
             }
         });
-
     }
 
     private void dccFollowup() {
-
         practiceCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -1443,25 +1383,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         img_btn_dcc.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -1477,13 +1410,11 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("sm_flag", "Y");
                                 i.putExtra("gm_flag", "N");
 
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
@@ -1491,18 +1422,59 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         });
     }
 
-
-
+    private void pmdContact() {
+        cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(SalesManagerDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", userName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        img_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(SalesManagerDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", userName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(SalesManagerDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", userName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(SalesManagerDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", userName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+    }
     private void salesreportDashboard() {
         sales_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -1510,7 +1482,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 String user = UserName_2.toString();
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1527,34 +1498,25 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         bar_21.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
 
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1567,49 +1529,35 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("sm_flag", "Y");
                                 i.putExtra("gm_flag", "N");
 
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
 
     private void adminSalesReport() {
-
         managers_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
-
                         Bundle b = getIntent().getExtras();
                         String userName = b.getString("UserName");
                         String userName_1 = b.getString("UserName_1");
                         String userName_2 = b.getString("UserName_2");
 
-
                         try {
                             if (!com.opl.pharmavector.util.NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(SalesManagerDashboard.this, SalesManagerDashboard.class);
-
-                                //  Intent i = new Intent(Dashboard.this, DcrReport.class);
 
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
@@ -1619,17 +1567,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("message_3", "SM");
 
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(SalesManagerDashboard.this, AdminReportDashboard.class);
-
-                                // Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 String sm_flag = "N";
                                 String asm_flag = "N";
                                 String gm_flag = "N";
-
 
                                 i.putExtra("UserName", userName);
                                 i.putExtra("userName_1", userName_1);
@@ -1637,36 +1581,27 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("asm_flag", asm_flag);
                                 i.putExtra("sm_flag", "Y");
                                 i.putExtra("gm_flag", gm_flag);
-
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("am_code", userName);
-
 
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         bar_22.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!com.opl.pharmavector.util.NetInfo.isOnline(getBaseContext())) {
 
@@ -1676,9 +1611,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
-
                                 String sm_flag = "Y";
                                 String asm_flag = "N";
                                 String gm_flag = "N";
@@ -1686,8 +1619,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(SalesManagerDashboard.this, AdminReportDashboard.class);
-
-
                                 i.putExtra("sm_flag", sm_flag);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
@@ -1697,31 +1628,25 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("gm_flag", gm_flag);
                                 i.putExtra("message_3", "SM");
 
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
+
     private void prescriptionEntry() {
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 // showSnack();
@@ -1739,14 +1664,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 backthred.start();
             }
         });
+
         bar_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 // showSnack();
@@ -1765,20 +1689,16 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             }
         });
     }
+
     private void pcConference() {
         pc_conference_btn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(SalesManagerDashboard.this, AssistantManagerDashboard.class);
@@ -1786,7 +1706,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("UserName_2", user);
                                 Log.w("Passed to Readco", userName + "---" + UserName_2);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1796,31 +1715,23 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "SM");
 
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
+
         bar_15.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -1831,7 +1742,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("new_version", new_version);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1845,25 +1755,20 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
-    private  void VacantPassword(){
 
+    private  void VacantPassword(){
         btn_vacant_rm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -1881,34 +1786,25 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
 
         bar_vacant_rm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
 
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1919,20 +1815,12 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
-
-
-
-
-
 
     private void logoutUser() {
        // session.setLogin(false);
@@ -1942,7 +1830,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
 
     public void onBackPressed() {
@@ -1952,9 +1839,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 
     @Override
     protected void onResume() {
@@ -1991,7 +1876,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
         Log.e("onPause----->",global_admin_Code);
-
     }
 
     @Override
@@ -2012,7 +1896,6 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     }
 
     private void lock_emp_check(String emp_code) {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
@@ -2027,6 +1910,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 assert response.body() != null;
                 String status      = response.body().getTerritory_name();
                 Log.e("Check locked user-->",status);
+
                 if (status.equals("Y")){
                     Toast.makeText(SalesManagerDashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
                     preferenceManager.clearPreferences();
@@ -2035,15 +1919,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                     startActivity(logoutIntent);
                     finish();
                 }
-
             }
+
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();
-
             }
         });
-
     }
 }
 
