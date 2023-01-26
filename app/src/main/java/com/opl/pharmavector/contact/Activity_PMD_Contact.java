@@ -155,9 +155,7 @@ public class Activity_PMD_Contact extends Activity {
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
     }
 

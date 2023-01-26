@@ -16,8 +16,7 @@
         android:orientation="horizontal"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
-        android:visibility="visible"
-        >
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/p_search"
@@ -283,7 +282,6 @@
                 android:textColor="#FFF"
                 android:textSize="25sp"
                 android:visibility="gone"
-
                 tools:ignore="HardcodedText,UnusedAttribute" />
 
             <Button
@@ -324,5 +322,4 @@
                 tools:ignore="HardcodedText,UnusedAttribute" />
         </RelativeLayout>
     </LinearLayout>
-
 </LinearLayout>

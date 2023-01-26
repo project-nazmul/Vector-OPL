@@ -45,6 +45,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
@@ -93,6 +94,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -152,7 +154,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     Context context;
     BroadcastReceiver updateUIReciver;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
-             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact;
+             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
             img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,
             img_pmd_contact;
@@ -200,6 +202,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         firebaseEvent();
         msdDocSupport();
         pmdContact();
+        doctorListInfo();
 
         session = new SessionManager(getApplicationContext());
         PackageManager pm = getApplicationContext().getPackageManager();
@@ -419,6 +422,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
         img_pmd_contact      = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+
+        cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
@@ -1713,6 +1718,53 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
+    }
+
+    private void doctorListInfo() {
+        cardview_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", globalmpocode);
+                i.putExtra("UserName_2", globalterritorycode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+//        img_pmd_contact.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+//                i.putExtra("UserName", globalmpocode);
+//                i.putExtra("UserName_2", globalterritorycode);
+//                i.putExtra("new_version", Login.version);
+//                i.putExtra("message_3", message_3);
+//                startActivity(i);
+//            }
+//        });
+//        btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+//                i.putExtra("UserName", globalmpocode);
+//                i.putExtra("UserName_2", globalterritorycode);
+//                i.putExtra("new_version", Login.version);
+//                i.putExtra("message_3", message_3);
+//                startActivity(i);
+//            }
+//        });
+//        tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+//                i.putExtra("UserName", globalmpocode);
+//                i.putExtra("UserName_2", globalterritorycode);
+//                i.putExtra("new_version", Login.version);
+//                i.putExtra("message_3", message_3);
+//                startActivity(i);
+//            }
+//        });
     }
 
     private void vectorFeedback() {

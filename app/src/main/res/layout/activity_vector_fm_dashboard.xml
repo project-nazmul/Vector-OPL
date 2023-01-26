@@ -1276,6 +1276,7 @@
                     app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_doctor_list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toTopOf="@+id/tv_pmd_contact"

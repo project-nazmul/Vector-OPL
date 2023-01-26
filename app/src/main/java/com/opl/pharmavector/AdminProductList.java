@@ -1,7 +1,4 @@
-//AdminProductList
-
 package com.opl.pharmavector;
-
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
@@ -47,9 +44,7 @@ import android.widget.Toast;
 
 import com.opl.pharmavector.order_online.ReadComments;
 
-
 public class AdminProductList extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SUCCESS1 = "success_1";
     public static final String TAG_MESSAGE = "message";
@@ -63,25 +58,18 @@ public class AdminProductList extends Activity implements OnClickListener {
     static ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
-
     public String get_ext_dt3;
-
     public String brand_name,product_flag1;
     public int brand_quant,product_min,product_flag=0;
-
     public String onik;
-
-
     Button submit;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     public static EditText qnty, searchview;
     EditText inputOne, inputtwo;
     public int success,success_1,ordsl;
     public String message, ord_no,invoice,target,achivement,searchString,message_1,message_2;
     int textlength = 0;
     ProductListProductListAdapter adapter;
-
-
 
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -95,7 +83,6 @@ public class AdminProductList extends Activity implements OnClickListener {
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
     public static ArrayList<String> SHIFT_CODE;
-
     public static ArrayList<String> PPM_CODE;
     public static ArrayList<String> P_CODE;
     public static ArrayList<String> PROD_VAT_2;
@@ -114,24 +101,18 @@ public class AdminProductList extends Activity implements OnClickListener {
     Toast toast1,toast2;
     ArrayList<Category> arraylist = new ArrayList<Category>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
-
-
-
     public static String URL_NEW_CATEGORY = BASE_URL+"put_products.php";
-
-
     private String campaign_credit = BASE_URL+"get_opsonin_product_new.php";
     private ArrayList<com.opl.pharmavector.AmCustomer> mporeqdcr;
     private ArrayList<com.opl.pharmavector.AmCustomer> brand_info;
     private String SALE_FALG = BASE_URL+"sale_flag.php";
     private String BRAND_FALG =BASE_URL+"brand_flag.php";
 
-
-
     @SuppressLint("DefaultLocale")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_product_list);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
@@ -163,7 +144,6 @@ public class AdminProductList extends Activity implements OnClickListener {
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 try {
                     searchview.setText("");
                     //qnty.clearFocus();
@@ -172,13 +152,10 @@ public class AdminProductList extends Activity implements OnClickListener {
                     searchview.requestFocus();
                 }
                 catch (Exception e) {
-                    // TODO: handle exception
 
                 }
-
             }
         });
-
         totalsellquantity = (TextView) findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
 
@@ -186,7 +163,6 @@ public class AdminProductList extends Activity implements OnClickListener {
         Spinner am_pm = (Spinner) findViewById(R.id.ampm);
         Spinner cash_credit = (Spinner) findViewById(R.id.cashcredit);
         Spinner credit = (Spinner) findViewById(R.id.credit);
-
 
         totalshow = (LinearLayout) findViewById(R.id.totalshow);
         ProductListProductListAdapter.qnty = null;
@@ -197,10 +173,8 @@ public class AdminProductList extends Activity implements OnClickListener {
         mapQuantity = new HashMap<Integer, String>();
         nameSerialPair = new HashMap<String, Integer>();
 
-
         mporeqdcr = new ArrayList<com.opl.pharmavector.AmCustomer>();
         brand_info = new ArrayList<com.opl.pharmavector.AmCustomer>();
-
 
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
@@ -210,20 +184,14 @@ public class AdminProductList extends Activity implements OnClickListener {
         categoriesList = new ArrayList<Category>();
         submit.setOnClickListener(this);
 
-
-
-
         mic.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 getActionBar().hide();
                 promptSpeechInput();
             }
 
             private void promptSpeechInput() {
-                // TODO Auto-generated method stub
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -240,33 +208,21 @@ public class AdminProductList extends Activity implements OnClickListener {
             }
         });
 
-
-
-
         back_btn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Inflater inf = new Inflater();
                 inf.end();
                 finish();
-
-
             }
         });
-
-
-
 
         showorders.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 searchString="1";
                 adapter.getFilter().filter(searchString);
             }});
-
 
         searchview.setOnClickListener(new OnClickListener() {
             @Override
@@ -282,7 +238,6 @@ public class AdminProductList extends Activity implements OnClickListener {
             }
         });
 
-
         searchview.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -295,38 +250,18 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
                 //adapter.getFilter().filter(s);
             }
-
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
-
             }
         });
 
-
-
-
-
-
-
-
         new GetCategories().execute();
-
-
-
         TextView clickme = (TextView) findViewById(R.id.clickme);
-
-
         clickme.setOnTouchListener(new View.OnTouchListener() {
-
             private Handler mHandler;
             private long mInitialDelay = 100;
             private long mRepeatDelay = 80;
@@ -349,23 +284,18 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
                 return false;
             }
-
             Runnable mAction = new Runnable() {
                 @Override
                 public void run() {
-                    // LinearLayout
-                    // listview=(LinearLayout)findViewById(R.id.listview);
+                    //LinearLayout
+                    //listview=(LinearLayout)findViewById(R.id.listview);
                     productListView.scrollTo(
                             (int) productListView.getScrollX(),
                             (int) productListView.getScrollY() + 11);
                     mHandler.postDelayed(mAction, mRepeatDelay);
                 }
             };
-
         });
-
-
-
 
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -375,7 +305,6 @@ public class AdminProductList extends Activity implements OnClickListener {
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -383,17 +312,14 @@ public class AdminProductList extends Activity implements OnClickListener {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchview.setText(result.get(0));
                 }
                 break;
             }
-
         }
     }
-
 
     public void finishActivity(View v) {
         finish();
@@ -401,9 +327,7 @@ public class AdminProductList extends Activity implements OnClickListener {
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
-
     }
 
 
