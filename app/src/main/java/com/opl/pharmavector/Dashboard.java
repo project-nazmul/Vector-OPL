@@ -1,7 +1,6 @@
 package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,7 +24,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
 import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -77,37 +75,30 @@ import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
-
 import org.apache.http.NameValuePair;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
 import android.app.ProgressDialog;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
-
 import es.dmoral.toasty.Toasty;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
 import com.squareup.picasso.Picasso;
@@ -155,17 +146,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
     BroadcastReceiver updateUIReciver;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
              practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
+    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,img_doctor_list,
             img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,
             img_pmd_contact;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,tv_notification,tv_rx,tv_personalexpense,
-            tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_pmd_contact;
+            tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_pmd_contact,tv_doctor_list;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,
-            btn_msd,btn_exam,btn_vector_feedback,btn_pmd_contact;
+            btn_msd,btn_exam,btn_vector_feedback,btn_pmd_contact,btn_doctor_list;
     public TextView t4,t5;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
-    public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
+    public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
     LocationManager locationManager;
 
     public static Dashboard getInstance() {
@@ -183,7 +174,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         count = preferenceManager.getTasbihCounter();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         global_admin_Code=preferenceManager.getAdmin_Code();
-        Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
+        Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
 
         orderEvents();
         dcrClickEvent();
@@ -424,36 +415,34 @@ public class Dashboard extends Activity implements View.OnClickListener {
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
 
         cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
+        btn_doctor_list = findViewById(R.id.btn_doctor_list);
+        img_doctor_list = findViewById(R.id.img_doctor_list);
+        tv_doctor_list = findViewById(R.id.tv_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type      = null;
         Bundle b     = getIntent().getExtras();
         assert b    != null;
-        userName    = b.getString("UserName");
-        UserName_2  = b.getString("UserName_2");
-        new_version = b.getString("new_version");
-        message_3   = b.getString("message_3");
-        password    = b.getString("password");
-        ff_type     = b.getString("ff_type");
-        vector_version =b.getString("vector_version");
-        globalempCode  =b.getString("emp_code");
-        globalempName =b.getString("emp_name");
+        userName     = b.getString("UserName");
+        UserName_2   = b.getString("UserName_2");
+        new_version  = b.getString("new_version");
+        message_3    = b.getString("message_3");
+        password     = b.getString("password");
+        ff_type      = b.getString("ff_type");
+        vector_version = b.getString("vector_version");
+        globalempCode  = b.getString("emp_code");
+        globalempName = b.getString("emp_name");
 
         user_show1.setText(globalempName);
         Log.e("Personal Image Path : ", base_url+globalempCode+"."+"jpg" );
         profile_image= base_url+globalempCode+"."+"jpg" ;
-
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
-
+        Picasso.get().load(profile_image).into(imageView2);
         db = new DatabaseHandler(this);
         ArrayList<String> mpo_code_interna = db.getterritoryname();
         String mpo_code_i = mpo_code_interna.toString();
         globalmpocode = userName;
         globalterritorycode = UserName_2;
         globalmpocode = userName;
-
         t4.setText(globalmpocode);
         t5.setText(globalterritorycode);
         lock_emp_check(globalempCode);
@@ -490,7 +479,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("new_version", new_version);
                 startActivity(i);
-               // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
@@ -513,7 +502,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog.show();
@@ -531,15 +520,14 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_dcr);
-
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
@@ -556,7 +544,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 startActivity(i);
-               // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
@@ -566,13 +554,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 startActivity(i);
-              //  bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog.show();
@@ -590,15 +578,14 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(button1).setText("9.1");
         Objects.requireNonNull(button2).setText("9.2");
         Objects.requireNonNull(textView4).setText("Personal Expense\nEntry");
         Objects.requireNonNull(textView5).setText("Personal Expense\nReport");
         Objects.requireNonNull(changepassword).setText("Personal Expense");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_personal_expense);
-
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
@@ -627,13 +614,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 startActivity(i);
-               // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog.show();
@@ -651,15 +638,14 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(button1).setText("2.1");
         Objects.requireNonNull(button2).setText("2.2");
         Objects.requireNonNull(textView4).setText("Dcc\nFollowup");
         Objects.requireNonNull(textView5).setText("Dcc\nAvailable Stock");
         Objects.requireNonNull(changepassword).setText("DCC Followup");
-
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_dcc);
 
@@ -669,7 +655,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -680,7 +665,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -692,11 +676,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog.show();
@@ -717,13 +700,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(button1).setText("13.1");
         Objects.requireNonNull(button2).setText("13.2");
         Objects.requireNonNull(button3).setText("13.3");
         Objects.requireNonNull(textView4).setText("Doctor\n Support Requisition");
         Objects.requireNonNull(textView5).setText("Doctor\nSupport Follow-up");
         Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
 
@@ -733,7 +716,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(changepassword).setText("MSD");
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -743,7 +725,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("user_name", Dashboard.globalterritorycode);
                 i.putExtra("user_flag", "MPO");
                 startActivity(i);
-
                 //bottomSheetDialog.dismiss();
             }
         });
@@ -755,7 +736,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("user_name", Dashboard.globalterritorycode);
                 i.putExtra("user_flag", "MPO");
                 startActivity(i);
-               // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
@@ -772,7 +753,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog.show();
@@ -793,7 +774,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_promo_mat);
 
@@ -803,7 +783,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("Sample\nRequisition");
         Objects.requireNonNull(textView5).setText("PPM\nFollow up");
         Objects.requireNonNull(textView6).setText("Gift\nFollow up");
-
         Objects.requireNonNull(changepassword).setText("Promo Material");
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
@@ -812,7 +791,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -826,7 +804,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -837,7 +814,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("promo_type", "P");
                 i.putExtra("user_code", globalmpocode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
@@ -850,7 +827,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("promo_type", "G");
                 i.putExtra("user_code", globalmpocode);
                 startActivity(i);
-                //  bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.show();
@@ -867,11 +844,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
-
         Objects.requireNonNull(changepassword).setText("Doctor Service");
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -887,7 +863,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("new_version", new_version);
                 i.putExtra("user_flag", "M");
                 startActivity(i);
-              //  bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
@@ -911,10 +887,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("new_version", new_version);
                 i.putExtra("user_flag", "M");
                 startActivity(i);
-              //  bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -926,11 +901,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 }
             }
         });
-
         bottomSheetDialog2.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
         bottomSheetDialog2.show();
@@ -965,7 +939,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("PC Proposal\nFollow up");
         Objects.requireNonNull(textView6).setText("PC\nBill");
         Objects.requireNonNull(textView7).setText("PC\nBill Follow up");
-
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
 
@@ -975,9 +948,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(changepassword).setText("PC Conference");
-
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -988,7 +959,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -997,17 +967,15 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("user_flag", "M");
                 startActivity(i);
-               // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1017,7 +985,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("user_flag", "M");
                 startActivity(i);
-               // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
         bottomSheetDialog2.show();
@@ -1056,25 +1024,23 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
         Objects.requireNonNull(textView7).setText("RX\nSummary B");
-
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview4).setVisibility(View.GONE);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Dashboard.this, PrescriptionEntry.class);
                 startActivity(i);
-               // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1085,7 +1051,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1094,10 +1059,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_detail",Dashboard.globalterritorycode);
                 i.putExtra("manager_flag", "MPO");
                 startActivity(i);
-               // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1732,39 +1696,39 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-//        img_pmd_contact.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
-//                i.putExtra("UserName", globalmpocode);
-//                i.putExtra("UserName_2", globalterritorycode);
-//                i.putExtra("new_version", Login.version);
-//                i.putExtra("message_3", message_3);
-//                startActivity(i);
-//            }
-//        });
-//        btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
-//                i.putExtra("UserName", globalmpocode);
-//                i.putExtra("UserName_2", globalterritorycode);
-//                i.putExtra("new_version", Login.version);
-//                i.putExtra("message_3", message_3);
-//                startActivity(i);
-//            }
-//        });
-//        tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
-//                i.putExtra("UserName", globalmpocode);
-//                i.putExtra("UserName_2", globalterritorycode);
-//                i.putExtra("new_version", Login.version);
-//                i.putExtra("message_3", message_3);
-//                startActivity(i);
-//            }
-//        });
+        img_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", globalmpocode);
+                i.putExtra("UserName_2", globalterritorycode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", globalmpocode);
+                i.putExtra("UserName_2", globalterritorycode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", globalmpocode);
+                i.putExtra("UserName_2", globalterritorycode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
     }
 
     private void vectorFeedback() {

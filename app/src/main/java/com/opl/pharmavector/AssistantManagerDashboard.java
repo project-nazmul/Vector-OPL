@@ -29,6 +29,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -82,25 +83,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AssistantManagerDashboard extends Activity implements View.OnClickListener {
-    public String userName_1, userName, userName_2, user,global_admin_Code;
+    public String userName_1, userName, userName_2, user, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
     private ListView lv, lv2;
     private ProgressDialog pDialog;
     private DatabaseHandler db;
-    private static String url = BASE_URL_RM+"get_products.php";
-    private String URL_CUSOTMER = BASE_URL_RM+"get_customer.php";
+    private static String url = BASE_URL_RM + "get_products.php";
+    private String URL_CUSOTMER = BASE_URL_RM + "get_customer.php";
     private String TAG = Offlinereport.class.getSimpleName();
     ArrayList<HashMap<String, String>> productList;
-    ArrayList<HashMap<String, String>> customerlist;
+    ArrayList<HashMap<String, String>> customerList;
     private Button logout;
     Calendar calander;
     SimpleDateFormat simpledateformat;
     String Date;
     public TextView user_show1, user_show2;
     private SessionManager session;
-    private final String submit_url = BASE_URL+"notification/save_vector_notification_token_data_test.php";
+    private final String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
     public String message;
     public int success;
     public String tokenid;
@@ -108,28 +109,28 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     public static final String TAG_MESSAGE = "message";
     public static String IMEINumber = "0000", DeviceID = "XXXX";
     private static final int REQUEST_CODE = 101;
-    public static String password,vectorToken, globalASMCode, globalZONECode,UserName_2,mpo_code_i,message_3,new_version,vector_version,ff_type;
+    public static String password, vectorToken, globalASMCode, globalZONECode, UserName_2, mpo_code_i, message_3, new_version, vector_version, ff_type;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    Button followup_report,am_dcc_camp,sales_report,managers_report,notification,doctor_service_followup,pc_conference_btn,prescription_entry,doc_gift_btn,btn_vacant_rm,btn_msd_doctor_support;
-    ProgressBar bar_16,bar_prescription,bar_10,bar_11,bar_2,bar_21,bar_22,bar_15,bar_G1,bar_vacant_rm,bar_msd_doctor_support;
+    Button followup_report, am_dcc_camp, sales_report, managers_report, notification, doctor_service_followup, pc_conference_btn, prescription_entry, doc_gift_btn, btn_vacant_rm, btn_msd_doctor_support;
+    ProgressBar bar_16, bar_prescription, bar_10, bar_11, bar_2, bar_21, bar_22, bar_15, bar_G1, bar_vacant_rm, bar_msd_doctor_support;
     Typeface fontFamily;
     ArrayList<String> mpo_code_interna;
     PreferenceManager preferenceManager;
     private int count;
-    public static String globalempCode,globalempName ;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard4,practiceCard5,practiceCard6,
-            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode;
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,cardview_pmd_contact,
-            img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,img_btn_salesfollowup,img_pmd_contact,
-    img_btn_mastercode;
-    TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,
-            tv_notification,tv_rx,tv_personalexpense,tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_salesfollowup,tv_mastercode,tv_pmd_contact;
-    Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,
-            btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback,btn_mastercode,btn_salesfollowup,btn_pmd_contact;
-    public TextView t4,t5;
-    public ImageView imageView2,logo_team;
-    public static String team_logo,profile_image;
-    public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
+    public static String globalempCode, globalempName;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_doctor_list;
+    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback, cardview_pmd_contact,
+            img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup, img_pmd_contact, img_doctor_list,
+            img_btn_mastercode;
+    TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback, tv_doctor_list,
+            tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_salesfollowup, tv_mastercode, tv_pmd_contact;
+    Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_doctor_list,
+            btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_mastercode, btn_salesfollowup, btn_pmd_contact;
+    public TextView t4, t5;
+    public ImageView imageView2, logo_team;
+    public static String team_logo, profile_image;
+    public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     public String get_ext_dt, date_flag, check_flag;
 
     @SuppressLint("CutPasteId")
@@ -141,8 +142,8 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
-        global_admin_Code=preferenceManager.getAdmin_Code();
-        Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
+        global_admin_Code = preferenceManager.getAdmin_Code();
+        Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
         TeamLogo();
 
         dcrfollowup();
@@ -156,6 +157,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         prescriptionentry();
         pcConferenceEvent();
         pmdContact();
+        doctorListInfo();
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -992,35 +994,35 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
 
     private void TeamLogo() {
         String team = ff_type;
-        team_logo = ApiClient.BASE_URL+"team_logo/" ;
+        team_logo = ApiClient.BASE_URL + "team_logo/";
 
         switch (team) {
             case "G":
-                String logo_image = team_logo+"d"+"."+"png";
+                String logo_image = team_logo + "d" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "T":
-                logo_image = team_logo+"t"+"."+"png";
+                logo_image = team_logo + "t" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "I":
-                logo_image = team_logo+"i"+"."+"png";
+                logo_image = team_logo + "i" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "V":
-                logo_image = team_logo+"v"+"."+"png";
+                logo_image = team_logo + "v" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "C":
-                logo_image = team_logo+"g"+"."+"png";
+                logo_image = team_logo + "g" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
@@ -1029,110 +1031,115 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     }
 
     @SuppressLint("CutPasteId")
-    private void initViews(){
-        logout= findViewById(R.id.logout);
+    private void initViews() {
+        logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
-        t4= findViewById(R.id.t4);
-        t5= findViewById(R.id.t5);
+        t4 = findViewById(R.id.t4);
+        t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
-        logo_team =findViewById(R.id.logo_team);
+        logo_team = findViewById(R.id.logo_team);
 
-        btn_productorder     = findViewById(R.id.btn_productorder);
+        btn_productorder = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
-        tv_productorder      = findViewById(R.id.tv_productorder);
-        practiceCard7        = findViewById(R.id.practiceCard7);
+        tv_productorder = findViewById(R.id.tv_productorder);
+        practiceCard7 = findViewById(R.id.practiceCard7);
 
-        btn_dcr       = findViewById(R.id.btn_dcr);
-        img_btn_dcr   = findViewById(R.id.img_btn_dcr);
-        tv_dcr        = findViewById(R.id.tv_dcr);
-        cardview_dcr  = findViewById(R.id.cardview_dcr);
+        btn_dcr = findViewById(R.id.btn_dcr);
+        img_btn_dcr = findViewById(R.id.img_btn_dcr);
+        tv_dcr = findViewById(R.id.tv_dcr);
+        cardview_dcr = findViewById(R.id.cardview_dcr);
 
-        btn_dcc        = findViewById(R.id.btn_dcc);
-        img_btn_dcc    = findViewById(R.id.img_btn_dcc);
-        tv_dcc         = findViewById(R.id.tv_dcc);
-        practiceCard2  = findViewById(R.id.practiceCard2);
+        btn_dcc = findViewById(R.id.btn_dcc);
+        img_btn_dcc = findViewById(R.id.img_btn_dcc);
+        tv_dcc = findViewById(R.id.tv_dcc);
+        practiceCard2 = findViewById(R.id.practiceCard2);
 
-        btn_docservice       = findViewById(R.id.btn_docservice);
-        img_btn_docservice   = findViewById(R.id.img_btn_docservice);
-        tv_docservice        = findViewById(R.id.tv_docservice);
-        practiceCard3        = findViewById(R.id.practiceCard3);
+        btn_docservice = findViewById(R.id.btn_docservice);
+        img_btn_docservice = findViewById(R.id.img_btn_docservice);
+        tv_docservice = findViewById(R.id.tv_docservice);
+        practiceCard3 = findViewById(R.id.practiceCard3);
 
-        btn_docgiftfeedback       = findViewById(R.id.btn_docgiftfeedback);
-        img_btn_docgiftfeedback   = findViewById(R.id.img_btn_docgiftfeedback);
-        tv_docgiftfeedback        = findViewById(R.id.tv_docgiftfeedback);
-        practiceCard4             = findViewById(R.id.practiceCard4);
+        btn_docgiftfeedback = findViewById(R.id.btn_docgiftfeedback);
+        img_btn_docgiftfeedback = findViewById(R.id.img_btn_docgiftfeedback);
+        tv_docgiftfeedback = findViewById(R.id.tv_docgiftfeedback);
+        practiceCard4 = findViewById(R.id.practiceCard4);
 
-        btn_notification       = findViewById(R.id.btn_notification);
-        img_btn_notification   = findViewById(R.id.img_btn_notification);
-        tv_notification        = findViewById(R.id.tv_notification);
-        practiceCard6             = findViewById(R.id.practiceCard6);
+        btn_notification = findViewById(R.id.btn_notification);
+        img_btn_notification = findViewById(R.id.img_btn_notification);
+        tv_notification = findViewById(R.id.tv_notification);
+        practiceCard6 = findViewById(R.id.practiceCard6);
 
-        btn_rx       = findViewById(R.id.btn_rx);
-        img_btn_rx   = findViewById(R.id.img_btn_rx);
-        tv_rx        = findViewById(R.id.tv_rx);
+        btn_rx = findViewById(R.id.btn_rx);
+        img_btn_rx = findViewById(R.id.img_btn_rx);
+        tv_rx = findViewById(R.id.tv_rx);
         practiceCard8 = findViewById(R.id.practiceCard8);
 
-        btn_personalexpense       = findViewById(R.id.btn_personalexpense);
-        img_btn_personalexpense   = findViewById(R.id.img_btn_personalexpense);
-        tv_personalexpense        = findViewById(R.id.tv_personalexpense);
-        practiceCard9             = findViewById(R.id.practiceCard9);
+        btn_personalexpense = findViewById(R.id.btn_personalexpense);
+        img_btn_personalexpense = findViewById(R.id.img_btn_personalexpense);
+        tv_personalexpense = findViewById(R.id.tv_personalexpense);
+        practiceCard9 = findViewById(R.id.practiceCard9);
 
-        btn_pc       = findViewById(R.id.btn_pc);
-        img_btn_pc   = findViewById(R.id.img_btn_pc);
-        tv_pc        = findViewById(R.id.tv_pc);
-        cardview_pc  = findViewById(R.id.cardview_pc);
+        btn_pc = findViewById(R.id.btn_pc);
+        img_btn_pc = findViewById(R.id.img_btn_pc);
+        tv_pc = findViewById(R.id.tv_pc);
+        cardview_pc = findViewById(R.id.cardview_pc);
 
-        btn_promomat       = findViewById(R.id.btn_promomat);
-        img_btn_promomat  = findViewById(R.id.img_btn_promomat);
-        tv_promomat       = findViewById(R.id.tv_promomat);
-        cardview_promomat  = findViewById(R.id.cardview_promomat);
+        btn_promomat = findViewById(R.id.btn_promomat);
+        img_btn_promomat = findViewById(R.id.img_btn_promomat);
+        tv_promomat = findViewById(R.id.tv_promomat);
+        cardview_promomat = findViewById(R.id.cardview_promomat);
 
-        btn_salereports       = findViewById(R.id.btn_salereports);
-        img_btn_salereports  = findViewById(R.id.img_btn_salereports);
-        tv_salereports       = findViewById(R.id.tv_salereports);
-        cardview_salereports  = findViewById(R.id.cardview_salereports);
+        btn_salereports = findViewById(R.id.btn_salereports);
+        img_btn_salereports = findViewById(R.id.img_btn_salereports);
+        tv_salereports = findViewById(R.id.tv_salereports);
+        cardview_salereports = findViewById(R.id.cardview_salereports);
 
         btn_msd = findViewById(R.id.btn_msd);
-        img_btn_msd  = findViewById(R.id.img_btn_msd);
-        tv_msd       = findViewById(R.id.tv_msd);
-        cardview_msd  = findViewById(R.id.cardview_msd);
+        img_btn_msd = findViewById(R.id.img_btn_msd);
+        tv_msd = findViewById(R.id.tv_msd);
+        cardview_msd = findViewById(R.id.cardview_msd);
 
-        btn_salesfollowup       = findViewById(R.id.btn_salesfollowup);
-        img_btn_salesfollowup  = findViewById(R.id.img_btn_salesfollowup);
-        tv_salesfollowup       = findViewById(R.id.tv_salesfollowup);
-        cardview_salesfollowup  = findViewById(R.id.cardview_salesfollowup);
+        btn_salesfollowup = findViewById(R.id.btn_salesfollowup);
+        img_btn_salesfollowup = findViewById(R.id.img_btn_salesfollowup);
+        tv_salesfollowup = findViewById(R.id.tv_salesfollowup);
+        cardview_salesfollowup = findViewById(R.id.cardview_salesfollowup);
 
         btn_exam = findViewById(R.id.btn_exam);
-        img_btn_exam  = findViewById(R.id.img_btn_exam);
-        tv_exam       = findViewById(R.id.tv_exam);
-        practiceCard5  = findViewById(R.id.practiceCard5);
+        img_btn_exam = findViewById(R.id.img_btn_exam);
+        tv_exam = findViewById(R.id.tv_exam);
+        practiceCard5 = findViewById(R.id.practiceCard5);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
-        img_btn_mastercode  = findViewById(R.id.img_btn_mastercode);
-        tv_mastercode      = findViewById(R.id.tv_mastercode);
-        cardview_mastercode  = findViewById(R.id.cardview_mastercode);
+        img_btn_mastercode = findViewById(R.id.img_btn_mastercode);
+        tv_mastercode = findViewById(R.id.tv_mastercode);
+        cardview_mastercode = findViewById(R.id.cardview_mastercode);
 
-        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
-        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
-        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        btn_pmd_contact = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+
+        btn_doctor_list = findViewById(R.id.btn_doctor_list);
+        tv_doctor_list = findViewById(R.id.tv_doctor_list);
+        img_doctor_list = findViewById(R.id.img_doctor_list);
+        cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
-        ff_type      = null;
-        Bundle b     = getIntent().getExtras();
-        assert b    != null;
-        userName    = b.getString("UserName");
-        UserName_2  = b.getString("UserName_2");
+        ff_type = null;
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        userName = b.getString("UserName");
+        UserName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
-        message_3   = b.getString("message_3");
-        password    = b.getString("password");
-        ff_type     = b.getString("ff_type");
-        vector_version =b.getString("vector_version");
-        globalempCode  =b.getString("emp_code");
-        globalempName =b.getString("emp_name");
+        message_3 = b.getString("message_3");
+        password = b.getString("password");
+        ff_type = b.getString("ff_type");
+        vector_version = b.getString("vector_version");
+        globalempCode = b.getString("emp_code");
+        globalempName = b.getString("emp_name");
 
         user_show1.setText(globalempName);
-        profile_image= base_url+globalempCode+"."+"jpg" ;
+        profile_image = base_url + globalempCode + "." + "jpg";
 
         Picasso.get()
                 .load(profile_image)
@@ -1185,7 +1192,8 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
                     @Override
                     public void run() {
                         try {
-                            if (!NetInfo.isOnline(getBaseContext())) { showSnack();
+                            if (!NetInfo.isOnline(getBaseContext())) {
+                                showSnack();
                             } else {
                                 Intent i = new Intent(AssistantManagerDashboard.this, AssistantManagerDCCFollowup.class);
                                 i.putExtra("UserName", userName);
@@ -1609,7 +1617,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-                               showSnack();
+                                showSnack();
                             } else {
                                 Intent i = new Intent(AssistantManagerDashboard.this, ManagersSalesFollowup.class);
                                 i.putExtra("UserName", globalASMCode);
@@ -1788,9 +1796,9 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AssistantManagerDashboard.this, ImageLoadActivity.class);
-                i.putExtra("manager_code",globalASMCode);
-                i.putExtra("manager_detail",globalZONECode);
-                i.putExtra("manager_flag","ASM");
+                i.putExtra("manager_code", globalASMCode);
+                i.putExtra("manager_detail", globalZONECode);
+                i.putExtra("manager_flag", "ASM");
                 startActivity(i);
             }
         });
@@ -1798,7 +1806,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AssistantManagerDashboard.this, PrescriptionFollowup.class);
-                i.putExtra("manager_code",globalASMCode);
+                i.putExtra("manager_code", globalASMCode);
                 i.putExtra("manager_detail", "ASM");
                 startActivity(i);
                 //bottomSheetDialog2.dismiss();
@@ -1808,7 +1816,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AssistantManagerDashboard.this, PrescriptionFollowup2.class);
-                i.putExtra("manager_code",globalASMCode);
+                i.putExtra("manager_code", globalASMCode);
                 i.putExtra("manager_detail", "ASM");
                 startActivity(i);
             }
@@ -1816,7 +1824,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         bottomSheetDialog2.show();
     }
 
-    private void prescriptionentry(){
+    private void prescriptionentry() {
         practiceCard8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -2007,6 +2015,53 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         });
     }
 
+    private void doctorListInfo() {
+        cardview_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AssistantManagerDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        img_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AssistantManagerDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AssistantManagerDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AssistantManagerDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+    }
+
     private void showSnack() {
         new Thread() {
             public void run() {
@@ -2069,7 +2124,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onPause----->",global_admin_Code);
+        Log.e("onPause----->", global_admin_Code);
     }
 
     @Override
@@ -2085,7 +2140,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onDestroy----->",global_admin_Code);
+        Log.e("onDestroy----->", global_admin_Code);
         //updateLocation();
     }
 
@@ -2102,9 +2157,9 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             public void onResponse(@NonNull Call<Patient> call, @NonNull Response<Patient> response) {
                 //progressDialog.dismiss();
                 assert response.body() != null;
-                String status      = response.body().getTerritory_name();
-                Log.e("Check locked user-->",status);
-                if (status.equals("Y")){
+                String status = response.body().getTerritory_name();
+                Log.e("Check locked user-->", status);
+                if (status.equals("Y")) {
                     Toast.makeText(AssistantManagerDashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
                     preferenceManager.clearPreferences();
                     count = 0;

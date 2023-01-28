@@ -29,8 +29,8 @@
             android:textColor="@color/colorAccentEditor"
             android:textStyle="bold"
             android:visibility="visible" />
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -50,7 +50,6 @@
             android:textColor="@color/colorAccentEditor"
             android:textStyle="bold"
             android:visibility="visible" />
-
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -68,7 +67,6 @@
             android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             android:spinnerMode="dialog" />
-
 
         <LinearLayout
             android:id="@+id/layout4"
@@ -95,7 +93,6 @@
                 android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
-
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/mspinner2"
                 android:layout_width="0dp"
@@ -104,10 +101,8 @@
                 app:ms_hint="Select Pres Type"
                 app:ms_hint_color="@color/colorAccentEditor"
                 app:ms_text_color="@color/colorAccentEditor" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview2"
@@ -308,11 +303,8 @@
                 android:textColor="#FFF"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,UnusedAttribute" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
@@ -336,7 +328,6 @@
                 android:visibility="gone" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -347,7 +338,6 @@
                 android:textSize="@dimen/_10sdp" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -397,13 +387,10 @@
                 android:layout_weight="3"
                 android:focusable="true"
                 android:gravity="start"
-
                 android:textColor="@color/colorAccentEditor"
                 android:textSize="@dimen/_10sdp" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
@@ -454,7 +441,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -464,7 +450,6 @@
                 android:text="IPD"
                 android:textColor="@color/green"
                 android:textSize="@dimen/_8sdp" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -478,7 +463,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -501,7 +485,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -519,12 +502,11 @@
                 android:focusable="true"
                 android:fontFamily="@font/acme"
                 android:gravity="start"
-              android:text="RX"
+                android:text="RX"
                 android:textColor="@color/text1"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -545,10 +527,8 @@
                 android:text="MPO"
                 android:textColor="@color/colorAccentEditor"
                 android:textSize="@dimen/_10sdp" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
     <ListView
         android:id="@+id/pListView"
@@ -560,7 +540,6 @@
         android:focusable="true"
         android:listSelector="@drawable/active">
     </ListView>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"

@@ -33,6 +33,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -109,13 +110,13 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     PreferenceManager preferenceManager;
     public static String password, globalempCode, globalempName, new_version, message_3, vector_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact,
-            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd;
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
-            img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact;
+            img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
-            tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact;
+            tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice,
-            btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact;
+            btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
     public TextView t4, t5;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
@@ -152,6 +153,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         TeamLogo();
         vacantMpoPwd();
         pmdContact();
+        doctorListInfo();
         //pendingPC();
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(RmDashboard.this, new OnSuccessListener<InstanceIdResult>() {
@@ -1836,6 +1838,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         img_pmd_contact = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+
+        btn_doctor_list = findViewById(R.id.btn_doctor_list);
+        tv_doctor_list = findViewById(R.id.tv_doctor_list);
+        img_doctor_list = findViewById(R.id.img_doctor_list);
+        cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
         ff_type = null;
@@ -2934,6 +2941,53 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             @Override
             public void onClick(final View v) {
                 Intent i = new Intent(RmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void doctorListInfo() {
+        cardview_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(RmDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        img_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(RmDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(RmDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_doctor_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(RmDashboard.this, DoctorListActivity.class);
                 i.putExtra("UserName", userName);
                 i.putExtra("UserName_2", UserName_2);
                 i.putExtra("new_version", Login.version);

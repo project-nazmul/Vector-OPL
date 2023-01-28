@@ -226,7 +226,7 @@ public class Activity_PMD_Contact extends Activity {
         for (int i = 0; i < brandlist.size(); i++) {
             lables.add(brandlist.get(i).getName());
         }
-        // Creating adapter for spinner
+        //Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         spin_brand.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -237,7 +237,7 @@ public class Activity_PMD_Contact extends Activity {
     }
 
     private void getContact() {
-        p_brand_code       = actv.getText().toString().trim();
+        p_brand_code = actv.getText().toString().trim();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ArrayList<RecyclerData>> call = apiInterface.getcontactinfo("mpo_code", product_code);
         Log.e("Brand Code---->", product_code);

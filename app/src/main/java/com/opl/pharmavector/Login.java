@@ -122,7 +122,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -147,10 +146,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
         //initAppUpdate();
     }
 //================================================================================================================================
-
     //================================================================================================================================
     private void initAppUpdate() {
-
         appUpdaterUtils = new AppUpdaterUtils(this)
                 .withListener(new AppUpdaterUtils.UpdateListener() {
                     @Override
@@ -383,7 +380,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tempRole = preferenceManager.getuserrole();
             tempDtl = preferenceManager.getuserdtl();
             tmpFFtype = preferenceManager.getfftype();
-
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();

@@ -121,15 +121,13 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
     String fieldforce_val="Territory";
     String Prescription_val="All";
     String pres_type ="xx";
-
     //private String URL_PRODUCT_VIEW = BASE_URL+"prescription_survey/prescription_report_target_achv_followup.php";
     //private String URL_PRES_VIEW = BASE_URL+"prescription_survey/prescription_type_report_target_achv_followup.php";
-    private String URL_PRODUCT_VIEW = BASE_URL+"prescription_survey/prescription_survey_followup.php";   ////==================ADDED BY REZWAN
+    private String URL_PRODUCT_VIEW = BASE_URL+"prescription_survey/prescription_survey_followup.php";
     private String URL_PRES_VIEW = BASE_URL+"prescription_survey/prescription_survey_followup.php";
     private String URL_MPO = BASE_URL+"prescription_survey/get_mpoList.php";
     private String URL_LIST = BASE_URL+"prescription_survey/get_List.php";
     private String URL_BRAND = BASE_URL+"prescription_survey/get_brandList.php";
-
     private HintSpinner<User> userHintSpinner;
     private List<User> users;
     String passed_manager_code;
@@ -143,6 +141,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         manager_code = b.getString("manager_code");
         manager_detail = b.getString("manager_detail");
         passed_manager_code = manager_code;
+
         initViews();
         initCalender();
         btnClickEvent();
@@ -814,7 +813,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         actv_rm.setAdapter(Adapter);
         actv_rm.setTextColor(Color.BLUE);
     }
-
 
     class GetList extends AsyncTask<Void, Void, Void> {
         @Override

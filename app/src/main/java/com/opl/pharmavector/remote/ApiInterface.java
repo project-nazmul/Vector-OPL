@@ -1,6 +1,8 @@
 package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
+import com.opl.pharmavector.doctorList.model.DoctorFFModel;
+import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
@@ -217,6 +219,16 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("pmd_vector/sales_4p/get_companywise_brand.php")
     Call<CompanyModel> getCompanyWiseList(@Field("mnyr") String mnyr, @Field("brand_code") String brand_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("get_mrd_doctor_ff_list.php")
+    Call<DoctorFFModel> getDoctorFFList(@Field("ff_code") String ff_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("get_mrd_doctor.php")
+    Call<DoctorModel> getDoctorDetailsList(@Field("ff_code") String ff_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
