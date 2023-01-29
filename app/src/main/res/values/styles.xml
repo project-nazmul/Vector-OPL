@@ -218,7 +218,6 @@
         <item name="snackbarStyle">@style/MySnackBarStyle</item>
     </style>
 
-
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
@@ -231,11 +230,8 @@
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorAccentEditor</item>
     </style>
 
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
     <style name="MySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
         <item name="android:background">@color/colorAccentEditor</item>
@@ -249,7 +245,6 @@
     </style>
 
     <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
-
         <item name="tabIndicatorColor">@color/colorAccentEditor</item>
         <item name="tabIndicatorHeight">1dp</item>
         <item name="tabPaddingStart">12dp</item>
@@ -258,7 +253,6 @@
         <item name="tabTextAppearance">@style/TabLayoutTextStyle</item>
         <item name="tabSelectedTextColor">@color/colorAccentEditor</item>
     </style>
-
 
     <style name="vector_spinner_style">
         <item name="android:layout_width">match_parent</item>
@@ -272,7 +266,6 @@
 
 
     <style name="BasicToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
-
         <item name="android:background">#ff29549f</item>
         <item name="colorControlNormal">#FFFFFF</item>
 
@@ -282,5 +275,4 @@
         <item name="colorPrimary">@color/vector_logo_color</item>
         <item name="windowActionBar">true</item>
     </style>
-
 </resources>

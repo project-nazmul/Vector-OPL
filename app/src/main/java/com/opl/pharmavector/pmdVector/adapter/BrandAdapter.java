@@ -32,9 +32,11 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.BrandViewHol
 
         holder.brandName.setText(brandData.getBrandName());
         holder.valueShare.setText(brandData.getValShare());
-        holder.valueRank.setText(brandData.getOplRank());
+        holder.vRankOpl.setText(brandData.getOplValRank());
+        holder.vRankNat.setText(brandData.getNatValRank());
         holder.uniteShare.setText(brandData.getUniteShare());
-        holder.uniteRank.setText(brandData.getNatRank());
+        holder.uRankOpl.setText(brandData.getOplUnitRank());
+        holder.uRankNat.setText(brandData.getNatUnitRank());
     }
 
     @Override
@@ -43,17 +45,17 @@ public class BrandAdapter extends RecyclerView.Adapter<BrandAdapter.BrandViewHol
     }
 
     public class BrandViewHolder extends RecyclerView.ViewHolder {
-        public TextView brandName, valueShare, valueRank, uniteShare, uniteRank, brandwise, regionwise, week2, week3, week4, total;
+        public TextView brandName, valueShare, vRankOpl, vRankNat, uniteShare, uRankOpl, uRankNat;
 
         public BrandViewHolder(View view) {
             super(view);
             brandName = view.findViewById(R.id.brandName);
             valueShare = view.findViewById(R.id.valueShare);
-            valueRank = view.findViewById(R.id.valueRank);
+            vRankOpl = view.findViewById(R.id.vRankOpl);
+            vRankNat = view.findViewById(R.id.vRankNat);
             uniteShare = view.findViewById(R.id.uniteShare);
-            uniteRank = view.findViewById(R.id.uniteRank);
-            brandwise = view.findViewById(R.id.brandwise);
-            regionwise = view.findViewById(R.id.regionwise);
+            uRankOpl = view.findViewById(R.id.uRankOpl);
+            uRankNat = view.findViewById(R.id.uRankNat);
         }
     }
 }

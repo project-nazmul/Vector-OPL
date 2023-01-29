@@ -32,9 +32,11 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         holder.companyName.setText(companyData.getComDesc());
         holder.brandName.setText(companyData.getBrandName());
         holder.valueShare.setText(companyData.getValShare());
-        holder.valueRank.setText(companyData.getNatValRank());
+        holder.vRankOpl.setText(companyData.getOplValRank());
+        holder.vRankNat.setText(companyData.getNatValRank());
         holder.uniteShare.setText(companyData.getUniteShare());
-        holder.uniteRank.setText(companyData.getNatUnitRank());
+        holder.uRankOpl.setText(companyData.getOplUnitRank());
+        holder.uRankNat.setText(companyData.getNatUnitRank());
     }
 
     @Override
@@ -43,16 +45,18 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     }
 
     public class CompanyViewHolder extends RecyclerView.ViewHolder {
-        public TextView companyName, brandName, valueShare, valueRank, uniteShare, uniteRank;
+        public TextView companyName, brandName, valueShare, vRankOpl, vRankNat, uniteShare, uRankOpl, uRankNat;
 
         public CompanyViewHolder(View view) {
             super(view);
             companyName = view.findViewById(R.id.companyName);
             brandName = view.findViewById(R.id.brandName);
             valueShare = view.findViewById(R.id.valueShare);
-            valueRank = view.findViewById(R.id.valueRank);
+            vRankOpl = view.findViewById(R.id.vRankOpl);
+            vRankNat = view.findViewById(R.id.vRankNat);
             uniteShare = view.findViewById(R.id.uniteShare);
-            uniteRank = view.findViewById(R.id.uniteRank);
+            uRankOpl = view.findViewById(R.id.uRankOpl);
+            uRankNat = view.findViewById(R.id.uRankNat);
         }
     }
 }

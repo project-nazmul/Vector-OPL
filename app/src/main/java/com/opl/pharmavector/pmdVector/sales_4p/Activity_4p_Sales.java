@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -50,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -211,8 +213,15 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             for (int i = 1; i <= cyclePosition; i++) {
                 cycle.add(String.valueOf(i));
             }
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, cycle);
-            mSpinner2.setAdapter(spinnerAdapter);
+            if (cycle.size() > 0) {
+                String lastItem = cycle.get(cycle.size() - 1);
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, Collections.singletonList(lastItem));
+                mSpinner2.setHint(lastItem.trim());
+                mSpinner2.setAdapter(spinnerAdapter);
+            } else {
+//                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, cycle.lastIndexOf(customerlist));
+//                mSpinner2.setAdapter(spinnerAdapter);
+            }
         }
         //mSpinner2.setItems("1", "2", "3", "4", "5");
     }
@@ -223,6 +232,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             labels.add(customerlist.get(i).getName());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, labels);
+        mspinner1.setText(customerlist.get(0).getName());
         mspinner1.setAdapter(spinnerAdapter);
         String[] customer = labels.toArray(new String[0]);
         mspinner1.setOnItemSelectedListener(Activity_4p_Sales.this);
@@ -319,8 +329,10 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                                 brandData.get(i).getBrandName(),
                                 brandData.get(i).getValShare(),
                                 brandData.get(i).getUniteShare(),
-                                brandData.get(i).getOplRank(),
-                                brandData.get(i).getNatRank()));
+                                brandData.get(i).getOplUnitRank(),
+                                brandData.get(i).getOplValRank(),
+                                brandData.get(i).getNatUnitRank(),
+                                brandData.get(i).getNatValRank()));
                     }
                     pDialog.dismiss();
                     setUpBrandRecyclerView();

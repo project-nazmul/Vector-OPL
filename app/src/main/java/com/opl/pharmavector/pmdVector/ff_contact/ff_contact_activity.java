@@ -20,6 +20,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,8 @@ import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.KeyboardUtils;
+import com.squareup.picasso.Picasso;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -68,7 +71,8 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
     private contact_adapter recyclerViewAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
-    private String selected_number,selected_person;
+    private String selected_number,selected_person,profile_image;
+    public String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/pmd/";
     private final String url_getfieldforce = BASE_URL+"pmd_vector/ff_contacts/get_ff_list.php";
 
     @Override
@@ -140,10 +144,11 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                 if (response.isSuccessful()) {
                     ppDialog.dismiss();
                     recyclerDataArrayList = response.body();
-                    // Log.d("DATA-- : ", String.valueOf(recyclerDataArrayList));
+                    //Log.d("DATA-- : ", String.valueOf(recyclerDataArrayList));
+
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
                         recyclerViewAdapter = new contact_adapter(ff_contact_activity.this,recyclerDataArrayList);
-                        LinearLayoutManager manager = new LinearLayoutManager(ff_contact_activity.this, LinearLayoutManager.VERTICAL, true);
+                        LinearLayoutManager manager = new LinearLayoutManager(ff_contact_activity.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
@@ -405,7 +410,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
     }
 
     public class ViewDialog {
-        public void showDialog( ){
+        public void showDialog() {
             final Dialog dialog = new Dialog(ff_contact_activity.this);
 
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -417,7 +422,10 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
             Button read_back =  dialog.findViewById(R.id.read_back);
             TextView message =  dialog.findViewById(R.id.message);
             TextView service =  dialog.findViewById(R.id.service);
+            ImageView imgPmdContact =  dialog.findViewById(R.id.imgPmdContact);
 
+            profile_image = pmdImageUrl+"PE03726"+"."+"jpg" ;
+            Picasso.get().load(profile_image).into(imgPmdContact);
             TextView title = dialog.findViewById(R.id.title);
             title.setText("Call/SMS");
             message.setText("Name : \t"+selected_person);
@@ -472,7 +480,5 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 }

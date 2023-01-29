@@ -5,17 +5,19 @@
 
     <LinearLayout
         android:paddingTop="4dp"
-        android:paddingBottom="6dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:weightSum="8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="#FFFF8D"
         android:fontFamily="@font/acme">
 
         <TextView
             android:id="@+id/brandName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_weight="2"
             android:text="Brand"
             android:textAlignment="textStart"
             android:textColor="#E91E63"
@@ -27,18 +29,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="Value Share"
+            android:text="Value\nShare"
             android:textColor="#4CAF50"
             android:textSize="12dp" />
 
         <TextView
-            android:id="@+id/valueRank"
+            android:id="@+id/vRankOpl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Rank"
+            android:text="V_Rank\n(OPL)"
             android:textColor="#FF5722"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/vRankNat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="V_Rank\n(NAT)"
+            android:textAlignment="center"
+            android:textColor="#3F51B5"
             android:textSize="12dp" />
 
         <TextView
@@ -46,41 +58,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Unite Share"
+            android:text="Unite\nShare"
             android:textAlignment="center"
-            android:textColor="#3F51B5"
+            android:textColor="#FF5722"
             android:textSize="12dp" />
 
         <TextView
-            android:id="@+id/uniteRank"
+            android:id="@+id/uRankOpl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rank"
+            android:text="U_Rank\n(OPL)"
             android:textAlignment="center"
-            android:textColor="#3F51B5"
+            android:textColor="#4CAF50"
             android:textSize="12dp" />
 
         <TextView
-            android:visibility="gone"
-            android:id="@+id/brandwise"
+            android:id="@+id/uRankNat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Brandwise"
-            android:textAlignment="center"
-            android:textColor="#3F51B5"
-            android:textSize="12dp" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/regionwise"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Regionwise"
+            android:text="U_Rank\n(NAT)"
             android:textAlignment="textEnd"
-            android:textColor="#3F51B5"
+            android:textColor="#49189F"
             android:textSize="12dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

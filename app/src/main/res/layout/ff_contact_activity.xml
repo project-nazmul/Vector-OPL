@@ -168,7 +168,7 @@
             android:text="(If Any Place Selected )"
             android:textColor="@color/pink"
             android:textSize="@dimen/_10sdp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/submitBtn"

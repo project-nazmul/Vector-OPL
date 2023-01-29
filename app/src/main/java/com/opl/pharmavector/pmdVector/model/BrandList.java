@@ -18,18 +18,26 @@ public class BrandList {
     private String uniteShare;
     @SerializedName("OPL_UNIT_RANK")
     @Expose
-    private String oplRank;
+    private String oplUnitRank;
+    @SerializedName("OPL_VAL_RANK")
+    @Expose
+    private String oplValRank;
     @SerializedName("NAT_UNIT_RANK")
     @Expose
-    private String natRank;
+    private String natUnitRank;
+    @SerializedName("NAT_VAL_RANK")
+    @Expose
+    private String natValRank;
 
-    public BrandList(String brandCode, String brandName, String valShare, String uniteShare, String oplRank, String natRank) {
+    public BrandList(String brandCode, String brandName, String valShare, String uniteShare, String oplUnitRank, String oplValRank, String natUnitRank, String natValRank) {
         this.brandCode = brandCode;
         this.brandName = brandName;
         this.valShare = valShare;
         this.uniteShare = uniteShare;
-        this.oplRank = oplRank;
-        this.natRank = natRank;
+        this.oplUnitRank = oplUnitRank;
+        this.oplValRank = oplValRank;
+        this.natUnitRank = natUnitRank;
+        this.natValRank = natValRank;
     }
 
     public String getBrandCode() {
@@ -64,19 +72,35 @@ public class BrandList {
         this.uniteShare = uniteShare;
     }
 
-    public String getOplRank() {
-        return oplRank;
+    public String getOplUnitRank() {
+        return oplUnitRank;
     }
 
-    public void setOplRank(String oplRank) {
-        this.oplRank = oplRank;
+    public void setOplUnitRank(String oplUnitRank) {
+        this.oplUnitRank = oplUnitRank;
     }
 
-    public String getNatRank() {
-        return natRank;
+    public String getOplValRank() {
+        return oplValRank;
     }
 
-    public void setNatRank(String natRank) {
-        this.natRank = natRank;
+    public void setOplValRank(String oplValRank) {
+        this.oplValRank = oplValRank;
+    }
+
+    public String getNatUnitRank() {
+        return natUnitRank;
+    }
+
+    public void setNatUnitRank(String natUnitRank) {
+        this.natUnitRank = natUnitRank;
+    }
+
+    public String getNatValRank() {
+        return natValRank;
+    }
+
+    public void setNatValRank(String natValRank) {
+        this.natValRank = natValRank;
     }
 }

@@ -1,11 +1,9 @@
 package com.opl.pharmavector.contact;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -25,11 +23,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.R;
@@ -43,15 +42,13 @@ import com.opl.pharmavector.prescriptionsurvey.PrescroptionImageSearch;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
-
+import com.squareup.picasso.Picasso;
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,8 +66,10 @@ public class Activity_PMD_Contact extends Activity {
     private AutoCompleteTextView actv ;
     private ArrayList<Customer> brandlist;
     private Spinner spin_brand;
+    private LinearLayout imageLayout;
     private String brand_url = BASE_URL+"prescription_survey/get_brand.php";
-    private String product_name,product_code,p_brand_code,mpo_code,selected_number,selected_person;
+    public String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/pmd/";
+    String product_name,product_code,p_brand_code,mpo_code,selected_number,selected_person,profile_image,userName, userName_2, new_version, message_3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,7 @@ public class Activity_PMD_Contact extends Activity {
                 selected_person = recyclerDataArrayList.get(position).getCol3();
                 if (selected_number != null && !selected_number.isEmpty() && !selected_number.equals("null")){
                     ViewDialog alert = new ViewDialog();
-                    alert.showDialog();
+                    alert.showDialog(recyclerDataArrayList.get(position).getCol7());
                 }
             }
             @Override
@@ -175,10 +174,12 @@ public class Activity_PMD_Contact extends Activity {
         spin_brand = findViewById(R.id.spin_brand);
 
         recyclerDataArrayList = new ArrayList<>();
-        brandlist=new ArrayList<>();
-        Bundle b=new Bundle();
-        mpo_code=b.getString("UserName");
-        //Log.e("MPO Code---->",mpo_code);
+        brandlist = new ArrayList<>();
+        Bundle b = getIntent().getExtras();
+        userName = b.getString("UserName");
+        userName_2 = b.getString("UserName_2");
+        new_version = b.getString("new_version");
+        message_3 = b.getString("message_3");
     }
 
     class GetBrand extends AsyncTask<Void, Void, Void> {
@@ -267,7 +268,7 @@ public class Activity_PMD_Contact extends Activity {
 
     public class ViewDialog {
         @SuppressLint("SetTextI18n")
-        public void showDialog( ){
+        public void showDialog(String empCode){
             final Dialog dialog = new Dialog(Activity_PMD_Contact.this);
 
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -279,8 +280,15 @@ public class Activity_PMD_Contact extends Activity {
             Button read_back =  dialog.findViewById(R.id.read_back);
             TextView message =  dialog.findViewById(R.id.message);
             TextView service =  dialog.findViewById(R.id.service);
-
             TextView title = dialog.findViewById(R.id.title);
+            LinearLayout imageLayout = dialog.findViewById(R.id.imageLayout);
+            ImageView imgPmdContact =  dialog.findViewById(R.id.imgPmdContact);
+            imageLayout.setVisibility(View.VISIBLE);
+
+            if (!empCode.isEmpty()) {
+                profile_image = pmdImageUrl+empCode+"."+"jpg" ;
+                Picasso.get().load(profile_image).into(imgPmdContact);
+            }
             title.setText("Call/SMS");
             message.setText("Name : \t"+selected_person);
             service.setText("Selected Number \t"+selected_number);

@@ -90,7 +90,7 @@
             android:fontFamily="@font/acme"
             android:gravity="start"
             android:text="NOP"
-            android:textColor="@color/green1"
+            android:textColor="@color/pink"
             android:textSize="12sp" />
 
         <TextView
@@ -101,7 +101,7 @@
             android:fontFamily="@font/acme"
             android:gravity="start"
             android:text="Address"
-            android:textColor="@color/green1"
+            android:textColor="@color/blue"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

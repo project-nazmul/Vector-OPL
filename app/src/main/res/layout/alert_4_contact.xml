@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="280dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    >
+    android:layout_gravity="center">
+
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -20,11 +20,12 @@
             app:cardBackgroundColor="#FAFAFA"
             app:cardElevation="0dp"
             android:layout_gravity="bottom">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -34,22 +35,41 @@
                     android:textSize="@dimen/_12sdp"
                     android:layout_gravity="right"
                     android:textStyle="bold"
-                    android:background="@color/colorAccent"
-                    />
+                    android:background="@color/colorAccent" />
+
+               <LinearLayout
+                   android:id="@+id/imageLayout"
+                   android:visibility="gone"
+                   android:gravity="center"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:padding="@dimen/_8sdp"
+                       app:civ_border_width="2dp"
+                       app:civ_border_color="#FF000000"
+                       android:id="@+id/imgPmdContact"
+                       android:layout_width="@dimen/_70sdp"
+                       android:layout_height="@dimen/_70sdp"
+                       android:paddingTop="@dimen/activity_vertical_margin"
+                       android:src="@drawable/vector" />
+               </LinearLayout>
+
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:id="@+id/title"
                     android:textSize="@dimen/_16sdp"
                     android:textColor="@android:color/primary_text_light"
-
                     android:text="Option"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="32dp"
                     android:textSize="@dimen/_12sdp"
                     android:layout_marginRight="32dp"
@@ -57,14 +77,13 @@
                     android:textColor="#FF80AB"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="Please Select.."
-                    />
+                    android:text="Please Select.." />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
@@ -72,36 +91,33 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/colorAccentEditor"
-                    android:text="@string/service_number"
-                    />
+                    android:text="@string/service_number" />
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="back"
                     android:id="@+id/btn_sms"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:background="@color/green"
-                    />
+                    android:background="@color/green" />
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Yes"
                     android:id="@+id/btn_call"
-                    android:layout_marginTop="32dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:background="@color/colorAccentEditor"
-                    />
+                    android:background="@color/colorAccentEditor" />
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
     </FrameLayout>
 </LinearLayout>
