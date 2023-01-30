@@ -35,12 +35,18 @@ import com.opl.pharmavector.contact.contact_adapter;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.pmdVector.adapter.BrandAdapter;
 import com.opl.pharmavector.pmdVector.adapter.CompanyAdapter;
+import com.opl.pharmavector.pmdVector.adapter.RegionUnitAdapter;
+import com.opl.pharmavector.pmdVector.adapter.RegionValAdapter;
 import com.opl.pharmavector.pmdVector.model.BrandList;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyList;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
 import com.opl.pharmavector.pmdVector.model.ProductList;
 import com.opl.pharmavector.pmdVector.model.ProductModel;
+import com.opl.pharmavector.pmdVector.model.RegionUnitList;
+import com.opl.pharmavector.pmdVector.model.RegionUnitModel;
+import com.opl.pharmavector.pmdVector.model.RegionValList;
+import com.opl.pharmavector.pmdVector.model.RegionValModel;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
@@ -61,7 +67,7 @@ import retrofit2.Callback;
 public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    public ProgressDialog pDialog, qDialog;
+    public ProgressDialog pDialog, qDialog, valDialog, unitDialog;
     public String json, brand_name = "xx", brand_code = "00", team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX", place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX";;
     Button back_btn, submitBtn;
     public android.widget.Spinner spin_rm;
@@ -71,7 +77,9 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     private ArrayList<BrandList> brandDatalist = new ArrayList<>();
     private ArrayList<ProductList> productDatalist = new ArrayList<>();
     private ArrayList<CompanyList> companyDatalist = new ArrayList<>();
-    private RecyclerView brandRecycler, companyRecycler, recyclerView3, recyclerView4;
+    private ArrayList<RegionUnitList> regionUnitlist = new ArrayList<>();
+    private ArrayList<RegionValList> regionValuelist = new ArrayList<>();
+    private RecyclerView brandRecycler, companyRecycler, regionValRecycler, regionUnitRecycler;
     private RecyclerView.LayoutManager layoutManager1, layoutManager2, layoutManager3, layoutManager4;
     private ArrayList<RecyclerData> recyclerDataArrayList1, recyclerDataArrayList2, recyclerDataArrayList3, recyclerDataArrayList4;
     private contact_adapter recyclerViewAdapter1, recyclerViewAdapter2, recyclerViewAdapter3, recyclerViewAdapter4;
@@ -82,6 +90,8 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     private int monthPosition = -1;
     private BrandAdapter brandAdapter;
     private CompanyAdapter companyAdapter;
+    private RegionValAdapter regionValAdapter;
+    private RegionUnitAdapter regionUnitAdapter;
 
     private final String url_getMonth = BASE_URL + "pmd_vector/sales_4p/get_month.php";
 
@@ -102,6 +112,8 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
                 if (monthPosition != -1 && !brand_code.equals("00")) {
                     brandWiseDataInfo();
                     companyWiseDataInfo();
+                    regionWiseValShareInfo();
+                    regionWiseUnitShareInfo();
                 } else {
                     Toast.makeText(Activity_4p_Sales.this, getResources().getString(R.string.instruct), Toast.LENGTH_SHORT).show();
                 }
@@ -145,6 +157,8 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         brandRecycler = findViewById(R.id.brandRecycler);
         companyRecycler = findViewById(R.id.companyRecycler);
+        regionValRecycler = findViewById(R.id.regionValRecycler);
+        regionUnitRecycler = findViewById(R.id.regionUnitRecycler);
         //layoutManager1 = new LinearLayoutManager(this);
         //brandRecycler.setLayoutManager(layoutManager1);
         recyclerDataArrayList1 = new ArrayList<>();
@@ -436,6 +450,110 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
             public void onFailure(@NonNull Call<CompanyModel> call, @NonNull Throwable t) {
                 qDialog.dismiss();
                 companyWiseDataInfo();
+            }
+        });
+    }
+
+    public void regionWiseValShareInfo() {
+        valDialog = new ProgressDialog(Activity_4p_Sales.this);
+        valDialog.setMessage("Value Share Loading...");
+        valDialog.setTitle("Value Share Followup");
+        valDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<RegionValModel> call = apiInterface.getRegionValShareList();
+        regionValuelist.clear();
+
+        call.enqueue(new Callback<RegionValModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<RegionValModel> call, @NonNull retrofit2.Response<RegionValModel> response) {
+                List<RegionValList> regionValData = null;
+                if (response.body() != null) {
+                    regionValData = response.body().getRegionValList();
+                }
+
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < (regionValData != null ? regionValData.size() : 0); i++) {
+                        regionValuelist.add(new RegionValList(
+                                regionValData.get(i).getRegion(),
+                                regionValData.get(i).getValShare(),
+                                regionValData.get(i).getCom1(),
+                                regionValData.get(i).getValShare1(),
+                                regionValData.get(i).getCom2(),
+                                regionValData.get(i).getValShare2(),
+                                regionValData.get(i).getCom3(),
+                                regionValData.get(i).getValShare3()));
+                    }
+                    valDialog.dismiss();
+                    regionValAdapter = new RegionValAdapter(Activity_4p_Sales.this, regionValuelist);
+                    LinearLayoutManager manager = new LinearLayoutManager(Activity_4p_Sales.this);
+                    regionValRecycler.setLayoutManager(manager);
+                    regionValRecycler.setAdapter(regionValAdapter);
+                    regionValRecycler.addItemDecoration(new DividerItemDecoration(Activity_4p_Sales.this, DividerItemDecoration.VERTICAL));
+                    //Log.d("company List", companyDatalist.get(0).getComDesc());
+                } else {
+                    valDialog.dismiss();
+                    Toast.makeText(Activity_4p_Sales.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RegionValModel> call, @NonNull Throwable t) {
+                valDialog.dismiss();
+                regionWiseValShareInfo();
+            }
+        });
+    }
+
+    public void regionWiseUnitShareInfo() {
+        unitDialog = new ProgressDialog(Activity_4p_Sales.this);
+        unitDialog.setMessage("Unit Share Loading...");
+        unitDialog.setTitle("Unit Share Followup");
+        unitDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<RegionUnitModel> call = apiInterface.getRegionUnitShareList();
+        regionUnitlist.clear();
+
+        call.enqueue(new Callback<RegionUnitModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<RegionUnitModel> call, @NonNull retrofit2.Response<RegionUnitModel> response) {
+                List<RegionUnitList> regionUnitData = null;
+                if (response.body() != null) {
+                    regionUnitData = response.body().getRegionUnitList();
+                }
+
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < (regionUnitData != null ? regionUnitData.size() : 0); i++) {
+                        regionUnitlist.add(new RegionUnitList(
+                                regionUnitData.get(i).getRegion(),
+                                regionUnitData.get(i).getUnitShare(),
+                                regionUnitData.get(i).getCom1(),
+                                regionUnitData.get(i).getUnitShare1(),
+                                regionUnitData.get(i).getCom2(),
+                                regionUnitData.get(i).getUnitShare2(),
+                                regionUnitData.get(i).getCom3(),
+                                regionUnitData.get(i).getUnitShare3()));
+                    }
+                    unitDialog.dismiss();
+                    regionUnitAdapter = new RegionUnitAdapter(Activity_4p_Sales.this, regionUnitlist);
+                    LinearLayoutManager manager = new LinearLayoutManager(Activity_4p_Sales.this);
+                    regionUnitRecycler.setLayoutManager(manager);
+                    regionUnitRecycler.setAdapter(regionUnitAdapter);
+                    regionUnitRecycler.addItemDecoration(new DividerItemDecoration(Activity_4p_Sales.this, DividerItemDecoration.VERTICAL));
+                    //Log.d("company List", companyDatalist.get(0).getComDesc());
+                } else {
+                    unitDialog.dismiss();
+                    Toast.makeText(Activity_4p_Sales.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RegionUnitModel> call, @NonNull Throwable t) {
+                unitDialog.dismiss();
+                regionWiseUnitShareInfo();
             }
         });
     }

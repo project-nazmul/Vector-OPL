@@ -81,7 +81,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class Login extends AppCompatActivity implements OnClickListener {
     String newVersion;
     private EditText user, pass;
@@ -124,6 +123,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
         //mAppUpdateManager = AppUpdateManagerFactory.create(this);
@@ -192,7 +192,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         user = findViewById(R.id.username);
         pass = findViewById(R.id.password);
         versionname = (TextView) findViewById(R.id.versionname);
-        versionname.setText("65.2.6");
+        versionname.setText("65.2.8");
         mSubmit = findViewById(R.id.login);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/acme.ttf");
         db = new DatabaseHandler(this);

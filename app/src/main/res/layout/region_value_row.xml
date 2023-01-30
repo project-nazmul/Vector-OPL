@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:weightSum="8"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/acme">
+
+        <TextView
+            android:id="@+id/regionName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Region\nName"
+            android:textAlignment="textStart"
+            android:textColor="#E91E63"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/valueShare"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="Value\nShare"
+            android:textColor="#4CAF50"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/valueShare1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="Share"
+            android:textColor="#FF5722"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/competitor1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Competitor 1"
+            android:textAlignment="center"
+            android:textColor="#3F51B5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/valueShare2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Share"
+            android:textAlignment="center"
+            android:textColor="#FF5722"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/competitor2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Competitor 2"
+            android:textAlignment="center"
+            android:textColor="#3F51B5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/valueShare3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Share"
+            android:textAlignment="center"
+            android:textColor="#FF5722"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/competitor3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Competitor 3"
+            android:textAlignment="center"
+            android:textColor="#3F51B5"
+            android:textSize="12sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

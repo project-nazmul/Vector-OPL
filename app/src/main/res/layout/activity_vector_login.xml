@@ -130,7 +130,6 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/vector_version"
                 android:textColor="@color/base" />
-
         </LinearLayout>
 
         <ImageView
@@ -139,8 +138,6 @@
             android:alpha="0.05"
             android:scaleType="fitStart"
             android:src="@drawable/login_bg" />
-
     </RelativeLayout>
-
 </ScrollView>
 

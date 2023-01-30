@@ -9,6 +9,8 @@ import com.opl.pharmavector.pmdVector.model.CompanyModel;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
 import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.pmdVector.model.RXModel;
+import com.opl.pharmavector.pmdVector.model.RegionUnitModel;
+import com.opl.pharmavector.pmdVector.model.RegionValModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
 
@@ -219,6 +221,12 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("pmd_vector/sales_4p/get_companywise_brand.php")
     Call<CompanyModel> getCompanyWiseList(@Field("mnyr") String mnyr, @Field("brand_code") String brand_code);
+
+    @GET("pmd_vector/sales_4p/get_regionwise_unit_sh.php")
+    Call<RegionUnitModel> getRegionUnitShareList();
+
+    @GET("pmd_vector/sales_4p/get_regionwise_val_sh.php")
+    Call<RegionValModel> getRegionValShareList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
