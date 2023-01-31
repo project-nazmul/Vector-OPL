@@ -129,7 +129,7 @@ public class DoctorListActivity extends Activity {
                 try {
                     final String mpoCode = s.toString();
                     //autoDoctorFFList.setText(mpoCode);
-                    KeyboardUtils.hideKeyboard(DoctorListActivity.this);
+                    //KeyboardUtils.hideKeyboard(DoctorListActivity.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

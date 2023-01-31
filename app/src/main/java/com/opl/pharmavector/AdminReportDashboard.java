@@ -35,6 +35,8 @@ import java.text.SimpleDateFormat;
 
 import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 
+import androidx.cardview.widget.CardView;
+
 public class AdminReportDashboard extends Activity implements View.OnClickListener {
     public String userName_1, userName, userName_2;
     JSONParser jsonParser;
@@ -56,7 +58,8 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     Typeface fontFamily;
     private SessionManager session;
     Bundle b;
-    Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary,msp_pres_report, backbt;
+    Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
+    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +98,37 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        product_wise_sale.setOnClickListener(new View.OnClickListener() {
+//        product_wise_sale.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (asm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, RMWiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        } else if (sm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, ASMWiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        } else if (gm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, SMWiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        }
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardProductSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -126,7 +159,40 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        group_wise_product_ord_summary.setOnClickListener(new View.OnClickListener() {
+//        group_wise_product_ord_summary.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (asm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", userName);
+//                            i.putExtra("message_3", "ASM");
+//                            startActivity(i);
+//                        } else if (sm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", userName);
+//                            i.putExtra("message_3", "SM");
+//                            startActivity(i);
+//                        } else if (gm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", userName);
+//                            i.putExtra("message_3", "GM");
+//                            startActivity(i);
+//                        }
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardGroupProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -154,15 +220,43 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                             i.putExtra("message_3", "GM");
                             startActivity(i);
                         }
-
-
                     }
                 });
                 mysells.start();
-
             }
         });
-        brand_wise_sale_btn.setOnClickListener(new View.OnClickListener() {
+
+//        brand_wise_sale_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (asm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, RMBrandwiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        } else if (sm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, ASMBrandwiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        } else if (gm_flag.equals("Y")) {
+//                            Intent i = new Intent(AdminReportDashboard.this, SMBrandwiseProductSale.class);
+//                            i.putExtra("userName", userName);
+//                            i.putExtra("UserName", userName);
+//                            i.putExtra("UserName_2", UserName_2);
+//                            startActivity(i);
+//                        }
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardBrandSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -193,7 +287,23 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        admin_product_list.setOnClickListener(new View.OnClickListener() {
+//        admin_product_list.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent i = new Intent(AdminReportDashboard.this, AdminProductList.class);
+//                        i.putExtra("userName", userName);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("UserName_2", UserName_2);
+//                        startActivity(i);
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardOpsoProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -210,7 +320,29 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        mrd_pres_report.setOnClickListener(new View.OnClickListener() {
+//        mrd_pres_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+//                        i.putExtra("userName", userName);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("report_flag", "MRD");
+//                        i.putExtra("asm_flag", asm_flag);
+//                        i.putExtra("sm_flag", sm_flag);
+//                        i.putExtra("gm_flag", gm_flag);
+//                        i.putExtra("rm_flag", "N");
+//                        i.putExtra("fm_flag", "N");
+//                        i.putExtra("mpo_flag", "N");
+//                        startActivity(i);
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardMrdPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -233,7 +365,29 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        fourp_pres_report.setOnClickListener(new View.OnClickListener() {
+//        fourp_pres_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+//                        i.putExtra("userName", userName);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("report_flag", "4P");
+//                        i.putExtra("asm_flag", asm_flag);
+//                        i.putExtra("sm_flag", sm_flag);
+//                        i.putExtra("gm_flag", gm_flag);
+//                        i.putExtra("rm_flag", "N");
+//                        i.putExtra("fm_flag", "N");
+//                        i.putExtra("mpo_flag", "N");
+//                        startActivity(i);
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        card4pPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Thread mysells = new Thread(new Runnable() {
@@ -256,14 +410,34 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             }
         });
 
-        msp_pres_report.setOnClickListener(new View.OnClickListener() {
+//        msp_pres_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Thread mysells = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+//                        i.putExtra("userName", userName);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("report_flag", "MSP");
+//                        i.putExtra("asm_flag", asm_flag);
+//                        i.putExtra("sm_flag", sm_flag);
+//                        i.putExtra("gm_flag", gm_flag);
+//                        i.putExtra("rm_flag", "N");
+//                        i.putExtra("fm_flag", "N");
+//                        i.putExtra("mpo_flag", "N");
+//                        startActivity(i);
+//                    }
+//                });
+//                mysells.start();
+//            }
+//        });
+        cardMspPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", userName);
                         i.putExtra("UserName", userName);
@@ -275,27 +449,19 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                         i.putExtra("fm_flag", "N");
                         i.putExtra("mpo_flag", "N");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-        //
+
         session = new SessionManager(getApplicationContext());
-
-
         backbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
                             if (asm_flag.equals("Y")) {
                                 Intent i = new Intent(AdminReportDashboard.this, AssistantManagerDashboard.class);
@@ -309,7 +475,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                                 i.putExtra("emp_code", AssistantManagerDashboard.globalempCode);
                                 i.putExtra("emp_name", AssistantManagerDashboard.globalempName);
                                 startActivity(i);
-
                             } else if (sm_flag.equals("Y")) {
                                 Intent i = new Intent(AdminReportDashboard.this, SalesManagerDashboard.class);
                                 i.putExtra("UserName", SalesManagerDashboard.globalSMCode);
@@ -322,7 +487,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                                 i.putExtra("emp_code", SalesManagerDashboard.globalempCode);
                                 i.putExtra("emp_name", SalesManagerDashboard.globalempName);
                                 startActivity(i);
-
                             } else if (gm_flag.equals("Y")) {
                                 Intent i = new Intent(AdminReportDashboard.this, GMDashboard1.class);
                                 i.putExtra("UserName", GMDashboard1.globalAdmin);
@@ -335,24 +499,16 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                                 i.putExtra("emp_code", GMDashboard1.globalempCode);
                                 i.putExtra("emp_name", GMDashboard1.globalempName);
                                 startActivity(i);
-
                             }
-
-
                             //finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
-
     }
 
     private void initViews() {
@@ -365,6 +521,15 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         fourp_pres_report = findViewById(R.id.fourp_pres_report);
         msp_pres_report = findViewById(R.id.msp_pres_report);
         mrd_pres_report = findViewById(R.id.mrd_pres_report);
+
+        cardBrandSale = findViewById(R.id.cardBrandSale);
+        cardProductSale = findViewById(R.id.cardProductSale);
+        cardOpsoProduct = findViewById(R.id.cardOpsoProduct);
+        cardGroupProduct = findViewById(R.id.cardGroupProduct);
+        cardMrdPrescription = findViewById(R.id.cardMrdPrescription);
+        card4pPrescription = findViewById(R.id.card4pPrescription);
+        cardMspPrescription = findViewById(R.id.cardMspPrescription);
+
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");
         b = getIntent().getExtras();

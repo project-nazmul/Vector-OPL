@@ -16,8 +16,7 @@ import com.opl.pharmavector.promomat.model.Promo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ClubViewHolder> implements Filterable
-{
+public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ClubViewHolder> implements Filterable {
     private static final int TYPE_ROW = 0;
     private static final int TYPE_ROW_COLORFUL = 1;
 
@@ -25,8 +24,7 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ClubViewHold
     public List<Promo> filteredCompanyList;
     private Context context;
 
-    public PromoAdapter(Context context, List<Promo> companyList)
-    {
+    public PromoAdapter(Context context, List<Promo> companyList) {
         this.context = context;
         this.companyList = companyList;
         this.filteredCompanyList = companyList;
@@ -44,13 +42,11 @@ public class PromoAdapter extends RecyclerView.Adapter<PromoAdapter.ClubViewHold
     }
 
     @Override
-    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
+    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         if (viewType == TYPE_ROW)
         {
             //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_club, viewGroup, false);
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_promomat_row, viewGroup, false);
-
             return new ClubViewHolder(view);
         } else
         {

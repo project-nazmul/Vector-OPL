@@ -1387,9 +1387,9 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void autoEvent(){
         actv_type.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 // hideKeyBoard();
@@ -1411,20 +1411,21 @@ public class PromoMaterialFollowup extends FragmentActivity implements OnClickLi
 
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NonNull Call<List<Patient>> call, @NonNull retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
 
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        promoList.add(new Promo( giftitemCount.get(i).getSerial(),
-                                giftitemCount.get(i).getMpocode(),
-                                giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                giftitemCount.get(i).getWeek3(),giftitemCount.get(i).getWeek4(),
-                                giftitemCount.get(i).getTotal()));
+                    if (giftitemCount != null) {
+                        for (int i = 0; i < giftitemCount.size(); i++) {
+                            promoList.add(new Promo( giftitemCount.get(i).getSerial(),
+                                    giftitemCount.get(i).getMpocode(),
+                                    giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+                                    giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+                                    giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+                                    giftitemCount.get(i).getWeek3(),giftitemCount.get(i).getWeek4(),
+                                    giftitemCount.get(i).getTotal()));
+                        }
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();

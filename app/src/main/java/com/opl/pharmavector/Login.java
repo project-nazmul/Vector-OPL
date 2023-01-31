@@ -192,7 +192,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         user = findViewById(R.id.username);
         pass = findViewById(R.id.password);
         versionname = (TextView) findViewById(R.id.versionname);
-        versionname.setText("65.2.8");
+        versionname.setText("65.2.9");
         mSubmit = findViewById(R.id.login);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/acme.ttf");
         db = new DatabaseHandler(this);
