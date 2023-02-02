@@ -1,7 +1,7 @@
 package com.opl.pharmavector.contact;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
@@ -30,14 +30,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.opl.pharmavector.Customer;
-import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.RecycleViewAdapter;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.ServiceHandler;
-import com.opl.pharmavector.depot_report.Cust_Sp_Pct_Activity;
-import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescroptionImageSearch;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
@@ -57,7 +52,7 @@ public class Activity_PMD_Contact extends Activity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<RecyclerData> recyclerDataArrayList;
-    private contact_adapter recyclerViewAdapter;
+    private ContactAdapter recyclerViewAdapter;
     ApiInterface apiInterface;
     com.opl.pharmavector.prescriptionsurvey.Adapter.RecyclerViewClickListener listener;
     ProgressBar progressBar;
@@ -71,6 +66,7 @@ public class Activity_PMD_Contact extends Activity {
     public String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/pmd/";
     String product_name,product_code,p_brand_code,mpo_code,selected_number,selected_person,profile_image,userName, userName_2, new_version, message_3;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,7 +246,7 @@ public class Activity_PMD_Contact extends Activity {
                     recyclerDataArrayList = response.body();
                     Log.e("DATA-- : ", String.valueOf(recyclerDataArrayList));
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        recyclerViewAdapter = new contact_adapter(Activity_PMD_Contact.this,recyclerDataArrayList);
+                        recyclerViewAdapter = new ContactAdapter(Activity_PMD_Contact.this, recyclerDataArrayList, pmdImageUrl);
                         LinearLayoutManager manager = new LinearLayoutManager(Activity_PMD_Contact.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(recyclerViewAdapter);

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewHolder> {
-
     private ArrayList<RecyclerData> DataArrayList;
     Context C ;
     String Report_flag;
@@ -40,7 +39,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewHolder> 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onBindViewHolder(@NonNull RecycleViewHolder holder, int position) {
-
         RecyclerData model = DataArrayList.get(position);
         holder.txt_col1.setText(model.getCol1());
         holder.txt_col2.setText(model.getCol2());
@@ -69,5 +67,4 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewHolder> 
     public int getItemCount() {
         return DataArrayList.size();
     }
-
 }

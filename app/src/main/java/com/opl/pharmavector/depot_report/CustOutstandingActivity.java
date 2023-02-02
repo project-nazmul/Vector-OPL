@@ -1,13 +1,10 @@
 package com.opl.pharmavector.depot_report;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.os.Bundle;
-
 import com.opl.pharmavector.R;
 
-public class CustOutstandingActivity extends AppCompatActivity {
-
+public class CustOutstandingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

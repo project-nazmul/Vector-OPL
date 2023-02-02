@@ -2,485 +2,1050 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:padding="5dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="5dp">
 
         <LinearLayout
-            android:id="@+id/li"
-            android:layout_width="fill_parent"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:id="@+id/layoutSalesReport"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/alert_light_frame"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/head_report"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:ems="14"
-                android:fontFamily="@font/roboto"
+            <LinearLayout
+                android:id="@+id/li"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/alert_light_frame"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/head_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="14"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Sales Reports"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/logout"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:onClick="finishActivity"
+                    android:soundEffectsEnabled="true"
+                    android:text="&lt;"
+                    android:textColor="#FFF"
+                    android:textSize="25sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardProductQuantity"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvProductQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Product wise target\nvs Sale quantity"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnProductQuantity"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnProductQuantity"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardProductValue"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvProductValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Product wise target\nvs Sales value"
+                            android:textColor="#FFFCFC"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnProductValue"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnProductValue"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardOrderQuantity"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvOrderQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Order vs Sale qnty\n(by customer &amp; Ord No.)"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnOrderQuantity"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnOrderQuantity"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardOrderValue"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvOrderValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Order vs Sale Value\n(by customer &amp; Ord No.)"
+                            android:textColor="#FFFCFC"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnOrderValue"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnOrderValue"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardReturnStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvReturnStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Return Status\n(by Customer)"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnReturnStatus"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnReturnStatus"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCurrentStock"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvCurrentStock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Available current\nstock product"
+                            android:textColor="#FFFCFC"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnCurrentStock"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnCurrentStock"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="6"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Sales Reports"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                android:visibility="visible" />
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPartyOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvPartyOrder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Party wise\nOrder status"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnPartyOrder"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnPartyOrder"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="7"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSaleGrowth"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvSaleGrowth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Target, Sales,\nAchievement &amp; Growth"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnSaleGrowth"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50"
+                            card_view:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/btnSaleGrowth"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardOpsoninList"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvOpsoninList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Opsonin\nProduct List"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnOpsoninList"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnOpsoninList"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="9"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardGroupProduct"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvGroupProduct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Group wise Product\nOrder Summary"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnGroupProduct"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50"
+                            card_view:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/btnGroupProduct"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="10"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMrdPrescription"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMrdPrescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="MRD Prescription\nSharing Report"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnMrdPrescription"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnMrdPrescription"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="11"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMspPrescription"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMspPrescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="MSP Prescription\nSharing Report"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnMspPrescription"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50"
+                            card_view:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/btnMspPrescription"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="12"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card4pPrescription"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv4pPrescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="4P Prescription\nSharing Report"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btn4pPrescription"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btn4pPrescription"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="13"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCreditList"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvCreditList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Credit List"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnCreditList"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50"
+                            card_view:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/btnCreditList"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="14"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardSpecialRate"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#8BC34A"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvSpecialRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Customer wise\nSpecial Rate"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnSpecialRate"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnSpecialRate"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/right_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="15"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardOutstandingList"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvOutstandingList"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Customer\nOutstanding List"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnOutstandingList"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50"
+                            card_view:ignore="HardcodedText" />
+
+                        <Button
+                            android:id="@+id/btnOutstandingList"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="16"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardCustomerReplacement"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvCustomerReplacement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Team wise\ncustomer replacement"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnCustomerReplacement"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnCustomerReplacement"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="17"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutSalesReport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/targetquantity"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="1.Product wise target vs sale quantity"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/targetvalue"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="2.Product wise target vs Sales value"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/orderinvoice"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="3.Brandproduct wise target vs Sales value"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/customervalue"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="4.Customer wise Order vs Sales value"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:visibility="gone"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/viewbycustomer"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="3.Order vs Sale qnty(by customer &amp; Ord No.)"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/viewbycustomersale"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="4.Order vs Sale Value (by customer &amp; Ord No.)"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/viewbycustomerreturn"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="5.Return Status(by Customer)"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/viewstock"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="6.Available current stock product"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/viewbycustomerorderstatus"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="7.Party wise Order status"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/achivement_btn"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:soundEffectsEnabled="true"
-                android:text="8.Target, Sales, Achievement\nand Growth"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/admin_product_list"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="0dp"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="9.Opsonin Product List"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/group_wise_product_ord_summary"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="0dp"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="10.Group wise Product Order Summary"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/mrd_pres_report"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="0dp"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="11. MRD Prescription Sharing Report"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/msp_pres_report"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="0dp"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="12. MSP Prescription Sharing Report"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/fourp_pres_report"
-                style="@android:style/Widget.Button.Small"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="0dp"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="13. 4P Prescription Sharing Report"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_cust_credit"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="14.Credit List"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_cust_sp_pct"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="15.Customer wise Special Rate"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_cust_outstanding"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="16.Customer Outstanding List"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_cust_replacement"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="17.Team wise customer replacement"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance"
-                android:textColor="@android:color/background_dark"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:padding="@dimen/_10sdp"
             android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/backbt"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/dcr_page_button"
                 android:gravity="center"
@@ -488,15 +1053,15 @@
                 android:soundEffectsEnabled="true"
                 android:text="&lt;"
                 android:textColor="#FFF"
-                android:textSize="@dimen/_12sdp" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:textSize="25sp" />
+        </LinearLayout>
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.05"
             android:scaleType="fitCenter"
             android:src="@drawable/login_bg" />
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

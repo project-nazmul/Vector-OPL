@@ -145,8 +145,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
         });
         //initAppUpdate();
     }
-//================================================================================================================================
-    //================================================================================================================================
+     //================================================================================================================================
+     //================================================================================================================================
     private void initAppUpdate() {
         appUpdaterUtils = new AppUpdaterUtils(this)
                 .withListener(new AppUpdaterUtils.UpdateListener() {
@@ -183,15 +183,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 && getIntent().getAction() != null
                 && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
             finish();
-            return;
         }
     }
 
-    @SuppressLint("ShowToast")
+    @SuppressLint({"ShowToast", "SetTextI18n"})
     private void initViews() {
         user = findViewById(R.id.username);
         pass = findViewById(R.id.password);
-        versionname = (TextView) findViewById(R.id.versionname);
+        versionname = findViewById(R.id.versionname);
         versionname.setText("65.2.9");
         mSubmit = findViewById(R.id.login);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/acme.ttf");

@@ -32,7 +32,7 @@ import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.ServiceHandler;
-import com.opl.pharmavector.contact.contact_adapter;
+import com.opl.pharmavector.contact.ContactAdapter;
 import com.opl.pharmavector.pmdVector.model.FFTeamList;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
@@ -68,7 +68,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<RecyclerData> recyclerDataArrayList;
     List<FFTeamList> recyclerTeamList;
-    private contact_adapter recyclerViewAdapter;
+    private ContactAdapter recyclerViewAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
     private String selected_number,selected_person,profile_image;
@@ -147,7 +147,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                     //Log.d("DATA-- : ", String.valueOf(recyclerDataArrayList));
 
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        recyclerViewAdapter = new contact_adapter(ff_contact_activity.this,recyclerDataArrayList);
+                        recyclerViewAdapter = new ContactAdapter(ff_contact_activity.this,recyclerDataArrayList, pmdImageUrl);
                         LinearLayoutManager manager = new LinearLayoutManager(ff_contact_activity.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(recyclerViewAdapter);

@@ -23,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -31,7 +30,7 @@ import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.ServiceHandler;
-import com.opl.pharmavector.contact.contact_adapter;
+import com.opl.pharmavector.contact.ContactAdapter;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.pmdVector.adapter.BrandAdapter;
 import com.opl.pharmavector.pmdVector.adapter.CompanyAdapter;
@@ -82,7 +81,7 @@ public class Activity_4p_Sales extends Activity implements MaterialSpinner.OnIte
     private RecyclerView brandRecycler, companyRecycler, regionValRecycler, regionUnitRecycler;
     private RecyclerView.LayoutManager layoutManager1, layoutManager2, layoutManager3, layoutManager4;
     private ArrayList<RecyclerData> recyclerDataArrayList1, recyclerDataArrayList2, recyclerDataArrayList3, recyclerDataArrayList4;
-    private contact_adapter recyclerViewAdapter1, recyclerViewAdapter2, recyclerViewAdapter3, recyclerViewAdapter4;
+    private ContactAdapter recyclerViewAdapter1, recyclerViewAdapter2, recyclerViewAdapter3, recyclerViewAdapter4;
     ApiInterface apiInterface;
     ProgressBar progressBar;
     private String selected_number, selected_month, manager_code;

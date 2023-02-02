@@ -78,9 +78,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                                     public void run() {
                                         JSONParser jsonParser = new JSONParser();
                                         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
                                         params.add(new BasicNameValuePair("logout", "logout"));
-
                                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
                                     }
                                 });
