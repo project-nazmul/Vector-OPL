@@ -7,12 +7,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AmSalesReportDashboard extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public static final String TAG_MESSAGE_1 = "message_1";
@@ -47,23 +47,20 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party, growth;
-
     private final String URL_Achievement = BASE_URL+"area_manager_api/sales_reports/Achievement.php";
-
     Button mpo_wise_product_sale_btn, brand_wise_sale_btn, targetquantity_btn, targetvalue_btn, achivement_btn,
             back_btn, mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
+    CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amsalesreportdashboard);
+
         initViews();
-
-
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -82,28 +79,22 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
-
-        targetquantity_btn.setOnClickListener(new OnClickListener() {
+        cardProductQuantity.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
                     String UserName_1 = b.getString("userName_1");
                     String UserName_2 = b.getString("userName_2");
+
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, AmTargetquantity.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -114,26 +105,22 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("userName_1", UserName_1);
                         i.putExtra("userName_2", UserName_2);
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
-        targetvalue_btn.setOnClickListener(new OnClickListener() {
+        cardProductValue.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
                     String UserName_1 = b.getString("userName_1");
                     String UserName_2 = b.getString("userName_2");
+
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, AmTargetvalue.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -144,19 +131,14 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("userName_1", UserName_1);
                         i.putExtra("userName_2", UserName_2);
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
-        achivement_btn.setOnClickListener(new OnClickListener() {
-
+        cardSaleGrowth.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final JSONParser jsonParser = new JSONParser();
                 final List<NameValuePair> params = new ArrayList<NameValuePair>();
                 Bundle b = getIntent().getExtras();
@@ -166,13 +148,13 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                 pDialog.setMessage("Calculating your Achievment ");
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(true);
-               // pDialog.show();
+                //pDialog.show();
                 String userName = b.getString("UserName");
                 params.add(new BasicNameValuePair("id", userName));
+
                 Thread server = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         JSONObject json = jsonParser.makeHttpRequest(URL_Achievement, "POST", params);
                         try {
                             success = json.getInt(TAG_SUCCESS);
@@ -182,15 +164,11 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                             achivement = json.getString(TAG_achivement);
                             growth = json.getString(TAG_growth);
                             if (success == 1) {
-
                                 //pDialog.dismiss();
-
                             } else {
                                 SaveToDataBase();
                             }
-
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                         Intent in = getIntent();
@@ -208,25 +186,17 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         sameint.putExtra("growth", growth);
                         sameint.putExtra("userName_1", usename12);
                         sameint.putExtra("UserName_2", UserName_2);
-
                         //Log.e("values-->",MPO_CODE+"--"+message+"---"+usename12+"---"+UserName_2);
                         startActivity(sameint);
-
-
                     }
-                    private void SaveToDataBase() {
-                        // TODO Auto-generated method stub
-                    }
+                    private void SaveToDataBase() {}
                 });
                 server.start();
             }
-
         });
-
-        mpo_wise_product_sale_btn.setOnClickListener(new OnClickListener() {
+        cardSalesReport.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
@@ -235,7 +205,6 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, ProductSale.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -246,27 +215,23 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("userName_1", UserName_1);
                         i.putExtra("userName_2", UserName_2);
                         i.putExtra("activity", "P");
-
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-        brand_wise_sale_btn.setOnClickListener(new OnClickListener() {
+        cardSalesFollowUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
                     String UserName_1 = b.getString("userName_1");
                     String UserName_2 = b.getString("userName_2");
+
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, BrandwiseProductSale.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -278,17 +243,14 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("userName_2", UserName_2);
                         i.putExtra("activity", "B");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-        mpo_achv_followup.setOnClickListener(new OnClickListener() {
+        cardMpoGrowth.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
@@ -297,7 +259,6 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, AMfollowMpoAchv.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -308,21 +269,17 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("userName_1", UserName_1);
                         i.putExtra("userName_2", UserName_2);
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-        admin_product_list.setOnClickListener(new View.OnClickListener() {
+        cardOpsoninList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, AdminProductList.class);
                         i.putExtra("userName", userName);
                         i.putExtra("UserName", userName);
@@ -331,13 +288,11 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                     }
                 });
                 mysells.start();
-
             }
         });
-        group_wise_product_ord_summary.setOnClickListener(new OnClickListener() {
+        cardProductOrder.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
@@ -346,7 +301,6 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, GroupwiseProductOrderSummary2.class);
                         i.putExtra("UserName", UserName);
                         i.putExtra("new_version", userName);
@@ -361,22 +315,17 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("new_version", userName);
                         i.putExtra("message_3", "FM");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
-        mrd_pres_report.setOnClickListener(new View.OnClickListener() {
+        cardMrdPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", AmDashboard.globalFMCode);
                         i.putExtra("UserName", AmDashboard.globalFMCode);
@@ -387,22 +336,17 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("rm_flag", "N");
                         i.putExtra("fm_flag", "Y");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
-        fourp_pres_report.setOnClickListener(new View.OnClickListener() {
+        card4pPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", AmDashboard.globalFMCode);
                         i.putExtra("UserName", AmDashboard.globalFMCode);
@@ -413,22 +357,17 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("rm_flag", "N");
                         i.putExtra("fm_flag", "Y");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
-        msp_pres_report.setOnClickListener(new View.OnClickListener() {
+        cardMspPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(AmSalesReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", userName);
                         i.putExtra("UserName", userName);
@@ -440,51 +379,39 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         i.putExtra("rm_flag", "N");
                         i.putExtra("fm_flag", "Y");
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        mpo_wise_product_sale_btn =  findViewById(R.id.mpo_wise_product_sale);
-        brand_wise_sale_btn =  findViewById(R.id.brand_wise_sale);
-        targetquantity_btn =  findViewById(R.id.targetquantity);
-        targetvalue_btn =  findViewById(R.id.targetvalue);
-        achivement_btn =  findViewById(R.id.achivement);
+        cardSalesReport =  findViewById(R.id.cardSalesReport);
+        cardSalesFollowUp =  findViewById(R.id.cardSalesFollowUp);
+        cardProductQuantity =  findViewById(R.id.cardProductQuantity);
+        cardProductValue =  findViewById(R.id.cardProductValue);
+        cardSaleGrowth =  findViewById(R.id.cardSaleGrowth);
         back_btn =  findViewById(R.id.backbt);
-        mpo_achv_followup =  findViewById(R.id.mpo_achv_followup);
-        admin_product_list =  findViewById(R.id.admin_product_list);
-        group_wise_product_ord_summary =  findViewById(R.id.am_grp_wise_prd_ord);
-        mrd_pres_report =  findViewById(R.id.mrd_pres_report);
-        fourp_pres_report =  findViewById(R.id.fourp_pres_report);
-        msp_pres_report =  findViewById(R.id.msp_pres_report);
-        dcc_rx_camp = findViewById(R.id.dcc_rx_camp);
-        dcc_rx_camp.setVisibility(View.GONE);
-        //mrd_pres_report
+        cardMpoGrowth =  findViewById(R.id.cardMpoGrowth);
+        cardOpsoninList =  findViewById(R.id.cardOpsoninList);
+        cardProductOrder =  findViewById(R.id.cardProductOrder);
+        cardMrdPrescription =  findViewById(R.id.cardMrdPrescription);
+        card4pPrescription =  findViewById(R.id.card4pPrescription);
+        cardMspPrescription =  findViewById(R.id.cardMspPrescription);
+        cardDccCampaign = findViewById(R.id.cardDccCampaign);
+        cardDccCampaign.setVisibility(View.GONE);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         Bundle b = getIntent().getExtras();
         UserName = b.getString("UserName");
         UserName_1 = b.getString("userName_1");
         UserName_2 = b.getString("UserName_2");
     }
 
-
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {}
 
-
-    }
-
-    protected void onPostExecute() {
-
-    }
-
+    protected void onPostExecute() {}
 }

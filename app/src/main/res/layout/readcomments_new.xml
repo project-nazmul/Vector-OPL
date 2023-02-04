@@ -352,16 +352,10 @@
                     android:text=""
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="12sp" />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
 
         <!-- end order screen main -->
-
-
         <!-- button start -->
 
         <LinearLayout
@@ -369,7 +363,6 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical">
-
 
             <RelativeLayout
                 android:id="@+id/buttons"

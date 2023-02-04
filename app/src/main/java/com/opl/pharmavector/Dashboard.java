@@ -164,7 +164,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
-    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);

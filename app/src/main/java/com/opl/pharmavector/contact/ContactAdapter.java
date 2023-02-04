@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
 import com.squareup.picasso.Picasso;
@@ -20,11 +21,19 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     private ArrayList<RecyclerData> DataArrayList;
     Context C;
     String pmdImageUrl, profileImage;
+    ContactCallback contactCallback;
 
     public ContactAdapter(Context c, ArrayList<RecyclerData> recyclerDataArrayList, String pmdImageUrl) {
         this.C = c;
         this.DataArrayList = recyclerDataArrayList;
         this.pmdImageUrl = pmdImageUrl;
+    }
+
+    public ContactAdapter(Context c, ArrayList<RecyclerData> recyclerDataArrayList, String pmdImageUrl, ContactCallback contactCallback) {
+        this.C = c;
+        this.DataArrayList = recyclerDataArrayList;
+        this.pmdImageUrl = pmdImageUrl;
+        this.contactCallback = contactCallback;
     }
 
     @NonNull
@@ -45,6 +54,31 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         holder.tvEmployeePhone.setText(model.getCol4());
         profileImage = pmdImageUrl+model.getCol7()+"."+"jpg" ;
         Picasso.get().load(profileImage).into(holder.imgPmdContact);
+
+        holder.tvPhoneCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactCallback.onContactPhoneCall(model);
+            }
+        });
+        holder.lottiePhoneCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactCallback.onContactPhoneCall(model);
+            }
+        });
+        holder.tvPhoneSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactCallback.onContactPhoneSms(model);
+            }
+        });
+        holder.lottiePhoneSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactCallback.onContactPhoneSms(model);
+            }
+        });
     }
 
     @Override
@@ -53,8 +87,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvEmployeeSL,tvEmployeeCode,tvEmployeeName,tvEmpDesignation,tvEmployeePhone;
+        public TextView tvEmployeeSL,tvEmployeeCode,tvEmployeeName,tvEmpDesignation,tvEmployeePhone, tvPhoneCall, tvPhoneSms;
         public ImageView imgPmdContact;
+        public LottieAnimationView lottiePhoneCall, lottiePhoneSms;
 
         public ContactViewHolder(View view) {
             super(view);
@@ -64,7 +99,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             tvEmpDesignation = (TextView)itemView.findViewById(R.id.tvEmpDesignation);
             tvEmployeePhone = (TextView)itemView.findViewById(R.id.tvEmployeePhone);
             imgPmdContact = (ImageView) itemView.findViewById(R.id.imgPmdContact);
+            tvPhoneCall = (TextView) itemView.findViewById(R.id.tvPhoneCall);
+            tvPhoneSms = (TextView) itemView.findViewById(R.id.tvPhoneSms);
+            lottiePhoneCall = (LottieAnimationView) itemView.findViewById(R.id.lottiePhoneCall);
+            lottiePhoneSms = (LottieAnimationView) itemView.findViewById(R.id.lottiePhoneSms);
         }
+    }
+
+    public interface ContactCallback {
+        void onContactPhoneCall(RecyclerData recyclerData);
+        void onContactPhoneSms(RecyclerData recyclerData);
     }
 }
 

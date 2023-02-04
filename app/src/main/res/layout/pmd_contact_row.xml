@@ -113,19 +113,20 @@
         </LinearLayout>
 
         <LinearLayout
+            android:weightSum="2"
             android:id="@+id/hotlineLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_gravity="start"
-                android:gravity="start"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottiePhone"
+                    android:id="@+id/lottiePhoneCall"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
                     android:scaleType="fitXY"
@@ -134,12 +135,43 @@
                     app:lottie_rawRes="@raw/phone_call" />
 
                 <TextView
+                    android:paddingStart="@dimen/_4sdp"
+                    android:id="@+id/tvPhoneCall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="Call"
+                    android:fontFamily="monospace"
                     android:textColor="#92CD4D"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="start"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottiePhoneSms"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
+                    android:scaleType="fitXY"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/phone_sms" />
+
+                <TextView
+                    android:id="@+id/tvPhoneSms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Sms"
+                    android:fontFamily="monospace"
+                    android:textColor="#A4394529"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>

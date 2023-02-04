@@ -1,4 +1,5 @@
 package com.opl.pharmavector.order_online;
+
 import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
@@ -70,7 +71,6 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 
 public class ReadComments extends Activity implements OnItemSelectedListener {
-
     private Spinner spinner1, spinner2, cashcredit, cashcredit_test, credit;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -133,11 +133,12 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.readcomments_new);
+
         initViews();
         new GetCategories().execute();
         customerInit();
-
         calendarInit();
+
         /*
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -146,7 +147,6 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                                   int year,
                                   int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
 
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -161,8 +161,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                 ded.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        ded.setOnClickListener(new OnClickListener() {
 
+        ded.setOnClickListener(new OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
@@ -170,20 +170,14 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                         myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
             }
         });
-
         */
 
-
         mOffline.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 Thread mysells = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
                         Intent i = new Intent(ReadComments.this, Dashboard.class);
@@ -196,33 +190,23 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                         i.putExtra("vector_version", R.string.vector_version);
                         i.putExtra("emp_code", Dashboard.globalempCode);
                         i.putExtra("emp_name", Dashboard.globalempName);
-
                         startActivity(i);
-
                     }
                 });
                 mysells.start();
-
             }
         });
         vieworders.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         Bundle b = getIntent().getExtras();
                         String userName = b.getString("UserName");
                         String userName_1 = b.getString("UserName_1");
                         String userName_2 = b.getString("UserName_2");
                         Intent i = new Intent(ReadComments.this, Report.class);
-
-
                         String user = myTextView.getText().toString();
                         i.putExtra("UserName", userName);
                         i.putExtra("userName_1", userName_1);
@@ -230,32 +214,22 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                         System.out.println("userName " + userName);
                         System.out.println("userName_1 " + userName_1);
                         startActivity(i);
-
-
                     }
                 });
                 mysells.start();
-
             }
         });
-
 
         session = new SessionManager(getApplicationContext());
         logout.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
-/*
-                            Intent i = new Intent(ReadComments.this, Dashboard.class);
+/*                          Intent i = new Intent(ReadComments.this, Dashboard.class);
                             i.putExtra("UserName", userName);
                             i.putExtra("new_version", userName);
                             i.putExtra("UserName_1", UserName_2);
@@ -265,31 +239,20 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             i.putExtra("userName_1", UserName_2);
                             i.putExtra("userName_2", UserName_2);
                             i.putExtra("ff_type", Dashboard.ff_type);
-
-                            startActivity(i);
-                            */
-
+                            startActivity(i);                */
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
 
-
-
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Delivery Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-
                     ded.setTextSize(14);
                     ded.setText("Please Select date");
                     ded.setTextColor(Color.RED);
@@ -303,19 +266,16 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                     } else {
                         select_party_new = "CREDIT";
                     }
-
                     if (select_party_new.equals("Select payment mode")) {
                         error_dt.setText("Please Select payment mode by click! ");
                         error_payment.setError("Please Select payment mode by click!");
                     } else {
-
                         final Spinner nameSpinner =  findViewById(R.id.customer);
                         final String selected_cust = actv.getText().toString();
                         final String select_party1 = select_party_new.toString();
                         Bundle b = getIntent().getExtras();
                         String userName = b.getString("UserName");
                         String UserName_1 = b.getString("UserName_1");
-
 
                         Thread next = new Thread(new Runnable() {
                             @Override
@@ -339,25 +299,16 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                                 extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
                                 in.putExtras(extras);
                                 startActivity(in);
-
                             }
                         });
-
                         next.start();
-
                     }
-
                 }
-
-
             }
         });
-
     }
 
-
     private void calendarInit() {
-
         myCalendar = Calendar.getInstance();
         ded.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -377,10 +328,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         datePickerDialog.show();
     }
 
-
-
+    @SuppressLint("ClickableViewAccessibility")
     private void customerInit() {
-
         actv =  findViewById(R.id.autoCompleteTextView1);
         actv.setFocusableInTouchMode(true);
         actv.setFocusable(true);
@@ -388,13 +337,10 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
                     String selectedcustomer = actv.getText().toString();
                     cust.setTag(selectedcustomer);
                 }
-
             }
         });
         actv.setOnTouchListener(new View.OnTouchListener() {
@@ -405,28 +351,17 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
                     if (inputorder.indexOf(":") != -1) {
@@ -453,21 +388,13 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             cash_party = 0;
                             credit_party = 1;
                         }
-                    } else {
-
-                    }
+                    } else {}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
     }
     private void initViews() {
@@ -486,18 +413,18 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         achiv =  findViewById(R.id.achivement);
         inv =  findViewById(R.id.invoice);
         updateorders.setTypeface(fontFamily);
-        updateorders.setText("\uf044");    //ï�„ fa-edit (alias) [&#xf044;]
+        updateorders.setText("\uf044");    // ï�„ fa-edit (alias) [&#xf044;]
         vieworders.setTypeface(fontFamily);
-        vieworders.setText("\uf06e"); //&#xf06e
+        vieworders.setText("\uf06e"); // &#xf06e
         next =  findViewById(R.id.next);
         next.setTypeface(fontFamily);
-        next.setText("\uf061");  //&#xf061
+        next.setText("\uf061");  // &#xf061
         achivbtn.setTypeface(fontFamily);
         achivbtn.setText("\uf080");
         error_dt =  findViewById(R.id.errordt);
         error_payment =  findViewById(R.id.errorpayment);
         newversion.setTypeface(fontFamily);
-        newversion.setText("\uf080"); //&#xf080
+        newversion.setText("\uf080"); // &#xf080
         op =  findViewById(R.id.orderpage);
         cust =  findViewById(R.id.customer);
         cust.setPrompt("Select Customer");
@@ -550,6 +477,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             }
         }
     }
+
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
@@ -564,8 +492,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.parseColor("#006199"));
     }
-    class GetCategories extends AsyncTask<Void, Void, Void> {
 
+    class GetCategories extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -584,6 +512,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -599,11 +528,9 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -614,8 +541,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
+
     private void populateSpinnerAM() {
         am_time_flag = "0";
         List<String> lables = new ArrayList<String>();
@@ -631,19 +558,15 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             Date date = sdf.parse(time);
             timeFormat = new SimpleDateFormat("HH:mm");
             webtime1 = timeFormat.format(date);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-    class GetAMTime extends AsyncTask<Void, Void, Void> {
 
+    class GetAMTime extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
@@ -657,8 +580,6 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_AM_TIME, ServiceHandler.POST, params);
 
-            //Log.e("Response: ", "> " + json);
-
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -670,15 +591,12 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             amtimelist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -689,8 +607,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             //pDialog.dismiss();
             populateSpinnerAM();
         }
-
     }
+
     private void populateSpinnerPM() {
         pm_time_flag = "0";
         List<String> lables = new ArrayList<String>();
@@ -698,31 +616,24 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             lables.add(pmtimelist.get(i).getName());
             pm_time_flag = pmtimelist.get(i).getName();
         }
-
-
         String pm_time_conv = pm_time_flag;
         String time2 = pm_time_conv;// "15:30:18";
         DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
 
-
         try {
-
             Date date2 = sdf.parse(time2);
             timeFormat = new SimpleDateFormat("HH:mm");
             webtime2 = timeFormat.format(date2);
-           // System.out.println("webtime2" + webtime2);
-
+            //System.out.println("webtime2" + webtime2);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-    class GetPMTime extends AsyncTask<Void, Void, Void> {
 
+    class GetPMTime extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
@@ -747,15 +658,12 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             pmtimelist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -764,19 +672,11 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             super.onPostExecute(result);
             populateSpinnerPM();
         }
-
-    }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-        // TODO Auto-generated method stub
+    public void onNothingSelected(AdapterView<?> arg0) {}
 
-    }
-
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 }

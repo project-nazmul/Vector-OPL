@@ -162,7 +162,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 vectorToken = instanceIdResult.getToken();
             }
         });
-
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -174,11 +173,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         Log.d(TAG, msg);
                     }
                 });
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                // checking for type intent filter
+                //checking for type intent filter
                 if (intent.getAction().equals(com.opl.pharmavector.app.Config.REGISTRATION_COMPLETE)) {
                     FirebaseMessaging.getInstance().subscribeToTopic(com.opl.pharmavector.app.Config.TOPIC_GLOBAL);
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
@@ -191,11 +189,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -216,11 +212,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         bar_prescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -238,16 +232,12 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
-
         doc_gift_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -277,15 +267,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             }
         });
         bar_G1.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -296,10 +282,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "RM");
                                 startActivity(i);
-
-
                             } else {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, DocGiftDashBoard.class);
@@ -308,24 +291,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "RM");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
-
-
         mrc_exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                //  new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 ArrayList<String> UserName_2 = db.getterritoryname();
                 String user = UserName_2.toString();
                 Intent i = new Intent(RmDashboard.this, ExamDashboard.class);
@@ -337,12 +315,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("myexamtime", "0");
                 i.putExtra("user_flag", "R");
                 startActivity(i);
-
-
             }
         });
-
-
         bar_18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -357,25 +331,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("myexamtime", "0");
                 i.putExtra("user_flag", "R");
                 startActivity(i);
-
-
             }
         });
         promo_material_followup.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 Intent i = new Intent(RmDashboard.this, Dashboard.class);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -389,33 +356,21 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         bar_17.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 Intent i = new Intent(RmDashboard.this, Dashboard.class);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -424,39 +379,30 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "RM");
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         doctor_service_followup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, AmDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -475,30 +421,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         bar_16.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Dashboard.class);
@@ -506,11 +441,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("new_version", new_version);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-
                                 Intent i = new Intent(RmDashboard.this, DoctorServiceDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
@@ -525,35 +458,25 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         pc_conference_btn.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Dashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -567,29 +490,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         bar_15.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Dashboard.class);
@@ -597,7 +510,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("new_version", new_version);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -611,28 +523,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         notification.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, AmDashboard.class);
@@ -640,7 +543,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -653,30 +555,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         bar_14.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
@@ -684,7 +575,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -696,47 +586,32 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         dcc_camp_rep.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, AmDashboard.class);
-
-                                //  Intent i = new Intent(Dashboard.this, DcrReport.class);
-
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                //   Intent i = new Intent(Dashboard.this, MPODailyReport.class);
-
-
+                                //Intent i = new Intent(Dashboard.this, MPODailyReport.class);
                                 Intent i = new Intent(RmDashboard.this, RmDCCFollowup.class);
-                                // Intent i = new Intent(Dashboard.this, DcrReport.class);
-
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("rm_code", userName);
@@ -747,29 +622,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         bar_13.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, AmDashboard.class);
@@ -777,13 +642,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 Log.w("PassedAmReportDashboard", userName + "---" + UserName_2);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // AmReportDashboard
-                                // Intent i = new Intent(Dashboard.this, MPODailyReport.class);
-
+                                //AmReportDashboard
+                                //Intent i = new Intent(Dashboard.this, MPODailyReport.class);
                                 Intent i = new Intent(RmDashboard.this, RmDCCFollowup.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
@@ -795,28 +658,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         offline_order.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Offlinereadcomments.class);
@@ -824,7 +678,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 Log.w("Passed to Readco", userName + "---" + UserName_2);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -837,30 +690,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         bar_2.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Offlinereadcomments.class);
@@ -868,12 +710,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 i.putExtra("new_version", new_version);
                                 startActivity(i);
-
                             } else {
-
-
-                                // Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME);
-
+                                //Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME);
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, Offlinereadcomments.class);
@@ -885,28 +723,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         p_expense.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 //    Intent i = new Intent(Dashboard.this, PersonalExpenses.class);
@@ -914,7 +743,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -927,17 +755,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
-
         bar_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -979,7 +801,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
-                                //  Intent i = new Intent(Dashboard.this, DcrReport.class);
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
@@ -987,10 +809,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RMPersonalExpenses.class);
-                                // Intent i = new Intent(Dashboard.this, DcrReport.class);
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -1009,7 +830,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
@@ -1049,12 +869,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // Intent i = new Intent(Dashboard.this, MPODailyReport.class);
+                                //Intent i = new Intent(Dashboard.this, MPODailyReport.class);
                                 Intent i = new Intent(RmDashboard.this, ReportDashboard.class);
                                 //Intent i = new Intent(RmDashboard.this, com.opl.rmsalematrix.ReportDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -1076,17 +895,14 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
-
                                 //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RMReportPersonalExpenses.class);
-
                                 //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
@@ -1148,7 +964,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, MpoDcrMonitorDaily.class);
-                                //  Intent i = new Intent(RmDashboard.this, MpoDcrMonitorDaily.class);
+                                //Intent i = new Intent(RmDashboard.this, MpoDcrMonitorDaily.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
@@ -1172,7 +988,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
-                                //  Intent i = new Intent(Dashboard.this, DcrReport.class);
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
@@ -1180,8 +996,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
-                                // Intent i = new Intent(RmDashboard.this,RX.class);
-                                // Intent i = new Intent(Dashboard.this, DcrReport.class);
+                                //Intent i = new Intent(RmDashboard.this,RX.class);
+                                //Intent i = new Intent(Dashboard.this, DcrReport.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
@@ -1213,10 +1029,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(RmDashboard.this, RmDashboard.class);
-                                // Intent i = new Intent(RmDashboard.this, RX.class);
+                                //Intent i = new Intent(RmDashboard.this, RX.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -1238,7 +1053,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // Intent i = new Intent(Dashboard.this, Dashboard.class);
+                                //Intent i = new Intent(Dashboard.this, Dashboard.class);
                                 Toast.makeText(getApplicationContext(),
                                         "RX report will be availabe within next month", Toast.LENGTH_LONG).show();
                             } else {
@@ -1255,7 +1070,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         bar_10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1271,7 +1085,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-
                                 Toast.makeText(getApplicationContext(),
                                         "RX report will be availabe within next month", Toast.LENGTH_LONG).show();
                             }
@@ -1283,7 +1096,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         gift_camp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1294,17 +1106,16 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // Intent i = new Intent(Dashboard.this, Dashboard.class);
+                                //Intent i = new Intent(Dashboard.this, Dashboard.class);
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // Intent i = new Intent(Dashboard.this, Dashboard.class);
+                                //Intent i = new Intent(Dashboard.this, Dashboard.class);
                                 Intent i = new Intent(RmDashboard.this, ChemistGiftCampaign.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -1315,7 +1126,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         bar_12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1326,12 +1136,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                // Intent i = new Intent(Dashboard.this, Dashboard.class);
-                                // i.putExtra("UserName", userName);
-                                // i.putExtra("UserName_2", user);
-                                // Log.w("Passed personalexpenses", userName + "---" + UserName_2);
-                                // startActivity(i);
-
+                                //Intent i = new Intent(Dashboard.this, Dashboard.class);
+                                //i.putExtra("UserName", userName);
+                                //i.putExtra("UserName_2", user);
+                                //Log.w("Passed personalexpenses", userName + "---" + UserName_2);
+                                //startActivity(i);
                                 Toast.makeText(getApplicationContext(),
                                         "Check Internet connection", Toast.LENGTH_LONG).show();
                             } else {
@@ -1340,7 +1149,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 Intent i = new Intent(RmDashboard.this, ChemistGiftCampaign.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             }
                         } catch (Exception e) {
@@ -1381,7 +1189,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         sales_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1400,7 +1207,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 Intent i = new Intent(RmDashboard.this, RmSalesReportDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
-
                                 startActivity(i);
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -1436,7 +1242,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -2322,20 +2127,16 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("promo_type", "G");
                 i.putExtra("user_code", globalRMCode);
                 startActivity(i);
-                //  bottomSheetDialog.dismiss();
-
+                //bottomSheetDialog.dismiss();
             }
         });
-
         bottomSheetDialog.show();
-
     }
 
     private void promoMaterialFollowupEvent() {
         btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
 
             }
@@ -2343,43 +2144,35 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         img_btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         tv_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
         cardview_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_PROMOMAT();
             }
         });
-
     }
 
 
     private void salesReportEvent() {
-
         cardview_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(RmDashboard.this, RmSalesReportDashboard.class);
                                 i.putExtra("UserName", globalRMCode);
                                 i.putExtra("userName_1", globalRegionalCode);
@@ -2395,23 +2188,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(RmDashboard.this, RmSalesReportDashboard.class);
                                 i.putExtra("UserName", globalRMCode);
                                 i.putExtra("userName_1", globalRegionalCode);
@@ -2427,24 +2215,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
         tv_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(RmDashboard.this, RmSalesReportDashboard.class);
                                 i.putExtra("UserName", globalRMCode);
                                 i.putExtra("userName_1", globalRegionalCode);
@@ -2460,23 +2242,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
         btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(RmDashboard.this, RmSalesReportDashboard.class);
                                 i.putExtra("UserName", globalRMCode);
                                 i.putExtra("userName_1", globalRegionalCode);
@@ -2488,29 +2265,20 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
     }
-
 
     private void vectorFeedback() {
         btn_vector_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2521,27 +2289,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("new_version", new_version);
                                 i.putExtra("user_flag", "RM");
                                 startActivity(i);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
-
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_MSD() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -2565,21 +2325,17 @@ public class RmDashboard extends Activity implements View.OnClickListener {
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
-
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(changepassword).setText("MSD");
         cardview_rx_summary_B.setVisibility(View.GONE);
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(RmDashboard.this, MSDProgramFollowup.class);
                 i.putExtra("user_code", globalRMCode);
                 i.putExtra("user_name", globalRegionalCode);
@@ -2595,24 +2351,21 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("user_name", globalRegionalCode);
                 i.putExtra("user_flag", "RM");
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
@@ -2620,28 +2373,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         cardview_msd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MSD();
-
             }
-
-
         });
-
-
     }
 
-
     private void noticeBoradEvent() {
-
         practiceCard6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2655,22 +2398,17 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         img_btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2684,22 +2422,17 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         tv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2713,22 +2446,17 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         btn_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -2742,20 +2470,15 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RXCAPTURE() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
@@ -2764,9 +2487,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
 
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
@@ -2789,20 +2510,16 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
         Objects.requireNonNull(textView7).setText("RX\nSummary B");
-
-
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
-
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
         Objects.requireNonNull(cardview4).setVisibility(View.GONE);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog2.dismiss();
             }
         });
-
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2811,10 +2528,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_detail", globalRegionalCode);
                 i.putExtra("manager_flag", "RM");
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2822,10 +2537,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_code", globalRMCode);
                 i.putExtra("manager_detail", "RM");
                 startActivity(i);
-                // bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2833,34 +2547,27 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("manager_code", globalRMCode);
                 i.putExtra("manager_detail", "RM");
                 startActivity(i);
-
             }
         });
-
-
         bottomSheetDialog2.show();
     }
 
     private void prescriptionEvent() {
-
         practiceCard8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         img_btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });
         btn_rx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_RXCAPTURE();
             }
         });

@@ -140,7 +140,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     private String log_status ="A";
 
     @SuppressLint("CutPasteId")
-    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);

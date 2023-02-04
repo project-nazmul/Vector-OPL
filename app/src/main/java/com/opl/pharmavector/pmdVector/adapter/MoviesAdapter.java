@@ -1,6 +1,5 @@
 package com.opl.pharmavector.pmdVector.adapter;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 
@@ -39,7 +38,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     public MoviesAdapter(Context context, List<RXModel> movies) {
-
         this.context = context;
         this.movies = movies;
     }

@@ -57,7 +57,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ImageLoadActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
     List<RXModel> movies;
     MoviesAdapter adapter;
@@ -69,22 +68,18 @@ public class ImageLoadActivity extends AppCompatActivity {
     private AutoCompleteTextView actv,mpo_actv ;
     private ArrayList<Customer> customerlist;
     private ArrayList<Customer> mpoList;
-
     private Spinner cust,mpo;
-
     private String product_name,product_code,user_code,actv_mpo_actv_split,mpo_code,emp_name;
     Calendar c_todate,c_fromdate;
     SimpleDateFormat dftodate,dffromdate;
     public Calendar myCalendar,myCalendar1;
     public DatePickerDialog.OnDateSetListener date_form,date_to;
     public String manager_code,manager_detail,manager_flag;
-
     private final String URL_LIST = ApiClient.BASE_URL+"prescription_survey/get_mpoList.php";
     private final String URL_CUSOTMER = ApiClient.BASE_URL+"pmd_vector/pmd_rx/get_brandList.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pmd_load_rx);
         initView();
@@ -96,11 +91,7 @@ public class ImageLoadActivity extends AppCompatActivity {
         setUpAdapter();
         load(0);
         buttonEvent();
-
-
     }
-
-
 
     private void setUpAdapter() {
         adapter.setLoadMoreListener(new MoviesAdapter.OnLoadMoreListener() {
@@ -114,7 +105,7 @@ public class ImageLoadActivity extends AppCompatActivity {
                     }
                 });
                 //Calling loadMore function in Runnable to fix the
-                // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
+                //java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
             }
         });
         recyclerView.setHasFixedSize(true);
@@ -125,10 +116,7 @@ public class ImageLoadActivity extends AppCompatActivity {
         api = ApiClient.getApiClient().create(ApiInterface.class);
     }
 
-
-
     private void initView() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         fab = findViewById(R.id.fab);
         btn_back = findViewById(R.id.back);
@@ -150,12 +138,9 @@ public class ImageLoadActivity extends AppCompatActivity {
         context = this;
         movies = new ArrayList<>();
         adapter = new MoviesAdapter(this, movies);
-
-
     }
 
     private void buttonEvent() {
-
         //recyclerAdapter.clear();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,10 +149,8 @@ public class ImageLoadActivity extends AppCompatActivity {
                 setUpAdapter();
                 load(0);
                 //recyclerView.setAdapter(adapter);
-
             }
         });
-
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,13 +162,10 @@ public class ImageLoadActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void brandSelectEvent() {
-
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            }
+            public void onClick(View v) {}
         });
-
         actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -193,32 +173,21 @@ public class ImageLoadActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv.setTextColor(Color.parseColor("#006199"));
             }
-
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv.setTextColor(Color.parseColor("#006199"));
-
             }
-
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("//") != -1)
-                    {
+                    if (inputorder.indexOf("//") != -1) {
                         String cust_type = inputorder.substring(inputorder.indexOf("//") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf("//") + 0);
                         String cust_type_initial = inputorder.substring(inputorder.indexOf("//") + 0);
@@ -227,60 +196,36 @@ public class ImageLoadActivity extends AppCompatActivity {
                         product_code = first_split[1].trim();
                         actv.setText(product_name);
                         hideKeyBoard();
-
-
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
-
         mpo_actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 mpo_actv.showDropDown();
                 return false;
             }
         });
-
         mpo_actv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
-
         mpo_actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mpo_actv.setTextColor(Color.parseColor("#006199"));
             }
-
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 mpo_actv.setTextColor(Color.parseColor("#006199"));
             }
-
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
@@ -291,28 +236,17 @@ public class ImageLoadActivity extends AppCompatActivity {
                         emp_name  = first_split[1].trim();
                         mpo_actv.setText(mpo_code);
                         KeyboardUtils.hideKeyboard(ImageLoadActivity.this);
-
-                    } else {
-
-                    }
-
-
+                    } else {}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
     }
 
     @SuppressLint("SimpleDateFormat")
     private void caclenderEvent() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
@@ -321,16 +255,11 @@ public class ImageLoadActivity extends AppCompatActivity {
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_todate);
-
-
         myCalendar = Calendar.getInstance();
-
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -344,11 +273,9 @@ public class ImageLoadActivity extends AppCompatActivity {
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(ImageLoadActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -359,9 +286,7 @@ public class ImageLoadActivity extends AppCompatActivity {
 
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -375,23 +300,18 @@ public class ImageLoadActivity extends AppCompatActivity {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
         todate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(ImageLoadActivity.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
     }
 
     private void load(int index){
-
         Log.e("loadData-->",mpo_code);
         ProgressDialog ppDialog = new ProgressDialog(  ImageLoadActivity.this);
         ppDialog.setMessage("Loading Products ...");
@@ -426,7 +346,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         Call<List<RXModel>> call = api.getMovies2(index,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code, DashBoardPMD.pmd_loccode,mpo_code);
 
-
         call.enqueue(new Callback<List<RXModel>>() {
             @Override
             public void onResponse(Call<List<RXModel>> call, Response<List<RXModel>> response) {
@@ -459,16 +378,13 @@ public class ImageLoadActivity extends AppCompatActivity {
         });
     }
 
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("manager_code", DashBoardPMD.pmd_loccode));
             ServiceHandler jsonParser = new ServiceHandler();
@@ -486,15 +402,12 @@ public class ImageLoadActivity extends AppCompatActivity {
                             customerlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -503,7 +416,6 @@ public class ImageLoadActivity extends AppCompatActivity {
             super.onPostExecute(result);
             populateSpinner();
         }
-
     }
 
     private void populateSpinner() {
@@ -511,8 +423,7 @@ public class ImageLoadActivity extends AppCompatActivity {
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-
-        // Creating adapter for spinner
+        //Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -521,9 +432,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.parseColor("#006199"));
     }
-
-
-
 
     private void populateSpinnerBrnad() {
         List<String> lables = new ArrayList<String>();
@@ -539,7 +447,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         mpo_actv.setTextColor(Color.parseColor("#006199"));
     }
 
-
     class GetList extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -554,6 +461,7 @@ public class ImageLoadActivity extends AppCompatActivity {
             String json = jsonParser.makeServiceCall(URL_LIST, ServiceHandler.POST, params);
             mpoList.clear();
             Log.e("printMPOList-->",json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -566,10 +474,7 @@ public class ImageLoadActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
-
-            }
-
+            } else {}
             return null;
         }
 
@@ -578,10 +483,7 @@ public class ImageLoadActivity extends AppCompatActivity {
             super.onPostExecute(result);
             populateSpinnerBrnad();
         }
-
     }
-
-
 
     private void hideKeyBoard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(PrescroptionImageSearch.INPUT_METHOD_SERVICE);

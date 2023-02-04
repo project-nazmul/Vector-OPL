@@ -92,7 +92,6 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
     HashMap<Integer, String> mapQuantity;
     static HashMap<String, Integer> nameSerialPair;
     ArrayList<String> sl;
-    /*- Initializing*/
     String last_quantity = "1";
     int last_position = 1;
     String quantity = "1";
@@ -116,21 +115,19 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
     private final String campaign_credit     = BASE_URL+"order_online/get_campaign_products.php";
     Spinner am_pm, cash_credit, credit;
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "ClickableViewAccessibility"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.productorder);
-        initViews();
 
+        initViews();
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     searchview.setText("");
                     searchview.requestFocus();
-                } catch (Exception e) {
-
-                }
+                } catch (Exception e) {}
             }
         });
         new REQ_MPO().execute();
@@ -180,9 +177,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -190,7 +185,6 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
             }
         });
         new GetCategories().execute();
-
         clickme.setOnTouchListener(new View.OnTouchListener() {
             private Handler mHandler;
             private long mInitialDelay = 100;
@@ -218,8 +212,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
             Runnable mAction = new Runnable() {
                 @Override
                 public void run() {
-                    // LinearLayout
-                    // listview=(LinearLayout)findViewById(R.id.listview);
+                    //LinearLayout
+                    //listview=(LinearLayout)findViewById(R.id.listview);
                     productListView.scrollTo(
                             (int) productListView.getScrollX(),
                             (int) productListView.getScrollY() + 11);
@@ -331,7 +325,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
     }
 
     public void swapfocus(View v) {
-        // ProductListAdapter2.focusvalue=0;
+        //ProductListAdapter2.focusvalue=0;
         if (ProductListAdapter2.focusvalue == 0) {
             v.clearFocus();
             searchview.setFocusable(true);
@@ -347,10 +341,9 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
 
     @Override
     protected void onResume() {
-        // System.out.println("EditTxtID " + ProductListAdapter2.editTxtID.size());
+        //System.out.println("EditTxtID " + ProductListAdapter2.editTxtID.size());
         super.onResume();
     }
-
 
     private void populateSpinner() {
         lables = new ArrayList<String>();
@@ -827,7 +820,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                                         ProductListAdapter2.p_quanty.clear();
                                         ProductListAdapter2.mProductSerialList.clear();
                                     } else {
-                                        // SaveToDataBase();
+                                        //SaveToDataBase();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -906,7 +899,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                 brand = P_CODE.get(i - 1);
                 String brand_name = SHIFT_CODE.get(i - 1);
-                if (brand_name.equals("TITAN")) {
+                //if (brand_name.equals("TITAN")) {
+                if (brand_name.equals("Gen Team B")) {
                     if (value > 0) {
                         qnty_general = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                         rate_general =  Float.parseFloat(PROD_RATE.get(i - 1));
@@ -921,7 +915,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                 brand = P_CODE.get(i - 1);
                 String brand_name = SHIFT_CODE.get(i - 1);
-                if (brand_name.equals("VERGENCE")) {
+                //if (brand_name.equals("VERGENCE")) {
+                if (brand_name.equals("Special_E")) {
                     if (value > 0) {
                         qnty_vergence = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                         rate_vergence = Float.parseFloat(PROD_RATE.get(i - 1));
@@ -936,7 +931,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                 brand = P_CODE.get(i - 1);
                 String brand_name = SHIFT_CODE.get(i - 1);
-                if (brand_name.equals("GALLANT")) {
+                //if (brand_name.equals("GALLANT")) {
+                if (brand_name.equals("Special_C")) {
                     if (value > 0) {
                         qnty_gallant = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                         rate_gallant = Float.parseFloat(PROD_RATE.get(i - 1));
@@ -951,7 +947,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                 brand = P_CODE.get(i - 1);
                 String brand_name = SHIFT_CODE.get(i - 1);
-                if (brand_name.equals("DYNAMOS")) {
+                //if (brand_name.equals("DYNAMOS")) {
+                if (brand_name.equals("Gen Team A")) {
                     if (value > 0) {
                         qnty_dynamos = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                         rate_dynamos = Float.parseFloat(PROD_RATE.get(i - 1));
@@ -966,7 +963,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                 brand = P_CODE.get(i - 1);
                 String brand_name = SHIFT_CODE.get(i - 1);
-                if (brand_name.equals("EXCELON")) {
+                //if (brand_name.equals("EXCELON")) {
+                if (brand_name.equals("Special_D")) {
                     if (value > 0) {
                         qnty_darma = Integer.parseInt(ProductListAdapter2.p_quanty.get(i));
                         rate_darma = Float.parseFloat(PROD_RATE.get(i - 1));
@@ -986,19 +984,23 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
 
             gen_sum.setVisibility(View.VISIBLE);
             @SuppressLint("DefaultLocale") String total_value_general = String.format("%.02f", sum_general);
-            gen_sum.setText("Titan" + "\n" + total_value_general);
+            gen_sum.setText("Team B" + "\n" + total_value_general);
+            //gen_sum.setText("Titan" + "\n" + total_value_general);
 
             ver_sum.setVisibility(View.VISIBLE);
             @SuppressLint("DefaultLocale") String total_value_ver = String.format("%.02f", sum_vergence);
-            ver_sum.setText("Vergence" + "\n" + total_value_ver);
+            ver_sum.setText("Special E" + "\n" + total_value_ver);
+            //ver_sum.setText("Vergence" + "\n" + total_value_ver);
 
             gal_sum.setVisibility(View.VISIBLE);
             @SuppressLint("DefaultLocale") String total_value_gal = String.format("%.02f", sum_gallant);
-            gal_sum.setText("Gallant" + "\n" + total_value_gal);
+            gal_sum.setText("Special C" + "\n" + total_value_gal);
+            //gal_sum.setText("Gallant" + "\n" + total_value_gal);
 
             dar_sum.setVisibility(View.VISIBLE);
             @SuppressLint("DefaultLocale") String total_value_dar = String.format("%.02f", sum_darma);
-            dar_sum.setText("Excelon" + "\n" + total_value_dar);
+            dar_sum.setText("Special D" + "\n" + total_value_dar);
+            //dar_sum.setText("Excelon" + "\n" + total_value_dar);
 
             aspiron_sum.setVisibility(View.GONE);
             @SuppressLint("DefaultLocale") String total_value_asp = String.format("%.02f", sum_aspiron);
@@ -1010,11 +1012,10 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
 
             dynamos_sum.setVisibility(View.VISIBLE);
             @SuppressLint("DefaultLocale") String total_value_dynamos = String.format("%.02f", sum_dynamos);
-            dynamos_sum.setText("Dynamos" + "\n" + total_value_dynamos);
+            dynamos_sum.setText("Team A" + "\n" + total_value_dynamos);
+            //dynamos_sum.setText("Dynamos" + "\n" + total_value_dynamos);
         }
     }
 
-    protected void onPostExecute() {
-
-    }
+    protected void onPostExecute() {}
 }
