@@ -54,17 +54,17 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
     public int success;
-    public String message, ord_no,g_fm_code;
+    public String message, ord_no, g_fm_code;
     TextView date2, ded, fromdate, todate;
     int textlength = 0;
     public TextView totqty, totval;
@@ -81,12 +81,11 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
     public static ArrayList<String> SHIFT_CODE;
     private ArrayList<Customer> mpodcrlist;
     private ArrayList<String> array_sort = new ArrayList<String>();
-    private String URL_PRODUCT_VIEW = BASE_URL+"productwisesales/MPOwiseProductSale.php";
-    private String URL_DCR = BASE_URL+"get_product_followup.php";
+    private String URL_PRODUCT_VIEW = BASE_URL + "productwisesales/MPOwiseProductSale.php";
+    private String URL_DCR = BASE_URL + "get_product_followup.php";
     private android.widget.Spinner cust;
-    public String product_name, p_code,select_fm_code,check_flag;
+    public String product_name, p_code, select_fm_code, check_flag;
     private ArrayList<Customer> customerlist;
-
     AutoCompleteTextView actv;
     Button back_btn, view_btn;
     LinearLayout ln;
@@ -96,6 +95,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
@@ -122,14 +122,10 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         });
         actv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
@@ -144,19 +140,18 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                         p_code = product_code;
                         actv.setText(product_name);
                     } else {
-                        // ded.setText("Select Date");
+                        //ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
+
             @Override
             public void onClick(final View v) {
                 Thread backthred = new Thread(new Runnable() {
@@ -213,12 +208,11 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         });
         ln.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-            }
+            public void onClick(View v) {}
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void caclenderInit() {
         Bundle b = getIntent().getExtras();
         String toDate = b.getString("to_date");
@@ -226,13 +220,19 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        todate.setText(toDate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        fromdate.setText(fromDate);
+        if (fromDate != null && toDate != null) {
+            fromdate.setText(fromDate);
+            todate.setText(toDate);
+        } else {
+            fromdate.setText(current_fromdate);
+            todate.setText(current_todate);
+        }
+        Log.d("date", toDate + "" + fromDate);
 
-        cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        cust.setOnItemSelectedListener(this);
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
             actv.setText(product_name);
             actv.setSelection(actv.getText().length());
@@ -244,8 +244,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         myCalendar = Calendar.getInstance();
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -253,7 +252,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             }
 
             private void updateLabel() {
-                // String myFormat = "dd/MM/yyyy";
+                //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 fromdate.setTextColor(Color.BLACK);
@@ -280,7 +279,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             }
 
             private void updateLabel() {
-                // String myFormat = "dd/MM/yyyy";
+                //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 todate.setTextColor(Color.BLACK);
@@ -306,14 +305,13 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         submitBtn = findViewById(R.id.submitBtn);
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
-        cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
+        cust = findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
         actv = findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Product Name");
-
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         ln = findViewById(R.id.totalshow);
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
@@ -323,7 +321,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         PROD_VAT = new ArrayList<String>();
         PPM_CODE = new ArrayList<String>();
         SHIFT_CODE = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
+        categoriesList = new ArrayList<>();
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
         p_code = b.getString("p_code");
@@ -337,7 +335,6 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -350,12 +347,10 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     class LoadProduct extends AsyncTask<Void, Void, Void> {
@@ -406,7 +401,6 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             producpopulatespinner();
         }
     }
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
@@ -494,7 +488,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             String userName = b.getString("UserName");
             String UserName = b.getString("UserName");
             String id = userName;
-            g_fm_code= userName;
+            g_fm_code = userName;
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
@@ -573,7 +567,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             String userName = b.getString("UserName");
             String UserName = b.getString("UserName");
             String id = userName;
-            g_fm_code= userName;
+            g_fm_code = userName;
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
@@ -633,6 +627,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         final JSONParser jsonParser = new JSONParser();
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         private ProgressDialog progressDialog;
+
         @Override
 
         protected void onPreExecute() {
@@ -642,7 +637,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            String URL_DOC_ADDRESS = BASE_URL+"productwisesales/check_flag.php";
+            String URL_DOC_ADDRESS = BASE_URL + "productwisesales/check_flag.php";
             params.add(new BasicNameValuePair("select_fm_code", select_fm_code));
             JSONObject json = jsonParser.makeHttpRequest(URL_DOC_ADDRESS, "POST", params);
             if (json != null) {
@@ -664,24 +659,24 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                 @Override
                 public void run() {
                     try {
-                            new Handler(Looper.getMainLooper()).post(new Runnable(){
-                                @Override
-                                public void run() {
-                                    // if (check_flag.equals("G")){
-                                        Log.e("FLAG",check_flag);
-                                        Log.e("MPOCODE",select_fm_code);
-                                        Log.e("fm_code",g_fm_code);
-                                        Intent i = new Intent(ProductSale.this, SegmentSale.class);
-                                        i.putExtra("mpo_code", select_fm_code);
-                                        i.putExtra("fm_code", g_fm_code);
-                                        i.putExtra("from_date", fromdate.getText().toString());
-                                        i.putExtra("to_date", todate.getText().toString());
-                                        i.putExtra("p_code", p_code);
-                                        i.putExtra("report_flag", "P");
-                                        startActivity(i);
-                                   // }
-                                }
-                            });
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //if (check_flag.equals("G")){
+                                Log.e("FLAG", check_flag);
+                                Log.e("MPOCODE", select_fm_code);
+                                Log.e("fm_code", g_fm_code);
+                                Intent i = new Intent(ProductSale.this, SegmentSale.class);
+                                i.putExtra("mpo_code", select_fm_code);
+                                i.putExtra("fm_code", g_fm_code);
+                                i.putExtra("from_date", fromdate.getText().toString());
+                                i.putExtra("to_date", todate.getText().toString());
+                                i.putExtra("p_code", p_code);
+                                i.putExtra("report_flag", "P");
+                                startActivity(i);
+                                //}
+                            }
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -693,11 +688,9 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
 
     @Override
     public void onClick(View v) {
-
     }
 
     protected void onPostExecute() {
-
     }
 
     private void view() {

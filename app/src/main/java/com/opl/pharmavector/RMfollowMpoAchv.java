@@ -2,6 +2,7 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -37,9 +38,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-
 public class RMfollowMpoAchv extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
-
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -51,12 +50,10 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     public String message, ord_no;
     TextView date2, ded, fromdate, todate;
     public TextView totqty, totval, mpo_code;
-
     public String userName_1, userName, active_string, act_desiredString;
     public String from_date, to_date;
     com.opl.pharmavector.JSONParser jsonParser;
     List<NameValuePair> params;
-
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
     public static ArrayList<String> PROD_RATE;
@@ -68,7 +65,6 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     private android.widget.Spinner cust;
     public String p_code;
     private ArrayList<Customer> customerlist;
-
     Button back_btn, view_btn;
     LinearLayout ln;
     Calendar c_todate, c_fromdate;
@@ -77,7 +73,6 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     AutoCompleteTextView actv;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,30 +83,23 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
         categoriesList.clear();
         new GetCategories().execute();
 
-
-
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String rm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(RMfollowMpoAchv.this, AMfollowMpoAchv.class);
-                i.putExtra("UserName", rm_code);
-                Log.e("rmcode==>",rm_code);
-                startActivity(i);
-
-
-            }
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String rm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(RMfollowMpoAchv.this, AMfollowMpoAchv.class);
+            i.putExtra("from_date", fromdate.getText().toString());
+            i.putExtra("to_date", todate.getText().toString());
+            i.putExtra("UserName", rm_code);
+            Log.e("rmcode==>",rm_code);
+            startActivity(i);
         });
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
 
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Bundle b = getIntent().getExtras();
                             String userName = b.getString("UserName");
@@ -130,19 +118,16 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
         submitBtn.setOnClickListener(new OnClickListener() {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
@@ -155,28 +140,22 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                     } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
                     } else {
                         categoriesList.clear();
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onClick(View v) {}
         });
-
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void initCalendar() {
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
@@ -191,7 +170,6 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -199,27 +177,21 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             }
 
             private void updateLabel() {
-
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-
                 fromdate.setTextColor(Color.BLACK);
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(RMfollowMpoAchv.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
 
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
@@ -449,7 +421,6 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     }
 
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         String fromdate1 = fromdate.getText().toString();
         String todate1 = todate.getText().toString();
         Bundle b = getIntent().getExtras();

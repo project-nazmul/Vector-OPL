@@ -326,7 +326,6 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/dkm"
                 android:layout_width="fill_parent"
@@ -335,7 +334,6 @@
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
                 android:weightSum="2">
-
 
                 <EditText
                     android:id="@+id/diskm"

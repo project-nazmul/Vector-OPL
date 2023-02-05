@@ -141,12 +141,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private ProgressDialog pDialog;
     private String log_status ="A";
     private String vector_version;
-    double fetchedlang,fetchedlat;
+    double fetchedlang, fetchedlat;
     Context context;
     BroadcastReceiver updateUIReciver;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
              practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,img_doctor_list,
+    ImageButton profileB,img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,img_doctor_list,
             img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,
             img_pmd_contact;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,tv_notification,tv_rx,tv_personalexpense,
@@ -584,7 +584,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("Personal Expense\nReport");
         Objects.requireNonNull(changepassword).setText("Personal Expense");
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_personal_expense);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_personal_expense);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 

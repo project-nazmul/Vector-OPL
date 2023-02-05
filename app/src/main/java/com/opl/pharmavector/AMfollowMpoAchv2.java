@@ -1,4 +1,5 @@
 package com.opl.pharmavector;
+
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.net.MalformedURLException;
@@ -44,7 +45,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AMfollowMpoAchv2 extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
-
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -96,29 +96,20 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
 
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
         submitBtn.setOnClickListener(new OnClickListener() {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
@@ -134,32 +125,22 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
                     } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
                     } else {
                         categoriesList.clear();
                         new GetCategories().execute();
-
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onClick(View v) {}
         });
-
     }
 
     private void initCalendar() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());

@@ -1285,8 +1285,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
             }
@@ -1419,7 +1418,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_pc_conference);
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1466,7 +1465,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName_2", globalRegionalCode);
                 i.putExtra("user_flag", "R");
                 startActivity(i);
-
             }
         });
         Objects.requireNonNull(cardview5).setOnClickListener(new View.OnClickListener() {
@@ -1490,11 +1488,11 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
 
-            //Intent i = new Intent(RmDashboard.this, PCDashboard.class);
-/*          Intent i = new Intent(PCDashboard.this, RMPCPermission.class);
-                                i.putExtra("UserName", userName);
-                                i.putExtra("UserName_2", UserName_2);
-                                i.putExtra("new_version", new_version);
+          /* Intent i = new Intent(RmDashboard.this, PCDashboard.class);
+             Intent i = new Intent(PCDashboard.this, RMPCPermission.class);
+             i.putExtra("UserName", userName);
+             i.putExtra("UserName_2", UserName_2);
+             i.putExtra("new_version", new_version);
             */
         });
         bottomSheetDialog2.show();
@@ -1662,31 +1660,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         vector_version = b.getString("vector_version");
         globalempCode = b.getString("emp_code");
         globalempName = b.getString("emp_name");
-
         user_show1.setText(globalempName);
         profile_image = base_url + globalempCode + "." + "jpg";
-
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
-
-
+        Picasso.get().load(profile_image).into(imageView2);
         globalRMCode = userName;
         globalRegionalCode = UserName_2;
         globalRMCode = userName;
-
         t4.setText(globalRMCode);
         t5.setText(globalRegionalCode);
-
         lock_emp_check(globalempCode);
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DCR() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -1702,13 +1688,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_dcr);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1723,10 +1706,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1734,36 +1716,29 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
                 startActivity(i);
-                //  bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     private void dcrClickEvent() {
-
-
         cardview_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_DCR();
             }
         });
-
         btn_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_DCR();
             }
         });
-
         img_btn_dcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_DCR();
@@ -1780,16 +1755,13 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         practiceCard2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-
                                 Intent i = new Intent(RmDashboard.this, MpoDcrMonitorDaily.class);
                                 i.putExtra("UserName", globalRMCode);
                                 i.putExtra("UserName_2", globalRegionalCode);
@@ -1798,70 +1770,53 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
     }
 
-
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DOCSUPPORT() {
-
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
 
         CardView cardview1 = bottomSheetDialog2.findViewById(R.id.cardview_1);
         CardView cardview2 = bottomSheetDialog2.findViewById(R.id.cardview_2);
-
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
-
         cardview3.setVisibility(View.GONE);
         cardview4.setVisibility(View.GONE);
-
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
-
-
         Objects.requireNonNull(textView4).setText("Tracking\nDoctor");
-
-
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
         Objects.requireNonNull(changepassword).setText("Doctor Service");
-
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(RmDashboard.this, ManagerDoctorServiceFollowup.class);
                 i.putExtra("userName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
                 i.putExtra("new_version", new_version);
                 i.putExtra("user_flag", "R");
                 startActivity(i);
-                //  bottomSheetDialog2.dismiss();
+                //bottomSheetDialog2.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(RmDashboard.this, DoctorServiceTrackMonthly.class);
                 i.putExtra("userName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
@@ -1871,8 +1826,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog2.dismiss();
             }
         });
-
-
         bottomSheetDialog2.show();
     }
 
@@ -1880,17 +1833,12 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         practiceCard3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_DOCSUPPORT();
             }
         });
-
     }
 
-
     private void showBottomSheetDialog_MPODCR() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -1906,13 +1854,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("MPO\nFollowup");
         Objects.requireNonNull(textView5).setText("DCR\nFollow up");
         Objects.requireNonNull(changepassword).setText("Dcr Monitor");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_dcr);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1927,10 +1872,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
                 startActivity(i);
-
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1944,28 +1887,20 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 startActivity(i);
             }
         });
-
-
         bottomSheetDialog.show();
     }
 
     private void mpoDCREvent() {
-
         practiceCard4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 showBottomSheetDialog_MPODCR();
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PE() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -1981,10 +1916,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("Personal Expense\nEntry");
         Objects.requireNonNull(textView5).setText("Personal Expense\nReport");
         Objects.requireNonNull(changepassword).setText("Personal Expense");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_personal_expense);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_personal_expense);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
@@ -2004,7 +1937,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2012,23 +1944,19 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("UserName", globalRMCode);
                 i.putExtra("UserName_2", globalRegionalCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     private void personalExpenseEvent() {
-
         practiceCard9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_PE();
@@ -2049,14 +1977,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 showBottomSheetDialog_PE();
             }
         });
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_PROMOMAT() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -2070,17 +1994,14 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_promo_mat);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_promo_mat);
         Objects.requireNonNull(button1).setText("11.1");
         Objects.requireNonNull(button2).setText("11.2");
         Objects.requireNonNull(button3).setText("11.3");
         Objects.requireNonNull(textView4).setText("Sample\nRequisition");
         Objects.requireNonNull(textView5).setText("PPM\nFollow up");
         Objects.requireNonNull(textView6).setText("Gift\nFollow up");
-
         Objects.requireNonNull(changepassword).setText("Promo Material");
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
@@ -2089,7 +2010,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2103,7 +2023,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 //bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2114,7 +2033,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("promo_type", "P");
                 i.putExtra("user_code", globalRMCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
@@ -2138,7 +2057,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             @Override
             public void onClick(final View v) {
                 showBottomSheetDialog_PROMOMAT();
-
             }
         });
         img_btn_promomat.setOnClickListener(new View.OnClickListener() {
@@ -2160,7 +2078,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             }
         });
     }
-
 
     private void salesReportEvent() {
         cardview_salereports.setOnClickListener(new View.OnClickListener() {
@@ -2184,7 +2101,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
@@ -2211,7 +2127,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
@@ -2238,7 +2153,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
@@ -2307,7 +2221,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
-
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2322,9 +2235,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("MSD\nProgram Follow up");
         Objects.requireNonNull(textView5).setText("Doctor\nSupport Follow up");
         Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2481,27 +2394,22 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     private void showBottomSheetDialog_RXCAPTURE() {
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
-
         CardView cardview1 = bottomSheetDialog2.findViewById(R.id.cardview_1);
         CardView cardview2 = bottomSheetDialog2.findViewById(R.id.cardview_2);
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
-
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog2.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog2.findViewById(R.id.textView6);
         TextView textView7 = bottomSheetDialog2.findViewById(R.id.textView7);
-
         Button button1 = bottomSheetDialog2.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog2.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog2.findViewById(R.id.button3);
         Button button4 = bottomSheetDialog2.findViewById(R.id.button4);
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
-
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_rx_capture);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(button1).setText("8.1");
         Objects.requireNonNull(button2).setText("8.1");
         Objects.requireNonNull(button3).setText("8.2");

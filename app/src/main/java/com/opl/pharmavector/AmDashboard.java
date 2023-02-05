@@ -135,7 +135,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     public static String team_logo,profile_image;
     public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

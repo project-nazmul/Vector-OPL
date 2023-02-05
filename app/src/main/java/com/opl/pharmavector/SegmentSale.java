@@ -57,7 +57,6 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
     public ProgressDialog pDialog;
     ListView productListView;
     Button submitBtn;
-
     public int success;
     public String message, ord_no;
     TextView date2, ded, fromdate, todate;
@@ -78,7 +77,6 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
     private android.widget.Spinner cust;
     public String product_name, p_code, select_fm_code, check_flag, report_flag;
     private ArrayList<Customer> customerlist;
-
     AutoCompleteTextView actv;
     Button back_btn, view_btn;
     LinearLayout ln;
@@ -88,6 +86,7 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);

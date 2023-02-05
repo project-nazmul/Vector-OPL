@@ -4,6 +4,7 @@ import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
@@ -227,6 +228,9 @@ public interface ApiInterface {
 
     @GET("pmd_vector/sales_4p/get_regionwise_val_sh.php")
     Call<RegionValModel> getRegionValShareList();
+
+    @GET("mpodcr/mpo_pexpense/get_exp_unit.php")
+    Call<MotorCycleModel> getMotorExpenseList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

@@ -52,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ff_contact_activity extends Activity implements View.OnClickListener {
+public class ff_contact_activity extends Activity implements View.OnClickListener, FFContactAdapter.FFContactCallback {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
@@ -68,11 +68,11 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<RecyclerData> recyclerDataArrayList;
     List<FFTeamList> recyclerTeamList;
-    private ContactAdapter recyclerViewAdapter;
+    private FFContactAdapter ffContactAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
     private String selected_number,selected_person,profile_image;
-    public String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/pmd/";
+    public String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/sales/";
     private final String url_getfieldforce = BASE_URL+"pmd_vector/ff_contacts/get_ff_list.php";
 
     @Override
@@ -95,21 +95,21 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
             }
         });
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                selected_number = recyclerDataArrayList.get(position).getCol4();
-                selected_person = recyclerDataArrayList.get(position).getCol3();
-                if (selected_number != null && !selected_number.isEmpty() && !selected_number.equals("null")){
-                    ViewDialog alert = new ViewDialog();
-                    alert.showDialog();
-                }
-            }
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                selected_number = recyclerDataArrayList.get(position).getCol4();
+//                selected_person = recyclerDataArrayList.get(position).getCol3();
+//                if (selected_number != null && !selected_number.isEmpty() && !selected_number.equals("null")){
+//                    ViewDialog alert = new ViewDialog();
+//                    alert.showDialog();
+//                }
+//            }
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        }));
     }
 
     private void initViews() {
@@ -137,6 +137,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ArrayList<RecyclerData>> call = apiInterface.getFFContactInfo(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type);
+        Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
 
         call.enqueue(new Callback<ArrayList<RecyclerData>>() {
             @Override
@@ -147,10 +148,10 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                     //Log.d("DATA-- : ", String.valueOf(recyclerDataArrayList));
 
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        recyclerViewAdapter = new ContactAdapter(ff_contact_activity.this,recyclerDataArrayList, pmdImageUrl);
+                        ffContactAdapter = new FFContactAdapter(ff_contact_activity.this, recyclerDataArrayList, pmdImageUrl, ff_contact_activity.this);
                         LinearLayoutManager manager = new LinearLayoutManager(ff_contact_activity.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(manager);
-                        recyclerView.setAdapter(recyclerViewAdapter);
+                        recyclerView.setAdapter(ffContactAdapter);
                     }
                 }
             }
@@ -296,6 +297,32 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
         });
     }
 
+    @Override
+    public void onFFContactPhoneCall(RecyclerData contact) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" +contact.getCol4()));
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Call failed, please try again later!", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onFFContactPhoneSms(RecyclerData contact) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setData(Uri.parse("smsto:" + contact.getCol4()));
+            intent.putExtra("sms_body", "Dear Sir,");
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),"SMS failed, please try again later!", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
     class GetFieldForce extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -352,6 +379,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
         autoCompleteTextView2.setTextColor(Color.BLUE);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void autoCompleteEvents() {
         autoCompleteTextView2.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -363,9 +391,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
         });
         autoCompleteTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-            }
+            public void onClick(View v) {}
         });
         autoCompleteTextView2.addTextChangedListener(new TextWatcher() {
             @Override
