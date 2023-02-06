@@ -939,7 +939,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView6).setText("PC\nBill");
         Objects.requireNonNull(textView7).setText("PC\nBill Follow up");
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_pc_conference);
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override

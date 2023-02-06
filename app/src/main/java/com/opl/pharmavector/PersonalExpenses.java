@@ -211,16 +211,12 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                     da.setTextColor(Color.BLUE);
                     da.setText(saved_da_val);
                 }
-
-
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
-
                 return;
             }
         });
-
 
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         final AutoCompleteTextView actv1 = (AutoCompleteTextView) findViewById(R.id.JourneyMode);
@@ -229,52 +225,35 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
                     String selectedcustomer = actv.getText().toString();
                     cust.setTag(selectedcustomer);
                 }
-
             }
         });
 
         actv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv1.getText().toString() != "") {
                     String jourmode = actv1.getText().toString();
                     cust.setTag(jourmode);
                 }
-
             }
         });
 
-
-
-
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
@@ -286,8 +265,8 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                         String arr1[] = cust_type_with_note.split("//");
                         Tour_nature_code = arr1[0].trim();
                         String dcr_expense_info_val = arr1[1].trim();
-                        if (Tour_nature_code.toString().trim().equals("1")) {
 
+                        if (Tour_nature_code.toString().trim().equals("1")) {
                             othertaval.setVisibility(View.GONE);
                             particul.setVisibility(View.GONE);
                             othertaval.setEnabled(false);
@@ -295,8 +274,6 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                             diskm.setEnabled(false);
                             ta.setEnabled(false);
                         } else {
-
-
                             othertaval.setVisibility(View.VISIBLE);
                             particul.setVisibility(View.VISIBLE);
                             othertaval.setEnabled(true);
@@ -325,12 +302,10 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                         ta.setText(hq_ta_val);
 
                         if (visitstatus.getSelectedItem().toString().equals("Half Day")) {
-
                             int da_val_cov = Integer.parseInt(da_val.toString());
                             int half_day_da = da_val_cov / 2;
                             da.setTextColor(Color.BLUE);
                             da.setText(half_day_da);
-
                         } else if (visitstatus.getSelectedItem().toString().equals("Full Day")) {
                             da.setTextColor(Color.BLUE);
                             da.setText(da_val);
@@ -340,21 +315,15 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                         actv1.requestFocus();
                         cashcredit =  findViewById(R.id.cashcredit);
                         credit =  findViewById(R.id.credit);
-
-
                     } else {
                         //ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-            }
-
+            private void length() {}
         });
 
         actv.setOnTouchListener(new View.OnTouchListener() {
@@ -366,91 +335,54 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
         });
 
         actv1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
                     if (inputorder.indexOf(":") != -1) {
-
-
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
-
-                        // String dcr_info = inputorder.substring(inputorder.indexOf(":") + 0);
+                        //String dcr_info = inputorder.substring(inputorder.indexOf(":") + 0);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
-
-
                         String arr[] = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
-
-
                         String arr1[] = cust_type_with_note.split("///");
                         String jour_mode_split = arr1[0].trim();
-                        // String dcr_expense_info_val=arr1[1].trim();
-
-
+                        //String dcr_expense_info_val=arr1[1].trim();
                         String jour_code_split[] = jour_mode_split.split("-");
                         String jour_name = jour_code_split[0].trim();
                         jour_code = jour_code_split[1].trim();
                         actv1.setText(jour_name);
-
-                        //  next.setEnabled(true);
-                        //  next.setClickable(true);
-
-
+                        //next.setEnabled(true);
+                        //next.setClickable(true);
                         if ((Tour_nature_code.toString().trim().equals("1"))) {
                             diskm.setEnabled(false);
                         }
-
                         if ((Tour_nature_code.toString().trim().equals("2")) || (Tour_nature_code.toString().trim().equals("3"))) {
                             diskm.setEnabled(true);
                             othertaval.setEnabled(true);
                             particul.setEnabled(true);
                         }
-
-
                         if (jour_code.toString().trim().equals("MC")) {
                             ta.setEnabled(false);
-
                         }
-
-
                     } else {
                         //ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
-
 
         actv1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -467,18 +399,12 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
         name = b.getString("UserName_1");
         ename = b.getString("UserName_2");
         newversion_text = b.getString("new_version");
-
         newversion.setText("Personal Expense Entry");
 
-
         if (b.isEmpty()) {
-
             String userName = "";
             myTextView.setText(userName);
-
         } else {
-
-
             String userName = b.getString("UserName");
             String UserName_2 = b.getString("UserName_2");
             myTextView.setText(UserName_2 +"\n" + "(" + userName + ")");
@@ -490,24 +416,18 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                 mainlayout.setVisibility(LinearLayout.GONE);
             } else {
                 //myTextView.setText(userName);
-
                 ordno.setText("Ord No." + ordernumber);
                 ordno.setTextSize(8);
-
                 succ_msg.setText("Submitted.");
                 myTextView.setText(userName);
             }
         }
 
-
         final Calendar myCalendar = Calendar.getInstance();
-
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -525,10 +445,8 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
         };
 
         ded.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(PersonalExpenses.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }

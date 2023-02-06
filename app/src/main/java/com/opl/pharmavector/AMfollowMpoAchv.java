@@ -135,9 +135,9 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
         cust.setOnItemSelectedListener(this);
         myCalendar = Calendar.getInstance();
 
-        if (tvfromdate != null && tvtodate != null) {
-            tvfromdate.setText(from_date);
-            tvtodate.setText(to_date);
+        if (fromdate != null && todate != null) {
+            tvfromdate.setText(fromdate);
+            tvtodate.setText(todate);
         } else {
             tvfromdate.setText(current_fromdate);
             tvtodate.setText(current_todate);
@@ -240,7 +240,7 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
         Log.e("userName==>",userName);
 
         if (userName.equals("xx")){
-            userName =AmDashboard.globalAreaCode;
+            userName = AmDashboard.globalAreaCode;
             Log.e("userName==>",userName);
         }
     }

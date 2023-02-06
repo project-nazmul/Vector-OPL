@@ -1,7 +1,5 @@
 package com.opl.pharmavector.pcconference;
 
-
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.SessionManager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -42,9 +41,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class PcConferenceFollowup extends Activity implements OnClickListener {
-
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -88,103 +85,75 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
     private ArrayList<String> array_sort = new ArrayList<String>();
     private String URL_PRODUCT_VIEW = BASE_URL+"pcconference/mpo_pc_conference/mpo_pc_conference_followup.php";
 
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_conference_followup);
         initViews();
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String sm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(PcConferenceFollowup.this, PcConferenceEdit.class);
+            String[] second_split = sm_code.split("/");
+            pc_conference_serial = second_split[0].trim();
+            String second = second_split[1].trim();
+            String[] second_split1 = sm_code.split("#");
+            pc_conference_flag_1 = second_split1[1].trim();
+            pc_conference_flag = second_split1[0].trim();
+            String subordinate_flag = pc_conference_flag_1;
+            String[] second_split3 = pc_conference_flag.split("/");
+            String pc_sl_no = second_split3[0].trim();
+            String pc_boss_flag = second_split3[1].trim();
 
-
-                String sm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(PcConferenceFollowup.this, PcConferenceEdit.class);
-
-                String second_split[] = sm_code.split("/");
-                pc_conference_serial = second_split[0].trim();
-                String second = second_split[1].trim();
-                String second_split1[] = sm_code.split("#");
-                pc_conference_flag_1 = second_split1[1].trim();
-                pc_conference_flag = second_split1[0].trim();
-
-
-                String subordinate_flag = pc_conference_flag_1;
-
-
-                String second_split3[] = pc_conference_flag.split("/");
-
-
-                String pc_sl_no = second_split3[0].trim();
-                String pc_boss_flag = second_split3[1].trim();
-
-
-
-
-                if (subordinate_flag.toString().toString().equals("N")) {
-                    LayoutInflater li = getLayoutInflater();
-                    View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-                    Toast toast = new Toast(getApplicationContext());
-                    TextView text = layout.findViewById(R.id.text);
-                    text.setText("You can not edit this conference as it is not forwarded to you by " + subordinate);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);//setting the view of custom toast layout
-                    toast.show();
-
-                } else if (pc_boss_flag.toString().toString().equals("Y")) {
-
-
-                    LayoutInflater li = getLayoutInflater();
-                    View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-                    Toast toast = new Toast(getApplicationContext());
-                    TextView text = layout.findViewById(R.id.text);
-                    text.setText("This conference is already approved by " + supervisor + ".You can not edit now.");
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);//setting the view of custom toast layout
-                    toast.show();
-
-
-                } else if (subordinate_flag.toString().toString().equals("C")) {
-
-                    LayoutInflater li = getLayoutInflater();
-                    View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-                    Toast toast = new Toast(getApplicationContext());
-                    TextView text = layout.findViewById(R.id.text);
-                    text.setText("This conference is cancelled by " + supervisor + ".You can not edit now.");
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);
-                    toast.show();
-                    //Toast.makeText(getBaseContext(), "This conference is cancelled by "+ supervisor +".You can not edit now.", Toast.LENGTH_LONG).show();
-                } else if (pc_boss_flag.toString().toString().equals("X")) {
-                    LayoutInflater li = getLayoutInflater();
-                    View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-                    Toast toast = new Toast(getApplicationContext());
-                    TextView text = layout.findViewById(R.id.text);
-                    text.setText("This Conference is finally approved by General Manager.Can not edit this now.");
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);//setting the view of custom toast layout
-                    toast.show();
-
-                } else {
-                    i.putExtra("UserName", userName);
-                    i.putExtra("userName_1", userName_1);
-                    i.putExtra("UserName", userName);
-                    i.putExtra("UserName_2", user);
-                    i.putExtra("user_flag", user_flag);
-                    i.putExtra("pc_conference_serial", pc_conference_serial);
-
-                    startActivity(i);
-                }
-
-
+            if (subordinate_flag.equals("N")) {
+                LayoutInflater li = getLayoutInflater();
+                View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+                Toast toast = new Toast(getApplicationContext());
+                TextView text = layout.findViewById(R.id.text);
+                text.setText("You can not edit this conference as it is not forwarded to you by " + subordinate);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout); //setting the view of custom toast layout
+                toast.show();
+            } else if (pc_boss_flag.equals("Y")) {
+                LayoutInflater li = getLayoutInflater();
+                View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+                Toast toast = new Toast(getApplicationContext());
+                TextView text = layout.findViewById(R.id.text);
+                text.setText("This conference is already approved by " + supervisor + ".You can not edit now.");
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout); //setting the view of custom toast layout
+                toast.show();
+            } else if (subordinate_flag.equals("C")) {
+                LayoutInflater li = getLayoutInflater();
+                View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+                Toast toast = new Toast(getApplicationContext());
+                TextView text = layout.findViewById(R.id.text);
+                text.setText("This conference is cancelled by " + supervisor + ".You can not edit now.");
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+                //Toast.makeText(getBaseContext(), "This conference is cancelled by "+ supervisor +".You can not edit now.", Toast.LENGTH_LONG).show();
+            } else if (pc_boss_flag.equals("X")) {
+                LayoutInflater li = getLayoutInflater();
+                View layout = li.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+                Toast toast = new Toast(getApplicationContext());
+                TextView text = layout.findViewById(R.id.text);
+                text.setText("This Conference is finally approved by General Manager.Can not edit this now.");
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout); //setting the view of custom toast layout
+                toast.show();
+            } else {
+                i.putExtra("UserName", userName);
+                i.putExtra("userName_1", userName_1);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", user);
+                i.putExtra("user_flag", user_flag);
+                i.putExtra("pc_conference_serial", pc_conference_serial);
+                startActivity(i);
             }
         });
 
         new GetCategories().execute();
-
         session = new SessionManager(getApplicationContext());
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -201,18 +170,14 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
                     Log.d("userName", "UserName" + userName);
                     Log.d("UserName_1", "UserName_1" + userName);
                     Log.d("UserName_2", "UserName_2" + UserName_2);
-                   // startActivity(i);
-
+                    //startActivity(i);
                     finish();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
     }
-
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -275,7 +240,6 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
         finish();
     }
 
-
     class Spinner {
         private String TotalQ;
         private String TotalV;
@@ -293,20 +257,15 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
             ArrayList<String> value9 = new ArrayList<String>();
             ArrayList<String> value10 = new ArrayList<String>();
             ArrayList<String> value11 = new ArrayList<String>();
-
-
             ArrayList<String> value12 = new ArrayList<String>();
             ArrayList<String> value13 = new ArrayList<String>();
             ArrayList<String> value14 = new ArrayList<String>();
             ArrayList<String> value15 = new ArrayList<String>();
             ArrayList<String> value16 = new ArrayList<String>();
-
-
             ArrayList<String> value17 = new ArrayList<String>();
             ArrayList<String> value18 = new ArrayList<String>();
             ArrayList<String> value19 = new ArrayList<String>();
             ArrayList<String> value20 = new ArrayList<String>();
-
 
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
@@ -314,105 +273,61 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
                     prod_vat_14, prod_vat_15, prod_vat_16, prod_vat_17,
                     sellvalue_2, sellvalue_3;
 
-
             for (int i = 0; i < categoriesList2.size(); i++) {
                 Log.i("OPSONIN", " P_ID " + categoriesList2.get(i).getId());
                 Log.i("OPSONIN--", " P_ID " + categoriesList2.get(i).getsl());
-
                 sl.add(categoriesList2.get(i).getsl());
-
                 lables.add(categoriesList2.get(i).getName());
-
                 p_ids.add(categoriesList2.get(i).getId());
-
                 quanty.add(categoriesList2.get(i).getQuantity());
-
-
                 prod_rate_1 = categoriesList2.get(i).getPROD_RATE();
                 value.add(prod_rate_1);
-
-
                 prod_vat_1 = categoriesList2.get(i).getPROD_VAT();
                 value4.add(prod_vat_1);
-
-
                 prod_vat_2 = categoriesList2.get(i).getPROD_VAT_2();
                 value5.add(prod_vat_2);
-
-
                 prod_vat_3 = categoriesList2.get(i).getPROD_VAT_3();
                 value6.add(prod_vat_3);
-
-
                 prod_vat_4 = categoriesList2.get(i).getPROD_VAT_4();
                 value7.add(prod_vat_4);
-
-
                 prod_vat_5 = categoriesList2.get(i).getPROD_VAT_5();
                 value8.add(prod_vat_5);
-
-
                 prod_vat_6 = categoriesList2.get(i).getPROD_VAT_6();
                 value9.add(prod_vat_6);
-
-
                 prod_vat_7 = categoriesList2.get(i).getPROD_VAT_7();
                 value10.add(prod_vat_7);
-
-
                 prod_vat_8 = categoriesList2.get(i).getPROD_VAT_8();
                 value11.add(prod_vat_8);
-
-
                 prod_vat_9 = categoriesList2.get(i).getPROD_VAT_9();
                 value12.add(prod_vat_9);
-
-
                 prod_vat_10 = categoriesList2.get(i).getPROD_VAT_10();
                 value13.add(prod_vat_10);
                 Log.w("FOLLOWUPvalue14", prod_vat_10);
-
-
                 prod_vat_11 = categoriesList2.get(i).getPROD_VAT_11();
                 value14.add(prod_vat_11);
-
                 Log.w("FOLLOWUPvalue15", prod_vat_11);
-
                 prod_vat_12 = categoriesList2.get(i).getPROD_VAT_12();
                 value15.add(prod_vat_12);
                 Log.w("FOLLOWUPvalue16", prod_vat_12);
-
-
                 prod_vat_13 = categoriesList2.get(i).getPROD_VAT_13();
                 value16.add(prod_vat_13);
                 Log.w("FOLLOWUPvalue17", prod_vat_13);
-
                 prod_vat_15 = categoriesList2.get(i).getPROD_VAT_14();
                 value18.add(prod_vat_15);
                 Log.w("mpocode-conference", prod_vat_15);
-
-
                 prod_vat_16 = categoriesList2.get(i).getPROD_VAT_15();
                 value19.add(prod_vat_16);
                 Log.w("mpocode-conference", prod_vat_16);
-
                 prod_vat_17 = categoriesList2.get(i).getPROD_VAT_16();
                 value20.add(prod_vat_17);
                 Log.w("mpocode-conference", prod_vat_17);
-
-
             }
-
-
             PcConferenceFollowupAdapter adapter = new PcConferenceFollowupAdapter(PcConferenceFollowup.this, sl, lables, quanty, value, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13,
                     value14, value15, value16, value17, value18, value19, value20);
-
-
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -442,18 +357,16 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
         @Override
         protected Void doInBackground(Void... arg0) {
             Log.e("Response: ", ">  ");
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("user_flag", user_flag));
-
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -461,15 +374,12 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
                         JSONArray categories = jsonObj.getJSONArray("categories");
                         for (int i = 0; i < categories.length(); i++) {
                             JSONObject catObj = (JSONObject) categories.get(i);
-
-
                             com.opl.pharmavector.Category6 cat3 = new com.opl.pharmavector.Category6(
                                     catObj.getString("sl"),
                                     catObj.getString("id"),
                                     catObj.getString("name"),
                                     catObj.getString("quantity"),
                                     catObj.getString("PROD_RATE"),
-
                                     catObj.getString("PROD_VAT"),
                                     catObj.getString("PROD_VAT_2"),
                                     catObj.getString("PROD_VAT_3"),
@@ -490,11 +400,9 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
                             categoriesList2.add(cat3);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(PcConferenceFollowup.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
@@ -511,18 +419,12 @@ public class PcConferenceFollowup extends Activity implements OnClickListener {
             PcConferenceFollowup.Spinner sp = new PcConferenceFollowup.Spinner();
             sp.populateSpinner();
             popSpinner();
-
-
         }
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
-
+    protected void onPostExecute() {}
 }
 

@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -85,6 +86,7 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
     private ArrayList<Customer> customerlist;
     public String product_name,p_code;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);

@@ -126,7 +126,7 @@
             <TextView
                 android:id="@+id/versionname"
                 android:layout_width="wrap_content"
-                android:layout_height="23dp"
+                android:layout_height="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/vector_version"
                 android:textColor="@color/base" />

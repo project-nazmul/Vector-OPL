@@ -2,8 +2,6 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.lang.Runnable;
 
 import java.text.SimpleDateFormat;
@@ -49,18 +47,18 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
-    TextView date2, ded, fromdate, todate;
+    TextView date2, ded, tvfromdate, tvtodate;
     int textlength = 0;
     public TextView totqty, totval;
     //public android.widget.Spinner ordspin;
@@ -93,8 +91,8 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         Button back_btn = (Button) findViewById(R.id.backbt);
         Button view_btn = (Button) findViewById(R.id.view);
         Button submitBtn = (Button) findViewById(R.id.submitBtn);
-        fromdate = (TextView) findViewById(R.id.fromdate);
-        todate = (TextView) findViewById(R.id.todate);
+        tvfromdate = (TextView) findViewById(R.id.fromdate);
+        tvtodate = (TextView) findViewById(R.id.todate);
 
         TextView mpode = (TextView) findViewById(R.id.mpode);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
@@ -106,7 +104,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         actv.setHint("Type Brand Name");
 
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
@@ -115,9 +113,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-
         PPM_CODE = new ArrayList<String>();
-
         SHIFT_CODE = new ArrayList<String>();
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
 
@@ -133,12 +129,20 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         Calendar c_todate = Calendar.getInstance();
         SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
-        todate.setText(toDate);
+        //todate.setText(toDate);
 
         Calendar c_fromdate = Calendar.getInstance();
         SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
-        fromdate.setText(fromDate);
+
+        if (fromDate != null && toDate != null) {
+            tvfromdate.setText(fromDate);
+            tvtodate.setText(toDate);
+        } else  {
+            tvfromdate.setText(current_fromdate);
+            tvtodate.setText(current_todate);
+        }
+        //fromdate.setText(fromDate);
         customerlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
@@ -160,8 +164,8 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 i.putExtra("UserName", rm_code);
                 i.putExtra("p_code", p_code);
                 i.putExtra("product_name", product_name);
-                i.putExtra("to_date", todate.getText().toString());
-                i.putExtra("from_date", fromdate.getText().toString());
+                i.putExtra("to_date", tvtodate.getText().toString());
+                i.putExtra("from_date", tvfromdate.getText().toString());
                 startActivity(i);
             }
         });
@@ -256,14 +260,14 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
-                fromdate.setTextColor(Color.BLACK);
-                fromdate.setText("");
-                fromdate.setText(sdf.format(myCalendar.getTime()));
+                tvfromdate.setTextColor(Color.BLACK);
+                tvfromdate.setText("");
+                tvfromdate.setText(sdf.format(myCalendar.getTime()));
             }
 
         };
 
-        fromdate.setOnClickListener(new OnClickListener() {
+        tvfromdate.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -293,14 +297,14 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             private void updateLabel() {
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-                todate.setTextColor(Color.BLACK);
-                todate.setText("");
-                todate.setText(sdf.format(myCalendar.getTime()));
+                tvtodate.setTextColor(Color.BLACK);
+                tvtodate.setText("");
+                tvtodate.setText(sdf.format(myCalendar.getTime()));
             }
 
         };
 
-        todate.setOnClickListener(new OnClickListener() {
+        tvtodate.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -360,16 +364,16 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 } else {
 
                     try {
-                        String fromdate1 = fromdate.getText().toString();
-                        String todate1 = todate.getText().toString();
+                        String fromdate1 = tvfromdate.getText().toString();
+                        String todate1 = tvtodate.getText().toString();
 
 
                         if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
-                            fromdate.setText("From Date is required");
-                            fromdate.setTextColor(Color.RED);
+                            tvfromdate.setText("From Date is required");
+                            tvfromdate.setTextColor(Color.RED);
                         } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
-                            todate.setText("To Date is required");
-                            todate.setTextColor(Color.RED);
+                            tvtodate.setText("To Date is required");
+                            tvtodate.setTextColor(Color.RED);
                         } else {
 
                             categoriesList.clear();
@@ -563,8 +567,8 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
 
     @SuppressLint("StaticFieldLeak")
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-        String fromdate1 = fromdate.getText().toString();
-        String todate1 = todate.getText().toString();
+        String fromdate1 = tvfromdate.getText().toString();
+        String todate1 = tvtodate.getText().toString();
         Bundle b = getIntent().getExtras();
 
         @Override
@@ -638,8 +642,8 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
 
     @SuppressLint("StaticFieldLeak")
     private class GetBrandSale extends AsyncTask<Void, Void, Void> {
-        String fromdate1 = fromdate.getText().toString();
-        String todate1 = todate.getText().toString();
+        String fromdate1 = tvfromdate.getText().toString();
+        String todate1 = tvtodate.getText().toString();
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
 
