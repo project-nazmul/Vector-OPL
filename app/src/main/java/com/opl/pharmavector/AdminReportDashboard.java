@@ -66,446 +66,210 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         setContentView(R.layout.adminreportdashboard);
 
         initViews();
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(AdminReportDashboard.this, R.style.Theme_AppCompat_DayNight_Dialog_MinWidth);
-                builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Thread server = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        JSONParser jsonParser = new JSONParser();
-                                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                                        params.add(new BasicNameValuePair("logout", "logout"));
-                                        JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
-                                    }
-                                });
-                                server.start();
-                                logoutUser();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.d("MainActivity", "");
-                            }
-                        })
-                        .show();
-            }
+        logout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminReportDashboard.this, R.style.Theme_AppCompat_DayNight_Dialog_MinWidth);
+            builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        Thread server = new Thread(() -> {
+                            JSONParser jsonParser = new JSONParser();
+                            List<NameValuePair> params = new ArrayList<>();
+                            params.add(new BasicNameValuePair("logout", "logout"));
+                            JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
+                        });
+                        server.start();
+                        logoutUser();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> Log.d("MainActivity", ""))
+                    .show();
         });
 
-//        product_wise_sale.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (asm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, RMWiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        } else if (sm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, ASMWiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        } else if (gm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, SMWiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        }
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardProductSale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (asm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, RMWiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        } else if (sm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, ASMWiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        } else if (gm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, SMWiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
+        cardProductSale.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                if (asm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, RMWiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                } else if (sm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, ASMWiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                } else if (gm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, SMWiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                }
+            });
+            mysells.start();
         });
 
-//        group_wise_product_ord_summary.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (asm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", userName);
-//                            i.putExtra("message_3", "ASM");
-//                            startActivity(i);
-//                        } else if (sm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", userName);
-//                            i.putExtra("message_3", "SM");
-//                            startActivity(i);
-//                        } else if (gm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", userName);
-//                            i.putExtra("message_3", "GM");
-//                            startActivity(i);
-//                        }
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardGroupProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (asm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", userName);
-                            i.putExtra("message_3", "ASM");
-                            startActivity(i);
-                        } else if (sm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", userName);
-                            i.putExtra("message_3", "SM");
-                            startActivity(i);
-                        } else if (gm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", userName);
-                            i.putExtra("message_3", "GM");
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
+        cardGroupProduct.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                if (asm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", userName);
+                    i.putExtra("message_3", "ASM");
+                    startActivity(i);
+                } else if (sm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", userName);
+                    i.putExtra("message_3", "SM");
+                    startActivity(i);
+                } else if (gm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupwiseProductOrderSummary2.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", userName);
+                    i.putExtra("message_3", "GM");
+                    startActivity(i);
+                }
+            });
+            mysells.start();
         });
 
-//        brand_wise_sale_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (asm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, RMBrandwiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        } else if (sm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, ASMBrandwiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        } else if (gm_flag.equals("Y")) {
-//                            Intent i = new Intent(AdminReportDashboard.this, SMBrandwiseProductSale.class);
-//                            i.putExtra("userName", userName);
-//                            i.putExtra("UserName", userName);
-//                            i.putExtra("UserName_2", UserName_2);
-//                            startActivity(i);
-//                        }
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardBrandSale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (asm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, RMBrandwiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        } else if (sm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, ASMBrandwiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        } else if (gm_flag.equals("Y")) {
-                            Intent i = new Intent(AdminReportDashboard.this, SMBrandwiseProductSale.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
+        cardBrandSale.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                if (asm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, RMBrandwiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                } else if (sm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, ASMBrandwiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                } else if (gm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, SMBrandwiseProductSale.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
+                }
+            });
+            mysells.start();
         });
 
-//        admin_product_list.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent i = new Intent(AdminReportDashboard.this, AdminProductList.class);
-//                        i.putExtra("userName", userName);
-//                        i.putExtra("UserName", userName);
-//                        i.putExtra("UserName_2", UserName_2);
-//                        startActivity(i);
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardOpsoProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(AdminReportDashboard.this, AdminProductList.class);
-                        i.putExtra("userName", userName);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("UserName_2", UserName_2);
-                        startActivity(i);
-                    }
-                });
-                mysells.start();
-            }
+        cardOpsoProduct.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                Intent i = new Intent(AdminReportDashboard.this, AdminProductList.class);
+                i.putExtra("userName", userName);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                startActivity(i);
+            });
+            mysells.start();
         });
 
-//        mrd_pres_report.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-//                        i.putExtra("userName", userName);
-//                        i.putExtra("UserName", userName);
-//                        i.putExtra("report_flag", "MRD");
-//                        i.putExtra("asm_flag", asm_flag);
-//                        i.putExtra("sm_flag", sm_flag);
-//                        i.putExtra("gm_flag", gm_flag);
-//                        i.putExtra("rm_flag", "N");
-//                        i.putExtra("fm_flag", "N");
-//                        i.putExtra("mpo_flag", "N");
-//                        startActivity(i);
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardMrdPrescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-                        i.putExtra("userName", userName);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("report_flag", "MRD");
-                        i.putExtra("asm_flag", asm_flag);
-                        i.putExtra("sm_flag", sm_flag);
-                        i.putExtra("gm_flag", gm_flag);
-                        i.putExtra("rm_flag", "N");
-                        i.putExtra("fm_flag", "N");
-                        i.putExtra("mpo_flag", "N");
-                        startActivity(i);
-                    }
-                });
-                mysells.start();
-            }
+        cardMrdPrescription.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+                i.putExtra("userName", userName);
+                i.putExtra("UserName", userName);
+                i.putExtra("report_flag", "MRD");
+                i.putExtra("asm_flag", asm_flag);
+                i.putExtra("sm_flag", sm_flag);
+                i.putExtra("gm_flag", gm_flag);
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "N");
+                startActivity(i);
+            });
+            mysells.start();
         });
 
-//        fourp_pres_report.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-//                        i.putExtra("userName", userName);
-//                        i.putExtra("UserName", userName);
-//                        i.putExtra("report_flag", "4P");
-//                        i.putExtra("asm_flag", asm_flag);
-//                        i.putExtra("sm_flag", sm_flag);
-//                        i.putExtra("gm_flag", gm_flag);
-//                        i.putExtra("rm_flag", "N");
-//                        i.putExtra("fm_flag", "N");
-//                        i.putExtra("mpo_flag", "N");
-//                        startActivity(i);
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        card4pPrescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-                        i.putExtra("userName", userName);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("report_flag", "4P");
-                        i.putExtra("asm_flag", asm_flag);
-                        i.putExtra("sm_flag", sm_flag);
-                        i.putExtra("gm_flag", gm_flag);
-                        i.putExtra("rm_flag", "N");
-                        i.putExtra("fm_flag", "N");
-                        i.putExtra("mpo_flag", "N");
-                        startActivity(i);
-                    }
-                });
-                mysells.start();
-            }
+        card4pPrescription.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+                i.putExtra("userName", userName);
+                i.putExtra("UserName", userName);
+                i.putExtra("report_flag", "4P");
+                i.putExtra("asm_flag", asm_flag);
+                i.putExtra("sm_flag", sm_flag);
+                i.putExtra("gm_flag", gm_flag);
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "N");
+                startActivity(i);
+            });
+            mysells.start();
         });
 
-//        msp_pres_report.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Thread mysells = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-//                        i.putExtra("userName", userName);
-//                        i.putExtra("UserName", userName);
-//                        i.putExtra("report_flag", "MSP");
-//                        i.putExtra("asm_flag", asm_flag);
-//                        i.putExtra("sm_flag", sm_flag);
-//                        i.putExtra("gm_flag", gm_flag);
-//                        i.putExtra("rm_flag", "N");
-//                        i.putExtra("fm_flag", "N");
-//                        i.putExtra("mpo_flag", "N");
-//                        startActivity(i);
-//                    }
-//                });
-//                mysells.start();
-//            }
-//        });
-        cardMspPrescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
-                        i.putExtra("userName", userName);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("report_flag", "MSP");
-                        i.putExtra("asm_flag", asm_flag);
-                        i.putExtra("sm_flag", sm_flag);
-                        i.putExtra("gm_flag", gm_flag);
-                        i.putExtra("rm_flag", "N");
-                        i.putExtra("fm_flag", "N");
-                        i.putExtra("mpo_flag", "N");
-                        startActivity(i);
-                    }
-                });
-                mysells.start();
-            }
+        cardMspPrescription.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
+                i.putExtra("userName", userName);
+                i.putExtra("UserName", userName);
+                i.putExtra("report_flag", "MSP");
+                i.putExtra("asm_flag", asm_flag);
+                i.putExtra("sm_flag", sm_flag);
+                i.putExtra("gm_flag", gm_flag);
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "N");
+                startActivity(i);
+            });
+            mysells.start();
         });
 
         session = new SessionManager(getApplicationContext());
-        backbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (asm_flag.equals("Y")) {
-                                Intent i = new Intent(AdminReportDashboard.this, AssistantManagerDashboard.class);
-                                i.putExtra("UserName", AssistantManagerDashboard.globalASMCode);
-                                i.putExtra("new_version", AssistantManagerDashboard.new_version);
-                                i.putExtra("UserName_2", AssistantManagerDashboard.globalZONECode);
-                                i.putExtra("message_3", AssistantManagerDashboard.message_3);
-                                i.putExtra("password", AssistantManagerDashboard.password);
-                                i.putExtra("ff_type", AssistantManagerDashboard.ff_type);
-                                i.putExtra("vector_version", R.string.vector_version);
-                                i.putExtra("emp_code", AssistantManagerDashboard.globalempCode);
-                                i.putExtra("emp_name", AssistantManagerDashboard.globalempName);
-                                startActivity(i);
-                            } else if (sm_flag.equals("Y")) {
-                                Intent i = new Intent(AdminReportDashboard.this, SalesManagerDashboard.class);
-                                i.putExtra("UserName", SalesManagerDashboard.globalSMCode);
-                                i.putExtra("new_version", SalesManagerDashboard.new_version);
-                                i.putExtra("UserName_2", SalesManagerDashboard.globalDivisionCode);
-                                i.putExtra("message_3", SalesManagerDashboard.message_3);
-                                i.putExtra("password", SalesManagerDashboard.password);
-                                i.putExtra("ff_type", SalesManagerDashboard.ff_type);
-                                i.putExtra("vector_version", R.string.vector_version);
-                                i.putExtra("emp_code", SalesManagerDashboard.globalempCode);
-                                i.putExtra("emp_name", SalesManagerDashboard.globalempName);
-                                startActivity(i);
-                            } else if (gm_flag.equals("Y")) {
-                                Intent i = new Intent(AdminReportDashboard.this, GMDashboard1.class);
-                                i.putExtra("UserName", GMDashboard1.globalAdmin);
-                                i.putExtra("new_version", GMDashboard1.new_version);
-                                i.putExtra("UserName_2", GMDashboard1.globalAdminDtl);
-                                i.putExtra("message_3", GMDashboard1.message_3);
-                                i.putExtra("password", GMDashboard1.password);
-                                i.putExtra("ff_type", GMDashboard1.ff_type);
-                                i.putExtra("vector_version", R.string.vector_version);
-                                i.putExtra("emp_code", GMDashboard1.globalempCode);
-                                i.putExtra("emp_name", GMDashboard1.globalempName);
-                                startActivity(i);
-                            }
-                            //finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        backbt.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (asm_flag.equals("Y")) {
+                        Intent i = new Intent(AdminReportDashboard.this, AssistantManagerDashboard.class);
+                        i.putExtra("UserName", AssistantManagerDashboard.globalASMCode);
+                        i.putExtra("new_version", AssistantManagerDashboard.new_version);
+                        i.putExtra("UserName_2", AssistantManagerDashboard.globalZONECode);
+                        i.putExtra("message_3", AssistantManagerDashboard.message_3);
+                        i.putExtra("password", AssistantManagerDashboard.password);
+                        i.putExtra("ff_type", AssistantManagerDashboard.ff_type);
+                        i.putExtra("vector_version", R.string.vector_version);
+                        i.putExtra("emp_code", AssistantManagerDashboard.globalempCode);
+                        i.putExtra("emp_name", AssistantManagerDashboard.globalempName);
+                        startActivity(i);
+                    } else if (sm_flag.equals("Y")) {
+                        Intent i = new Intent(AdminReportDashboard.this, SalesManagerDashboard.class);
+                        i.putExtra("UserName", SalesManagerDashboard.globalSMCode);
+                        i.putExtra("new_version", SalesManagerDashboard.new_version);
+                        i.putExtra("UserName_2", SalesManagerDashboard.globalDivisionCode);
+                        i.putExtra("message_3", SalesManagerDashboard.message_3);
+                        i.putExtra("password", SalesManagerDashboard.password);
+                        i.putExtra("ff_type", SalesManagerDashboard.ff_type);
+                        i.putExtra("vector_version", R.string.vector_version);
+                        i.putExtra("emp_code", SalesManagerDashboard.globalempCode);
+                        i.putExtra("emp_name", SalesManagerDashboard.globalempName);
+                        startActivity(i);
+                    } else if (gm_flag.equals("Y")) {
+                        Intent i = new Intent(AdminReportDashboard.this, GMDashboard1.class);
+                        i.putExtra("UserName", GMDashboard1.globalAdmin);
+                        i.putExtra("new_version", GMDashboard1.new_version);
+                        i.putExtra("UserName_2", GMDashboard1.globalAdminDtl);
+                        i.putExtra("message_3", GMDashboard1.message_3);
+                        i.putExtra("password", GMDashboard1.password);
+                        i.putExtra("ff_type", GMDashboard1.ff_type);
+                        i.putExtra("vector_version", R.string.vector_version);
+                        i.putExtra("emp_code", GMDashboard1.globalempCode);
+                        i.putExtra("emp_name", GMDashboard1.globalempName);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                    //finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 
@@ -519,7 +283,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         fourp_pres_report = findViewById(R.id.fourp_pres_report);
         msp_pres_report = findViewById(R.id.msp_pres_report);
         mrd_pres_report = findViewById(R.id.mrd_pres_report);
-
         cardBrandSale = findViewById(R.id.cardBrandSale);
         cardProductSale = findViewById(R.id.cardProductSale);
         cardOpsoProduct = findViewById(R.id.cardOpsoProduct);
@@ -533,15 +296,13 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         b = getIntent().getExtras();
         userName = b.getString("UserName");
         UserName_2 = b.getString("UserName_2");
-
         asm_flag = b.getString("asm_flag");
         sm_flag = b.getString("sm_flag");
         gm_flag = b.getString("gm_flag");
-
         new_version = b.getString("new_version");
         backbt = (Button) findViewById(R.id.backbt);
         backbt.setTypeface(fontFamily);
-        backbt.setText("\uf060 ");// &#xf060
+        backbt.setText("\uf060 "); //&#xf060
         db = new DatabaseHandler(this);
     }
 
@@ -552,12 +313,8 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
-
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 }

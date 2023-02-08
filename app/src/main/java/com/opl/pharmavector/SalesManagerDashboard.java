@@ -110,7 +110,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     Button followup_report, sales_report, managers_report, notification, am_dcc_camp, pc_conference_btn, doctor_service_followup, prescription_entry,btn_vacant_rm, btn_pmd_contact,
     btn_msd_doctor_support;
-    ProgressBar bar_11, bar_2, bar_21, bar_22, bar_15, bar_16, bar_prescription, bar_10,bar_vacant_rm, bar_msd_doctor_support;
+    ProgressBar bar_11, bar_2, bar_21, bar_22, bar_15, bar_16, bar_prescription, bar_10, bar_vacant_rm, bar_msd_doctor_support;
     String UserName_2, mpo_code_i;
     Bundle b;
     Typeface fontFamily;

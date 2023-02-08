@@ -53,7 +53,6 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class Achievement extends Activity implements OnItemSelectedListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public static final String TAG_MESSAGE_1 = "message_1";
@@ -70,7 +69,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     public ProgressBar bar_1, bar_2, bar_3, bar_4;
     public EditText date_ext, val_mpo, submit_mpo, req_mpo, val_growth;
     TextView myTextView;
-    Button btn_1, btn_2, btn_3, btn_4,submitBtn;
+    Button btn_1, btn_2, btn_3, btn_4, submitBtn;
     String UserName_2, invoice, tar, achivement, growth, Ord_NO, msg, number;
     double d, e, amount, amount2;
     int i, j;
@@ -78,16 +77,16 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     String TARGET_VALUE, number2, INVOICE;
     private ArrayList<Customer> customerlist;
     private Spinner cust;
-    private final String URL_CUSOTMER = BASE_URL+"mposalesreports/get_mpoList.php";
+    private final String URL_CUSOTMER = BASE_URL + "mposalesreports/get_mpoList.php";
     LinearLayout generalteamlayout;
     AutoCompleteTextView actv;
-    private final String URL_SEGMENT_Achievement = BASE_URL+"mposalesreports/Achievement2.php";
+    private final String URL_SEGMENT_Achievement = BASE_URL + "mposalesreports/Achievement2.php";
     public int success;
-    public String message, ord_no,target_data,searchString,select_party;
+    public String message, ord_no, target_data, searchString, select_party;
+
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.achievement);
         initViews();
@@ -103,9 +102,8 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             public void onClick(View v) {
                 if (!NetInfo.isOnline(getBaseContext())) {
 
-                }
-                else {
-                  new callserver().execute();
+                } else {
+                    new callserver().execute();
 
                 }
             }
@@ -115,6 +113,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         logout = findViewById(R.id.logout);
@@ -140,8 +139,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         if (b.isEmpty()) {
             String userName = "";
             myTextView.setText(Dashboard.globalmpocode);
-        }
-        else {
+        } else {
             userName = b.getString("UserName");
             userName_1 = b.getString("userName_1");
             UserName_2 = b.getString("UserName_2");
@@ -180,46 +178,40 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         }
         customerlist = new ArrayList<Customer>();
         generalteamlayout = findViewById(R.id.generalteamlayout);
-        actv =  findViewById(R.id.autoCompleteTextView1);
+        actv = findViewById(R.id.autoCompleteTextView1);
         actv.setFocusableInTouchMode(true);
         actv.setFocusable(true);
         actv.requestFocus();
-        cust =  findViewById(R.id.customer);
+        cust = findViewById(R.id.customer);
         cust.setPrompt("Select Customer");
         String ff_type = Dashboard.ff_type;
 
-        if (ff_type.equals("G"))
-        {
-            generalteamlayout.setVisibility(View.VISIBLE);
-            new GetCategories().execute();
-            customerInit();
-           // actv.setText(Dashboard.globalmpocode);
-
-        }else if (ff_type.equals("T")){
+        if (ff_type.equals("G")) {
             generalteamlayout.setVisibility(View.VISIBLE);
             new GetCategories().execute();
             customerInit();
             //actv.setText(Dashboard.globalmpocode);
-        }else{
-
-
+        } else if (ff_type.equals("T")) {
+            generalteamlayout.setVisibility(View.VISIBLE);
+            new GetCategories().execute();
+            customerInit();
+            //actv.setText(Dashboard.globalmpocode);
+        } else {
             generalteamlayout.setVisibility(View.VISIBLE);
             new GetCategories().execute();
             customerInit();
         }
     }
-    private void customerInit() {
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void customerInit() {
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
                     String selectedcustomer = actv.getText().toString();
                     cust.setTag(selectedcustomer);
                 }
-
             }
         });
         actv.setOnTouchListener(new View.OnTouchListener() {
@@ -230,25 +222,18 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
@@ -259,25 +244,13 @@ public class Achievement extends Activity implements OnItemSelectedListener {
                         String territory_name = first_split[0].trim();
                         actv.setText(territory_name);
                         KeyboardUtils.hideKeyboard(Achievement.this);
-
-                    } else {
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
         });
     }
-
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
@@ -286,15 +259,13 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
 
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -305,31 +276,26 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("segment_code", Dashboard.globalmpocode));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -338,16 +304,14 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             super.onPostExecute(result);
             populateSpinner();
         }
-
     }
-
-
 
     @SuppressLint("StaticFieldLeak")
     class callserver extends AsyncTask<Void, Void, Void> {
         final JSONParser jsonParser = new JSONParser();
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -356,12 +320,11 @@ public class Achievement extends Activity implements OnItemSelectedListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             params.add(new BasicNameValuePair("segment_code", actv.getText().toString()));
             params.add(new BasicNameValuePair("mpo_code", Dashboard.globalmpocode));
-            Log.e("segmentcode-->",actv.getText().toString());
-
+            Log.e("segmentcode-->", actv.getText().toString());
             JSONObject json = jsonParser.makeHttpRequest(URL_SEGMENT_Achievement, "POST", params);
+
             if (json != null) {
                 try {
                     success = json.getInt("success");
@@ -372,11 +335,8 @@ public class Achievement extends Activity implements OnItemSelectedListener {
                     growth = json.getString("growth");
 
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            } else {
-
             }
             return null;
         }
@@ -385,57 +345,34 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
-            Thread backthred = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    try {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                        } else{
 
-                            new Handler(Looper.getMainLooper()).post(new Runnable(){
-                                @Override
-                                public void run() {
-                                    val_mpo.setText("");
-                                    submit_mpo.setText("");
-                                    req_mpo.setText("");
-                                    val_growth.setText("");
-                                    val_mpo.setText(invoice);
-                                    submit_mpo.setText (target_data );
-                                    req_mpo.setText(achivement);
-                                    val_growth.setText(growth);
-                                }
-                            });
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
 
-
-
-
-
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            val_mpo.setText("");
+                            submit_mpo.setText("");
+                            req_mpo.setText("");
+                            val_growth.setText("");
+                            val_mpo.setText(invoice);
+                            submit_mpo.setText(target_data);
+                            req_mpo.setText(achivement);
+                            val_growth.setText(growth);
+                        });
                     }
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             });
             backthred.start();
-
         }
     }
 
-
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {}
 
     @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-
-    }
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 }

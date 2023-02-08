@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +8,6 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:weightSum="100">
-
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -21,7 +19,7 @@
 
         <TextView
             android:id="@+id/user_show1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:ems="10"
@@ -30,8 +28,7 @@
             android:visibility="visible"
             android:gravity="center"
             android:textAllCaps="true"
-            android:textColor="@android:color/holo_red_dark"
-            />
+            android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
 
     <EditText
@@ -61,7 +58,6 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:layout_width="@dimen/_30sdp"
                 android:id="@+id/sserial"
@@ -69,7 +65,6 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="Sl."
                 android:textSize="@dimen/_8sdp"
-
                 android:textAllCaps="true"
                 android:textColor="@color/quiz"
                 android:layout_height="match_parent"/>
@@ -108,7 +103,6 @@
                 android:textColor="@color/blue"
                 android:layout_height="match_parent"/>
 
-
             <TextView
                 android:layout_width="@dimen/_80sdp"
                 android:id="@+id/sqnty1"
@@ -119,8 +113,6 @@
                 android:gravity="center|start"
                 android:textColor="@android:color/holo_red_dark"
                 android:layout_height="match_parent"/>
-
-
 
             <TextView
                 android:layout_width="@dimen/cell_width"
@@ -178,36 +170,25 @@
                 android:textColor="@color/vector_logo_color"
                 android:layout_height="match_parent"/>
 
-
-
             <TextView
                 android:id="@+id/achivement_sales_admin"
                 android:layout_width="@dimen/_60sdp"
                 android:gravity="center|start"
-
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="Role"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccentEditor"
                 android:layout_height="match_parent" />
-
         </LinearLayout>
-
     </HorizontalScrollView>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/rvCompany"
         android:layout_height="0dp"
-        android:layout_weight="98"
-
-        >
+        android:layout_weight="98">
     </androidx.recyclerview.widget.RecyclerView>
-
-
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -220,7 +201,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/dcr_page_button"
-
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
             android:onClick="finishActivity"
@@ -229,8 +209,5 @@
             android:textColor="#FFF"
             android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

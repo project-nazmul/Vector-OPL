@@ -1,8 +1,10 @@
 package com.opl.pharmavector.master_code.adapter;
 
-//MasterAdapter
+import android.annotation.SuppressLint;
 import android.content.Context;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +12,14 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Filter;
+
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.promomat.model.Promo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHolder>
-        implements Filterable {
-
+public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHolder> implements Filterable {
     private static final int TYPE_ROW = 0;
     private static final int TYPE_ROW_COLORFUL = 1;
     public List<Promo> companyList;
@@ -27,13 +28,10 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     private MasterAdapterListener listener;
     private ValueFilter valueFilter;
 
+    public class ClubViewHolder extends RecyclerView.ViewHolder {
+        public TextView serial, mpocode, month, sample_name, pack_size, type, week1, week2, week3, week4, total;
 
-    public class ClubViewHolder extends RecyclerView.ViewHolder
-    {
-        public TextView serial, mpocode, month, sample_name, pack_size, type,week1,week2,week3,week4,total;
-
-        public ClubViewHolder(View view)
-        {
+        public ClubViewHolder(View view) {
             super(view);
             serial = view.findViewById(R.id.serial);
             mpocode = view.findViewById(R.id.mpocode);
@@ -53,58 +51,44 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
                     listener.onPromoSelected(filteredCompanyList.get(getAdapterPosition()));
                 }
             });
-
-
         }
     }
 
-
-    public MasterAdapter(Context context, List<Promo> companyList)
-    {
+    public MasterAdapter(Context context, List<Promo> companyList) {
         this.context = context;
         this.companyList = companyList;
         this.filteredCompanyList = companyList;
         getFilter();
     }
 
-    public MasterAdapter(Context context, List<Promo> companyList,MasterAdapterListener listener)
-    {
+    public MasterAdapter(Context context, List<Promo> companyList, MasterAdapterListener listener) {
         this.context = context;
         this.listener = listener;
         this.companyList = companyList;
         this.filteredCompanyList = companyList;
-
     }
 
-
     @Override
-    public int getItemViewType(int position)
-    {
-        if (position % 2 == 0)
-        {
+    public int getItemViewType(int position) {
+        if (position % 2 == 0) {
             return TYPE_ROW_COLORFUL;
         }
-
         return TYPE_ROW;
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
-
     @Override
-    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
-        if (viewType == TYPE_ROW)
-        {
+    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == TYPE_ROW) {
             View view = LayoutInflater.from(viewGroup.getContext()).
                     inflate(R.layout.adapter_master_code_row, viewGroup, false);
             return new ClubViewHolder(view);
 
-        } else{
+        } else {
             View view = LayoutInflater.from(viewGroup.getContext()).
                     inflate(R.layout.adapter_master_code_row_colorful, viewGroup, false);
             return new ClubViewHolder(view);
@@ -112,8 +96,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     }
 
     @Override
-    public void onBindViewHolder(ClubViewHolder holder, int position)
-    {
+    public void onBindViewHolder(ClubViewHolder holder, int position) {
         Promo company = filteredCompanyList.get(position);
         holder.serial.setText(company.serial);
         holder.mpocode.setText(company.code);
@@ -126,56 +109,43 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
         holder.week3.setText(company.week3);
         holder.week4.setText(company.week4);
         holder.total.setText(company.total);
-
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return filteredCompanyList.size();
     }
 
-
     @Override
-    public Filter getFilter()
-    {
-        return new Filter()
-        {
+    public Filter getFilter() {
+        return new Filter() {
             @Override
-            protected FilterResults performFiltering(CharSequence charSequence)
-            {
+            protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
-                if (charString.isEmpty())
-                {
+                if (charString.isEmpty()) {
                     filteredCompanyList = companyList;
-                } else
-                {
+                } else {
                     List<Promo> filteredList = new ArrayList<>();
-                    for (Promo company : companyList)
-                    {
-                        if (company.code.toLowerCase().contains(charString.toLowerCase()) )
-                        {
+                    for (Promo company : companyList) {
+                        if (company.code.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(company);
                         }
                     }
-
                     filteredCompanyList = filteredList;
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredCompanyList;
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults)
-            {
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 filteredCompanyList = (ArrayList<Promo>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
-
 
 /*
     @Override
@@ -188,47 +158,37 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     }
 */
 
-
     private class ValueFilter extends Filter {
-
+        @SuppressLint("NotifyDataSetChanged")
         @Override
-        protected FilterResults performFiltering(CharSequence charSequence)
-        {
+        protected FilterResults performFiltering(CharSequence charSequence) {
             String charString = charSequence.toString();
-            if (charString.isEmpty())
-            {
+            if (charString.isEmpty()) {
                 filteredCompanyList = companyList;
-            } else
-            {
+            } else {
                 List<Promo> filteredList = new ArrayList<>();
-                for (Promo company : companyList)
-                {
-                    if (company.code.toLowerCase().contains(charString.toLowerCase()) )
-                    {
+                for (Promo company : companyList) {
+                    if (company.code.toLowerCase().contains(charString.toLowerCase())) {
                         filteredList.add(company);
                     }
                 }
-
                 filteredCompanyList = filteredList;
                 notifyDataSetChanged();
             }
-
             FilterResults filterResults = new FilterResults();
             filterResults.values = filteredCompanyList;
             return filterResults;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults)
-        {
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             filteredCompanyList = (ArrayList<Promo>) filterResults.values;
             notifyDataSetChanged();
         }
     }
 
-    public interface MasterAdapterListener{
+    public interface MasterAdapterListener {
         void onPromoSelected(Promo promo);
     }
-
-
 }

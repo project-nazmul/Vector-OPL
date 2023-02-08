@@ -93,16 +93,12 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         Button submitBtn = (Button) findViewById(R.id.submitBtn);
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
-
         TextView mpode = (TextView) findViewById(R.id.mpode);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
-
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
-
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Brand Name");
-
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
@@ -115,7 +111,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         PROD_VAT = new ArrayList<String>();
         PPM_CODE = new ArrayList<String>();
         SHIFT_CODE = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
+        categoriesList = new ArrayList<>();
 
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
@@ -125,15 +121,14 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         String fromDate = b.getString("from_date");
         submitBtn.setTextSize(10);
         mpode.setText("Region\nCode");
-
         Calendar c_todate = Calendar.getInstance();
         SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
         //todate.setText(toDate);
-
         Calendar c_fromdate = Calendar.getInstance();
         SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
+        //fromdate.setText(fromDate);
 
         if (fromDate != null && toDate != null) {
             tvfromdate.setText(fromDate);
@@ -142,7 +137,6 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             tvfromdate.setText(current_fromdate);
             tvtodate.setText(current_todate);
         }
-        //fromdate.setText(fromDate);
         customerlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 

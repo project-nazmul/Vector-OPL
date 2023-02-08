@@ -13,6 +13,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -78,6 +80,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
     public String p_code, product_name;
     private ArrayList<Customer> customerlist;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
@@ -96,7 +99,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Product Name");
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
@@ -110,7 +113,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         PROD_VAT = new ArrayList<String>();
         PPM_CODE = new ArrayList<String>();
         SHIFT_CODE = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
+        categoriesList = new ArrayList<>();
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
         submitBtn.setTextSize(10);
@@ -127,37 +130,29 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         customerlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String rm_code = (String) productListView.getAdapter().getItem(arg2);
-                product_name = actv.getText().toString();
-                Intent i = new Intent(SMWiseProductSale.this, ASMWiseProductSale.class);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("p_code", p_code);
-                i.putExtra("product_name", product_name);
-                i.putExtra("to_date", todate.getText().toString());
-                i.putExtra("from_date", fromdate.getText().toString());
-                startActivity(i);
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String rm_code = (String) productListView.getAdapter().getItem(arg2);
+            product_name = actv.getText().toString();
+            Intent i = new Intent(SMWiseProductSale.this, ASMWiseProductSale.class);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("p_code", p_code);
+            i.putExtra("product_name", product_name);
+            i.putExtra("to_date", todate.getText().toString());
+            i.putExtra("from_date", fromdate.getText().toString());
+            startActivity(i);
+        });
+
+        actv.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {
+                String selectedcustomer = actv.getText().toString();
+                cust.setTag(selectedcustomer);
             }
         });
 
-        actv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    cust.setTag(selectedcustomer);
-                }
-            }
-        });
-
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
         });
 
         actv.addTextChangedListener(new TextWatcher() {
@@ -194,15 +189,10 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
 
         new LoadProduct().execute();
-        //new ViewbyDate.GetCategories().execute();
-        /*------------------------------------------------------*/
-        /*--------------------------from-date range----------------------------*/
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -263,7 +253,6 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
             }
         });
 
-        /*---------------------------to date range-----------------end-----------*/
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
