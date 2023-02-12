@@ -21,7 +21,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
@@ -168,7 +171,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
 
+        statusBarHide();
         initViews();
+        RunAnimation();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -334,8 +339,21 @@ public class Dashboard extends Activity implements View.OnClickListener {
         }
     }
 
+    private void RunAnimation() {
+        Animation a = AnimationUtils.loadAnimation(this, R.anim.animated_textview);
+        a.reset();
+        //TextView tv = (TextView) findViewById(R.id.firstTextView);
+        user_show1.clearAnimation();
+        user_show1.startAnimation(a);
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
     @SuppressLint("CutPasteId")
-    private void initViews(){
+    private void initViews() {
         logout= findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4= findViewById(R.id.t4);

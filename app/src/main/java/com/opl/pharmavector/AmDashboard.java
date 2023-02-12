@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
@@ -141,6 +143,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         //setContentView(R.layout.amdashboard);
         setContentView(R.layout.activity_vector_fm_dashboard);
 
+        statusBarHide();
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -2007,6 +2010,11 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             startActivity(logoutIntent);
             finish();
         }
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     @SuppressLint("CutPasteId")

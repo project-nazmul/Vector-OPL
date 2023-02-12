@@ -117,7 +117,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     }
 
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
-    @RequiresApi(api = Build.VERSION_CODES.O)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboardpmd);
@@ -134,118 +133,87 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         Sales_4p_Event();
         instance = this;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            ) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("App Require Location");
-                builder.setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running");
-                builder.setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
+            builder.setTitle("App Require Location");
+            builder.setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running");
+            builder.setPositiveButton("Proceed", (dialog, which) -> {
+                Thread server = new Thread(new Runnable() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void run() {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                            dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                        else {
+                            dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                        }
+                    }
+                });
+                server.start();
+            });
+            builder.setNegativeButton("Quit App", (dialog, which) -> {
+                preferenceManager.clearPreferences();
+                count = 0;
+                Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
+                startActivity(logoutIntent);
+                finish();
+            });
+            builder.show();
+        }
+
+        logout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
+            builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
                         Thread server = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                                    dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
-                                else {
-                                    dexterPermission(DashBoardPMD.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
-                                }
+                                log_status = "N";
+                                preferenceManager.clearPreferences();
+                                count = 0;
+                                // unregisterReceiver(updateUIReciver);
+                                Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
+                                startActivity(logoutIntent);
+                                finish();
                             }
                         });
                         server.start();
-                    }
-                });
-                builder.setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        preferenceManager.clearPreferences();
-                        count = 0;
-                        Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
-                        startActivity(logoutIntent);
-                        finish();
-                    }
-                });
-                builder.show();
-            }
-        }
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Thread server = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        log_status = "N";
-                                        preferenceManager.clearPreferences();
-                                        count = 0;
-                                        // unregisterReceiver(updateUIReciver);
-                                        Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
-                                        startActivity(logoutIntent);
-                                        finish();
-                                    }
-                                });
-                                server.start();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .show();
-            }
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                    })
+                    .show();
         });
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
     }
 
     private void rxEvent() {
-        btn_dashboard_1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_RX();
-            }
-        });
-        img_btn_rx.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_RX();
-            }
-        });
-        practiceCard1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_RX();
-            }
-        });
+        btn_dashboard_1.setOnClickListener(v -> showBottomSheetDialog_RX());
+        img_btn_rx.setOnClickListener(v -> showBottomSheetDialog_RX());
+        practiceCard1.setOnClickListener(v -> showBottomSheetDialog_RX());
     }
 
     private void notificationEvent() {
-        btn_dashboard_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
+        btn_dashboard_2.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
 
-                            } else {
-                                Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
-                                //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
-                                //i.putExtra("UserName_2", DashBoardPMD.pmd_code);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else {
+                            Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
+                            //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
+                            //i.putExtra("UserName_2", DashBoardPMD.pmd_code);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
         img_btn_notice.setOnClickListener(new View.OnClickListener() {
             @Override

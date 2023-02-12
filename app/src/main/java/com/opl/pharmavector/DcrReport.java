@@ -71,21 +71,20 @@ public class DcrReport extends Activity implements OnClickListener {
     private ArrayList<String> array_sort = new ArrayList<String>();
     private final String URL_PRODUCT_VIEW =BASE_URL+"mpodcr/DcrReportVal.php";
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dcrreport);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
         Button view_btn = (Button) findViewById(R.id.view);
         Button submitBtn = (Button) findViewById(R.id.submitBtn);
         Button submitBtn_2 = (Button) findViewById(R.id.submitBtn_2);
-
         fromdate = (TextView) findViewById(R.id.fromdate);
         todate = (TextView) findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
@@ -105,13 +104,10 @@ public class DcrReport extends Activity implements OnClickListener {
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
 
-
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -125,14 +121,11 @@ public class DcrReport extends Activity implements OnClickListener {
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(DcrReport.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -141,9 +134,7 @@ public class DcrReport extends Activity implements OnClickListener {
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -157,14 +148,11 @@ public class DcrReport extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(DcrReport.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -174,30 +162,20 @@ public class DcrReport extends Activity implements OnClickListener {
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         finish();
-
                     }
                 });
-
                 backthred.start();
-            
-
             }
         });
 
-
-
         submitBtn_2.setOnClickListener(new OnClickListener() {
-
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
+
             @Override
             public void onClick(final View v) {
                 try {
@@ -210,13 +188,11 @@ public class DcrReport extends Activity implements OnClickListener {
                     else if (todate1.isEmpty()||(todate1.equals("To Date"))||(todate1.equals("To Date is required"))) {
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
                     }
                     else {
                         categoriesList.clear();
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -224,24 +200,15 @@ public class DcrReport extends Activity implements OnClickListener {
         });
 
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
+            public void onClick(View v) {}});
     }
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
         }
-
-
     }
 
     public void finishActivity(View v) {
@@ -251,6 +218,7 @@ public class DcrReport extends Activity implements OnClickListener {
     class Spinner {
         private String TotalQ;
         private String TotalV;
+
         private void populateSpinner() {
             ArrayList<String> sl = new ArrayList<String>();
             ArrayList<String> lables = new ArrayList<String>();
@@ -260,12 +228,9 @@ public class DcrReport extends Activity implements OnClickListener {
             ArrayList<String> value5 = new ArrayList<String>();
             ArrayList<String> value6 = new ArrayList<String>();
             ArrayList<String> value7 = new ArrayList<String>();
-
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
             String prod_rate_1, prod_vat_1,prod_vat_2,prod_vat_3,prod_vat_4, sellvalue_2,sellvalue_3;
-
-
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 sl.add(categoriesList.get(i).getsl());
@@ -289,7 +254,6 @@ public class DcrReport extends Activity implements OnClickListener {
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
         public String getTotalQ() {
@@ -299,8 +263,8 @@ public class DcrReport extends Activity implements OnClickListener {
             return TotalV;
         }
     }
-    private class GetCategories extends AsyncTask<Void, Void, Void> {
 
+    private class GetCategories extends AsyncTask<Void, Void, Void> {
         String fromdate1=fromdate.getText().toString();
         String todate1=todate.getText().toString();
         Bundle b = getIntent().getExtras();
@@ -308,9 +272,6 @@ public class DcrReport extends Activity implements OnClickListener {
         String str = todate.getText().toString();
         String date_1 = str.replaceAll("[^\\d.-]", "");
         final String ord_no = userName + "-" + date_1;
-
-
-
 
         @Override
         protected void onPreExecute() {
@@ -321,6 +282,7 @@ public class DcrReport extends Activity implements OnClickListener {
             pDialog.setCancelable(false);
             pDialog.show();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
@@ -333,37 +295,35 @@ public class DcrReport extends Activity implements OnClickListener {
             params.add(new BasicNameValuePair("ord_no", ord_no));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW,ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            Category3 cat3 = new Category3(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getString("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PROD_VAT_2"),
-                                    catObj.getString("PROD_VAT_3"),
-                                    catObj.getString("PROD_VAT_4"));
-                            categoriesList.add(cat3);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category3 cat3 = new Category3(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PROD_VAT_2"),
+                                catObj.getString("PROD_VAT_3"),
+                                catObj.getString("PROD_VAT_4"));
+                        categoriesList.add(cat3);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Toast.makeText(DcrReport.this, "Nothing To Disply",Toast.LENGTH_SHORT).show();
                 Toast.makeText(DcrReport.this, "Please make a order first !",Toast.LENGTH_LONG).show();
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -376,18 +336,13 @@ public class DcrReport extends Activity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(DcrReport.this, Report.class);
         startActivity(i);
         finish();
-
     }
-
 }

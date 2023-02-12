@@ -19,6 +19,8 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
@@ -146,22 +148,15 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
+        statusBarHide();
         initViews();
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(GMDashboard1.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                vectorToken = instanceIdResult.getToken();
-            }
-        });
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(GMDashboard1.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.msg_subscribed) + vectorToken;
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
-                        }
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_subscribed) + vectorToken;
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_failed);
                     }
                 });
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -186,40 +181,28 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         pmdContact();
         doctorListInfo();
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        logout.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
+            builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        Thread server = new Thread(new Runnable() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Thread server = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        log_status = "N";
-                                        preferenceManager.clearPreferences();
-                                        count = 0;
-                                        Intent logoutIntent = new Intent(GMDashboard1.this, Login.class);
-                                        startActivity(logoutIntent);
-                                        finish();
-                                    }
-                                });
-                                server.start();
-                                //logoutUser();
+                            public void run() {
+                                log_status = "N";
+                                preferenceManager.clearPreferences();
+                                count = 0;
+                                Intent logoutIntent = new Intent(GMDashboard1.this, Login.class);
+                                startActivity(logoutIntent);
+                                finish();
                             }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {}
-                        })
-                        .show();
-            }
+                        });
+                        server.start();
+                        //logoutUser();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {})
+                    .show();
         });
-        btn_vector_feedback.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FeedbackshowSnack();
-            }
-        });
+        btn_vector_feedback.setOnClickListener(v -> FeedbackshowSnack());
         autoLogout();
     }
 
@@ -232,6 +215,11 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             startActivity(logoutIntent);
             finish();
         }
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     private void initViews(){
@@ -341,38 +329,35 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     }
 
     private void dcrfollowup() {
-        cardview_dcr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bundle b = getIntent().getExtras();
-                        String userName = b.getString("UserName");
-                        String userName_1 = b.getString("UserName_1");
-                        String userName_2 = b.getString("UserName_2");
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                               showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, GMDashboard.class);
-                                String gm_flag = "Y";
-                                i.putExtra("sm_code", globalAdmin);
-                                i.putExtra("UserName", userName);
-                                i.putExtra("userName_1", userName_1);
-                                i.putExtra("userName_2", userName_2);
-                                i.putExtra("UserName", userName);
-                                i.putExtra("UserName_2", user);
-                                i.putExtra("gm_flag", gm_flag);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        cardview_dcr.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Bundle b = getIntent().getExtras();
+                    String userName = b.getString("UserName");
+                    String userName_1 = b.getString("UserName_1");
+                    String userName_2 = b.getString("UserName_2");
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
+                           showSnack();
+                        } else {
+                            Intent i = new Intent(GMDashboard1.this, GMDashboard.class);
+                            String gm_flag = "Y";
+                            i.putExtra("sm_code", globalAdmin);
+                            i.putExtra("UserName", userName);
+                            i.putExtra("userName_1", userName_1);
+                            i.putExtra("userName_2", userName_2);
+                            i.putExtra("UserName", userName);
+                            i.putExtra("UserName_2", user);
+                            i.putExtra("gm_flag", gm_flag);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
     }
 

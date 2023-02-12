@@ -91,26 +91,14 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         setContentView(R.layout.achievement);
         initViews();
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
+        logout.setOnClickListener(v -> finish());
+        submitBtn.setOnClickListener(v -> {
+            if (!NetInfo.isOnline(getBaseContext())) {
+
+            } else {
+                new callserver().execute();
             }
         });
-
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!NetInfo.isOnline(getBaseContext())) {
-
-                } else {
-                    new callserver().execute();
-
-                }
-            }
-
-        });
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -119,7 +107,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         logout = findViewById(R.id.logout);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b"); //&#xf08b
-        user_show = (TextView) findViewById(R.id.user_show);
+        user_show = findViewById(R.id.user_show);
         btn_1 = findViewById(R.id.btn_1);
         btn_2 = findViewById(R.id.btn_2);
         btn_3 = findViewById(R.id.btn_3);
@@ -176,7 +164,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             bar_4.setProgress(100);
             bar_4.setRotation(180);
         }
-        customerlist = new ArrayList<Customer>();
+        customerlist = new ArrayList<>();
         generalteamlayout = findViewById(R.id.generalteamlayout);
         actv = findViewById(R.id.autoCompleteTextView1);
         actv.setFocusableInTouchMode(true);
@@ -205,13 +193,10 @@ public class Achievement extends Activity implements OnItemSelectedListener {
 
     @SuppressLint("ClickableViewAccessibility")
     private void customerInit() {
-        actv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    cust.setTag(selectedcustomer);
-                }
+        actv.setOnClickListener(v -> {
+            if (actv.getText().toString() != "") {
+                String selectedcustomer = actv.getText().toString();
+                cust.setTag(selectedcustomer);
             }
         });
         actv.setOnTouchListener(new View.OnTouchListener() {
@@ -253,14 +238,14 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     }
 
     private void populateSpinner() {
-        List<String> lables = new ArrayList<String>();
+        List<String> lables = new ArrayList<>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[0]);
-        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, customer);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -276,7 +261,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("segment_code", Dashboard.globalmpocode));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
@@ -309,7 +294,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     @SuppressLint("StaticFieldLeak")
     class callserver extends AsyncTask<Void, Void, Void> {
         final JSONParser jsonParser = new JSONParser();
-        final List<NameValuePair> params = new ArrayList<NameValuePair>();
+        final List<NameValuePair> params = new ArrayList<>();
         private ProgressDialog progressDialog;
 
         @Override
@@ -333,7 +318,6 @@ public class Achievement extends Activity implements OnItemSelectedListener {
                     target_data = json.getString("target");
                     achivement = json.getString("achivement");
                     growth = json.getString("growth");
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
