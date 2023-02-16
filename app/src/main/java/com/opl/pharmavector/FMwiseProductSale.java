@@ -100,18 +100,16 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
             actv.setFocusable(true);
             actv.setSelection(actv.getText().length());}
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String rm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(FMwiseProductSale.this, ProductSale.class);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("p_code", p_code);
-                i.putExtra("product_name", product_name);
-                i.putExtra("to_date", todate.getText().toString());
-                i.putExtra("from_date", fromdate.getText().toString());
-                startActivity(i);
-            }
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String rm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(FMwiseProductSale.this, ProductSale.class);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("p_code", p_code);
+            i.putExtra("product_name", product_name);
+            i.putExtra("to_date", todate.getText().toString());
+            i.putExtra("from_date", fromdate.getText().toString());
+            startActivity(i);
         });
         actv.setOnClickListener(new View.OnClickListener() {
             @Override

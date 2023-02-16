@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_138sdp"
         android:layout_marginTop="0dp"
-        android:backgroundTint="#E67FBCD8"
+        android:backgroundTint="#354592"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +108,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/t4" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:paddingEnd="@dimen/_8sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textView3"
+                android:id="@+id/lottiePhoneCall"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:scaleType="centerCrop"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/dashboard_anim" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

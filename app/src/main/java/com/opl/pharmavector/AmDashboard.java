@@ -2416,12 +2416,11 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         Objects.requireNonNull(textView4).setText("Personal Expense\nEntry");
         Objects.requireNonNull(textView5).setText("Personal Expense\nReport");
         Objects.requireNonNull(changepassword).setText("Personal Expense");
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_personal_expense);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_personal_expense);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2445,7 +2444,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 i.putExtra("UserName", globalFMCode);
                 i.putExtra("UserName_2", globalAreaCode);
                 startActivity(i);
-                // bottomSheetDialog.dismiss();
+                //bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {

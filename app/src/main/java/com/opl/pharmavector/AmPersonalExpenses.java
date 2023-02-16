@@ -26,6 +26,10 @@ import android.widget.ArrayAdapter;
 
 import com.nativecss.NativeCSS;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
+import com.opl.pharmavector.personalExpense.model.MotorCycleRate;
+import com.opl.pharmavector.remote.ApiClient;
+import com.opl.pharmavector.remote.ApiInterface;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -54,8 +58,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSelectedListener {
+import androidx.annotation.NonNull;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
+public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSelectedListener {
     private Spinner spinner1, spinner2, cashcredit, cashcredit_test, credit;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -69,7 +77,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
     private SessionManager session;
     public Button next, back;
     private ArrayList<AmCustomer> shiftlist;
-
     public static String name = null, newversion_text = null, ename = null;
     public int credit_party = 0, cash_party = 0;
     SharedPreferences.Editor editor;
@@ -78,6 +85,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
     // private ListView cust;
     private ArrayList<AmCustomer> customerlist;
     private ArrayList<AmCustomer> mpodcrlist;
+    private ArrayList<MotorCycleRate> motorCycleRates = new ArrayList<>();
     public Array pay_cash;
     public Array pay_cradit;
     public String saved_da_val;
@@ -97,18 +105,15 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
     public String jour_code = null;
     private Spinner cust;
     private Spinner dcrlist;
-    ProgressDialog pDialog;
+    ProgressDialog pDialog, qDialog;
     EditText ta;
     TextView date2, ded, note, s_time, e_time, da, tournature, dcr_nummber, othertaval, particul;
     public int success;
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party;
-
-
     private final String URL_DCR = BASE_URL+"area_manager_api/personal_expense/get_mpo_dcr.php";
     private final String URL_JOURMODE = BASE_URL+"area_manager_api/personal_expense/get_jour_mode.php";
     private final String submit_dcr_expense = BASE_URL+"area_manager_api/personal_expense/submit_dcr_expense.php";
     private final String URL_PASS_DCR_DATE = BASE_URL+"area_manager_api/personal_expense/URL_PASS_DCR_DATE.php";
-
     protected Handler handler;
     TextView error_dt, error_payment;
     TextView ordno, succ_msg;
@@ -127,16 +132,15 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         setTitle("Personal Expenses");
 
         initViews();
+        motorCycleRateInfo();
         new GetCategories().execute();
         new GetJourmode().execute();
-
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.visitstatus, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         visitstatus.setPrompt("Work Status");
         visitstatus.setAdapter(adapter);
         visitstatus.setOnItemSelectedListener(this);
+
         visitstatus.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String da_value_on_change = saved_da_val;
@@ -150,25 +154,20 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                     da.setTextColor(Color.parseColor("#006199"));
                     da.setText(saved_da_val);
                 }
-
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
-
                 return;
             }
         });
 
         autocomplete_dcrdate();
-
         autocomplete_JourneyModeOnclick();
-
         Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -182,16 +181,11 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 ded.setTextColor(Color.parseColor("#006199"));
                 ded.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
-
-
         ded.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AmPersonalExpenses.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -200,37 +194,33 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 final String shift_status = shift_spinner.getSelectedItem().toString();
-
             }
-
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(AmPersonalExpenses.this, "Please Select Shift !!", Toast.LENGTH_LONG).show();
                 return;
-
             }
         });
 
         diskm.addTextChangedListener(new TextWatcher() {
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (diskm.getText().toString().trim().equals("")) {
                     diskm.setText("0");
                 }
-                if (jour_code.toString().trim().equals("MC")) {
+                if (jour_code.trim().equals("MC")) {
                     int a = Integer.parseInt(diskm.getText().toString().trim());
-                    double result = a * 2.5;
-                    String total2 = Double.toString(result);
-                    ta.setText(total2);
+                    if (motorCycleRates.size() > 0) {
+                        double motorRate = Double.parseDouble(motorCycleRates.get(0).getUnit_exp());
+                        double result = a * motorRate;
+                        String total2 = Double.toString(result);
+                        ta.setText(total2);
+                    }
                 }else{
                     ta.setEnabled(true);
                 }
-
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
@@ -239,43 +229,29 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             }
         });
 
-
         session = new SessionManager(getApplicationContext());
         logout.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-
                 Thread server = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-
                         JSONParser jsonParser = new JSONParser();
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
                         params.add(new BasicNameValuePair("logout", "logout"));
-
                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
-
                     }
                 });
-
                 server.start();
                 logoutUser();
             }
         });
 
-
         back.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Intent i = new Intent(AmPersonalExpenses.this,  AmDashboard.class);
                             i.putExtra("UserName", AmDashboard.globalFMCode);
@@ -291,13 +267,9 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
 
@@ -314,44 +286,26 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 if (gyear > cYear) {
                     gmonth = myCalendar.get(Calendar.MONTH) + 13;
                 }
-
                 int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
                 int gmonth_day = gmonth * 30;
                 int totalday_given = gmonth_day + gday;
-
-
                 int cmonth_day = cMonth * 30;
                 int totalday_valid1 = cmonth_day + cDay;
                 int totalday_valid = totalday_valid1 + 0;
-
                 int totalday_valid2 = cmonth_day + cDay - 0;
 
                 if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("DCR Date (Type date like : 01  or 11 )"))) {
-
                     error_dt.setText("1. Select DCR DATE ");
                 } else if (actv1.getText().toString().trim().equals("")) {
-
                     error_dt.setText(" 2. Select  Journey Mode");
-
                 } else if ((Tour_nature_code.toString().trim().equals("2")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
-
-
                     error_dt.setText("3. Select Distance in KM");
-
                 } else if ((Tour_nature_code.toString().trim().equals("3")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
-
-
                     error_dt.setText("3. OUTSTATION -Select Distance in KM");
-
                 } else if ((Tour_nature_code.toString().trim().equals("2")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
-
                     error_dt.setText("Enter Other T/A Particul (Ex:where did you spend the TA) ");
-
                 } else if ((Tour_nature_code.toString().trim().equals("3")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
-
                     error_dt.setText("Enter Other T/A Particul (Ex:where did you spend the TA) ");
-
                 } else {
                     Thread server = new Thread(new Runnable() {
                         @Override
@@ -369,18 +323,16 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             params.add(new BasicNameValuePair("PARTICUL", particul.getText().toString()));
                             params.add(new BasicNameValuePair("OTHERVAL", othertaval.getText().toString()));
                             params.add(new BasicNameValuePair("dcr_type", shift_spinner.getSelectedItem().toString()));
-
                             JSONObject json = jsonParser.makeHttpRequest(submit_dcr_expense, "POST", params);
+
                             try {
                                 success = json.getInt(TAG_SUCCESS);
                                 message = json.getString(TAG_MESSAGE);
                                 Log.w("please wait TRY ...." + message, json.toString());
                             } catch (JSONException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                                 Log.w("Please wait ...." + message, json.toString());
                             }
-
                             Intent in = getIntent();
                             Intent inten = getIntent();
                             Bundle bundle = in.getExtras();
@@ -394,66 +346,47 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             sameint.putExtra("UserName_2", UserName_2);
                             startActivity(sameint);
                             Log.w("Passed in DCR TO DCR", dcr_sl_no + "UserName" + userName + "UserName_2" + UserName_2);
-
-
                         }
                     });
-
-
                     server.start();
-
                 }
                 //  }
-
-
             }
         });
-
-
-
     }
 
     private void autocomplete_JourneyModeOnclick() {
         actv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv1.getText().toString() != "") {
                     String jourmode = actv1.getText().toString();
                     cust.setTag(jourmode);
                 }
-
             }
         });
         actv1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf(":") != -1) {
+                    if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
                         String arr[] = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
                         String arr1[] = cust_type_with_note.split("///");
                         String jour_mode_split = arr1[0].trim();
-                        // String dcr_expense_info_val=arr1[1].trim();
+                        //String dcr_expense_info_val=arr1[1].trim();
 
                         String jour_code_split[] = jour_mode_split.split("-");
                         String jour_name = jour_code_split[0].trim();
@@ -464,7 +397,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         if ((Tour_nature_code.equals("1"))) {
                             diskm.setEnabled(false);
                         }
-
                         if ((Tour_nature_code.equals("2")) || (Tour_nature_code.equals("3"))) {
                             diskm.setClickable(true);
                             diskm.setEnabled(true);
@@ -472,48 +404,34 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             particul.setEnabled(true);
                         }
                         */
-
-                        if (jour_code.toString().trim().equals("MC")) {
+                        if (jour_code.trim().equals("MC")) {
                             ta.setEnabled(false);
                         }
-
-
                     } else {
                         //ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void autocomplete_dcrdate() {
-
-
-
         actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv.showDropDown();
                 return false;
             }
         });
 
-
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
                     String selectedcustomer = actv.getText().toString();
                     cust.setTag(selectedcustomer);
@@ -521,26 +439,18 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf(":") != -1) {
-
+                    if (inputorder.contains(":")) {
                         String arr[] = inputorder.split(":");
                         String dcr_date_info_split = arr[0].trim();
                         String cust_type_with_note = arr[1].trim();
@@ -555,7 +465,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             particul.setEnabled(false);
                             diskm.setEnabled(false);
                             ta.setEnabled(false);
-
                         } else if (Tour_nature_code.equals(String.valueOf(2))) {
                             Log.e("YOURtournaturecode==>", Tour_nature_code);
                             othertaval.setVisibility(View.VISIBLE);
@@ -566,7 +475,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             diskm.setEnabled(true);
                             ta.setEnabled(true);
                         } else if (Tour_nature_code.equals(String.valueOf(3))) {
-
                             othertaval.setVisibility(View.VISIBLE);
                             particul.setVisibility(View.VISIBLE);
                             othertaval.setEnabled(true);
@@ -575,8 +483,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             diskm.setEnabled(true);
                             ta.setEnabled(true);
                         }
-
-
                         String arr0[] = dcr_date_info_split.split("//");
                         final String dcr_date = arr0[0].trim();
                         String dcr_location_split = arr0[1].trim();
@@ -586,19 +492,15 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         String dcr_location_name = arr3[1].trim();
                         actv.setText(dcr_date);
                         new GetDcrType().execute();
-                       // tournature.setTextColor(Color.BLUE);
+                        //tournature.setTextColor(Color.BLUE);
                         tournature.setTextColor(Color.parseColor("#006199"));
-
-
                         tournature.setText(dcr_location_name);
                         dcr_nummber.setText(dcr_sl_no);
                         String arr4[] = dcr_expense_info_val.split("##");
                         String da_val = arr4[1].trim(); //DAVALUE
                         saved_da_val = arr4[1].trim();
                         //da.setTextColor(Color.BLUE);
-
                         da.setTextColor(Color.parseColor("#006199"));
-
                         da.setText(da_val);
                         String hq_ta_val_arr = arr4[0].trim();
                         String arr2[] = hq_ta_val_arr.split("/");
@@ -621,22 +523,13 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         actv1.requestFocus();
                         cashcredit = (Spinner) findViewById(R.id.cashcredit);
                         credit = (Spinner) findViewById(R.id.credit);
-
-                    } else {
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
     }
 
@@ -656,18 +549,16 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         error_dt = findViewById(R.id.errordt);
         error_payment = findViewById(R.id.errorpayment);
         op = (EditText) findViewById(R.id.orderpage);
-
         cust = (Spinner) findViewById(R.id.customer);
         dcrlist = (Spinner) findViewById(R.id.dcrlist);
         da = findViewById(R.id.da);
         othertaval = (EditText) findViewById(R.id.othertaval);
         particul = (EditText) findViewById(R.id.particul);
+
         particul.setFilters(new InputFilter[]{
                 new InputFilter() {
                     @Override
-                    public CharSequence filter(CharSequence cs, int start,
-                                               int end, Spanned spanned, int dStart, int dEnd) {
-                        // TODO Auto-generated method stub
+                    public CharSequence filter(CharSequence cs, int start, int end, Spanned spanned, int dStart, int dEnd) {
                         if (cs.equals("")) { // for backspace
                             return cs;
                         }
@@ -678,11 +569,9 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                     }
                 }
         });
-
         diskm = findViewById(R.id.diskm);
         diskm.setClickable(true);
         diskm.setEnabled(true);
-
         ta = findViewById(R.id.ta);
         cust.setPrompt("Select Doctor");
         dcrlist.setPrompt("List of Dcr");
@@ -711,7 +600,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         visitstatus = findViewById(R.id.visitstatus);
         actv =  findViewById(R.id.autoCompleteTextView1);
         actv1 =  findViewById(R.id.JourneyMode);
-
         myTextView = findViewById(R.id.user_show);
         newversion = findViewById(R.id.newversion);
         Bundle b = getIntent().getExtras();
@@ -719,6 +607,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         ename = b.getString("UserName_2");
         newversion_text = b.getString("new_version");
         newversion.setText("DCR Expenses");
+
         if (b.isEmpty()) {
             String userName = "";
             myTextView.setText(userName);
@@ -738,13 +627,9 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 succ_msg.setText(" Personal Expense Submitted.");
                 succ_msg.setTextSize(16);
                 myTextView.setText(userName);
-
             }
         }
     }
-
-    /*============================================= End  on create==========================================================================*/
-
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
@@ -761,23 +646,20 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
         actv.setTextColor(Color.parseColor("#006199"));
     }
 
-
     private void populateSpinner2() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv1 = (AutoCompleteTextView) findViewById(R.id.JourneyMode);
         actv1.setAdapter(Adapter);
-       // actv1.setTextColor(Color.RED);
+        //actv1.setTextColor(Color.RED);
         actv1.setTextColor(Color.parseColor("#006199"));
     }
-
 
     private void populateSpinnerShift() {
         List<String> lables = new ArrayList<String>();
@@ -789,9 +671,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
 
     }
 
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -799,16 +679,12 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             pDialog.setMessage("Fetching Personal Expense Data..");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
-            // ServiceHandler jsonParser = new ServiceHandler();
-            // String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
-
+            //ServiceHandler jsonParser = new ServiceHandler();
+            //String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
@@ -819,26 +695,22 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
             customerlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -848,31 +720,24 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinner();
-            //  populateSpinner2();
+            //populateSpinner2();
         }
-
     }
 
-
     class GetJourmode extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //  pDialog = new ProgressDialog(  PersonalExpenses.this);
-            //  pDialog.setMessage("Fetching Customer..");
-            // pDialog.setCancelable(false);
-            // pDialog.show();
-
+            //pDialog = new ProgressDialog(  PersonalExpenses.this);
+            //pDialog.setMessage("Fetching Customer..");
+            //pDialog.setCancelable(false);
+            //pDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
-            // ServiceHandler jsonParser = new ServiceHandler();
-            // String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
-
+            //ServiceHandler jsonParser = new ServiceHandler();
+            //String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
@@ -881,9 +746,9 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_JOURMODE, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
             customerlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -895,15 +760,12 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                             customerlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -913,27 +775,20 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinner2();
-            //  populateSpinner2();
+            //populateSpinner2();
         }
-
     }
 
-
     class GetDcrType extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
-            // ServiceHandler jsonParser = new ServiceHandler();
-            // String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
-
+            //ServiceHandler jsonParser = new ServiceHandler();
+            //String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
@@ -941,34 +796,26 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("pass_dcr_date", pass_dcr_date));
-
-
             Log.e("pass_dcr_date: ", "> " + pass_dcr_date);
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PASS_DCR_DATE, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            shiftlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        shiftlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -978,35 +825,62 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             if (pDialog.isShowing())
                 pDialog.dismiss();
             populateSpinnerShift();
-
         }
-
     }
 
+    public void motorCycleRateInfo() {
+        qDialog = new ProgressDialog(AmPersonalExpenses.this);
+        qDialog = new ProgressDialog(AmPersonalExpenses.this);
+        qDialog.setMessage("Expense Rate Loading...");
+        qDialog.setTitle("Expense Rate Followup");
+        qDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<MotorCycleModel> call = apiInterface.getMotorExpenseList();
+        motorCycleRates.clear();
+
+        call.enqueue(new Callback<MotorCycleModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<MotorCycleModel> call, @NonNull retrofit2.Response<MotorCycleModel> response) {
+                List<MotorCycleRate> motorCycleRate = null;
+                if (response.body() != null) {
+                    motorCycleRate = response.body().getExpAmount();
+                }
+
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < (motorCycleRate != null ? motorCycleRate.size() : 0); i++) {
+                        motorCycleRates.add(new MotorCycleRate(
+                                motorCycleRate.get(i).getUnit_exp()));
+                    }
+                    qDialog.dismiss();
+                    Log.d("motorRate", motorCycleRates.get(0).getUnit_exp());
+                } else {
+                    qDialog.dismiss();
+                    Toast.makeText(AmPersonalExpenses.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MotorCycleModel> call, @NonNull Throwable t) {
+                qDialog.dismiss();
+                motorCycleRateInfo();
+            }
+        });
+    }
 
     @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
-
-    /*-----------------  End of Spinner view---------------------------*/
-
+    public void onNothingSelected(AdapterView<?> arg0) {}
     private void logoutUser() {
         session.setLogin(false);
-        // session.removeAttribute();
+        //session.removeAttribute();
         session.invalidate();
         Intent intent = new Intent(AmPersonalExpenses.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
-
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-        // TODO Auto-generated method stub
-
-    }
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 }

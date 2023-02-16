@@ -453,8 +453,7 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
         });
 
         diskm.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (diskm.getText().toString().trim().equals("")) {
                     diskm.setText("0");
                 }
@@ -469,8 +468,7 @@ public class PersonalExpenses extends Activity implements AdapterView.OnItemSele
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 

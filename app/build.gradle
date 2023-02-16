@@ -20,7 +20,7 @@ android {
 
     def versionMajor = 65
     def versionMinor = 2
-    def versionPatch = 11
+    def versionPatch = 12
     def versionBuild = 1
 
     defaultConfig {
@@ -141,7 +141,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
     //annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     annotationProcessor 'com.android.support:support-annotations:28.0.0'
-    //workmanager
+    //work manager
     implementation "android.arch.work:work-runtime:1.0.0-alpha04"
     implementation "androidx.work:work-runtime:2.5.0"
     //Testing dependencies

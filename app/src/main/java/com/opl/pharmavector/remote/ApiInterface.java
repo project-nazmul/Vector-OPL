@@ -61,7 +61,6 @@ public interface ApiInterface {
             @Field("user_code") String user_code
     );
 
-
     @FormUrlEncoded
     // @POST("vector_login/vector_pmd_login.php")
     @POST("vector_login/vectorlogin_newversion.php")
@@ -72,14 +71,11 @@ public interface ApiInterface {
 
     );
 
-
     @FormUrlEncoded
     @POST("vector_login/oniktest.php")
     Call<List<Patient>> pmdImage(
             @Field("mpo_code") String mpo_code
-
     );
-
 
     @FormUrlEncoded
     @POST("prescription_survey/prescriptioncount_new.php")
@@ -100,7 +96,6 @@ public interface ApiInterface {
             @Field("to_date") String to_date,
             @Field("pres_type") String pres_type
     );
-
 
     @FormUrlEncoded
     @POST("pmd_vector/pmd_rx/prescriptioncount_new.php")

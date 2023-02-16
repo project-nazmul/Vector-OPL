@@ -129,17 +129,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
         //mAppUpdateManager = AppUpdateManagerFactory.create(this);
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
 
-        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
-            @Override
-            public void onSuccess(AppUpdateInfo result) {
-                if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                        && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                    try {
-                        mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this
-                                , RC_APP_UPDATE);
-                    } catch (IntentSender.SendIntentException e) {
-                        e.printStackTrace();
-                    }
+        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                try {
+                    mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this
+                            , RC_APP_UPDATE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -469,15 +466,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private void postSingIn(final String key) {
         tempLogin = user.getText().toString().trim();
         tempPassword = pass.getText().toString().trim();
-
         Log.e("sendData-->", tempLogin + "==" + tempPassword);
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Login to Vector...");
         progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.vectorlogin(tempLogin, tempPassword, vectorToken);
-
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(@NonNull Call<Patient> call, @NonNull Response<Patient> response) {
@@ -680,7 +676,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             s_name = pass.getText().toString();
                             db.addContacts(new Contact(f_name, s_name, message_2));
                             preferenceManager.setTasbihCounter(7);
-                            preferenceManager.setusername(tempLogin);// LOCATION CODE
+                            preferenceManager.setusername(tempLogin); // LOCATION CODE
                             preferenceManager.setpassword(tempPassword); // LOCATION PASSWORD
                             preferenceManager.setuserrole(message); // EXECUTIVE CODE
                             preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
@@ -713,38 +709,26 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     public void errorSnack() {
-        new Thread() {
-            public void run() {
-                Login.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        String message;
-                        message = "Username or Password is incorrect";
-                        Toasty.error(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-                    }
-                });
-            }
-        }.start();
+        new Thread(() -> Login.this.runOnUiThread(() -> {
+            String message;
+            message = "Username or Password is incorrect";
+            Toasty.error(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
+        })).start();
     }
 
     private void firebaseEvent() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                vectorToken = instanceIdResult.getToken();
-                Log.e("LoginvectorToken-->", vectorToken);
-            }
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
+            vectorToken = instanceIdResult.getToken();
+            Log.e("LoginvectorToken-->", vectorToken);
         });
 
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.msg_subscribed) + vectorToken;
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
-                        }
-                        Log.d(TAG, msg);
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_subscribed) + vectorToken;
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_failed);
                     }
+                    Log.d(TAG, msg);
                 });
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -798,17 +782,13 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     private void showSnack() {
-        new Thread() {
+        new Thread(() -> Login.this.runOnUiThread(new Runnable() {
             public void run() {
-                Login.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        String message;
-                        message = "The user name or password is incorrect";
-                        Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-                    }
-                });
+                String message;
+                message = "The user name or password is incorrect";
+                Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
             }
-        }.start();
+        })).start();
     }
 }
 

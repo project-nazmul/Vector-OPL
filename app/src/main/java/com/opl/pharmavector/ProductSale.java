@@ -104,21 +104,15 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         caclenderInit();
         new LoadProduct().execute();
 
-        actv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    cust.setTag(selectedcustomer);
-                }
+        actv.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {
+                String selectedcustomer = actv.getText().toString();
+                cust.setTag(selectedcustomer);
             }
         });
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
         });
         actv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -133,7 +127,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf("//") != -1) {
+                    if (inputorder.contains("//")) {
                         String arr[] = inputorder.split("//");
                         product_name = arr[0].trim();
                         String product_code = arr[1].trim();
@@ -197,13 +191,11 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                 }
             }
         });
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                select_fm_code = (String) productListView.getAdapter().getItem(arg2);
-                if (select_fm_code.toString().trim().equals("TOTAL")) {
-                } else {
-                    new callserver().execute();
-                }
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            select_fm_code = (String) productListView.getAdapter().getItem(arg2);
+            if (select_fm_code.trim().equals("TOTAL")) {
+            } else {
+                new callserver().execute();
             }
         });
         ln.setOnClickListener(new OnClickListener() {
@@ -339,8 +331,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
+        AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -376,13 +367,11 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

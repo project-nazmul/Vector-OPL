@@ -19,6 +19,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -98,6 +102,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     PreferenceManager preferenceManager;
     int count;
     public static String track_lat, vector_version, track_lang, track_add, build_model, build_brand, build_manufac, build_id, build_device, build_version;
+    @SuppressLint("StaticFieldLeak")
     static DashBoardPMD instance;
     public static String vectorToken = "xxxx";
     LocationRequest locationRequest;
@@ -123,7 +128,9 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
+        statusBarHide();
         initViews();
+        //viewAnimated();
         firebaseEvent();
         getDevicedetails();
         rxEvent();
@@ -411,6 +418,16 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         };
     }
 
+    private void viewAnimated() {
+        Animation imageAnimation = AnimationUtils.loadAnimation(this, R.anim.view_rotate_anim);
+        imageView2.startAnimation(imageAnimation);
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
     private void initViews() {
         executive_name = findViewById(R.id.executive_name);
         executive_code = findViewById(R.id.executive_code);
@@ -457,6 +474,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         Picasso.get().load(profile_image).into(imageView2);
     }
 
+    @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RX() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
@@ -466,7 +484,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_rx_capture);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
         Objects.requireNonNull(cardview_rx_image).setOnClickListener(new View.OnClickListener() {
