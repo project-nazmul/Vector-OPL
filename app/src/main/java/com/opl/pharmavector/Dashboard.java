@@ -544,41 +544,27 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, Dcr.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, Dcr.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, DcrReport.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, DcrReport.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
-        });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
@@ -1923,7 +1909,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                             })
                             .show();
                 }
-                else{
+                else {
                     updateLocation();
                 }
             }
@@ -1993,7 +1979,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void buildLocationRequest() {
-
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(100);
@@ -2002,7 +1987,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Log.e("loca-->",locationRequest.toString());
     }
 
-    
     public void getAddress(double lat, double lng) {
         Geocoder geocoder = new Geocoder(Dashboard.this, Locale.getDefault());
         try {
@@ -2013,13 +1997,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
             track_add = track_add + "\n" + obj.getCountryCode();
             //userLog(log_status);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-
         }
     }
-
-
 
     public void getDevicedetails() {
         build_version = Build.VERSION.RELEASE;
@@ -2071,9 +2051,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, getPendingIntent());
-
     }
-    
 
     private void showSnack() {
         new Thread() {
@@ -2087,9 +2065,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 });
             }
         }.start();
-
     }
-
 
     private void showGPSDisabledAlertToUser() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -2116,16 +2092,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
     @Override
     protected void onResume() {
-
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
@@ -2143,7 +2116,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
-
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         updateLocation();
         super.onPause();
@@ -2158,12 +2130,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
         Log.e("onPause----->",global_admin_Code);
-
     }
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
         unregisterReceiver(updateUIReciver);
         preferenceManager.setTasbihCounter(count);
@@ -2178,7 +2148,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         preferenceManager.setAdmin_Code(global_admin_Code);
         Log.e("onDestroy----->",global_admin_Code);
         updateLocation();
-
     }
 
     @Override
@@ -2188,7 +2157,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void lock_emp_check(String emp_code) {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
@@ -2212,14 +2180,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
                     startActivity(logoutIntent);
                     finish();
                 }
-
             }
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();
-
             }
         });
-
     }
 }

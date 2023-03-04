@@ -1,30 +1,24 @@
 package com.opl.pharmavector.util;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.opl.pharmavector.util.PreferenceConstants;
 
 public class PreferenceManager {
-
     private Context mContext;
 
     public PreferenceManager(Context context) {
-
         this.mContext = context;
     }
 
-    //get shared pref
     private SharedPreferences getPreferences() {
         return mContext.getSharedPreferences("Vector", Context.MODE_PRIVATE);
     }
 
-
     public void clearPreferences() {
         getPreferences().edit().clear().apply();
-
     }
-
 
     public void setcurrentVersion(String currentVersion) {
         getPreferences().edit().putString(
@@ -39,9 +33,6 @@ public class PreferenceManager {
         );
     }
 
-
-
-
     public void setusername(String username) {
         getPreferences().edit().putString(
                 PreferenceConstants.username,
@@ -55,7 +46,6 @@ public class PreferenceManager {
         );
     }
 
-
     public void setpassword(String password) {
         getPreferences().edit().putString(
                 PreferenceConstants.password,
@@ -63,13 +53,11 @@ public class PreferenceManager {
         ).apply();
     }
 
-
     public String getpassword() {
         return getPreferences().getString(
                 PreferenceConstants.password, "0"
         );
     }
-
 
     public void setTasbihCounter(int tasbihCounter) {
         getPreferences().edit().putInt(
@@ -77,7 +65,6 @@ public class PreferenceManager {
                 tasbihCounter
         ).apply();
     }
-
 
     public int getTasbihCounter() {
         return getPreferences().getInt(
@@ -97,7 +84,6 @@ public class PreferenceManager {
                 PreferenceConstants.userrole, "0"
         );
     }
-
 
     public void setuserdtl(String userdtl) {
         getPreferences().edit().putString(
@@ -124,7 +110,6 @@ public class PreferenceManager {
                 PreferenceConstants.fftype, "G"
         );
     }
-
 
     public void setexecutive_name(String executive_name) {
         getPreferences().edit().putString(

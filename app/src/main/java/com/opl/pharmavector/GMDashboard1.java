@@ -316,7 +316,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
 
         //user_show1.setText(globalempName);
         user_show1.setText(global_admin_name);
-        profile_image= base_url+global_admin_Code+"."+"jpg" ;
+        profile_image = base_url+global_admin_Code+"."+"jpg" ;
         Picasso.get().load(profile_image).into(imageView2);
         db = new DatabaseHandler(this);
         ArrayList<String> mpo_code_interna = db.getterritoryname();
@@ -512,7 +512,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();

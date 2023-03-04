@@ -142,8 +142,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         });
         //initAppUpdate();
     }
-     //================================================================================================================================
-     //================================================================================================================================
+
     private void initAppUpdate() {
         appUpdaterUtils = new AppUpdaterUtils(this)
                 .withListener(new AppUpdaterUtils.UpdateListener() {
