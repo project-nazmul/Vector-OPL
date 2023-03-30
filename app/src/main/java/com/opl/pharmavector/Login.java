@@ -303,7 +303,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
-            //A Log.e("getVal==>",tempDtl);
+            //A Log.e("getVal==>", tempDtl);
             startActivity(i);
         } else if (count == 4) {
             tempLogin = preferenceManager.getusername();
@@ -403,7 +403,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setemp_code(tmpEmpCode);
             startActivity(i);
         } else if (count == 7) {
-            Log.e("preferenceMangarr->", "PMD rUN");
+            Log.e("preferenceManager->", "PMD rUN");
             Intent i = new Intent(Login.this, DashBoardPMD.class);
             i.putExtra("executive_code", preferenceManager.getuserrole());
             i.putExtra("executive_loc", preferenceManager.getexecutive_name());

@@ -1,5 +1,6 @@
 package com.opl.pharmavector.util;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -33,14 +34,8 @@ import java.util.List;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.app.Config;
 
-/**
- * Created by Onik 21/04/19.
-
- */
 public class NotificationUtils_oreo {
-
     private static String TAG = NotificationUtils_oreo.class.getSimpleName();
-
     private Context mContext;
 
     public NotificationUtils_oreo(Context mContext) {
@@ -56,10 +51,8 @@ public class NotificationUtils_oreo {
         if (TextUtils.isEmpty(message))
             return;
 
-
         // notification icon
         final int icon = R.mipmap.ic_launcher;
-
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -68,19 +61,12 @@ public class NotificationUtils_oreo {
                         intent,
                         PendingIntent.FLAG_CANCEL_CURRENT
                 );
-
-        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                mContext);
-
-        final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
-                + "://" + mContext.getPackageName() + "/raw/notification");
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+        final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + "/raw/notification");
 
         if (!TextUtils.isEmpty(imageUrl)) {
-
             if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
-
                 Bitmap bitmap = getBitmapFromURL(imageUrl);
-
                 if (bitmap != null) {
                     showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 } else {
@@ -93,14 +79,9 @@ public class NotificationUtils_oreo {
         }
     }
 
-
-
     private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
-
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
         inboxStyle.addLine(message);
-
         Notification notification;
         notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
@@ -113,7 +94,6 @@ public class NotificationUtils_oreo {
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
-
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(Config.NOTIFICATION_ID, notification);
     }
@@ -135,21 +115,14 @@ public class NotificationUtils_oreo {
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
-
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
-
-
-
-
     }
 
     /**
      * Downloading push notification image before displaying it in
      * the notification tray
-     */
-
-
+     **/
     public Bitmap getBitmapFromURL(String strURL) {
         try {
             URL url = new URL(strURL);
@@ -165,7 +138,7 @@ public class NotificationUtils_oreo {
         }
     }
 
-    // Playing notification sound
+    //Playing notification sound
     public void playNotificationSound() {
         try {
             Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
@@ -177,39 +150,21 @@ public class NotificationUtils_oreo {
         }
     }
 
-
-
-
     public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;
 
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-
-            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
-
-            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
-
-                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    for (String activeProcess : processInfo.pkgList) {
-
-                        if (activeProcess.equals(context.getPackageName())) {
-
-                            isInBackground = false;
-                        }
+        for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
+            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                for (String activeProcess : processInfo.pkgList) {
+                    if (activeProcess.equals(context.getPackageName())) {
+                        isInBackground = false;
                     }
                 }
             }
-        } else {
-
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            if (componentInfo.getPackageName().equals(context.getPackageName())) {
-                isInBackground = false;
-            }
         }
-
         return isInBackground;
     }
 
@@ -219,13 +174,8 @@ public class NotificationUtils_oreo {
         notificationManager.cancelAll();
     }
 
-
-
-
-
-
     public static long getTimeMilliSec(String timeStamp) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = format.parse(timeStamp);
             return date.getTime();
@@ -234,14 +184,4 @@ public class NotificationUtils_oreo {
         }
         return 0;
     }
-
-
-
-
-
-
-
-
-
-
 }

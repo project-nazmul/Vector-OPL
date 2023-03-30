@@ -379,26 +379,23 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-        cardview_ff_contact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
+        cardview_ff_contact.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
 
-                            } else {
-                                Intent i = new Intent(DashBoardPMD.this, ff_contact_activity.class);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } else {
+                            Intent i = new Intent(DashBoardPMD.this, ff_contact_activity.class);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
     }
 

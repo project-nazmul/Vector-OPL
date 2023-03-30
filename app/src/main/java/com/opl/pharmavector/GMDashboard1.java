@@ -51,6 +51,7 @@ import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
+import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
@@ -128,7 +129,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode;
     Typeface fontFamily;
     CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,
-             practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact;
+             practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact,cardview_ff_contact;
     ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
             img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode,img_pmd_contact,img_doctor_list;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,
@@ -290,6 +291,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         img_pmd_contact      = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+        cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -792,167 +794,147 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-        tv_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        tv_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
-        btn_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        btn_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 
     private void managersreport() {
-        cardview_salereports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                             showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("asm_code", globalAdmin);
-                                i.putExtra("asm_flag", "N");
-                                i.putExtra("sm_flag", "N");
-                                i.putExtra("gm_flag", "Y");
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        cardview_salereports.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                     showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("asm_code", globalAdmin);
+                        i.putExtra("asm_flag", "N");
+                        i.putExtra("sm_flag", "N");
+                        i.putExtra("gm_flag", "Y");
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
 
-        tv_salereports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("asm_code", globalAdmin);
-                                i.putExtra("asm_flag", "N");
-                                i.putExtra("sm_flag", "N");
-                                i.putExtra("gm_flag", "Y");
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        tv_salereports.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("asm_code", globalAdmin);
+                        i.putExtra("asm_flag", "N");
+                        i.putExtra("sm_flag", "N");
+                        i.putExtra("gm_flag", "Y");
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
 
-        img_btn_salereports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("asm_code", globalAdmin);
-                                i.putExtra("asm_flag", "N");
-                                i.putExtra("sm_flag", "N");
-                                i.putExtra("gm_flag", "Y");
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        img_btn_salereports.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("asm_code", globalAdmin);
+                        i.putExtra("asm_flag", "N");
+                        i.putExtra("sm_flag", "N");
+                        i.putExtra("gm_flag", "Y");
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
 
-        btn_salereports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                                i.putExtra("UserName", globalAdmin);
-                                i.putExtra("UserName_2", globalAdminDtl);
-                                i.putExtra("asm_code", globalAdmin);
-                                i.putExtra("asm_flag", "N");
-                                i.putExtra("sm_flag", "N");
-                                i.putExtra("gm_flag", "Y");
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        btn_salereports.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
+                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName_2", globalAdminDtl);
+                        i.putExtra("asm_code", globalAdmin);
+                        i.putExtra("asm_flag", "N");
+                        i.putExtra("sm_flag", "N");
+                        i.putExtra("gm_flag", "Y");
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
+        });
+
+        cardview_ff_contact.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+
+                    } else {
+                        Intent i = new Intent(GMDashboard1.this, ff_contact_activity.class);
+                        startActivity(i);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 

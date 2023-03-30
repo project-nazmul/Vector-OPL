@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 import org.apache.http.NameValuePair;
@@ -44,9 +45,9 @@ import android.widget.Toast;
 
 import com.opl.pharmavector.order_online.ReadComments;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class NoticeBoard extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SUCCESS1 = "success_1";
     public static final String TAG_MESSAGE = "message";
@@ -57,21 +58,16 @@ public class NoticeBoard extends Activity implements OnClickListener {
     public static final String TAG_target = "target";
     public static final String TAG_achivement = "achivement";
     public String userName_1, userName="xx";
-    // array list for spinner adapter
+    //array list for spinner adapter
     static ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
-
     public String get_ext_dt3;
-
     public String brand_name, product_flag1;
     public int brand_quant, product_min, product_flag = 0;
-
     public String onik;
-
-
     Button submit;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     public static EditText qnty, searchview;
     EditText inputOne, inputtwo,notice_search;
     public int success, success_1, ordsl;
@@ -97,7 +93,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
     HashMap<Integer, String> mapQuantity;
     static HashMap<String, Integer> nameSerialPair;
     ArrayList<String> sl;
-    /*- Initializing*/
     String last_quantity = "1";
     int last_position = 1;
     String quantity = "1";
@@ -106,42 +101,42 @@ public class NoticeBoard extends Activity implements OnClickListener {
     ArrayList<Category> arraylist = new ArrayList<Category>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
     public static String URL_NEW_CATEGORY = BASE_URL+"put_products.php";
-    private String URL_CATEGORIES = BASE_URL+"get_products_2.php";
-    private String campaign_credit = BASE_URL+"notification/get_notification.php";
+    private final String URL_CATEGORIES = BASE_URL+"get_products_2.php";
+    private final String campaign_credit = BASE_URL+"notification/get_notification.php";
     private ArrayList<com.opl.pharmavector.AmCustomer> mporeqdcr;
     private ArrayList<com.opl.pharmavector.AmCustomer> brand_info;
-    private String SALE_FALG = BASE_URL+"sale_flag.php";
-    private String BRAND_FALG = BASE_URL+"brand_flag.php";
+    private final String SALE_FALG = BASE_URL+"sale_flag.php";
+    private final String BRAND_FALG = BASE_URL+"brand_flag.php";
 
-
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "ClickableViewAccessibility"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.notice_board);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
-        submit.setText("\uf1d8"); // &#xf1d8
+        submit.setText("\uf1d8"); //&#xf1d8
         submit.setVisibility(View.GONE);
         productListView = (ListView) findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
         TextView showorders = (TextView) findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
-        showorders.setText("\uf055");//&#xf055
+        showorders.setText("\uf055"); //&#xf055
         Button back_btn = (Button) findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         calc = (Button) findViewById(R.id.calc);
         calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); // &#xf01e &#xf1ec
+        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
         calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         notice_search = (EditText) findViewById(R.id.notice_search);
         TextView search = (TextView) findViewById(R.id.search);
         search.setTypeface(fontFamily);
-        search.setText("\uf056"); // &#xf002 , &#xf010
+        search.setText("\uf056"); //&#xf002, &#xf010
         TextView mic = (TextView) findViewById(R.id.mic);
         mic.setTypeface(fontFamily);
         mic.setText("\uf130");
@@ -152,34 +147,21 @@ public class NoticeBoard extends Activity implements OnClickListener {
         final String UserName_2 = b.getString("UserName_2");
         final String new_version = b.getString("new_version");
 
-
-
-        search.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                try {
-                    searchview.setText("");
-                    //qnty.clearFocus();
-                    searchview.setFocusable(true);
-                    searchview.setFocusableInTouchMode(true);
-                    searchview.requestFocus();
-                } catch (Exception e) {
-                    // TODO: handle exception
-
-                }
-
-            }
+        search.setOnClickListener(v -> {
+            try {
+                searchview.setText("");
+                //qnty.clearFocus();
+                searchview.setFocusable(true);
+                searchview.setFocusableInTouchMode(true);
+                searchview.requestFocus();
+            } catch (Exception ignored) {}
         });
-
         totalsellquantity = (TextView) findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
-
         totalsellvalue = (TextView) findViewById(R.id.totalsellvalue);
         Spinner am_pm = (Spinner) findViewById(R.id.ampm);
         Spinner cash_credit = (Spinner) findViewById(R.id.cashcredit);
         Spinner credit = (Spinner) findViewById(R.id.credit);
-
 
         totalshow = (LinearLayout) findViewById(R.id.totalshow);
         NoticeBoardAdapter.qnty = null;
@@ -189,8 +171,8 @@ public class NoticeBoard extends Activity implements OnClickListener {
         p_quanty = new ArrayList<Integer>();
         mapQuantity = new HashMap<Integer, String>();
         nameSerialPair = new HashMap<String, Integer>();
-        mporeqdcr = new ArrayList<com.opl.pharmavector.AmCustomer>();
-        brand_info = new ArrayList<com.opl.pharmavector.AmCustomer>();
+        mporeqdcr = new ArrayList<>();
+        brand_info = new ArrayList<>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
         PPM_CODE = new ArrayList<String>();
@@ -198,37 +180,29 @@ public class NoticeBoard extends Activity implements OnClickListener {
         categoriesList = new ArrayList<Category>();
         submit.setOnClickListener(this);
 
-
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String notification_id = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(NoticeBoard.this, NoticeBoardDetails.class);
-                i.putExtra("UserName", userName);
-                i.putExtra("UserName_2", UserName_2);
-                i.putExtra("notification_id", notification_id);
-                startActivity(i);
-
-            }
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            ShortcutBadger.removeCount(NoticeBoard.this);
+            String notification_id = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(NoticeBoard.this, NoticeBoardDetails.class);
+            i.putExtra("UserName", userName);
+            i.putExtra("UserName_2", UserName_2);
+            i.putExtra("notification_id", notification_id);
+            startActivity(i);
         });
 
-
         mic.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 getActionBar().hide();
                 promptSpeechInput();
             }
 
             private void promptSpeechInput() {
-                // TODO Auto-generated method stub
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                        getString(R.string.speech_prompt));
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt));
+
                 try {
                     startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
                 } catch (ActivityNotFoundException a) {
@@ -239,101 +213,67 @@ public class NoticeBoard extends Activity implements OnClickListener {
             }
         });
 
-        back_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                finish();
-
-
-            }
+        back_btn.setOnClickListener(v -> finish());
+        showorders.setOnClickListener(v -> {
+            searchString = "1";
+            adapter.getFilter().filter(searchString);
         });
-        showorders.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                searchString = "1";
-                adapter.getFilter().filter(searchString);
-            }
+        searchview.setOnClickListener(v -> {
+            System.out.println("Search Feild clicked");
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(searchview, InputMethodManager.SHOW_IMPLICIT);
+            searchview.setFocusable(true);
+            searchview.setFocusableInTouchMode(true);
+            searchview.setClickable(true);
+            searchview.setText("");
         });
-        searchview.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Search Feild clicked");
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(searchview, InputMethodManager.SHOW_IMPLICIT);
-
-                searchview.setFocusable(true);
-                searchview.setFocusableInTouchMode(true);
-                searchview.setClickable(true);
-                searchview.setText("");
-            }
-        });
-
 
         searchview.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<String> resList = new ArrayList<String>();
                 ArrayList<Integer> resList2 = new ArrayList<Integer>();
                 String searchString = s.toString().toLowerCase();
-                if (searchString != null && adapter != null) {
+                if (adapter != null) {
                     adapter.getFilter().filter(searchString);
                 }
-
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
-
             }
         });
 
         notice_search.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchString = s.toString().toLowerCase();
-                if (searchString != null && adapter2 != null) {
+                if (adapter2 != null) {
                     adapter2.getFilter().filter(searchString);
                 }
-
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
-
             }
         });
 
         new GetCategories().execute();
         TextView clickme = (TextView) findViewById(R.id.clickme);
         clickme.setOnTouchListener(new View.OnTouchListener() {
-
             private Handler mHandler;
-            private long mInitialDelay = 100;
-            private long mRepeatDelay = 80;
+            private final long mInitialDelay = 100;
+            private final long mRepeatDelay = 80;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -354,49 +294,37 @@ public class NoticeBoard extends Activity implements OnClickListener {
                 return false;
             }
 
-            Runnable mAction = new Runnable() {
+            final Runnable mAction = new Runnable() {
                 @Override
                 public void run() {
-                    // LinearLayout
-                    // listview=(LinearLayout)findViewById(R.id.listview);
+                    //LinearLayout
+                    //listview=(LinearLayout)findViewById(R.id.listview);
                     productListView.scrollTo(
                             (int) productListView.getScrollX(),
                             (int) productListView.getScrollY() + 11);
                     mHandler.postDelayed(mAction, mRepeatDelay);
                 }
             };
-
         });
 
         try {
 
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    searchview.setText(result.get(0));
-                }
-                break;
+        if (requestCode == REQ_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                searchview.setText(result.get(0));
             }
-
         }
     }
-
 
     public void finishActivity(View v) {
         finish();
@@ -404,18 +332,14 @@ public class NoticeBoard extends Activity implements OnClickListener {
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
-        // System.out.println("EditTxtID " + NoticeBoardAdapter.editTxtID.size());
         super.onResume();
-
     }
 
-
     private void populateSpinner() {
-
         lables = new ArrayList<String>();
         quanty = new ArrayList<Integer>();
         sl = new ArrayList<String>();
+
         for (int i = 0; i < categoriesList.size(); i++) {
             Category catdata = new Category(null,null,null,null,null,null);
             lables.add(categoriesList.get(i).getName());
@@ -433,12 +357,9 @@ public class NoticeBoard extends Activity implements OnClickListener {
         }
         adapter = new NoticeBoardAdapter(NoticeBoard.this, sl, lables, mapQuantity, PPM_CODE, P_CODE);
         productListView.setAdapter(adapter);
-
     }
 
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -447,7 +368,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
             pDialog.setMessage("Loading Notifications ... ... ");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
@@ -457,33 +377,26 @@ public class NoticeBoard extends Activity implements OnClickListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.POST, params);
 
-
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            Category cat = new Category(catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"));
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"));
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-            } else {
-
             }
-
             return null;
         }
 
@@ -496,17 +409,12 @@ public class NoticeBoard extends Activity implements OnClickListener {
             adapter2 = new NoticeAdapter(NoticeBoard.this,categoriesList);
             productListView.setAdapter(adapter2);
         }
-
     }
 
-
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
-
-
-        /*----------------------*/
         if (v.getId() == submit.getId()) {
-
             jsonParser = new JSONParser();
             params = new ArrayList<NameValuePair>();
             Intent in = getIntent();
@@ -522,7 +430,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
             String last_quantity = NoticeBoardAdapter.qnty;
             int last_position = NoticeBoardAdapter.last_position;
 
-
             if (last_quantity != null) {
                 NoticeBoardAdapter.dataSet.put(last_position, last_quantity);
                 NoticeBoardAdapter.qntyID.add(last_position);
@@ -530,15 +437,13 @@ public class NoticeBoard extends Activity implements OnClickListener {
                 NoticeBoardAdapter.set2.add(last_position);
             }
 
-
             if (NoticeBoardAdapter.qntyID.size() < 1) {
                 Toast.makeText(this, "No item inserted", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "No item inserted" + PPM_CODE, Toast.LENGTH_SHORT).show();
-
             } else {
-
                 String qnty;
                 ArrayList<Integer> position = new ArrayList<Integer>();
+
                 for (int j : NoticeBoardAdapter.set2) {
                     position.add(j);
                 }
@@ -547,11 +452,8 @@ public class NoticeBoard extends Activity implements OnClickListener {
 
                 product_flag = 0;
                 for (int m = 1; m < NoticeBoardAdapter.p_quanty.size(); m++) {
-
                     brand = P_CODE.get(m - 1);
                     String testbrand = p_ids.get(m - 1);
-
-
                     String p_min = PPM_CODE.get(m - 1);
                     int my_quant = Integer.parseInt(p_min);
 
@@ -559,7 +461,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
                         product_flag = product_flag + 1;
                     }
                 }
-
                 product_min = 0;
 
                 for (int i = 1; i < NoticeBoardAdapter.p_quanty.size(); i++) {
@@ -567,26 +468,23 @@ public class NoticeBoard extends Activity implements OnClickListener {
                     brand = P_CODE.get(i - 1);
                     String testbrand = p_ids.get(i - 1);
 
-
                     if (value > 0) {
                         if (brand.equals(brand_name)) {
                             brand_total = brand_total + value;
-
                         }
-
                         submit_value = submit_value + value;
                         k = k + 1;
                         Log.w("", cash_credit);
+
                         params.add(new BasicNameValuePair("total", String.valueOf(k)));
-                        params.add(new BasicNameValuePair("id" + String.valueOf(k), p_ids.get(i - 1)));
-                        params.add(new BasicNameValuePair("ORD_QNTY" + String.valueOf(k), NoticeBoardAdapter.p_quanty.get(i)));
-                        params.add(new BasicNameValuePair("PROD_RATE" + String.valueOf(k), PROD_RATE.get(i - 1)));
-                        params.add(new BasicNameValuePair("PROD_VAT" + String.valueOf(k), PROD_VAT.get(i - 1)));
+                        params.add(new BasicNameValuePair("id" + k, p_ids.get(i - 1)));
+                        params.add(new BasicNameValuePair("ORD_QNTY" + k, NoticeBoardAdapter.p_quanty.get(i)));
+                        params.add(new BasicNameValuePair("PROD_RATE" + k, PROD_RATE.get(i - 1)));
+                        params.add(new BasicNameValuePair("PROD_VAT" + k, PROD_VAT.get(i - 1)));
                         String p_min = PPM_CODE.get(i - 1);
                         int my_quant = Integer.parseInt(p_min);
                         if (my_quant > 0) {
                             product_min = product_min + 1;
-
                         }
                     }
                 }
@@ -595,6 +493,7 @@ public class NoticeBoard extends Activity implements OnClickListener {
                 params.add(new BasicNameValuePair("AM_PM", AM_PM));
                 params.add(new BasicNameValuePair("PAY_MODE", cash_credit));
                 params.add(new BasicNameValuePair("ORDER_DELEVERY_DATE", ORDER_DELEVERY_DATE));
+
                 if (submit_value > 0) {
                     if (product_min != product_flag && get_ext_dt3.equals("0")) {
                         Toast.makeText(this, "Enter all the mandatory product to submit first credit order", Toast.LENGTH_LONG).show();
@@ -618,7 +517,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
                         Thread server = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                // TODO Auto-generated method stub
                                 JSONObject json = jsonParser.makeHttpRequest(URL_NEW_CATEGORY, "POST", params);
                                 progress.dismiss();
 
@@ -629,8 +527,7 @@ public class NoticeBoard extends Activity implements OnClickListener {
                                     message_2 = json.getString(TAG_MESSAGE_2);
                                     ord_no = json.getString(TAG_ord_no);
                                     if (success_1 == 1) {
-
-                                        // startActivity(i);
+                                        //startActivity(i);
                                         NoticeBoardAdapter.qnty = null;
                                         NoticeBoardAdapter.qntyID.clear();
                                         NoticeBoardAdapter.qntyVal.clear();
@@ -638,16 +535,12 @@ public class NoticeBoard extends Activity implements OnClickListener {
                                         NoticeBoardAdapter.dataSet.clear();
                                         NoticeBoardAdapter.p_quanty.clear();
                                         NoticeBoardAdapter.mProductSerialList.clear();
-
                                     } else {
                                         //SaveToDataBase();
                                     }
-
                                 } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
-
                                 Intent in = getIntent();
                                 Intent inten = getIntent();
                                 Bundle bundle = in.getExtras();
@@ -661,7 +554,6 @@ public class NoticeBoard extends Activity implements OnClickListener {
                                 startActivity(sameint);
                             }
                         });
-
                         server.start();
                     }
                 } else {
@@ -670,36 +562,32 @@ public class NoticeBoard extends Activity implements OnClickListener {
             }
         }
 
-        /*----------------------*/
         if (v.getId() == calc.getId()) {
             float sum = 0f;
             int qnty1 = 0;
             float rate = 0f;
             float product_value = 0f;
             int total_item = NoticeBoardAdapter.p_quanty.size();
-            // System.out.println("total_item " + total_item);
+            //System.out.println("total_item " + total_item);
             for (int i = 1; i < total_item; i++) {
-                int value = Integer.parseInt(NoticeBoardAdapter.p_quanty.get(i));
+                int value = Integer.parseInt(Objects.requireNonNull(NoticeBoardAdapter.p_quanty.get(i)));
                 brand = P_CODE.get(i - 1);
-                //   Log.w("brand_code",brand);
+                //Log.w("brand_code",brand);
                 if (value > 0) {
-                    qnty1 = Integer.parseInt(NoticeBoardAdapter.p_quanty.get(i));
+                    qnty1 = Integer.parseInt(Objects.requireNonNull(NoticeBoardAdapter.p_quanty.get(i)));
                     rate = Float.parseFloat(PROD_RATE.get(i - 1));
                     product_value = qnty1 * rate;
                     sum = sum + product_value;
                 }
             }
-            totalsellquantity.setVisibility(v.VISIBLE);
+            totalsellquantity.setVisibility(View.VISIBLE);
             String test = String.valueOf(sum);
-            String total_value = String.format("%.02f", sum);
+            @SuppressLint("DefaultLocale") String total_value = String.format("%.02f", sum);
             totalsellquantity.setText("" + total_value);
         }
     }
 
-    protected void onPostExecute() {
-
-    }
-
+    protected void onPostExecute() {}
 }
 
 

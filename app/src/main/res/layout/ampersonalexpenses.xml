@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -32,8 +31,6 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -61,7 +58,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
                 android:background="@drawable/add_button_selected"
                 android:clickable="true"
                 android:focusable="true"
@@ -73,7 +69,6 @@
                 android:visibility="gone"
                 tools:ignore="HardcodedText,UnusedAttribute" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/successmsg"
@@ -106,9 +101,7 @@
                 android:textSize="@dimen/_8sdp"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
-
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/userinput"
@@ -127,9 +120,7 @@
                 android:hint="Reference"
                 android:inputType="text"
                 android:visibility="gone">
-
             </EditText>
-
 
             <LinearLayout
                 android:id="@+id/customerlayout"
@@ -142,14 +133,12 @@
                     android:id="@+id/autoCompleteTextView1"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-
                     android:background="@android:drawable/editbox_background"
                     android:ems="5"
                     android:hint="DCR Date (Type date like : 01  or 11 )"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold" />
-
                 <requestFocus />
             </LinearLayout>
 
@@ -175,10 +164,7 @@
                     android:text="Tour Nature"
                     android:textSize="@dimen/_8sdp"
                     tools:ignore="RtlSymmetry" />
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/v_status"
@@ -200,9 +186,7 @@
                     android:soundEffectsEnabled="true"
                     android:spinnerMode="dialog"
                     tools:ignore="RtlSymmetry" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/date"
@@ -226,9 +210,7 @@
                     android:text="Tour Date"
                     android:visibility="gone"
                     tools:ignore="RtlSymmetry" />
-
             </LinearLayout>
-
 
             <TextView
                 android:id="@+id/dcr_nummber"
@@ -244,10 +226,7 @@
                 android:selectAllOnFocus="true"
                 android:text="dcr serial number"
                 android:visibility="gone"
-                tools:ignore="RtlSymmetry"
-
-                />
-
+                tools:ignore="RtlSymmetry" />
 
             <LinearLayout
                 android:id="@+id/sh_spin"
@@ -271,10 +250,7 @@
                     android:spinnerMode="dialog"
                     android:visibility="visible"
                     tools:ignore="UnusedAttribute" />
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/dtype"
@@ -316,9 +292,7 @@
                     android:spinnerMode="dialog"
                     android:visibility="gone"
                     tools:ignore="RtlSymmetry" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/dkm"
@@ -326,7 +300,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2">
-
 
                 <EditText
                     android:id="@+id/diskm"
@@ -364,13 +337,9 @@
                     android:selectAllOnFocus="true"
                     android:weightSum="1"
                     tools:ignore="RtlSymmetry" />
-
-
             </LinearLayout>
 
-
             <LinearLayout
-
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -407,16 +376,9 @@
                         android:soundEffectsEnabled="true"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                         android:visibility="gone"
-                        tools:ignore="HardcodedText,UnusedAttribute"
-
-                        />
-
-
+                        tools:ignore="HardcodedText,UnusedAttribute" />
                 </RelativeLayout>
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/ota"
@@ -435,7 +397,6 @@
                     android:hint="Other T/A Value "
                     android:inputType="numberDecimal"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -455,9 +416,7 @@
                     android:hint="Other T/A Particul"
                     android:textColor="@color/colorAccentEditor"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/i_da"
@@ -477,9 +436,7 @@
                     android:hint="D/A  "
                     android:inputType="numberDecimal"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/sh"
@@ -499,9 +456,7 @@
                     android:spinnerMode="dialog"
                     android:visibility="gone"
                     tools:ignore="UnusedAttribute" />
-
             </LinearLayout>
-
 
             <Spinner
                 android:id="@+id/dcrlist"
@@ -517,7 +472,6 @@
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
 
-
             <Spinner
                 android:id="@+id/customer"
                 android:layout_width="match_parent"
@@ -531,7 +485,6 @@
                 android:textSize="22sp"
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
-
 
             <Spinner
                 android:id="@+id/onik"
@@ -589,7 +542,6 @@
                     android:visibility="gone"
                     tools:ignore="UnusedAttribute" />
 
-
                 <TextView
                     android:id="@+id/errorpayment"
                     android:layout_width="20dp"
@@ -601,13 +553,8 @@
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="12sp"
                     android:visibility="visible" />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -700,14 +647,7 @@
                     android:textSize="25sp"
                     android:visibility="gone"
                     tools:ignore="HardcodedText,UnusedAttribute" />
-
             </RelativeLayout>
-
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </ScrollView>

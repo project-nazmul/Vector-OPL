@@ -35,9 +35,8 @@ import java.util.Locale;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.app.Config;
 
-/**
- * Created by Onik 21/04/19.
- **/
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 public class NotificationUtils {
     private static String TAG = NotificationUtils.class.getSimpleName();
     private Context mContext;
@@ -51,10 +50,9 @@ public class NotificationUtils {
     }
 
     public void showNotificationMessage(final String title, final String message, final String timeStamp, Intent intent, String imageUrl) {
-        // Check for empty push message
         if (TextUtils.isEmpty(message))
             return;
-        // notification icon
+
         final int icon = R.mipmap.ic_launcher;
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final PendingIntent resultPendingIntent =
@@ -63,7 +61,7 @@ public class NotificationUtils {
                         0,
                         intent,
                         PendingIntent.FLAG_IMMUTABLE
-                        //PendingIntent.FLAG_CANCEL_CURRENT // 29/12/2222
+                        //PendingIntent.FLAG_CANCEL_CURRENT
                 );
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
         final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + "/raw/notification");
@@ -89,42 +87,27 @@ public class NotificationUtils {
         Notification notification;
         NotificationManager notificationManager;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int notifyID = 1;
-            String CHANNEL_ID = "my_channel_01"; // The id of the channel.
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01"; // The id of the channel.
+        int importance = NotificationManager.IMPORTANCE_HIGH;
 
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Vector", importance);
-            notification =  mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                    .setAutoCancel(true)
-                    .setContentTitle(title)
-                    .setContentIntent(resultPendingIntent)
-                    .setSound(alarmSound)
-                    .setStyle(inboxStyle)
-                    .setWhen(getTimeMilliSec(timeStamp))
-                    .setSmallIcon(R.mipmap.vector_launch)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .setContentText(message)
-                    .setChannelId(CHANNEL_ID)
-                    .build();
-            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(mChannel);
-            notificationManager.notify(notifyID , notification);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                    .setAutoCancel(true)
-                    .setContentTitle(title)
-                    .setContentIntent(resultPendingIntent)
-                    .setSound(alarmSound)
-                    .setStyle(inboxStyle)
-                    .setWhen(getTimeMilliSec(timeStamp))
-                    .setSmallIcon(R.mipmap.vector_launch)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .setContentText(message)
-                    .build();
-            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(Config.NOTIFICATION_ID, notification);
-        }
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Vector", importance);
+        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentIntent(resultPendingIntent)
+                .setSound(alarmSound)
+                .setStyle(inboxStyle)
+                .setWhen(getTimeMilliSec(timeStamp))
+                .setSmallIcon(R.mipmap.vector_launch)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                .setContentText(message)
+                .setChannelId(CHANNEL_ID)
+                .build();
+        notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(mChannel);
+        ShortcutBadger.applyNotification(mContext, notification, 1);
+        notificationManager.notify(notifyID , notification);
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
@@ -135,41 +118,26 @@ public class NotificationUtils {
         Notification notification;
         NotificationManager notificationManager;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int notifyID = 1;
-            String CHANNEL_ID = "my_channel_01"; // The id of the channel.
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Vector", importance);
-            notification =  mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                    .setAutoCancel(true)
-                    .setContentTitle(title)
-                    .setContentIntent(resultPendingIntent)
-                    .setSound(alarmSound)
-                    .setStyle(bigPictureStyle)
-                     //.setWhen(getTimeMilliSec(timeStamp))
-                    .setSmallIcon(R.mipmap.vector_launch)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .setContentText(message)
-                    .setChannelId(CHANNEL_ID)
-                    .build();
-            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(mChannel);
-            notificationManager.notify(notifyID , notification);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                    .setAutoCancel(true)
-                    .setContentTitle(title)
-                    .setContentIntent(resultPendingIntent)
-                    .setSound(alarmSound)
-                    .setStyle(bigPictureStyle)
-                    .setWhen(getTimeMilliSec(timeStamp))
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                    .setContentText(message)
-                    .build();
-            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
-        }
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01"; // The id of the channel.
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Vector", importance);
+        notification =  mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentIntent(resultPendingIntent)
+                .setSound(alarmSound)
+                .setStyle(bigPictureStyle)
+                 //.setWhen(getTimeMilliSec(timeStamp))
+                .setSmallIcon(R.mipmap.vector_launch)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                .setContentText(message)
+                .setChannelId(CHANNEL_ID)
+                .build();
+        notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(mChannel);
+        ShortcutBadger.applyNotification(mContext, notification, 1);
+        notificationManager.notify(notifyID , notification);
     }
 
     public Bitmap getBitmapFromURL(String strURL) {
@@ -187,7 +155,6 @@ public class NotificationUtils {
         }
     }
 
-    //Playing notification sound
     public void playNotificationSound() {
         try {
             Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
@@ -203,28 +170,19 @@ public class NotificationUtils {
         boolean isInBackground = true;
 
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
-            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
+        List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
 
-            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
-                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                    for (String activeProcess : processInfo.pkgList) {
-                        if (activeProcess.equals(context.getPackageName())) {
-                            isInBackground = false;
-                        }
+        for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
+            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                for (String activeProcess : processInfo.pkgList) {
+                    if (activeProcess.equals(context.getPackageName())) {
+                        isInBackground = false;
                     }
                 }
-            }
-        } else {
-            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-            ComponentName componentInfo = taskInfo.get(0).topActivity;
-            if (componentInfo.getPackageName().equals(context.getPackageName())) {
-                isInBackground = false;
             }
         }
         return isInBackground;
     }
-    // Clears notification tray messages
 
     public static void clearNotifications(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

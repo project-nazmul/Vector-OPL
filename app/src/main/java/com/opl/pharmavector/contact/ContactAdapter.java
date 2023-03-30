@@ -55,30 +55,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         profileImage = pmdImageUrl+model.getCol7()+"."+"jpg" ;
         Picasso.get().load(profileImage).into(holder.imgPmdContact);
 
-        holder.tvPhoneCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactCallback.onContactPhoneCall(model);
-            }
-        });
-        holder.lottiePhoneCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactCallback.onContactPhoneCall(model);
-            }
-        });
-        holder.tvPhoneSms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactCallback.onContactPhoneSms(model);
-            }
-        });
-        holder.lottiePhoneSms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactCallback.onContactPhoneSms(model);
-            }
-        });
+        holder.tvPhoneCall.setOnClickListener(v -> contactCallback.onContactPhoneCall(model));
+        holder.lottiePhoneCall.setOnClickListener(v -> contactCallback.onContactPhoneCall(model));
+        holder.tvPhoneSms.setOnClickListener(v -> contactCallback.onContactPhoneSms(model));
+        holder.lottiePhoneSms.setOnClickListener(v -> contactCallback.onContactPhoneSms(model));
     }
 
     @Override

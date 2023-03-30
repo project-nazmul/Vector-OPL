@@ -82,12 +82,9 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         hideKeyBoard();
         new GetBrand().execute();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recyclerView.setAdapter(null);
-                getContact();
-            }
+        fab.setOnClickListener(view -> {
+            recyclerView.setAdapter(null);
+            getContact();
         });
 
 //        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
@@ -106,46 +103,29 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
 //            }
 //        }));
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btn_back.setOnClickListener(view -> finish());
         actv.setFocusableInTouchMode(true);
         actv.setFocusable(true);
         actv.requestFocus();
-        actv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv.getText().toString() != "") {
-
-                }
-            }
+        actv.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {}
         });
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
         });
         actv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
                 try {
                     final String inputorder = s.toString();
-                    String first_split[] = inputorder.split("//");
+                    String[] first_split = inputorder.split("//");
                     product_name = first_split[0].trim();
                     product_code = first_split[1].trim();
                     actv.setText(product_name);
@@ -155,8 +135,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
                 }
             }
 
-            private void length() {
-            }
+            private void length() {}
         });
     }
 
@@ -165,6 +144,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         recyclerView = findViewById(R.id.recyclerView);
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         progressBar = findViewById(R.id.progress);
@@ -218,7 +198,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(brand_url, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
@@ -226,13 +206,11 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            brandlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        brandlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -251,7 +229,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
     }
 
     private void populateSpinner() {
-        List<String> lables = new ArrayList<String>();
+        List<String> lables = new ArrayList<>();
         for (int i = 0; i < brandlist.size(); i++) {
             lables.add(brandlist.get(i).getName());
         }
@@ -269,7 +247,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         p_brand_code = actv.getText().toString().trim();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ArrayList<RecyclerData>> call = apiInterface.getcontactinfo("mpo_code", product_code);
-        Log.e("Brand Code---->", product_code);
+        Log.d("Brand Code---->", product_code);
 
         call.enqueue(new Callback<ArrayList<RecyclerData>>() {
             @Override

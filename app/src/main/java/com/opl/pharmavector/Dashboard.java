@@ -1270,56 +1270,50 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void noticeBoradEvent() {
-        practiceCard6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                ArrayList<String> UserName_2 = db.getterritoryname();
-                                String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalmpocode);
-                                i.putExtra("UserName_2", globalterritorycode);
-                                i.putExtra("new_version", globalterritorycode);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        practiceCard6.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
+                            showSnack();
+                        } else {
+                            ArrayList<String> UserName_2 = db.getterritoryname();
+                            String user = UserName_2.toString();
+                            Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                            i.putExtra("UserName", globalmpocode);
+                            i.putExtra("UserName_2", globalterritorycode);
+                            i.putExtra("new_version", globalterritorycode);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
-        img_btn_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                ArrayList<String> UserName_2 = db.getterritoryname();
-                                String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalmpocode);
-                                i.putExtra("UserName_2", globalterritorycode);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        img_btn_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
+                            showSnack();
+                        } else {
+                            ArrayList<String> UserName_2 = db.getterritoryname();
+                            String user = UserName_2.toString();
+                            Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                            i.putExtra("UserName", globalmpocode);
+                            i.putExtra("UserName_2", globalterritorycode);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
         tv_notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2010,24 +2004,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void firebaseEvent() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Dashboard.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                vectorToken = instanceIdResult.getToken();
-                Log.e("vectorToken-->",vectorToken);
-            }
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Dashboard.this, instanceIdResult -> {
+            vectorToken = instanceIdResult.getToken();
+            Log.e("vectorToken-->",vectorToken);
         });
 
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.msg_subscribed) + vectorToken;
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
-                        }
-                        Log.d(TAG, msg);
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_subscribed) + vectorToken;
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_failed);
                     }
+                    Log.d(TAG, msg);
                 });
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -2054,17 +2042,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void showSnack() {
-        new Thread() {
-            public void run() {
-                Dashboard.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        String message;
-                        message = "No internet Connection, Please Check Your Connection";
-                        Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-                    }
-                });
-            }
-        }.start();
+        new Thread(() -> Dashboard.this.runOnUiThread(() -> {
+            String message;
+            message = "No internet Connection, Please Check Your Connection";
+            Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
+        })).start();
     }
 
     private void showGPSDisabledAlertToUser() {
@@ -2072,19 +2054,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
                 .setCancelable(false)
                 .setPositiveButton("Goto Settings Page To Enable GPS",
-                        new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int id){
-                                Intent callGPSSettingIntent = new Intent(
-                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(callGPSSettingIntent);
-                            }
+                        (dialog, id) -> {
+                            Intent callGPSSettingIntent = new Intent(
+                                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(callGPSSettingIntent);
                         });
         alertDialogBuilder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
-                        dialog.cancel();
-                    }
-                });
+                (dialog, id) -> dialog.cancel());
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }

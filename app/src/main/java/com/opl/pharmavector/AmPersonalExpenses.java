@@ -123,14 +123,14 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
     TextView myTextView;
     String UserName_2,ordernumber,tar;
     EditText diskm;
-    @SuppressLint("CutPasteId")
+    @SuppressLint({"CutPasteId", "SetTextI18n"})
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ampersonalexpenses);
-        setTitle("Personal Expenses");
 
+        setTitle("Personal Expenses");
         initViews();
         motorCycleRateInfo();
         new GetCategories().execute();
@@ -146,7 +146,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 String da_value_on_change = saved_da_val;
                 if (visitstatus.getSelectedItem().toString().equals("Half Day")) {
                     da.setText("");
-                    int da_val_cov = Integer.parseInt(da_value_on_change.toString());
+                    int da_val_cov = Integer.parseInt(da_value_on_change);
                     int on_change_work_stat = da_val_cov / 2;
                     String aString = Integer.toString(on_change_work_stat);
                     da.setText(aString);
@@ -156,18 +156,14 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-
         autocomplete_dcrdate();
         autocomplete_JourneyModeOnclick();
         Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -183,13 +179,8 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             }
         };
 
-        ded.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(AmPersonalExpenses.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        ded.setOnClickListener(v -> new DatePickerDialog(AmPersonalExpenses.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -198,7 +189,6 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(AmPersonalExpenses.this, "Please Select Shift !!", Toast.LENGTH_LONG).show();
-                return;
             }
         });
 
@@ -207,7 +197,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                 if (diskm.getText().toString().trim().equals("")) {
                     diskm.setText("0");
                 }
-                if (jour_code.trim().equals("MC")) {
+                if (jour_code.trim().equals("MC")) { // && tournature ==
                     int a = Integer.parseInt(diskm.getText().toString().trim());
                     if (motorCycleRates.size() > 0) {
                         double motorRate = Double.parseDouble(motorCycleRates.get(0).getUnit_exp());
@@ -215,154 +205,131 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         String total2 = Double.toString(result);
                         ta.setText(total2);
                     }
-                }else{
+                } else {
                     ta.setEnabled(true);
                 }
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         session = new SessionManager(getApplicationContext());
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Thread server = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONParser jsonParser = new JSONParser();
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("logout", "logout"));
-                        JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
+        logout.setOnClickListener(v -> {
+            Thread server = new Thread(() -> {
+                JSONParser jsonParser = new JSONParser();
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("logout", "logout"));
+                JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
+            });
+            server.start();
+            logoutUser();
+        });
+
+        back.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    Intent i = new Intent(AmPersonalExpenses.this,  AmDashboard.class);
+                    i.putExtra("UserName", AmDashboard.globalFMCode);
+                    i.putExtra("new_version", AmDashboard.new_version);
+                    i.putExtra("UserName_2", AmDashboard.globalAreaCode);
+                    i.putExtra("message_3", AmDashboard.message_3);
+                    i.putExtra("password", AmDashboard.password);
+                    i.putExtra("ff_type", AmDashboard.ff_type);
+                    i.putExtra("vector_version", R.string.vector_version);
+                    i.putExtra("emp_code", AmDashboard.globalempCode);
+                    i.putExtra("emp_name", AmDashboard.globalempName);
+                    startActivity(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
+        });
+
+        next.setOnClickListener(v -> {
+            Bundle b = getIntent().getExtras();
+            userName = b.getString("UserName");
+            Calendar c = Calendar.getInstance();
+            int cYear = c.get(Calendar.YEAR);
+            int cMonth = c.get(Calendar.MONTH) + 1;
+            int cDay = c.get(Calendar.DAY_OF_MONTH);
+            int gyear = myCalendar.get(Calendar.YEAR);
+            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
+            if (gyear > cYear) {
+                gmonth = myCalendar.get(Calendar.MONTH) + 13;
+            }
+            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int gmonth_day = gmonth * 30;
+            int totalday_given = gmonth_day + gday;
+            int cmonth_day = cMonth * 30;
+            int totalday_valid1 = cmonth_day + cDay;
+            int totalday_valid = totalday_valid1;
+            int totalday_valid2 = cmonth_day + cDay;
+
+            if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("DCR Date (Type date like : 01  or 11 )"))) {
+                error_dt.setText("1. Select DCR DATE ");
+            } else if (actv1.getText().toString().trim().equals("")) {
+                error_dt.setText(" 2. Select  Journey Mode");
+            } else if ((Tour_nature_code.toString().trim().equals("2")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
+                error_dt.setText("3. Select Distance in KM");
+            } else if ((Tour_nature_code.toString().trim().equals("3")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
+                error_dt.setText("3. OUTSTATION -Select Distance in KM");
+            } else if ((Tour_nature_code.toString().trim().equals("2")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
+                error_dt.setText("Enter Other T/A Particul (Ex: where did you spend the TA) ");
+            } else if ((Tour_nature_code.toString().trim().equals("3")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
+                error_dt.setText("Enter Other T/A Particul (Ex: where did you spend the TA) ");
+            } else {
+                Thread server = new Thread(() -> {
+                    JSONParser jsonParser = new JSONParser();
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair("ORD_NO", dcr_sl_no));
+                    params.add(new BasicNameValuePair("MPO_CODE", userName));
+                    params.add(new BasicNameValuePair("JOUR_CODE", jour_code));
+                    params.add(new BasicNameValuePair("AM_PM", visitstatus.getSelectedItem().toString()));
+                    params.add(new BasicNameValuePair("DISKM", diskm.getText().toString()));
+                    params.add(new BasicNameValuePair("TA", ta.getText().toString()));
+                    params.add(new BasicNameValuePair("DA", da.getText().toString()));
+                    params.add(new BasicNameValuePair("Tour_nature_code", Tour_nature_code));
+                    params.add(new BasicNameValuePair("PARTICUL", particul.getText().toString()));
+                    params.add(new BasicNameValuePair("OTHERVAL", othertaval.getText().toString()));
+                    params.add(new BasicNameValuePair("dcr_type", shift_spinner.getSelectedItem().toString()));
+                    JSONObject json = jsonParser.makeHttpRequest(submit_dcr_expense, "POST", params);
+
+                    try {
+                        success = json.getInt(TAG_SUCCESS);
+                        message = json.getString(TAG_MESSAGE);
+                        Log.w("please wait TRY ...." + message, json.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.w("Please wait ...." + message, json.toString());
                     }
+                    Intent in = getIntent();
+                    Intent inten = getIntent();
+                    Bundle bundle = in.getExtras();
+                    inten.getExtras();
+                    String MPO_CODE = bundle.getString("MPO_CODE");
+                    String userName = bundle.getString("UserName");
+                    String UserName_2 = bundle.getString("UserName_2");
+                    Intent sameint = new Intent(AmPersonalExpenses.this, AmPersonalExpenses.class);
+                    sameint.putExtra("Ord_NO", dcr_sl_no);
+                    sameint.putExtra("UserName", userName);
+                    sameint.putExtra("UserName_2", UserName_2);
+                    startActivity(sameint);
+                    Log.w("Passed in DCR TO DCR", dcr_sl_no + "UserName" + userName + "UserName_2" + UserName_2);
                 });
                 server.start();
-                logoutUser();
             }
-        });
-
-        back.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Intent i = new Intent(AmPersonalExpenses.this,  AmDashboard.class);
-                            i.putExtra("UserName", AmDashboard.globalFMCode);
-                            i.putExtra("new_version", AmDashboard.new_version);
-                            i.putExtra("UserName_2", AmDashboard.globalAreaCode);
-                            i.putExtra("message_3", AmDashboard.message_3);
-                            i.putExtra("password", AmDashboard.password);
-                            i.putExtra("ff_type", AmDashboard.ff_type);
-                            i.putExtra("vector_version", R.string.vector_version);
-                            i.putExtra("emp_code", AmDashboard.globalempCode);
-                            i.putExtra("emp_name", AmDashboard.globalempName);
-                            startActivity(i);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                backthred.start();
-            }
-        });
-
-        next.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                Bundle b = getIntent().getExtras();
-                userName = b.getString("UserName");
-                Calendar c = Calendar.getInstance();
-                int cYear = c.get(Calendar.YEAR);
-                int cMonth = c.get(Calendar.MONTH) + 1;
-                int cDay = c.get(Calendar.DAY_OF_MONTH);
-                int gyear = myCalendar.get(Calendar.YEAR);
-                int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-                if (gyear > cYear) {
-                    gmonth = myCalendar.get(Calendar.MONTH) + 13;
-                }
-                int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-                int gmonth_day = gmonth * 30;
-                int totalday_given = gmonth_day + gday;
-                int cmonth_day = cMonth * 30;
-                int totalday_valid1 = cmonth_day + cDay;
-                int totalday_valid = totalday_valid1 + 0;
-                int totalday_valid2 = cmonth_day + cDay - 0;
-
-                if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("DCR Date (Type date like : 01  or 11 )"))) {
-                    error_dt.setText("1. Select DCR DATE ");
-                } else if (actv1.getText().toString().trim().equals("")) {
-                    error_dt.setText(" 2. Select  Journey Mode");
-                } else if ((Tour_nature_code.toString().trim().equals("2")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
-                    error_dt.setText("3. Select Distance in KM");
-                } else if ((Tour_nature_code.toString().trim().equals("3")) && jour_code.toString().trim().equals("MC") && (diskm.getText().toString().trim().equals(""))) {
-                    error_dt.setText("3. OUTSTATION -Select Distance in KM");
-                } else if ((Tour_nature_code.toString().trim().equals("2")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
-                    error_dt.setText("Enter Other T/A Particul (Ex:where did you spend the TA) ");
-                } else if ((Tour_nature_code.toString().trim().equals("3")) && !othertaval.getText().toString().isEmpty() && particul.getText().toString().equals("")) {
-                    error_dt.setText("Enter Other T/A Particul (Ex:where did you spend the TA) ");
-                } else {
-                    Thread server = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JSONParser jsonParser = new JSONParser();
-                            List<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("ORD_NO", dcr_sl_no));
-                            params.add(new BasicNameValuePair("MPO_CODE", userName));
-                            params.add(new BasicNameValuePair("JOUR_CODE", jour_code));
-                            params.add(new BasicNameValuePair("AM_PM", visitstatus.getSelectedItem().toString()));
-                            params.add(new BasicNameValuePair("DISKM", diskm.getText().toString()));
-                            params.add(new BasicNameValuePair("TA", ta.getText().toString()));
-                            params.add(new BasicNameValuePair("DA", da.getText().toString()));
-                            params.add(new BasicNameValuePair("Tour_nature_code", Tour_nature_code));
-                            params.add(new BasicNameValuePair("PARTICUL", particul.getText().toString()));
-                            params.add(new BasicNameValuePair("OTHERVAL", othertaval.getText().toString()));
-                            params.add(new BasicNameValuePair("dcr_type", shift_spinner.getSelectedItem().toString()));
-                            JSONObject json = jsonParser.makeHttpRequest(submit_dcr_expense, "POST", params);
-
-                            try {
-                                success = json.getInt(TAG_SUCCESS);
-                                message = json.getString(TAG_MESSAGE);
-                                Log.w("please wait TRY ...." + message, json.toString());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                Log.w("Please wait ...." + message, json.toString());
-                            }
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            String userName = bundle.getString("UserName");
-                            String UserName_2 = bundle.getString("UserName_2");
-                            Intent sameint = new Intent(AmPersonalExpenses.this, AmPersonalExpenses.class);
-                            sameint.putExtra("Ord_NO", dcr_sl_no);
-                            sameint.putExtra("UserName", userName);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            startActivity(sameint);
-                            Log.w("Passed in DCR TO DCR", dcr_sl_no + "UserName" + userName + "UserName_2" + UserName_2);
-                        }
-                    });
-                    server.start();
-                }
-                //  }
-            }
+            //  }
         });
     }
 
     private void autocomplete_JourneyModeOnclick() {
-        actv1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv1.getText().toString() != "") {
-                    String jourmode = actv1.getText().toString();
-                    cust.setTag(jourmode);
-                }
+        actv1.setOnClickListener(v -> {
+            if (actv1.getText().toString() != "") {
+                String jourmode = actv1.getText().toString();
+                cust.setTag(jourmode);
             }
         });
         actv1.addTextChangedListener(new TextWatcher() {
@@ -407,9 +374,8 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
                         if (jour_code.trim().equals("MC")) {
                             ta.setEnabled(false);
                         }
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                    }  //ded.setText("Select Date");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -742,7 +708,7 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             String userName = b.getString("UserName");
             String id = userName;
 
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_JOURMODE, ServiceHandler.POST, params);
@@ -752,13 +718,11 @@ public class AmPersonalExpenses extends Activity implements AdapterView.OnItemSe
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
