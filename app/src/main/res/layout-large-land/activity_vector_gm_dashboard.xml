@@ -125,8 +125,9 @@
     </androidx.cardview.widget.CardView>
 
     <ScrollView
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
@@ -1251,7 +1252,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -1265,7 +1265,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/button_round"
                     android:fontFamily="@font/robotoregular"
@@ -1282,7 +1281,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/robotoregular"
                 android:gravity="center"
@@ -1306,11 +1304,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:id="@+id/linearLayout9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -1327,6 +1325,7 @@
             </LinearLayout>
 
             <ImageView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.02"

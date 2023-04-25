@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -124,6 +125,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
 
+        statusBarHide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
         //mAppUpdateManager = AppUpdateManagerFactory.create(this);
@@ -180,6 +182,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
             finish();
         }
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     @SuppressLint({"ShowToast", "SetTextI18n"})

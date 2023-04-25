@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
@@ -140,6 +142,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         //setContentView(R.layout.assistantmanager);
         setContentView(R.layout.activity_vector_asm_dashboard);
 
+        statusBarHide();
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -264,6 +267,11 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                         .into(logo_team);
                 break;
         }
+    }
+
+    private void statusBarHide() {
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     @SuppressLint("CutPasteId")

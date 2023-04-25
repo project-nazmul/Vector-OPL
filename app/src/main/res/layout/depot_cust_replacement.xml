@@ -123,8 +123,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="1dp"
-        >
+        card_view:contentPadding="1dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

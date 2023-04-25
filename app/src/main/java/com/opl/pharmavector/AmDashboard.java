@@ -150,23 +150,15 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         global_admin_Code=preferenceManager.getAdmin_Code();
         Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(AmDashboard.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                vectorToken = instanceIdResult.getToken();
-            }
-        });
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(AmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
 
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.msg_subscribed) + vectorToken;
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
-                        }
-                        Log.d(TAG, msg);
+                .addOnCompleteListener(task -> {
+                    String msg = getString(R.string.msg_subscribed) + vectorToken;
+                    if (!task.isSuccessful()) {
+                        msg = getString(R.string.msg_subscribe_failed);
                     }
+                    Log.d(TAG, msg);
                 });
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {

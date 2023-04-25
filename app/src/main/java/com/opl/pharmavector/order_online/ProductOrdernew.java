@@ -121,49 +121,32 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
         setContentView(R.layout.productorder);
 
         initViews();
-        search.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    searchview.setText("");
-                    searchview.requestFocus();
-                } catch (Exception e) {}
-            }
+        search.setOnClickListener(v -> {
+            try {
+                searchview.setText("");
+                searchview.requestFocus();
+            } catch (Exception e) {}
         });
         new REQ_MPO().execute();
         new REQ_BRAND().execute();
         new SINGLE_FLAG().execute();
 
-        back_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Inflater inf = new Inflater();
-                inf.end();
-                finish();
-            }
+        back_btn.setOnClickListener(v -> {
+            Inflater inf = new Inflater();
+            inf.end();
+            finish();
         });
-        showorders.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchString = "1";
-                adapter.getFilter().filter(searchString);
-            }
+        showorders.setOnClickListener(v -> {
+            searchString = "1";
+            adapter.getFilter().filter(searchString);
         });
-        searchview.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchview.setFocusable(true);
-                searchview.setFocusableInTouchMode(true);
-                searchview.setClickable(true);
-                searchview.setText("");
-            }
+        searchview.setOnClickListener(v -> {
+            searchview.setFocusable(true);
+            searchview.setFocusableInTouchMode(true);
+            searchview.setClickable(true);
+            searchview.setText("");
         });
-        offer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new OfferDialoge().show(getSupportFragmentManager(), "Dialog");
-            }
-        });
+        offer.setOnClickListener(v -> new OfferDialoge().show(getSupportFragmentManager(), "Dialog"));
         searchview.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -171,7 +154,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                 ArrayList<String> resList = new ArrayList<String>();
                 ArrayList<Integer> resList2 = new ArrayList<Integer>();
                 String searchString = s.toString().toLowerCase();
-                if (searchString != null && adapter != null) {
+                if (adapter != null) {
                     adapter.getFilter().filter(searchString);
                 }
             }

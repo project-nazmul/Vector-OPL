@@ -5,7 +5,9 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.lang.Runnable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import com.nativecss.NativeCSS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -44,13 +47,13 @@ public class GMDashboard extends Activity implements OnClickListener {
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
-    TextView date2, ded, fromdate, todate, rname;
+    TextView date2, ded, fromdate, title, rname, tvfromdate, tvtodate;
     int textlength = 0;
     public TextView totqty, totval;
     //public android.widget.Spinner ordspin;
@@ -79,26 +82,22 @@ public class GMDashboard extends Activity implements OnClickListener {
     private ArrayList<com.opl.pharmavector.Customer> dateextendlist;
     private ArrayList<com.opl.pharmavector.Customer> mpodonedcr;
     private ArrayList<com.opl.pharmavector.Customer> mporeqdcr;
-
     public String get_ext_dt;
-
     public String admin_flag = "Y";
     private ArrayList<Customer> mpodcrlist;
-
     private ArrayList<String> array_sort = new ArrayList<String>();
     private final String URL_PRODUCT_VIEW = BASE_URL+"daily_call_report/SMFollowupreport.php";
 
-
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followupreport);
-        
-        
-        Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
 
+        Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView =  findViewById(R.id.pListView);
         Button back_btn =  findViewById(R.id.backbt);
+        tvfromdate = (TextView) findViewById(R.id.fromdate);
+        tvtodate = (TextView) findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
         p_ids = new ArrayList<String>();
@@ -111,31 +110,37 @@ public class GMDashboard extends Activity implements OnClickListener {
         user = b.getString("UserName_2");
         sm_flag = b.getString("sm_flag");
         sm_code = b.getString("sm_code");
-        todate =  findViewById(R.id.todate);
+        title =  findViewById(R.id.title);
         rname =  findViewById(R.id.rm_code);
-        
-        todate.setText("Sales Manager followup report");
+        Calendar c_todate = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        String current_todate = dftodate.format(c_todate.getTime());
+        //todate.setText(toDate);
+        Calendar c_fromdate = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        String current_fromdate = dffromdate.format(c_fromdate.getTime());
+        title.setText("Sales Manager followup report");
         rname.setText("Division");
+        tvfromdate.setText(current_fromdate);
+        tvtodate.setText(current_todate);
         mpodcrlist = new ArrayList<Customer>();
         dateextendlist = new ArrayList<com.opl.pharmavector.Customer>();
         mpodonedcr = new ArrayList<com.opl.pharmavector.Customer>();
         mporeqdcr = new ArrayList<com.opl.pharmavector.Customer>();
         
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String sm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(GMDashboard.this, ASMFollowupReport.class);
-                i.putExtra("sm_flag", "Y");
-                i.putExtra("sm_code", sm_code);
-                i.putExtra("UserName", userName);
-                i.putExtra("userName_1", userName_1);
-                i.putExtra("UserName", userName);
-                i.putExtra("UserName_2", user);
-                i.putExtra("admin_flag", admin_flag);
-                startActivity(i);
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String sm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(GMDashboard.this, ASMFollowupReport.class);
+            i.putExtra("sm_flag", "Y");
+            i.putExtra("sm_code", sm_code);
+            i.putExtra("UserName", userName);
+            i.putExtra("userName_1", userName_1);
+            i.putExtra("UserName", userName);
+            i.putExtra("UserName_2", user);
+            i.putExtra("admin_flag", admin_flag);
+            startActivity(i);
 
 
-            }
         });
         new GetCategories().execute();
         session = new SessionManager(getApplicationContext());

@@ -82,6 +82,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
     private ArrayList<Customer> customerlist;
     public String product_name, p_code;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
@@ -97,11 +98,11 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
-        final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+        final AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Brand Name");
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
-        final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
+        final LinearLayout ln = findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
         int listsize = productListView.getChildCount();
@@ -122,11 +123,11 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         submitBtn.setTextSize(10);
         mpode.setText("Region\nCode");
         Calendar c_todate = Calendar.getInstance();
-        SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
         //todate.setText(toDate);
         Calendar c_fromdate = Calendar.getInstance();
-        SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         //fromdate.setText(fromDate);
 
@@ -137,8 +138,8 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             tvfromdate.setText(current_fromdate);
             tvtodate.setText(current_todate);
         }
-        customerlist = new ArrayList<Customer>();
-        cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        customerlist = new ArrayList<>();
+        cust.setOnItemSelectedListener(this);
 
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
             actv.setText(product_name);
@@ -149,101 +150,64 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             actv.setSelection(actv.getText().length());
         }
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Log.i("Selected Item in list", arg0.toString());
-                String rm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(RMBrandwiseProductSale.this, FMBrandwiseProductSale.class);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("p_code", p_code);
-                i.putExtra("product_name", product_name);
-                i.putExtra("to_date", tvtodate.getText().toString());
-                i.putExtra("from_date", tvfromdate.getText().toString());
-                startActivity(i);
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            Log.i("Selected Item in list", arg0.toString());
+            String rm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(RMBrandwiseProductSale.this, FMBrandwiseProductSale.class);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("p_code", p_code);
+            i.putExtra("product_name", product_name);
+            i.putExtra("to_date", tvtodate.getText().toString());
+            i.putExtra("from_date", tvfromdate.getText().toString());
+            startActivity(i);
+        });
+
+        actv.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {
+                String selectedcustomer = actv.getText().toString();
+                cust.setTag(selectedcustomer);
             }
         });
 
-        actv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    cust.setTag(selectedcustomer);
-                }
-            }
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
         });
-
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
-        });
-
 
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf("//") != -1) {
-                        String arr[] = inputorder.split("//");
+                    if (inputorder.contains("//")) {
+                        String[] arr = inputorder.split("//");
                         product_name = arr[0].trim();
-                        String product_code = arr[1].trim();
-                        p_code = product_code;
+                        p_code = arr[1].trim();
                         actv.setText(product_name);
-
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                    }  //ded.setText("Select Date");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
         });
 
-
         new LoadProduct().execute();
-
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -253,35 +217,25 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             private void updateLabel() {
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-
                 tvfromdate.setTextColor(Color.BLACK);
                 tvfromdate.setText("");
                 tvfromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         tvfromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(RMBrandwiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
         /*---------------------------from date range-----------------end-----------*/
-
-
-
-
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -295,14 +249,11 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 tvtodate.setText("");
                 tvtodate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         tvtodate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(RMBrandwiseProductSale.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -310,57 +261,35 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         });
 
         /*---------------------------to date range-----------------end-----------*/
-
         back_btn.setOnClickListener(new OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
 
-
         submitBtn.setOnClickListener(new OnClickListener() {
-
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
             @Override
             public void onClick(final View v) {
-
-
                 if ((actv.getText().toString().trim().equals(""))) {
-
                     actv.setError("Select a Brand");
-
-
                 } else {
-
                     try {
                         String fromdate1 = tvfromdate.getText().toString();
                         String todate1 = tvtodate.getText().toString();
-
 
                         if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
                             tvfromdate.setText("From Date is required");
@@ -369,49 +298,30 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                             tvtodate.setText("To Date is required");
                             tvtodate.setTextColor(Color.RED);
                         } else {
-
                             categoriesList.clear();
                             new GetCategories().execute();
-
-
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
             }
         });
 
-        ln.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
+        ln.setOnClickListener(v -> {});
     }
-
 
     private void producpopulatespinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
-
-
         }
-
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -426,9 +336,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
 
     }
 
-
     class LoadProduct extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -436,20 +344,16 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             pDialog.setMessage("Loading Products ...");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
-
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
 
@@ -464,15 +368,12 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                             customerlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
 
             }
-
             return null;
         }
 
@@ -483,26 +384,19 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
 
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            
         }
-
     }
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
         }
-
-
     }
-
 
     public void finishActivity(View v) {
         finish();
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -538,15 +432,12 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
             }
-
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(RMBrandwiseProductSale.this, lables, quanty,
                     value, achv, mpo_code, sale_value, target_value,growth_value);
-
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -584,7 +475,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             String fromData = b.getString("from_date");
             String id;
             id = userName;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("p_code", p_code));
@@ -595,29 +486,25 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
-
             }
             return null;
         }
@@ -655,42 +542,37 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-
             String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("p_code", p_code));
             params.add(new BasicNameValuePair("from_date", fromdate1));
-
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(RMBrandwiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
@@ -707,33 +589,23 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             RMBrandwiseProductSale.Spinner sp = new RMBrandwiseProductSale.Spinner();
             sp.populateSpinner();
             popSpinner();
-           // totqty.setText("");
-          //  totval.setText("");
-
+            //totqty.setText("");
+            //totval.setText("");
             //totqty.setText("Total target quantity="+sp.getTotalQ());
             //totval.setText("Total Sales quantity="+sp.getTotalV());
-
         }
     }
 
-
-
-
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(RMBrandwiseProductSale.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

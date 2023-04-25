@@ -110,14 +110,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/t4" />
 
             <com.airbnb.lottie.LottieAnimationView
-                android:paddingEnd="@dimen/_8sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/textView3"
                 android:id="@+id/lottiePhoneCall"
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_32sdp"
+                android:paddingEnd="@dimen/_8sdp"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textView3"
+                app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/dashboard_anim" />
@@ -126,7 +126,8 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
@@ -1391,6 +1392,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2"
@@ -1410,7 +1412,8 @@
                 android:layout_height="match_parent"
                 android:alpha="0.02"
                 android:scaleType="fitXY"
-                android:src="@drawable/login_bg" />
+                android:src="@drawable/login_bg"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

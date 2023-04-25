@@ -111,11 +111,9 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
     TextView date2, ded, note, cust_status;
     public int success;
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party, select_party_new;
-
     private String URL_CUSOTMER = BASE_URL+"order_online/get_customer.php";
     private String URL_AM_TIME = BASE_URL+"order_am_time.php";
     private String URL_PM_TIME = BASE_URL+"order_pm_time.php";
-
     public String cust_code_name_arr, pay_mode_new, cust_detail_new;
     public String cust_code_new = "0";
     public SimpleDateFormat timeFormat;
@@ -127,8 +125,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
     Spinner ampmspin;
     AutoCompleteTextView actv;
     Calendar myCalendar;
-    @SuppressLint("CutPasteId")
 
+    @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,59 +248,57 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             }
         });
 
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Delivery Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-                    ded.setTextSize(14);
-                    ded.setText("Please Select date");
-                    ded.setTextColor(Color.RED);
-                }else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)")) || (actv.getText().toString().length() < 3)) {
-                    actv.setError("Customer not Assigned !");
-                } else if (cust_code_new.equals("0")) {
-                    actv.setError("Select valid customer !");
-                }  else {
-                    if (cash_party == 1) {
-                        select_party_new = "CASH";
-                    } else {
-                        select_party_new = "CREDIT";
-                    }
-                    if (select_party_new.equals("Select payment mode")) {
-                        error_dt.setText("Please Select payment mode by click! ");
-                        error_payment.setError("Please Select payment mode by click!");
-                    } else {
-                        final Spinner nameSpinner =  findViewById(R.id.customer);
-                        final String selected_cust = actv.getText().toString();
-                        final String select_party1 = select_party_new.toString();
-                        Bundle b = getIntent().getExtras();
-                        String userName = b.getString("UserName");
-                        String UserName_1 = b.getString("UserName_1");
+        next.setOnClickListener(v -> {
+            if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Delivery Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
+                ded.setTextSize(14);
+                ded.setText("Please Select date");
+                ded.setTextColor(Color.RED);
+            }else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)")) || (actv.getText().toString().length() < 3)) {
+                actv.setError("Customer not Assigned !");
+            } else if (cust_code_new.equals("0")) {
+                actv.setError("Select valid customer !");
+            }  else {
+                if (cash_party == 1) {
+                    select_party_new = "CASH";
+                } else {
+                    select_party_new = "CREDIT";
+                }
+                if (select_party_new.equals("Select payment mode")) {
+                    error_dt.setText("Please Select payment mode by click! ");
+                    error_payment.setError("Please Select payment mode by click!");
+                } else {
+                    final Spinner nameSpinner =  findViewById(R.id.customer);
+                    final String selected_cust = actv.getText().toString();
+                    final String select_party1 = select_party_new.toString();
+                    Bundle b = getIntent().getExtras();
+                    String userName = b.getString("UserName");
+                    String UserName_1 = b.getString("UserName_1");
 
-                        Thread next = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent in = new Intent(ReadComments.this, ProductOrdernew.class);
-                                Bundle extras = new Bundle();
-                                extras.putString("CUST_CODE", cust_code_new);
-                                extras.putString("AM_PM", ampmspin.getSelectedItem().toString());
-                                extras.putString("cash_credit", select_party_new);
-                                extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
-                                extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
-                                Bundle b = getIntent().getExtras();
-                                String userName = b.getString("UserName");
-                                String UserName_1 = b.getString("UserName_1");
-                                extras.putString("MPO_CODE", userName);
-                                extras.putString("UserName_1", UserName_1);
-                                extras.putString("CUST_CODE", cust_code_new);
-                                extras.putString("AM_PM", ampmspin.getSelectedItem().toString());
-                                extras.putString("cash_credit", select_party_new);
-                                extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
-                                extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
-                                in.putExtras(extras);
-                                startActivity(in);
-                            }
-                        });
-                        next.start();
-                    }
+                    Thread next = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent in = new Intent(ReadComments.this, ProductOrdernew.class);
+                            Bundle extras = new Bundle();
+                            extras.putString("CUST_CODE", cust_code_new);
+                            extras.putString("AM_PM", ampmspin.getSelectedItem().toString());
+                            extras.putString("cash_credit", select_party_new);
+                            extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
+                            extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
+                            Bundle b = getIntent().getExtras();
+                            String userName = b.getString("UserName");
+                            String UserName_1 = b.getString("UserName_1");
+                            extras.putString("MPO_CODE", userName);
+                            extras.putString("UserName_1", UserName_1);
+                            extras.putString("CUST_CODE", cust_code_new);
+                            extras.putString("AM_PM", ampmspin.getSelectedItem().toString());
+                            extras.putString("cash_credit", select_party_new);
+                            extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
+                            extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
+                            in.putExtras(extras);
+                            startActivity(in);
+                        }
+                    });
+                    next.start();
                 }
             }
         });

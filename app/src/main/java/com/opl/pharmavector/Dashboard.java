@@ -488,39 +488,25 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, ReadComments.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                i.putExtra("new_version", new_version);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, ReadComments.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("new_version", new_version);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, Offlinereport.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                i.putExtra("new_version", new_version);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, Offlinereport.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("new_version", new_version);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
@@ -1396,26 +1382,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void orderEvents() {
-        practiceCard7.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });
-        btn_productorder.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });
-        img_btn_productorder.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });
-        tv_productorder.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog();
-            }
-        });
+        practiceCard7.setOnClickListener(v -> showBottomSheetDialog());
+        btn_productorder.setOnClickListener(v -> showBottomSheetDialog());
+        img_btn_productorder.setOnClickListener(v -> showBottomSheetDialog());
+        tv_productorder.setOnClickListener(v -> showBottomSheetDialog());
     }
 
     private void personalExpenseEvent(){
@@ -1496,32 +1466,26 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void salesReportEvent() {
-        cardview_salereports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                ArrayList<String> UserName_2 = db.getterritoryname();
-                                String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, Report.class);
-                                i.putExtra("UserName", globalmpocode);
-                                i.putExtra("UserName_2", globalterritorycode);
-                                i.putExtra("new_version", Login.version);
-                                i.putExtra("message_3", message_3);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        cardview_salereports.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        ArrayList<String> UserName_2 = db.getterritoryname();
+                        String user = UserName_2.toString();
+                        Intent i = new Intent(Dashboard.this, Report.class);
+                        i.putExtra("UserName", globalmpocode);
+                        i.putExtra("UserName_2", globalterritorycode);
+                        i.putExtra("new_version", Login.version);
+                        i.putExtra("message_3", message_3);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
         btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override

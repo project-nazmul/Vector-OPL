@@ -969,56 +969,39 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView7).setText("PC\nBill Follow up");
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog2.dismiss();
-            }
-        });
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_pc_conference);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(changepassword).setText("PC Conference");
-        Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, PcApproval.class);
-                i.putExtra("userName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("new_version", R.string.vector_version);
-                i.putExtra("UserName", globalAdmin);
-                Log.e("globalAdmin==>",globalAdmin);
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview1).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, PcApproval.class);
+            i.putExtra("userName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("new_version", R.string.vector_version);
+            i.putExtra("UserName", globalAdmin);
+            Log.e("globalAdmin==>",globalAdmin);
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, PcConferenceFollowup.class);
-                i.putExtra("UserName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("user_flag", "GM");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview2).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, PcConferenceFollowup.class);
+            i.putExtra("UserName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, PcBillApproval.class);
-                i.putExtra("userName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("new_version", new_version);
-                i.putExtra("userName", globalAdmin);
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview3).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, PcBillApproval.class);
+            i.putExtra("userName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("new_version", new_version);
+            i.putExtra("userName", globalAdmin);
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, PCBillFollowup.class);
-                i.putExtra("UserName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("user_flag", "GM");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview4).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, PCBillFollowup.class);
+            i.putExtra("UserName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
         });
         bottomSheetDialog2.show();
     }

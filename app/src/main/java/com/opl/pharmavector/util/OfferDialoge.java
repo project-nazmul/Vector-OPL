@@ -37,9 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class OfferDialoge extends BottomSheetDialogFragment {
-
     ListView productListView;
     List<String> mList = new ArrayList<>();
     ArrayAdapter<String> mAdapter;
@@ -50,7 +48,6 @@ public class OfferDialoge extends BottomSheetDialogFragment {
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
     public static ArrayList<String> SHIFT_CODE;
-
     public static ArrayList<String> PPM_CODE;
     public static ArrayList<String> P_CODE;
     public static ArrayList<String> PROD_VAT_2;
@@ -65,11 +62,10 @@ public class OfferDialoge extends BottomSheetDialogFragment {
     public String customercode;
     public ImageButton remove;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         categoriesList = new ArrayList<Category>();
         categoriesList.clear();
         p_ids = new ArrayList<String>();
@@ -83,45 +79,29 @@ public class OfferDialoge extends BottomSheetDialogFragment {
         P_CODE = new ArrayList<String>();
         categoriesList = new ArrayList<Category>();
         customercode = ReadComments.CustomerCode;
-
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.layout_offer_dialog, container, false);
         return v;
-
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         productListView = (ListView) view.findViewById(R.id.pListView);
-        remove=   (ImageButton) view.findViewById(R.id.remove);
+        remove =   (ImageButton) view.findViewById(R.id.remove);
 
-       // mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, mList);
+        //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, mList);
         new GetCategories().execute();
-
-        remove.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //you can use isShowing() because BottomSheet inherit from Dialog class
-              dismiss();
-            }
+        remove.setOnClickListener(v -> {
+            //you can use isShowing() because BottomSheet inherit from Dialog class
+          dismiss();
         });
-
-
-
     }
 
-
-
     private void populateSpinner() {
-
         lables = new ArrayList<String>();
         quanty = new ArrayList<Integer>();
         sl = new ArrayList<String>();
@@ -131,10 +111,7 @@ public class OfferDialoge extends BottomSheetDialogFragment {
         ArrayList<String> value8 = new ArrayList<String>();
         int quantity = 0;
 
-
-
         for (int i = 0; i < categoriesList.size(); i++) {
-
             lables.add(categoriesList.get(i).getName());
             sl.add(categoriesList.get(i).getsl());
             int o = Integer.parseInt(categoriesList.get(i).getsl());
@@ -149,22 +126,16 @@ public class OfferDialoge extends BottomSheetDialogFragment {
             int p_serial = Integer.parseInt(categoriesList.get(i).getsl());
             quanty.add(categoriesList.get(i).getQuantity());
             mapQuantity.put(o, String.valueOf(categoriesList.get(i).getQuantity()));
-
         }
         Log.e("Total Products",""+categoriesList.size());
         adapter = new OfferDialogeAdapter(getActivity(), sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE);
         productListView.setAdapter(adapter);
-
     }
 
-
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
@@ -173,40 +144,34 @@ public class OfferDialoge extends BottomSheetDialogFragment {
             params.add(new BasicNameValuePair("CUST_CODE", customercode));
 
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(campaign_credit,ServiceHandler.GET,params);
-
+            String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.GET, params);
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            Category cat = new Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -215,7 +180,6 @@ public class OfferDialoge extends BottomSheetDialogFragment {
             super.onPostExecute(result);
             populateSpinner();
         }
-
     }
 }
 

@@ -54,7 +54,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CustReplacementActivity extends Activity {
-
     private LinearLayoutManager layoutManager;
     private ArrayList<RecyclerData> recyclerDataArrayList;
     private RecycleViewAdapter recyclerViewAdapter;
@@ -80,10 +79,13 @@ public class CustReplacementActivity extends Activity {
     DatePickerDialog.OnDateSetListener date_form,date_to;
     final String URL_PRODUCT_VIEW = BASE_URL+"mposalesreports/depo_report/cust_replacement_info.php";
     final String URL_CUSOTMER = BASE_URL+"mposalesreports/depo_report/cust_replacement_list.php";
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.depot_cust_replacement);
+
         initViews();
         initCalender();
         CardView cardview1 = findViewById(R.id.cardview1);
@@ -94,46 +96,36 @@ public class CustReplacementActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 CurrenCustomer = ordspin.getSelectedItem().toString();
             }
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
+        });
+
+        submitBtn.setOnClickListener(v -> {
+            try {
+                dataload();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
-        });
-
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                try {
-                    dataload();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // TODO Auto-generated method stub
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        try {
-                            finishActivity(v);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        back_btn.setOnClickListener(v -> {
+            // TODO Auto-generated method stub
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    try {
+                        finishActivity(v);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
 
     }
@@ -301,23 +293,20 @@ public class CustReplacementActivity extends Activity {
     }
 
     private void dataload() {
-        p_cust_code       = actv.getText().toString().trim();
+        p_cust_code = actv.getText().toString().trim();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<ArrayList<RecyclerData>> call = apiInterface.getCust_Replacement(userName, p_cust_code);
+
         call.enqueue(new Callback<ArrayList<RecyclerData>>() {
             @Override
             public void onResponse(Call<ArrayList<RecyclerData>> call, Response<ArrayList<RecyclerData>> response) {
-
                 if (response.isSuccessful()) {
                     Log.e("DATA-- : ",response.body().toString());
                     recyclerDataArrayList = response.body();
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
                         recyclerViewAdapter = new RecycleViewAdapter(CustReplacementActivity.this,recyclerDataArrayList,"cust_replace");
-
                         LinearLayoutManager manager = new LinearLayoutManager(CustReplacementActivity.this, LinearLayoutManager.VERTICAL, true);
-
                         recycle1.setLayoutManager(manager);
-
                         recycle1.setAdapter(recyclerViewAdapter);
                     }
                 }

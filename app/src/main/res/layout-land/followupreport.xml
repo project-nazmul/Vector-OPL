@@ -9,17 +9,14 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/date"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="visible"
         android:weightSum="1">
 
-
-
         <TextView
-            android:id="@+id/todate"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,14 +33,58 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             tools:ignore="RtlSymmetry" />
-
-
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:id="@+id/date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="98">
 
+        <TextView
+            android:id="@+id/fromdate"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:selectAllOnFocus="true"
+            android:text="From Date"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
 
+        <TextView
+            android:id="@+id/todate"
+            android:layout_width="120sp"
+            android:layout_height="42dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:selectAllOnFocus="true"
+            android:text="To Date"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
 
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/slistLayout1"
@@ -56,7 +97,6 @@
         android:visibility="gone"
         android:orientation="horizontal">
 
-
         <TextView
             android:id="@+id/rname"
             android:gravity="center"
@@ -65,8 +105,7 @@
             android:focusable="true"
             android:layout_weight="0.6"
             android:text="Region"
-            android:textColor="@color/blue"
-            />
+            android:textColor="@color/blue" />
 
         <TextView
             android:text="Doctor Call"
@@ -77,8 +116,7 @@
             android:textAlignment="gravity"
             android:gravity="center"
             android:layout_weight="1"
-            android:textColor="@color/bg_gradient_end"
-            />
+            android:textColor="@color/bg_gradient_end" />
 
         <TextView
             android:text="Chemist Call "
@@ -88,12 +126,7 @@
             android:clickable="true"
             android:textAlignment="gravity"
             android:gravity="center"
-            android:textColor="@color/blue"
-
-            />
-
-
-
+            android:textColor="@color/blue" />
 
         <TextView
             android:layout_width="0dp"
@@ -103,11 +136,9 @@
             android:gravity="center"
             android:layout_marginTop="0dp"
             android:text="Sample"
-            android:textColor="@color/orangered"
+            android:textColor="@color/orangered" />
 
-            />
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -115,12 +146,9 @@
             android:textAlignment="gravity"
             android:gravity="center"
             android:text="PPM"
-            android:textColor="@color/pink"
-
-            />
+            android:textColor="@color/pink" />
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -128,15 +156,8 @@
             android:textAlignment="gravity"
             android:gravity="center"
             android:text="Gift"
-            android:textColor="@color/deeppurple"
-            />
-
-
-
-
+            android:textColor="@color/deeppurple" />
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/slistLayout"
@@ -145,7 +166,6 @@
         android:layout_height="wrap_content"
         android:background="#EDEDED"
         android:orientation="horizontal">
-
 
         <TextView
             android:id="@+id/sl_0"
@@ -156,8 +176,7 @@
             android:focusable="true"
             android:text="Sl"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/rm_code"
@@ -168,8 +187,7 @@
             android:focusable="true"
             android:text="Region"
             android:textColor="@color/blue"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/doc_call_total"
@@ -182,8 +200,7 @@
             android:layout_gravity="left"
             android:textAlignment="gravity"
             android:textColor="@color/bg_gradient_end"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/doc_call_last_Day"
@@ -196,11 +213,7 @@
             android:textAlignment="gravity"
             android:layout_gravity="left"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/_8sdp"
-            />
-
-
-
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/chem_call_total"
@@ -213,8 +226,8 @@
             android:layout_gravity="center"
             android:text="No of\nChem Call"
             android:textColor="@color/blue"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
+
         <TextView
             android:id="@+id/chem_call_last_Day"
             android:layout_width="0dp"
@@ -225,9 +238,7 @@
             android:textSize="@dimen/_8sdp"
             android:layout_gravity="center"
             android:text="Chem \ncall\nlast day"
-            android:textColor="@android:color/holo_red_dark"
-
-            />
+            android:textColor="@android:color/holo_red_dark" />
 
         <TextView
             android:id="@+id/no_of_order"
@@ -240,9 +251,7 @@
             android:layout_gravity="left"
             android:text="No of\norder"
             android:textColor="@color/blue"
-            android:textSize="@dimen/_8sdp"
-            />
-
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/last_day_order"
@@ -255,12 +264,7 @@
             android:layout_gravity="left"
             android:text="Last day\norder"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/_8sdp"
-            />
-
-
-
-
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/sample_allocate"
@@ -273,8 +277,7 @@
             android:layout_gravity="left"
             android:text="Sample\nallocate"
             android:textColor="@color/orangered"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/sample_given"
@@ -289,7 +292,6 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="@dimen/_8sdp" />
 
-
         <TextView
             android:id="@+id/ppm_allocate"
             android:layout_width="0dp"
@@ -301,8 +303,7 @@
             android:layout_gravity="left"
             android:text="PPM\nallocate"
             android:textColor="@color/pink"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/ppm_given"
@@ -315,9 +316,7 @@
             android:layout_gravity="left"
             android:text="PPM\ngiven"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/_8sdp"
-            />
-
+            android:textSize="@dimen/_8sdp" />
         <!--
             android:textColor="@android:color/holo_blue_dark"  #0099CC
         -->
@@ -332,8 +331,7 @@
             android:layout_gravity="left"
             android:text="Gift\nallocate"
             android:textColor="@color/deeppurple"
-            android:textSize="@dimen/_8sdp"
-            />
+            android:textSize="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/gift_given"
@@ -346,19 +344,8 @@
             android:layout_gravity="left"
             android:text="Gift\ngiven"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/_8sdp"
-            />
-
-
-
-
-
-
+            android:textSize="@dimen/_8sdp" />
     </LinearLayout>
-
-
-
-
 
     <ListView
         android:id="@+id/pListView"
@@ -371,12 +358,6 @@
         android:dividerHeight="@dimen/_1sdp"
         android:focusable="true" >
     </ListView>
-
-
-
-
-
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -391,7 +372,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/dcr_page_button"
-
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
             android:onClick="finishActivity"
@@ -400,8 +380,5 @@
             android:textColor="#FFF"
             android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>
