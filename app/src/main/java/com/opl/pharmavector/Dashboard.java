@@ -59,6 +59,7 @@ import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
 import com.opl.pharmavector.login_dashboard.MPODashboard;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mpodcr.Dcr;
 import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
@@ -517,22 +518,27 @@ public class Dashboard extends Activity implements View.OnClickListener {
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        CardView cardview_dcfpPreview = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
 
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
+        Objects.requireNonNull(button3).setText("1.3");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(textView6).setText("Dcfp\nPreview");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
-        CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
-        Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
+        //CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        //Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
@@ -544,6 +550,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DcrReport.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_dcfpPreview).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, DcfpActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
@@ -920,6 +933,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button3 = bottomSheetDialog2.findViewById(R.id.button3);
         Button button4 = bottomSheetDialog2.findViewById(R.id.button4);
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
+
         Objects.requireNonNull(button1).setText("10.1");
         Objects.requireNonNull(button2).setText("10.2");
         Objects.requireNonNull(button3).setText("10.3");
@@ -931,51 +945,32 @@ public class Dashboard extends Activity implements View.OnClickListener {
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_pc_conference);
 
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog2.dismiss();
-            }
-        });
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(changepassword).setText("PC Conference");
-        Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PcProposal.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                startActivity(i);
-                //bottomSheetDialog2.dismiss();
-            }
+        Objects.requireNonNull(cardview1).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, PcProposal.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+            //bottomSheetDialog2.dismiss();
         });
-        Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PcConferenceFollowup.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                i.putExtra("user_flag", "M");
-                startActivity(i);
-                //bottomSheetDialog2.dismiss();
-            }
+        Objects.requireNonNull(cardview2).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, PcConferenceFollowup.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("user_flag", "M");
+            startActivity(i);
+            //bottomSheetDialog2.dismiss();
         });
-        Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PCBillFollowup.class);
-                i.putExtra("UserName", globalmpocode);
-                i.putExtra("UserName_2", globalterritorycode);
-                i.putExtra("UserName_2", globalterritorycode);
-                i.putExtra("user_flag", "M");
-                startActivity(i);
-                //bottomSheetDialog2.dismiss();
-            }
+        Objects.requireNonNull(cardview3).setOnClickListener(v -> {});
+        Objects.requireNonNull(cardview4).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, PCBillFollowup.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("user_flag", "M");
+            startActivity(i);
+            //bottomSheetDialog2.dismiss();
         });
         bottomSheetDialog2.show();
     }
@@ -1065,28 +1060,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void dcrClickEvent() {
-        cardview_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                showBottomSheetDialog_DCR();
-            }
-        });
-
-        btn_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
-
-        img_btn_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
-        tv_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
+        cardview_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        btn_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        img_btn_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        tv_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
     }
 
     private void dccfollowupEvent() {
@@ -1412,30 +1389,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void pcConferenceEvent() {
-        cardview_pc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_PCCONFERENCE();
-            }
-        });
-        btn_pc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_PCCONFERENCE();
-            }
-        });
-        tv_pc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_PCCONFERENCE();
-            }
-        });
-        img_btn_pc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_PCCONFERENCE();
-            }
-        });
+        cardview_pc.setOnClickListener(v -> showBottomSheetDialog_PCCONFERENCE());
+        btn_pc.setOnClickListener(v -> showBottomSheetDialog_PCCONFERENCE());
+        tv_pc.setOnClickListener(v -> showBottomSheetDialog_PCCONFERENCE());
+        img_btn_pc.setOnClickListener(v -> showBottomSheetDialog_PCCONFERENCE());
     }
 
     private void promoMaterialFollowupEvent(){

@@ -299,7 +299,6 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getItemCount(Dashboard.globalmpocode,proposed_date1);
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NotNull Call<List<Patient>> call, @NotNull retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
@@ -353,7 +352,6 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getGiftItem(Dashboard.globalmpocode,gift_type_name,gift_type_code,proposed_date1);
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftdetails = response.body();

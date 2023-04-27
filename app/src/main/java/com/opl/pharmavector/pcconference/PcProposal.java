@@ -1,6 +1,5 @@
 package com.opl.pharmavector.pcconference;
 
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.annotation.SuppressLint;
@@ -67,9 +66,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-
 public class PcProposal extends Activity implements AdapterView.OnItemSelectedListener {
-
     private Toolbar toolbar;
     private EditText mpo_name, territory_name, mpo_code, venue_charge, food, miscell, miscell_bdt, impact, fd_bdt;
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
@@ -106,16 +103,12 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party;
     public String get_ext_dt, date_flag, check_flag;
     public String budget_limit, person_limit, total_conference, setup_venue_charge;
-
     private final String URL_CUSOTMER = BASE_URL+"pcconference/mpo_pc_conference/mkt_restructure_vw.php";
     private final String URL_PC_PRODUCT = BASE_URL+"pcconference/mpo_pc_conference/pc_productlist.php";
     private final String URL_SUBMIT_PC = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_submit.php";
     private final String pc_conference_setup_date = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_setup_date.php";
     private final String pc_conference_date_check = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_date_check.php";
     private final String pc_conference_check_flag = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_check_flag.php";
-
-
-
     private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
     public String conf_type_val;
@@ -131,9 +124,9 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_conference_proposal);
+
         initViews();
         new GetMarket().execute();
         new GeTPcConferenceSetupData().execute();
@@ -142,18 +135,13 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         foodCacl();
         budgetCalc();
 
-
         logback.setOnClickListener(new View.OnClickListener() {
             Bundle b = getIntent().getExtras();
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Intent i = new Intent(PcProposal.this,Dashboard.class);
                             i.putExtra("UserName", Dashboard.globalmpocode);
@@ -167,67 +155,49 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                             i.putExtra("emp_name", Dashboard.globalempName);
                             startActivity(i);
                             //finish();
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
 
         back.setOnClickListener(new View.OnClickListener() {
             Bundle b = getIntent().getExtras();
-
             //UserName = b.getString("UserName");
             //UserName_1= b.getString("UserName_1");
             //UserName_2= b.getString("UserName_2");
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             Intent i = new Intent(PcProposal.this, PCDashboard.class);
                             i.putExtra("UserName", userName);
                             i.putExtra("new_version", userName);
                             i.putExtra("UserName_1", UserName_2);
                             i.putExtra("UserName_2", UserName_2);
-
                             i.putExtra("userName", userName);
                             i.putExtra("new_version", userName);
                             i.putExtra("userName_1", UserName_2);
                             i.putExtra("userName_2", UserName_2);
                             i.putExtra("user_flag", "M");
-
                             startActivity(i);
                             //finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
-
             @SuppressLint("SetTextI18n")
             public void onClick(View v) {
-
                 Log.e("MarkerCode-->",market_code);
                 Log.e("MarketName-->",m_name);
                 Calendar c = Calendar.getInstance();
@@ -1194,28 +1164,20 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
 
                 new GeTPcConferenceDate().execute();
                 new GeTPcConferenceFlag().execute();
-
-
             }
-
         };
         ded.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(PcProposal.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 hideKeyboard(v);
-
-
             }
         });
     }
 
     private void initViews() {
-
         inputLayoutName =  findViewById(R.id.input_layout_name);
         inputLayoutEmail =  findViewById(R.id.input_layout_email);
         error_dt =  findViewById(R.id.errordt);

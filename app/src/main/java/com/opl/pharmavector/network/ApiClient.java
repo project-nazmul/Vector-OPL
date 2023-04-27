@@ -13,10 +13,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-
-
     private static final String BASE_URL = "http://opsonin.com.bd/vector_opl_v1/";
     private static Retrofit retrofit;
+
     public static Retrofit getApiClient(){
         Gson gson = new GsonBuilder().setLenient().create();
         OkHttpClient client = new OkHttpClient();

@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.nativecss.NativeCSS;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -35,22 +37,23 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 public class DcrReport extends Activity implements OnClickListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<Category3> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit,submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
-    TextView date2, ded,fromdate,todate;
+    TextView date2, ded, fromdate, todate;
     int textlength = 0;
     public TextView totqty, totval;
     //public android.widget.Spinner ordspin;
@@ -96,11 +99,11 @@ public class DcrReport extends Activity implements OnClickListener {
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
         Calendar c_todate = Calendar .getInstance();
-        SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
         todate.setText(current_todate);
         Calendar c_fromdate = Calendar .getInstance();
-        SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
 
@@ -123,13 +126,8 @@ public class DcrReport extends Activity implements OnClickListener {
             }
         };
 
-        fromdate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(DcrReport.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        fromdate.setOnClickListener(v -> new DatePickerDialog(DcrReport.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
@@ -150,26 +148,18 @@ public class DcrReport extends Activity implements OnClickListener {
             }
         };
 
-        todate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(DcrReport.this, date_to, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        todate.setOnClickListener(v -> new DatePickerDialog(DcrReport.this, date_to, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
 
-        back_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                });
-                backthred.start();
-            }
+        back_btn.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            });
+            backthred.start();
         });
 
         submitBtn_2.setOnClickListener(new OnClickListener() {
@@ -179,8 +169,8 @@ public class DcrReport extends Activity implements OnClickListener {
             @Override
             public void onClick(final View v) {
                 try {
-                    String fromdate1=fromdate.getText().toString();
-                    String todate1=todate.getText().toString();
+                    String fromdate1 = fromdate.getText().toString();
+                    String todate1 = todate.getText().toString();
                     if (fromdate1.isEmpty()||(fromdate1.equals("From Date"))||(fromdate1.equals("From Date is required"))) {
                         fromdate.setText("From Date is required");
                         fromdate.setTextColor(Color.RED);

@@ -27,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,15 +49,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Date;
+import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import com.opl.pharmavector.amdashboard.VacantList;
+import com.opl.pharmavector.amdashboard.VacantModel;
+import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
+import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.GiftOrder;
+import com.opl.pharmavector.remote.ApiClient;
+import com.opl.pharmavector.remote.ApiInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class AmDcr extends Activity implements OnItemSelectedListener {
-
     private Spinner spinner1, spinner2, cashcredit, cashcredit_test, credit;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -71,10 +82,10 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     private SessionManager session;
     public Button next, back, dcr_submit, chemist_ppm, rx_page;
     public static String name = null, newversion_text = null, ename = null;
-    public int credit_party = 0, cash_party = 0;
+    public int credit_party = 0, cash_party = 0, vacantStatus = 1;
     Editor editor;
     public EditText osi, op, od, dateResult, ref, date_ext;
-    // private ListView cust;
+    //private ListView cust;
     private ArrayList<com.opl.pharmavector.AmCustomer> customerlist;
     private ArrayList<com.opl.pharmavector.AmCustomer> visitorlist;
     private ArrayList<com.opl.pharmavector.AmCustomer> chemistlist;
@@ -82,7 +93,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     private ArrayList<com.opl.pharmavector.AmCustomer> dateextendlist;
     public Array pay_cash;
     public Array pay_cradit;
-
     private com.opl.pharmavector.AmDatabaseHandler db;
     private String f_name, s_name;
     private Button mOffline;
@@ -91,16 +101,15 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     Toast toast;
     Toast toast2;
     Toast toast3;
+    boolean status;
+    RadioButton unregisterTerritory;
     public String dcr_code = "";
-
     public String dt_code;
     public String com_ana_val;
     public String pay_cash1, userName, userName_1, userName_2;
-
     public stirng pay_credit1;
     public String location_code;
     public String loc_code;
-
     public String v_location_code;
     public String v_loc_code;
     private Spinner cust, visitor, chemist, shift_spinner, dcr_date_extend, v_location;
@@ -115,7 +124,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     public String shift_status = "Morning";
     public String CHEM_FLAG = " ";
     public String get_ext_dt;
-
     private final String URL_CUSOTMER = BASE_URL + "area_manager_api/amdcr/get_doctor.php";
     private final String URL_EMP = BASE_URL + "area_manager_api/amdcr/getemp.php";
     private final String URL_CHEMIST = BASE_URL + "area_manager_api/amdcr/get_chemist.php";
@@ -123,19 +131,19 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     private final String get_dcr_date = BASE_URL + "area_manager_api/amdcr/get_dcr.php";
     private final String URL_SHIFT = BASE_URL + "area_manager_api/amdcr/getshift.php";
     private final String date_range_permission = BASE_URL + "area_manager_api/amdcr/date_range_permission.php";
-
     protected Handler handler;
     DialogMultipleChoice mDialogMultipleChoice;
     Typeface fontFamily;
-    LinearLayout mainlayout;
+    LinearLayout mainlayout, territoryLayout;
     TextView error_dt, error_payment;
     Date today;
     TextView ordno, succ_msg;
     Spinner dcr_spinner, location, ampmspin, chemordoc, yes_no;
-    AutoCompleteTextView doccode, visitorcode, marketcode;
-    String dat_val_ext;
+    AutoCompleteTextView doccode, visitorcode, marketcode, vacantMpo;
+    String dat_val_ext, vacantMpoCode = "0000";
+    List<VacantList> vacantLists;
 
-    @SuppressLint("CutPasteId")
+    @SuppressLint({"CutPasteId", "ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,23 +151,15 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
         initViews();
         new GetDcrDateOffline().execute();
-
-
-        findViewById(R.id.show_multiple_dialog).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialogMultipleChoice.show(s_time);
-            }
-        });
+        findViewById(R.id.show_multiple_dialog).setOnClickListener(view -> mDialogMultipleChoice.show(s_time));
 
         new GeTShift().execute();
         new GeTDateExtend().execute();
         new GetEmp().execute();
+        getVacantMpoList();
 
         dat_val_ext = date_ext.getText().toString().trim();
-
-
-        final MultiSelectionSpinner spinner = (MultiSelectionSpinner) findViewById(R.id.input1);
+        final MultiSelectionSpinner spinner = findViewById(R.id.input1);
         List<String> list = new ArrayList<String>();
         list.add("GMSM");
         list.add("SM");
@@ -169,215 +169,184 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         list.add("MPO");
         spinner.setItems(list);
 
-
         final AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
         final AutoCompleteTextView actv2 = findViewById(R.id.autoCompleteTextView2);
         final AutoCompleteTextView actv3 = findViewById(R.id.autoCompleteTextView3);
         final AutoCompleteTextView actv4 = findViewById(R.id.autoCompleteTextView4);
 
-
-        actv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    System.out.println("Selectedcustomer = " + selectedcustomer);
-                    cust.setTag(selectedcustomer);
-                }
-
+        status = unregisterTerritory.isChecked();
+        unregisterTerritory.setOnClickListener(v -> {
+            if (status) {
+                vacantStatus = 1;
+                unregisterTerritory.setChecked(false);
+                status = false;
+                territoryLayout.setVisibility(View.GONE);
+            } else {
+                vacantStatus = 2;
+                unregisterTerritory.setChecked(true);
+                status = true;
+                territoryLayout.setVisibility(View.VISIBLE);
+                vacantMpo.setText("Select Vacant Territory (Type Mpo name)");
+                populateVacantMpo();
+            }
+            Log.d("AmDcr", "unregisterTerritory clicked : " + status);
+        });
+        actv.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {
+                String selectedcustomer = actv.getText().toString();
+                System.out.println("Selectedcustomer = " + selectedcustomer);
+                cust.setTag(selectedcustomer);
             }
         });
-        actv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv.showDropDown();
-                return false;
-            }
+        vacantMpo.setOnTouchListener((v, event) -> {
+            vacantMpo.showDropDown();
+            return false;
         });
-
-        actv2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv2.showDropDown();
-                return false;
-            }
+        actv.setOnTouchListener((v, event) -> {
+            actv.showDropDown();
+            return false;
         });
-
-        actv3.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv3.showDropDown();
-                return false;
-            }
+        actv2.setOnTouchListener((v, event) -> {
+            actv2.showDropDown();
+            return false;
         });
-
-        actv4.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                actv4.showDropDown();
-                return false;
-            }
+        actv3.setOnTouchListener((v, event) -> {
+            actv3.showDropDown();
+            return false;
         });
-
-
-        actv4.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (actv.getText().toString() != "") {
-                    String selectedcustomer = actv.getText().toString();
-                    System.out.println("Selectedcustomer = " + selectedcustomer);
-                    cust.setTag(selectedcustomer);
-                }
-
+        actv4.setOnTouchListener((v, event) -> {
+            actv4.showDropDown();
+            return false;
+        });
+        actv4.setOnClickListener(v -> {
+            if (!actv.getText().toString().equals("")) {
+                String selectedcustomer = actv.getText().toString();
+                System.out.println("Selectedcustomer = " + selectedcustomer);
+                cust.setTag(selectedcustomer);
             }
         });
         actv2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (actv2.getText().toString() != "") {
-
+                if (!actv2.getText().toString().equals("")) {
                     String selectedcustomer2 = actv2.getText().toString();
                     System.out.println("Selectedcustomer = " + selectedcustomer2);
                     visitor.setTag(selectedcustomer2);
                 }
-
             }
         });
-        actv3.setOnClickListener(new OnClickListener() {
+        actv3.setOnClickListener(v -> {
+            if (!actv3.getText().toString().equals("")) {
+                String selectedchemist = actv3.getText().toString();
+                Toast.makeText(getBaseContext(), "selected chemist " + selectedchemist, Toast.LENGTH_LONG).show();
+                System.out.println("Selectedcustomer = " + selectedchemist);
+                chemist.setTag(selectedchemist);
+            }
+        });
+        vacantMpo.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (actv3.getText().toString() != "") {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-                    String selectedchemist = actv3.getText().toString();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                    Toast.makeText(getBaseContext(), "selected chemist " + selectedchemist, Toast.LENGTH_LONG).show();
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String inputorder = s.toString();
 
-                    System.out.println("Selectedcustomer = " + selectedchemist);
-                    chemist.setTag(selectedchemist);
+                    if (inputorder.contains("-")) {
+                        String[] arr = inputorder.split("//");
+                        String cust_type_with_note = arr[0].trim();
+                        vacantMpo.setText(arr[1].trim());
+
+                        String[] first_split = cust_type_with_note.split("-");
+                        if (first_split.length > 0) {
+                            vacantMpoCode = first_split[first_split.length-1];
+                        }
+                        Log.d("vacantCode", vacantMpoCode);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
         });
-
-
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf(":") != -1) {
 
+                    if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
-                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
-                        String arr[] = cust_type_with_note.split(":");
+                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
+                        String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
 
-                        String first_split[] = inputorder.split(":");
+                        String[] first_split = inputorder.split(":");
                         String split1 = first_split[0].trim();
                         String market_code = first_split[1].trim();
                         Log.e("split1", split1);
                         marketcode.setText(market_code);
 
-                        String second_split[] = split1.split("//");
+                        String[] second_split = split1.split("//");
                         String split2 = second_split[0].trim();
                         String doc_code = second_split[1].trim();
                         doccode.setText(doc_code); //doctorcode
 
-                        String third_split[] = split2.split("-");
+                        String[] third_split = split2.split("-");
                         String doc_name = third_split[0].trim();
                         String mpocodedoc = third_split[1].trim();
                         doccode.setText(doc_code); //doctorcode
                         actv.setText(doc_name);
-
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
         actv4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf(":") != -1) {
+                    if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
-                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
-
-
-                        String arr[] = cust_type_with_note.split(":");
+                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
+                        String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
-
                         Log.e("amdoctor: ", "> " + cust_type_with_note);
                         Log.w("amdoctor: ", "> " + cust_type_with_note);
-                        String arr1[] = cust_type_with_note.split("///");
-
-
+                        String[] arr1 = cust_type_with_note.split("///");
                         cashcredit = findViewById(R.id.cashcredit);
 
                         List list = new ArrayList();
                         for (int i = 1; i < arr1.length; i++) {
                             list.add(arr1[i].trim());
                         }
-
-
                         ArrayAdapter dataAdapter = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
                         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         cashcredit.setAdapter(dataAdapter);
-
-
                         credit = findViewById(R.id.credit);
                         List list_credit = new ArrayList();
                         for (int j = 1; j < arr1.length; j++) {
@@ -386,7 +355,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         ArrayAdapter dataAdapter_credit = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
                         dataAdapter_credit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         credit.setAdapter(dataAdapter);
-
 
                         int cust_type_with_note_length = cust_type_with_note.length();
                         String cust_address = s.toString();
@@ -403,11 +371,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         String mar[] = mar_name.split(":");
                         String mar_name1 = mar[0].trim();
 
-
                         actv4.setText(doc_name);   ///doctorname
                         doccode.setText(doc_code1); //doctorcode
                         marketcode.setText(mar_name1); //marketname
-
 
                         cust_type = arr1[0];
 
@@ -604,8 +570,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 // TODO Auto-generated method stub
 
             }
-
-
         });
         actv3.addTextChangedListener(new TextWatcher() {
 
@@ -633,7 +597,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf(":") != -1) {
+                    if (inputorder.contains(":")) {
 
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
@@ -683,65 +647,43 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
-
-
         remarks.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (actv2.getText().toString() != "") {
-
+                if (!actv2.getText().toString().equals("")) {
                     final String remarksvalue = remarks.getText().toString();
-
-
                 }
-
             }
         });
         comp_ana.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv2.getText().toString() != "") {
-
                     final String comp_anavalue = comp_ana.getText().toString();
-
-
                 }
-
             }
         });
-
-
         final TextView myTextView = findViewById(R.id.user_show);
         final TextView newversion = findViewById(R.id.newversion);
         Bundle b = getIntent().getExtras();
         name = b.getString("UserName_1");
         ename = b.getString("UserName_2");
         newversion_text = b.getString("new_version");
-
         newversion.setText("DCR Entry");
 
         if (b.isEmpty()) {
-
             String userName = "";
             myTextView.setText(userName);
-
         } else {
             String userName = b.getString("UserName");
             String UserName_2 = b.getString("UserName_2");
             String ordernumber = b.getString("Ord_NO");
             myTextView.setText(UserName_2 + "(" + userName + ")");
+
             if (ordernumber == null) {
                 mainlayout.setVisibility(LinearLayout.GONE);
             } else {
@@ -753,32 +695,27 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 ordno.setText("DCR Sl No." + ordernumber);
                 ordno.setTextSize(10);
                 succ_msg.setText("Submitted");
-                String mpo[] = ordernumber.split("-");
+                String[] mpo = ordernumber.split("-");
+
                 if (UserName_2.equals("DCR Submitted")) {
                     myTextView.setText(mpo[0]);
                     myTextView.setTextSize(10);
-
                 } else {
                     myTextView.setText(mpo[0]);
                     myTextView.setTextSize(10);
                 }
-
-
             }
         }
 
-
         final Calendar cal = Calendar.getInstance();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy ");
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("dd/MM/yyyy ");
         String date_str = df.format(cal.getTime());
         ded.setText(date_str);
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -791,36 +728,23 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 error_dt.setText("");
                 //note.setText("" );
-                //  ded.setTextSize(14);
+                //ded.setTextSize(14);
                 ded.setTextColor(Color.BLACK);
                 ded.setText(sdf.format(myCalendar.getTime()));
                 Log.w("Selected date", "> " + ded.getText().toString());
-
-
             }
-
         };
-
         ded.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AmDcr.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 location.setVisibility(View.VISIBLE);
-
-
             }
         });
-
-
         dcr_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
                 dcr_code = dcr_spinner.getSelectedItem().toString();
                 dt_code = dcr_code.substring(0, 1);
-
                 doccode.setCursorVisible(false);
                 doccode.setPressed(false);
                 doccode.setClickable(false);
@@ -831,12 +755,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 marketcode.setClickable(false);
                 marketcode.setTag(marketcode.getKeyListener());
                 marketcode.setKeyListener(null);
-
                 actv.setFocusable(false);
 
                 if (dcr_code.equals("Regular")) {
-
-
                     actv4.setVisibility(view.GONE);
                     yes_no.setVisibility(View.GONE);
                     chemordoc.setVisibility(View.VISIBLE);
@@ -1602,191 +1523,198 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                             //extras.putString("MPO_CODE",user_show.getText().toString() );
                             in.putExtras(extras);
                             startActivity(in);
-
                         }
                     });
                     next.start();
-
                 }
-
-            }   // end else //
+            }
         });
 
-        dcr_submit.setOnClickListener(new OnClickListener() {
+        dcr_submit.setOnClickListener(v -> {
+            Bundle b1 = getIntent().getExtras();
+            userName = b1.getString("UserName");
+            String str = ded.getText().toString();
+            String date_1 = str.replaceAll("[^\\d.-]", "");
+            final String ord_no = userName + "-" + date_1;
+            Log.w("dcr_submit order no", "> " + ord_no);
 
-            public void onClick(View v) {
-                Bundle b = getIntent().getExtras();
-                userName = b.getString("UserName");
-                String str = ded.getText().toString();
-                String date_1 = str.replaceAll("[^\\d.-]", "");
-                final String ord_no = userName + "-" + date_1;
+            Calendar c = Calendar.getInstance();
+            int cYear = c.get(Calendar.YEAR);
+            int cMonth = c.get(Calendar.MONTH) + 1;
+            int cDay = c.get(Calendar.DAY_OF_MONTH);
+            int gyear = myCalendar.get(Calendar.YEAR);
 
+            //int max_date=cDay+2;
+            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
+            if (gyear > cYear) {
+                gmonth = myCalendar.get(Calendar.MONTH) + 13;
+            }
+            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int gmonth_day = gmonth * 30;
+            int totalday_given = gmonth_day + gday;
 
-                Log.w("dcr_submit order no", "> " + ord_no);
-                Calendar c = Calendar.getInstance();
-                int cYear = c.get(Calendar.YEAR);
-                int cMonth = c.get(Calendar.MONTH) + 1;
-                int cDay = c.get(Calendar.DAY_OF_MONTH);
+            int cmonth_day = cMonth * 30;
+            int totalday_valid1 = cmonth_day + cDay;
+            int totalday_valid = totalday_valid1;
 
-                int gyear = myCalendar.get(Calendar.YEAR);
+            int myNum = Integer.parseInt(date_ext.getText().toString());
 
-                //  int max_date=cDay+2;
-                int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-                if (gyear > cYear) {
-                    gmonth = myCalendar.get(Calendar.MONTH) + 13;
-                }
+            int totalday_valid2 = cmonth_day + cDay - myNum;
 
-                int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            //------------------------rez
+            int total_back_day = Integer.parseInt(date_ext.getText().toString());
 
-                int gmonth_day = gmonth * 30;
-                int totalday_given = gmonth_day + gday;
+            int rcYear = c.get(Calendar.YEAR);
+            int rcMonth = c.get(Calendar.MONTH) + 1;
+            int rcDay = c.get(Calendar.DAY_OF_MONTH);
 
+            int rcYear_day = rcYear * 365;
+            int rcMonth_day = rcMonth * 30;
+            int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
+            int total_valid_back_day = rctotal_day_today - total_back_day;
+            int rgyear = myCalendar.get(Calendar.YEAR);
+            int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
+            int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int rgyear_day = rgyear * 365;
+            int rgmonth_day = rgmonth * 30;
+            int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
 
-                int cmonth_day = cMonth * 30;
-                int totalday_valid1 = cmonth_day + cDay;
-                int totalday_valid = totalday_valid1 + 0;
-
-                int myNum = Integer.parseInt(date_ext.getText().toString());
-
-                int totalday_valid2 = cmonth_day + cDay - myNum;
-
-
-                //------------------------rez
-                int total_back_day = Integer.parseInt(date_ext.getText().toString());
-
-                int rcYear = c.get(Calendar.YEAR);
-                int rcMonth = c.get(Calendar.MONTH) + 1;
-                int rcDay = c.get(Calendar.DAY_OF_MONTH);
-
-                int rcYear_day = rcYear * 365;
-                int rcMonth_day = rcMonth * 30;
-                int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-
-                int total_valid_back_day = rctotal_day_today - total_back_day;
-
-
-                int rgyear = myCalendar.get(Calendar.YEAR);
-                int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
-                int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
-
-                int rgyear_day = rgyear * 365;
-                int rgmonth_day = rgmonth * 30;
-                int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
-
-
-                //-----------------------
-
-
+            //-----------------------
+            if (vacantStatus == 1) {
                 if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-
                     ded.setTextSize(14);
                     ded.setText("Please Select date");
                     ded.setTextColor(Color.RED);
                 } else if (dcr_code.equals("RX")) {
                     error_dt.setText("Click  'Other Company Products' Button");
-
                 } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
                     error_dt.setText("Select DCR Type");
                     dcr_spinner.setPrompt("Select DCR Type");
-
                 } else if (rgtotal_day_given > rctotal_day_today) {
-
-
-                    // ded.setError( "Delivery Date  is not more than 6 days" );
+                    //ded.setError( "Delivery Date  is not more than 6 days" );
                     error_dt.setText("Delivery Date  is not greater than current date!");
-
                 } //else if (totalday_given < totalday_valid2) {
                 else if (rgtotal_day_given < total_valid_back_day) {
-
-
                     error_dt.setText("Previous date can not be less than " + myNum + " days from current date.. ");
                 } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
                     error_dt.setText("Select DCR Type");
                     dcr_spinner.setPrompt("Select DCR Type");
-
                 } else {
+                    Thread server = new Thread(() -> {
+                        JSONParser jsonParser = new JSONParser();
+                        List<NameValuePair> params = new ArrayList<>();
+                        params.add(new BasicNameValuePair("ORD_NO", ord_no));
+                        params.add(new BasicNameValuePair("MPO_CODE", userName));
+                        params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
+                        params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
+                        params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
+                        //params.add(new BasicNameValuePair("AM_PM", shift_status));
+                        params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DOC_CODE", doccode.getText().toString()));
+                        params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
+                        params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
+                        params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
+                        params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
+                        params.add(new BasicNameValuePair("SHIFT", shift_status));
+                        params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
+                        params.add(new BasicNameValuePair("CHEM_FLAG", CHEM_FLAG));
 
-                    Thread server = new Thread(new Runnable() {
-
-                        @Override
-                        public void run() {
-
-
-                            JSONParser jsonParser = new JSONParser();
-                            List<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("ORD_NO", ord_no));
-                            params.add(new BasicNameValuePair("MPO_CODE", userName));
-                            params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
-                            params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
-                            params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
-                            params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
-                            //  params.add(new BasicNameValuePair("AM_PM", shift_status));
-                            params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
-                            params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
-                            params.add(new BasicNameValuePair("DOC_CODE", doccode.getText().toString()));
-                            params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
-                            params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
-                            params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
-                            params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
-                            params.add(new BasicNameValuePair("SHIFT", shift_status));
-                            params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
-                            params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
-                            params.add(new BasicNameValuePair("CHEM_FLAG", CHEM_FLAG));
-
-
-                            JSONObject json = jsonParser.makeHttpRequest(submit_doctor_url, "POST", params);
-                            try {
-                                success = json.getInt(TAG_SUCCESS);
-                                message = json.getString(TAG_MESSAGE);
-                                Log.w("please wait ...." + message, json.toString());
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                                Log.w("Please wait ...." + message, json.toString());
-                            }
-
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            String userName = bundle.getString("UserName");
-                            String UserName_2 = bundle.getString("UserName_2");
-                            Intent sameint = new Intent(AmDcr.this, AmDcr.class);
-                            sameint.putExtra("Ord_NO", ord_no);
-                            sameint.putExtra("UserName", userName);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            startActivity(sameint);
-                            Log.w("Passed in DCR TO DCR", ord_no + "UserName" + userName + "UserName_2" + UserName_2);
-
-
+                        JSONObject json = jsonParser.makeHttpRequest(submit_doctor_url, "POST", params);
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+                            Log.w("please wait ...." + message, json.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.w("Please wait ...." + message, json.toString());
                         }
+                        Intent in = getIntent();
+                        Intent inten = getIntent();
+                        Bundle bundle = in.getExtras();
+                        inten.getExtras();
+                        String MPO_CODE = bundle.getString("MPO_CODE");
+                        String userName = bundle.getString("UserName");
+                        String UserName_2 = bundle.getString("UserName_2");
+                        Intent sameint = new Intent(AmDcr.this, AmDcr.class);
+                        sameint.putExtra("Ord_NO", ord_no);
+                        sameint.putExtra("UserName", userName);
+                        sameint.putExtra("UserName_2", UserName_2);
+                        startActivity(sameint);
+                        Log.w("Passed in DCR TO DCR", ord_no + "UserName" + userName + "UserName_2" + UserName_2);
                     });
-
-
                     server.start();
-
                 }
-                //  }
+            }
+            else if (vacantStatus == 2) {
+                if (!vacantMpoCode.equals("0000")) {
+                    Log.d("vacantMpoCode", "1");
+                    Thread server = new Thread(() -> {
+                        JSONParser jsonParser = new JSONParser();
+                        List<NameValuePair> params = new ArrayList<>();
+                        params.add(new BasicNameValuePair("ORD_NO", ord_no));
+                        params.add(new BasicNameValuePair("MPO_CODE", vacantMpoCode));
+                        params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
+                        params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
+                        params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
+                        //params.add(new BasicNameValuePair("AM_PM", shift_status));
+                        params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DOC_CODE", doccode.getText().toString()));
+                        params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
+                        params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
+                        params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
+                        params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
+                        params.add(new BasicNameValuePair("SHIFT", shift_status));
+                        params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
+                        params.add(new BasicNameValuePair("CHEM_FLAG", CHEM_FLAG));
 
-
+                        JSONObject json = jsonParser.makeHttpRequest(submit_doctor_url, "POST", params);
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+                            Log.w("please wait ...." + message, json.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.w("Please wait ...." + message, json.toString());
+                        }
+                        Intent in = getIntent();
+                        Intent inten = getIntent();
+                        Bundle bundle = in.getExtras();
+                        inten.getExtras();
+                        String MPO_CODE = bundle.getString("MPO_CODE");
+                        String userName = bundle.getString("UserName");
+                        String UserName_2 = bundle.getString("UserName_2");
+                        Intent sameint = new Intent(AmDcr.this, AmDcr.class);
+                        sameint.putExtra("Ord_NO", ord_no);
+                        sameint.putExtra("UserName", userName);
+                        sameint.putExtra("UserName_2", UserName_2);
+                        startActivity(sameint);
+                        Log.w("Passed in DCR TO DCR", ord_no + "UserName" + userName + "UserName_2" + UserName_2);
+                    });
+                    server.start();
+                }
+                else {
+                    Log.d("vacantMpoCode", "2");
+                    vacantMpo.setText("Please Select Mpo");
+                    vacantMpo.setTextColor(Color.RED);
+                }
             }
         });
 
 /*
         next.setOnClickListener(new OnClickListener() {
-
             public void onClick(View v) {
-
-
                 Bundle f = getIntent().getExtras();
                 userName = f.getString("UserName");
                 Log.w("Mpo Code", "> " + userName);
                 String str = ded.getText().toString();
                 String date_1 = str.replaceAll("[^\\d.-]", "");
                 final String ord_no = userName + "-" + date_1;
-
 
                 Calendar c = Calendar.getInstance();
                 int cYear = c.get(Calendar.YEAR);
@@ -1890,35 +1818,23 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                                 extras.putString("VISIT_WITH", spinner.getSelectedItem().toString());
 
                                 Bundle b = getIntent().getExtras();
-
                                 String userName = b.getString("UserName");
                                 String UserName_1 = b.getString("UserName_1");
                                 extras.putString("MPO_CODE", userName);
                                 extras.putString("UserName_1", UserName_1);
-
-
                                 //extras.putString("MPO_CODE",user_show.getText().toString() );
                                 in.putExtras(extras);
                                 startActivity(in);
-
                             }
                         });
-
                         next.start();
-
-
-
                 }
-
             }
         });
 */
-
     }
 
-
     private void initViews() {
-
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         logout = findViewById(R.id.logout);
         logout.setTypeface(fontFamily);
@@ -1948,6 +1864,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         chemist = findViewById(R.id.chemist);
         chemist.setPrompt("Select Chemist");
         ref = (EditText) findViewById(R.id.reference);
+        vacantMpo = findViewById(R.id.autoUnregisTerritory);
+        unregisterTerritory = findViewById(R.id.radioTerritory);
+        territoryLayout = findViewById(R.id.territoryLayout);
         ded = findViewById(R.id.deliverydate);
         v_location = findViewById(R.id.v_location);
         no_of_rx = (EditText) findViewById(R.id.no_of_rx);
@@ -1978,13 +1897,13 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         dcr_spinner.setOnItemSelectedListener(this);
         visitor = findViewById(R.id.visitor);
         visitor.setPrompt("Select Visitor");
-        //  visitor.setSelected(false);  // must
-        // visitor.setSelection(0, true);  //must
+        //visitor.setSelected(false);  //must
+        //visitor.setSelection(0, true);  //must
         visitor.setOnItemSelectedListener(this);
         shift_spinner = findViewById(R.id.shift_spinner);
         shift_spinner.setPrompt("Select Shift");
-        // shift_spinner.setSelected(false);  // must
-        // shift_spinner.setSelection(0, true);  //must
+        //shift_spinner.setSelected(false);  //must
+        //shift_spinner.setSelection(0, true);  //must
         shift_spinner.setOnItemSelectedListener(this);
         mDialogMultipleChoice = new DialogMultipleChoice(this);
         cashcredit = findViewById(R.id.cashcredit);
@@ -1994,7 +1913,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         back = findViewById(R.id.back);
 
         back.setTypeface(fontFamily);
-        back.setText("\uf060");// &#xf060
+        back.setText("\uf060"); //&#xf060
         rx_page = findViewById(R.id.rx_page);
         doccode = findViewById(R.id.doccode);
         visitorcode = findViewById(R.id.visitorcode);
@@ -2070,16 +1989,12 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         chemist_ppm.setVisibility(View.GONE);
         dcr_submit.setClickable(false);
         dcr_submit.setPressed(false);
-
-
     }
 
     private void populateSpinner() {
-
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
-
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
@@ -2091,9 +2006,22 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         actv.setTextColor(Color.parseColor("#006199"));
     }
 
+    private void populateVacantMpo() {
+        if (vacantLists.size() > 0) {
+            List<String> vacant = new ArrayList<String>();
+            for (int i = 0; i < vacantLists.size(); i++) {
+                vacant.add(vacantLists.get(i).getName());
+            }
+            String[] customer = vacant.toArray(new String[0]);
+            ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+            AutoCompleteTextView actv = findViewById(R.id.autoUnregisTerritory);
+            actv.setThreshold(2);
+            actv.setAdapter(Adapter);
+            actv.setTextColor(Color.parseColor("#006199"));
+        }
+    }
 
     private void rxpopulateSpinner() {
-
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
@@ -2101,7 +2029,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
-        // ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
+        //ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv4 = findViewById(R.id.autoCompleteTextView4);
         actv4.setThreshold(2);
@@ -2114,7 +2042,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         for (int i = 0; i < visitorlist.size(); i++) {
             lables.add(visitorlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         visitor.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -2123,64 +2050,48 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         actv2.setThreshold(2);
         actv2.setAdapter(Adapter);
         actv2.setTextColor(Color.parseColor("#006199"));
-
     }
-
 
     private void populateSpinnerShift() {
         List<String> lables = new ArrayList<String>();
-
         for (int i = 0; i < shiftlist.size(); i++) {
             lables.add(shiftlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, lables);
         shift_spinner.setAdapter(spinnerAdapter);
-
     }
-
 
     private void populatedcr_date_extend() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < dateextendlist.size(); i++) {
             get_ext_dt = dateextendlist.get(i).getName();
         }
-
         date_ext.setText(get_ext_dt);
         int myNum = Integer.parseInt(date_ext.getText().toString());
 
         if (myNum > 0) {
-
             ded.setEnabled(true);
         } else {
             ded.setEnabled(false);
-
         }
     }
 
-
     private void populateSpinner3() {
-
-
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < chemistlist.size(); i++) {
             lables.add(chemistlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         chemist.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv3 = findViewById(R.id.autoCompleteTextView3);
-
         actv3.setThreshold(2);
         actv3.setAdapter(Adapter);
         actv3.setTextColor(Color.parseColor("#006199"));
     }
 
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -2201,26 +2112,22 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            com.opl.pharmavector.AmCustomer custo = new com.opl.pharmavector.AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -2231,12 +2138,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
-
     class RXGetDoctors extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -2311,11 +2215,8 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
-            // ServiceHandler jsonParser = new ServiceHandler();
-            // String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
-
+            //ServiceHandler jsonParser = new ServiceHandler();
+            //String json = jsonParser.makeServiceCall(URL_CUSOTMER,ServiceHandler.GET);
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
@@ -2323,32 +2224,25 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
-            // String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
-
+            //String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             String json = jsonParser.makeServiceCall(URL_EMP, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            com.opl.pharmavector.AmCustomer custo = new com.opl.pharmavector.AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            visitorlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        visitorlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -2358,71 +2252,52 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             pDialog2.dismiss();
             populateSpinner2();
         }
-
     }
 
-
     class GeTDateExtend extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
-
-
             String json = jsonParser.makeServiceCall(date_range_permission, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < 1; i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            com.opl.pharmavector.AmCustomer custo = new com.opl.pharmavector.AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-
-                            dateextendlist.add(custo);
-
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < 1; i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        dateextendlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            //    pDialog2.dismiss();
+            //pDialog2.dismiss();
             populatedcr_date_extend();
         }
-
     }
 
-
     class GeTShift extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -2430,53 +2305,42 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_SHIFT, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            com.opl.pharmavector.AmCustomer custo = new com.opl.pharmavector.AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            shiftlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        shiftlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            //    pDialog2.dismiss();
+            //pDialog2.dismiss();
             populateSpinnerShift();
         }
-
     }
 
-
     class GetChemist extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -2484,13 +2348,11 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             pDialog.setMessage("Fetching Chemist ...");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
@@ -2500,27 +2362,21 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CHEMIST, ServiceHandler.POST, params);
 
-
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            com.opl.pharmavector.AmCustomer custo = new com.opl.pharmavector.AmCustomer(catObj.getInt("id"), catObj.getString("name"));
-                            chemistlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        AmCustomer custo = new AmCustomer(catObj.getInt("id"), catObj.getString("name"));
+                        chemistlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -2531,12 +2387,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 pDialog.dismiss();
             populateSpinner3();
         }
-
     }
 
-
     private class GetDcrDateOffline extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -2544,14 +2397,12 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String id = b.getString("UserName");
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String jsonStr2 = jsonParser.makeServiceCall(get_dcr_date, ServiceHandler.POST, params);
-
 
             if (jsonStr2 != null) {
                 try {
@@ -2569,26 +2420,18 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         customer.put("name", cust_name);
                         customer.put("cust", cust);
                         customer.put("mpo", mpo);
-
-
                         dcrdatelist.add(customer);
                         db.addDcrDate(new DcrDate(cust, cust_name));
-
-
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
 
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //     Toast.makeText(getApplicationContext(), "Customer Updated" + e.getMessage() , Toast.LENGTH_LONG).show();
-
-
+                            //Toast.makeText(getApplicationContext(), "Customer Updated" + e.getMessage() , Toast.LENGTH_LONG).show();
                         }
                     });
-
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
@@ -2598,47 +2441,67 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         Toast.makeText(getApplicationContext(), "Couldn't get json from server. Check LogCat for possible errors!", Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
-
             return null;
         }
-
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            // Dismiss the progress dialog
-            //  if (pDialog.isShowing())
-            //   pDialog.dismiss();
-
-
+            //Dismiss the progress dialog
+            //if (pDialog.isShowing())
+            //pDialog.dismiss();
         }
-
     }
 
+    public void getVacantMpoList() {
+        ProgressDialog pDialog;
+        pDialog = new ProgressDialog(AmDcr.this);
+        pDialog.setTitle("Please wait !");
+        pDialog.setMessage("Loading Vacant Mpo List..");
+        pDialog.setCancelable(true);
+        pDialog.show();
+
+        Bundle b = getIntent().getExtras();
+        String userName = b.getString("UserName");
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<VacantModel> call = apiInterface.getVacantMpoList(userName);
+
+        call.enqueue(new Callback<VacantModel>() {
+            @Override
+            public void onResponse(@NotNull Call<VacantModel> call, @NotNull retrofit2.Response<VacantModel> response) {
+                vacantLists = Objects.requireNonNull(response.body()).getVacantLists();
+                Log.d("vacant=>","response==>"+ vacantLists.toString());
+
+                if (response.code() == 200) {
+                    pDialog.dismiss();
+                    //Log.e("patientdetail==>", String.valueOf(giftitemCount.size()));
+                } else {
+                    pDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VacantModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast.makeText(AmDcr.this, "Network error! Please wait while we are reconnecting", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
-
+    public void onNothingSelected(AdapterView<?> arg0) {}
 
     private void logoutUser() {
         session.setLogin(false);
-        // session.removeAttribute();
+        //session.removeAttribute();
         session.invalidate();
         Intent intent = new Intent(AmDcr.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-        // TODO Auto-generated method stub
-
-    }
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 }

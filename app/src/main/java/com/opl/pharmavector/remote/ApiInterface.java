@@ -1,9 +1,11 @@
 package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
+import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
@@ -62,13 +64,12 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    // @POST("vector_login/vector_pmd_login.php")
+    //@POST("vector_login/vector_pmd_login.php")
     @POST("vector_login/vectorlogin_newversion.php")
     Call<Patient> vectorlogin(
             @Field("username") String tempLogin,
             @Field("password") String tempPassword,
             @Field("vectortoken") String vectortoken
-
     );
 
     @FormUrlEncoded
@@ -108,7 +109,6 @@ public interface ApiInterface {
             @Field("pmd_loccode") String pmd_loccode
     );
 
-
     @FormUrlEncoded
     @POST("rx_dcc_camp/generation/prescriptioncount.php")
     Call<List<Patient>> rx_dcc_doc_count(
@@ -120,13 +120,11 @@ public interface ApiInterface {
             @Field("pmd_loccode") String pmd_loccode
     );
 
-
     @FormUrlEncoded
     @POST("rx_dcc_camp/generation/rx_dcc_brand_detail.php")
     Call<List<Patient>> rx_dcc_brand_detail(
             @Field("cust_code") String cust_code,
             @Field("brand_code") String brand_code
-
     );
 
     @FormUrlEncoded
@@ -151,10 +149,8 @@ public interface ApiInterface {
             @Field("pmd_loccode") String pmd_loccode
     );
 
-
     @POST("prescription_survey/getDoctorDegree.php")
-    Call<List<Patient>> getDoctorDegree(
-    );
+    Call<List<Patient>> getDoctorDegree();
 
     @FormUrlEncoded
     @POST("doctor_gift/getGiftType.php")
@@ -168,9 +164,20 @@ public interface ApiInterface {
     Call<List<Patient>> getItemCount(
             @Field("mpo_code") String mpo_code,
             @Field("to_date") String to_date
-
     );
 
+    @FormUrlEncoded
+    @POST("mpodcr/get_dcfp_list.php")
+    Call<DcfpModel> getDcfpPreviewList(
+            @Field("id") String id,
+            @Field("select_date") String to_date
+    );
+
+    @FormUrlEncoded
+    @POST("area_manager_api/amdcr/get_vacant_mpo.php")
+    Call<VacantModel> getVacantMpoList(
+            @Field("id") String id
+    );
 
     @FormUrlEncoded
     @POST("doctor_gift/getGiftItem.php")

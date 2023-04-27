@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -25,15 +26,13 @@
                 android:fontFamily="monospace"
                 android:gravity="center_horizontal"
                 android:paddingTop="10dp"
-
                 android:text="DCR Screen "
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/white" />
-
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
@@ -68,9 +67,18 @@
                 android:textSize="25sp"
                 android:visibility="gone"
                 tools:ignore="HardcodedText,UnusedAttribute" />
-
-
         </LinearLayout>
+
+        <RadioButton
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:id="@+id/radioTerritory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="MPO is not available in Territory" />
+
         <LinearLayout
             android:id="@+id/successmsg"
             android:layout_width="match_parent"
@@ -102,8 +110,8 @@
                 android:textColor="@color/white"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/_8sdp" />
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/userinput"
             android:layout_width="fill_parent"
@@ -121,9 +129,7 @@
                 android:hint="Reference"
                 android:inputType="text"
                 android:visibility="gone">
-
             </EditText>
-
 
             <Spinner
                 android:id="@+id/dcr_date_extend"
@@ -139,7 +145,6 @@
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
 
-
             <EditText
                 android:id="@+id/date_extend"
                 android:layout_width="match_parent"
@@ -154,6 +159,24 @@
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
 
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/territoryLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="98">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoUnregisTerritory"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="5"
+                    android:hint="Select Vacant Territory (Type Mpo name)"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:visibility="visible" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/date"
@@ -161,7 +184,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="98">
-
 
                 <TextView
                     android:id="@+id/deliverydate"
@@ -177,10 +199,7 @@
                     android:selectAllOnFocus="true"
                     android:text="Reference Date"
                     tools:ignore="RtlSymmetry" />
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/dtype"
@@ -334,10 +353,7 @@
                     android:soundEffectsEnabled="true"
                     android:spinnerMode="dialog"
                     tools:ignore="UnusedAttribute" />
-
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/customerlayout"
@@ -359,7 +375,6 @@
                     android:visibility="visible" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/rxlay"
                 android:layout_width="fill_parent"
@@ -380,7 +395,6 @@
                     android:visibility="visible" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/chemistlayout"
                 android:layout_width="fill_parent"
@@ -399,7 +413,6 @@
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:visibility="visible" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/visit_with_emp"
@@ -888,30 +901,26 @@
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="12sp"
                     android:visibility="visible" />
-
-
             </LinearLayout>
-
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-              >
+                android:layout_marginBottom="10dp">
 
                 <Button
                     android:id="@+id/offline"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/dcr_page_button"
                     android:gravity="center"
                     android:hapticFeedbackEnabled="true"

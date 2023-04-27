@@ -1,6 +1,5 @@
 package com.opl.pharmavector.app;
 
-
 import android.app.Application;
 import android.text.TextUtils;
 
@@ -12,7 +11,6 @@ import com.android.volley.toolbox.Volley;
 import com.opl.pharmavector.volley.LruBitmapCache;
 
 public class AppController extends Application {
-
     public static final String TAG = AppController.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
@@ -35,7 +33,6 @@ public class AppController extends Application {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-
         return mRequestQueue;
     }
 
@@ -45,7 +42,6 @@ public class AppController extends Application {
             getLruBitmapCache();
             mImageLoader = new ImageLoader(this.mRequestQueue, mLruBitmapCache);
         }
-
         return this.mImageLoader;
     }
 

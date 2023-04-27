@@ -1,6 +1,6 @@
 package com.opl.pharmavector;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
         import com.opl.pharmavector.R;
 
@@ -16,7 +16,6 @@ package com.opl.pharmavector;
 
 @SuppressLint("ViewHolder")
 public class DcrreportvalueProductShowAdapter extends BaseAdapter {
-
     TextView serial;
     // TextView p_name;
     // EditText quanty;
@@ -42,10 +41,6 @@ public class DcrreportvalueProductShowAdapter extends BaseAdapter {
     // static ArrayList<Integer> click_pos;
     static ArrayList<String> qntyID;
     static ArrayList<String> qntyVal;
-
-
-
-
 
     DcrreportvalueProductShowAdapter(Context con, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_3) {
         this.product_name = product_name;

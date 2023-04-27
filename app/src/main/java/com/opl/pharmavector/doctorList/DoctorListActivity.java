@@ -64,14 +64,11 @@ public class DoctorListActivity extends Activity {
         initViews();
         doctorFFListInfo();
 
-        doctorListBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!selectedMpoName.isEmpty()) {
-                    doctorDetailsListInfo();
-                } else {
-                    Toast.makeText(DoctorListActivity.this, "Please select Mpo code!", Toast.LENGTH_LONG).show();
-                }
+        doctorListBtn.setOnClickListener(v -> {
+            if (!selectedMpoName.isEmpty()) {
+                doctorDetailsListInfo();
+            } else {
+                Toast.makeText(DoctorListActivity.this, "Please select Mpo code!", Toast.LENGTH_LONG).show();
             }
         });
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -148,17 +145,14 @@ public class DoctorListActivity extends Activity {
         autoDoctorFFList.setAdapter(Adapter);
         autoDoctorFFList.setTextColor(Color.BLUE);
 
-        autoDoctorFFList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+        autoDoctorFFList.setOnItemClickListener((parent, view, position, id) -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
 
-                String selectedItem = (String) parent.getItemAtPosition(position);
-                String[] selectedFFType = selectedItem.split("-");
-                if (selectedFFType.length > 0) {
-                    selectedMpoName = selectedFFType[0].trim();
-                }
+            String selectedItem = (String) parent.getItemAtPosition(position);
+            String[] selectedFFType = selectedItem.split("-");
+            if (selectedFFType.length > 0) {
+                selectedMpoName = selectedFFType[0].trim();
             }
         });
     }

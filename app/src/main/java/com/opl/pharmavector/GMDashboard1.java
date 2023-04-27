@@ -1163,16 +1163,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     }
 
     private void doctorListInfo() {
-        cardview_doctor_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent i = new Intent(GMDashboard1.this, DoctorListActivity.class);
-                i.putExtra("UserName", global_admin_Code);
-                i.putExtra("UserName_2", global_admin_name);
-                i.putExtra("new_version", Login.version);
-                i.putExtra("message_3", message_3);
-                startActivity(i);
-            }
+        cardview_doctor_list.setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DoctorListActivity.class);
+            i.putExtra("UserName", global_admin_Code);
+            i.putExtra("UserName_2", global_admin_name);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            startActivity(i);
         });
         img_doctor_list.setOnClickListener(new View.OnClickListener() {
             @Override

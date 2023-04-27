@@ -95,7 +95,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AmDashboard extends Activity implements View.OnClickListener{
-    public String userName_1, userName, userName_2, UserName_2,global_admin_Code;
+    public String userName_1, userName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
@@ -150,8 +150,8 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         global_admin_Code=preferenceManager.getAdmin_Code();
         Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(AmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
-
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnSuccessListener(AmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(task -> {
                     String msg = getString(R.string.msg_subscribed) + vectorToken;
@@ -199,7 +199,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             }
         });
 
-
         bar_18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -226,9 +225,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             }
         });
 
-
         doc_gift_btn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
                 // TODO Auto-generated method stub
@@ -247,7 +244,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                                 i.putExtra("user_flag", "FM");
                                 startActivity(i);
                             } else {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(AmDashboard.this, DocGiftDashBoard.class);
@@ -2201,126 +2197,83 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
 
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDcr.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, AmDcr.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDcrReport.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, AmDcrReport.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
-        });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
 
     private void dcrClickEvent() {
-        cardview_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                showBottomSheetDialog_DCR();
-            }
-        });
-        btn_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
-        img_btn_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
-        tv_dcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showBottomSheetDialog_DCR();
-            }
-        });
+        cardview_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        btn_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        img_btn_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
+        tv_dcr.setOnClickListener(v -> showBottomSheetDialog_DCR());
     }
 
     private void dccfollowupEvent() {
-        practiceCard2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("am_code", globalFMCode);
-                i.putExtra("am_flag", "Y");
-                i.putExtra("rm_flag", "N");
-                i.putExtra("asm_flag", "N");
-                i.putExtra("sm_flag", "N");
-                startActivity(i);
-            }
+        practiceCard2.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("am_code", globalFMCode);
+            i.putExtra("am_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            startActivity(i);
         });
-        btn_dcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("am_code", globalFMCode);
-                i.putExtra("am_flag", "Y");
-                i.putExtra("rm_flag", "N");
-                i.putExtra("asm_flag", "N");
-                i.putExtra("sm_flag", "N");
-                startActivity(i);
-            }
+        btn_dcc.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("am_code", globalFMCode);
+            i.putExtra("am_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            startActivity(i);
         });
-        tv_dcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("am_code", globalFMCode);
-                i.putExtra("am_flag", "Y");
-                i.putExtra("rm_flag", "N");
-                i.putExtra("asm_flag", "N");
-                i.putExtra("sm_flag", "N");
-                startActivity(i);
-            }
+        tv_dcc.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("am_code", globalFMCode);
+            i.putExtra("am_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            startActivity(i);
         });
-        img_btn_dcc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("am_code", globalFMCode);
-                i.putExtra("am_flag", "Y");
-                i.putExtra("rm_flag", "N");
-                i.putExtra("asm_flag", "N");
-                i.putExtra("sm_flag", "N");
-                startActivity(i);
-            }
+        img_btn_dcc.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("am_code", globalFMCode);
+            i.putExtra("am_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            startActivity(i);
         });
     }
 

@@ -14,8 +14,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiService {
-
-
     @FormUrlEncoded
     @POST("geoloc/insert_gps_vector.php")
     Call<Patient> insertgps(
@@ -27,8 +25,4 @@ public interface ApiService {
             @Field("gps_status") String status,
             @Field("chambar_img") String image
     );
-
-
-
-
 }
