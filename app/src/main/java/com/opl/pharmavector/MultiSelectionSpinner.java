@@ -14,75 +14,53 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-
 @SuppressLint("AppCompatCustomView")
-public class MultiSelectionSpinner extends Spinner implements
-        DialogInterface.OnMultiChoiceClickListener
-{
+public class MultiSelectionSpinner extends Spinner implements DialogInterface.OnMultiChoiceClickListener {
     String[] _items = null;
     boolean[] mSelection = null;
 
     public ArrayAdapter<String> simple_adapter;
 
-
-
-
-    public MultiSelectionSpinner(Context context)
-    {
+    public MultiSelectionSpinner(Context context) {
         super(context);
-
         simple_adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
         super.setAdapter(simple_adapter);
     }
 
     public MultiSelectionSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         simple_adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
         super.setAdapter(simple_adapter);
     }
 
-
-
-
     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
         if (mSelection != null && which < mSelection.length) {
             mSelection[which] = isChecked;
-
             simple_adapter.clear();
             simple_adapter.add(buildSelectedItemString());
         } else {
-            throw new IllegalArgumentException(
-                    "Argument 'which' is out of bounds.");
+            throw new IllegalArgumentException("Argument 'which' is out of bounds.");
         }
     }
-
 
     @Override
     public boolean performClick() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMultiChoiceItems(_items, mSelection, this);
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1)
-            {
-               // String tr="values are selected";
-                String tr= simple_adapter.toString();
-                Log.w("getCheckedItem---------", "> " +tr );
-               // s_time.requestFocus();
-            }
+        builder.setPositiveButton("Ok", (arg0, arg1) -> {
+            //String tr="values are selected";
+            String tr= simple_adapter.toString();
+            Log.w("getCheckedItem---------", "> " +tr );
+            //s_time.requestFocus();
         });
-
-
         builder.show();
         return true;
     }
 
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
-        throw new RuntimeException(
-                "setAdapter is not supported by MultiSelectSpinner.");
+        throw new RuntimeException("setAdapter is not supported by MultiSelectSpinner.");
     }
 
     public void setItems(String[] items) {
@@ -90,7 +68,7 @@ public class MultiSelectionSpinner extends Spinner implements
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
         simple_adapter.add("Click arrow to select visitor");
-       // simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
         Arrays.fill(mSelection, false);
     }
 
@@ -99,7 +77,7 @@ public class MultiSelectionSpinner extends Spinner implements
         mSelection = new boolean[_items.length];
         simple_adapter.clear();
         simple_adapter.add("Click arrow to select visitor");
-        // simple_adapter.add(_items[0]);
+        //simple_adapter.add(_items[0]);
         Arrays.fill(mSelection, false);
     }
 

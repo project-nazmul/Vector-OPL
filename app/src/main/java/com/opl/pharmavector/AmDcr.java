@@ -167,6 +167,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         list.add("ASM");
         list.add("RM");
         list.add("MPO");
+        //list.add("AM as MPO");
         spinner.setItems(list);
 
         final AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
@@ -186,7 +187,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 unregisterTerritory.setChecked(true);
                 status = true;
                 territoryLayout.setVisibility(View.VISIBLE);
-                vacantMpo.setText("Select Vacant Territory (Type Mpo name)");
+                vacantMpo.setTag("Select Vacant Territory (Type Mpo name)");
                 populateVacantMpo();
             }
             Log.d("AmDcr", "unregisterTerritory clicked : " + status);
@@ -1091,7 +1092,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 new OnItemSelectedListener() {
                     public void onItemSelected(
                             AdapterView<?> parent, View view, int position, long id) {
-
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -1104,16 +1104,11 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
 
         chemordoc.setOnItemSelectedListener(new OnItemSelectedListener() {
-
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
                 if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
-
                     new GetCategories().execute();
-
                     chemist_ppm.setVisibility(View.GONE);
                     next.setVisibility(View.VISIBLE);
-
                     next.setEnabled(true);
                     next.setPressed(true);
                     next.setClickable(true);
@@ -1124,10 +1119,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     yes_no.requestFocus();
                     actv.setVisibility(View.VISIBLE);
                     actv3.setVisibility(View.GONE);
-
-
                 } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
-
                     actv3.setFocusable(true);
                     actv3.setFocusableInTouchMode(true);
                     actv3.requestFocus();
@@ -1137,35 +1129,24 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     yes_no.setClickable(true);
                     yes_no.setFocusableInTouchMode(true);
                     yes_no.requestFocus();
-
                     next.setVisibility(View.GONE);
-
                     actv.setVisibility(View.GONE);
                     actv3.setVisibility(View.VISIBLE);
-
                     chemist_ppm.setVisibility(View.VISIBLE);
                     chemist_ppm.setEnabled(true);
                     chemist_ppm.setPressed(true);
                     chemist_ppm.setClickable(true);
-
                 }
-
-
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
 
-
         yes_no.setOnItemSelectedListener(new OnItemSelectedListener() {
-
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 yes_no_val = yes_no.getSelectedItem().toString();
                 if (yes_no.getSelectedItem().toString().equals("Yes")) {
-
-
                     next.setVisibility(View.VISIBLE);
                     dcr_submit.setPressed(false);
                     dcr_submit.setClickable(false);
@@ -1175,10 +1156,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     actv.setFocusable(true);
                     actv.setFocusableInTouchMode(true);
                     actv.requestFocus();
-
                 } else if (yes_no.getSelectedItem().toString().equals("No")) {
-
-
                     next.setVisibility(View.GONE);
                     dcr_submit.setVisibility(View.VISIBLE);
                     next.setClickable(false);
@@ -1190,32 +1168,23 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     actv.setEnabled(true);
                     actv.setPressed(true);
                     actv.setClickable(true);
-
                     actv.setFocusable(true);
                     actv.setFocusableInTouchMode(true);
                     actv.requestFocus();
-
-
                     Log.v("value", "> " + yes_no.getSelectedItem().toString());
                 }
-
-
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
 
-
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
@@ -1223,34 +1192,23 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             }
         });
 
-
         logout.setOnClickListener(new OnClickListener() {
-
             public void onClick(View v) {
-
                 Thread server = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-
                         JSONParser jsonParser = new JSONParser();
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
                         params.add(new BasicNameValuePair("logout", "logout"));
-
                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
-
                     }
                 });
-
                 server.start();
                 logoutUser();
             }
         });
 
-
         chemist_ppm.setOnClickListener(new OnClickListener() {
-
             public void onClick(View v) {
                 Bundle f = getIntent().getExtras();
                 userName = f.getString("UserName");
@@ -1263,20 +1221,17 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 int cYear = c.get(Calendar.YEAR);
                 int cMonth = c.get(Calendar.MONTH) + 1;
                 int cDay = c.get(Calendar.DAY_OF_MONTH);
-
                 int gyear = myCalendar.get(Calendar.YEAR);
 
-                //  int max_date=cDay+2;
+                //int max_date=cDay+2;
                 int gmonth = myCalendar.get(Calendar.MONTH) + 1;
                 if (gyear > cYear) {
                     gmonth = myCalendar.get(Calendar.MONTH) + 13;
                 }
 
                 int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
                 int gmonth_day = gmonth * 30;
                 int totalday_given = gmonth_day + gday;
-
 
                 int cmonth_day = cMonth * 30;
                 int totalday_valid1 = cmonth_day + cDay;
@@ -1295,32 +1250,24 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
                 int total_valid_back_day = rctotal_day_today - total_back_day;
 
-
                 int rgyear = myCalendar.get(Calendar.YEAR);
                 int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
                 int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
 
                 int rgyear_day = rgyear * 365;
                 int rgmonth_day = rgmonth * 30;
                 int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
 
-
                 if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-
                     ded.setTextSize(14);
                     ded.setText("Please Select date");
                     ded.setTextColor(Color.RED);
                 } else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)"))) {
-
-
                     actv.setError("Doctor  not Assigned !");
                     actv.setText("Please insert  Doctor Name ");
                     actv.setTextColor(Color.RED);
-
                 } else if (rgtotal_day_given > rctotal_day_today) {
                     error_dt.setText("Delivery Date  is not greater than current date!");
-
                 } else if (rgtotal_day_given < total_valid_back_day) {
                     ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
                     error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
@@ -1650,7 +1597,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             }
             else if (vacantStatus == 2) {
                 if (!vacantMpoCode.equals("0000")) {
-                    Log.d("vacantMpoCode", "1");
+                    Log.d("vacantMpoCode", "2");
                     Thread server = new Thread(() -> {
                         JSONParser jsonParser = new JSONParser();
                         List<NameValuePair> params = new ArrayList<>();
@@ -1669,7 +1616,8 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
                         params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
                         params.add(new BasicNameValuePair("SHIFT", shift_status));
-                        params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
+                        //params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("VISIT_WITH", "AM as MPO"));
                         params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
                         params.add(new BasicNameValuePair("CHEM_FLAG", CHEM_FLAG));
 

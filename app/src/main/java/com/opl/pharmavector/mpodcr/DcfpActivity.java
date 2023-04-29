@@ -55,6 +55,7 @@ public class DcfpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dcfp);
 
         initViews();
+        getDcfpPreviewList();
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -123,18 +124,6 @@ public class DcfpActivity extends AppCompatActivity {
                 Log.d("dcfp=>","response==>"+ dcfpLists.toString());
 
                 if (response.isSuccessful()) {
-//                    for (int i = 0; i < (doctorData != null ? doctorData.size() : 0); i++) {
-//                        doctorList.add(new DoctorList(
-//                                doctorData.get(i).getDocCode(),
-//                                doctorData.get(i).getDocName(),
-//                                doctorData.get(i).getDegree(),
-//                                doctorData.get(i).getDesig(),
-//                                doctorData.get(i).getSpecialization(),
-//                                doctorData.get(i).getMarketName(),
-//                                doctorData.get(i).getMarketCode(),
-//                                doctorData.get(i).getAddress(),
-//                                doctorData.get(i).getPatientPerDay()));
-//                    }
                     pDialog.dismiss();
                     dcfpAdapter = new DcfpAdapter(DcfpActivity.this, dcfpLists);
                     LinearLayoutManager manager = new LinearLayoutManager(DcfpActivity.this);
@@ -144,7 +133,7 @@ public class DcfpActivity extends AppCompatActivity {
                     //Log.d("company List", companyDatalist.get(0).getComDesc());
                 } else {
                     pDialog.dismiss();
-                    Toast.makeText(DcfpActivity.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DcfpActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
