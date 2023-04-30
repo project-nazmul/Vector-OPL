@@ -441,7 +441,8 @@ public class Dcr extends Activity implements OnItemSelectedListener {
                     actv.setFocusable(true);
                     actv.setFocusableInTouchMode(true);
                     actv.requestFocus();
-                } else if (yes_no.getSelectedItem().toString().equals("No")) {
+                }
+                else if (yes_no.getSelectedItem().toString().equals("No")) {
                     dcr_submit.setVisibility(View.VISIBLE);
                     back.setEnabled(true);
                     back.setPressed(true);
@@ -461,6 +462,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
                     actv.requestFocus();
                 }
             }
+
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
@@ -590,107 +592,105 @@ public class Dcr extends Activity implements OnItemSelectedListener {
             }
         });
 
-        dcr_submit.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                Bundle b = getIntent().getExtras();
-                userName = b.getString("UserName");
-                String str = ded.getText().toString();
-                String date_1 = str.replaceAll("[^\\d.-]", "");
-                final String ord_no = userName + "-" + date_1;
-                Calendar c = Calendar.getInstance();
-                int cYear = c.get(Calendar.YEAR);
-                int cMonth = c.get(Calendar.MONTH) + 1;
-                int cDay = c.get(Calendar.DAY_OF_MONTH);
-                int gyear = myCalendar.get(Calendar.YEAR);
-                //int max_date=cDay+2;
-                int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-                if (gyear > cYear) {
-                    gmonth = myCalendar.get(Calendar.MONTH) + 13;
-                }
-                int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-                int gmonth_day = gmonth * 30;
-                int totalday_given = gmonth_day + gday;
-                int cmonth_day = cMonth * 30;
-                int totalday_valid1 = cmonth_day + cDay;
-                int totalday_valid = totalday_valid1 + 0;
-                int myNum = Integer.parseInt(get_ext_dt);
-                int totalday_valid2 = cmonth_day + cDay - myNum;
-                int total_back_day = Integer.parseInt(get_ext_dt);
-                int rcYear = c.get(Calendar.YEAR);
-                int rcMonth = c.get(Calendar.MONTH) + 1;
-                int rcDay = c.get(Calendar.DAY_OF_MONTH);
-                int rcYear_day = rcYear * 365;
-                int rcMonth_day = rcMonth * 30;
-                int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-                int total_valid_back_day = rctotal_day_today - total_back_day;
-                int rgyear = myCalendar.get(Calendar.YEAR);
-                int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
-                int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-                int rgyear_day = rgyear * 365;
-                int rgmonth_day = rgmonth * 30;
-                int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
+        dcr_submit.setOnClickListener(v -> {
+            Bundle b = getIntent().getExtras();
+            userName = b.getString("UserName");
+            String str = ded.getText().toString();
+            String date_1 = str.replaceAll("[^\\d.-]", "");
+            final String ord_no = userName + "-" + date_1;
+            Calendar c = Calendar.getInstance();
+            int cYear = c.get(Calendar.YEAR);
+            int cMonth = c.get(Calendar.MONTH) + 1;
+            int cDay = c.get(Calendar.DAY_OF_MONTH);
+            int gyear = myCalendar.get(Calendar.YEAR);
+            //int max_date=cDay+2;
+            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
+            if (gyear > cYear) {
+                gmonth = myCalendar.get(Calendar.MONTH) + 13;
+            }
+            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int gmonth_day = gmonth * 30;
+            int totalday_given = gmonth_day + gday;
+            int cmonth_day = cMonth * 30;
+            int totalday_valid1 = cmonth_day + cDay;
+            int totalday_valid = totalday_valid1;
+            int myNum = Integer.parseInt(get_ext_dt);
+            int totalday_valid2 = cmonth_day + cDay - myNum;
+            int total_back_day = Integer.parseInt(get_ext_dt);
+            int rcYear = c.get(Calendar.YEAR);
+            int rcMonth = c.get(Calendar.MONTH) + 1;
+            int rcDay = c.get(Calendar.DAY_OF_MONTH);
+            int rcYear_day = rcYear * 365;
+            int rcMonth_day = rcMonth * 30;
+            int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
+            int total_valid_back_day = rctotal_day_today - total_back_day;
+            int rgyear = myCalendar.get(Calendar.YEAR);
+            int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
+            int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int rgyear_day = rgyear * 365;
+            int rgmonth_day = rgmonth * 30;
+            int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
 
-                if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-                    ded.setTextSize(14);
-                    ded.setText("Please Select date");
-                    ded.setTextColor(Color.RED);
-                } else if (rgtotal_day_given > rctotal_day_today) {
-                    error_dt.setText("Delivery Date  is not greater than current date!");
-                } else if (rgtotal_day_given < total_valid_back_day) {
-                    ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
-                    error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
-                } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
-                    error_dt.setText("Select DCR Type");
-                    dcr_spinner.setPrompt("Select DCR Type");
-                } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
-                    error_dt.setText("Select DCR Type");
-                    dcr_spinner.setPrompt("Select DCR Type");
-                } else {
-                    Thread server = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JSONParser jsonParser = new JSONParser();
-                            List<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("ORD_NO", ord_no));
-                            params.add(new BasicNameValuePair("MPO_CODE", userName));
-                            params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
-                            params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
-                            params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
-                            params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
-                            params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
-                            params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
-                            params.add(new BasicNameValuePair("DOC_CODE", doc_code));
-                            params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
-                            params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
-                            params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
-                            params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
-                            params.add(new BasicNameValuePair("SHIFT", shift_status));
-                            params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
-                            params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
+            if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
+                ded.setTextSize(14);
+                ded.setText("Please Select date");
+                ded.setTextColor(Color.RED);
+            } else if (rgtotal_day_given > rctotal_day_today) {
+                error_dt.setText("Delivery Date  is not greater than current date!");
+            } else if (rgtotal_day_given < total_valid_back_day) {
+                ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
+                error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
+            } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
+                error_dt.setText("Select DCR Type");
+                dcr_spinner.setPrompt("Select DCR Type");
+            } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
+                error_dt.setText("Select DCR Type");
+                dcr_spinner.setPrompt("Select DCR Type");
+            } else {
+                Thread server = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONParser jsonParser = new JSONParser();
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("ORD_NO", ord_no));
+                        params.add(new BasicNameValuePair("MPO_CODE", userName));
+                        params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
+                        params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
+                        params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
+                        params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
+                        params.add(new BasicNameValuePair("DOC_CODE", doc_code));
+                        params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
+                        params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
+                        params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
+                        params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
+                        params.add(new BasicNameValuePair("SHIFT", shift_status));
+                        params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
+                        params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
+                        JSONObject json = jsonParser.makeHttpRequest(submit_url, "POST", params);
 
-                            JSONObject json = jsonParser.makeHttpRequest(submit_url, "POST", params);
-                            try {
-                                success = json.getInt(TAG_SUCCESS);
-                                message = json.getString(TAG_MESSAGE);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            userName = bundle.getString("UserName");
-                            UserName_2 = bundle.getString("UserName_2");
-                            Intent sameint = new Intent(Dcr.this, Dcr.class);
-                            sameint.putExtra("Ord_NO", ord_no);
-                            sameint.putExtra("UserName", userName);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            startActivity(sameint);
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    });
-                    server.start();
-                }
+                        Intent in = getIntent();
+                        Intent inten = getIntent();
+                        Bundle bundle = in.getExtras();
+                        inten.getExtras();
+                        String MPO_CODE = bundle.getString("MPO_CODE");
+                        userName = bundle.getString("UserName");
+                        UserName_2 = bundle.getString("UserName_2");
+                        Intent sameint = new Intent(Dcr.this, Dcr.class);
+                        sameint.putExtra("Ord_NO", ord_no);
+                        sameint.putExtra("UserName", userName);
+                        sameint.putExtra("UserName_2", UserName_2);
+                        startActivity(sameint);
+                    }
+                });
+                server.start();
             }
         });
 
@@ -714,7 +714,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
             int totalday_given = gmonth_day + gday;
             int cmonth_day = cMonth * 30;
             int totalday_valid1 = cmonth_day + cDay;
-            int totalday_valid = totalday_valid1 + 0;
+            int totalday_valid = totalday_valid1;
             int myNum = Integer.parseInt(get_ext_dt);
             int totalday_valid2 = cmonth_day + cDay - myNum;
             int total_back_day = Integer.parseInt(get_ext_dt);
@@ -759,7 +759,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
                 Thread next = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        //Intent in = new Intent(  Dcr.this, ProductOrder.class);
+                        //Intent in = new Intent(Dcr.this, ProductOrder.class);
                         Intent in = new Intent(Dcr.this, GiftOrder.class);
                         Bundle extras = new Bundle();
                         String str = ded.getText().toString();
@@ -1078,9 +1078,9 @@ public class Dcr extends Activity implements OnItemSelectedListener {
         user_show = findViewById(R.id.user_show);
         newversion = findViewById(R.id.newversion);
         setTitle("DCR Entry");
-        next =  findViewById(R.id.next);
-        dcr_submit =  findViewById(R.id.offline);
-        chemist_ppm =  findViewById(R.id.chemist_ppm);
+        next = findViewById(R.id.next);
+        dcr_submit = findViewById(R.id.offline);
+        chemist_ppm = findViewById(R.id.chemist_ppm);
         next.setTypeface(fontFamily);
         next.setText("\uf061");
         chemist_ppm.setTypeface(fontFamily);

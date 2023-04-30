@@ -57,13 +57,13 @@ public class GiftOrder extends Activity implements OnClickListener {
     public static final String TAG_target = "target";
     public static final String TAG_achivement = "achivement";
     public String userName_1,userName;
-    // array list for spinner adapter
+    //array list for spinner adapter
     public static ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
     GiftListAdapter adapter2;
     Button submit;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     public static EditText qnty, searchview;
     EditText inputOne, inputtwo;
     public int success,success_1;
@@ -88,14 +88,12 @@ public class GiftOrder extends Activity implements OnClickListener {
     ArrayList<Integer> quanty;
     HashMap<Integer, String> mapQuantity;
     public static HashMap<String, Integer> nameSerialPair;
-
-    // Map<String,List<Integer>> index = new HashMap<String,List<Integer>>();
+    //Map<String,List<Integer>> index = new HashMap<String,List<Integer>>();
     ArrayList<String> sl;
-    /*- Initializing */
+    /*-Initializing*/
     String last_quantity = "1";
     int last_position = 1;
     String quantity = "1";
-
     Toast toast1;
     ArrayList<Category> arraylist = new ArrayList<Category>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -111,24 +109,25 @@ public class GiftOrder extends Activity implements OnClickListener {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         submit = findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
-        submit.setText("\uf1d8"); // &#xf1d8
+        submit.setText("\uf1d8"); //&#xf1d8
         productListView = (ListView) findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
         TextView showorders=findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
-        showorders.setText("\uf055");// &#xf055
+        showorders.setText("\uf055"); //&#xf055
         Button back_btn =  findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060"); //&#xf060
         calc = findViewById(R.id.calc);
         calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); // &#xf01e &#xf1ec
+        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
         calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search = findViewById(R.id.search);
         search.setTypeface(fontFamily);
         search.setText("\uf056");
         toast1 = Toast.makeText(GiftOrder.this, "Please select Order Quantity  !!!.", Toast.LENGTH_LONG);
+
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +140,6 @@ public class GiftOrder extends Activity implements OnClickListener {
                 }
             }
         });
-
         totalsellquantity =  findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
         totalsellvalue =  findViewById(R.id.totalsellvalue);
@@ -335,8 +333,8 @@ public class GiftOrder extends Activity implements OnClickListener {
             get_mpo_code = extra.getString("CUST_CODE");
             ORDER_DELEVERY_DATE = extra.getString("ORDER_DELEVERY_DATE");
             List<NameValuePair>params=new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("MPO_CODE",get_mpo_code));
-            params.add(new BasicNameValuePair("ORDER_DELEVERY_DATE",ORDER_DELEVERY_DATE));
+            params.add(new BasicNameValuePair("MPO_CODE", get_mpo_code));
+            params.add(new BasicNameValuePair("ORDER_DELEVERY_DATE", ORDER_DELEVERY_DATE));
             ServiceHandler jsonParser=new ServiceHandler();
             String json=jsonParser.makeServiceCall(URL_CATEGORIES, ServiceHandler.POST, params);
             Log.e("giftList-->",json);

@@ -29,13 +29,11 @@ public class DcfpAdapter extends RecyclerView.Adapter<DcfpAdapter.DcfpViewHolder
     public void onBindViewHolder(DcfpViewHolder holder, int position) {
         DcfpList dcfpList = dcfpLists.get(position);
 
-        holder.visitType.setText(dcfpList.getVisitType());
+        String v_type = dcfpList.getVisitType();
+        holder.visitType.setText(String.valueOf(v_type.charAt(0)));
         holder.docCode.setText(dcfpList.getDocCode());
         holder.docName.setText(dcfpList.getDocName());
-        holder.mktCode.setText(dcfpList.getMktCode());
         holder.mktDesc.setText(dcfpList.getMktDesc());
-        holder.terriName.setText(dcfpList.getTerriName());
-        holder.tsCode.setText(dcfpList.getTsCode());
     }
 
     @Override
@@ -44,17 +42,14 @@ public class DcfpAdapter extends RecyclerView.Adapter<DcfpAdapter.DcfpViewHolder
     }
 
     public class DcfpViewHolder extends RecyclerView.ViewHolder {
-        public TextView visitType, docCode, docName, mktCode, mktDesc, terriName, tsCode;
+        public TextView visitType, docCode, docName, mktDesc;
 
         public DcfpViewHolder(View view) {
             super(view);
             visitType = view.findViewById(R.id.visitType);
             docCode = view.findViewById(R.id.docCode);
             docName = view.findViewById(R.id.docName);
-            mktCode = view.findViewById(R.id.mktCode);
             mktDesc = view.findViewById(R.id.mktDesc);
-            terriName = view.findViewById(R.id.terriName);
-            tsCode = view.findViewById(R.id.tsCode);
         }
     }
 }

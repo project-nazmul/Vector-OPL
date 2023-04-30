@@ -111,7 +111,7 @@
             android:id="@+id/slistLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="10">
+            android:weightSum="7">
 
             <TextView
                 android:id="@+id/dcr_sl"
@@ -119,71 +119,42 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:focusable="true"
-                android:text="VISIT\nTYPE"
-                android:layout_weight="1"
-                android:textSize="@dimen/_7sdp"
-                android:textColor="@color/darkblue" />
+                android:text="V.TYPE"
+                android:layout_weight="0.8"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/green1" />
 
             <TextView
                 android:id="@+id/dco_chem_name"
-                android:text="DOC\nCODE"
+                android:text="DOC CODE"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:focusable="true"
-                android:textSize="@dimen/_7sdp"
+                android:textSize="@dimen/_8sdp"
                 android:textColor="@color/blue" />
 
             <TextView
+                android:paddingStart="@dimen/_4sdp"
                 android:id="@+id/ppm_pm_name"
-                android:text="DOC\nNAME "
+                android:text="DOC NAME "
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:clickable="true"
-                android:textSize="@dimen/_7sdp"
+                android:textSize="@dimen/_8sdp"
                 android:textColor="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/shift_gift"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:textSize="@dimen/_7sdp"
-                android:text="MKT\nCODE"
-                android:textColor="@color/green1" />
-
-            <TextView
+                android:textAlignment="center"
                 android:id="@+id/all_rest_quant"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="2"
+                android:layout_weight="2.7"
                 android:clickable="true"
-                android:textSize="@dimen/_7sdp"
-                android:text="MKT\nDESC"
-                android:textColor="@color/pink" />
-
-            <TextView
-                android:id="@+id/all_re"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                android:clickable="true"
-                android:textSize="@dimen/_7sdp"
-                android:text="TERRI\nNAME"
-                android:textColor="@color/deeppurple" />
-
-            <TextView
-                android:paddingStart="@dimen/_4sdp"
-                android:id="@+id/Rest"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:textSize="@dimen/_7sdp"
-                android:textAlignment="center"
-                android:text="TS\nCODE"
-                android:textColor="@color/bg_gradient_end" />
+                android:textSize="@dimen/_8sdp"
+                android:text="MKT DESC"
+                android:textColor="@color/vergence" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -195,16 +166,6 @@
         android:descendantFocusability="beforeDescendants"
         android:divider="@android:color/transparent"
         android:listSelector="@drawable/active" />
-<!--    <ListView-->
-<!--        android:id="@+id/pListView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="98.00"-->
-<!--        android:listSelector="@drawable/active"-->
-<!--        android:divider="@android:color/transparent"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true" >-->
-<!--    </ListView>-->
 
     <LinearLayout
         android:id="@+id/totalshow"

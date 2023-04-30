@@ -19,17 +19,17 @@
             android:layout_height="match_parent"
             android:paddingTop="@dimen/_4sdp"
             android:paddingBottom="@dimen/_4sdp"
-            android:weightSum="10">
+            android:weightSum="7">
 
             <TextView
                 android:id="@+id/visitType"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:focusable="true"
                 android:text="visitType"
-                android:textColor="@color/darkblue"
-                android:textSize="@dimen/_8sdp" />
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_9sdp" />
 
             <TextView
                 android:id="@+id/docCode"
@@ -37,63 +37,31 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:focusable="true"
-                android:paddingStart="@dimen/_4sdp"
                 android:text="docCode"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
+                android:textSize="@dimen/_9sdp" />
 
             <TextView
+                android:paddingStart="@dimen/_4sdp"
                 android:id="@+id/docName"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:clickable="true"
-                android:paddingStart="@dimen/_4sdp"
                 android:text="docName"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_7sdp" />
+                android:textSize="@dimen/_9sdp" />
 
             <TextView
-                android:id="@+id/mktCode"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:text="mktCode"
-                android:textColor="@color/green1"
-                android:textSize="@dimen/_8sdp" />
-
-            <TextView
+                android:textAlignment="textStart"
                 android:id="@+id/mktDesc"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_gravity="start"
-                android:layout_weight="2"
+                android:layout_weight="2.7"
                 android:clickable="true"
                 android:text="mktDesc"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_7sdp" />
-
-            <TextView
-                android:id="@+id/terriName"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                android:clickable="true"
-                android:text="terriName"
-                android:textColor="@color/deeppurple"
-                android:textSize="@dimen/_7sdp" />
-
-            <TextView
-                android:id="@+id/tsCode"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:text="tsCode"
-                android:textAlignment="textEnd"
-                android:textColor="@color/green1"
-                android:textSize="@dimen/_8sdp" />
+                android:textColor="@color/vergence"
+                android:textSize="@dimen/_9sdp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

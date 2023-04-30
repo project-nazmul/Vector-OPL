@@ -47,7 +47,6 @@ import android.widget.Toast;
 //import android.speech.RecognizerIntent;
 
 public class AmGiftOrder extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SUCCESS1 = "success_1";
     public static final String TAG_MESSAGE = "message";
@@ -58,13 +57,13 @@ public class AmGiftOrder extends Activity implements OnClickListener {
     public static final String TAG_target = "target";
     public static final String TAG_achivement = "achivement";
     public String userName_1,userName;
-    // array list for spinner adapter
+    //array list for spinner adapter
     static ArrayList<com.opl.pharmavector.AmCategory> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
     GiftListAdapter adapter2;
     Button submit;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     public static EditText qnty, searchview;
     EditText inputOne, inputtwo;
     public int success,success_1;
@@ -105,33 +104,27 @@ public class AmGiftOrder extends Activity implements OnClickListener {
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.giftorder);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
-        submit.setText("\uf1d8"); // &#xf1d8
-
-
-
+        submit.setText("\uf1d8"); //&#xf1d8
         productListView = (ListView) findViewById(R.id.pListView);
-
-
-
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
-
         TextView showorders=(TextView)findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
-        showorders.setText("\uf055");//&#xf055
+        showorders.setText("\uf055"); //&#xf055
         Button back_btn = (Button) findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         calc = (Button) findViewById(R.id.calc);
         calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); // &#xf01e &#xf1ec
+        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
         calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search = (TextView) findViewById(R.id.search);
         search.setTypeface(fontFamily);
-        search.setText("\uf056"); // &#xf002 , &#xf010
+        search.setText("\uf056"); //&#xf002, &#xf010
         TextView mic=(TextView)findViewById(R.id.mic);
         mic.setTypeface(fontFamily);
         mic.setText("\uf130");
@@ -140,17 +133,14 @@ public class AmGiftOrder extends Activity implements OnClickListener {
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 try {
                     searchview.setText("");
                     //qnty.clearFocus();
                     searchview.requestFocus();
                 }
                 catch (Exception e) {
-                    // TODO: handle exception
                     //GiftListAdapter.qnty.c
                 }
-
             }
         });
 

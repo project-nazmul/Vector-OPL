@@ -162,7 +162,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public static String team_logo,profile_image;
     public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
     LocationManager locationManager;
-
     public static Dashboard getInstance() {
         return instance;
     }

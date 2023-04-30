@@ -802,13 +802,12 @@
                     android:id="@+id/back"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:background="@drawable/dcr_page_button"
                     android:text=""
                     android:textColor="@android:color/white"
                     android:textSize="25sp"
                     android:visibility="visible" />
-
 
                 <Button
                     android:id="@+id/next"
@@ -828,7 +827,6 @@
                     android:textStyle="bold"
                     android:visibility="visible"
                     tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
 
                 <Button
                     android:id="@+id/chemist_ppm"
@@ -864,8 +862,6 @@
                     android:textSize="25sp"
                     android:visibility="gone"
                     tools:ignore="HardcodedText,UnusedAttribute" />
-
-
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
