@@ -119,17 +119,17 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:focusable="true"
-                android:text="V.TYPE"
-                android:layout_weight="0.8"
+                android:text="VT"
+                android:layout_weight="0.3"
                 android:textSize="@dimen/_8sdp"
                 android:textColor="@color/green1" />
 
             <TextView
                 android:id="@+id/dco_chem_name"
-                android:text="DOC CODE"
+                android:text="D. CODE"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:focusable="true"
                 android:textSize="@dimen/_8sdp"
                 android:textColor="@color/blue" />
@@ -137,10 +137,10 @@
             <TextView
                 android:paddingStart="@dimen/_4sdp"
                 android:id="@+id/ppm_pm_name"
-                android:text="DOC NAME "
+                android:text="DOCTOR NAME "
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="2.5"
+                android:layout_weight="3.1"
                 android:clickable="true"
                 android:textSize="@dimen/_8sdp"
                 android:textColor="@color/colorAccent" />
@@ -150,10 +150,10 @@
                 android:id="@+id/all_rest_quant"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="2.7"
+                android:layout_weight="2.9"
                 android:clickable="true"
                 android:textSize="@dimen/_8sdp"
-                android:text="MKT DESC"
+                android:text="MARKET"
                 android:textColor="@color/vergence" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -212,6 +212,43 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:text="* VT -> Visit Type"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="* M -> Morning"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="* E -> Evening"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/backBtn"

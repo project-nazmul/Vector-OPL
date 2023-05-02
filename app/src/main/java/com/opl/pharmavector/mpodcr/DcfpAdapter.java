@@ -29,8 +29,9 @@ public class DcfpAdapter extends RecyclerView.Adapter<DcfpAdapter.DcfpViewHolder
     public void onBindViewHolder(DcfpViewHolder holder, int position) {
         DcfpList dcfpList = dcfpLists.get(position);
 
-        String v_type = dcfpList.getVisitType();
-        holder.visitType.setText(String.valueOf(v_type.charAt(0)));
+//        String v_type = dcfpList.getVisitType();
+//        holder.visitType.setText(String.valueOf(v_type.charAt(0)));
+        holder.visitType.setText(dcfpList.getVisitType());
         holder.docCode.setText(dcfpList.getDocCode());
         holder.docName.setText(dcfpList.getDocName());
         holder.mktDesc.setText(dcfpList.getMktDesc());

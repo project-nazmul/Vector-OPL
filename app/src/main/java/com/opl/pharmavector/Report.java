@@ -97,28 +97,25 @@ public class Report extends Activity implements OnClickListener {
             });
             mysells.start();
         });
-        cardSpecialRate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardSpecialRate.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Cust_Sp_Pct_Activity.class);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Cust_Sp_Pct_Activity.class);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
         cardOutstandingList.setOnClickListener(v -> {
             Thread mysells = new Thread(new Runnable() {
@@ -188,284 +185,251 @@ public class Report extends Activity implements OnClickListener {
             });
             mysells.start();
         });
-        cardProductValue.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
-                    //String userName = b.getString("UserName");
-                    final String UserName_1 = b.getString("userName_1");
-                    final String UserName_2 = b.getString("userName_2");
+        cardProductValue.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
+                //String userName = b.getString("UserName");
+                final String UserName_1 = b.getString("userName_1");
+                final String UserName_2 = b.getString("userName_2");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Targetvalue.class);
-                            i.putExtra("UserName", UserName);
-                            i.putExtra("new_version", userName);
-                            i.putExtra("UserName_1", UserName_1);
-                            i.putExtra("UserName_2", UserName_2);
-                            i.putExtra("userName", userName);
-                            i.putExtra("new_version", userName);
-                            i.putExtra("userName_1", UserName_1);
-                            i.putExtra("userName_2", UserName_2);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Targetvalue.class);
+                        i.putExtra("UserName", UserName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("UserName_1", UserName_1);
+                        i.putExtra("UserName_2", UserName_2);
+                        i.putExtra("userName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("userName_1", UserName_1);
+                        i.putExtra("userName_2", UserName_2);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
-        cardOrderQuantity.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardOrderQuantity.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Viewbycustomer.class);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Viewbycustomer.class);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
-        cardOrderValue.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardOrderValue.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Viewbycustomersale.class);
-                            System.out.println("userName ");
-                            Log.d("Changepassword", "Login");
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Viewbycustomersale.class);
+                        System.out.println("userName ");
+                        Log.d("Changepassword", "Login");
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
-        cardReturnStatus.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardReturnStatus.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Viewbycustomerreturn.class);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Viewbycustomerreturn.class);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
-        cardPartyOrder.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardPartyOrder.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Viewbycustomerorderstatus.class);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Viewbycustomerorderstatus.class);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
-        cardCurrentStock.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
+        cardCurrentStock.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, Stokeview.class);
-                            System.out.println("userName ");
-                            Log.d("Changepassword", "Login");
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("new_version", userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, Stokeview.class);
+                        System.out.println("userName ");
+                        Log.d("Changepassword", "Login");
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("new_version", userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
         back_btn.setOnClickListener(new OnClickListener() {
             final Bundle b = getIntent().getExtras();
 
             @Override
             public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                });
+                Thread backthred = new Thread(() -> finish());
                 backthred.start();
             }
         });
-        cardSaleGrowth.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cardSaleGrowth.setOnClickListener(v -> {
+            if (!NetInfo.isOnline(getBaseContext())) {
+                showSnack();
+            } else {
+                final JSONParser jsonParser = new JSONParser();
+                final List<NameValuePair> params = new ArrayList<>();
+                Bundle b = getIntent().getExtras();
+                usename12 = b.getString("UserName");
+                pDialog = new ProgressDialog(Report.this);
+                pDialog.setMessage("Calculating your Achievment ");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(true);
+                pDialog.show();
+                String userName = b.getString("UserName");
+                params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
+
+                Thread server = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject json = jsonParser.makeHttpRequest(URL_Achievement, "POST", params);
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+                            invoice = json.getString(TAG_invoice);
+                            target_data = json.getString(TAG_target);
+                            achivement = json.getString(TAG_achivement);
+                            growth = json.getString(TAG_growth);
+                            Log.w("please wait ...." + message, json.toString());
+
+                            if (success == 1) {
+
+                            } else {
+                                SaveToDataBase();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Intent in = getIntent();
+                        Intent inten = getIntent();
+                        Bundle bundle = in.getExtras();
+                        inten.getExtras();
+                        String MPO_CODE = bundle.getString("MPO_CODE");
+                        String userName_1 = bundle.getString("userName_1");
+                        Log.e("mpoflag==>", Dashboard.ff_type);
+                        Intent sameint = new Intent(Report.this, Achievement.class);
+                        sameint.putExtra("UserName", MPO_CODE);
+                        sameint.putExtra("Ord_NO", message);
+                        sameint.putExtra("invoice", invoice);
+                        sameint.putExtra("target", target_data);
+                        sameint.putExtra("achivement", achivement);
+                        sameint.putExtra("growth", growth);
+                        sameint.putExtra("userName_1", usename12);
+                        sameint.putExtra("UserName_2", UserName_2);
+                        startActivity(sameint);
+                        pDialog.dismiss();
+                    }
+
+                    private void SaveToDataBase() {}
+                });
+                server.start();
+            }
+        });
+        cardOpsoninList.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
                 if (!NetInfo.isOnline(getBaseContext())) {
                     showSnack();
                 } else {
-                    final JSONParser jsonParser = new JSONParser();
-                    final List<NameValuePair> params = new ArrayList<NameValuePair>();
-                    Bundle b = getIntent().getExtras();
-                    usename12 = b.getString("UserName");
-                    pDialog = new ProgressDialog(Report.this);
-                    pDialog.setMessage("Calculating your Achievment ");
-                    pDialog.setIndeterminate(false);
-                    pDialog.setCancelable(true);
-                    pDialog.show();
-                    String userName = b.getString("UserName");
-                    params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
-
-                    Thread server = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            JSONObject json = jsonParser.makeHttpRequest(URL_Achievement, "POST", params);
-                            try {
-                                success = json.getInt(TAG_SUCCESS);
-                                message = json.getString(TAG_MESSAGE);
-                                invoice = json.getString(TAG_invoice);
-                                target_data = json.getString(TAG_target);
-                                achivement = json.getString(TAG_achivement);
-                                growth = json.getString(TAG_growth);
-                                Log.w("please wait ...." + message, json.toString());
-                                if (success == 1) {
-                                } else {
-                                    SaveToDataBase();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            String userName_1 = bundle.getString("userName_1");
-                            Log.e("mpoflag==>", Dashboard.ff_type);
-                            Intent sameint = new Intent(Report.this, Achievement.class);
-                            sameint.putExtra("UserName", MPO_CODE);
-                            sameint.putExtra("Ord_NO", message);
-                            sameint.putExtra("invoice", invoice);
-                            sameint.putExtra("target", target_data);
-                            sameint.putExtra("achivement", achivement);
-                            sameint.putExtra("growth", growth);
-                            sameint.putExtra("userName_1", usename12);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            startActivity(sameint);
-                            pDialog.dismiss();
-                        }
-
-                        private void SaveToDataBase() {
-                        }
-                    });
-                    server.start();
+                    Intent i = new Intent(Report.this, AdminProductList.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    startActivity(i);
                 }
-            }
+            });
+            mysells.start();
         });
-        cardOpsoninList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, AdminProductList.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("UserName_2", UserName_2);
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
-        });
-        cardGroupProduct.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    final Bundle b = getIntent().getExtras();
-                    final String userName = b.getString("UserName");
-                    final String UserName_1 = b.getString("userName_1");
-                    final String UserName_2 = b.getString("userName_2");
+        cardGroupProduct.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
+                final String UserName_1 = b.getString("userName_1");
+                final String UserName_2 = b.getString("userName_2");
 
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, GroupwiseProductOrderSummary2.class);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("new_version", userName);
-                            i.putExtra("UserName_1", userName);
-                            i.putExtra("UserName_2", userName);
-                            i.putExtra("userName", userName);
-                            i.putExtra("userName_1", userName);
-                            i.putExtra("userName_2", userName);
-                            //Log.e("passedvalues==>",userName);
-                            startActivity(i);
-                        }
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, GroupwiseProductOrderSummary2.class);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("UserName_1", userName);
+                        i.putExtra("UserName_2", userName);
+                        i.putExtra("userName", userName);
+                        i.putExtra("userName_1", userName);
+                        i.putExtra("userName_2", userName);
+                        //Log.e("passedvalues==>",userName);
+                        startActivity(i);
                     }
-                });
-                mysells.start();
-            }
+                }
+            });
+            mysells.start();
         });
+
 //		customervalue_btn.setOnClickListener(new OnClickListener() {
 //			@Override
 //			public void onClick(View v) {
@@ -536,58 +500,47 @@ public class Report extends Activity implements OnClickListener {
 //				mysells.start();
 //			}
 //		});
-        cardMrdPrescription.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            //showSnack();
-                            Intent i = new Intent(Report.this, MRDPresReport.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("report_flag", "MRD");
-                            i.putExtra("asm_flag", "N");
-                            i.putExtra("sm_flag", "N");
-                            i.putExtra("gm_flag", "N");
-                            i.putExtra("rm_flag", "N");
-                            i.putExtra("fm_flag", "N");
-                            i.putExtra("mpo_flag", "Y");
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
+
+        cardMrdPrescription.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                if (!NetInfo.isOnline(getBaseContext())) {
+                    showSnack();
+                } else {
+                    //showSnack();
+                    Intent i = new Intent(Report.this, MRDPresReport.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("report_flag", "MRD");
+                    i.putExtra("asm_flag", "N");
+                    i.putExtra("sm_flag", "N");
+                    i.putExtra("gm_flag", "N");
+                    i.putExtra("rm_flag", "N");
+                    i.putExtra("fm_flag", "N");
+                    i.putExtra("mpo_flag", "Y");
+                    startActivity(i);
+                }
+            });
+            mysells.start();
         });
-        cardMspPrescription.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!NetInfo.isOnline(getBaseContext())) {
-                            showSnack();
-                        } else {
-                            Intent i = new Intent(Report.this, MRDPresReport.class);
-                            i.putExtra("userName", userName);
-                            i.putExtra("UserName", userName);
-                            i.putExtra("report_flag", "MSP");
-                            i.putExtra("asm_flag", "N");
-                            i.putExtra("sm_flag", "N");
-                            i.putExtra("gm_flag", "N");
-                            i.putExtra("rm_flag", "N");
-                            i.putExtra("fm_flag", "N");
-                            i.putExtra("mpo_flag", "Y");
-                            startActivity(i);
-                        }
-                    }
-                });
-                mysells.start();
-            }
+        cardMspPrescription.setOnClickListener(v -> {
+            Thread mysells = new Thread(() -> {
+                if (!NetInfo.isOnline(getBaseContext())) {
+                    showSnack();
+                } else {
+                    Intent i = new Intent(Report.this, MRDPresReport.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("report_flag", "MSP");
+                    i.putExtra("asm_flag", "N");
+                    i.putExtra("sm_flag", "N");
+                    i.putExtra("gm_flag", "N");
+                    i.putExtra("rm_flag", "N");
+                    i.putExtra("fm_flag", "N");
+                    i.putExtra("mpo_flag", "Y");
+                    startActivity(i);
+                }
+            });
+            mysells.start();
         });
         card4pPrescription.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
@@ -668,9 +621,7 @@ public class Report extends Activity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 }

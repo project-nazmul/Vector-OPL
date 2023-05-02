@@ -75,7 +75,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
     public static ArrayList<String> PPM_CODE;
     public static ArrayList<String> SHIFT_CODE;
     private ArrayList<Customer> mpodcrlist;
-    private ArrayList<String> array_sort = new ArrayList<String>();
+    private ArrayList<String> array_sort = new ArrayList<>();
     private String URL_PRODUCT_VIEW = BASE_URL+"brandwisesales/RMBrandwiseProductSale.php";
     private String URL_DCR = BASE_URL+"get_brand.php";
     private android.widget.Spinner cust;
@@ -360,13 +360,11 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
