@@ -565,7 +565,7 @@ public class Report extends Activity implements OnClickListener {
 
         cardBrandSale.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
-                Intent i = new Intent(Report.this, RMBrandwiseProductSale.class);
+                Intent i = new Intent(Report.this, MPOBrandWiseProductSale.class);
                 i.putExtra("userName", UserName);
                 i.putExtra("UserName", UserName);
                 i.putExtra("UserName_2", UserName_2);

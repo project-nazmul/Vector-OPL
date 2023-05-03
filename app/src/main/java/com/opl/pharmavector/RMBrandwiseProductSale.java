@@ -202,7 +202,6 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 }
             }
         });
-
         new LoadProduct().execute();
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_form = new DatePickerDialog.OnDateSetListener() {
@@ -223,15 +222,9 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             }
         };
 
-        tvfromdate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(RMBrandwiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        tvfromdate.setOnClickListener(v -> new DatePickerDialog(RMBrandwiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
-        /*---------------------------from date range-----------------end-----------*/
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -251,37 +244,26 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             }
         };
 
-        tvtodate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(RMBrandwiseProductSale.this, date_to, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        tvtodate.setOnClickListener(v -> new DatePickerDialog(RMBrandwiseProductSale.this, date_to, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
 
-        /*---------------------------to date range-----------------end-----------*/
-        back_btn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                backthred.start();
-            }
+        back_btn.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
 
         submitBtn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 if ((actv.getText().toString().trim().equals(""))) {
@@ -312,16 +294,16 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
     }
 
     private void producpopulatespinner() {
-        List<String> lables = new ArrayList<String>();
+        List<String> lables = new ArrayList<>();
 
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
-        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, customer);
+        AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }

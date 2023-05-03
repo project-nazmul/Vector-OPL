@@ -2,22 +2,7 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.lang.Runnable;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,52 +13,46 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.opl.pharmavector.util.NetInfo;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class BrandwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
-    private static Activity parent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
+public class MPOBrandWiseProductSale  extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    //array list for spinner adapter
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    private ArrayList<Category> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
-    Button submit, submitBtn;
-    //private EditText current_qnty;
-    EditText qnty;
-    Boolean result;
-    EditText inputOne, inputtwo;
+    Button submitBtn;
     public int success;
     public String message, ord_no;
     TextView date2, ded, fromdate, todate;
     int textlength = 0;
     public TextView totqty, totval;
-    //public android.widget.Spinner ordspin;
     public String userName_1, userName, active_string, act_desiredString;
-    public String from_date, to_date,g_fm_code;
-    com.opl.pharmavector.JSONParser jsonParser;
-    List<NameValuePair> params;
-    //public String CurrenCustomer="";
-    //public AutoCompleteTextView actv;
+    public String from_date, to_date;
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
     public static ArrayList<String> PROD_RATE;
@@ -81,12 +60,11 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
     public static ArrayList<String> PPM_CODE;
     public static ArrayList<String> SHIFT_CODE;
     private ArrayList<Customer> mpodcrlist;
-    private ArrayList<String> array_sort = new ArrayList<String>();
-    //private String URL_PRODUCT_VIEW ="http://opsonin.com.bd/dept_order_android_v2/ViewbyDate.php";
-    private String URL_PRODUCT_VIEW = BASE_URL+"brandwisesales/BrandwiseProductSale.php";
-    private String URL_DCR = BASE_URL+"get_brand.php";
+    private final ArrayList<String> array_sort = new ArrayList<>();
+    private final String URL_PRODUCT_VIEW = BASE_URL+"productwisesales/SegmentwiseProductSale.php";
+    private final String URL_DCR = BASE_URL+"get_product_followup.php";
     private android.widget.Spinner cust;
-    public String product_name, p_code,select_fm_code,check_flag;
+    public String product_name, p_code, select_fm_code, check_flag, report_flag;
     private ArrayList<Customer> customerlist;
     AutoCompleteTextView actv;
     Button back_btn, view_btn;
@@ -100,22 +78,22 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.brandwisesale);
+        setContentView(R.layout.activity_mpo_brandsale);
 
         initViews();
-        calenderInit();
+        caclenderInit();
         cust.setOnItemSelectedListener(this);
-        if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
-            actv.setText(product_name);
-            actv.setSelection(actv.getText().length());
-            new GetBrandSale().execute();
-        } else {
-            actv.setFocusable(true);
-            actv.setSelection(actv.getText().length());
-        }
+//        if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
+//            actv.setText(product_name);
+//            actv.setSelection(actv.getText().length());
+//            new GetBrandSale().execute();
+//        } else {
+//            actv.setFocusable(true);
+//        }
         actv.setOnClickListener(v -> {
-            if (actv.getText().toString() != "") {
+            if (!actv.getText().toString().equals("")) {
                 String selectedcustomer = actv.getText().toString();
+                System.out.println("Selectedcustomer = " + selectedcustomer);
                 cust.setTag(selectedcustomer);
             }
         });
@@ -128,55 +106,52 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //actv.setTextColor(Color.BLACK);
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
                 try {
-                    //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf("//") != -1) {
-                        String arr[] = inputorder.split("//");
+                    if (inputorder.contains("//")) {
+                        String[] arr = inputorder.split("//");
                         product_name = arr[0].trim();
-                        String product_code = arr[1].trim();
-                        p_code = product_code;
+                        p_code = arr[1].trim();
                         actv.setText(product_name);
                     } else {
-                        //ded.setText("Select Date");
+                        // ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {}
-        });
+            private void length() {
 
+            }
+        });
         new LoadProduct().execute();
-        back_btn.setOnClickListener(new OnClickListener() {
-            Bundle b = getIntent().getExtras();
+        //new GetCategories().execute();
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            final Bundle b = getIntent().getExtras();
+
             @Override
             public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                Thread backthred = new Thread(() -> {
+                    try {
+                        finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
                 backthred.start();
             }
         });
-        submitBtn.setOnClickListener(new OnClickListener() {
-            Bundle b = getIntent().getExtras();
-            String userName = b.getString("UserName");
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            final Bundle b = getIntent().getExtras();
+            final String userName = b.getString("UserName");
+
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
@@ -186,6 +161,9 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                     try {
                         String fromdate1 = fromdate.getText().toString();
                         String todate1 = todate.getText().toString();
+                        System.out.println("else  fromdate1 " + fromdate1);
+                        System.out.println("else todate1" + todate1);
+
                         if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
                             fromdate.setText("From Date is required");
                             fromdate.setTextColor(Color.RED);
@@ -202,38 +180,23 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                 }
             }
         });
-        ln.setOnClickListener(v -> {});
-        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
-            select_fm_code = (String) productListView.getAdapter().getItem(arg2);
-            if (select_fm_code.trim().equals("TOTAL")){
-                Log.e("please select a MPO",select_fm_code);
-            } else {
-                new callserver().execute();
-            }
+
+        ln.setOnClickListener(v -> {
+
         });
     }
 
     @SuppressLint("SimpleDateFormat")
-    private void calenderInit() {
-        Bundle b = getIntent().getExtras();
-        String toDate = b.getString("to_date");
-        String fromDate = b.getString("from_date");
+    private void caclenderInit() {
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        //todate.setText(current_todate);
+        todate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        //fromdate.setText(current_fromdate);
+        fromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
-        if (fromDate != null && toDate != null) {
-            fromdate.setText(fromDate);
-            todate.setText(toDate);
-        } else {
-            fromdate.setText(current_fromdate);
-            todate.setText(current_todate);
-        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -245,6 +208,7 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
             }
 
             private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 fromdate.setTextColor(Color.BLACK);
@@ -252,18 +216,21 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        fromdate.setOnClickListener(v -> new DatePickerDialog(BrandwiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        fromdate.setOnClickListener(v -> new DatePickerDialog(MPOBrandWiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
+
             private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 todate.setTextColor(Color.BLACK);
@@ -271,27 +238,32 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        todate.setOnClickListener(v -> new DatePickerDialog(BrandwiseProductSale.this, date_to, myCalendar
+        todate.setOnClickListener(v -> new DatePickerDialog(MPOBrandWiseProductSale.this, date_to, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        productListView =  findViewById(R.id.pListView);
+        productListView = findViewById(R.id.pListView);
         back_btn = findViewById(R.id.backbt);
         view_btn = findViewById(R.id.view);
         submitBtn = findViewById(R.id.submitBtn);
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
+
+        TextView mpode = findViewById(R.id.mpode);
+        mpode.setText("Segment\nCode");
         cust = findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
         actv = findViewById(R.id.autoCompleteTextView1);
-        actv.setHint("Type Brand Name");
+        actv.setHint("Type Product Name");
+        //actv.setVisibility(View.GONE);
+        //submitBtn.setVisibility(View.GONE);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
-        ln = (LinearLayout) findViewById(R.id.totalshow);
+        ln = findViewById(R.id.totalshow);
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
         p_ids = new ArrayList<String>();
@@ -301,78 +273,34 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         PPM_CODE = new ArrayList<String>();
         SHIFT_CODE = new ArrayList<String>();
         categoriesList = new ArrayList<>();
+
         Bundle b = getIntent().getExtras();
-        String userName = b.getString("UserName");
+        userName = b.getString("UserName");
         p_code = b.getString("p_code");
+        String mpo_code = b.getString("mpo_code");
+        String fm_code = b.getString("fm_code");
+        String fromdate1 = b.getString("from_date");
+        String todate1 = b.getString("to_date");
+        String p_code = b.getString("p_code");
+        //report_flag = b.getString("report_flag");
+        //fromdate.setText(fromdate1);
+        //todate.setText(todate1);
+        fromdate.setClickable(false);
+        todate.setClickable(false);
         product_name = b.getString("product_name");
-        g_fm_code= userName;
         submitBtn.setTextSize(10);
-        customerlist = new ArrayList<Customer>();
+        customerlist = new ArrayList<>();
     }
 
-    private void producpopulatespinner() {
-        List<String> lables = new ArrayList<String>();
-        for (int i = 0; i < customerlist.size(); i++) {
-            lables.add(customerlist.get(i).getName());
-        }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, lables);
-        cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
-        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-        actv.setAdapter(Adapter);
-        actv.setTextColor(Color.BLUE);
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
     }
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {}
+    public void onNothingSelected(AdapterView<?> parent) {
 
-    class LoadProduct extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(BrandwiseProductSale.this);
-            pDialog.setMessage("Loading Products ...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            Bundle b = getIntent().getExtras();
-            String id = b.getString("UserName");
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
-
-            if (json != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(json);
-                    JSONArray customer = jsonObj.getJSONArray("customer");
-                    for (int i = 0; i < customer.length(); i++) {
-                        JSONObject catObj = (JSONObject) customer.get(i);
-                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                        customerlist.add(custo);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.e("JSON Data", "Didn't receive any data from server!");
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            producpopulatespinner();
-        }
     }
 
     private void popSpinner() {
@@ -421,30 +349,47 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
             }
-            BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(BrandwiseProductSale.this, lables, quanty, value, achv, mpo_code, sale_value, target_value, growth_value);
+            BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(MPOBrandWiseProductSale.this, lables, quanty, value, achv,
+                    mpo_code, sale_value, target_value, growth_value);
+
             productListView.setAdapter(adapter);
         }
+
         private float round(float x, int i) {
             return 0;
         }
+
         public String getTotalQ() {
             return TotalQ;
         }
+
         public String getTotalV() {
             return TotalV;
         }
     }
 
+    private void producpopulatespinner() {
+        List<String> lables = new ArrayList<>();
+
+        for (int i = 0; i < customerlist.size(); i++) {
+            lables.add(customerlist.get(i).getName());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, lables);
+        cust.setAdapter(spinnerAdapter);
+        String[] customer = lables.toArray(new String[0]);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, customer);
+        AutoCompleteTextView actv = findViewById(R.id.autoCompleteTextView1);
+        actv.setAdapter(Adapter);
+        actv.setTextColor(Color.BLUE);
+    }
+
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-        String fromdate1 = fromdate.getText().toString();
-        String todate1 = todate.getText().toString();
-        Bundle b = getIntent().getExtras();
-        String userName = b.getString("UserName");
+        String json;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(BrandwiseProductSale.this);
+            pDialog = new ProgressDialog(MPOBrandWiseProductSale.this);
             pDialog.setTitle("Data Loading !");
             pDialog.setMessage("Please Wait..");
             pDialog.setCancelable(false);
@@ -454,45 +399,54 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
-            String userName = b.getString("UserName");
-            String UserName = b.getString("UserName");
-            String id = userName;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("to_date", todate1));
+            //String mpo_code = b.getString("mpo_code");
+            //String fm_code = b.getString("fm_code");
+            //String fromdate1 = b.getString("from_date");
+            //String todate1 = b.getString("to_date");
+            //String p_code = b.getString("p_code");
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("mpo_code", userName));
+            params.add(new BasicNameValuePair("fm_code", ""));
+            params.add(new BasicNameValuePair("to_date", todate.getText().toString()));
             params.add(new BasicNameValuePair("p_code", p_code));
-            params.add(new BasicNameValuePair("from_date", fromdate1));
+            params.add(new BasicNameValuePair("from_date", fromdate.getText().toString()));
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
-            String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
-            Log.e("Response: ", "> " + json);
+            //json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+            String URL_BRANDSALE_VIEW = BASE_URL+"brandwisesales/BrandSaleForMPO.php";
+            json = jsonParser.makeServiceCall(URL_BRANDSALE_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+//            if(report_flag.equals("P")) {
+//                json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+//            } else {
+//                String URL_BRANDSALE_VIEW = BASE_URL+"brandwisesales/SegmentwiseBrandSale.php";
+//                json = jsonParser.makeServiceCall(URL_BRANDSALE_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+//            }
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(BrandwiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
-                Toast.makeText(BrandwiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
+                Log.e("JSON Data", "Didn't receive any data from server!");
+                Toast.makeText(MPOBrandWiseProductSale.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MPOBrandWiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -502,11 +456,14 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            BrandwiseProductSale.Spinner sp = new BrandwiseProductSale.Spinner();
+            Spinner sp = new Spinner();
             sp.populateSpinner();
             popSpinner();
             totqty.setText("");
             totval.setText("");
+            //totqty.setText("Total target quantity="+sp.getTotalQ());
+            //totval.setText("Total Sales quantity="+sp.getTotalV());
+
         }
     }
 
@@ -519,94 +476,109 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(BrandwiseProductSale.this);
+            pDialog = new ProgressDialog(MPOBrandWiseProductSale.this);
             pDialog.setTitle("Data Loading !");
             pDialog.setMessage("Please Wait..");
             pDialog.setCancelable(false);
+            //pDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
+            Log.e("Response: ", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy---------------------------y");
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String UserName = b.getString("UserName");
-            String id = userName;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("to_date", todate.getText().toString()));
+            Log.e(" todate:  yyyyyyy", ">  " + todate1);
+
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("id", userName));
+            params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("p_code", p_code));
-            params.add(new BasicNameValuePair("from_date", fromdate.getText().toString()));
+            params.add(new BasicNameValuePair("from_date", fromdate1));
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
-            Log.d("GetBrandSale: 2023", json);
+            Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(BrandwiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
-                Toast.makeText(BrandwiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
+                Toast.makeText(MPOBrandWiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MPOBrandWiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            BrandwiseProductSale.Spinner sp = new BrandwiseProductSale.Spinner();
+            Spinner sp = new Spinner();
             sp.populateSpinner();
             popSpinner();
             totqty.setText("");
             totval.setText("");
+            //totqty.setText("Total target quantity="+sp.getTotalQ());
+            //totval.setText("Total Sales quantity="+sp.getTotalV());
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    class callserver extends AsyncTask<Void, Void, Void> {
-        final JSONParser jsonParser = new JSONParser();
-        final List<NameValuePair> params = new ArrayList<NameValuePair>();
-        private ProgressDialog progressDialog;
-
+    class LoadProduct extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(BrandwiseProductSale.this, "", "Wait....", true);
+            pDialog = new ProgressDialog(MPOBrandWiseProductSale.this);
+            pDialog.setMessage("Loading Products ...");
+            pDialog.setCancelable(false);
+            pDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            String URL_DOC_ADDRESS = BASE_URL+"productwisesales/check_flag.php";
-            params.add(new BasicNameValuePair("select_fm_code", select_fm_code));
-            JSONObject json = jsonParser.makeHttpRequest(URL_DOC_ADDRESS, "POST", params);
+            Bundle b = getIntent().getExtras();
+            String id = b.getString("UserName");
+
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("id", id));
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
-                    check_flag = json.getString("PROD_GRP");
+                    JSONObject jsonObj = new JSONObject(json);
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(MPOBrandWiseProductSale.this, "Didn't receive any data from server!", Toast.LENGTH_SHORT).show();
             }
             return null;
         }
@@ -614,43 +586,28 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            progressDialog.dismiss();
+            producpopulatespinner();
 
-            Thread backthred = new Thread(() -> {
-                try {
-                    if (!NetInfo.isOnline(getBaseContext())) {
-
-                    } else{
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                            if (check_flag.equals("G")){
-                                Intent i = new Intent(BrandwiseProductSale.this, SegmentSale.class);
-                                i.putExtra("mpo_code", select_fm_code);
-                                i.putExtra("fm_code", g_fm_code);
-                                i.putExtra("from_date", fromdate.getText().toString());
-                                i.putExtra("to_date", todate.getText().toString());
-                                i.putExtra("p_code", p_code);
-                                i.putExtra("report_flag", "B");
-                                startActivity(i);
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            backthred.start();
+            if (pDialog.isShowing())
+                pDialog.dismiss();
         }
     }
 
     @Override
-    public void onClick(View v) {}
+    public void onClick(View v) {
 
-    protected void onPostExecute() {}
+    }
+
+    protected void onPostExecute() {
+
+    }
 
     private void view() {
-        Intent i = new Intent(BrandwiseProductSale.this, com.opl.pharmavector.Report.class);
+        Intent i = new Intent(MPOBrandWiseProductSale.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
     }
 }
+
+
 

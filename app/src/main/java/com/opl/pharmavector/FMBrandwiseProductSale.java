@@ -140,7 +140,7 @@ public class FMBrandwiseProductSale extends Activity implements OnClickListener,
         }
         customerlist = new ArrayList<Customer>();
 
-        cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        cust.setOnItemSelectedListener(this);
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
             actv.setText(product_name);
             actv.setSelection(actv.getText().length());
@@ -150,19 +150,17 @@ public class FMBrandwiseProductSale extends Activity implements OnClickListener,
             actv.setSelection(actv.getText().length());
         }
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String rm_code = (String) productListView.getAdapter().getItem(arg2);
-                Intent i = new Intent(FMBrandwiseProductSale.this, BrandwiseProductSale.class);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("UserName", rm_code);
-                i.putExtra("p_code", p_code);
-                i.putExtra("product_name", product_name);
-                i.putExtra("to_date", todate.getText().toString());
-                i.putExtra("from_date", fromdate.getText().toString());
-                Log.e("FM==>Branswisw=->",rm_code);
-                startActivity(i);
-            }
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            String rm_code = (String) productListView.getAdapter().getItem(arg2);
+            Intent i = new Intent(FMBrandwiseProductSale.this, BrandwiseProductSale.class);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("UserName", rm_code);
+            i.putExtra("p_code", p_code);
+            i.putExtra("product_name", product_name);
+            i.putExtra("to_date", todate.getText().toString());
+            i.putExtra("from_date", fromdate.getText().toString());
+            Log.e("FM==>Branswisw=->",rm_code);
+            startActivity(i);
         });
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
