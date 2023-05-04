@@ -2,8 +2,6 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -62,7 +60,8 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
     private ArrayList<Customer> mpodcrlist;
     private final ArrayList<String> array_sort = new ArrayList<>();
     private final String URL_PRODUCT_VIEW = BASE_URL+"productwisesales/SegmentwiseProductSale.php";
-    private final String URL_DCR = BASE_URL+"get_product_followup.php";
+    //private final String URL_DCR = BASE_URL+"get_product_followup.php";
+    private final String URL_DCR = BASE_URL+"get_brand.php";
     private android.widget.Spinner cust;
     public String product_name, p_code, select_fm_code, check_flag, report_flag;
     private ArrayList<Customer> customerlist;
@@ -81,7 +80,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_mpo_brandsale);
 
         initViews();
-        caclenderInit();
+        calenderInit();
         cust.setOnItemSelectedListener(this);
 //        if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
 //            actv.setText(product_name);
@@ -92,9 +91,9 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
 //        }
         actv.setOnClickListener(v -> {
             if (!actv.getText().toString().equals("")) {
-                String selectedcustomer = actv.getText().toString();
-                System.out.println("Selectedcustomer = " + selectedcustomer);
-                cust.setTag(selectedcustomer);
+                String selectedCustomer = actv.getText().toString();
+                System.out.println("SelectedCustomer = " + selectedCustomer);
+                cust.setTag(selectedCustomer);
             }
         });
         actv.setOnTouchListener((v, event) -> {
@@ -187,7 +186,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
     }
 
     @SuppressLint("SimpleDateFormat")
-    private void caclenderInit() {
+    private void calenderInit() {
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
@@ -221,8 +220,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -383,6 +381,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
         actv.setTextColor(Color.BLUE);
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class GetCategories extends AsyncTask<Void, Void, Void> {
         String json;
 
@@ -398,12 +397,6 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            Bundle b = getIntent().getExtras();
-            //String mpo_code = b.getString("mpo_code");
-            //String fm_code = b.getString("fm_code");
-            //String fromdate1 = b.getString("from_date");
-            //String todate1 = b.getString("to_date");
-            //String p_code = b.getString("p_code");
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("mpo_code", userName));
             params.add(new BasicNameValuePair("fm_code", ""));
@@ -411,7 +404,6 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             params.add(new BasicNameValuePair("p_code", p_code));
             params.add(new BasicNameValuePair("from_date", fromdate.getText().toString()));
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
-            //json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
             String URL_BRANDSALE_VIEW = BASE_URL+"brandwisesales/BrandSaleForMPO.php";
             json = jsonParser.makeServiceCall(URL_BRANDSALE_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
 //            if(report_flag.equals("P")) {
@@ -444,9 +436,8 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
                     e.printStackTrace();
                 }
             } else {
-                Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(MPOBrandWiseProductSale.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MPOBrandWiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
+                Log.d("JSON Data", "Didn't receive any data from server!");
+                Toast.makeText(MPOBrandWiseProductSale.this, "Didn't receive any data from server!", Toast.LENGTH_SHORT).show();
             }
             return null;
         }
@@ -461,12 +452,10 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             popSpinner();
             totqty.setText("");
             totval.setText("");
-            //totqty.setText("Total target quantity="+sp.getTotalQ());
-            //totval.setText("Total Sales quantity="+sp.getTotalV());
-
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class GetBrandSale extends AsyncTask<Void, Void, Void> {
         String fromdate1 = fromdate.getText().toString();
         String todate1 = todate.getText().toString();
@@ -485,11 +474,9 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            Log.e("Response: ", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy---------------------------y");
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String UserName = b.getString("UserName");
-            Log.e(" todate:  yyyyyyy", ">  " + todate1);
 
             List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", userName));
@@ -498,7 +485,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             params.add(new BasicNameValuePair("from_date", fromdate1));
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
-            Log.e("Response: ", "> " + json);
+            Log.d("Response: ", "> " + json);
 
             if (json != null) {
                 try {
@@ -523,9 +510,8 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
                     e.printStackTrace();
                 }
             } else {
-                Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(MPOBrandWiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MPOBrandWiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
+                Log.d("JSON Data", "Didn't receive any data from server!");
+                Toast.makeText(MPOBrandWiseProductSale.this, "Didn't receive any data from server!", Toast.LENGTH_SHORT).show();
             }
             return null;
         }
@@ -540,11 +526,10 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             popSpinner();
             totqty.setText("");
             totval.setText("");
-            //totqty.setText("Total target quantity="+sp.getTotalQ());
-            //totval.setText("Total Sales quantity="+sp.getTotalV());
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     class LoadProduct extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {

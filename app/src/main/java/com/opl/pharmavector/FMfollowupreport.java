@@ -1,7 +1,5 @@
 package com.opl.pharmavector;
 
-//FollowupReport
-
 import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
@@ -9,8 +7,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.lang.Runnable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -20,9 +21,12 @@ import org.json.JSONObject;
 
 import com.nativecss.NativeCSS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,13 +45,13 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category3> categoriesList;
     private ArrayList<com.opl.pharmavector.Category6> categoriesList2;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
@@ -56,11 +61,16 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     int textlength = 0;
     public TextView totqty, totval;
     //public android.widget.Spinner ordspin;
+    Calendar c_todate, c_fromdate;
+    SimpleDateFormat dftodate, dffromdate;
+    String current_todate, current_fromdate;
+    Calendar myCalendar, myCalendar1;
+    DatePickerDialog.OnDateSetListener date_form, date_to;
+    TextView tvfromdate, tvtodate, title;
     public String userName_1, userName, UserName_2, active_string, act_desiredString, rm_code, user, am_code, sm_flag, sm_code, admin_flag;
     public String from_date, to_date;
     JSONParser jsonParser;
     List<NameValuePair> params;
-
     public static ArrayList<String> sl;
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
@@ -69,51 +79,39 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     public static ArrayList<String> PROD_VAT_2;
     public static ArrayList<String> PROD_VAT_3;
     public static ArrayList<String> PROD_VAT_4;
-
-
     public static ArrayList<String> PROD_VAT_5;
     public static ArrayList<String> PROD_VAT_6;
     public static ArrayList<String> PROD_VAT_7;
-
-
     public static ArrayList<String> PROD_VAT_8;
     public static ArrayList<String> PROD_VAT_9;
     public static ArrayList<String> PROD_VAT_10;
-
-
     public static ArrayList<String> PROD_VAT_11;
     public static ArrayList<String> PROD_VAT_12;
     public static ArrayList<String> PROD_VAT_13;
-
-
     private android.widget.Spinner count_dcr;
     private ArrayList<com.opl.pharmavector.Customer> dateextendlist;
     private ArrayList<com.opl.pharmavector.Customer> mpodonedcr;
-
     private ArrayList<com.opl.pharmavector.Customer> mporeqdcr;
-
     public String get_ext_dt;
-
-
     private ArrayList<Customer> mpodcrlist;
-
     private ArrayList<String> array_sort = new ArrayList<String>();
     private final String URL_PRODUCT_VIEW = BASE_URL+"FMFollowupreport.php";
 
-
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followupreport);
+
+        calenderInit();
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
         todate = (TextView) findViewById(R.id.todate);
+        submitBtn = (Button) findViewById(R.id.submitBtn);
         rname = (TextView) findViewById(R.id.rm_code);
-
-        todate.setText("Area Manager wise DCR Followup");
+        title = (TextView) findViewById(R.id.title);
+        title.setText("Area Manager FollowUp Report");
         rname.setText("Area");
-
-
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
         int listsize = productListView.getChildCount();
@@ -123,86 +121,123 @@ public class FMfollowupreport extends Activity implements OnClickListener {
         categoriesList = new ArrayList<Category3>();
         categoriesList2 = new ArrayList<Category6>();
 
-
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
         rm_code = b.getString("rm_code");
         sm_flag = b.getString("sm_flag");
         sm_code = b.getString("sm_code");
         admin_flag = b.getString("admin_flag");
-
-
         mpodcrlist = new ArrayList<Customer>();
-        dateextendlist = new ArrayList<com.opl.pharmavector.Customer>();
-        mpodonedcr = new ArrayList<com.opl.pharmavector.Customer>();
-        mporeqdcr = new ArrayList<com.opl.pharmavector.Customer>();
+        dateextendlist = new ArrayList<>();
+        mpodonedcr = new ArrayList<>();
+        mporeqdcr = new ArrayList<>();
 
-
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Log.i("Selected Item in list", arg0.toString());
-                String am_code = (String) productListView.getAdapter().getItem(arg2);
-                Log.i("Selected Item in list", am_code);
-                Intent i = new Intent(FMfollowupreport.this, MPOfollowupreport.class);
-                i.putExtra("rm_code", rm_code);
-                i.putExtra("am_code", am_code);
-                i.putExtra("UserName", userName);
-                i.putExtra("UserName_2", user);
-                i.putExtra("sm_flag", sm_flag);
-                i.putExtra("sm_code", sm_code);
-                i.putExtra("admin_flag", admin_flag);
-                Log.w("PassedMPOfollowupreport", userName + "---" + user + "---" + am_code + rm_code + sm_flag + "----admin---------" + admin_flag);
-                startActivity(i);
-
-
-            }
+        submitBtn.setOnClickListener(v -> {
+            new GetCategories().execute();
         });
-
-
+        productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
+            Log.i("Selected Item in list", arg0.toString());
+            String am_code = (String) productListView.getAdapter().getItem(arg2);
+            Log.i("Selected Item in list", am_code);
+            Intent i = new Intent(FMfollowupreport.this, MPOfollowupreport.class);
+            i.putExtra("rm_code", rm_code);
+            i.putExtra("am_code", am_code);
+            i.putExtra("UserName", userName);
+            i.putExtra("UserName_2", user);
+            i.putExtra("sm_flag", sm_flag);
+            i.putExtra("sm_code", sm_code);
+            i.putExtra("admin_flag", admin_flag);
+            Log.w("PassedMPOfollowupreport", userName + "---" + user + "---" + am_code + rm_code + sm_flag + "----admin---------" + admin_flag);
+            startActivity(i);
+        });
         new GetCategories().execute();
-
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (admin_flag.equals("N")){
                                 Intent i = new Intent(FMfollowupreport.this, ReportDashboard.class);
                                 finish();
-                            }else{
+                            } else {
                                 finish();
                             }
-
-                            //finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
-
-
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private void calenderInit() {
+        tvfromdate = (TextView) findViewById(R.id.fromdate);
+        tvtodate = (TextView) findViewById(R.id.todate);
+        c_todate = Calendar.getInstance();
+        dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        current_todate = dftodate.format(c_todate.getTime());
+        tvtodate.setText(current_todate);
+        c_fromdate = Calendar.getInstance();
+        dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        current_fromdate = dffromdate.format(c_fromdate.getTime());
+        tvfromdate.setText(current_fromdate);
+        myCalendar = Calendar.getInstance();
+
+        date_form = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                tvfromdate.setTextColor(Color.BLACK);
+                tvfromdate.setText("");
+                tvfromdate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        tvfromdate.setOnClickListener(v -> new DatePickerDialog(FMfollowupreport.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        myCalendar1 = Calendar.getInstance();
+        date_to = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                tvtodate.setTextColor(Color.BLACK);
+                tvtodate.setText("");
+                tvtodate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        tvtodate.setOnClickListener(v -> new DatePickerDialog(FMfollowupreport.this, date_to, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
+    }
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList2.size(); i++) {
             description.add(categoriesList2.get(i).getId());
         }
-
-
     }
 
     public void finishActivity(View v) {
@@ -336,13 +371,10 @@ public class FMfollowupreport extends Activity implements OnClickListener {
 
             RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this, sl, lables, quanty, value, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13,
                     value14, value15, value16, value17);
-
-
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -355,10 +387,7 @@ public class FMfollowupreport extends Activity implements OnClickListener {
         }
     }
 
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -371,48 +400,48 @@ public class FMfollowupreport extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             rm_code = b.getString("rm_code");
             String id = rm_code;
             Log.e("Response: ", rm_code + id);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("to_date", tvtodate.getText().toString()));
+            params.add(new BasicNameValuePair("from_date", tvfromdate.getText().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
+                categoriesList2.clear();
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
 
+                        Category6 cat3 = new Category6(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
 
-                            com.opl.pharmavector.Category6 cat3 = new com.opl.pharmavector.Category6(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getString("quantity"),
-                                    catObj.getString("PROD_RATE"),
-
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PROD_VAT_2"),
-                                    catObj.getString("PROD_VAT_3"),
-                                    catObj.getString("PROD_VAT_4"),
-                                    catObj.getString("PROD_VAT_5"),
-                                    catObj.getString("PROD_VAT_6"),
-                                    catObj.getString("PROD_VAT_7"),
-                                    catObj.getString("PROD_VAT_8"),
-                                    catObj.getString("PROD_VAT_9"),
-                                    catObj.getString("PROD_VAT_10"),
-                                    catObj.getString("PROD_VAT_11"),
-                                    catObj.getString("PROD_VAT_12"),
-                                    catObj.getString("PROD_VAT_13")
-                            );
-                            categoriesList2.add(cat3);
-                        }
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PROD_VAT_2"),
+                                catObj.getString("PROD_VAT_3"),
+                                catObj.getString("PROD_VAT_4"),
+                                catObj.getString("PROD_VAT_5"),
+                                catObj.getString("PROD_VAT_6"),
+                                catObj.getString("PROD_VAT_7"),
+                                catObj.getString("PROD_VAT_8"),
+                                catObj.getString("PROD_VAT_9"),
+                                catObj.getString("PROD_VAT_10"),
+                                catObj.getString("PROD_VAT_11"),
+                                catObj.getString("PROD_VAT_12"),
+                                catObj.getString("PROD_VAT_13")
+                        );
+                        categoriesList2.add(cat3);
                     }
 
                 } catch (JSONException e) {

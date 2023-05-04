@@ -475,36 +475,30 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     }
 
     private void dcrfollowup() {
-        cardview_dcr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(SalesManagerDashboard.this, ASMFollowupReport.class);
-                                String sm_flag = "Y";
-                                String admin_flag = "N";
-                                i.putExtra("sm_flag", sm_flag);
-                                i.putExtra("sm_code", globalSMCode);
-                                i.putExtra("UserName", userName);
-                                i.putExtra("userName_1", userName_1);
-                                i.putExtra("userName_2", userName_2);
-                                i.putExtra("UserName", userName);
-                                i.putExtra("UserName_2", user);
-                                i.putExtra("admin_flag", admin_flag);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        cardview_dcr.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(SalesManagerDashboard.this, ASMFollowupReport.class);
+                        String sm_flag = "Y";
+                        String admin_flag = "N";
+                        i.putExtra("sm_flag", sm_flag);
+                        i.putExtra("sm_code", globalSMCode);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("userName_1", userName_1);
+                        i.putExtra("userName_2", userName_2);
+                        i.putExtra("UserName", userName);
+                        i.putExtra("UserName_2", user);
+                        i.putExtra("admin_flag", admin_flag);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 

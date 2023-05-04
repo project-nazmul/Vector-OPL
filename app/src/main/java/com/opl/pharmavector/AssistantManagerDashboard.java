@@ -1162,33 +1162,27 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     }
 
     private void dcrfollowup() {
-        cardview_dcr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(AssistantManagerDashboard.this, FollowupReport.class);
-                                String sm_flag = "N";
-                                i.putExtra("UserName", globalASMCode);
-                                i.putExtra("userName_1", globalASMCode);
-                                i.putExtra("userName_2", globalZONECode);
-                                i.putExtra("sm_flag", sm_flag);
-                                i.putExtra("UserName_2", globalZONECode);
-                                i.putExtra("am_code", globalASMCode);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        cardview_dcr.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, FollowupReport.class);
+                        String sm_flag = "N";
+                        i.putExtra("UserName", globalASMCode);
+                        i.putExtra("userName_1", globalASMCode);
+                        i.putExtra("userName_2", globalZONECode);
+                        i.putExtra("sm_flag", sm_flag);
+                        i.putExtra("UserName_2", globalZONECode);
+                        i.putExtra("am_code", globalASMCode);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 

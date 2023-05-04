@@ -221,7 +221,6 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 tvfromdate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-
         tvfromdate.setOnClickListener(v -> new DatePickerDialog(RMBrandwiseProductSale.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
@@ -243,7 +242,6 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
                 tvtodate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-
         tvtodate.setOnClickListener(v -> new DatePickerDialog(RMBrandwiseProductSale.this, date_to, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
@@ -334,7 +332,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
             String userName = b.getString("UserName");
             String id = userName;
 
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);

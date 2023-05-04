@@ -26,7 +26,7 @@
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/activity_doctor_list.xml" value="0.3265625" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/activity_login.xml" value="0.8204819277108434" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/activity_rx_report.xml" value="0.398711943793911" />
-        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/followupreport.xml" value="0.26854219948849106" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/followupreport.xml" value="0.25" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-land/pc_conference_followup.xml" value="0.17" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" value="0.15" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout-large-land/activity_pmd_notice_board.xml" value="0.398711943793911" />
@@ -78,6 +78,7 @@
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/giftorder.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/layout_offer_dialog.xml" value="0.266015625" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/mpoachvfollowup.xml" value="0.49866666666666665" />
+        <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/mpowisedoctorfollowup.xml" value="0.266015625" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/multi_option_bottom_sheet_dialog.xml" value="0.53203125" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/notice_board.xml" value="0.266015625" />
         <entry key="..\:/F Drive/Opsonin/vector-48/vector/SALEMATRIX/app/src/main/res/layout/offlinereport.xml" value="0.53203125" />

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,9 +22,11 @@ import com.nativecss.NativeCSS;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +53,11 @@ public class GMDashboard extends Activity implements OnClickListener {
     Button submit, submitBtn;
     //private EditText current_qnty;
     EditText qnty;
+    Calendar c_todate, c_fromdate;
+    SimpleDateFormat dftodate, dffromdate;
+    String current_todate, current_fromdate;
+    Calendar myCalendar, myCalendar1;
+    DatePickerDialog.OnDateSetListener date_form, date_to;
     Boolean result;
     EditText inputOne, inputtwo;
     public int success;
@@ -93,9 +102,11 @@ public class GMDashboard extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.followupreport);
 
+        calenderInit();
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView =  findViewById(R.id.pListView);
         Button back_btn =  findViewById(R.id.backbt);
+        submitBtn =  findViewById(R.id.submitBtn);
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
@@ -119,15 +130,18 @@ public class GMDashboard extends Activity implements OnClickListener {
         Calendar c_fromdate = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
-        title.setText("Sales Manager followup report");
+        title.setText("Sales Manager FollowUp Report");
         rname.setText("Division");
         tvfromdate.setText(current_fromdate);
         tvtodate.setText(current_todate);
-        mpodcrlist = new ArrayList<Customer>();
-        dateextendlist = new ArrayList<com.opl.pharmavector.Customer>();
-        mpodonedcr = new ArrayList<com.opl.pharmavector.Customer>();
-        mporeqdcr = new ArrayList<com.opl.pharmavector.Customer>();
-        
+        mpodcrlist = new ArrayList<>();
+        dateextendlist = new ArrayList<>();
+        mpodonedcr = new ArrayList<>();
+        mporeqdcr = new ArrayList<>();
+
+        submitBtn.setOnClickListener(v -> {
+            new GetCategories().execute();
+        });
         productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
             String sm_code = (String) productListView.getAdapter().getItem(arg2);
             Intent i = new Intent(GMDashboard.this, ASMFollowupReport.class);
@@ -139,31 +153,82 @@ public class GMDashboard extends Activity implements OnClickListener {
             i.putExtra("UserName_2", user);
             i.putExtra("admin_flag", admin_flag);
             startActivity(i);
-
-
         });
         new GetCategories().execute();
         session = new SessionManager(getApplicationContext());
-
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //finish();
-                Intent i = new Intent(GMDashboard.this,  GMDashboard1.class);
-                i.putExtra("UserName", GMDashboard1.globalAdmin);
-                i.putExtra("new_version", GMDashboard1.new_version);
-                i.putExtra("UserName_2", GMDashboard1.globalAdminDtl);
-                i.putExtra("message_3", GMDashboard1.message_3);
-                i.putExtra("password", GMDashboard1.password);
-                i.putExtra("ff_type", GMDashboard1.ff_type);
-                i.putExtra("vector_version", R.string.vector_version);
-                i.putExtra("emp_code", GMDashboard1.globalempCode);
-                i.putExtra("emp_name", GMDashboard1.globalempName);
-                startActivity(i);
-            }
+        back_btn.setOnClickListener(v -> {
+            //finish();
+            Intent i = new Intent(GMDashboard.this,  GMDashboard1.class);
+            i.putExtra("UserName", GMDashboard1.globalAdmin);
+            i.putExtra("new_version", GMDashboard1.new_version);
+            i.putExtra("UserName_2", GMDashboard1.globalAdminDtl);
+            i.putExtra("message_3", GMDashboard1.message_3);
+            i.putExtra("password", GMDashboard1.password);
+            i.putExtra("ff_type", GMDashboard1.ff_type);
+            i.putExtra("vector_version", R.string.vector_version);
+            i.putExtra("emp_code", GMDashboard1.globalempCode);
+            i.putExtra("emp_name", GMDashboard1.globalempName);
+            startActivity(i);
         });
-
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private void calenderInit() {
+        tvfromdate = (TextView) findViewById(R.id.fromdate);
+        tvtodate = (TextView) findViewById(R.id.todate);
+        c_todate = Calendar.getInstance();
+        dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        current_todate = dftodate.format(c_todate.getTime());
+        tvtodate.setText(current_todate);
+        c_fromdate = Calendar.getInstance();
+        dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        current_fromdate = dffromdate.format(c_fromdate.getTime());
+        tvfromdate.setText(current_fromdate);
+        myCalendar = Calendar.getInstance();
+
+        date_form = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                tvfromdate.setTextColor(Color.BLACK);
+                tvfromdate.setText("");
+                tvfromdate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        tvfromdate.setOnClickListener(v -> new DatePickerDialog(GMDashboard.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        myCalendar1 = Calendar.getInstance();
+        date_to = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                //String myFormat = "dd/MM/yyyy";
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                tvtodate.setTextColor(Color.BLACK);
+                tvtodate.setText("");
+                tvtodate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        tvtodate.setOnClickListener(v -> new DatePickerDialog(GMDashboard.this, date_to, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
+    }
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
@@ -242,14 +307,12 @@ public class GMDashboard extends Activity implements OnClickListener {
                 prod_vat_13 = categoriesList2.get(i).getPROD_VAT_13();
                 value16.add(prod_vat_13);
             }
-
             RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(GMDashboard.this, sl, lables, quanty, value, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13,
                     value14, value15, value16, value17);
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -262,7 +325,7 @@ public class GMDashboard extends Activity implements OnClickListener {
         }
     }
 
-
+    @SuppressLint("StaticFieldLeak")
     private class GetCategories extends AsyncTask<Void, Void, Void> {
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
@@ -282,47 +345,45 @@ public class GMDashboard extends Activity implements OnClickListener {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = sm_code;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("to_date", tvtodate.getText().toString()));
+            params.add(new BasicNameValuePair("from_date", tvfromdate.getText().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
+
             if (json != null) {
+                categoriesList2.clear();
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category6 cat3 = new com.opl.pharmavector.Category6(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getString("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PROD_VAT_2"),
-                                    catObj.getString("PROD_VAT_3"),
-                                    catObj.getString("PROD_VAT_4"),
-                                    catObj.getString("PROD_VAT_5"),
-                                    catObj.getString("PROD_VAT_6"),
-                                    catObj.getString("PROD_VAT_7"),
-                                    catObj.getString("PROD_VAT_8"),
-                                    catObj.getString("PROD_VAT_9"),
-                                    catObj.getString("PROD_VAT_10"),
-                                    catObj.getString("PROD_VAT_11"),
-                                    catObj.getString("PROD_VAT_12"),
-                                    catObj.getString("PROD_VAT_13")
-                            );
-                            categoriesList2.add(cat3);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category6 cat3 = new Category6(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PROD_VAT_2"),
+                                catObj.getString("PROD_VAT_3"),
+                                catObj.getString("PROD_VAT_4"),
+                                catObj.getString("PROD_VAT_5"),
+                                catObj.getString("PROD_VAT_6"),
+                                catObj.getString("PROD_VAT_7"),
+                                catObj.getString("PROD_VAT_8"),
+                                catObj.getString("PROD_VAT_9"),
+                                catObj.getString("PROD_VAT_10"),
+                                catObj.getString("PROD_VAT_11"),
+                                catObj.getString("PROD_VAT_12"),
+                                catObj.getString("PROD_VAT_13")
+                        );
+                        categoriesList2.add(cat3);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-            } else {
-
             }
             return null;
         }
@@ -335,25 +396,19 @@ public class GMDashboard extends Activity implements OnClickListener {
             GMDashboard.Spinner sp = new GMDashboard.Spinner();
             sp.populateSpinner();
             popSpinner();
-
         }
     }
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(GMDashboard.this, Report.class);
         startActivity(i);
         finish();
     }
-
 
     private void logoutUser() {
         session.setLogin(false);
@@ -362,8 +417,6 @@ public class GMDashboard extends Activity implements OnClickListener {
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
-
 }
 

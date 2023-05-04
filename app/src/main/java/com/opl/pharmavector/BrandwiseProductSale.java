@@ -543,23 +543,21 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -587,7 +585,7 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
     @SuppressLint("StaticFieldLeak")
     class callserver extends AsyncTask<Void, Void, Void> {
         final JSONParser jsonParser = new JSONParser();
-        final List<NameValuePair> params = new ArrayList<NameValuePair>();
+        final List<NameValuePair> params = new ArrayList<>();
         private ProgressDialog progressDialog;
 
         @Override
