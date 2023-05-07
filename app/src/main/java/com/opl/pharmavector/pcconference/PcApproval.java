@@ -1,4 +1,5 @@
 package com.opl.pharmavector.pcconference;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -75,6 +76,7 @@ public class PcApproval extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_approval);
+
         initViews();
         checkAdmin();
 
@@ -213,19 +215,12 @@ public class PcApproval extends AppCompatActivity {
                 dialog.setTitle( "ALert" )
                     .setIcon(R.drawable.ic_launcher)
                     .setMessage("Are you want to Cancel This PC?")
-                    .setNegativeButton("Back", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialoginterface, int i) {
-                            dialoginterface.cancel();
-                        }})
-                    .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialoginterface, int i)
-                    {
+                    .setNegativeButton("Back", (dialoginterface, i) -> dialoginterface.cancel())
+                    .setPositiveButton("Cancel", (dialoginterface, i) -> {
                     categoriesCsv = FavouriteCategoriesJsonParser4.selectedCategories4.toString();
                     categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
                     Bundle b = getIntent().getExtras();
-                    if (categoriesCsv.length() < 0) {
-                        Toast.makeText(context, "Please Select Conference to Cancel", Toast.LENGTH_SHORT).show();
-                    } else {
+                        categoriesCsv.length();
                         Thread server = new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -246,20 +241,17 @@ public class PcApproval extends AppCompatActivity {
                                     message = json.getString(TAG_MESSAGE);
                                     Log.w("please wait TRY ...." + message, json.toString());
                                 } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                     Log.w("Please wait ...." + message, json.toString());
                                 }
-
-
                                 Intent in = getIntent();
                                 Intent inten = getIntent();
                                 Bundle bundle = in.getExtras();
                                 inten.getExtras();
                                 String MPO_CODE = bundle.getString("MPO_CODE");
                                 String pc_sl_no = message;
-
                                 Log.w("successmessage", "UserName" + MPO_CODE + "UserName_2" + pc_sl_no);
+
                                 Intent sameint = new Intent(PcApproval.this, PcApproval.class);
                                 sameint.putExtra("UserName", UserName);
                                 sameint.putExtra("UserName_2", UserName_2);
@@ -269,35 +261,24 @@ public class PcApproval extends AppCompatActivity {
                                 Log.w("Passed in DCR TO DCR", "UserName" + UserName + "message" + message);
 
                                 selectedCategories4.clear();
-
                             }
                         });
                         server.start();
-                    }
-
-                    }
-                }).show();//=====================================alert Status
+                    }).show();//=====================================alert Status
             }
         });
-
     }
 
-    private void alertView( String message ) {
+    private void alertView(String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle( "ALert" )
+        dialog.setTitle( "ALeart" )
                 .setIcon(R.drawable.ic_launcher)
                 .setMessage(message)
-                .setNegativeButton("Back", new DialogInterface.OnClickListener() {
-                 public void onClick(DialogInterface dialoginterface, int i) {
-                    dialoginterface.cancel();
-                     }})
-                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialoginterface, int i) {
-                        statX="1";
-                    }
-                }).show();
+                .setNegativeButton("Back", (dialoginterface, i) -> dialoginterface.cancel())
+                .setPositiveButton("Cancel", (dialoginterface, i) -> statX="1").show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         button = findViewById(R.id.selectCategoryButton);
@@ -311,7 +292,6 @@ public class PcApproval extends AppCompatActivity {
         UserName = b.getString("userName");
         UserName_2 = b.getString("UserName_2");
         user_show.setText(UserName + " " + UserName_2 + " ");
-
     }
 
     private void checkAdmin() {

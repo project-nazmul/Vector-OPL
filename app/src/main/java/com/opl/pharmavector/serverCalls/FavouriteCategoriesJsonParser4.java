@@ -20,9 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FavouriteCategoriesJsonParser4 {
-
     public static ArrayList<String> selectedCategories4 = new ArrayList<>();
     private String URL_CUSOTMER = BASE_URL+"pcconference/pc_approval/pc_conference_approval.php";
 

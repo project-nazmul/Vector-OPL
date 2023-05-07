@@ -2172,12 +2172,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     }
 
     private void mpoDCREvent(){
-        practiceCard4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_MPODCR();
-            }
-        });
+        practiceCard4.setOnClickListener(v -> showBottomSheetDialog_MPODCR());
     }
 
     @SuppressLint("SetTextI18n")
@@ -2455,56 +2450,39 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         Objects.requireNonNull(textView7).setText("PC\nBill Follow up");
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_pc_conference);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_pc_conference);
 
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog2.dismiss();
-            }
-        });
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(changepassword).setText("PC Conference");
-        Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, PcApproval.class);
-                i.putExtra("userName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("new_version", R.string.vector_version);
-                i.putExtra("UserName", globalFMCode);
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview1).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, PcApproval.class);
+            i.putExtra("userName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("new_version", R.string.vector_version);
+            i.putExtra("UserName", globalFMCode);
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, PcConferenceFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("user_flag", "A");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview2).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, PcConferenceFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("user_flag", "A");
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, PcBillApproval.class);
-                i.putExtra("userName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("new_version", new_version);
-                i.putExtra("userName", globalFMCode);
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview3).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, PcBillApproval.class);
+            i.putExtra("userName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("new_version", new_version);
+            i.putExtra("userName", globalFMCode);
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AmDashboard.this, PCBillFollowup.class);
-                i.putExtra("UserName", globalFMCode);
-                i.putExtra("UserName_2", globalAreaCode);
-                i.putExtra("user_flag", "A");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview4).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, PCBillFollowup.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("user_flag", "A");
+            startActivity(i);
         });
         bottomSheetDialog2.show();
     }

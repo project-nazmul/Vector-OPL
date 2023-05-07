@@ -25,6 +25,17 @@ public class DcfpList {
     @SerializedName("TS_CODE")
     @Expose
     private String tsCode;
+    @SerializedName("VISIT_STAT")
+    @Expose
+    private String visitStat;
+
+    public String getVisitStat() {
+        return visitStat;
+    }
+
+    public void setVisitStat(String visitStat) {
+        this.visitStat = visitStat;
+    }
 
     public String getVisitType() {
         return visitType;
