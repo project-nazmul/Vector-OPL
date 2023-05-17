@@ -1,4 +1,5 @@
 package com.opl.pharmavector.service;
+
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -50,6 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 JSONObject json = new JSONObject(remoteMessage.getData());
                 handleDataMessage(json);
             } catch (Exception ignored) {
+
             }
         }
     }

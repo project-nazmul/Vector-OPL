@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -83,7 +84,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity implements OnClickListener {
-    String newVersion;
+    String newVersion, currentVersion;
     private EditText user, pass;
     private TextView versionname;
     private Button mSubmit, mShare, mChangepassword;
@@ -125,6 +126,13 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
 
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
         statusBarHide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
@@ -194,7 +202,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
         user = findViewById(R.id.username);
         pass = findViewById(R.id.password);
         versionname = findViewById(R.id.versionname);
-        versionname.setText("65.2.11");
+        //versionname.setText("65.2.11");
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
         mSubmit = findViewById(R.id.login);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/acme.ttf");
         db = new DatabaseHandler(this);

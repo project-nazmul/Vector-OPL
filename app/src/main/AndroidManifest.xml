@@ -33,7 +33,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".msd_doc_support.MSDProgramApproval"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"  />
         <activity
             android:name=".MPOBrandWiseProductSale"
             android:exported="false" />

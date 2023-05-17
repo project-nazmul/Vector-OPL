@@ -1,10 +1,10 @@
 package com.opl.pharmavector.msd_doc_support;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -71,9 +71,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class MSDProgramFollowup extends FragmentActivity implements OnClickListener, AdapterView.OnItemSelectedListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
@@ -97,12 +95,10 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
     MSDProgramAdapter promoAdapter;
     List<Promo> promoList = new ArrayList<>();
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msd_program_followup);
+
         initViews();
         prepareMPOPromo();
         setUpRecyclerView();
@@ -117,23 +113,21 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
                     if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("N") ){
                         ViewDialog alert = new ViewDialog();
                         alert.showDialog();
-                    }  if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y") ){
+                    } if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y") ){
                         ViewDialog alert = new ViewDialog();
                         alert.approvedDialog();
-
-                    }else if (promoList.get(position).getWeek2().equals("N")){
+                    } else if (promoList.get(position).getWeek2().equals("N")){
                         ViewDialog alert = new ViewDialog();
                         alert.alertDialog();
                     }
-
                 }
+
                 @Override
                 public void onLongClick(View view, int position) {
 
                 }
             }));
         }
-
 
         rvCompany.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -142,34 +136,31 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
                 scrollX += dx;
                 headerScroll.scrollTo(scrollX, 0);
             }
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
     }
 
-
     public void prepareMPOPromo() {
-
         pDialog = new ProgressDialog(MSDProgramFollowup.this);
         pDialog.setMessage("Doctor Support Data Loading...");
         pDialog.setTitle("Please wait");
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.msd_program_followup(user_code,user_flag,proposed_date2);
-
         Log.e("msdprogram-->",user_code+user_flag);
         promoList.clear();
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NonNull Call<List<Patient>> call, @NonNull retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
+                    for (int i = 0; i < Objects.requireNonNull(giftitemCount).size(); i++) {
                         promoList.add(new Promo( giftitemCount.get(i).getSerial(),
                                 giftitemCount.get(i).getMpocode(),
                                 giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
@@ -184,7 +175,7 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(MSDProgramFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -194,13 +185,11 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
                 //prepareMPOPromo();
-
             }
         });
     }
 
     public void updateStatus(){
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating Status...");
         progressDialog.show();
@@ -232,7 +221,7 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
     }
 
     public class ViewDialog {
-
+        @SuppressLint("SetTextI18n")
         public void showDialog( ){
             final Dialog dialog = new Dialog(MSDProgramFollowup.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -242,27 +231,20 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
             Button dialogButton =  dialog.findViewById(R.id.read_btn);
             TextView message =  dialog.findViewById(R.id.message);
             TextView service =  dialog.findViewById(R.id.service);
-
             TextView title = dialog.findViewById(R.id.title);
             title.setText("Confirm Service");
             message.setText("Press Received button to confirm the service");
             service.setText("Confirm Service\t"+selected_service_no);
-
             dialogButton.setText("Received");
 
-            dialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateStatus();
-                    dialog.dismiss();
-
-                }
+            dialogButton.setOnClickListener(v -> {
+                updateStatus();
+                dialog.dismiss();
             });
-
             dialog.show();
-
         }
 
+        @SuppressLint("SetTextI18n")
         public void alertDialog( ){
             final Dialog dialog = new Dialog(MSDProgramFollowup.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -276,23 +258,16 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
             message.setText("MSD is working on it. Please wait.");
             TextView service =  dialog.findViewById(R.id.service);
             service.setText("Pending Service\t"+selected_service_no);
-
             dialogButton.setText("Ok");
 
-            dialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                    //  refresh();
-
-                }
+            dialogButton.setOnClickListener(v -> {
+                dialog.dismiss();
+                //refresh();
             });
-
             dialog.show();
-
         }
 
-
+        @SuppressLint("SetTextI18n")
         public void approvedDialog( ){
             final Dialog dialog = new Dialog(MSDProgramFollowup.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -306,26 +281,15 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
             message.setText("You have already confirmed this service.");
             TextView service =  dialog.findViewById(R.id.service);
             service.setText("Confirmed Service\t"+selected_service_no);
-
             dialogButton.setText("Ok");
 
-            dialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
+            dialogButton.setOnClickListener(v -> dialog.dismiss());
             dialog.show();
-
         }
-
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-
         rvCompany = findViewById(R.id.rvCompany);
         headerScroll = findViewById(R.id.headerScroll);
         user_show1 =  findViewById(R.id.user_show1);
@@ -350,12 +314,8 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
         week3 =  findViewById(R.id.week3);
         week4 =  findViewById(R.id.week4);
 
-
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
-
-
-
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("userName");
@@ -363,120 +323,93 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
         promo_type = b.getString("promo_type");
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
-
     }
 
-    private  void calenderUI(){
-
-        ed_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MonthYearPickerDialog pickerDialog = new MonthYearPickerDialog();
-                pickerDialog.setListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int i2) {
-                        monthYearStr = year + "-" + (month + 1) + "-" + i2;
-                        String test = monthYearStr;
-                        year_val = test.substring(0, 4);
-                        int month_int = month;
-                        month_val = String.valueOf(month_int);
-                        proposed_date1 = "01" + "/" + (month) + "/" + year;
-                        if (month_val.equals(String.valueOf(1))) {
-                            month_name_val = "January";
-                            month_name ="JAN";
-                        } else if (month_val.equals(String.valueOf(2))) {
-                            month_name_val = "Feb";
-                            month_name ="FEB";
-                        } else if (month_val.equals(String.valueOf(3))) {
-                            month_name_val = "March";
-                            month_name ="MAR";
-                        } else if (month_val.equals(String.valueOf(4))) {
-                            month_name_val = "April";
-                            month_name ="APR";
-                        } else if (month_val.equals(String.valueOf(5))) {
-                            month_name_val = "May";
-                            month_name ="MAY";
-                        } else if (month_val.equals(String.valueOf(6))) {
-                            month_name_val = "June";
-                            month_name ="JUN";
-                        } else if (month_val.equals(String.valueOf(7))) {
-                            month_name_val = "July";
-                            month_name ="JUL";
-                        } else if (month_val.equals(String.valueOf(8))) {
-                            month_name_val = "August";
-                            month_name ="AUG";
-                        } else if (month_val.equals(String.valueOf(9))) {
-                            month_name_val = "September";
-                            month_name ="SEP";
-                        } else if (month_val.equals(String.valueOf(10))) {
-                            month_name_val = "October";
-                            month_name ="OCT";
-                        } else if (month_val.equals(String.valueOf(11))) {
-                            month_name_val = "November";
-                            month_name ="NOV";
-                        } else if (month_val.equals(String.valueOf(12))) {
-                            month_name_val = "December";
-                            month_name ="DEC";
-                        }
-
-                        proposed_date2 = "01" + "-" + month_name + "-" + year;
-                        //Log.e("proposed_date1", proposed_date1);
-                        Log.e("proposed_date1", proposed_date2);
-                        ed_date.setText(proposed_date2);
-                        prepareMPOPromo();
-
-                    }
-                });
-                pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
-
-
-            }
+    private void calenderUI() {
+        ed_date.setOnClickListener(v -> {
+            MonthYearPickerDialog pickerDialog = new MonthYearPickerDialog();
+            pickerDialog.setListener((datePicker, year, month, i2) -> {
+                monthYearStr = year + "-" + (month + 1) + "-" + i2;
+                String test = monthYearStr;
+                year_val = test.substring(0, 4);
+                month_val = String.valueOf(month);
+                proposed_date1 = "01" + "/" + (month) + "/" + year;
+                if (month_val.equals(String.valueOf(1))) {
+                    month_name_val = "January";
+                    month_name ="JAN";
+                } else if (month_val.equals(String.valueOf(2))) {
+                    month_name_val = "Feb";
+                    month_name ="FEB";
+                } else if (month_val.equals(String.valueOf(3))) {
+                    month_name_val = "March";
+                    month_name ="MAR";
+                } else if (month_val.equals(String.valueOf(4))) {
+                    month_name_val = "April";
+                    month_name ="APR";
+                } else if (month_val.equals(String.valueOf(5))) {
+                    month_name_val = "May";
+                    month_name ="MAY";
+                } else if (month_val.equals(String.valueOf(6))) {
+                    month_name_val = "June";
+                    month_name ="JUN";
+                } else if (month_val.equals(String.valueOf(7))) {
+                    month_name_val = "July";
+                    month_name ="JUL";
+                } else if (month_val.equals(String.valueOf(8))) {
+                    month_name_val = "August";
+                    month_name ="AUG";
+                } else if (month_val.equals(String.valueOf(9))) {
+                    month_name_val = "September";
+                    month_name ="SEP";
+                } else if (month_val.equals(String.valueOf(10))) {
+                    month_name_val = "October";
+                    month_name ="OCT";
+                } else if (month_val.equals(String.valueOf(11))) {
+                    month_name_val = "November";
+                    month_name ="NOV";
+                } else if (month_val.equals(String.valueOf(12))) {
+                    month_name_val = "December";
+                    month_name ="DEC";
+                }
+                proposed_date2 = "01" + "-" + month_name + "-" + year;
+                //Log.e("proposed_date1", proposed_date1);
+                Log.e("proposed_date1", proposed_date2);
+                ed_date.setText(proposed_date2);
+                prepareMPOPromo();
+            });
+            pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
         });
-
     }
 
     public void setUpRecyclerView() {
-
         promoAdapter = new MSDProgramAdapter(MSDProgramFollowup.this, promoList);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvCompany.setLayoutManager(manager);
         rvCompany.setAdapter(promoAdapter);
         rvCompany.addItemDecoration(new DividerItemDecoration(MSDProgramFollowup.this, DividerItemDecoration.VERTICAL));
-
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
-    }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     public void finishActivity(View v) {
         finish();
     }
 
-
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(MSDProgramFollowup.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 
