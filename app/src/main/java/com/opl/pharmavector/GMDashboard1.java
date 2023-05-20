@@ -1,6 +1,5 @@
 package com.opl.pharmavector;
 
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.annotation.SuppressLint;
@@ -13,8 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -24,40 +21,25 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
-import com.opl.pharmavector.doctorservice.DoctorServiceAck;
-import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
-import com.opl.pharmavector.doctorservice.DoctorServiceFollowup;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
-import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
-import com.opl.pharmavector.msd_doc_support.DocSupportReq;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
-import com.opl.pharmavector.pcconference.PcProposal;
-import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
-import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.NetInfo;
@@ -67,24 +49,18 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 import android.app.ProgressDialog;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,7 +93,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     private final String submit_url = BASE_URL+"notification/save_vector_notification_token_data_test.php";
     public String message;
     public int success;
-    public String tokenid;
+    public String tokenid, globalterritorycode;
     public static String IMEINumber = "0000", DeviceID = "XXXX";
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -332,90 +308,125 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
 
     private void dcrfollowup() {
         cardview_dcr.setOnClickListener(v -> {
-            Thread backthred = new Thread(() -> {
-                Bundle b = getIntent().getExtras();
-                String userName = b.getString("UserName");
-                String userName_1 = b.getString("UserName_1");
-                String userName_2 = b.getString("UserName_2");
-                try {
-                    if (!NetInfo.isOnline(getBaseContext())) {
-                       showSnack();
-                    } else {
-                        Intent i = new Intent(GMDashboard1.this, GMDashboard.class);
-                        String gm_flag = "Y";
-                        i.putExtra("sm_code", globalAdmin);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("userName_1", userName_1);
-                        i.putExtra("userName_2", userName_2);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("UserName_2", user);
-                        i.putExtra("gm_flag", gm_flag);
-                        startActivity(i);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            backthred.start();
+            showBottomSheetDialog_DCR();
+//            Thread backthred = new Thread(() -> {
+//                Bundle b = getIntent().getExtras();
+//                String userName = b.getString("UserName");
+//                String userName_1 = b.getString("UserName_1");
+//                String userName_2 = b.getString("UserName_2");
+//                try {
+//                    if (!NetInfo.isOnline(getBaseContext())) {
+//                       showSnack();
+//                    } else {
+//                        Intent i = new Intent(GMDashboard1.this, GMDashboard.class);
+//                        String gm_flag = "Y";
+//                        i.putExtra("sm_code", globalAdmin);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("userName_1", userName_1);
+//                        i.putExtra("userName_2", userName_2);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("UserName_2", user);
+//                        i.putExtra("gm_flag", gm_flag);
+//                        startActivity(i);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            backthred.start();
         });
+    }
+
+    private void showBottomSheetDialog_DCR() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.dcr_bottom_sheet_dialog);
+        CardView cardview_followup = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("1.1");
+        Objects.requireNonNull(button2).setText("1.2");
+        Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
+        Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        Objects.requireNonNull(cardview_followup).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DcrFollowupActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", userName_2);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
+            Bundle b = getIntent().getExtras();
+            String userName = b.getString("UserName");
+            String userName_1 = b.getString("UserName_1");
+            String userName_2 = b.getString("UserName_2");
+            Intent i = new Intent(GMDashboard1.this, GMDashboard.class);
+            String gm_flag = "Y";
+            i.putExtra("sm_code", globalAdmin);
+            i.putExtra("UserName", userName);
+            i.putExtra("userName_1", userName_1);
+            i.putExtra("userName_2", userName_2);
+            i.putExtra("UserName", userName);
+            i.putExtra("UserName_2", user);
+            i.putExtra("gm_flag", gm_flag);
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
+        });
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+        });
+        bottomSheetDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DOCSUPPORT() {
         final BottomSheetDialog bottomSheetDialog2 = new BottomSheetDialog(this);
         bottomSheetDialog2.setContentView(R.layout.multi_option_bottom_sheet_dialog);
-
         CardView cardview1 = bottomSheetDialog2.findViewById(R.id.cardview_1);
         CardView cardview2 = bottomSheetDialog2.findViewById(R.id.cardview_2);
-
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
-
-        cardview3.setVisibility(View.GONE);
-        cardview4.setVisibility(View.GONE);
-
+        Objects.requireNonNull(cardview3).setVisibility(View.GONE);
+        Objects.requireNonNull(cardview4).setVisibility(View.GONE);
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         Objects.requireNonNull(textView4).setText("Tracking\nDoctor");
-
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
         Objects.requireNonNull(changepassword).setText("Doctor Service");
-        Objects.requireNonNull(cardview2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, ManagerDoctorServiceFollowup.class);
-                i.putExtra("userName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("new_version", new_version);
-                i.putExtra("user_flag", "G");
-                startActivity(i);
-                //bottomSheetDialog2.dismiss();
-            }
+
+        Objects.requireNonNull(cardview2).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, ManagerDoctorServiceFollowup.class);
+            i.putExtra("userName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("new_version", new_version);
+            i.putExtra("user_flag", "G");
+            startActivity(i);
+            //bottomSheetDialog2.dismiss();
         });
-        Objects.requireNonNull(cardview1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, DoctorServiceTrackMonthly.class);
-                i.putExtra("userName", globalAdmin);
-                i.putExtra("UserName_2", globalAdminDtl);
-                i.putExtra("new_version", new_version);
-                i.putExtra("user_flag", "G");
-                startActivity(i);
-                bottomSheetDialog2.dismiss();
-            }
+        Objects.requireNonNull(cardview1).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DoctorServiceTrackMonthly.class);
+            i.putExtra("userName", globalAdmin);
+            i.putExtra("UserName_2", globalAdminDtl);
+            i.putExtra("new_version", new_version);
+            i.putExtra("user_flag", "G");
+            startActivity(i);
+            bottomSheetDialog2.dismiss();
         });
         bottomSheetDialog2.show();
     }
 
     private void docservicefollowup() {
-        practiceCard3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_DOCSUPPORT();
-            }
-        });
+        practiceCard3.setOnClickListener(v -> showBottomSheetDialog_DOCSUPPORT());
     }
 
     @SuppressLint("SetTextI18n")

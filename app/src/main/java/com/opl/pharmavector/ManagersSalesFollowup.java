@@ -2,6 +2,7 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -81,6 +82,7 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
     private final String URL_PRODUCT_VIEW = BASE_URL+"salesfollowupreport/RMSalesFollowup.php";
     Bundle b;
 
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mpoachvfollowup);

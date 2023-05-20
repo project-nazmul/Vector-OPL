@@ -489,7 +489,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_product_order);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_product_order);
 
         Objects.requireNonNull(textView4).setText("Order\nOnline");
         Objects.requireNonNull(textView5).setText("Order\nOffline");

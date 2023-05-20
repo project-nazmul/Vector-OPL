@@ -180,7 +180,7 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
         rowView = convertView;
 
         if (rowView == null) {
-            // convertView = inflater.inflate(R.layout.doc_ppm_list, null);
+            //convertView = inflater.inflate(R.layout.doc_ppm_list, null);
             convertView = inflater.inflate(R.layout.prod_list_new, null);
             holder = new ViewHolder();
             holder.serial = (TextView) convertView.findViewById(R.id.serial);
@@ -189,7 +189,7 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
             holder.ppm_error = (TextView) convertView.findViewById(R.id.ppm_error);
             holder.quantity = (EditText) convertView.findViewById(R.id.order_qnty);
             holder.p_type = (TextView) convertView.findViewById(R.id.p_team_type);
-            edit_qnty = (EditText) convertView.findViewById(R.id.order_qnty);
+            //edit_qnty = (EditText) convertView.findViewById(R.id.order_qnty);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -372,7 +372,7 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     focusvalue = 0;
-                    LinearLayout parent = (LinearLayout) v.getParent();
+                    //LinearLayout parent = (LinearLayout) v.getParent();
                     String qntyfocus = holder.quantity.getText().toString().trim();
                     int holderpos = holder.pos;
                     set2.add(holder.pos);
@@ -383,10 +383,10 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
                     int temp = Integer.parseInt(qntyfocus);
 
                     if (temp > 0) {
-                        holder.quantity.setText(qntyfocus);
+                        //holder.quantity.setText(qntyfocus);
                         dataSet.put(holder.pos, holder.quantity.getText().toString().trim());
                     } else {
-                        holder.quantity.setText("0");
+                        //holder.quantity.setText("0");
                         dataSet.put(holder.pos, "0");
                     }
                 }

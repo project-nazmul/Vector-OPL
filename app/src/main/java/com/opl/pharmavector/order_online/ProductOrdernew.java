@@ -659,7 +659,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
     public void onClick(View v) {
         if (v.getId() == submit.getId()) {
             jsonParser = new JSONParser();
-            params = new ArrayList<NameValuePair>();
+            params = new ArrayList<>();
             Intent in = getIntent();
             Intent inten = getIntent();
             Bundle bundle = in.getExtras();
@@ -729,7 +729,6 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                             toast3.setDuration(Toast.LENGTH_LONG);
                             toast3.show();
                         }
-
                         submit_value = submit_value + value;
                         k = k + 1;
                         Log.w("", cash_credit);
@@ -754,7 +753,6 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                         }
                     }
                 }
-
                 params.add(new BasicNameValuePair("MPO_CODE", MPO_CODE));
                 params.add(new BasicNameValuePair("CUST_CODE", CUST_CODE));
                 params.add(new BasicNameValuePair("AM_PM", AM_PM));
@@ -775,12 +773,12 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                             if (my_quant > 0) {
                                 int value = Integer.parseInt(ProductListAdapter2.p_quanty.get(m));
                                 if (value < my_quant) {
-                                    Toast.makeText(this, "Minimum Quntity for **" + testbrand + "** is '" + my_quant + "' to order first credit party of this month", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(this, "Minimum Quantity for **" + testbrand + "** is '" + my_quant + "' to order first credit party of this month", Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
                     } else if (brand_total < brand_quant && get_ext_dt3.equals("0")) {
-                        Toast.makeText(this, "Minimum Quntity for  brand **" + brand_name + "** is '" + brand_quant + "' to submit first credit party of this month", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Minimum Quantity for  brand **" + brand_name + "** is '" + brand_quant + "' to submit first credit party of this month", Toast.LENGTH_LONG).show();
                     } else {
                         final ProgressDialog progress = ProgressDialog.show(this, "Saving Data", "Please Wait..", true);
                         Thread server = new Thread(new Runnable() {

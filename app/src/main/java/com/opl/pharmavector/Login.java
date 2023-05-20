@@ -697,7 +697,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setpassword(tempPassword); // LOCATION PASSWORD
                             preferenceManager.setuserrole(message); // EXECUTIVE CODE
                             preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
-                            preferenceManager.setfftype(mpo_ff_type); // EXECUITVE TYPE
+                            preferenceManager.setfftype(mpo_ff_type); // EXECUTIVE TYPE
                             preferenceManager.setexecutive_name(message_1); // EXECUTIVE LOCATION DETAILS
                             startActivity(i);
                             break;
