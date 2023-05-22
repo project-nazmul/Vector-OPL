@@ -16,8 +16,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteCategoriesJsonParser7
- {
+public class FavouriteCategoriesJsonParser7 {
     public static ArrayList<String> selectedCategories4 = new ArrayList<>();
     private String URL_CUSOTMER = BASE_URL+"doctor_service/doctor_service_followup.php";
 
@@ -25,14 +24,15 @@ public class FavouriteCategoriesJsonParser7
         ArrayList<Category5> MyArraylist = new ArrayList<>();
         List<NameValuePair> params=new ArrayList<NameValuePair>();
         String myvalue;
-        myvalue =  DoctorServiceAck.UserName;
+        myvalue = DoctorServiceAck.UserName;
         params.add(new BasicNameValuePair("id",myvalue));
-        ServiceHandler jsonParser=new ServiceHandler();
-        String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+        ServiceHandler jsonParser = new ServiceHandler();
+        String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
 
-        try{
+        try {
             JSONArray jsonArray2 = new JSONArray(json);
             Log.e("MYResponse: ", "> " + jsonArray2);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
                 Category5 genres = new Category5();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
@@ -56,14 +56,9 @@ public class FavouriteCategoriesJsonParser7
                     Log.e("selectedCategories4: ", "> " + selectedCategories4);
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
         return MyArraylist;
     }
 }

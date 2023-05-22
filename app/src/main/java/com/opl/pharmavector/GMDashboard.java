@@ -152,6 +152,8 @@ public class GMDashboard extends Activity implements OnClickListener {
             i.putExtra("UserName", userName);
             i.putExtra("UserName_2", user);
             i.putExtra("admin_flag", admin_flag);
+            i.putExtra("to_date", tvtodate.getText().toString());
+            i.putExtra("from_date", tvfromdate.getText().toString());
             startActivity(i);
         });
         new GetCategories().execute();

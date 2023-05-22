@@ -32,7 +32,6 @@ import com.opl.pharmavector.model.Category5;
 import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser8;
 import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser9;
 
-
 public class ManagerDoctorServiceFollowup extends AppCompatActivity {
     Context context;
     ArrayList<Category5> array_list;
@@ -65,44 +64,31 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
     public String user_flag;
     public static String UserName,date_param;
     EditText conference_date;
-
-
-
     public String get_ext_dt,date_flag,check_flag;
-
     SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
     SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-
-
     public String monthYearStr;
     public String monthPicker;
     public String year_val,month_val;
     public TextView succ_msg;
     ListView mListViewBooks;
-
     public String month_name_val,proposed_conference_date,proposed_conference_date2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_doc_service_followup);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         Button button =  findViewById(R.id.selectCategoryButton);
-
         button.setVisibility(View.GONE);
-
         Button button2 =  findViewById(R.id.selectCategoryButton2);
         Button logback =  findViewById(R.id.logback);
-
         Button show =  findViewById(R.id.show);
-
         show.setTypeface(fontFamily);
         show.setText("\uf1d8");
-
-
-
         logback.setTypeface(fontFamily);
         logback.setText("\uf08b");
-
 
         conference_date = (EditText) findViewById(R.id.conference_date);
         conference_date.setFocusableInTouchMode(true);
@@ -214,36 +200,24 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 try {
-
                     //conference_date
                     if ((conference_date.getText().toString().trim().equals(""))) {
-
                         Toast.makeText(ManagerDoctorServiceFollowup.this, "Select a Service Month",Toast.LENGTH_SHORT).show();
                         conference_date.setFocusable(true);
                         conference_date.setError("Service Month not selected !");
                         conference_date.setText("Please Select Service Month ");
                         conference_date.setTextColor(Color.RED);
-                    }
-
-                    else {
+                    } else {
                         array_list.clear();
                         mListViewBooks.setAdapter(null);
                         new asyncTask_getCategories2().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
-
-
-
-
-
     }
-
 
     String formatMonthYear(String str) {
         Date date = null;
@@ -256,8 +230,6 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         }
         return sdf.format(date);
     }
-
-
 
     public class asyncTask_getCategories extends AsyncTask<Void, Void, Void> {
         ProgressDialog dialog = new ProgressDialog(context);
@@ -275,25 +247,19 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
-
             array_list = categoryJsonParser.getParsedCategories();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void s) {
-
             mListViewBooks = (ListView) findViewById(R.id.category_listView);
             final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list);
             mListViewBooks.setAdapter(CategoryAdapter7);
             super.onPostExecute(s);
             dialog.dismiss();
         }
-
     }
-
-
 
     public class asyncTask_getCategories2 extends AsyncTask<Void, Void, Void> {
        ProgressDialog dialog2 = new ProgressDialog(context);

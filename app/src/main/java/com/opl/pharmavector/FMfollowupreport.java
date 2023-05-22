@@ -63,7 +63,7 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     //public android.widget.Spinner ordspin;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate;
+    String current_todate, current_fromdate, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     TextView tvfromdate, tvtodate, title;
@@ -147,6 +147,8 @@ public class FMfollowupreport extends Activity implements OnClickListener {
             i.putExtra("sm_flag", sm_flag);
             i.putExtra("sm_code", sm_code);
             i.putExtra("admin_flag", admin_flag);
+            i.putExtra("to_date", tvtodate.getText().toString());
+            i.putExtra("from_date", tvfromdate.getText().toString());
             Log.w("PassedMPOfollowupreport", userName + "---" + user + "---" + am_code + rm_code + sm_flag + "----admin---------" + admin_flag);
             startActivity(i);
         });
@@ -177,17 +179,28 @@ public class FMfollowupreport extends Activity implements OnClickListener {
 
     @SuppressLint("SimpleDateFormat")
     private void calenderInit() {
+        Bundle b = getIntent().getExtras();
+        toDate = b.getString("to_date");
+        fromDate = b.getString("from_date");
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        tvtodate.setText(current_todate);
+        //tvtodate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        tvfromdate.setText(current_fromdate);
+        //tvfromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
+        if (fromDate != null && toDate != null) {
+            tvfromdate.setText(fromDate);
+            tvtodate.setText(toDate);
+        } else {
+            tvfromdate.setText(current_fromdate);
+            tvtodate.setText(current_todate);
+        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -443,11 +456,9 @@ public class FMfollowupreport extends Activity implements OnClickListener {
                         );
                         categoriesList2.add(cat3);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(FMfollowupreport.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();

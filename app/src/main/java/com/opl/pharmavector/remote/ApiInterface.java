@@ -2,10 +2,12 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.amdashboard.VacantModel;
+import com.opl.pharmavector.dcrFollowup.DcrFollowupModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
+import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
@@ -241,8 +243,23 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("dcfp/self_followup.php")
+    Call<List<DcrFollowupModel>> getDcrSelfFollowup(@Field("id") String id, @Field("t_date") String t_date, @Field("f_date") String f_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("dcfp/dcfp_followup.php")
+    Call<List<DcrFollowupModel>> getDcrDcfpFollowup(@Field("id") String id, @Field("t_date") String t_date, @Field("f_date") String f_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_mrd_doctor.php")
     Call<DoctorModel> getDoctorDetailsList(@Field("ff_code") String ff_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("msd_doc_support/msd_program_approval_list.php")
+    Call<List<MSDApprovalModel>> getMSDApprovalList(@Field("mpo_code") String mpo_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

@@ -65,7 +65,7 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
     JSONParser jsonParser;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate;
+    String current_todate, current_fromdate, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     TextView tvfromdate, tvtodate;
@@ -88,13 +88,13 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
     public static ArrayList<String> PROD_VAT_12;
     public static ArrayList<String> PROD_VAT_13;
     private android.widget.Spinner count_dcr;
-    private ArrayList<com.opl.pharmavector.Customer> dateextendlist;
-    private ArrayList<com.opl.pharmavector.Customer> mpodonedcr;
     private ArrayList<com.opl.pharmavector.Customer> mporeqdcr;
+    private ArrayList<com.opl.pharmavector.Customer> mpodonedcr;
+    private ArrayList<com.opl.pharmavector.Customer> dateextendlist;
     public String get_ext_dt;
     private ArrayList<Customer> mpodcrlist;
     private ArrayList<String> array_sort = new ArrayList<String>();
-    private final String URL_PRODUCT_VIEW =BASE_URL+"ASMFollowupReport.php";
+    private final String URL_PRODUCT_VIEW = BASE_URL+"ASMFollowupReport.php";
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
         int listsize = productListView.getChildCount();
-        Log.i("Size of ProductLIstview", "ProductLIstView SIZE: " + listsize);
+        Log.i("Size of ProductLIstview", "ProductListView SIZE: " + listsize);
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
@@ -147,6 +147,8 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
             i.putExtra("sm_flag", sm_flag);
             i.putExtra("sm_code", sm_code);
             i.putExtra("admin_flag", admin_flag);
+            i.putExtra("to_date", tvtodate.getText().toString());
+            i.putExtra("from_date", tvfromdate.getText().toString());
             startActivity(i);
         });
 
@@ -190,17 +192,28 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
 
     @SuppressLint("SimpleDateFormat")
     private void calenderInit() {
+        Bundle b = getIntent().getExtras();
+        userName = b.getString("to_date");
+        userName = b.getString("from_date");
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        tvtodate.setText(current_todate);
+        //tvtodate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        tvfromdate.setText(current_fromdate);
+        //tvfromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
+        if (fromDate != null && toDate != null) {
+            tvfromdate.setText(fromDate);
+            tvtodate.setText(toDate);
+        } else {
+            tvfromdate.setText(current_fromdate);
+            tvtodate.setText(current_todate);
+        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -371,7 +384,7 @@ public class ASMFollowupReport extends Activity implements OnClickListener {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = sm_code;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("to_date", tvtodate.getText().toString()));
             params.add(new BasicNameValuePair("from_date", tvfromdate.getText().toString()));

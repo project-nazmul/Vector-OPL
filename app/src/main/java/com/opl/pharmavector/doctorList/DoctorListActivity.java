@@ -104,11 +104,8 @@ public class DoctorListActivity extends Activity {
             autoDoctorFFList.showDropDown();
             return false;
         });
-        autoDoctorFFList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        autoDoctorFFList.setOnClickListener(v -> {
 
-            }
         });
         autoDoctorFFList.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,12 +132,12 @@ public class DoctorListActivity extends Activity {
     }
 
     private void populateDoctorFFList() {
-        List<String> mpoCode = new ArrayList<String>();
+        List<String> mpoCode = new ArrayList<>();
         for (int i = 0; i < doctorFFList.size(); i++) {
             mpoCode.add(doctorFFList.get(i).getMpoCode() + " - " + doctorFFList.get(i).getTerriName());
         }
         String[] mpoCodeList = mpoCode.toArray(new String[0]);
-        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, mpoCodeList);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, mpoCodeList);
         autoDoctorFFList.setThreshold(2);
         autoDoctorFFList.setAdapter(Adapter);
         autoDoctorFFList.setTextColor(Color.BLUE);

@@ -31,6 +31,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -476,30 +477,78 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
 
     private void dcrfollowup() {
         cardview_dcr.setOnClickListener(v -> {
-            Thread backthred = new Thread(() -> {
-                try {
-                    if (!NetInfo.isOnline(getBaseContext())) {
-                        showSnack();
-                    } else {
-                        Intent i = new Intent(SalesManagerDashboard.this, ASMFollowupReport.class);
-                        String sm_flag = "Y";
-                        String admin_flag = "N";
-                        i.putExtra("sm_flag", sm_flag);
-                        i.putExtra("sm_code", globalSMCode);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("userName_1", userName_1);
-                        i.putExtra("userName_2", userName_2);
-                        i.putExtra("UserName", userName);
-                        i.putExtra("UserName_2", user);
-                        i.putExtra("admin_flag", admin_flag);
-                        startActivity(i);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            backthred.start();
+            showBottomSheetDialog_DCR();
+//            Thread backthred = new Thread(() -> {
+//                try {
+//                    if (!NetInfo.isOnline(getBaseContext())) {
+//                        showSnack();
+//                    } else {
+//                        Intent i = new Intent(SalesManagerDashboard.this, ASMFollowupReport.class);
+//                        String sm_flag = "Y";
+//                        String admin_flag = "N";
+//                        i.putExtra("sm_flag", sm_flag);
+//                        i.putExtra("sm_code", globalSMCode);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("userName_1", userName_1);
+//                        i.putExtra("userName_2", userName_2);
+//                        i.putExtra("UserName", userName);
+//                        i.putExtra("UserName_2", user);
+//                        i.putExtra("admin_flag", admin_flag);
+//                        startActivity(i);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            backthred.start();
         });
+    }
+
+    private void showBottomSheetDialog_DCR() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.dcr_bottom_sheet_dialog);
+        CardView cardview_followup = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("1.1");
+        Objects.requireNonNull(button2).setText("1.2");
+        Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
+        Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        Objects.requireNonNull(cardview_followup).setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, DcrFollowupActivity.class);
+            i.putExtra("UserName", globalSMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalSMCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, ASMFollowupReport.class);
+            String sm_flag = "Y";
+            String admin_flag = "N";
+            i.putExtra("sm_flag", sm_flag);
+            i.putExtra("sm_code", globalSMCode);
+            i.putExtra("UserName", userName);
+            i.putExtra("userName_1", userName_1);
+            i.putExtra("userName_2", userName_2);
+            i.putExtra("UserName", userName);
+            i.putExtra("UserName_2", user);
+            i.putExtra("admin_flag", admin_flag);
+            startActivity(i);
+        });
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+        });
+        bottomSheetDialog.show();
     }
 
     @SuppressLint("SetTextI18n")
@@ -513,14 +562,14 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         CardView cardview3 = bottomSheetDialog2.findViewById(R.id.cardview_3);
         CardView cardview4 = bottomSheetDialog2.findViewById(R.id.cardview_4);
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
-        cardview3.setVisibility(View.GONE);
-        cardview4.setVisibility(View.GONE);
+        Objects.requireNonNull(cardview3).setVisibility(View.GONE);
+        Objects.requireNonNull(cardview4).setVisibility(View.GONE);
 
         TextView textView4 = bottomSheetDialog2.findViewById(R.id.textView4);
         Objects.requireNonNull(textView4).setText("Tracking\nDoctor");
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
 
         TextView changepassword = bottomSheetDialog2.findViewById(R.id.changepassword);
         Objects.requireNonNull(changepassword).setText("Doctor Service");

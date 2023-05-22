@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:weightSum="18"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/_2sdp"
+    android:padding="@dimen/_2sdp"
+    tools:context=".msd_doc_support.MSDProgramApproval">
+
+        <TextView
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:id="@+id/req_number"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Req\nNo"
+            android:textAllCaps="false"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/program_date"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Program\nDate"
+            android:textAllCaps="false"
+            android:textColor="#D500F9"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/institute_name"
+            android:layout_width="0dp"
+            android:layout_weight="3.5"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Institute\nName"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/venue_name"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Venue /\nResearch Site"
+            android:textAllCaps="false"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/payment_mode"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Payment\nMode"
+            android:textAllCaps="false"
+            android:textColor="@color/orangered"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/ppm_gift"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="PPM\nGIFT"
+            android:textAllCaps="false"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/executive_code"
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Executive\nAssign"
+            android:textAllCaps="false"
+            android:textColor="#D500F9"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/proposed_territory"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="Proposed\nTerritory"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/no_of_req"
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:text="No of\nReq"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/total_cost"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Total\nCost"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp" />
+
+        <CheckBox
+            android:id="@+id/check_approval"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+</LinearLayout>

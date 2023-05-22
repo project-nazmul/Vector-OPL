@@ -57,7 +57,7 @@ public class FollowupReport extends Activity implements OnClickListener {
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
-    TextView date2, ded,fromdate,todate;
+    TextView date2, ded, fromdate, todate;
     int textlength = 0;
     public TextView totqty, totval, title;
     //public android.widget.Spinner ordspin;
@@ -67,7 +67,7 @@ public class FollowupReport extends Activity implements OnClickListener {
     List<NameValuePair> params;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate;
+    String current_todate, current_fromdate, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     TextView tvfromdate, tvtodate;
@@ -112,7 +112,7 @@ public class FollowupReport extends Activity implements OnClickListener {
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
         int listsize = productListView.getChildCount();
-        Log.i("Size of ProductLIstview", "ProductLIstView SIZE: " + listsize);
+        Log.i("Size of ProductListview", "ProductListView SIZE: " + listsize);
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
@@ -143,6 +143,8 @@ public class FollowupReport extends Activity implements OnClickListener {
             i.putExtra("sm_flag", sm_flag);
             i.putExtra("sm_code", sm_code);
             i.putExtra("admin_flag", admin_flag);
+            i.putExtra("to_date", tvtodate.getText().toString());
+            i.putExtra("from_date", tvfromdate.getText().toString());
             Log.w("PassedFMFollowupReport", userName + "---" + user +"-------"+ rm_code+"------"+sm_flag+"-----"+sm_code+"------"+admin_flag);
             startActivity(i);
         });
@@ -195,17 +197,28 @@ public class FollowupReport extends Activity implements OnClickListener {
 
     @SuppressLint("SimpleDateFormat")
     private void calenderInit() {
+        Bundle b = getIntent().getExtras();
+        toDate = b.getString("to_date");
+        fromDate = b.getString("from_date");
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        tvtodate.setText(current_todate);
+        //tvtodate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        tvfromdate.setText(current_fromdate);
+        //tvfromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
+        if (fromDate != null && toDate != null) {
+            tvfromdate.setText(fromDate);
+            tvtodate.setText(toDate);
+        } else {
+            tvfromdate.setText(current_fromdate);
+            tvtodate.setText(current_todate);
+        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override

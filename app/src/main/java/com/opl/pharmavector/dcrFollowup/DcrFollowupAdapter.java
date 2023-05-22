@@ -1,22 +1,27 @@
 package com.opl.pharmavector.dcrFollowup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.doctorList.model.DoctorList;
 import java.util.List;
 
 public class DcrFollowupAdapter extends RecyclerView.Adapter<DcrFollowupAdapter.DcrFollowupViewHolder> {
-    public List<DoctorList> doctorLists;
+    public List<DcrFollowupModel> dcrFollowupList;
     private Context context;
+    public ItemClickListener itemClickListener;
 
-    public DcrFollowupAdapter(Context context, List<DoctorList> doctorList) {
+    public DcrFollowupAdapter(Context context, List<DcrFollowupModel> dcrFollowupList, ItemClickListener itemClickListener) {
         this.context = context;
-        this.doctorLists = doctorList;
+        this.dcrFollowupList = dcrFollowupList;
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -27,22 +32,26 @@ public class DcrFollowupAdapter extends RecyclerView.Adapter<DcrFollowupAdapter.
 
     @Override
     public void onBindViewHolder(DcrFollowupViewHolder holder, int position) {
-        DoctorList doctorData = doctorLists.get(position);
-        holder.ff_code.setText(doctorData.getDocCode());
-        holder.ff_area.setText(doctorData.getDocName());
-        holder.planned_todDoc.setText(doctorData.getMarketCode());
-        holder.planned_morn.setText(doctorData.getMarketName());
-        holder.planned_eve.setText(doctorData.getDegree());
-        holder.visited_todDoc.setText(doctorData.getSpecialization());
-        holder.visited_morn.setText(doctorData.getDesig());
-        holder.visited_eve.setText(doctorData.getPatientPerDay());
-        holder.not_visited.setText(doctorData.getAddress());
-        holder.visit_percentage.setText(doctorData.getAddress());
+        DcrFollowupModel dcrFollowupModel = dcrFollowupList.get(position);
+        holder.ff_code.setText(dcrFollowupModel.getFfCode());
+        holder.ff_area.setText(dcrFollowupModel.getFfName());
+        holder.planned_todDoc.setText(dcrFollowupModel.getPlanTotDoc());
+        holder.planned_morn.setText(dcrFollowupModel.getPlanMor());
+        holder.planned_eve.setText(dcrFollowupModel.getPlanEve());
+        holder.visited_todDoc.setText(dcrFollowupModel.getVisitedTotDoc());
+        holder.visited_morn.setText(dcrFollowupModel.getVisitedMor());
+        holder.visited_eve.setText(dcrFollowupModel.getVisitedEve());
+        holder.not_visited.setText(dcrFollowupModel.getNotVisited());
+        holder.visit_percentage.setText(dcrFollowupModel.getVisitPercent());
+
+        holder.itemView.setOnClickListener(view -> {
+            itemClickListener.onClick(position, dcrFollowupModel);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return doctorLists.size();
+        return dcrFollowupList.size();
     }
 
     public class DcrFollowupViewHolder extends RecyclerView.ViewHolder {
@@ -61,5 +70,9 @@ public class DcrFollowupAdapter extends RecyclerView.Adapter<DcrFollowupAdapter.
             not_visited = view.findViewById(R.id.not_visited);
             visit_percentage = view.findViewById(R.id.visit_percentage);
         }
+    }
+
+    public interface ItemClickListener {
+        void onClick(int position, DcrFollowupModel model);
     }
 }

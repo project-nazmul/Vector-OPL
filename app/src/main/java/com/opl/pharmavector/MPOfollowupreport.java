@@ -64,7 +64,7 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
     public String from_date,to_date;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate;
+    String current_todate, current_fromdate, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     TextView tvfromdate, tvtodate, title;
@@ -190,17 +190,28 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
 
     @SuppressLint("SimpleDateFormat")
     private void calenderInit() {
+        Bundle b = getIntent().getExtras();
+        toDate = b.getString("to_date");
+        fromDate = b.getString("from_date");
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        tvtodate.setText(current_todate);
+        //tvtodate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        tvfromdate.setText(current_fromdate);
+        //tvfromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
+        if (fromDate != null && toDate != null) {
+            tvfromdate.setText(fromDate);
+            tvtodate.setText(toDate);
+        } else {
+            tvfromdate.setText(current_fromdate);
+            tvtodate.setText(current_todate);
+        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override

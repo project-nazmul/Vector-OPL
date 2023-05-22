@@ -80,6 +80,7 @@
             android:hapticFeedbackEnabled="true"
             android:soundEffectsEnabled="true"
             android:text="show"
+            android:textAllCaps="false"
             android:textColor="#FFF"
             android:textSize="@dimen/_10sdp"
             android:textStyle="bold"
@@ -324,16 +325,250 @@
             android:textSize="@dimen/_8sdp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/pListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDcrFollowup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/transparent"
+        android:listSelector="@color/lightgray" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/dcr_border"
+        android:id="@+id/slistLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="95.00"
-        android:clickable="true"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:focusable="true"
+            android:text="FF Code"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:text="FF Area"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:text="Planned to Visit"
+                    android:textAlignment="center"
+                    android:textColor="@color/bg_gradient_end"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#424242"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="0px"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:text="Tot_Doc"
+                    android:textColor="@color/bg_gradient_end"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Morn"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Eve"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:text="Visited"
+                    android:textAlignment="center"
+                    android:textColor="@color/bg_gradient_end"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#424242"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="0px"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:text="Tot_Doc"
+                    android:textColor="@color/bg_gradient_end"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Morn"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Eve"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Not Visited"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Visit %"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDcfpFollowup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
         android:divider="@android:color/transparent"
-        android:dividerHeight="@dimen/_1sdp"
-        android:focusable="true"
-        android:listSelector="@drawable/active"/>
+        android:listSelector="@color/lightgray" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -350,7 +585,6 @@
             android:background="@drawable/dcr_page_button"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
-            android:onClick="finishActivity"
             android:soundEffectsEnabled="true"
             android:text="&lt;"
             android:textColor="#FFF"

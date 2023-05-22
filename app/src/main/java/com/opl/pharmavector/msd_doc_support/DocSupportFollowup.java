@@ -1,8 +1,5 @@
 package com.opl.pharmavector.msd_doc_support;
 
-//DocSupportFollowup 
-
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,9 +66,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class DocSupportFollowup extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
@@ -89,17 +84,13 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
     MSDAdapter promoAdapter;
     List<Promo> promoList = new ArrayList<>();
 
-
-
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_service_followup);
+
         initViews();
         prepareMPOPromo();
         setUpRecyclerView();
-
 
         if (user_flag.equals("MPO")){
             rvCompany.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvCompany, new RecyclerTouchListener.ClickListener() {
@@ -107,28 +98,26 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                 public void onClick(View view, int position) {
                     selected_service_no = promoList.get(position).getCode();
                     selected_service_no_serial = promoList.get(position).getSerial();
+
                     if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("N") ){
                         ViewDialog alert = new ViewDialog();
                         alert.showDialog();
-                    }  if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y") ){
+                    } if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y") ){
                         ViewDialog alert = new ViewDialog();
                         //alert.showDialog();
                         alert.approvedDialog();
-
-
-                    }else if (promoList.get(position).getWeek2().equals("N")){
+                    } else if (promoList.get(position).getWeek2().equals("N")){
                         ViewDialog alert = new ViewDialog();
                         alert.alertDialog();
                     }
-
                 }
+
                 @Override
                 public void onLongClick(View view, int position) {
 
                 }
             }));
         }
-
 
         rvCompany.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -137,17 +126,15 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                 scrollX += dx;
                 headerScroll.scrollTo(scrollX, 0);
             }
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
     }
 
-
     public void prepareMPOPromo() {
-
         pDialog = new ProgressDialog(DocSupportFollowup.this);
         pDialog.setMessage("Doctor Support Data Loading...");
         pDialog.setTitle("Please wait");
@@ -156,9 +143,9 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
         Call<List<Patient>> call = apiInterface.msd_mpo_followup(user_code,user_flag);
         Log.e("passedParam==>",user_code+user_flag);
         promoList.clear();
+
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("NotifyDataSetChanged")
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse( Call<List<Patient>> call,  retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
@@ -174,7 +161,7 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
-                }else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(DocSupportFollowup.this,"No data Available",Toast.LENGTH_LONG).show();
                 }
@@ -184,13 +171,11 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
                 //prepareMPOPromo();
-
             }
         });
     }
 
     public void updateStatus(){
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating Status...");
         progressDialog.show();
@@ -221,28 +206,21 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
         });
     }
 
-
-
     public class ViewDialog {
-
+        @SuppressLint("SetTextI18n")
         public void showDialog( ){
-
             final Dialog dialog = new Dialog(DocSupportFollowup.this);
-
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.alert_msd_doc_support);
-
             Button dialogButton =  dialog.findViewById(R.id.read_btn);
             Button read_back =  dialog.findViewById(R.id.read_back);
             TextView message =  dialog.findViewById(R.id.message);
             TextView service =  dialog.findViewById(R.id.service);
-
             TextView title = dialog.findViewById(R.id.title);
             title.setText("Confirm Service");
             message.setText("Press Received button to confirm the service");
             service.setText("Confirm Service\t"+selected_service_no);
-
             dialogButton.setText("Received");
             read_back.setText("Back");
 
@@ -251,7 +229,6 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                 public void onClick(View v) {
                     updateStatus();
                     dialog.dismiss();
-
                 }
             });
 

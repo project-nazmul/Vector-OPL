@@ -122,11 +122,11 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
         mpode.setText("Zone\nCode");
 
         Calendar c_todate = Calendar.getInstance();
-        SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
         //todate.setText(toDate);
         Calendar c_fromdate = Calendar.getInstance();
-        SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         //fromdate.setText(fromDate);
         customerlist = new ArrayList<Customer>();

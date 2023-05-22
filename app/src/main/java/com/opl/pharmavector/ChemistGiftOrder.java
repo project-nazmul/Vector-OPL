@@ -45,9 +45,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class ChemistGiftOrder extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SUCCESS1 = "success_1";
     public static final String TAG_MESSAGE = "message";
@@ -104,26 +102,27 @@ public class ChemistGiftOrder extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chemistgiftorder);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         submit =  findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
-        submit.setText("\uf1d8"); // &#xf1d8
+        submit.setText("\uf1d8"); //&#xf1d8
         productListView =  findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
         TextView showorders =  findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
-        showorders.setText("\uf055");//&#xf055
+        showorders.setText("\uf055"); //&#xf055
         Button back_btn =  findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         calc =  findViewById(R.id.calc);
         calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); // &#xf01e &#xf1ec
+        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
         calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search =  findViewById(R.id.search);
         search.setTypeface(fontFamily);
-        search.setText("\uf056"); // &#xf002 , &#xf010
+        search.setText("\uf056"); //&#xf002, &#xf010
         TextView mic =  findViewById(R.id.mic);
         mic.setTypeface(fontFamily);
         mic.setText("\uf130");
@@ -132,19 +131,15 @@ public class ChemistGiftOrder extends Activity implements OnClickListener {
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 try {
                     searchview.setText("");
                     //qnty.clearFocus();
                     searchview.requestFocus();
                 } catch (Exception e) {
-                    // TODO: handle exception
                     //ChemistGiftListAdapter.qnty.c
                 }
-
             }
         });
-
         totalsellquantity =  findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
 
@@ -152,7 +147,6 @@ public class ChemistGiftOrder extends Activity implements OnClickListener {
         Spinner am_pm =  findViewById(R.id.ampm);
         Spinner cash_credit =  findViewById(R.id.cashcredit);
         Spinner credit =  findViewById(R.id.credit);
-
 
         totalshow =  findViewById(R.id.totalshow);
 

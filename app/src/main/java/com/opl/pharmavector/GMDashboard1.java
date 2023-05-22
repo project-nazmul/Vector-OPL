@@ -361,6 +361,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             Intent i = new Intent(GMDashboard1.this, DcrFollowupActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalAdmin);
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
@@ -453,7 +454,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -461,82 +462,63 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             }
         });
         Objects.requireNonNull(changepassword).setText("MSD");
-        cardview_rx_summary_B.setVisibility(View.GONE);
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
-                i.putExtra("user_code", GMDashboard1.globalAdmin);
-                i.putExtra("user_name", GMDashboard1.globalAdminDtl);
-                i.putExtra("user_flag", "GM");
-                startActivity(i);
+        Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", GMDashboard1.globalAdmin);
+            i.putExtra("user_name", GMDashboard1.globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
 
-            }
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, DocSupportFollowup.class);
-                i.putExtra("user_code", GMDashboard1.globalAdmin);
-                i.putExtra("user_name", GMDashboard1.globalAdminDtl);
-                i.putExtra("user_flag", "GM");
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DocSupportFollowup.class);
+            i.putExtra("user_code", GMDashboard1.globalAdmin);
+            i.putExtra("user_name", GMDashboard1.globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
-                i.putExtra("user_code", GMDashboard1.globalAdmin);
-                i.putExtra("user_name", GMDashboard1.globalAdminDtl);
-                i.putExtra("user_flag", "GM");
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", GMDashboard1.globalAdmin);
+            i.putExtra("user_name", GMDashboard1.globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
 
     private void msdDocSupport() {
-        cardview_msd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_MSD();
-            }
-        });
+        cardview_msd.setOnClickListener(v -> showBottomSheetDialog_MSD());
     }
 
     private void masterCode() {
-        cardview_mastercode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                            } else {
-                                ArrayList<String> UserName_2 = db.getterritoryname();
-                                String user = UserName_2.toString();
-                                Intent i = new Intent(GMDashboard1.this, MasterCode.class);
-                                i.putExtra("user_flag", "AD");
-                                i.putExtra("admin_code--->", global_admin_Code);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+        cardview_mastercode.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (!NetInfo.isOnline(getBaseContext())) {
+
+                        } else {
+                            ArrayList<String> UserName_2 = db.getterritoryname();
+                            String user = UserName_2.toString();
+                            Intent i = new Intent(GMDashboard1.this, MasterCode.class);
+                            i.putExtra("user_flag", "AD");
+                            i.putExtra("admin_code--->", global_admin_Code);
+                            startActivity(i);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
 
         btn_mastercode.setOnClickListener(new View.OnClickListener() {

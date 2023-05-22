@@ -1,5 +1,3 @@
-//CategoryAdapter7
-
 package com.opl.pharmavector.adapter;
 
 import java.util.Iterator;
@@ -24,8 +22,6 @@ import com.opl.pharmavector.ProductOrder;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.model.Category5;
 import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser7;
-
-
 
 public class CategoryAdapter7 extends ArrayAdapter<Category5> {
     private final List<Category5> list;
@@ -66,7 +62,6 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
         //ViewHolder viewHolder = null;
         final ViewHolder viewHolder ;
 
@@ -97,44 +92,24 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
 
 
             viewHolder.categoryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int getPosition = (Integer) buttonView.getTag();
-
-
                     Log.e("getPosition", String.valueOf(getPosition));
-
-                    Log.e("getPositionvalues", FavouriteCategoriesJsonParser7.selectedCategories4.toString());
-
+                    Log.e("getPositionValues", FavouriteCategoriesJsonParser7.selectedCategories4.toString());
                     list.get(getPosition).setSelected(buttonView.isChecked());
-                    if (buttonView.isChecked()) {
 
+                    if (buttonView.isChecked()) {
                         if (!FavouriteCategoriesJsonParser7.selectedCategories4.contains(String.valueOf(list.get(getPosition).getCateogry_id()))) {
                             FavouriteCategoriesJsonParser7.selectedCategories4.add(String.valueOf(list.get(getPosition).getCateogry_id()));
-
-
-
-
-
                         }
                     } else {
-
                         if (FavouriteCategoriesJsonParser7.selectedCategories4.contains(String.valueOf(list.get(getPosition).getCateogry_id()))) {
                             FavouriteCategoriesJsonParser7.selectedCategories4.remove(String.valueOf(list.get(getPosition).getCateogry_id()));
-
-
-
                         }
                     }
                 }
             });
-
-
-
-
-
-
             convertView.setTag(viewHolder);
             convertView.setTag(R.id.row_categoryname_textview_sl, viewHolder.categorySerial);
             convertView.setTag(R.id.row_categoryname_textview, viewHolder.categoryName);
@@ -144,27 +119,13 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
             convertView.setTag(R.id.row_categoryname_textview5, viewHolder.categoryName5);
             convertView.setTag(R.id.row_categoryname_textview6, viewHolder.categoryName6);
             convertView.setTag(R.id.row_categoryname_textview7, viewHolder.categoryName7);
-
-
             convertView.setTag(R.id.row_categoryname_textview8, viewHolder.categoryName8);
             convertView.setTag(R.id.row_categoryname_textview9, viewHolder.categoryName9);
             convertView.setTag(R.id.row_categoryname_textview10, viewHolder.categoryName10);
-
-
             convertView.setTag(R.id.row_category_checkbox, viewHolder.categoryCheckBox);
-        }
-
-
-        else {
-
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
-
-
-
-
-
         viewHolder.categoryCheckBox.setTag(position);
         viewHolder.categoryName3.setTag(position);
         viewHolder.categorySerial.setText(list.get(position).getCateogry_sl());
@@ -184,7 +145,7 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
 
 
 /*
-     genres.setCateogry_sl(MyJsonObject.getString("TERRI_NAME"));
+                 genres.setCateogry_sl(MyJsonObject.getString("TERRI_NAME"));
                  genres.setCateogry_id(MyJsonObject.getString("SERVICE_NO"));
                  genres.setCategory_Name(MyJsonObject.getString("SERV_MONTH"));
 

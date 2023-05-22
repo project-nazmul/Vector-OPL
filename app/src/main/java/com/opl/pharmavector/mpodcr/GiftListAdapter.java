@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 import com.opl.pharmavector.R;
@@ -27,11 +28,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-//import android.widget.Filter.FilterResults;
 
 @SuppressLint("ViewHolder")
 public class GiftListAdapter extends BaseAdapter implements Filterable {
-
     Context mContext;
     ArrayList<String> p_names;
     ArrayList<String> sl;
@@ -44,8 +43,6 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
     ArrayList<String> SHIFT_CODE;
     ArrayList<String> PPM_TYPE;
     ArrayList<String> PROD_REQ;
-
-
     static HashSet<Integer> mProductSerialList;
     public static EditText edit_qnty;
     ArrayList<String> Data_Openingstock = new ArrayList<String>();
@@ -53,7 +50,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     private String productname = null;
-    // public static Integer total_quantity=0;
+    //public static Integer total_quantity=0;
     private ArrayList<String> arraylist;
     private boolean InputState;
     private String[] valueList;
@@ -73,7 +70,6 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         this.arraylist = new ArrayList<String>();
         this.arraylist.add(productname);
     }
-
     View rowView;
     public static int last_position;
     public static int last_value;
@@ -88,10 +84,6 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
 
     public static ArrayList<String> editTxtID = new ArrayList<String>();
 
-
-
-
-
     GiftListAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7) {
         this.p_names = p_name;
         this.mStringList = p_name;
@@ -104,10 +96,8 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         mProductSerialList = new HashSet<Integer>();
     }
 
-
     GiftListAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer,String> p_quanty,ArrayList<String> value7,
-                    ArrayList<String> PROD_VAT, ArrayList<String> PROD_RATE, ArrayList<String>   PPM_CODE
-                    ) {
+                    ArrayList<String> PROD_VAT, ArrayList<String> PROD_RATE, ArrayList<String>   PPM_CODE) {
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty   = p_quanty;
@@ -115,7 +105,6 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         this.PROD_VAT   = PROD_VAT;
         this.PROD_RATE  = PROD_RATE;
         this.PPM_CODE   = PPM_CODE;
-
         this.sl = sl;
         this.mContext = con;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -123,25 +112,19 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         mProductSerialList = new HashSet<Integer>();
     }
 
-
-
-
     @Override
     public int getCount() {
-
         return mStringList.size();
     }
 
-    // Get the data item associated with the specified position in the data set.
+    //Get the data item associated with the specified position in the data set.
     @Override
     public Object getItem(int position) {
-
         return mStringList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -172,7 +155,6 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final ViewHolder holder;
         rowView = convertView;
         if (rowView == null) {
@@ -187,13 +169,9 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
             holder.remain_gift = convertView.findViewById(R.id.remain_gift);
             holder.type_gift = convertView.findViewById(R.id.type_gift);
             convertView.setTag(holder);
-
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-
-
         holder.p_name.setText(mStringList.get(position));
         final int poss = Integer.parseInt(sl.get(position));
         holder.pos = position;
@@ -202,24 +180,17 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         holder.serial.setText(String.valueOf(srl));
         holder.quantity.setTag(srl);
         holder.quantity.setText(p_quanty.get(srl));
-
-
         holder.total_gift.setText(PROD_VAT.get(srl-1));
         holder.remain_gift.setText(PROD_RATE.get(srl-1));
         holder.type_gift.setText(PPM_CODE.get(srl-1));
 
-
-
-
         holder.quantity.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // TODO Auto-generated method stub
                 GiftOrder.searchview.setFocusable(false);
                 holder.quantity.setFocusable(true);
                 holder.quantity.setBackgroundColor(0x00008080);
                 return false;
-
             }
         });
         holder.quantity.addTextChangedListener(new TextWatcher() {
@@ -231,8 +202,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
             String tempStr;
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     tempStr = s.toString();
                     qnty = tempStr;
@@ -243,10 +213,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence str, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-            }
+            public void beforeTextChanged(CharSequence str, int arg1, int arg2, int arg3) {}
 
             @SuppressLint("NewApi")
             @Override
@@ -275,8 +242,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                         }
                         String tota = String.format("%.02f", total_value);
                         GiftOrder.totalsellquantity.setText("" + tota);
-                        return;
-                    }else{
+                    } else {
                         int checkZero = Integer.parseInt(str.toString());
                         if (checkZero>0){
                             holder.quantity.setBackgroundResource(R.drawable.selected);
@@ -314,53 +280,43 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
 
         });
 
-        holder.quantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    focusvalue=0;
-                    LinearLayout parent = (LinearLayout) v.getParent();
-                    String qntyfocus = holder.quantity.getText().toString().trim();
-                    int holderpos = holder.pos;
-                    set2.add(holder.pos);
-                    if (qntyfocus.isEmpty()) {
-                        qntyfocus = "0";
-                    }
-                    int temp = Integer.parseInt(qntyfocus);
-                    if (temp > 0) {
-                        holder.quantity.setText(qntyfocus);
-                        dataSet.put(holder.pos, holder.quantity.getText().toString().trim());
-                    } else {
-                        holder.quantity.setText("0");
-                        dataSet.put(holder.pos, "0");
-                    }
-
+        holder.quantity.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                focusvalue=0;
+                LinearLayout parent1 = (LinearLayout) v.getParent();
+                String qntyfocus = holder.quantity.getText().toString().trim();
+                int holderpos = holder.pos;
+                set2.add(holder.pos);
+                if (qntyfocus.isEmpty()) {
+                    qntyfocus = "0";
                 }
-                else{
-                    focusvalue=1;
-                    Editable pqnty=holder.quantity.getText();
+                int temp = Integer.parseInt(qntyfocus);
+                if (temp > 0) {
+                    //holder.quantity.setText(qntyfocus);
+                    dataSet.put(holder.pos, holder.quantity.getText().toString().trim());
+                } else {
+                    //holder.quantity.setText("0");
                     dataSet.put(holder.pos, "0");
-                    holder.quantity.setSelection(holder.quantity.getText().length());
-                    try {
-                        int checkZero = Integer.parseInt(pqnty.toString());
-                        if(checkZero==0){
-                            holder.quantity.setText("");
-                        }
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                        GiftOrder.searchview.setFocusable(true);
-                    }
-                    holder.quantity.setBackgroundResource(R.drawable.active);
                 }
+            } else {
+                focusvalue = 1;
+                Editable pqnty = holder.quantity.getText();
+                dataSet.put(holder.pos, "0");
+                holder.quantity.setSelection(holder.quantity.getText().length());
+
+                try {
+                    int checkZero = Integer.parseInt(pqnty.toString());
+                    if(checkZero==0){
+                        holder.quantity.setText("");
+                    }
+                } catch (Exception e) {
+                   GiftOrder.searchview.setFocusable(true);
+                }
+                holder.quantity.setBackgroundResource(R.drawable.active);
             }
         });
         return convertView;
     }
-
-
-
-
 
     private class ViewHolder {
         TextView serial;
@@ -374,21 +330,11 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         TextView total_gift;
         TextView remain_gift;
         TextView type_gift;
-
-
     }
-
-
-
-
-
-    // -----------------------------Search---Class-------------------------
 
     // Filter Class
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-
-
         System.out.println("charText Text\t" + charText);
 
         if (charText.length() == 0) {
@@ -401,29 +347,15 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
         notifyDataSetChanged();
     }
 
-
-
-
-
     @Override
     public Filter getFilter() {
-        // TODO Auto-generated method stub
-
         if (valueFilter == null) {
-
             valueFilter = new ValueFilter();
         }
-
         return valueFilter;
-
-        // return null;
     }
 
-
-
-
     private class ValueFilter extends Filter {
-
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             int myNum = 0;
@@ -432,38 +364,30 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                 myNum = Integer.parseInt(constraint.toString());
                 System.out.println("myNum "+myNum);
 
-
                 if (myNum> 0) {
-
-
                     ArrayList<String> filterList = new ArrayList<String>();
+
                     for (int i = 0; i < p_names.size(); i++) {
                         String productName = p_names.get(i).toLowerCase();
-
                         myNum=1;
                         String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
                         int current_qnty=Integer.parseInt(Quantity);
+
                         if(current_qnty>=myNum){
                             System.out.println("productsl="+Integer.parseInt(sl.get(i))+"Filter product Quantity="+Quantity);
                             mProductSerialList.add(Integer.parseInt(sl.get(i)));
                             filterList.add(p_names.get(i));
                         }
-
                     }
-
                     results.count = filterList.size();
                     results.values = filterList;
                     return results;
-
                 } else {
                     results.count = p_names.size();
                     results.values = p_names;
                     return results;
-
                 }
-
             } catch(NumberFormatException nfe) {
-
                 ArrayList<String> filterList = new ArrayList<String>();
 
                 try {
@@ -473,62 +397,37 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                                 String productName = p_names.get(i).toLowerCase();
                                 int qnty=1;
                                 String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
-                                int current_qnty=Integer.parseInt(Quantity);
+                                int current_qnty=Integer.parseInt(Objects.requireNonNull(Quantity));
                                 System.out.println("productsl="+Integer.parseInt(sl.get(i))+"Filter product Quantity="+Quantity);
                                 mProductSerialList.add(Integer.parseInt(sl.get(i)));
                                 filterList.add(p_names.get(i));
-
-                                //}
                             }
-
                         }
-
                         results.count = filterList.size();
                         results.values = filterList;
-                        //return results;
                     } else {
                         results.count = p_names.size();
                         results.values = p_names;
-                        //return results;
                     }
-
-
-
-
-                }catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     results.count = filterList.size();
                     results.values = filterList;
-                    //return results;
-
-
-
                 }
                 return results;
-
             }
-
-
         }
 
-
-
         private String contains(CharSequence constraint) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
-
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             mStringList = (ArrayList<String>) results.values;
             notifyDataSetChanged();
-
         }
-
     }
-
 }
 
 

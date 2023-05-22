@@ -31,6 +31,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
 import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
@@ -2181,22 +2182,25 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
+        Objects.requireNonNull(button3).setText("1.3");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(textView6).setText("Dcr\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
 
-        CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
-        Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
             Intent i = new Intent(AmDashboard.this, AmDcr.class);
@@ -2211,6 +2215,12 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             i.putExtra("UserName_2", globalAreaCode);
             startActivity(i);
             //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, DcrFollowupActivity.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
             //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
