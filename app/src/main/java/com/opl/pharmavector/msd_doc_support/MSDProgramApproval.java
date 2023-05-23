@@ -20,6 +20,7 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.dcrFollowup.DcfpFollowupAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
+import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -30,11 +31,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MSDProgramApproval extends AppCompatActivity implements MSDApprovalAdapter.ItemClickListener {
-    Button back_btn;
+    Button showBtn, submitApproval, backBtn;
     EditText ed_date;
     RecyclerView recyclerMSDApproval;
     MSDApprovalAdapter msdApprovalAdapter;
-    public String userName, UserName_2, promo_type, user_flag, user_code, monthYearStr, year_val, month_val, proposed_date1, month_name_val, month_name, proposed_date2;
+    public String userName, UserName_2, promo_type, user_flag, user_code, monthYearStr, year_val, month_val, proposed_date1, month_name_val, month_name, proposed_date2, selectedItemStr;
+    ArrayList<String> selectedItemList = new ArrayList<>();
     ArrayList<MSDApprovalModel> msdApprovalList = new ArrayList<>();
 
     @Override
@@ -45,21 +47,39 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         initViews();
         calenderUI();
         msdProgramApprovalList();
-        back_btn.setOnClickListener(v -> finish());
+        backBtn.setOnClickListener(v -> finish());
+        showBtn.setOnClickListener(v -> {
+            if ((ed_date.getText().toString().trim().equals("Select Month"))) {
+                Toast.makeText(MSDProgramApproval.this, "Please select month!", Toast.LENGTH_SHORT).show();
+            } else {
+                msdProgramApprovalList();
+            }
+        });
+        submitApproval.setOnClickListener(v -> {
+            if (selectedItemList.size() > 0) {
+                msdProgramApprovalSubmit();
+            } else {
+                Toast.makeText(MSDProgramApproval.this, "Please select Approval Item!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         recyclerMSDApproval = findViewById(R.id.recyclerMSDApproval);
         ed_date = findViewById(R.id.ed_date);
-        back_btn = findViewById(R.id.backbt);
+        submitApproval = findViewById(R.id.submitApproval);
+        backBtn = findViewById(R.id.backBtn);
+        showBtn = findViewById(R.id.showBtn);
+        showBtn.setTypeface(fontFamily);
+        showBtn.setText("\uf1d8");
+        backBtn.setTypeface(fontFamily);
+        backBtn.setText("\uf08b");
         ed_date.setFocusableInTouchMode(true);
         ed_date.setFocusable(true);
         ed_date.requestFocus();
         ed_date.setClickable(true);
         ed_date.setInputType(InputType.TYPE_NULL);
-        back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060");
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("userName");
@@ -78,6 +98,7 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
                 year_val = test.substring(0, 4);
                 month_val = String.valueOf(month);
                 proposed_date1 = "01" + "/" + (month) + "/" + year;
+
                 if (month_val.equals(String.valueOf(1))) {
                     month_name_val = "January";
                     month_name ="JAN";
@@ -132,7 +153,8 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         msdApprovalDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList(userName);
+        //Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList(userName, proposed_date1);
+        Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList("CB000", proposed_date1);
         msdApprovalList.clear();
 
         call.enqueue(new Callback<List<MSDApprovalModel>>() {
@@ -164,8 +186,47 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         });
     }
 
-    @Override
-    public void onClick(int position, MSDApprovalModel model) {
+    public void msdProgramApprovalSubmit() {
+        ProgressDialog msdSubmittedDialog = new ProgressDialog(MSDProgramApproval.this);
+        msdSubmittedDialog.setMessage("MSD Approval Submit Loading...");
+        msdSubmittedDialog.setTitle("MSD Program Approval Submit");
+        msdSubmittedDialog.show();
 
+        //String selectedItemStr = selectedItem.toString().substring(1, selectedItem.size()-1);
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        //Call<MSDSubmitModel> call = apiInterface.getMSDApprovalSubmit(selectedItemStr, user_code);
+        Call<MSDSubmitModel> call = apiInterface.getMSDApprovalSubmit(selectedItemStr, "CB000");
+
+        call.enqueue(new Callback<MSDSubmitModel>() {
+            @Override
+            public void onResponse(@NonNull Call<MSDSubmitModel> call, @NonNull retrofit2.Response<MSDSubmitModel> response) {
+                if (response.body() != null) {
+                    if (response.body().getSuccess_1() == 1) {
+                        msdSubmittedDialog.dismiss();
+                        selectedItemStr = "";
+                        selectedItemList.clear();
+                        msdProgramApprovalList();
+                        Toast.makeText(MSDProgramApproval.this, response.body().getMessage_1(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MSDProgramApproval.this, "Not Submitted!", Toast.LENGTH_SHORT).show();
+                    }
+                    //msdApprovalList.addAll(response.body());
+                    Log.d("tag", msdApprovalList.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<MSDSubmitModel> call, @NonNull Throwable t) {
+                msdSubmittedDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onClick(int position, List<MSDApprovalModel> model, ArrayList<String> selectedItem) {
+        //msdProgramApprovalSubmit(selectedItem);
+        selectedItemList = selectedItem;
+        selectedItemStr = selectedItem.toString();
+        selectedItemStr = selectedItemStr.substring(1, selectedItemStr.length()-1);
     }
 }

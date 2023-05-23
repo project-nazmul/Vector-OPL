@@ -34,7 +34,6 @@ import org.json.JSONObject;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import static com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser6.selectedCategories4;
 
-
 public class DoctorServiceFollowup extends AppCompatActivity {
     Context context;
     ArrayList<Category5> array_list;
@@ -52,7 +51,6 @@ public class DoctorServiceFollowup extends AppCompatActivity {
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party, my_val;
     private String pc_approval_submit = BASE_URL+"doctor_service/doctor_service_ack_rcv.php";
     private String pc_cancel_submit = BASE_URL+"pc_conference_cancel_submit.php";
-
     public String conference_date, UserName_2;
     public String market_code;
     public String market_name;
@@ -75,125 +73,100 @@ public class DoctorServiceFollowup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.mpo_doc_service_approval);
+
         initViews();
-
-
         new asyncTask_getCategories().execute();
-
-        logback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // TODO Auto-generated method stub
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                });
-                backthred.start();
-            }
+        logback.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> finish());
+            backthred.start();
         });
+        button.setOnClickListener(v -> {
+            categoriesCsv = FavouriteCategoriesJsonParser6.selectedCategories4.toString();
+            categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                categoriesCsv = FavouriteCategoriesJsonParser6.selectedCategories4.toString();
-                categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
-                Thread server = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONParser jsonParser = new JSONParser();
-                        Bundle b = getIntent().getExtras();
-                        final String userName = b.getString("UserName");
-                        final String UserName_2 = b.getString("UserName_2");
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
-                        params.add(new BasicNameValuePair("UserName", UserName));
-                        JSONObject json = jsonParser.makeHttpRequest(pc_approval_submit, "POST", params);
-                        try {
-                            success = json.getInt(TAG_SUCCESS);
-                            message = json.getString(TAG_MESSAGE);
-                            Log.w("please wait TRY ...." + message, json.toString());
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                            Log.w("Please wait ...." + message, json.toString());
-                        }
-                        Intent in = getIntent();
-                        Intent inten = getIntent();
-                        Bundle bundle = in.getExtras();
-                        inten.getExtras();
-                        String MPO_CODE = bundle.getString("MPO_CODE");
-                        String pc_sl_no = message;
-                        Intent sameint = new Intent(DoctorServiceFollowup.this, DoctorServiceFollowup.class);
-                        sameint.putExtra("UserName", UserName);
-                        sameint.putExtra("UserName_2", UserName_2);
-                        sameint.putExtra("Ord_NO", message);
-                        sameint.putExtra("userName", UserName);
-                        startActivity(sameint);
-                        selectedCategories4.clear();
-
-                    }
-                });
-                server.start();
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                categoriesCsv = FavouriteCategoriesJsonParser6.selectedCategories4.toString();
-                categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
-                ProgressDialog pDialog = new ProgressDialog(DoctorServiceFollowup.this);
-                pDialog.setTitle("Please wait !");
-                pDialog.setMessage("Sending Acknowledgement..");
-                pDialog.setCancelable(false);
-                pDialog.show();
+            Thread server = new Thread(() -> {
+                JSONParser jsonParser = new JSONParser();
                 Bundle b = getIntent().getExtras();
-                Thread server = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONParser jsonParser = new JSONParser();
-                        Bundle b = getIntent().getExtras();
-                        final String userName = b.getString("UserName");
-                        final String UserName_2 = b.getString("UserName_2");
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
-                        params.add(new BasicNameValuePair("UserName", UserName));
-                        JSONObject json = jsonParser.makeHttpRequest(pc_cancel_submit, "POST", params);
-                        try {
-                            success = json.getInt(TAG_SUCCESS);
-                            message = json.getString(TAG_MESSAGE);
-                            pDialog.dismiss();
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                            pDialog.dismiss();
-                        }
-                        Intent in = getIntent();
-                        Intent inten = getIntent();
-                        Bundle bundle = in.getExtras();
-                        inten.getExtras();
-                        String MPO_CODE = bundle.getString("MPO_CODE");
-                        String pc_sl_no = message;
-                        Intent sameint = new Intent(DoctorServiceFollowup.this, DoctorServiceFollowup.class);
-                        sameint.putExtra("UserName", UserName);
-                        sameint.putExtra("UserName_2", UserName_2);
-                        sameint.putExtra("Ord_NO", message);
-                        sameint.putExtra("userName", UserName);
-                        startActivity(sameint);
-                        selectedCategories4.clear();
+                final String userName = b.getString("UserName");
+                final String UserName_2 = b.getString("UserName_2");
+                List<NameValuePair> params = new ArrayList<>();
+                params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
+                params.add(new BasicNameValuePair("UserName", UserName));
+                JSONObject json = jsonParser.makeHttpRequest(pc_approval_submit, "POST", params);
 
-                    }
-                });
-                server.start();
+                try {
+                    success = json.getInt(TAG_SUCCESS);
+                    message = json.getString(TAG_MESSAGE);
+                    Log.w("please wait TRY ...." + message, json.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.w("Please wait ...." + message, json.toString());
+                }
+                Intent in = getIntent();
+                Intent inten = getIntent();
+                Bundle bundle = in.getExtras();
+                inten.getExtras();
+                String MPO_CODE = bundle.getString("MPO_CODE");
+                String pc_sl_no = message;
+                Intent sameint = new Intent(DoctorServiceFollowup.this, DoctorServiceFollowup.class);
+                sameint.putExtra("UserName", UserName);
+                sameint.putExtra("UserName_2", UserName_2);
+                sameint.putExtra("Ord_NO", message);
+                sameint.putExtra("userName", UserName);
+                startActivity(sameint);
+                selectedCategories4.clear();
 
-            }
+            });
+            server.start();
         });
 
+        button2.setOnClickListener(v -> {
+            categoriesCsv = FavouriteCategoriesJsonParser6.selectedCategories4.toString();
+            categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
+            ProgressDialog pDialog = new ProgressDialog(DoctorServiceFollowup.this);
+            pDialog.setTitle("Please wait !");
+            pDialog.setMessage("Sending Acknowledgement..");
+            pDialog.setCancelable(false);
+            pDialog.show();
+            Bundle b = getIntent().getExtras();
+
+            Thread server = new Thread(() -> {
+                JSONParser jsonParser = new JSONParser();
+                Bundle b1 = getIntent().getExtras();
+                final String userName = b1.getString("UserName");
+                final String UserName_2 = b1.getString("UserName_2");
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
+                params.add(new BasicNameValuePair("UserName", UserName));
+                JSONObject json = jsonParser.makeHttpRequest(pc_cancel_submit, "POST", params);
+
+                try {
+                    success = json.getInt(TAG_SUCCESS);
+                    message = json.getString(TAG_MESSAGE);
+                    pDialog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    pDialog.dismiss();
+                }
+                Intent in = getIntent();
+                Intent inten = getIntent();
+                Bundle bundle = in.getExtras();
+                inten.getExtras();
+                String MPO_CODE = bundle.getString("MPO_CODE");
+                String pc_sl_no = message;
+                Intent sameint = new Intent(DoctorServiceFollowup.this, DoctorServiceFollowup.class);
+                sameint.putExtra("UserName", UserName);
+                sameint.putExtra("UserName_2", UserName_2);
+                sameint.putExtra("Ord_NO", message);
+                sameint.putExtra("userName", UserName);
+                startActivity(sameint);
+                selectedCategories4.clear();
+            });
+            server.start();
+        });
     }
 
     private void initViews() {
@@ -219,7 +192,7 @@ public class DoctorServiceFollowup extends AppCompatActivity {
             dialog.setTitle("Please wait...");
             dialog.setMessage("Loading Doctor Service Data!");
             dialog.show();
-            array_list = new ArrayList<Category5>();
+            array_list = new ArrayList<>();
             my_val = Dashboard.globalmpocode;
             categoryJsonParser = new FavouriteCategoriesJsonParser6();
             super.onPreExecute();
@@ -239,10 +212,7 @@ public class DoctorServiceFollowup extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismiss();
         }
-
     }
-
-
 }
 
 

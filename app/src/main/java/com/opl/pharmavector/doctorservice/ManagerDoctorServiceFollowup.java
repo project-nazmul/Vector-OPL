@@ -118,8 +118,7 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
                             month_name_val="JAN";
                         }  else if(month_val== String.valueOf(2)){
                             month_name_val="FEB";
-                        }
-                        else if(month_val== String.valueOf(3)){
+                        } else if(month_val== String.valueOf(3)){
                             month_name_val="MAR";
                         } else if(month_val== String.valueOf(4)){
                             month_name_val="APR";
@@ -148,13 +147,8 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
                     }
                 });
                 pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
-
-
             }
         });
-
-
-
         TextView user_show=(TextView) findViewById(R.id.user_show);
         context = this;
         Bundle b = getIntent().getExtras();
@@ -173,28 +167,20 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         logback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
-
-
 
         show.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,7 +226,7 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
             dialog.setMessage("Loading Doctor Service !");
             dialog.show();
             array_list = new ArrayList<Category5>();
-            my_val=UserName;
+            my_val = UserName;
             categoryJsonParser = new FavouriteCategoriesJsonParser8();
             super.onPreExecute();
         }
@@ -267,40 +253,31 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             dialog2.setTitle("Please wait...");
-           dialog2.setMessage("Loading Monthly Doctor Service Data!");
-           dialog2.show();
-            array_list = new ArrayList<Category5>();
+            dialog2.setMessage("Loading Monthly Doctor Service Data!");
+            dialog2.show();
+            array_list = new ArrayList<>();
 
-            my_val=UserName;
-
-            my_date=date_param;
-
+            my_val = UserName;
+            my_date = date_param;
             categoryJsonParser2 = new FavouriteCategoriesJsonParser9();
-
             super.onPreExecute();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-
-
             array_list = categoryJsonParser2.getParsedCategories();
             return null;
         }
 
         @Override
         protected void onPostExecute(Void s) {
-
-            ListView mListViewBooks = (ListView) findViewById(R.id.category_listView);
+            ListView mListViewBooks = findViewById(R.id.category_listView);
             final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list);
             mListViewBooks.setAdapter(CategoryAdapter7);
             super.onPostExecute(s);
             dialog2.dismiss();
         }
-
     }
-
-
 }
 
 

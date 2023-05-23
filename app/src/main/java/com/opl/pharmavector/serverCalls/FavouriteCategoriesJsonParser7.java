@@ -22,7 +22,7 @@ public class FavouriteCategoriesJsonParser7 {
 
     public ArrayList<Category5> getParsedCategories() {
         ArrayList<Category5> MyArraylist = new ArrayList<>();
-        List<NameValuePair> params=new ArrayList<NameValuePair>();
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
         String myvalue;
         myvalue = DoctorServiceAck.UserName;
         params.add(new BasicNameValuePair("id",myvalue));

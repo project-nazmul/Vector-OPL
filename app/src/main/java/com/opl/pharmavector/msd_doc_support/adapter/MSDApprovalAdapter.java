@@ -1,18 +1,26 @@
 package com.opl.pharmavector.msd_doc_support.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.model.Category5;
+import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser7;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MSDApprovalAdapter extends RecyclerView.Adapter<MSDApprovalAdapter.MSDApprovalViewHolder> {
     private Context context;
     public ItemClickListener itemClickListener;
     public List<MSDApprovalModel> msdApprovalList;
+    public ArrayList<String> selectApprovalList = new ArrayList<>();
 
     public MSDApprovalAdapter(Context context, List<MSDApprovalModel> msdApprovalModel, ItemClickListener itemClickListener) {
         this.context = context;
@@ -40,8 +48,20 @@ public class MSDApprovalAdapter extends RecyclerView.Adapter<MSDApprovalAdapter.
         holder.no_of_req.setText(msdApprovalModel.getNoCme());
         holder.total_cost.setText(msdApprovalModel.getTotCost());
 
-        holder.itemView.setOnClickListener(view -> {
-            itemClickListener.onClick(position, msdApprovalModel);
+        holder.check_approval.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (buttonView.isChecked()) {
+                if (!selectApprovalList.contains(String.valueOf(msdApprovalList.get(position).getMsdSlno()))) {
+                    selectApprovalList.add(String.valueOf(msdApprovalList.get(position).getMsdSlno()));
+                    itemClickListener.onClick(position, msdApprovalList, selectApprovalList);
+                    Log.d("check1", selectApprovalList.toString());
+                }
+            } else {
+                if (selectApprovalList.contains(String.valueOf(msdApprovalList.get(position).getMsdSlno()))) {
+                    selectApprovalList.remove(String.valueOf(msdApprovalList.get(position).getMsdSlno()));
+                    itemClickListener.onClick(position, msdApprovalList, selectApprovalList);
+                    Log.d("check2", selectApprovalList.toString());
+                }
+            }
         });
     }
 
@@ -52,6 +72,7 @@ public class MSDApprovalAdapter extends RecyclerView.Adapter<MSDApprovalAdapter.
 
     public class MSDApprovalViewHolder extends RecyclerView.ViewHolder {
         public TextView req_number, program_date, institute_name, venue_name, payment_mode, ppm_gift, executive_code, proposed_territory, no_of_req, total_cost;
+        public CheckBox check_approval;
 
         public MSDApprovalViewHolder(View view) {
             super(view);
@@ -65,10 +86,11 @@ public class MSDApprovalAdapter extends RecyclerView.Adapter<MSDApprovalAdapter.
             proposed_territory = view.findViewById(R.id.proposed_territory);
             no_of_req = view.findViewById(R.id.no_of_req);
             total_cost = view.findViewById(R.id.total_cost);
+            check_approval = view.findViewById(R.id.check_approval);
         }
     }
 
     public interface ItemClickListener {
-        void onClick(int position, MSDApprovalModel model);
+        void onClick(int position, List<MSDApprovalModel> model, ArrayList<String> selectedItem);
     }
 }

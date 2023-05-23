@@ -59,37 +59,28 @@ public class DoctorServiceAck extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.doc_service_approval_follow);
 
         intiViews();
-
         new asyncTask_getCategories().execute();
-        logback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // TODO Auto-generated method stub
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        try {
-                            finish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        logback.setOnClickListener(v -> {
+            Thread backthred = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-                backthred.start();
-            }
+                }
+            });
+            backthred.start();
         });
-
     }
 
     private void intiViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         button = findViewById(R.id.selectCategoryButton);
         button.setVisibility(View.GONE);
@@ -105,7 +96,6 @@ public class DoctorServiceAck extends AppCompatActivity {
         user_show.setText(UserName + " " + UserName_2 + " ");
         commas = 0;
     }
-
 
     @SuppressLint("StaticFieldLeak")
     public class asyncTask_getCategories extends AsyncTask<Void, Void, Void> {
@@ -137,7 +127,6 @@ public class DoctorServiceAck extends AppCompatActivity {
             dialog.dismiss();
         }
     }
-
 }
 
 

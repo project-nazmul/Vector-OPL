@@ -1,27 +1,18 @@
 package com.opl.pharmavector.adapter;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import android.annotation.SuppressLint;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.content.Context;
-import android.view.LayoutInflater;
-
-import com.opl.pharmavector.ProductOrder;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.model.Category5;
 import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser7;
+import java.util.List;
 
 public class CategoryAdapter7 extends ArrayAdapter<Category5> {
     private final List<Category5> list;
@@ -37,26 +28,17 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
     }
 
     static class ViewHolder {
-
         protected TextView categorySerial;
         protected TextView categoryName;
         protected TextView categoryName2;
         protected TextView categoryName3;
-
-
         protected TextView categoryName4;
         protected TextView categoryName5;
         protected TextView categoryName6;
         protected TextView categoryName7;
-
-
         protected TextView categoryName8;
         protected TextView categoryName9;
         protected TextView categoryName10;
-
-
-
-
         protected CheckBox categoryCheckBox;
     }
 
@@ -68,10 +50,9 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
         if (convertView == null) {
             LayoutInflater inflator = LayoutInflater.from(getContext());
 
-            //convertView = inflator.inflate(R.layout.row_category_6, null);
+            //convertView = inflater.inflate(R.layout.row_category_6, null);
             convertView = inflator.inflate(R.layout.row_category_doc_service_approval, null);
             viewHolder = new ViewHolder();
-
 
             viewHolder.categorySerial = (TextView) convertView.findViewById(R.id.row_categoryname_textview_sl);
             viewHolder.categoryName = (TextView) convertView.findViewById(R.id.row_categoryname_textview);
@@ -86,10 +67,7 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
             viewHolder.categoryName8 = (TextView) convertView.findViewById(R.id.row_categoryname_textview8);
             viewHolder.categoryName9 = (TextView) convertView.findViewById(R.id.row_categoryname_textview9);
             viewHolder.categoryName10 = (TextView) convertView.findViewById(R.id.row_categoryname_textview10);
-
             viewHolder.categoryCheckBox = (CheckBox) convertView.findViewById(R.id.row_category_checkbox);
-
-
 
             viewHolder.categoryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -138,17 +116,14 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
         viewHolder.categoryName6.setText(list.get(position).getCategory_Name6());
         viewHolder.categoryName7.setText(list.get(position).getCategory_Name7());
 
-
         viewHolder.categoryName8.setText(list.get(position).getCategory_Name8());
         viewHolder.categoryName9.setText(list.get(position).getCategory_Name9());
         viewHolder.categoryName10.setText(list.get(position).getCategory_Name10());
-
 
 /*
                  genres.setCateogry_sl(MyJsonObject.getString("TERRI_NAME"));
                  genres.setCateogry_id(MyJsonObject.getString("SERVICE_NO"));
                  genres.setCategory_Name(MyJsonObject.getString("SERV_MONTH"));
-
                  genres.setCategory_Name2(MyJsonObject.getString("REQUEST_DT"));
                  genres.setCategory_Name3(MyJsonObject.getString("DOC_NAME"));
                  genres.setCategory_Name4(MyJsonObject.getString("SERV_DESC"));
@@ -160,8 +135,6 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
                  genres.setCategory_Name10(MyJsonObject.getString("PAYMENT_DT"));
 
  */
-
-
         viewHolder.categoryCheckBox.setChecked(list.get(position).isSelected());
         return convertView;
     }

@@ -1,32 +1,22 @@
 package com.opl.pharmavector.model;
 
 public class Category5 {
-
-
     private String cateogry_sl;
     private String cateogry_id;
     private String category_Name;
     private String category_Name2;
     private String category_Name3;
-
     private String category_Name4;
     private String category_Name5;
     private String category_Name6;
     private String category_Name7;
-
-
     private String category_Name8;
     private String category_Name9;
     private String category_Name10;
-
     private String category_Name11;
     private String category_Name12;
     private String category_Name13;
     private String category_Name14;
-
-
-
-
     private boolean isSelected;
 
     public String getCateogry_id() {
@@ -35,8 +25,6 @@ public class Category5 {
     public void setCateogry_id(String cateogry_id) {
         this.cateogry_id = cateogry_id;
     }
-
-
 
     public String getCateogry_sl() {
         return cateogry_sl;
@@ -52,16 +40,12 @@ public class Category5 {
         this.category_Name = category_Name;
     }
 
-
     public String getCategory_Name2() {
         return category_Name2;
     }
     public void setCategory_Name2(String category_Name2) {
         this.category_Name2 = category_Name2;
     }
-
-
-
 
     public String getCategory_Name3() {
         return category_Name3;
@@ -70,15 +54,12 @@ public class Category5 {
         this.category_Name3 = category_Name3;
     }
 
-
-
     public String getCategory_Name4() {
         return category_Name4;
     }
     public void setCategory_Name4(String category_Name4) {
         this.category_Name4 = category_Name4;
     }
-
 
     public String getCategory_Name5() {
         return category_Name5;
@@ -87,15 +68,12 @@ public class Category5 {
         this.category_Name5 = category_Name5;
     }
 
-
-
     public String getCategory_Name6() {
         return category_Name6;
     }
     public void setCategory_Name6(String category_Name6) {
         this.category_Name6 = category_Name6;
     }
-
 
     public String getCategory_Name7() {
         return category_Name7;
@@ -104,15 +82,12 @@ public class Category5 {
         this.category_Name7 = category_Name7;
     }
 
-
-
     public String getCategory_Name8() {
         return category_Name8;
     }
     public void setCategory_Name8(String category_Name8) {
         this.category_Name8 = category_Name8;
     }
-
 
     public String getCategory_Name9() {
         return category_Name9;
@@ -128,15 +103,12 @@ public class Category5 {
         this.category_Name10 = category_Name10;
     }
 
-
     public String getCategory_Name11() {
         return category_Name11;
     }
     public void setCategory_Name11(String category_Name11) {
         this.category_Name11 = category_Name11;
     }
-
-
 
     public String getCategory_Name12() {
         return category_Name12;
@@ -145,8 +117,6 @@ public class Category5 {
         this.category_Name12 = category_Name12;
     }
 
-
-
     public String getCategory_Name13() {
         return category_Name13;
     }
@@ -154,15 +124,12 @@ public class Category5 {
         this.category_Name13 = category_Name13;
     }
 
-
     public String getCategory_Name14() {
         return category_Name14;
     }
     public void setCategory_Name14(String category_Name14) {
         this.category_Name14 = category_Name14;
     }
-
-
 
     public boolean isSelected() {
         return isSelected;

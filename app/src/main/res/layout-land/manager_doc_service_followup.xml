@@ -8,7 +8,6 @@
     android:padding="10dp"
     android:weightSum="100">
 
-
     <LinearLayout
         android:id="@+id/searchbar"
         android:layout_width="fill_parent"
@@ -18,8 +17,8 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:visibility="gone"
-        android:weightSum="20"
-        >
+        android:weightSum="20">
+
         <EditText
             android:id="@+id/p_search"
             android:layout_width="200dp"
@@ -31,14 +30,9 @@
             android:inputType="textNoSuggestions"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textColor="@android:color/holo_blue_dark">
-
             <requestFocus />
         </EditText>
-
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -73,7 +67,6 @@
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold" />
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/i3"
             android:layout_weight="2"
@@ -91,13 +84,10 @@
                 android:inputType="number"
                 android:textColorHint="@color/darkblue"
                 android:textColor="#009688"
-                android:textSize="@dimen/_10sdp"
-                />
-
+                android:textSize="@dimen/_10sdp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-
             android:id="@+id/show"
             android:layout_width="50sp"
             android:layout_height="wrap_content"
@@ -110,15 +100,9 @@
             android:soundEffectsEnabled="true"
             android:text="&lt;"
             android:textColor="#FFF"
-            android:textSize="@dimen/_20sdp"
-
-            />
-
-
-
+            android:textSize="@dimen/_20sdp" />
 
         <Button
-
             android:id="@+id/logback"
             android:layout_width="50sp"
             android:layout_height="wrap_content"
@@ -132,21 +116,13 @@
             android:text="&lt;"
             android:textColor="#FFF"
             android:textSize="25sp"
-            android:layout_marginLeft="@dimen/_10sdp"
-
-            />
-
+            android:layout_marginLeft="@dimen/_10sdp" />
     </LinearLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-       >
-
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -162,8 +138,6 @@
                 android:background="@android:color/transparent"
                 android:layout_height="match_parent">
 
-
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,7 +150,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Request\nDate"
@@ -187,10 +160,7 @@
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -202,9 +172,7 @@
                     android:fontFamily="@font/acme"
                     android:textStyle="bold" />
 
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doctor\nAddress"
@@ -215,10 +183,7 @@
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
@@ -231,7 +196,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Service\nCost"
@@ -243,7 +207,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MRD\nCHECKED"
@@ -254,10 +217,7 @@
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sales\napprove"
@@ -268,9 +228,7 @@
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Payment\nDate"
@@ -282,7 +240,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MPO\nAck"
@@ -292,8 +249,6 @@
                     android:textSize="@dimen/_8sdp"
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -306,7 +261,6 @@
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,13 +271,8 @@
                     android:textSize="@dimen/_8sdp"
                     android:fontFamily="@font/acme"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
 
         <ListView
             android:id="@+id/category_listView"
@@ -333,12 +282,12 @@
             android:divider="@android:color/transparent"
             android:layout_weight="80"/>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/selectCategoryButton2"
                 android:layout_gravity="center"
@@ -356,10 +305,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:visibility="gone"
-
-                />
-
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/selectCategoryButton"
@@ -377,13 +323,8 @@
                 android:layout_alignParentTop="false"
                 android:layout_weight="0.5"
                 android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                />
-
-
-
+                android:layout_marginRight="25dp" />
         </LinearLayout>
-
 
         <!--
                 <Button
@@ -397,10 +338,7 @@
                     android:focusableInTouchMode="false"
                     android:textSize="@dimen/_10sdp"
                     android:textAllCaps="false"
-                    android:descendantFocusability="afterDescendants"
-
-                    />
-
+                    android:descendantFocusability="afterDescendants" />
 
                 <Button
                     android:id="@+id/selectCategoryButton2"
@@ -413,12 +351,7 @@
                     android:focusableInTouchMode="false"
                     android:textSize="@dimen/_10sdp"
                     android:textAllCaps="false"
-                    android:descendantFocusability="afterDescendants"
-
-                    />
-
+                    android:descendantFocusability="afterDescendants" />
         -->
-
     </LinearLayout>
-
 </LinearLayout>
