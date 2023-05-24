@@ -1,11 +1,5 @@
 package com.opl.pharmavector.msd_doc_support;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
@@ -16,12 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.opl.pharmavector.MonthYearPickerDialog;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.dcrFollowup.DcfpFollowupAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
-import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
+import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentAdapter;
+import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -33,43 +33,29 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class MSDProgramApproval extends AppCompatActivity implements MSDApprovalAdapter.ItemClickListener {
+public class MSDCommitmentFollowup extends AppCompatActivity {
     Button showBtn, submitApproval, backBtn;
     EditText ed_date;
-    RecyclerView recyclerMSDApproval;
-    MSDApprovalAdapter msdApprovalAdapter;
-    public String userName, UserName_2, promo_type, user_flag, user_code, monthYearStr, year_val, month_val, proposed_date1, month_name_val, month_name, proposed_date2, selectedItemStr;
-    ArrayList<String> selectedItemList = new ArrayList<>();
-    ArrayList<MSDApprovalModel> msdApprovalList = new ArrayList<>();
+    RecyclerView recyclerMSDCommitment;
+    MSDCommitmentAdapter msdCommitmentAdapter;
+    public String userName, UserName_2, promo_type, user_flag, user_code, monthYearStr, year_val, month_val, proposed_date1, month_name_val, month_name, proposed_date2, last_date;
+    ArrayList<MSDCommitmentModel> msdCommitmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_msd_approval);
+        setContentView(R.layout.activity_msd_commitment_followup);
 
         initViews();
         calenderUI();
-        msdProgramApprovalList();
+        msdCommitmentFollowup(proposed_date2);
         backBtn.setOnClickListener(v -> finish());
-        showBtn.setOnClickListener(v -> {
-            if ((ed_date.getText().toString().trim().equals("Select Month"))) {
-                Toast.makeText(MSDProgramApproval.this, "Please select month!", Toast.LENGTH_SHORT).show();
-            } else {
-                msdProgramApprovalList();
-            }
-        });
-        submitApproval.setOnClickListener(v -> {
-            if (selectedItemList.size() > 0) {
-                msdProgramApprovalSubmit();
-            } else {
-                Toast.makeText(MSDProgramApproval.this, "Please select Approval Item!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        showBtn.setOnClickListener(v -> msdCommitmentFollowup(proposed_date2));
     }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        recyclerMSDApproval = findViewById(R.id.recyclerMSDApproval);
+        recyclerMSDCommitment = findViewById(R.id.recyclerMSDCommitment);
         ed_date = findViewById(R.id.ed_date);
         submitApproval = findViewById(R.id.submitApproval);
         backBtn = findViewById(R.id.backBtn);
@@ -89,7 +75,8 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         @SuppressLint("SimpleDateFormat") SimpleDateFormat year_date = new SimpleDateFormat("yyyy");
         String year_name = year_date.format(cal.getTime());
         String first_date = "JAN" + "-" + year_name.toUpperCase();
-        String last_date = month_name.toUpperCase() + "-" + year_name.toUpperCase();
+        last_date = month_name.toUpperCase() + "-" + year_name.toUpperCase();
+        proposed_date2 = "01" + "-" + last_date;
         ed_date.setText(last_date);
 
         Bundle b = getIntent().getExtras();
@@ -155,83 +142,44 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         });
     }
 
-    public void msdProgramApprovalList() {
-        ProgressDialog msdApprovalDialog = new ProgressDialog(MSDProgramApproval.this);
-        msdApprovalDialog.setMessage("MSD Approval List Loading...");
-        msdApprovalDialog.setTitle("MSD Program Approval");
-        msdApprovalDialog.show();
+    public void msdCommitmentFollowup(String selectMonth) {
+        ProgressDialog msdCommitmentDialog = new ProgressDialog(MSDCommitmentFollowup.this);
+        msdCommitmentDialog.setMessage("MSD Approval List Loading...");
+        msdCommitmentDialog.setTitle("MSD Program Approval");
+        msdCommitmentDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList(userName, proposed_date1);
-        msdApprovalList.clear();
+        Call<List<MSDCommitmentModel>> call = apiInterface.getMSDCommitmentFollowup(selectMonth);
+        msdCommitmentList.clear();
 
-        call.enqueue(new Callback<List<MSDApprovalModel>>() {
+        call.enqueue(new Callback<List<MSDCommitmentModel>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<List<MSDApprovalModel>> call, @NonNull retrofit2.Response<List<MSDApprovalModel>> response) {
+            public void onResponse(@NonNull Call<List<MSDCommitmentModel>> call, @NonNull retrofit2.Response<List<MSDCommitmentModel>> response) {
                 if (response.body() != null) {
-                    msdApprovalList.addAll(response.body());
-                    Log.d("tag", msdApprovalList.toString());
+                    msdCommitmentList.addAll(response.body());
+                    Log.d("tag", msdCommitmentList.toString());
                 }
 
-                if (msdApprovalList.size() > 0) {
-                    msdApprovalDialog.dismiss();
-                    msdApprovalAdapter = new MSDApprovalAdapter(MSDProgramApproval.this, msdApprovalList, MSDProgramApproval.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(MSDProgramApproval.this);
-                    recyclerMSDApproval.setLayoutManager(manager);
-                    recyclerMSDApproval.setAdapter(msdApprovalAdapter);
-                    recyclerMSDApproval.addItemDecoration(new DividerItemDecoration(MSDProgramApproval.this, DividerItemDecoration.VERTICAL));
+                if (msdCommitmentList.size() > 0) {
+                    msdCommitmentDialog.dismiss();
+                    msdCommitmentAdapter = new MSDCommitmentAdapter(MSDCommitmentFollowup.this, msdCommitmentList);
+                    LinearLayoutManager manager = new LinearLayoutManager(MSDCommitmentFollowup.this);
+                    recyclerMSDCommitment.setLayoutManager(manager);
+                    recyclerMSDCommitment.setAdapter(msdCommitmentAdapter);
+                    recyclerMSDCommitment.addItemDecoration(new DividerItemDecoration(MSDCommitmentFollowup.this, DividerItemDecoration.VERTICAL));
                 } else {
-                    msdApprovalDialog.dismiss();
-                    Toast.makeText(MSDProgramApproval.this, "No data Available!", Toast.LENGTH_LONG).show();
+                    msdCommitmentDialog.dismiss();
+                    Toast.makeText(MSDCommitmentFollowup.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
+                msdCommitmentAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<MSDApprovalModel>> call, @NonNull Throwable t) {
-                msdApprovalDialog.dismiss();
-                msdProgramApprovalList();
+            public void onFailure(@NonNull Call<List<MSDCommitmentModel>> call, @NonNull Throwable t) {
+                msdCommitmentDialog.dismiss();
+                msdCommitmentFollowup(proposed_date2);
             }
         });
-    }
-
-    public void msdProgramApprovalSubmit() {
-        ProgressDialog msdSubmittedDialog = new ProgressDialog(MSDProgramApproval.this);
-        msdSubmittedDialog.setMessage("MSD Approval Submit Loading...");
-        msdSubmittedDialog.setTitle("MSD Program Approval Submit");
-        msdSubmittedDialog.show();
-
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<MSDSubmitModel> call = apiInterface.getMSDApprovalSubmit(selectedItemStr, user_code);
-
-        call.enqueue(new Callback<MSDSubmitModel>() {
-            @Override
-            public void onResponse(@NonNull Call<MSDSubmitModel> call, @NonNull retrofit2.Response<MSDSubmitModel> response) {
-                if (response.body() != null) {
-                    if (response.body().getSuccess_1() == 1) {
-                        msdSubmittedDialog.dismiss();
-                        selectedItemStr = "";
-                        selectedItemList.clear();
-                        msdProgramApprovalList();
-                        Toast.makeText(MSDProgramApproval.this, response.body().getMessage_1(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MSDProgramApproval.this, "Not Submitted!", Toast.LENGTH_SHORT).show();
-                    }
-                    Log.d("tag", msdApprovalList.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<MSDSubmitModel> call, @NonNull Throwable t) {
-                msdSubmittedDialog.dismiss();
-            }
-        });
-    }
-
-    @Override
-    public void onClick(int position, List<MSDApprovalModel> model, ArrayList<String> selectedItem) {
-        //msdProgramApprovalSubmit(selectedItem);
-        selectedItemList = selectedItem;
-        selectedItemStr = selectedItem.toString();
-        selectedItemStr = selectedItemStr.substring(1, selectedItemStr.length()-1);
     }
 }

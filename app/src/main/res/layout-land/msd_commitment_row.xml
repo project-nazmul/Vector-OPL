@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/_2sdp">
+
+        <TextView
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:id="@+id/req_number"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Req No"
+            android:textAllCaps="false"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/program_date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Program\nDate"
+            android:textAllCaps="false"
+            android:textColor="#D500F9"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/program_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Program\nTime"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/institute_name"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Institute"
+            android:textAllCaps="false"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/venue_name"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Venue"
+            android:textAllCaps="false"
+            android:textColor="@color/orangered"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/region_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Region"
+            android:textAllCaps="false"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/product_coverage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Product\nCoverage"
+            android:textAllCaps="false"
+            android:textColor="#D500F9"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/commitment_duration"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Commitment\nDuration"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_8sdp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

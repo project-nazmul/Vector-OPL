@@ -8,6 +8,7 @@ import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
+import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
 import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
@@ -266,6 +267,12 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("msd_doc_support/msd_program_approval_list_submit.php")
     Call<MSDSubmitModel> getMSDApprovalSubmit(@Field("MSD_SLNO") String msd_slno, @Field("mpo_code") String username);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("msd_doc_support/msd_program_commitment_followup.php")
+    Call<List<MSDCommitmentModel>> getMSDCommitmentFollowup(@Field("p_month") String p_month);
+
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

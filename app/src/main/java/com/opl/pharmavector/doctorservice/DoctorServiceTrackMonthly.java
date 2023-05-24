@@ -1,6 +1,5 @@
 package com.opl.pharmavector.doctorservice;
 
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.lang.Runnable;
@@ -15,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -53,17 +54,14 @@ import com.opl.pharmavector.MonthYearPickerDialog2;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 
-
 public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-
     private ArrayList<AmCategory3> categoriesList;
     private ArrayList<AmCategory3> categoriesList3;
     public ProgressDialog pDialog;
     ListView productListView;
-
     ListView productListView2;
     Button submit, submitBtn;
     EditText qnty;
@@ -87,56 +85,39 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
     public static ArrayList<String> PROD_VAT_3;
     public static ArrayList<String> PROD_VAT_4;
     public Spinner mpo;
-
     private ArrayList<Customer> customerlist;
     private android.widget.Spinner cust;
-
     private android.widget.Spinner territory;
     private ArrayList<Customer> territorylist;
-
     ProgressDialog pDialog2;
     private ArrayList<String> array_sort = new ArrayList<String>();
     public String service_no;
-
     public String global_mpo_code;
     private final String URL_PRODUCT_VIEW = BASE_URL+"doctor_service/month_wise_doctor_track.php";
     private final String URL_MPO = BASE_URL+"doctor_service/doctors_list_doc_service3.php";
     private final String URL_PRODUCT_VIEW_3 = BASE_URL+"doctor_service/doc_service_status.php";
     private final String load_territory = BASE_URL+"doctor_service/load_territory.php";
-
-
-
     TextView conference_date, conference_date2;
-
     public String monthYearStr, date_param;
     public String monthPicker;
     public String year_val, month_val;
-
     public String year_val2, month_val2;
-
     public TextView succ_msg;
-
     public String month_name_val, proposed_conference_date, proposed_conference_date2;
-
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-
     public String monthYearStr2, date_param2;
     public String month_name_val2, proposed_conference_date22;
     public int count;
-
     public String global_area_code_for_rm;
-
-
     private ArrayList<com.opl.pharmavector.AmCustomer> mpolist;
-
     private ArrayList<com.opl.pharmavector.AmCustomer> listterritory;
-
     private ArrayList<com.opl.pharmavector.AmCustomer> listarea;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.doctor_service_tracking);
@@ -151,12 +132,10 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
         final LinearLayout lay_doc =  findViewById(R.id.doc_lay);
         final LinearLayout c =  findViewById(R.id.c);
 
-
         final LinearLayout l4 =  findViewById(R.id.l4);
         l4.setVisibility(View.GONE);
         final TextView doc_address =  findViewById(R.id.doc_address);
         final TextView doc_name =  findViewById(R.id.doc_name);
-
 
         final TextView ter_name =  findViewById(R.id.ter_name);
         final TextView area_name =  findViewById(R.id.area_name);
@@ -164,43 +143,31 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
         final TextView zone_name =  findViewById(R.id.zone_name);
         final TextView division_name =  findViewById(R.id.division_name);
 
-
         final TextView detail_head =  findViewById(R.id.detail_head);
         Button submitBtn_2 =  findViewById(R.id.submitBtn_2);
         conference_date =  findViewById(R.id.conference_date);
         conference_date.setClickable(true);
-
-
         conference_date2 =  findViewById(R.id.conference_date2);
         conference_date2.setClickable(true);
-
 
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
         mpo_code = b.getString("userName");
-
-
         count = mpo_code.length() - mpo_code.replace("0", "").length();
 
         final AutoCompleteTextView actv =  findViewById(R.id.autoCompleteTextView1);
         final AutoCompleteTextView actv2 =  findViewById(R.id.autoCompleteTextView2);
         final AutoCompleteTextView actv3 =  findViewById(R.id.autoCompleteTextView3);
 
-
         if (count == 0) { //mpo
-
             lay_doc.setVisibility(View.GONE);
             c.setVisibility(View.GONE);
             actv2.setVisibility(View.GONE);
-
-
             actv.setFocusableInTouchMode(true);
             actv.setFocusable(true);
             actv.requestFocus();
-
             global_mpo_code = mpo_code;
             new GetEmp().execute();
-
         } else if (count == 1) { // area managerp
             region_name.setVisibility(View.GONE);
             zone_name.setVisibility(View.GONE);
@@ -220,54 +187,35 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             actv2.setFocusable(true);
             actv2.requestFocus();
             new GetTerritory().execute();
-
-
         } else if (count == 2) {  // regional manager
             actv3.setFocusableInTouchMode(true);
             actv3.setFocusable(true);
             actv3.requestFocus();
-
             division_name.setVisibility(View.GONE);
-
             zone_name.setHint("Area name");
             region_name.setHint("Area code");
-
             ViewGroup.LayoutParams params01 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float) 2.5);
             params01.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             ter_name.setLayoutParams(params01);
-
-
             ViewGroup.LayoutParams params02 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float) 2.5);
             params02.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             area_name.setLayoutParams(params02);
-
-
             ViewGroup.LayoutParams params03 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float) 2.5);
             params03.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             region_name.setLayoutParams(params03);
-
-
             ViewGroup.LayoutParams params04 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, (float) 2.5);
             params04.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             zone_name.setLayoutParams(params04);
-
-
             actv3.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams params2 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2);
             params2.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             actv2.setLayoutParams(params2);
             actv2.setFocusable(false);
-
             ViewGroup.LayoutParams params3 = new TableRow.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2);
             params3.height = getResources().getDimensionPixelSize(R.dimen.text_view_height);
             actv3.setLayoutParams(params3);
-
-
             new GetArea().execute();
-
-
         } else if (count == 3) { /// asm dsm
-
             lay_doc.setVisibility(View.GONE);
             c.setVisibility(View.GONE);
             actv2.setVisibility(View.GONE);
@@ -276,8 +224,6 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             actv.requestFocus();
             global_mpo_code = mpo_code;
             new GetEmp().execute();
-
-
         } else if (count == 4) { ///
             lay_doc.setVisibility(View.GONE);
             c.setVisibility(View.GONE);
@@ -285,12 +231,9 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             actv.setFocusableInTouchMode(true);
             actv.setFocusable(true);
             actv.requestFocus();
-
             global_mpo_code = mpo_code;
             new GetEmp().execute();
-
         } else {
-
             lay_doc.setVisibility(View.GONE);
             c.setVisibility(View.GONE);
             actv2.setVisibility(View.GONE);
@@ -299,52 +242,35 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             actv.requestFocus();
             global_mpo_code = mpo_code;
             new GetEmp().execute();
-
         }
-
-
         cust = (android.widget.Spinner) findViewById(R.id.mpo);
         cust.setPrompt("Select Doctor");
-
         territory = (android.widget.Spinner) findViewById(R.id.sp_territory);
         territory.setPrompt("Select Doctor");
-
-
         customerlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
-
-
         territorylist = new ArrayList<Customer>();
         territory.setOnItemSelectedListener(this);
-
 
         actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (actv.getText().toString() != "") {
                     String selectedcustomer = actv.getText().toString();
                     cust.setTag(selectedcustomer);
                 }
-
             }
         });
-
 
         actv2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
                 // String selectedcustomer2 = actv2.getText().toString();
-                //   System.out.println("Selectedcustomer = "+selectedcustomer2);
-                //  territory.setTag(selectedcustomer2);
+                // System.out.println("Selectedcustomer = "+selectedcustomer2);
+                // territory.setTag(selectedcustomer2);
                 mpolist.clear();
-
-
             }
         });
-
 
         actv2.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -354,7 +280,6 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             }
         });
 
-
         actv3.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -362,7 +287,6 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
                 return false;
             }
         });
-
 
         actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -372,40 +296,23 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
             }
         });
 
-
         actv3.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-
-            }
+            public void onClick(View v) {}
         });
 
-
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     final String inputorder = s.toString();
                     String mar_name = s.toString();
                     String mar[] = mar_name.split("//");
@@ -420,220 +327,134 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
                     l4.setVisibility(View.GONE);
                     productListView2.setAdapter(null);
                     productListView.setAdapter(null);
-
                     actv.setText("");
                     actv.setHint("Type Doctor Name ");
-
-
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(actv.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
         });
 
-
         actv2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     String mar_name2 = s.toString();
-                    String mar2[] = mar_name2.split("/");
-
+                    String[] mar2 = mar_name2.split("/");
                     String doctor_name2 = mar2[0].trim();
                     String mpoforam_initial2 = mar2[1].trim();
-
-
-
                     global_mpo_code = doctor_name2;
                     Log.e("global_mpo_code ", "> " + global_mpo_code);
                     ter_name.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
                     ter_name.setText(mpoforam_initial2);
                     area_name.setText(global_mpo_code);
-
                     actv2.setText("");
                     actv2.setHint("Type Territory name");
                     new GetEmp().execute();
-
                     actv.setFocusableInTouchMode(true);
                     actv.setFocusable(true);
                     actv.requestFocus();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
         });
 
-
         actv3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     String mar_name2 = s.toString();
                     String mar2[] = mar_name2.split("/");
                     String doctor_name2 = mar2[0].trim();
                     String mpoforam_initial2 = mar2[1].trim();
-
-
                     global_area_code_for_rm = doctor_name2;
-
-
                     zone_name.setText(mpoforam_initial2);
                     region_name.setText(global_area_code_for_rm);
-
-
                     actv3.setText("");
                     actv3.setHint("Type Area Code");
 
-
                     new GetTerritory().execute();
-
                     actv2.setFocusableInTouchMode(true);
                     actv2.setFocusable(true);
                     actv2.requestFocus();
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
         });
-
-
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat month_date = new SimpleDateFormat("MMM");
         String month_name = month_date.format(cal.getTime());
-        SimpleDateFormat year_date = new SimpleDateFormat("yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat year_date = new SimpleDateFormat("yyyy");
         String year_name = year_date.format(cal.getTime());
-
         String first_date = "JAN" + "-" + year_name.toUpperCase();
         String last_date = month_name.toUpperCase() + "-" + year_name.toUpperCase();
-
-
         conference_date.setText(first_date);
-
         conference_date2.setText(last_date);
 
+        conference_date.setOnClickListener(v -> {
+            MonthYearPickerDialog2 pickerDialog = new MonthYearPickerDialog2();
+            pickerDialog.setListener((datePicker, year, month, i2) -> {
+                monthYearStr = year + "-" + 1 + "-" + i2;
+                //conference_date.setText(formatMonthYear(monthYearStr));
+                String test = monthYearStr;
+                year_val = test.substring(0, 4);
+                month_val = String.valueOf(month);
+                // proposed_conference_date= year + "/" + (month + 1) + "/" + 01;
+                proposed_conference_date = "01" + "/" + (month) + "/" + year;
+                proposed_conference_date = "31" + "/" + (month) + "/" + year;
 
-        conference_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MonthYearPickerDialog2 pickerDialog = new MonthYearPickerDialog2();
-                pickerDialog.setListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int i2) {
-                        monthYearStr = year + "-" + 1 + "-" + i2;
-                        // conference_date.setText(formatMonthYear(monthYearStr));
-                        String test = monthYearStr;
-                        year_val = test.substring(0, 4);
-                        int month_int = month;
-                        month_val = String.valueOf(month_int);
-                        // proposed_conference_date= year + "/" + (month + 1) + "/" + 01;
-                        proposed_conference_date = "01" + "/" + (month) + "/" + year;
-                        proposed_conference_date = "31" + "/" + (month) + "/" + year;
-                        if (!month_val.equals(String.valueOf(1))) {
-                            if (month_val.equals(String.valueOf(2))) {
-                                month_name_val = "FEB";
-                            } else if (month_val.equals(String.valueOf(3))) {
-                                month_name_val = "MAR";
-                            } else if (month_val.equals(String.valueOf(4))) {
-                                month_name_val = "APR";
-                            } else if (month_val.equals(String.valueOf(5))) {
-                                month_name_val = "MAY";
-                            } else if (month_val.equals(String.valueOf(6))) {
-                                month_name_val = "JUN";
-                            } else if (month_val.equals(String.valueOf(7))) {
-                                month_name_val = "JUL";
-                            } else if (month_val.equals(String.valueOf(8))) {
-                                month_name_val = "AUG";
-                            } else if (month_val.equals(String.valueOf(9))) {
-                                month_name_val = "SEP";
-                            } else if (month_val.equals(String.valueOf(10))) {
-                                month_name_val = "OCT";
-                            } else if (month_val.equals(String.valueOf(11))) {
-                                month_name_val = "NOV";
-                            } else if (month_val.equals(String.valueOf(12))) {
-                                month_name_val = "DEC";
-                            }
-                        } else {
-                            month_name_val = "JAN";
-                        }
-                        date_param = month_name_val + "-" + year;
-                        conference_date.setText(date_param);
+                if (!month_val.equals(String.valueOf(1))) {
+                    if (month_val.equals(String.valueOf(2))) {
+                        month_name_val = "FEB";
+                    } else if (month_val.equals(String.valueOf(3))) {
+                        month_name_val = "MAR";
+                    } else if (month_val.equals(String.valueOf(4))) {
+                        month_name_val = "APR";
+                    } else if (month_val.equals(String.valueOf(5))) {
+                        month_name_val = "MAY";
+                    } else if (month_val.equals(String.valueOf(6))) {
+                        month_name_val = "JUN";
+                    } else if (month_val.equals(String.valueOf(7))) {
+                        month_name_val = "JUL";
+                    } else if (month_val.equals(String.valueOf(8))) {
+                        month_name_val = "AUG";
+                    } else if (month_val.equals(String.valueOf(9))) {
+                        month_name_val = "SEP";
+                    } else if (month_val.equals(String.valueOf(10))) {
+                        month_name_val = "OCT";
+                    } else if (month_val.equals(String.valueOf(11))) {
+                        month_name_val = "NOV";
+                    } else if (month_val.equals(String.valueOf(12))) {
+                        month_name_val = "DEC";
                     }
-                });
-                pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
-
-
-            }
+                } else {
+                    month_name_val = "JAN";
+                }
+                date_param = month_name_val + "-" + year;
+                conference_date.setText(date_param);
+            });
+            pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
         });
-
 
         conference_date2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -642,8 +463,6 @@ public class DoctorServiceTrackMonthly extends AppCompatActivity implements OnCl
                 pickerDialog.setListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int i2) {
-
-
                         monthYearStr2 = year + "-" + (month + 1) + "-" + i2;
                         Log.e("conference_date2", monthYearStr2);
                         String test2 = monthYearStr2;

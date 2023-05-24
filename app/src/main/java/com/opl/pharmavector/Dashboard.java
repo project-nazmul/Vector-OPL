@@ -66,6 +66,7 @@ import com.opl.pharmavector.mpodcr.Dcr;
 import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.DocSupportReq;
+import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.order_online.ReadComments;
@@ -761,6 +762,14 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
         Objects.requireNonNull(cardview_rx_summary_C).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, MSDProgramApproval.class);
+            i.putExtra("user_code", Dashboard.globalmpocode);
+            i.putExtra("user_name", Dashboard.globalterritorycode);
+            i.putExtra("user_flag", "MPO");
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_rx_summary_E).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, MSDCommitmentFollowup.class);
             i.putExtra("user_code", Dashboard.globalmpocode);
             i.putExtra("user_name", Dashboard.globalterritorycode);
             i.putExtra("user_flag", "MPO");
