@@ -1,5 +1,3 @@
-//ProductListProductListAdapter
-
 package com.opl.pharmavector;
 
 import java.util.ArrayList;
@@ -37,11 +35,8 @@ import android.widget.TextView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-//import android.widget.Filter.FilterResults;
-//ProductListAdapter2
 @SuppressLint("ViewHolder")
 public class ProductListProductListAdapter extends BaseAdapter implements Filterable {
-
     Context mContext;
     ArrayList<String> p_names;
     ArrayList<String> sl;
@@ -50,44 +45,33 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     ArrayList<String> PROD_VAT;
     ArrayList<String> PPM_CODE;
     ArrayList<String> SHIFT_CODE;
-
     ArrayList<String> P_CODE;
     ArrayList<String> value7;
     ArrayList<String> value8;
-
     ArrayList<String> value9;
     ArrayList<String> value10;
-
     ArrayList<String> value11;
     ArrayList<String> value12;
     ArrayList<String> PPM_TYPE;
     ArrayList<String> PROD_REQ;
-
-
     static HashSet<Integer> mProductSerialList;
     public static TextView edit_qnty;
-
-    // public static String[] quantity;
+    //public static String[] quantity;
     ArrayList<String> Data_Openingstock = new ArrayList<String>();
-
-    // ArrayList<Integer> p_quanty;
+    //ArrayList<Integer> p_quanty;
     static HashMap<Integer, String> p_quanty;
-    // OnClickListener callBack;
+    //OnClickListener callBack;
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     private String productname = null;
-    // public static Integer total_quantity=0;
+    //public static Integer total_quantity=0;
     private ArrayList<String> arraylist;
     private boolean InputState;
     private String[] valueList;
     private ArrayList<String> mStringList;
     public static int focusvalue=0;
-
     private ValueFilter valueFilter;
-
     Toast toast;
-
-
     View rowView;
     public static int last_position;
     public static int last_value;
@@ -101,13 +85,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     static Set<Integer> set2 = new HashSet<Integer>();
     public static ArrayList<String> editTxtID = new ArrayList<String>();
 
-
-
-
-
-    ProductListProductListAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9,
-                                  ArrayList<String> value10, ArrayList<String> value11,ArrayList<String> value12) {
-
+    ProductListProductListAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9, ArrayList<String> value10, ArrayList<String> value11,ArrayList<String> value12) {
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty = p_quanty;
@@ -122,10 +100,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getFilter();
         mProductSerialList = new HashSet<Integer>();
-
     }
-
-
 
     @Override
     public int getCount() {
@@ -135,16 +110,13 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     // Get the data item associated with the specified position in the data set.
     @Override
     public Object getItem(int position) {
-
         return mStringList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
-
     public Object sl(int position) {
         return sl.get(position);
     }
@@ -164,9 +136,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final ViewHolder holder;
-
         rowView = convertView;
 
         if (rowView == null) {
@@ -187,7 +157,6 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         holder.p_name.setText(mStringList.get(position));
         final int poss = Integer.parseInt(sl.get(position));
         holder.pos = position;
@@ -201,12 +170,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         holder.p_code1.setText(value11.get(srl-1)); // product code
         holder.brand_code.setText(value8.get(srl-1)); // brand code
         return convertView;
-
     }
-
-
-
-
 
     private class ViewHolder {
         TextView serial;
@@ -223,42 +187,30 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         TextView tp;
         TextView TP_VT;
         CheckBox checkbox;
-
-
-
     }
-
-
-
-
-
 
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
+
         if (charText.length() == 0) {
+
         } else {
             for (String wp : arraylist) {
+
             }
         }
         notifyDataSetChanged();
     }
 
-
-
     @Override
     public Filter getFilter() {
-        // TODO Auto-generated method stub
         if (valueFilter == null) {
             valueFilter = new ValueFilter();
         }
         return valueFilter;
     }
 
-
-
-
     private class ValueFilter extends Filter {
-
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             int myNum = 0;
@@ -267,56 +219,38 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                 myNum = Integer.parseInt(constraint.toString());
                 System.out.println("myNum "+myNum);
 
-
                 if (myNum> 0) {
-
-
                     ArrayList<String> filterList = new ArrayList<String>();
 
                     for (int i = 0; i < p_names.size(); i++) {
                         String productName = p_names.get(i).toLowerCase();
-
-                        myNum=1;
+                        myNum = 1;
                         String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
+                        int current_qnty = Integer.parseInt(Quantity);
 
-
-
-                        int current_qnty=Integer.parseInt(Quantity);
-                        if(current_qnty>=myNum){
+                        if(current_qnty >= myNum){
                             System.out.println("productsl="+Integer.parseInt(sl.get(i))+"FilterproductQuantity="+Quantity);
                             mProductSerialList.add(Integer.parseInt(sl.get(i)));
                             filterList.add(  p_names.get(i));
-
-
                         }
-
                     }
-
                     results.count = filterList.size();
                     results.values = filterList;
                     return results;
-
                 } else {
                     results.count = p_names.size();
                     results.values = p_names;
                     return results;
-
                 }
-
             } catch(NumberFormatException nfe) {
-
                 ArrayList<String> filterList = new ArrayList<String>();
                 ArrayList<String> filterList2 = new ArrayList<String>();
+
                 try {
                     if (constraint.length() > 2) {
                         for (int i = 0; i < p_names.size(); i++) {
                             if (p_names.get(i).toLowerCase().contains(((String) constraint).toLowerCase())) {
-
-
-
-                                int qnty=1;
-
-
+                                int qnty = 1;
                                 String productName = p_names.get(i).toLowerCase();
                                 String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
                                 String p_code = value11.get(Integer.parseInt(sl.get(i)));//PRODUCT_CODE
@@ -324,11 +258,6 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                                 String BRAND_CODE = value8.get(Integer.parseInt(sl.get(i)));//BRAND_CODE
                                 String PACK_SIZE = value9.get(Integer.parseInt(sl.get(i)));//PACK_SIZE
                                 String TP = value10.get(Integer.parseInt(sl.get(i)));//TP
-
-
-
-
-
                                 int current_qnty=Integer.parseInt(Quantity);
 
                                 //if(current_qnty>=qnty){
@@ -336,19 +265,12 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                                         +" Filterproducname = "+ productName +"  Filterpacksize = "+ PACK_SIZE + "   Brandcode = "+ BRAND_CODE
                                         +" TP VALUE = " +TP +"VAT VALUE ==  " + VAT + " mrp value ==  "+  Quantity
                                 );
-
                                 mProductSerialList.add(Integer.parseInt(sl.get(i)));
-
                                 System.out.println("mProductSerialList =  "+mProductSerialList);
                                 filterList.add(p_names.get(i));
                                 System.out.println("filterList =  "+  filterList);
-
                             }
-
-
-
                         }
-
                         results.count = filterList.size();
                         results.values = filterList;
                         //return results;
@@ -357,41 +279,26 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                         results.values = p_names;
                         //return results;
                     }
-
-
-
-
-                }catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     results.count = filterList.size();
                     results.values = filterList;
                     //return results;
-
-
-
                 }
                 return results;
-
             }
-
-
         }
+
         private String contains(CharSequence constraint) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
-
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             mStringList = (ArrayList<String>) results.values;
             notifyDataSetChanged();
-
         }
-
     }
-
 }
 
 

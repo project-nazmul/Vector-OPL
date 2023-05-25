@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 import org.apache.http.NameValuePair;
@@ -70,7 +71,6 @@ public class AdminProductList extends Activity implements OnClickListener {
     public String message, ord_no,invoice,target,achivement,searchString,message_1,message_2;
     int textlength = 0;
     ProductListProductListAdapter adapter;
-
     JSONParser jsonParser;
     List<NameValuePair> params;
     static TextView totalsellquantity;
@@ -108,7 +108,7 @@ public class AdminProductList extends Activity implements OnClickListener {
     private String SALE_FALG = BASE_URL+"sale_flag.php";
     private String BRAND_FALG =BASE_URL+"brand_flag.php";
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "ClickableViewAccessibility"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_product_list);
@@ -117,7 +117,6 @@ public class AdminProductList extends Activity implements OnClickListener {
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
         submit.setText("\uf1d8"); // &#xf1d8
-
         submit.setVisibility(View.GONE);
         productListView = (ListView) findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
@@ -150,20 +149,17 @@ public class AdminProductList extends Activity implements OnClickListener {
                     searchview.setFocusable(true);
                     searchview.setFocusableInTouchMode(true);
                     searchview.requestFocus();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
 
                 }
             }
         });
         totalsellquantity = (TextView) findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
-
         totalsellvalue = (TextView) findViewById(R.id.totalsellvalue);
         Spinner am_pm = (Spinner) findViewById(R.id.ampm);
         Spinner cash_credit = (Spinner) findViewById(R.id.cashcredit);
         Spinner credit = (Spinner) findViewById(R.id.credit);
-
         totalshow = (LinearLayout) findViewById(R.id.totalshow);
         ProductListProductListAdapter.qnty = null;
         ProductListProductListAdapter.qntyID.clear();
@@ -172,10 +168,8 @@ public class AdminProductList extends Activity implements OnClickListener {
         p_quanty = new ArrayList<Integer>();
         mapQuantity = new HashMap<Integer, String>();
         nameSerialPair = new HashMap<String, Integer>();
-
         mporeqdcr = new ArrayList<com.opl.pharmavector.AmCustomer>();
         brand_info = new ArrayList<com.opl.pharmavector.AmCustomer>();
-
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
         SHIFT_CODE = new ArrayList<String>();
@@ -230,7 +224,6 @@ public class AdminProductList extends Activity implements OnClickListener {
                 System.out.println("Search Field clicked");
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(searchview, InputMethodManager.SHOW_IMPLICIT);
-
                 searchview.setFocusable(true);
                 searchview.setFocusableInTouchMode(true);
                 searchview.setClickable(true);
@@ -250,6 +243,7 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
                 //adapter.getFilter().filter(s);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -258,9 +252,9 @@ public class AdminProductList extends Activity implements OnClickListener {
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
             }
         });
-
         new GetCategories().execute();
         TextView clickme = (TextView) findViewById(R.id.clickme);
+
         clickme.setOnTouchListener(new View.OnTouchListener() {
             private Handler mHandler;
             private long mInitialDelay = 100;
@@ -312,8 +306,7 @@ public class AdminProductList extends Activity implements OnClickListener {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchview.setText(result.get(0));
                 }
                 break;
@@ -330,26 +323,16 @@ public class AdminProductList extends Activity implements OnClickListener {
         super.onResume();
     }
 
-
-
-
-
-
-
-
     private void populateSpinner() {
-
         lables = new ArrayList<String>();
         quanty = new ArrayList<Integer>();
         sl = new ArrayList<String>();
-
         ArrayList<String> value6 = new ArrayList<String>();
         ArrayList<String> value7 = new ArrayList<String>();
         ArrayList<String> value8 = new ArrayList<String>();
         int quantity = 0;
         float prod_rate, prod_vat, sellvalue;
         String prod_rate_1, prod_vat_1,prod_vat_2,prod_vat_3,prod_vat_4,prod_vat_5, sellvalue_2,sellvalue_3;
-
 
         for (int i = 0; i < categoriesList.size(); i++) {
             lables.add(categoriesList.get(i).getName());
@@ -366,20 +349,13 @@ public class AdminProductList extends Activity implements OnClickListener {
             int p_serial = Integer.parseInt(categoriesList.get(i).getsl());
             quanty.add(categoriesList.get(i).getQuantity());
             mapQuantity.put(o, String.valueOf(categoriesList.get(i).getQuantity()));
-
         }
         adapter = new ProductListProductListAdapter(AdminProductList.this, sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE);
         productListView.setAdapter(adapter);
 
     }
 
-
-
-
-
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -388,7 +364,6 @@ public class AdminProductList extends Activity implements OnClickListener {
             pDialog.setMessage("Loading Products..");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
@@ -420,15 +395,10 @@ public class AdminProductList extends Activity implements OnClickListener {
                                 categoriesList.add(cat);
                             }
                         }
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                } else {
-
                 }
-                
             return null;
         }
 
@@ -439,24 +409,12 @@ public class AdminProductList extends Activity implements OnClickListener {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
-
-
-
-
-
-
-
-
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
-
-
-        /*----------------------*/
         if (v.getId() == submit.getId()) {
-
             jsonParser = new JSONParser();
             params = new ArrayList<NameValuePair>();
             Intent in = getIntent();
@@ -473,36 +431,24 @@ public class AdminProductList extends Activity implements OnClickListener {
             String last_quantity = ProductListProductListAdapter.qnty;
             int last_position = ProductListProductListAdapter.last_position;
 
-
             if (last_quantity != null) {
                 ProductListProductListAdapter.dataSet.put(last_position, last_quantity);
                 ProductListProductListAdapter.qntyID.add(last_position);
                 ProductListProductListAdapter.qntyVal.add(last_quantity);
                 ProductListProductListAdapter.set2.add(last_position);
             }
-
-
             if (ProductListProductListAdapter.qntyID.size() < 1) {
                 Toast.makeText(this, "No item inserted", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "No item inserted"+PPM_CODE, Toast.LENGTH_SHORT).show();
-
-            }
-
-
-
-            else {
-
+            } else {
                 String qnty;
                 ArrayList<Integer> position = new ArrayList<Integer>();
-                for (int j : ProductListProductListAdapter.set2) {
-                    position.add(j);
-                }
-                int k=0;
-                int submit_value=0;
-
+                position.addAll(ProductListProductListAdapter.set2);
+                int k = 0;
+                int submit_value = 0;
                 product_flag=0;
-                for (int m = 1; m < ProductListProductListAdapter.p_quanty.size(); m++) {
 
+                for (int m = 1; m < ProductListProductListAdapter.p_quanty.size(); m++) {
                     brand= P_CODE.get(m - 1);
                     String testbrand= p_ids.get(m - 1);
                     String p_min = PPM_CODE.get(m - 1);
@@ -515,14 +461,14 @@ public class AdminProductList extends Activity implements OnClickListener {
                 product_min=0;
 
                 for (int i = 1; i < ProductListProductListAdapter.p_quanty.size(); i++) {
-                    int value = Integer.parseInt(ProductListProductListAdapter.p_quanty.get(i));
+                    int value = Integer.parseInt(Objects.requireNonNull(ProductListProductListAdapter.p_quanty.get(i)));
                     brand= P_CODE.get(i - 1);
                     String testbrand= p_ids.get(i - 1);
+
                     if (value > 0) {
                         if (brand.equals(brand_name)) {
                             brand_total = brand_total + value;
                         }
-
                         submit_value = submit_value + value;
                         k = k + 1;
                         Log.w("", cash_credit);
@@ -536,48 +482,39 @@ public class AdminProductList extends Activity implements OnClickListener {
 
                         if(my_quant>0){
                             product_min=product_min+1;
-
                         }
                     }
                 }
-
                 params.add(new BasicNameValuePair("MPO_CODE", MPO_CODE));
                 params.add(new BasicNameValuePair("CUST_CODE", CUST_CODE));
                 params.add(new BasicNameValuePair("AM_PM", AM_PM));
                 params.add(new BasicNameValuePair("PAY_MODE", cash_credit));
                 params.add(new BasicNameValuePair("ORDER_DELEVERY_DATE",ORDER_DELEVERY_DATE));
 
-                if(submit_value>0) {
-
-                    if( product_min != product_flag  &&  get_ext_dt3.equals("0") ){
+                if(submit_value > 0) {
+                    if(product_min != product_flag  &&  get_ext_dt3.equals("0")){
                         for (int m = 1; m < ProductListProductListAdapter.p_quanty.size(); m++) {
                             brand= P_CODE.get(m - 1);
                             String testbrand= p_ids.get(m - 1);
                             String p_min = PPM_CODE.get(m - 1);
                             int my_quant= Integer.parseInt(p_min);
+
                             if(my_quant>0){
-                                int value = Integer.parseInt(ProductListProductListAdapter.p_quanty.get(m));
+                                int value = Integer.parseInt(Objects.requireNonNull(ProductListProductListAdapter.p_quanty.get(m)));
                                 if(value<my_quant) {
                                     Toast.makeText(this, "Minimum Quntity for **" + testbrand + "** is '" + my_quant + "' to order first credit party of this month", Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
-
                     }
                     else if( brand_total< brand_quant  &&  get_ext_dt3.equals("0") ){
-
                         Toast.makeText(this,"Minimum Quntity for  brand **"+  brand_name + "** is '"+ brand_quant+"' to submit first credit party of this month",Toast.LENGTH_LONG).show();
-
-                    }
-
-
-
-                    else {
+                    } else {
                         final ProgressDialog progress = ProgressDialog.show(this, "Saving Data", "Please Wait..", true);
+
                         Thread server = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                // TODO Auto-generated method stub
                                 JSONObject json = jsonParser.makeHttpRequest(URL_NEW_CATEGORY, "POST", params);
                                 progress.dismiss();
 
@@ -587,9 +524,8 @@ public class AdminProductList extends Activity implements OnClickListener {
                                     message = json.getString(TAG_MESSAGE);
                                     message_2 = json.getString(TAG_MESSAGE_2);
                                     ord_no = json.getString(TAG_ord_no);
-                                    if (success_1 == 1) {
 
-                                        // startActivity(i);
+                                    if (success_1 == 1) {
                                         ProductListProductListAdapter.qnty = null;
                                         ProductListProductListAdapter.qntyID.clear();
                                         ProductListProductListAdapter.qntyVal.clear();
@@ -597,16 +533,10 @@ public class AdminProductList extends Activity implements OnClickListener {
                                         ProductListProductListAdapter.dataSet.clear();
                                         ProductListProductListAdapter.p_quanty.clear();
                                         ProductListProductListAdapter.mProductSerialList.clear();
-
-                                    } else {
-                                        //SaveToDataBase();
-                                    }
-
+                                    }  //SaveToDataBase();
                                 } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
-
                                 Intent in = getIntent();
                                 Intent inten = getIntent();
                                 Bundle bundle = in.getExtras();
@@ -619,30 +549,16 @@ public class AdminProductList extends Activity implements OnClickListener {
                                 sameint.putExtra("UserName_2", message_2);
                                 startActivity(sameint);
                             }
-
                         });
-
                         server.start();
                     }
-
-
-                }else{
-
+                } else {
                     toast1.show();
-
-
                 }
-
-
-
             }
-
         }
 
-        /*----------------------*/
         if (v.getId() == calc.getId()) {
-
-
             float sum = 0f;
             int qnty1 = 0;
             float rate = 0f;
@@ -650,27 +566,23 @@ public class AdminProductList extends Activity implements OnClickListener {
             int total_item = ProductListProductListAdapter.p_quanty.size();
 
             for (int i = 1; i < total_item; i++) {
-                int value = Integer.parseInt(ProductListProductListAdapter.p_quanty.get(i));
+                int value = Integer.parseInt(Objects.requireNonNull(ProductListProductListAdapter.p_quanty.get(i)));
                 brand= P_CODE.get(i - 1);
                 if (value > 0) {
-                    qnty1 = Integer.parseInt(ProductListProductListAdapter.p_quanty.get(i));
+                    qnty1 = Integer.parseInt(Objects.requireNonNull(ProductListProductListAdapter.p_quanty.get(i)));
                     rate = Float.parseFloat(PROD_RATE.get(i - 1));
                     product_value = qnty1 * rate;
                     sum = sum + product_value;
                 }
             }
-            totalsellquantity.setVisibility(v.VISIBLE);
+            totalsellquantity.setVisibility(View.VISIBLE);
             String test=String.valueOf(sum );
-            String total_value = String.format("%.02f", sum);
+            @SuppressLint("DefaultLocale") String total_value = String.format("%.02f", sum);
             totalsellquantity.setText("" + total_value);
         }
-
     }
 
-    protected void onPostExecute() {
-
-    }
-
+    protected void onPostExecute() {}
 }
 
 
