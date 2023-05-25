@@ -11,13 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 
 import android.view.View;
@@ -26,37 +20,29 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
-import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
+import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
-import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
-import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
-import com.opl.pharmavector.exam.ExamDashboard;
 import com.opl.pharmavector.exam.ExamResultFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
+import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.RMPCPermission;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
+import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
-import com.opl.pharmavector.promomat.PromomaterialDashboard;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.NetInfo;
@@ -70,7 +56,6 @@ import java.util.List;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,8 +65,6 @@ import androidx.cardview.widget.CardView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -113,7 +96,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     PreferenceManager preferenceManager;
     public static String password, globalempCode, globalempName, new_version, message_3, vector_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact,
-            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list;
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list, cardview_ff_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
@@ -180,6 +163,21 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 }
             }
         };
+        cardview_ff_contact.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+
+                    } else {
+                        Intent i = new Intent(RmDashboard.this, ff_contact_activity.class);
+                        startActivity(i);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
+        });
 
         /*
         prescription_entry.setOnClickListener(new View.OnClickListener() {
@@ -1642,6 +1640,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         img_pmd_contact = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+        cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -1692,7 +1691,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(button3).setText("1.3");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
-        Objects.requireNonNull(textView6).setText("Dcr\nFollowup");
+        Objects.requireNonNull(textView6).setText("Dcfp\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -1703,10 +1702,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
-            Intent i = new Intent(RmDashboard.this, DcrFollowupActivity.class);
+            Intent i = new Intent(RmDashboard.this, DcfpFollowupActivity.class);
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
             startActivity(i);
@@ -1716,7 +1714,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
             //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
@@ -2198,74 +2195,65 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_commitment_followup = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+        Objects.requireNonNull(cardview_commitment_followup).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+        TextView tv_commitment_followup = bottomSheetDialog.findViewById(R.id.tv_commitment_followup);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
+        Button btn_commitment_followup = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("13.1");
         Objects.requireNonNull(button2).setText("13.2");
         Objects.requireNonNull(button3).setText("13.3");
+        Objects.requireNonNull(btn_commitment_followup).setText("13.3");
         Objects.requireNonNull(textView4).setText("MSD\nProgram Follow up");
         Objects.requireNonNull(textView5).setText("Doctor\nSupport Follow up");
         Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
+        Objects.requireNonNull(tv_commitment_followup).setText("MSD Program\nCommitment Follow-up");
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
 
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(changepassword).setText("MSD");
-        cardview_rx_summary_B.setVisibility(View.GONE);
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(RmDashboard.this, MSDProgramFollowup.class);
-                i.putExtra("user_code", globalRMCode);
-                i.putExtra("user_name", globalRegionalCode);
-                i.putExtra("user_flag", "RM");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", globalRMCode);
+            i.putExtra("user_name", globalRegionalCode);
+            i.putExtra("user_flag", "RM");
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(RmDashboard.this, DocSupportFollowup.class);
-                i.putExtra("user_code", globalRMCode);
-                i.putExtra("user_name", globalRegionalCode);
-                i.putExtra("user_flag", "RM");
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DocSupportFollowup.class);
+            i.putExtra("user_code", globalRMCode);
+            i.putExtra("user_name", globalRegionalCode);
+            i.putExtra("user_flag", "RM");
+            startActivity(i);
+            //bottomSheetDialog.dismiss();
         });
-        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
+            //bottomSheetDialog.dismiss();
         });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        Objects.requireNonNull(cardview_commitment_followup).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, MSDCommitmentFollowup.class);
+            i.putExtra("user_code", globalRMCode);
+            i.putExtra("user_name", globalRegionalCode);
+            i.putExtra("user_flag", "RM");
+            startActivity(i);
+        });
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
 
     private void msdDocSupport() {
-        cardview_msd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_MSD();
-            }
-        });
+        cardview_msd.setOnClickListener(v -> showBottomSheetDialog_MSD());
     }
 
     private void noticeBoradEvent() {

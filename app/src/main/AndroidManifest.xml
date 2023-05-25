@@ -35,19 +35,19 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".dcrFollowup.FMDcrFollowupActivity"
+            android:name=".dcfpFollowup.FMDcrFollowupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".dcrFollowup.RMDcrFollowupActivity"
+            android:name=".dcfpFollowup.RMDcrFollowupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".dcrFollowup.DcrFollowupActivity"
+            android:name=".dcfpFollowup.DcfpFollowupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"

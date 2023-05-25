@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -26,13 +25,15 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
-import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
+import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
+import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
+import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
@@ -351,21 +352,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
-        Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(textView5).setText("Dcfp\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_followup).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, DcrFollowupActivity.class);
-            i.putExtra("UserName", globalmpocode);
-            i.putExtra("UserName_2", userName_2);
-            i.putExtra("UserName_3", globalAdmin);
-            startActivity(i);
-            //bottomSheetDialog.dismiss();
-        });
-        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String userName_1 = b.getString("UserName_1");
@@ -380,7 +373,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             i.putExtra("UserName_2", user);
             i.putExtra("gm_flag", gm_flag);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalAdmin);
+            startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
             //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
@@ -437,21 +436,27 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_commitment_followup = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+        Objects.requireNonNull(cardview_commitment_followup).setVisibility(View.VISIBLE);
 
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+        TextView tv_commitment_followup = bottomSheetDialog.findViewById(R.id.tv_commitment_followup);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
+        Button btn_commitment_followup = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("4.1");
         Objects.requireNonNull(button2).setText("4.2");
-        Objects.requireNonNull(button3).setText("13.3");
+        Objects.requireNonNull(button3).setText("4.3");
+        Objects.requireNonNull(btn_commitment_followup).setText("4.4");
         Objects.requireNonNull(textView4).setText("MSD\nProgram Follow up");
         Objects.requireNonNull(textView5).setText("Doctor\nSupport Follow up");
-        Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
+        Objects.requireNonNull(textView6).setText("MSD\nProgram Approval");
+        Objects.requireNonNull(tv_commitment_followup).setText("MSD Program\nCommitment Follow-up");
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
@@ -462,7 +467,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             }
         });
         Objects.requireNonNull(changepassword).setText("MSD");
-        Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
             Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
             i.putExtra("user_code", GMDashboard1.globalAdmin);
@@ -480,12 +484,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, MSDProgramFollowup.class);
+            Intent i = new Intent(GMDashboard1.this, MSDProgramApproval.class);
             i.putExtra("user_code", GMDashboard1.globalAdmin);
             i.putExtra("user_name", GMDashboard1.globalAdminDtl);
             i.putExtra("user_flag", "GM");
             startActivity(i);
-            //bottomSheetDialog.dismiss();
+        });
+        Objects.requireNonNull(cardview_commitment_followup).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, MSDCommitmentFollowup.class);
+            i.putExtra("user_code", GMDashboard1.globalAdmin);
+            i.putExtra("user_name", GMDashboard1.globalAdminDtl);
+            i.putExtra("user_flag", "GM");
+            startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
             //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();

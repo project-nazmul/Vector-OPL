@@ -258,7 +258,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
         location.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 location_code = location.getSelectedItem().toString();
-                loc_code = location_code.substring(0, 1).toString();
+                loc_code = location_code.substring(0, 1);
                 final String check = String.valueOf(loc_code);
 
                 if (loc_code.equals("S")) {
@@ -272,50 +272,43 @@ public class Dcr extends Activity implements OnItemSelectedListener {
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        s_time.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
+        s_time.setOnClickListener(v -> {
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
 
-                mTimePicker = new TimePickerDialog(Dcr.this, (timePicker, selectedHour, selectedMinute) -> s_time.setText(selectedHour + ":" + selectedMinute), hour, minute, true); //Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
+            mTimePicker = new TimePickerDialog(Dcr.this, (timePicker, selectedHour, selectedMinute) -> s_time.setText(selectedHour + ":" + selectedMinute), hour, minute, true); //Yes 24 hour time
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
 
-                e_time.setFocusable(true);
-                e_time.setFocusableInTouchMode(true);
-                e_time.requestFocus();
-            }
+            e_time.setFocusable(true);
+            e_time.setFocusableInTouchMode(true);
+            e_time.requestFocus();
         });
 
-        e_time.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Dcr.this, (timePicker, selectedHour, selectedMinute) -> e_time.setText(selectedHour + ":" + selectedMinute), hour, minute, true); //Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-                String check_shift = s_time.getText().toString();
-                String[] arr = check_shift.split(":");
-                String day_shift = arr[0].trim();
-                int shift_check = Integer.parseInt(day_shift);
-            }
+        e_time.setOnClickListener(v -> {
+            Calendar mcurrentTime = Calendar.getInstance();
+            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mcurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+            mTimePicker = new TimePickerDialog(Dcr.this, (timePicker, selectedHour, selectedMinute) -> e_time.setText(selectedHour + ":" + selectedMinute), hour, minute, true); //Yes 24 hour time
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+            String check_shift = s_time.getText().toString();
+            String[] arr = check_shift.split(":");
+            String day_shift = arr[0].trim();
+            int shift_check = Integer.parseInt(day_shift);
         });
 
         session = new SessionManager(getApplicationContext());
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
                 shift_status = shift_spinner.getSelectedItem().toString();
+
                 if (dcr_code.equals("Regular")){
                     if (shift_spinner.getSelectedItem().toString().equals("AM") || shift_spinner.getSelectedItem().toString().equals("PM")) {
                         yes_no.setVisibility(View.GONE);
@@ -466,130 +459,123 @@ public class Dcr extends Activity implements OnItemSelectedListener {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        back.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Thread mysells = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // toast.show();
-                        /*
-                        Intent i = new Intent(Dcr.this, Dashboard.class);
-                        String user = myTextView.getText().toString();
-                        i.putExtra("UserName", userName);
-                        i.putExtra("UserName_2", UserName_2);
-                        i.putExtra("ff_type", Dashboard.ff_type);
-                        startActivity(i);
-                        */
-                        logoutUser();
-                    }
-                });
-                mysells.start();
-            }
+        back.setOnClickListener(v -> {
+            Thread mysells = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // toast.show();
+                    /*
+                    Intent i = new Intent(Dcr.this, Dashboard.class);
+                    String user = myTextView.getText().toString();
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserName_2", UserName_2);
+                    i.putExtra("ff_type", Dashboard.ff_type);
+                    startActivity(i);
+                    */
+                    logoutUser();
+                }
+            });
+            mysells.start();
         });
 
-        logout.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                //finish();
-                //server.start();
-                logoutUser();
-            }
+        logout.setOnClickListener(v -> {
+            //finish();
+            //server.start();
+            logoutUser();
         });
 
-        chemist_ppm.setOnClickListener(new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            public void onClick(View v) {
-                Bundle f = getIntent().getExtras();
-                userName = f.getString("UserName");
-                String str = ded.getText().toString();
-                String date_1 = str.replaceAll("[^\\d.-]", "");
-                final String ord_no = userName + "-" + date_1;
+        chemist_ppm.setOnClickListener(v -> {
+            Bundle f = getIntent().getExtras();
+            userName = f.getString("UserName");
+            String str = ded.getText().toString();
+            String date_1 = str.replaceAll("[^\\d.-]", "");
+            final String ord_no = userName + "-" + date_1;
 
-                Calendar c = Calendar.getInstance();
-                int cYear = c.get(Calendar.YEAR);
-                int cMonth = c.get(Calendar.MONTH) + 1;
-                int cDay = c.get(Calendar.DAY_OF_MONTH);
-                int gyear = myCalendar.get(Calendar.YEAR);
-                //int max_date=cDay+2;
-                int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-                if (gyear > cYear) {
-                    gmonth = myCalendar.get(Calendar.MONTH) + 13;
-                }
+            Calendar c = Calendar.getInstance();
+            int cYear = c.get(Calendar.YEAR);
+            int cMonth = c.get(Calendar.MONTH) + 1;
+            int cDay = c.get(Calendar.DAY_OF_MONTH);
+            int gyear = myCalendar.get(Calendar.YEAR);
+            //int max_date=cDay+2;
 
-                int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-                int gmonth_day = gmonth * 30;
-                int totalday_given = gmonth_day + gday;
-                int cmonth_day = cMonth * 30;
-                int totalday_valid1 = cmonth_day + cDay;
-                int totalday_valid = totalday_valid1 + 0;
-                int totalday_valid2 = cmonth_day + cDay - 7;
-                int total_back_day = Integer.parseInt(get_ext_dt);
-                int rcYear = c.get(Calendar.YEAR);
-                int rcMonth = c.get(Calendar.MONTH) + 1;
-                int rcDay = c.get(Calendar.DAY_OF_MONTH);
-                int rcYear_day = rcYear * 365;
-                int rcMonth_day = rcMonth * 30;
-                int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-                int total_valid_back_day = rctotal_day_today - total_back_day;
-                int rgyear = myCalendar.get(Calendar.YEAR);
-                int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
-                int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-                int rgyear_day = rgyear * 365;
-                int rgmonth_day = rgmonth * 30;
-                int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
-
-                if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-                    ded.setTextSize(14);
-                    ded.setText("Please Select date");
-                    ded.setTextColor(Color.RED);
-                } else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)"))) {
-                    actv.setError("Doctor  not Assigned !");
-                    actv.setText("Please insert  Doctor Name ");
-                    actv.setTextColor(Color.RED);
-                } else if (rgtotal_day_given > rctotal_day_today) {
-                    error_dt.setText("Delivery Date  is not greater than current date!");
-                } else if (rgtotal_day_given < total_valid_back_day) {
-                    ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
-                    error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
-                }
-                final Spinner nameSpinner =  findViewById(R.id.customer);
-                final String selected_cust = actv.getText().toString();
-                Bundle b = getIntent().getExtras();
-                final String userName = b.getString("UserName");
-                String UserName_1 = b.getString("UserName_1");
-
-                Thread next = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent in = new Intent(Dcr.this, ChemistGiftOrder.class);
-                        Bundle extras = new Bundle();
-                        String str = ded.getText().toString();
-                        String date_1 = str.replaceAll("[^\\d.-]", "");
-                        final String generated_ord_no = userName + "-" + date_1;
-                        extras.putString("MPO_CODE", userName);
-                        extras.putString("CUST_CODE", userName);
-                        extras.putString("AM_PM", shift_spinner.getSelectedItem().toString());
-                        extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
-                        extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
-                        extras.putString("ord_no", generated_ord_no);
-                        extras.putString("doc_code", doc_code);
-                        extras.putString("end_time", e_time.getText().toString());
-                        extras.putString("start_time", s_time.getText().toString());
-                        extras.putString("Type", dt_code);
-                        extras.putString("location code", loc_code);
-                        extras.putString("VISITOR_CODE", visitorcode.getText().toString());
-                        extras.putString("VISIT_DATE", ded.getText().toString());
-                        Bundle b = getIntent().getExtras();
-                        String userName = b.getString("UserName");
-                        String UserName_1 = b.getString("UserName_1");
-                        extras.putString("MPO_CODE", userName);
-                        extras.putString("UserName_1", UserName_1);
-                        in.putExtras(extras);
-                        startActivity(in);
-                    }
-                });
-                next.start();
+            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
+            if (gyear > cYear) {
+                gmonth = myCalendar.get(Calendar.MONTH) + 13;
             }
+
+            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int gmonth_day = gmonth * 30;
+            int totalday_given = gmonth_day + gday;
+            int cmonth_day = cMonth * 30;
+            int totalday_valid1 = cmonth_day + cDay;
+            int totalday_valid = totalday_valid1 + 0;
+            int totalday_valid2 = cmonth_day + cDay - 7;
+            int total_back_day = Integer.parseInt(get_ext_dt);
+            int rcYear = c.get(Calendar.YEAR);
+            int rcMonth = c.get(Calendar.MONTH) + 1;
+            int rcDay = c.get(Calendar.DAY_OF_MONTH);
+            int rcYear_day = rcYear * 365;
+            int rcMonth_day = rcMonth * 30;
+            int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
+            int total_valid_back_day = rctotal_day_today - total_back_day;
+            int rgyear = myCalendar.get(Calendar.YEAR);
+            int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
+            int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int rgyear_day = rgyear * 365;
+            int rgmonth_day = rgmonth * 30;
+            int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
+
+            if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
+                ded.setTextSize(14);
+                ded.setText("Please Select date");
+                ded.setTextColor(Color.RED);
+            } else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)"))) {
+                actv.setError("Doctor  not Assigned !");
+                actv.setText("Please insert  Doctor Name ");
+                actv.setTextColor(Color.RED);
+            } else if (rgtotal_day_given > rctotal_day_today) {
+                error_dt.setText("Delivery Date  is not greater than current date!");
+            } else if (rgtotal_day_given < total_valid_back_day) {
+                ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
+                error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
+            }
+            final Spinner nameSpinner =  findViewById(R.id.customer);
+            final String selected_cust = actv.getText().toString();
+            Bundle b = getIntent().getExtras();
+            final String userName = b.getString("UserName");
+            String UserName_1 = b.getString("UserName_1");
+
+            Thread next = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Intent in = new Intent(Dcr.this, ChemistGiftOrder.class);
+                    Bundle extras = new Bundle();
+                    String str = ded.getText().toString();
+                    String date_1 = str.replaceAll("[^\\d.-]", "");
+                    final String generated_ord_no = userName + "-" + date_1;
+                    extras.putString("MPO_CODE", userName);
+                    extras.putString("CUST_CODE", userName);
+                    extras.putString("AM_PM", shift_spinner.getSelectedItem().toString());
+                    extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
+                    extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
+                    extras.putString("ord_no", generated_ord_no);
+                    extras.putString("doc_code", doc_code);
+                    extras.putString("end_time", e_time.getText().toString());
+                    extras.putString("start_time", s_time.getText().toString());
+                    extras.putString("Type", dt_code);
+                    extras.putString("location code", loc_code);
+                    extras.putString("VISITOR_CODE", visitorcode.getText().toString());
+                    extras.putString("VISIT_DATE", ded.getText().toString());
+                    Bundle b = getIntent().getExtras();
+                    String userName = b.getString("UserName");
+                    String UserName_1 = b.getString("UserName_1");
+                    extras.putString("MPO_CODE", userName);
+                    extras.putString("UserName_1", UserName_1);
+                    in.putExtras(extras);
+                    startActivity(in);
+                }
+            });
+            next.start();
         });
 
         dcr_submit.setOnClickListener(v -> {

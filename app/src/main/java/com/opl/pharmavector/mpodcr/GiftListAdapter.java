@@ -157,6 +157,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         rowView = convertView;
+
         if (rowView == null) {
             convertView = inflater.inflate(R.layout.adapter_gift_list,null);
             holder = new ViewHolder();
@@ -287,6 +288,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                 String qntyfocus = holder.quantity.getText().toString().trim();
                 int holderpos = holder.pos;
                 set2.add(holder.pos);
+
                 if (qntyfocus.isEmpty()) {
                     qntyfocus = "0";
                 }

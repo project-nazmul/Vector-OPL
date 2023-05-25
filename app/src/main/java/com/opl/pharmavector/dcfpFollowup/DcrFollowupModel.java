@@ -1,4 +1,4 @@
-package com.opl.pharmavector.dcrFollowup;
+package com.opl.pharmavector.dcfpFollowup;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

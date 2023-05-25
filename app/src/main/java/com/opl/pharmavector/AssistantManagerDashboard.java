@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,19 +30,18 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
-import com.opl.pharmavector.dcrFollowup.DcrFollowupActivity;
+import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
-import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
-import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
+import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
+import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
+import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
@@ -69,10 +67,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,7 +115,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     PreferenceManager preferenceManager;
     private int count;
     public static String globalempCode, globalempName;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup, img_pmd_contact, img_doctor_list,
@@ -197,6 +191,23 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
                 }
             }
         };
+
+        cardview_ff_contact.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, ff_contact_activity.class);
+                        startActivity(i);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
+        });
+
         session = new SessionManager(getApplicationContext());
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -1127,6 +1138,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         img_pmd_contact = findViewById(R.id.img_pmd_contact);
         tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
+        cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -1202,21 +1214,13 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
-        Objects.requireNonNull(textView5).setText("Dcr\nReport");
+        Objects.requireNonNull(textView5).setText("Dcfp\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_followup).setOnClickListener(v -> {
-            Intent i = new Intent(AssistantManagerDashboard.this, DcrFollowupActivity.class);
-            i.putExtra("UserName", globalASMCode);
-            i.putExtra("UserName_2", globalZONECode);
-            i.putExtra("UserName_3", globalASMCode);
-            startActivity(i);
-            //bottomSheetDialog.dismiss();
-        });
-        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
             Intent i = new Intent(AssistantManagerDashboard.this, FollowupReport.class);
             String sm_flag = "N";
             i.putExtra("UserName", globalASMCode);
@@ -1225,6 +1229,13 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             i.putExtra("sm_flag", sm_flag);
             i.putExtra("UserName_2", globalZONECode);
             i.putExtra("am_code", globalASMCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_report).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalASMCode);
+            i.putExtra("UserName_2", globalZONECode);
+            i.putExtra("UserName_3", globalASMCode);
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
@@ -1367,211 +1378,167 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_commitment_followup = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+        Objects.requireNonNull(cardview_commitment_followup).setVisibility(View.VISIBLE);
 
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+        TextView tv_commitment_followup = bottomSheetDialog.findViewById(R.id.tv_commitment_followup);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
+        Button btn_commitment_followup = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("4.1");
         Objects.requireNonNull(button2).setText("4.2");
-        Objects.requireNonNull(button3).setText("13.3");
+        Objects.requireNonNull(button3).setText("4.3");
+        Objects.requireNonNull(btn_commitment_followup).setText("4.4");
         Objects.requireNonNull(textView4).setText("MSD\nProgram Follow up");
         Objects.requireNonNull(textView5).setText("Doctor\nSupport Follow up");
-        Objects.requireNonNull(textView6).setText("MSD\nProgram Follow-up");
+        Objects.requireNonNull(textView6).setText("MSD\nProgram Approval");
+        Objects.requireNonNull(tv_commitment_followup).setText("MSD Program\nCommitment Follow-up");
 
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_doctor_service);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
 
-        Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(changepassword).setText("MSD Doctor Service");
-        cardview_rx_summary_B.setVisibility(View.GONE);
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, MSDProgramFollowup.class);
-                i.putExtra("user_code", globalASMCode);
-                i.putExtra("user_name", globalZONECode);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-            }
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", globalASMCode);
+            i.putExtra("user_name", globalZONECode);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
-        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, DocSupportFollowup.class);
-                i.putExtra("user_code", globalASMCode);
-                i.putExtra("user_name", globalZONECode);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-                // bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DocSupportFollowup.class);
+            i.putExtra("user_code", globalASMCode);
+            i.putExtra("user_name", globalZONECode);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
+            // bottomSheetDialog.dismiss();
         });
-
-        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, MSDProgramFollowup.class);
-                i.putExtra("user_code", globalASMCode);
-                i.putExtra("user_name", globalZONECode);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-                //bottomSheetDialog.dismiss();
-            }
+        Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, MSDProgramApproval.class);
+            i.putExtra("user_code", globalASMCode);
+            i.putExtra("user_name", globalZONECode);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
-        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
-            }
+        Objects.requireNonNull(cardview_commitment_followup).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, MSDCommitmentFollowup.class);
+            i.putExtra("user_code", globalASMCode);
+            i.putExtra("user_name", globalZONECode);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
+        });
+        bottomSheetDialog.setOnDismissListener(dialog -> {
+            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }
 
     private void msdDocSupport() {
-        cardview_msd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                showBottomSheetDialog_MSD();
-            }
-        });
+        cardview_msd.setOnClickListener(v -> showBottomSheetDialog_MSD());
     }
 
     private void vacantMpoPwd() {
-        cardview_mastercode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-            }
+        cardview_mastercode.setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
-        btn_mastercode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-            }
+        btn_mastercode.setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
-        img_btn_mastercode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-            }
+        img_btn_mastercode.setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
-        tv_mastercode.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
-                i.putExtra("user_flag", "ASM");
-                startActivity(i);
-            }
+        tv_mastercode.setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, VacantMpoPwd.class);
+            i.putExtra("user_flag", "ASM");
+            startActivity(i);
         });
     }
 
     private void noticeBoradEvent() {
-        practiceCard6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalASMCode);
-                                i.putExtra("UserName_2", globalZONECode);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        practiceCard6.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalASMCode);
+                        i.putExtra("UserName_2", globalZONECode);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
-        img_btn_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalASMCode);
-                                i.putExtra("UserName_2", globalZONECode);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        img_btn_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalASMCode);
+                        i.putExtra("UserName_2", globalZONECode);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
-        tv_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalASMCode);
-                                i.putExtra("UserName_2", globalZONECode);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        tv_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalASMCode);
+                        i.putExtra("UserName_2", globalZONECode);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
-        btn_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-                                showSnack();
-                            } else {
-                                Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
-                                i.putExtra("UserName", globalASMCode);
-                                i.putExtra("UserName_2", globalZONECode);
-                                i.putExtra("new_version", new_version);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        btn_notification.setOnClickListener(v -> {
+            Thread backthred = new Thread(() -> {
+                try {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(AssistantManagerDashboard.this, NoticeBoard.class);
+                        i.putExtra("UserName", globalASMCode);
+                        i.putExtra("UserName_2", globalZONECode);
+                        i.putExtra("new_version", new_version);
+                        startActivity(i);
                     }
-                });
-                backthred.start();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            backthred.start();
         });
     }
 

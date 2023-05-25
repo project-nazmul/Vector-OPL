@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.opl.pharmavector.MonthYearPickerDialog;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.dcrFollowup.DcfpFollowupAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalAdapter;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;

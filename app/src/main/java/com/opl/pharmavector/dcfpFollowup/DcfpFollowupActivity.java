@@ -1,4 +1,4 @@
-package com.opl.pharmavector.dcrFollowup;
+package com.opl.pharmavector.dcfpFollowup;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,54 +13,62 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapter.DcfpClickListener {
+public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter.ItemClickListener, DcfpFollowupAdapter.DcfpClickListener {
     TextView tvfromdate, tvtodate;
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, ff_code, toDate, fromDate;
+    String current_todate, current_fromdate, userName, userName_2, userName_3, new_version, message_3;
     Calendar myCalendar, myCalendar1;
-    private RecyclerView dcfpFollowupRecycler;
+    private RecyclerView dcrFollowupRecycler, dcfpFollowupRecycler;
     DatePickerDialog.OnDateSetListener date_form, date_to;
+    private DcrFollowupAdapter dcrFollowupAdapter;
     private DcfpFollowupAdapter dcfpFollowupAdapter;
+    private ArrayList<DcrFollowupModel> dcrFollowupList = new ArrayList<>();
     private ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dcfp_followup);
+        setContentView(R.layout.activity_dcr_followup);
 
         initViews();
         calenderInit();
-        if (!ff_code.isEmpty()) {
-            dcrDcfpFollowupInfo();
-        }
+        dcrSelfFollowupInfo();
+
+        submitBtn.setOnClickListener(v -> dcrSelfFollowupInfo());
         backBtn.setOnClickListener(v -> finish());
-        submitBtn.setOnClickListener(v -> dcrDcfpFollowupInfo());
     }
 
     private void initViews() {
         Bundle b = getIntent().getExtras();
-        toDate = b.getString("toDate");
-        ff_code = b.getString("ff_code");
-        fromDate = b.getString("fromDate");
+        userName = b.getString("UserName");
+        userName_2 = b.getString("UserName_2");
+        userName_3 = b.getString("UserName_3");
+        new_version = b.getString("new_version");
+        message_3 = b.getString("message_3");
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         backBtn = findViewById(R.id.backbt);
+        dcrFollowupRecycler = findViewById(R.id.recyclerDcrFollowup);
         dcfpFollowupRecycler = findViewById(R.id.recyclerDcfpFollowup);
         submitBtn = findViewById(R.id.submitBtn);
         tvfromdate = findViewById(R.id.fromdate);
@@ -76,20 +84,12 @@ public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
-        //tvtodate.setText(current_todate);
+        tvtodate.setText(current_todate);
         c_fromdate = Calendar.getInstance();
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         current_fromdate = dffromdate.format(c_fromdate.getTime());
-        //tvfromdate.setText(current_fromdate);
+        tvfromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
-
-        if (fromDate != null && toDate != null) {
-            tvfromdate.setText(fromDate);
-            tvtodate.setText(toDate);
-        } else {
-            tvfromdate.setText(current_fromdate);
-            tvtodate.setText(current_todate);
-        }
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -108,7 +108,7 @@ public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
                 tvfromdate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        tvfromdate.setOnClickListener(v -> new DatePickerDialog(RMDcrFollowupActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        tvfromdate.setOnClickListener(v -> new DatePickerDialog(DcfpFollowupActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
@@ -128,19 +128,57 @@ public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
                 tvtodate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        tvtodate.setOnClickListener(v -> new DatePickerDialog(RMDcrFollowupActivity.this, date_to, myCalendar
+        tvtodate.setOnClickListener(v -> new DatePickerDialog(DcfpFollowupActivity.this, date_to, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
     }
 
+    public void dcrSelfFollowupInfo() {
+        ProgressDialog dcrFollowDialog = new ProgressDialog(DcfpFollowupActivity.this);
+        dcrFollowDialog.setMessage("Dcfp Followup Loading...");
+        dcrFollowDialog.setTitle("Dcfp Followup");
+        dcrFollowDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<DcrFollowupModel>> call = apiInterface.getDcrSelfFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        dcrFollowupList.clear();
+
+        call.enqueue(new Callback<List<DcrFollowupModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DcrFollowupModel>> call, @NonNull retrofit2.Response<List<DcrFollowupModel>> response) {
+                if (response.body() != null) {
+                    dcrFollowupList.addAll(response.body());
+                }
+
+                if (response.isSuccessful()) {
+                    dcrFollowDialog.dismiss();
+                    dcrFollowupAdapter = new DcrFollowupAdapter(DcfpFollowupActivity.this, dcrFollowupList, DcfpFollowupActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
+                    dcrFollowupRecycler.setLayoutManager(manager);
+                    dcrFollowupRecycler.setAdapter(dcrFollowupAdapter);
+                    dcrFollowupRecycler.addItemDecoration(new DividerItemDecoration(DcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                } else {
+                    dcrFollowDialog.dismiss();
+                    Toast.makeText(DcfpFollowupActivity.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DcrFollowupModel>> call, @NonNull Throwable t) {
+                dcrFollowDialog.dismiss();
+                dcrSelfFollowupInfo();
+            }
+        });
+    }
+
     public void dcrDcfpFollowupInfo() {
-        ProgressDialog dcfpFollowDialog = new ProgressDialog(RMDcrFollowupActivity.this);
+        ProgressDialog dcfpFollowDialog = new ProgressDialog(DcfpFollowupActivity.this);
         dcfpFollowDialog.setMessage("Dcfp Followup Loading...");
         dcfpFollowDialog.setTitle("Dcfp Followup");
         dcfpFollowDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<DcrFollowupModel>> call = apiInterface.getDcrDcfpFollowup(ff_code, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        Call<List<DcrFollowupModel>> call = apiInterface.getDcrDcfpFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
         dcfpFollowupList.clear();
 
         call.enqueue(new Callback<List<DcrFollowupModel>>() {
@@ -153,14 +191,14 @@ public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
 
                 if (dcfpFollowupList.size() > 0) {
                     dcfpFollowDialog.dismiss();
-                    dcfpFollowupAdapter = new DcfpFollowupAdapter(RMDcrFollowupActivity.this, dcfpFollowupList, RMDcrFollowupActivity.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(RMDcrFollowupActivity.this);
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(DcfpFollowupActivity.this, dcfpFollowupList, DcfpFollowupActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
-                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(RMDcrFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(DcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
                 } else {
                     dcfpFollowDialog.dismiss();
-                    Toast.makeText(RMDcrFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DcfpFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -173,8 +211,13 @@ public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
     }
 
     @Override
+    public void onClick(int position, DcrFollowupModel model) {
+        dcrDcfpFollowupInfo();
+    }
+
+    @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
-        Intent intent = new Intent(RMDcrFollowupActivity.this, FMDcrFollowupActivity.class);
+        Intent intent = new Intent(DcfpFollowupActivity.this, RMDcrFollowupActivity.class);
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());

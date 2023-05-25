@@ -1,9 +1,10 @@
-package com.opl.pharmavector.dcrFollowup;
+package com.opl.pharmavector.dcfpFollowup;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,26 +13,22 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class FMDcrFollowupActivity extends Activity implements DcfpFollowupAdapter.DcfpClickListener {
+public class RMDcrFollowupActivity extends Activity implements DcfpFollowupAdapter.DcfpClickListener {
     TextView tvfromdate, tvtodate;
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
@@ -111,7 +108,7 @@ public class FMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
                 tvfromdate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        tvfromdate.setOnClickListener(v -> new DatePickerDialog(FMDcrFollowupActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        tvfromdate.setOnClickListener(v -> new DatePickerDialog(RMDcrFollowupActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
@@ -131,13 +128,13 @@ public class FMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
                 tvtodate.setText(sdf.format(myCalendar.getTime()));
             }
         };
-        tvtodate.setOnClickListener(v -> new DatePickerDialog(FMDcrFollowupActivity.this, date_to, myCalendar
+        tvtodate.setOnClickListener(v -> new DatePickerDialog(RMDcrFollowupActivity.this, date_to, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar1.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     public void dcrDcfpFollowupInfo() {
-        ProgressDialog dcfpFollowDialog = new ProgressDialog(FMDcrFollowupActivity.this);
+        ProgressDialog dcfpFollowDialog = new ProgressDialog(RMDcrFollowupActivity.this);
         dcfpFollowDialog.setMessage("Dcfp Followup Loading...");
         dcfpFollowDialog.setTitle("Dcfp Followup");
         dcfpFollowDialog.show();
@@ -156,14 +153,14 @@ public class FMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
 
                 if (dcfpFollowupList.size() > 0) {
                     dcfpFollowDialog.dismiss();
-                    dcfpFollowupAdapter = new DcfpFollowupAdapter(FMDcrFollowupActivity.this, dcfpFollowupList, FMDcrFollowupActivity.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(FMDcrFollowupActivity.this);
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(RMDcrFollowupActivity.this, dcfpFollowupList, RMDcrFollowupActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(RMDcrFollowupActivity.this);
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
-                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(FMDcrFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(RMDcrFollowupActivity.this, DividerItemDecoration.VERTICAL));
                 } else {
                     dcfpFollowDialog.dismiss();
-                    Toast.makeText(FMDcrFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RMDcrFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -177,6 +174,10 @@ public class FMDcrFollowupActivity extends Activity implements DcfpFollowupAdapt
 
     @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
-
+        Intent intent = new Intent(RMDcrFollowupActivity.this, FMDcrFollowupActivity.class);
+        intent.putExtra("ff_code", model.getFfCode());
+        intent.putExtra("toDate", tvtodate.getText().toString());
+        intent.putExtra("fromDate", tvfromdate.getText().toString());
+        startActivity(intent);
     }
 }

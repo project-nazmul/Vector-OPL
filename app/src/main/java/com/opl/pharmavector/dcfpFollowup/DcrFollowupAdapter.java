@@ -1,33 +1,34 @@
-package com.opl.pharmavector.dcrFollowup;
+package com.opl.pharmavector.dcfpFollowup;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.R;
 import java.util.List;
 
-public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapter.DcfpFollowupViewHolder> {
+public class DcrFollowupAdapter extends RecyclerView.Adapter<DcrFollowupAdapter.DcrFollowupViewHolder> {
     public List<DcrFollowupModel> dcrFollowupList;
     private Context context;
-    public DcfpClickListener dcfpClickListener;
+    public ItemClickListener itemClickListener;
 
-    public DcfpFollowupAdapter(Context context, List<DcrFollowupModel> dcrFollowupList, DcfpClickListener dcfpClickListener) {
+    public DcrFollowupAdapter(Context context, List<DcrFollowupModel> dcrFollowupList, ItemClickListener itemClickListener) {
         this.context = context;
         this.dcrFollowupList = dcrFollowupList;
-        this.dcfpClickListener = dcfpClickListener;
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
-    public DcfpFollowupViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public DcrFollowupViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.dcr_followup_row, viewGroup, false);
-        return new DcfpFollowupViewHolder(view);
+        return new DcrFollowupViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DcfpFollowupViewHolder holder, int position) {
+    public void onBindViewHolder(DcrFollowupViewHolder holder, int position) {
         DcrFollowupModel dcrFollowupModel = dcrFollowupList.get(position);
         holder.ff_code.setText(dcrFollowupModel.getFfCode());
         holder.ff_area.setText(dcrFollowupModel.getFfName());
@@ -41,7 +42,7 @@ public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapt
         holder.visit_percentage.setText(dcrFollowupModel.getVisitPercent());
 
         holder.itemView.setOnClickListener(view -> {
-            dcfpClickListener.onDcfpClick(position, dcrFollowupModel);
+            itemClickListener.onClick(position, dcrFollowupModel);
         });
     }
 
@@ -50,10 +51,10 @@ public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapt
         return dcrFollowupList.size();
     }
 
-    public class DcfpFollowupViewHolder extends RecyclerView.ViewHolder {
+    public class DcrFollowupViewHolder extends RecyclerView.ViewHolder {
         public TextView ff_code, ff_area, planned_todDoc, planned_morn, planned_eve, visited_todDoc, visited_morn, visited_eve, not_visited, visit_percentage;
 
-        public DcfpFollowupViewHolder(View view) {
+        public DcrFollowupViewHolder(View view) {
             super(view);
             ff_code = view.findViewById(R.id.ff_code);
             ff_area = view.findViewById(R.id.ff_area);
@@ -68,7 +69,7 @@ public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapt
         }
     }
 
-    public interface DcfpClickListener {
-        void onDcfpClick(int position, DcrFollowupModel model);
+    public interface ItemClickListener {
+        void onClick(int position, DcrFollowupModel model);
     }
 }

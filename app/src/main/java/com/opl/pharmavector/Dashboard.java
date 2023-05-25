@@ -557,21 +557,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DcrReport.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_dcfpPreview).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DcfpActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
-            //bottomSheetDialog.dismiss();
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
             //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
@@ -732,8 +729,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_doctor_service);
 
-        Objects.requireNonNull(cardview_rx_summary_C).setVisibility(View.VISIBLE);
-        Objects.requireNonNull(cardview_rx_summary_E).setVisibility(View.VISIBLE);
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(changepassword).setText("MSD");
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {

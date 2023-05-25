@@ -2,7 +2,7 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.amdashboard.VacantModel;
-import com.opl.pharmavector.dcrFollowup.DcrFollowupModel;
+import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
@@ -30,7 +30,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface ApiInterface {
     @FormUrlEncoded
