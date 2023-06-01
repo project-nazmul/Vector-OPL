@@ -1,4 +1,3 @@
-
 package com.opl.pharmavector;
 
 import java.text.DecimalFormat;
@@ -62,7 +61,6 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
         this.value = value;
         this.achv = achv;
         this.mpo_code = mpo_code;
-
         this.mContext = con;
     }
 
@@ -77,11 +75,8 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
         this.mpo_code = mpo_code;
         this.sale_value = sale_value;
         this.target_value = target_value;
-
-
         this.mContext = con;
     }
-
 
     BrandwiseProductShowAdapter(Context con, ArrayList<String> product_name,
                                 ArrayList<Integer> qnty, ArrayList<String> value,
@@ -95,27 +90,21 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
         this.sale_value = sale_value;
         this.target_value = target_value;
         this.growth_value = growth_value;
-
-
         this.mContext = con;
     }
 
-
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return product_name.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return mpo_code.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -125,20 +114,17 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final ViewHolder holder = new ViewHolder();
         //rowView = inflater.inflate(R.layout.amviewbydateproduct_show, parent, false);
 
-        //  rowView = inflater.inflate(R.layout.amviewbydateproduct_show1, parent, false);
+        //rowView = inflater.inflate(R.layout.amviewbydateproduct_show1, parent, false);
         rowView = inflater.inflate(R.layout.brandwisesaleadapter, parent, false);
 
         serial = (TextView) rowView.findViewById(R.id.serial);
         holder.mpo_code = (TextView) rowView.findViewById(R.id.mpo_brand); //mpo_code
-        holder.product_name = (TextView) rowView.findViewById(R.id.brand_target_quant); // target_quantity
-        holder.qnty = (TextView) rowView.findViewById(R.id.amqnty_brand);//target val
+        holder.product_name = (TextView) rowView.findViewById(R.id.brand_target_quant); //target_quantity
+        holder.qnty = (TextView) rowView.findViewById(R.id.amqnty_brand); //target val
 
 
         holder.value = (TextView) rowView.findViewById(R.id.salequant_brand); // salequant
@@ -173,7 +159,6 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
         holder.achv.setText(achv.get(position));
         holder.growth.setText(growth_value.get(position));
 
-
         Log.w("mpo_code", mpo_code.get(position));
         Log.w("product_name", product_name.get(position));
         Log.w("salequant", value.get(position));
@@ -183,14 +168,12 @@ public class BrandwiseProductShowAdapter extends BaseAdapter {
         Log.w("growth_value", growth_value.get(position));
 
         return rowView;
-
     }
 
     private class ViewHolder {
-
         TextView mpo_code;
         TextView product_name; // target_quantity
-        TextView qnty;//targetvalue
+        TextView qnty; // targetvalue
         TextView value;// salequant
         TextView salevalue; // salevalue;
         TextView achv; //achviement

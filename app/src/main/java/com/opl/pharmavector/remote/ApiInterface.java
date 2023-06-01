@@ -7,6 +7,7 @@ import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
+import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
@@ -214,6 +215,10 @@ public interface ApiInterface {
             @Field("ff_code") String ff_code,
             @Field("team_type") String team_type
     );
+
+    @FormUrlEncoded
+    @POST("mpodcr/get_dcfp_flag.php")
+    Call<DcfpStatusModel> getDcfpStatusFlag( @Field("id") String id);
 
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();

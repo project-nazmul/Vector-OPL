@@ -56,14 +56,14 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
     ArrayList<String> value10;
     static HashSet<Integer> mProductSerialList;
     public static EditText edit_qnty;
-    ArrayList<String> Data_Openingstock = new ArrayList<String>();
-    // ArrayList<Integer> p_quanty;
+    ArrayList<String> Data_Openingstock = new ArrayList<>();
+    //ArrayList<Integer> p_quanty;
     static HashMap<Integer, String> p_quanty;
-    // OnClickListener callBack;
+    //OnClickListener callBack;
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     private String productname = null;
-    // public static Integer total_quantity = 0;
+    //public static Integer total_quantity = 0;
     private ArrayList<String> arraylist;
     private boolean InputState;
     private String[] valueList;
@@ -83,7 +83,6 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
         this.arraylist = new ArrayList<String>();
         this.arraylist.add(productname);
     }
-
     View rowView;
     public static int last_position;
     public static int last_value;
@@ -252,7 +251,7 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
         holder.quantity.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // Log.w("giftlistontouch",value7.get(position));
+                //Log.w("giftlistontouch",value7.get(position));
                 ProductOrdernew.searchview.setFocusable(false);
                 holder.quantity.setFocusable(true);
                 holder.quantity.setBackgroundColor(0x00008080);
@@ -339,9 +338,11 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
 
                             int map_size = dataSet.size();
                             Set keys = dataSet.keySet();
+
                             for (Iterator i = keys.iterator(); i.hasNext(); ) {
                                 Integer key = (Integer) i.next();
                                 String value = (String) dataSet.get(8);
+
                                 try {
                                     current_quantity = Integer.parseInt(value);
                                 } catch (Exception e) {
@@ -366,46 +367,42 @@ public class ProductListAdapter2 extends BaseAdapter implements Filterable {
                 }
             }
         });
-        holder.quantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    focusvalue = 0;
-                    //LinearLayout parent = (LinearLayout) v.getParent();
-                    String qntyfocus = holder.quantity.getText().toString().trim();
-                    int holderpos = holder.pos;
-                    set2.add(holder.pos);
+        holder.quantity.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                focusvalue = 0;
+                //LinearLayout parent = (LinearLayout) v.getParent();
+                String qntyfocus = holder.quantity.getText().toString().trim();
+                int holderpos = holder.pos;
+                set2.add(holder.pos);
 
-                    if (qntyfocus.isEmpty()) {
-                        qntyfocus = "0";
-                    }
-                    int temp = Integer.parseInt(qntyfocus);
-
-                    if (temp > 0) {
-                        //holder.quantity.setText(qntyfocus);
-                        dataSet.put(holder.pos, holder.quantity.getText().toString().trim());
-                    } else {
-                        //holder.quantity.setText("0");
-                        dataSet.put(holder.pos, "0");
-                    }
+                if (qntyfocus.isEmpty()) {
+                    qntyfocus = "0";
                 }
-                else {
-                    focusvalue = 1;
-                    Editable pqnty = holder.quantity.getText();
+                int temp = Integer.parseInt(qntyfocus);
+
+                if (temp > 0) {
+                    //holder.quantity.setText(qntyfocus);
+                    dataSet.put(holder.pos, holder.quantity.getText().toString().trim());
+                } else {
+                    //holder.quantity.setText("0");
                     dataSet.put(holder.pos, "0");
-                    holder.quantity.setSelection(holder.quantity.getText().length());
-
-                    try {
-                        int checkZero = Integer.parseInt(pqnty.toString());
-                        if (checkZero == 0) {
-                            holder.quantity.setText("");
-                        }
-                    } catch (Exception e) {
-                        ProductOrdernew.searchview.setFocusable(true);
-                    }
-                    holder.quantity.setBackgroundResource(R.drawable.active);
                 }
+            }
+            else {
+                focusvalue = 1;
+                Editable pqnty = holder.quantity.getText();
+                dataSet.put(holder.pos, "0");
+                holder.quantity.setSelection(holder.quantity.getText().length());
+
+                try {
+                    int checkZero = Integer.parseInt(pqnty.toString());
+                    if (checkZero == 0) {
+                        holder.quantity.setText("");
+                    }
+                } catch (Exception e) {
+                    ProductOrdernew.searchview.setFocusable(true);
+                }
+                holder.quantity.setBackgroundResource(R.drawable.active);
             }
         });
         return convertView;

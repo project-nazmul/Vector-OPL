@@ -1,5 +1,3 @@
-
-
 package com.opl.pharmavector.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +5,6 @@ import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
 public class Patient {
-
     @SerializedName("id")
     private int id;
     @SerializedName("first_name")
@@ -22,7 +19,6 @@ public class Patient {
     private String birth;
     @SerializedName("picture")
     private String picture;
-
     @SerializedName("password")
     private String password;
     @SerializedName("email")

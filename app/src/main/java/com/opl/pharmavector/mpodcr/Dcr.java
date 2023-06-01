@@ -40,6 +40,7 @@ import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.DatabaseHandler;
 import com.opl.pharmavector.DcrDate;
 import com.opl.pharmavector.DialogMultipleChoice;
+import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.GiftOrder;
 import com.opl.pharmavector.JSONParser;
@@ -49,6 +50,8 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.SessionManager;
 import com.opl.pharmavector.geolocation.DoctorChamberLocate;
+import com.opl.pharmavector.pmdVector.ff_contact.FFContactAdapter;
+import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionSurveyReport;
 import com.opl.pharmavector.remote.ApiClient;
@@ -70,6 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
@@ -77,9 +81,11 @@ import static com.opl.pharmavector.util.KeyboardUtils.hideKeyboard;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Dcr extends Activity implements OnItemSelectedListener {
     private Spinner spinner1, spinner2, cashcredit, cashcredit_test, credit;
@@ -94,7 +100,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
     private Button logout;
     private SessionManager session;
     public Button next, back, dcr_submit, chemist_ppm;
-    public static String name = null, newversion_text = null, ename = null;
+    public static String name = null, newversion_text = null, ename = null, mpo_code;
     public int credit_party = 0, cash_party = 0;
     public EditText osi, op, od, dateResult, ref, date_ext;
     private ArrayList<Customer> customerlist;
@@ -133,7 +139,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
     private final String date_range_permission = BASE_URL+"mpodcr/date_range_permission.php";
     private final String check_dcr_status = BASE_URL+"mpodcr/check_dcr_status.php";
     Typeface fontFamily;
-    TextView error_dt, error_payment, ordno, succ_msg;
+    TextView error_dt, error_payment, ordno, succ_msg, tvDcfpStatus;
     Date today;
     protected Handler handler;
     DialogMultipleChoice mDialogMultipleChoice;
@@ -147,6 +153,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
     private Calendar cal, myCalendar;
     DateFormat df;
     String date_str;
+    int dcfpStatusFlag = 0;
     private DatePickerDialog.OnDateSetListener date;
     public double mpo_current_lang,mpo_current_lat;
 
@@ -160,6 +167,7 @@ public class Dcr extends Activity implements OnItemSelectedListener {
         new GetDcrDateOffline().execute();
         spinnerViews();
         autoCompleteTextViews();
+        getDcfpStatusFlag();
 
         mDialogMultipleChoice = new DialogMultipleChoice(this);
         findViewById(R.id.show_multiple_dialog).setOnClickListener(view -> mDialogMultipleChoice.show(s_time));
@@ -837,7 +845,12 @@ public class Dcr extends Activity implements OnItemSelectedListener {
             }
         };
         ded.setOnClickListener(v -> {
-            new DatePickerDialog(Dcr.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            if (dcfpStatusFlag == 1) {
+                tvDcfpStatus.setVisibility(View.VISIBLE);
+            } else {
+                tvDcfpStatus.setVisibility(View.GONE);
+                new DatePickerDialog(Dcr.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
             //location.setVisibility(View.VISIBLE);
         });
     }
@@ -1058,10 +1071,11 @@ public class Dcr extends Activity implements OnItemSelectedListener {
     @SuppressLint({"SetTextI18n", "CutPasteId"})
     private void initViews() {
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        logout =  findViewById(R.id.logout);
+        logout = findViewById(R.id.logout);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b"); //&#xf08b
         user_show = findViewById(R.id.user_show);
+        tvDcfpStatus = findViewById(R.id.dcfpStatusFlag);
         newversion = findViewById(R.id.newversion);
         setTitle("DCR Entry");
         next = findViewById(R.id.next);
@@ -1106,6 +1120,9 @@ public class Dcr extends Activity implements OnItemSelectedListener {
         ename = b.getString("UserName_2");
         newversion_text = b.getString("new_version");
         newversion.setText("DCR Entry");
+        mpo_code = b.getString("UserName");
+        Log.d("data1", b.getString("UserName"));
+        Log.d("data2", b.getString("UserName_2"));
 
         if (b.isEmpty()) {
             String userName = "";
@@ -1658,4 +1675,42 @@ public class Dcr extends Activity implements OnItemSelectedListener {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+
+    private void getDcfpStatusFlag() {
+        ProgressDialog ppDialog = new ProgressDialog(  Dcr.this);
+        ppDialog.setMessage("Loading Data ...");
+        ppDialog.setCancelable(true);
+        ppDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcfpStatusModel> call = apiInterface.getDcfpStatusFlag(mpo_code);
+        //Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
+
+        call.enqueue(new Callback<DcfpStatusModel>() {
+            @Override
+            public void onResponse(Call<DcfpStatusModel> call, Response<DcfpStatusModel> response) {
+                if (response.isSuccessful()) {
+                    ppDialog.dismiss();
+                    List<DcfpStatusData> data = Objects.requireNonNull(response.body()).getCustomer();
+                    if (Objects.equals(data.get(0).getStatus(), "Y")) {
+                        dcfpStatusFlag = 1;
+                        //ded.setEnabled(false);
+                        //ded.setClickable(false);
+                    } else {
+                        dcfpStatusFlag = 0;
+                        //ded.setEnabled(true);
+                        //ded.setClickable(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DcfpStatusModel> call, Throwable t) {
+                ppDialog.dismiss();
+                Log.e("Data load problem--->", "Failed to Retrieved Data For-- "+ t);
+                Toast toast = Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
 }

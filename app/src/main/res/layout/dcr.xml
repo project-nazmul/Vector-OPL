@@ -185,6 +185,24 @@
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/dcfpStatusFlag"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:textAlignment="center"
+                android:enabled="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:fontFamily="sans-serif"
+                android:selectAllOnFocus="true"
+                android:text="@string/dcfpStatusMsg"
+                android:textColor="#F44336"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+
             <LinearLayout
                 android:id="@+id/dtype"
                 android:layout_width="fill_parent"

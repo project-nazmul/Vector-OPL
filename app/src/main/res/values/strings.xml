@@ -285,6 +285,7 @@
     <string name="territory_wise_prescription_details">Territory Wise Prescription Details</string>
     <string name="mrd">MRD</string>
     <string name="_4p">4P</string>
+    <string name="dcfpStatusMsg">You have DCFP plan so you can not change date</string>
     <string name="doctor_share_details">Doctor Share Details</string>
     <string name="capture_image_from_camera">Capture image from Camera</string>
     <string name="select_from_gallery">Select from Gallery</string>

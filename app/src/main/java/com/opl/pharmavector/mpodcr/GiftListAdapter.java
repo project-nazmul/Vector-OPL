@@ -308,7 +308,7 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
 
                 try {
                     int checkZero = Integer.parseInt(pqnty.toString());
-                    if(checkZero==0){
+                    if (checkZero == 0) {
                         holder.quantity.setText("");
                     }
                 } catch (Exception e) {
@@ -366,16 +366,16 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                 myNum = Integer.parseInt(constraint.toString());
                 System.out.println("myNum "+myNum);
 
-                if (myNum> 0) {
+                if (myNum > 0) {
                     ArrayList<String> filterList = new ArrayList<String>();
 
                     for (int i = 0; i < p_names.size(); i++) {
                         String productName = p_names.get(i).toLowerCase();
-                        myNum=1;
+                        myNum = 1;
                         String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
-                        int current_qnty=Integer.parseInt(Quantity);
+                        int current_qnty = Integer.parseInt(Quantity);
 
-                        if(current_qnty>=myNum){
+                        if(current_qnty >= myNum){
                             System.out.println("productsl="+Integer.parseInt(sl.get(i))+"Filter product Quantity="+Quantity);
                             mProductSerialList.add(Integer.parseInt(sl.get(i)));
                             filterList.add(p_names.get(i));
@@ -397,9 +397,9 @@ public class GiftListAdapter extends BaseAdapter implements Filterable {
                         for (int i = 0; i < p_names.size(); i++) {
                             if (p_names.get(i).toLowerCase().contains(((String) constraint).toLowerCase())) {
                                 String productName = p_names.get(i).toLowerCase();
-                                int qnty=1;
+                                int qnty = 1;
                                 String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
-                                int current_qnty=Integer.parseInt(Objects.requireNonNull(Quantity));
+                                int current_qnty = Integer.parseInt(Objects.requireNonNull(Quantity));
                                 System.out.println("productsl="+Integer.parseInt(sl.get(i))+"Filter product Quantity="+Quantity);
                                 mProductSerialList.add(Integer.parseInt(sl.get(i)));
                                 filterList.add(p_names.get(i));

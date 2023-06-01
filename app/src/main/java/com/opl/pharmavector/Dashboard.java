@@ -542,9 +542,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(button3).setText("1.3");
-        Objects.requireNonNull(textView4).setText("Dcr\nOnline");
-        Objects.requireNonNull(textView5).setText("Dcr\nReport");
-        Objects.requireNonNull(textView6).setText("Dcfp\nPreview");
+        Objects.requireNonNull(textView4).setText("DCR\nOnline");
+        Objects.requireNonNull(textView5).setText("DCR\nReport");
+        Objects.requireNonNull(textView6).setText("DCFP\nPreview");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);

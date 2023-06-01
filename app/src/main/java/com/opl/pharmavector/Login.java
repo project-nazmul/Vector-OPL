@@ -719,7 +719,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(getWindow().getDecorView().getRootView(), "Temporarily Unavaialble", Snackbar.LENGTH_LONG)
+                Snackbar.make(getWindow().getDecorView().getRootView(), "Temporarily Unavailable", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
