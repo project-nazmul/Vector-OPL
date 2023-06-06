@@ -624,7 +624,7 @@
                 tools:ignore="UnusedAttribute" />
 
             <Spinner
-                android:id="@+id/customer"
+                android:id="@+id/setUpLists"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:ems="5"

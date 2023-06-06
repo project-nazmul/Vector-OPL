@@ -2,7 +2,9 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.amdashboard.VacantModel;
+import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
 import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
+import com.opl.pharmavector.dcfpFollowup.DcfpEntryDoctorModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
@@ -246,6 +248,14 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_mrd_doctor_ff_list.php")
     Call<DoctorFFModel> getDoctorFFList(@Field("ff_code") String ff_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("dcfp/get_doctor.php")
+    Call<DcfpEntryDoctorModel> getDcfpEntryDoctorList(@Field("id") String id);
+
+    @GET("dcfp/get_dcfp_setup.php")
+    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
