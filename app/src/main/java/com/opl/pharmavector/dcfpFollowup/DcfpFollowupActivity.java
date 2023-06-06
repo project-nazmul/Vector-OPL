@@ -217,7 +217,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
 
     @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
-        Intent intent = new Intent(DcfpFollowupActivity.this, RMDcrFollowupActivity.class);
+        Intent intent = new Intent(DcfpFollowupActivity.this, AMDcfpFollowupActivity.class);
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());

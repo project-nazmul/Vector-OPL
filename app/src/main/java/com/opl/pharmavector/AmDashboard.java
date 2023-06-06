@@ -2199,6 +2199,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             Intent i = new Intent(AmDashboard.this, DcfpFollowupActivity.class);
             i.putExtra("UserName", globalFMCode);
             i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("UserName_3", globalFMCode);
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

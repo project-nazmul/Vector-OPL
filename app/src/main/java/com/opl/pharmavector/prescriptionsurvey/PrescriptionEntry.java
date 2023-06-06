@@ -121,9 +121,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import static com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser3.selectedCategories3;
 
-
 public class PrescriptionEntry extends AppCompatActivity {
-
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private static final String TAG = PrescriptionEntry.class.getSimpleName();
     private static final String TAG_SUCCESS = "success";
@@ -149,8 +147,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     ArrayList<String> imageList = new ArrayList<>();
     ArrayList<String> imagesEncodedList = new ArrayList<>();
     private final String UPLOAD_URL_MULTI = BASE_URL+"prescription_survey/doc_prescription_multi_upload.php";
-
-
     private final String UPLOAD_URL = BASE_URL+"prescription_survey/image_upload_api/vector_pres_survey_web_new.php";
     private final String UPLOAD_Gift_URL = BASE_URL+"prescription_survey/image_upload_api/gift_pres_survey_web.php";
     private final String URL_CUSOTMER = BASE_URL+"prescription_survey/get_mpowise_doc.php";
@@ -158,7 +154,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     private final String URL_DEPT_WARD = BASE_URL+"prescription_survey/get_depward.php";
     private final String URL_GIFT_LIST = BASE_URL+"prescription_survey/get_mpowise_giftlist.php";
     private final String URL_GIFT_WISE_DOC_LIST = BASE_URL+"prescription_survey/get_giftwise_doclist.php";
-
     private String KEY_IMAGE = "image";
     private String KEY_EMP_CODE = "empcode";
     private String KEY_IMAGE_TYPE = "imagetype";
@@ -182,7 +177,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     private ArrayList<Customer> customerlist;
     private ArrayList<Customer> departmentlist;
     private ArrayList<Customer> giftlist;
-
     Spinner cust, dept, gift;
     ProgressDialog pDialog, pDialog2;
     String json;
@@ -202,13 +196,12 @@ public class PrescriptionEntry extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pres_entry);
+
         initViews();
         getDevicedetails();
         new GetDoctor().execute();
@@ -221,34 +214,25 @@ public class PrescriptionEntry extends AppCompatActivity {
         departmentwardAutocompleteEvent();
         brandselectEvent();
         btnevents();
-
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
-        if (requestCode == MY_CAMERA_PERMISSION_CODE)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
-
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-
     private void permissionEvent() {
-
         ActivityCompat.requestPermissions(PrescriptionEntry.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
@@ -264,19 +248,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
             }
         }
-
     }
 
     private void btnevents() {
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
@@ -299,7 +279,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_doc.setFocusableInTouchMode(true);
                         actv_doc.setFocusable(true);
                         actv_doc.requestFocus();
-                    }else{
+                    } else {
                         degree_name.setEnabled(false);
                         if (selected_brand == 1) {
                             initMultiUpload();
@@ -318,7 +298,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setFocusableInTouchMode(true);
                         actv_dept.setFocusable(true);
                         actv_dept.requestFocus();
-                    }else {
+                    } else {
                         degree_name.setEnabled(false);
                         if (selected_brand == 1) {
                             initMultiUpload();
@@ -326,7 +306,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                             initSingleUpload();
                         }
                     }
-
                 } else if (Tab_Flag.equals("I")) {
                     if (actv_doc.getText().toString().equals("") || actv_doc.getText().toString() == null) {
                         doctorSnack();
@@ -338,7 +317,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setFocusableInTouchMode(true);
                         actv_dept.setFocusable(true);
                         actv_dept.requestFocus();
-                    }else {
+                    } else {
                         degree_name.setEnabled(false);
                         if (selected_brand == 1) {
                             initMultiUpload();
@@ -347,7 +326,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         }
                     }
                 } else {
-
                     if (GIFT_Tab_Flag.equals("SG")) {
                         initSingleUpload();
                     } else if (GIFT_Tab_Flag.equals("BL")) {
@@ -361,10 +339,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                             initSingleUpload();
                         }
                     }
-
                 }
-
-
             }
         });
 
@@ -372,31 +347,25 @@ public class PrescriptionEntry extends AppCompatActivity {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                     imageView.setVisibility(View.VISIBLE);
                     gvGallery.setVisibility(View.GONE);
                     buttonmultiUpload.setVisibility(View.GONE);
                     buttonUpload.setVisibility(View.VISIBLE);
-                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    {
+
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                    }
-                    else
-                    {
+                    } else {
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
                     }
-
-                }else{
-
+                } else {
                     imageView.setVisibility(View.VISIBLE);
                     gvGallery.setVisibility(View.GONE);
                     buttonmultiUpload.setVisibility(View.GONE);
                     buttonUpload.setVisibility(View.VISIBLE);
                     openCamera();
                 }
-
             }
         });
 
@@ -422,7 +391,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 } else {
                     uploadMultiImage();
                 }
-
             }
         });
 
@@ -434,10 +402,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                             .setMessage("Please Select a Brand for your prescription")
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
+                                public void onClick(DialogInterface dialog, int which) {}
                             }).show();
-
                 } else if (imageView.getDrawable() == null) {
                     new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Alert ! No Prescription to Upload ")
                             .setMessage("Please Select a Prescription to Upload")
@@ -446,24 +412,17 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             }).show();
-
                 } else {
-
                     if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("SG")) {
                         uploadGiftImage();
                     } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
                         uploadGiftImage();
                     }  else if (Tab_Flag.equals("G") && GIFT_Tab_Flag.equals("Rx")) {
                         uploadGiftImage();
-                    }
-
-                    else {
+                    } else {
                         uploadImage();
                     }
-
-
                 }
-
             }
         });
     }
@@ -489,18 +448,14 @@ public class PrescriptionEntry extends AppCompatActivity {
                 });
             }
         }.start();
-
     }
 
-
     private void tabEvents() {
-
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-
                         Tab_Flag = "D";
                         buttonChoose.setEnabled(true);
                         constrainlayout.setVisibility(View.VISIBLE);
@@ -550,8 +505,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                     case 3:
                         Tab_Flag = "G";
                         GIFT_Tab_Flag = "Rx";
-                        /*
-                        gift_tab_layout.setVisibility(View.GONE);
+                        /* gift_tab_layout.setVisibility(View.GONE);
                         giftlist.clear();
                         actv_gift.setAdapter(null);
                         new GetGiftList().execute();
@@ -565,9 +519,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         customerlist.clear();
                         actv_doc.setHint("Select Institute name...");
                         new GetDoctor().execute();
-                        buttonChoose.setEnabled(true);
-
-                         */
+                        buttonChoose.setEnabled(true); */
                         new GetGiftList().execute();
                         actv_gift.setAdapter(null);
                         actv_gift.setText("");
@@ -581,7 +533,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         customerlist.clear();
                         Log.e("ONCLICKtabflag-->",Tab_Flag);
                         actv_doc.setHint("Select Institute name...");
-                       // new GetDoctor().execute();
+                        // new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
                         break;
                 }
@@ -619,7 +571,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
                         break;
-
                     case 1:
                         Tab_Flag = "D";
                         GIFT_Tab_Flag = "SG";
@@ -670,7 +621,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_doc.setAdapter(null);
                         new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
-
                         break;
                 }
             }
@@ -687,8 +637,8 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void departmentwardAutocompleteEvent() {
-
         actv_dept.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -698,32 +648,23 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
         actv_dept.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_dept.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
-                    if (inputorder.indexOf("-") != -1) {
+
+                    if (inputorder.contains("-")) {
                         dept_name = inputorder;
                         actv_dept.setText(inputorder);
                         hideKeyBoard();
@@ -732,22 +673,18 @@ public class PrescriptionEntry extends AppCompatActivity {
                         hideKeyBoard();
                     }
                     hideKeyBoard();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             private void length() {
-                // TODO Auto-generated method stub
 
             }
-
-
         });
-
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void doctorAutocompleteEvent() {
         actv_doc.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -759,33 +696,24 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
         actv_doc.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_doc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("-") != -1) {
+
+                    if (inputorder.contains("-")) {
                         Log.e("SelectedDoctor ==>", inputorder);
                         doc_code = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
@@ -793,6 +721,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_doc.setText(doc_name);
                         hideKeyBoard();
                         buttonChoose.setEnabled(true);
+
                         if (Tab_Flag.equals("O")) {
                             actv_dept.setVisibility(View.VISIBLE);
                             new GetDept().execute();
@@ -806,28 +735,20 @@ public class PrescriptionEntry extends AppCompatActivity {
                             new GetDept().execute();
                             buttonChoose.setEnabled(true);
                         }
-
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
-
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void giftAutocompleteEvent() {
-
         actv_gift.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -838,31 +759,21 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
         actv_gift.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_gift.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("-")) {
                         Log.e("SelectedGift ==>", inputorder);
                         String ppp_init = inputorder.substring(inputorder.indexOf("-") + 1);
@@ -877,34 +788,26 @@ public class PrescriptionEntry extends AppCompatActivity {
                         Log.e("ppm_prod_code=>", ppm_prod_code);
                         Log.e("ppm_code=>", ppm_code);
                         actv_gift.setText(ppm_name);
+
                         if (Tab_Flag.equals("G")){
                             new GetDoctor().execute();
-                        }else {
+                        } else {
                             new GetDoctorforGift().execute();
                         }
                         buttonChoose.setEnabled(true);
-
-
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-            }
-
+            private void length() {}
         });
-
     }
 
     private void brandselectEvent() {
-
         degree_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -914,7 +817,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         degree_name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //  chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
+                // chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
             }
         });
         degree_name.addLayoutTextChangedListener(new TextWatcher() {
@@ -974,10 +877,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                 } else {
                     chipCountMultiple();
                 }
-
             }
         });
-
     }
 
     private void chipCountOne() {
@@ -1001,17 +902,14 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     private void initMultiUpload(){
-
         imageView.setVisibility(View.GONE);
         gvGallery.setVisibility(View.VISIBLE);
         buttonmultiUpload.setVisibility(View.VISIBLE);
         buttonUpload.setVisibility(View.GONE);
         showFileChooserMultiple();
-
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         toolbar = findViewById(R.id.toolbar);
         buttonChoose = findViewById(R.id.buttonChoose);
@@ -1036,7 +934,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         buttonmultiUpload.setTypeface(fontFamily);
         buttonmultiUpload.setText("\uf1d8");
         buttonmultiUpload.setVisibility(View.GONE);
-        user_show1.setText(new StringBuilder().append(Dashboard.globalmpocode).append(" [ ").append(Dashboard.globalterritorycode).append(" ] ").toString());
+        user_show1.setText(Dashboard.globalmpocode + " [ " + Dashboard.globalterritorycode + " ] ");
         myCommand = new MyCommand<>(getApplicationContext());
 
         degree_name = findViewById(R.id.chipText);
@@ -1059,7 +957,6 @@ public class PrescriptionEntry extends AppCompatActivity {
         gift_tab_layout = findViewById(R.id.gift_tab_layout);
         constrainlayout = findViewById(R.id.constrainlayout);
         actv_gift = findViewById(R.id.actv_gift);
-
     }
 
     private void populategiftlist() {
@@ -1067,7 +964,6 @@ public class PrescriptionEntry extends AppCompatActivity {
         for (int i = 0; i < giftlist.size(); i++) {
             lables.add(giftlist.get(i).getName());
         }
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         gift.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -1076,9 +972,6 @@ public class PrescriptionEntry extends AppCompatActivity {
         actv_gift.setAdapter(Adapter);
         actv_gift.setTextColor(Color.BLUE);
     }
-
-
-
 
     class GetGiftList extends AsyncTask<Void, Void, Void> {
         @Override
@@ -1096,32 +989,27 @@ public class PrescriptionEntry extends AppCompatActivity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
             params.add(new BasicNameValuePair("gift_tab_flag", GIFT_Tab_Flag));
-
             Log.e("ID==>", Dashboard.globalmpocode +"\n"+GIFT_Tab_Flag);
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_GIFT_LIST, ServiceHandler.POST, params);
             Log.e("JSONGift", json);
             giftlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            giftlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        giftlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -1132,7 +1020,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 pDialog.dismiss();
             populategiftlist();
         }
-
     }
 
     private void populatedocforgift() {
@@ -1168,30 +1055,25 @@ public class PrescriptionEntry extends AppCompatActivity {
             params.add(new BasicNameValuePair("ppm_code", ppm_code));
             params.add(new BasicNameValuePair("gift_tab_flag", GIFT_Tab_Flag));
             params.add(new BasicNameValuePair("ppm_name", ppm_name));
-
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_GIFT_WISE_DOC_LIST, ServiceHandler.POST, params);
             customerlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -1202,7 +1084,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 pDialog.dismiss();
             populatedocforgift();
         }
-
     }
 
     private void populateSpinner() {
@@ -1244,28 +1125,24 @@ public class PrescriptionEntry extends AppCompatActivity {
                 json = jsonParser.makeServiceCall(URL_INST, ServiceHandler.POST, params);
                 Log.e("JSON opd", json);
             }
-
             customerlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
-                    }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
 
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -1276,7 +1153,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
     private void populateDept() {
@@ -1294,7 +1170,6 @@ public class PrescriptionEntry extends AppCompatActivity {
         actv_dept.setTextColor(Color.BLUE);
     }
 
-
     class GetDept extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -1309,12 +1184,12 @@ public class PrescriptionEntry extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-
             params.add(new BasicNameValuePair("id", doc_code));
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_DEPT_WARD, ServiceHandler.POST, params);
             Log.e("getDept==>", json);
             departmentlist.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
@@ -1326,15 +1201,12 @@ public class PrescriptionEntry extends AppCompatActivity {
                             departmentlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -1345,21 +1217,14 @@ public class PrescriptionEntry extends AppCompatActivity {
                 pDialog.dismiss();
             populateDept();
         }
-
     }
-
-
-
-
 
     public void getDoctorDegree() {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getDoctorDegree();
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-
                 List<Patient> patientdetail = response.body();
                 assert patientdetail != null;
                 lables = new ArrayList<String>();
@@ -1373,30 +1238,16 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
-            }
+            public void onFailure(Call<List<Patient>> call, Throwable t) {}
         });
     }
 
-
     private void uploadImage(){
-
-
         Log.e("img_datetime", img_datetime);
-
-         if((img_datetime.trim().equals("null"))) {
+         if ((img_datetime.trim().equals("null"))) {
             Log.e("SecondValueisnull-->", img_local_path.trim());
              img_datetime = img_local_path.trim();
         }
-
-
-
-
-
-
-
-
-
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
         stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -1408,26 +1259,25 @@ public class PrescriptionEntry extends AppCompatActivity {
                             String name = jObj.getString("success");
                             String email = jObj.getString("message");
                             success = jObj.getInt(TAG_SUCCESS);
+
                             if (success == 1) {
                                 Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Succesful")
                                         .setMessage(" Prescription has been submitted")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
+                                            public void onClick(DialogInterface dialog, int which) {}
                                         }).show();
                                 refresh();
                             } else {
                                 refresh();
-                               // Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                // Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         loading.dismiss();
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -1441,12 +1291,10 @@ public class PrescriptionEntry extends AppCompatActivity {
                         } else if (error instanceof ServerError) {
                             //TODO
                         } else if (error instanceof NetworkError) {
-
                             //TODO
                         } else if (error instanceof ParseError) {
                             //TODO
                         }
-
                     }
                 }) {
             @Override
@@ -1468,19 +1316,14 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
         };
 
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 90000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-
-
-
     }
 
     private void uploadGiftImage(){
-
             Log.e("uploadGiftImage==>", "uploadGiftImage-->1448");
             Log.e("ppm_code", ppm_code);
             Log.e("brand_names", ppm_prod_code);
@@ -1547,7 +1390,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         } else if (error instanceof ParseError) {
                             //TODO
                         }
-
                     }
                 }) {
             @Override
@@ -1573,19 +1415,15 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
         };
 
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 90000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-
     }
 
     private void uploadMultiImage(){
-
         int j;
-
         for (j = 0; j < imagesEncodedList.size(); j++){
             Log.e("imagesEncodedList-->", String.valueOf(j));
 
@@ -1596,8 +1434,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT)
                         .show();
             }
-
-
             String myimagepath = imagesEncodedList.get(j);
             Log.e("myImagepathOnclick-->",myimagepath);
             ExifInterface exif2 = null;
