@@ -142,7 +142,7 @@
                 android:hapticFeedbackEnabled="true"
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
-                android:text="4.Order vs Sale qnty(by setUpLists &amp; Ord No.)"
+                android:text="4.Order vs Sale qnty(by customer &amp; Ord No.)"
               
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"
@@ -168,7 +168,7 @@
                 android:hapticFeedbackEnabled="true"
                 android:onClick="finishActivity"
                 android:soundEffectsEnabled="true"
-                android:text="5.Order vs Sale Value (by setUpLists &amp; Ord No.)"
+                android:text="5.Order vs Sale Value (by customer &amp; Ord No.)"
               
                 android:textAppearance="@android:style/TextAppearance"
                 android:textColor="@android:color/background_dark"

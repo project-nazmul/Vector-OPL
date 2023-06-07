@@ -29,7 +29,7 @@
             android:orientation="horizontal"
             android:padding="10dp">
             <Spinner
-                android:id="@+id/setUpLists"
+                android:id="@+id/customer"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="@android:drawable/editbox_dropdown_light_frame"

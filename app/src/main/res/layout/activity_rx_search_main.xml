@@ -127,7 +127,7 @@
                 android:paddingLeft="10dp" />
 
             <Spinner
-                android:id="@+id/setUpLists"
+                android:id="@+id/customer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:filterTouchesWhenObscured="true"
@@ -164,7 +164,7 @@
             android:paddingLeft="10dp" />
 
         <Spinner
-            android:id="@+id/setUpLists"
+            android:id="@+id/customer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:filterTouchesWhenObscured="true"

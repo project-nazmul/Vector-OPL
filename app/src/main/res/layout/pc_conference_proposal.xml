@@ -206,9 +206,8 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-
             <Spinner
-                android:id="@+id/setUpLists"
+                android:id="@+id/customer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_shape"
@@ -223,7 +222,6 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 tools:ignore="UnusedAttribute" />
 
-
             <EditText
                 android:id="@+id/market_name"
                 android:layout_width="match_parent"
@@ -236,13 +234,11 @@
                 android:textSize="@dimen/_10sdp"
                 android:visibility="gone" />
 
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/venue_name"
@@ -256,13 +252,11 @@
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/pc_rmp"
@@ -276,16 +270,13 @@
                     android:textColorHint="@color/darkblue"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="normal" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/doc_chemist"
@@ -298,16 +289,13 @@
                     android:textColorHint="@color/darkblue"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="normal" />
-
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/in_house"
@@ -322,13 +310,11 @@
                     android:textStyle="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/total_participent"
@@ -345,7 +331,6 @@
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.opl.pharmavector.MultiSelectionSpinner2
                 android:id="@+id/input1"
                 android:layout_width="fill_parent"
@@ -355,7 +340,6 @@
                 android:textColorHint="@color/darkblue"
                 android:textSize="@dimen/_10sdp"
                 android:visibility="gone" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -375,7 +359,6 @@
                     android:textColorHint="@color/darkblue"
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

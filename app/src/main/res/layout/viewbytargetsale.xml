@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/setUpLists"
+            android:id="@+id/customer"
             android:layout_width="200dp"
             android:layout_height="40dp"
 

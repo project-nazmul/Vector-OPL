@@ -140,7 +140,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/setUpLists"
+                android:id="@+id/customer"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:ems="5"
