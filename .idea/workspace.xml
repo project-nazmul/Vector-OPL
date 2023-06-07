@@ -31,8 +31,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ version update 65.2.19!&#10;+ dcfp status flag added!">
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ dcfp entry feature added!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DcfpEntrySetUpAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DcfpEntrySetUpAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MPODcfpEntryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MPODcfpEntryActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +170,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
     <property name="show.do.not.copy.http.proxy.settings.to.gradle" value="true" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -422,13 +424,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Gift Feedback UI update">
-      <created>1629540325688</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1629540325688</updated>
     </task>
     <task id="LOCAL-00020" summary="Merge remote-tracking branch 'origin/master'">
       <created>1629540383538</created>
@@ -766,7 +761,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685623688834</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="+ dcfp entry feature added!">
+      <created>1686117590263</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1686117590264</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -783,7 +785,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ version update done!" />
     <MESSAGE value="+ expense Rate done!" />
     <MESSAGE value="+ version update 65.2.11!" />
     <MESSAGE value="+ SM sales report date done!" />
@@ -808,7 +809,8 @@
     <MESSAGE value="+ dcr material keyboard working!&#10;+ ff contact added in RM, ASM, SM added!&#10;+ msd approval and commit followup added in RM, ASM, SM, GM added!" />
     <MESSAGE value="+ version update 65.2.18!" />
     <MESSAGE value="+ version update 65.2.19!&#10;+ dcfp status flag added!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ version update 65.2.19!&#10;+ dcfp status flag added!" />
+    <MESSAGE value="+ dcfp entry feature added!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ dcfp entry feature added!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1321,27 +1323,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>460</line>
+          <line>470</line>
           <option name="timeStamp" value="350" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>461</line>
+          <line>471</line>
           <option name="timeStamp" value="351" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>462</line>
+          <line>472</line>
           <option name="timeStamp" value="352" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>463</line>
+          <line>473</line>
           <option name="timeStamp" value="353" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>465</line>
+          <line>475</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1516,12 +1518,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>206</line>
+          <line>208</line>
           <option name="timeStamp" value="440" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>207</line>
+          <line>209</line>
           <option name="timeStamp" value="441" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1531,17 +1533,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>213</line>
+          <line>215</line>
           <option name="timeStamp" value="444" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>214</line>
+          <line>216</line>
           <option name="timeStamp" value="445" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>215</line>
+          <line>217</line>
           <option name="timeStamp" value="446" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">

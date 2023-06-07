@@ -48,6 +48,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
 import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
@@ -530,21 +531,27 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpPreview = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_dcfpEntry = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+        cardview_dcfpEntry.setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+        TextView tvDcfpEntry = bottomSheetDialog.findViewById(R.id.tv_commitment_followup);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
+        Button btnDcfpEntry = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
 
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(button3).setText("1.3");
+        Objects.requireNonNull(btnDcfpEntry).setText("1.4");
         Objects.requireNonNull(textView4).setText("DCR\nOnline");
         Objects.requireNonNull(textView5).setText("DCR\nReport");
         Objects.requireNonNull(textView6).setText("DCFP\nPreview");
+        Objects.requireNonNull(tvDcfpEntry).setText("DCFP\nEntry");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -566,6 +573,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
         Objects.requireNonNull(cardview_dcfpPreview).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DcfpActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfpEntry).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, MPODcfpEntryActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);

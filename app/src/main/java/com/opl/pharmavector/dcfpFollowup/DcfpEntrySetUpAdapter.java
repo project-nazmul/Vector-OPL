@@ -21,23 +21,16 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
 
     @Override
     public DcfpSetUpViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.dcr_followup_row, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.dcfp_entry_setup_row, viewGroup, false);
         return new DcfpSetUpViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DcfpSetUpViewHolder holder, int position) {
-        DcfpEntrySetUpList dcrFollowupModel = entrySetUpLists.get(position);
-        holder.ff_code.setText(dcrFollowupModel.getFfCode());
-        holder.ff_area.setText(dcrFollowupModel.getFfName());
-        holder.planned_todDoc.setText(dcrFollowupModel.getPlanTotDoc());
-        holder.planned_morn.setText(dcrFollowupModel.getPlanMor());
-        holder.planned_eve.setText(dcrFollowupModel.getPlanEve());
-        holder.visited_todDoc.setText(dcrFollowupModel.getVisitedTotDoc());
-        holder.visited_morn.setText(dcrFollowupModel.getVisitedMor());
-        holder.visited_eve.setText(dcrFollowupModel.getVisitedEve());
-        holder.not_visited.setText(dcrFollowupModel.getNotVisited());
-        holder.visit_percentage.setText(dcrFollowupModel.getVisitPercent());
+        DcfpEntrySetUpList dcfpEntryModel = entrySetUpLists.get(position);
+        holder.tp_week.setText(dcfpEntryModel.getTpWeek());
+        holder.tp_day.setText(dcfpEntryModel.getTpDay());
+        //holder.t_type.setText(dcrFollowupModel.getPlanTotDoc());
 
 //        holder.itemView.setOnClickListener(view -> {
 //            itemClickListener.onClick(position, dcrFollowupModel);
@@ -50,20 +43,13 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
     }
 
     public class DcfpSetUpViewHolder extends RecyclerView.ViewHolder {
-        public TextView ff_code, ff_area, planned_todDoc, planned_morn, planned_eve, visited_todDoc, visited_morn, visited_eve, not_visited, visit_percentage;
+        public TextView tp_week, tp_day, t_type;
 
         public DcfpSetUpViewHolder(View view) {
             super(view);
-            ff_code = view.findViewById(R.id.ff_code);
-            ff_area = view.findViewById(R.id.ff_area);
-            planned_todDoc = view.findViewById(R.id.planned_todDoc);
-            planned_morn = view.findViewById(R.id.planned_morn);
-            planned_eve = view.findViewById(R.id.planned_eve);
-            visited_todDoc = view.findViewById(R.id.visited_todDoc);
-            visited_morn = view.findViewById(R.id.visited_morn);
-            visited_eve = view.findViewById(R.id.visited_eve);
-            not_visited = view.findViewById(R.id.not_visited);
-            visit_percentage = view.findViewById(R.id.visit_percentage);
+            tp_week = view.findViewById(R.id.tp_week);
+            tp_day = view.findViewById(R.id.tp_day);
+            t_type = view.findViewById(R.id.t_type);
         }
     }
 

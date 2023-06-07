@@ -50,7 +50,7 @@ public class MPODcfpEntryActivity extends Activity {
     public ProgressDialog setUpDialog, doctorDialog;
     private ArrayList<DcfpEntrySetUpList> dcfpSetUpList = new ArrayList<>();
     private ArrayList<DcfpEntryDoctorList> dcfpDoctorList = new ArrayList<>();
-    //private DcfpFollowupAdapter dcfpFollowupAdapter;
+    private DcfpEntrySetUpAdapter dcfpEntrySetUpAdapter;
     //private ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
 
     @Override
@@ -218,10 +218,10 @@ public class MPODcfpEntryActivity extends Activity {
                                 dcfpSetUpData.get(i).getTpDay()));
                     }
                     setUpDialog.dismiss();
-                    dcrFollowupAdapter = new DcrFollowupAdapter(MPODcfpEntryActivity.this, dcfpSetUpList);
+                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList);
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
                     dcfpSetUpRecycler.setLayoutManager(manager);
-                    dcfpSetUpRecycler.setAdapter(dcrFollowupAdapter);
+                    dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);
                     dcfpSetUpRecycler.addItemDecoration(new DividerItemDecoration(MPODcfpEntryActivity.this, DividerItemDecoration.VERTICAL));
                     //Log.d("company List", companyDatalist.get(0).getComDesc());
                 } else {
