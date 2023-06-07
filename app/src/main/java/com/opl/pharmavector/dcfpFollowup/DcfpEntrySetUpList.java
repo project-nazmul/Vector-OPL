@@ -13,6 +13,24 @@ public class DcfpEntrySetUpList {
     @SerializedName("TP_DAY")
     @Expose
     private String tpDay;
+    public int checkedId = -1;
+    public boolean isAnswered;
+
+    public boolean isAnswered() {
+        return isAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        isAnswered = answered;
+    }
+
+    public int getCheckedId() {
+        return checkedId;
+    }
+
+    public void setCheckedId(int checkedId) {
+        this.checkedId = checkedId;
+    }
 
     public DcfpEntrySetUpList(String slno, String tpWeek, String tpDay) {
         this.slno = slno;

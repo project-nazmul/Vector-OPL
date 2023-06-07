@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class DcfpEntrySetUpModel {
-    @SerializedName("setUpLists")
+    @SerializedName("customer")
     @Expose
     private List<DcfpEntrySetUpList> setUpLists;
 

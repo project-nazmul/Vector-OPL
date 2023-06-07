@@ -46,7 +46,7 @@ public class MPODcfpEntryActivity extends Activity {
     public String userName, userName_2, new_version, message_3;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     AutoCompleteTextView autoDoctorFFList, autoDoctorTerriList;
-    String selectedMpoName = "";
+    String selectedDocName = "";
     public ProgressDialog setUpDialog, doctorDialog;
     private ArrayList<DcfpEntrySetUpList> dcfpSetUpList = new ArrayList<>();
     private ArrayList<DcfpEntryDoctorList> dcfpDoctorList = new ArrayList<>();
@@ -67,8 +67,8 @@ public class MPODcfpEntryActivity extends Activity {
             }
         });
         doctorListBtn.setOnClickListener(v -> {
-            if (!selectedMpoName.isEmpty()) {
-                //doctorDetailsListInfo();
+            if (!selectedDocName.isEmpty()) {
+                dcfpSetUpListInfo();
             } else {
                 Toast.makeText(MPODcfpEntryActivity.this, "Please select Doctor!", Toast.LENGTH_LONG).show();
             }
@@ -143,9 +143,9 @@ public class MPODcfpEntryActivity extends Activity {
             inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
 
             String selectedItem = (String) parent.getItemAtPosition(position);
-            String[] selectedFFType = selectedItem.split("-");
-            if (selectedFFType.length > 0) {
-                selectedMpoName = selectedFFType[0].trim();
+            String[] selectedDocName = selectedItem.split("//");
+            if (selectedDocName.length > 0) {
+                this.selectedDocName = selectedDocName[0].trim();
             }
         });
     }
@@ -222,11 +222,11 @@ public class MPODcfpEntryActivity extends Activity {
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
                     dcfpSetUpRecycler.setLayoutManager(manager);
                     dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);
-                    dcfpSetUpRecycler.addItemDecoration(new DividerItemDecoration(MPODcfpEntryActivity.this, DividerItemDecoration.VERTICAL));
+                    //dcfpSetUpRecycler.addItemDecoration(new DividerItemDecoration(MPODcfpEntryActivity.this, DividerItemDecoration.VERTICAL));
                     //Log.d("company List", companyDatalist.get(0).getComDesc());
                 } else {
                     setUpDialog.dismiss();
-                    Toast.makeText(MPODcfpEntryActivity.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MPODcfpEntryActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
