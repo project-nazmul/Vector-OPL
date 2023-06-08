@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.opl.pharmavector.R;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAdapter.DcfpSetUpViewHolder> {
     public List<DcfpEntrySetUpList> entrySetUpLists;
     private Context context;
     private LayoutInflater inflater;
+    private ArrayList<DcfpEntrySetUpList> selectedShiftList;
     //public DcrFollowupAdapter.ItemClickListener itemClickListener;
     //private int lastCheckItem = -1;
 
@@ -41,19 +44,14 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         holder.tp_week.setText(dcfpEntryModel.getTpWeek());
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
         holder.setSelectedShift(dcfpEntryModel, position);
-        //holder.t_type.setText(dcrFollowupModel.getPlanTotDoc());
-//        holder.selectedShift.setSelected(position == lastCheckItem);
-//        holder.selectedShift.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//               // int pos = (int) group.getTag();
-////                Question que = questions.get(pos);
-////                que.isAnswered = true;
-////                que.checkedId = checkedId;
-////                Log.e(TAG, pos + " :onCheckedChanged: " + que.toString());
-//            }
-//        });
+        holder.morningShift.setOnClickListener(v -> {
+            selectedShiftList.add(dcfpEntryModel);
+        });
+        holder.eveningShift.setOnClickListener(v -> {
 
+        });
+
+//        holder.selectedShift.setSelected(position == lastCheckItem);
 //        holder.itemView.setOnClickListener(view -> {
 //            itemClickListener.onClick(position, dcrFollowupModel);
 //        });
