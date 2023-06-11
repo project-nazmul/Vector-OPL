@@ -684,10 +684,12 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
             if (ProductListAdapter2.qntyID.size() < 1) {
                 Toast.makeText(this, "No item inserted", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "No item inserted" + PPM_CODE, Toast.LENGTH_SHORT).show();
+            }
 
-            } else {
+            else {
                 String qnty;
                 ArrayList<Integer> position = new ArrayList<Integer>();
+
                 for (int j : ProductListAdapter2.set2) {
                     position.add(j);
                 }
@@ -786,12 +788,14 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                             public void run() {
                                 JSONObject json = jsonParser.makeHttpRequest(URL_NEW_CATEGORY, "POST", params);
                                 progress.dismiss();
+
                                 try {
                                     success = json.getInt(TAG_SUCCESS);
                                     success_1 = json.getInt(TAG_SUCCESS1);
                                     message = json.getString(TAG_MESSAGE);
                                     message_2 = json.getString(TAG_MESSAGE_2);
                                     ord_no = json.getString(TAG_ord_no);
+
                                     if (success_1 == 1) {
                                         ProductListAdapter2.qnty = null;
                                         ProductListAdapter2.qntyID.clear();

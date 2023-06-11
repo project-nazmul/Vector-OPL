@@ -18,22 +18,23 @@ import com.opl.pharmavector.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Callback;
+
 public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAdapter.DcfpSetUpViewHolder> {
     public List<DcfpEntrySetUpList> entrySetUpLists;
     private Context context;
     private LayoutInflater inflater;
-    private ArrayList<DcfpEntrySetUpList> selectedShiftList;
-    //public DcrFollowupAdapter.ItemClickListener itemClickListener;
-    //private int lastCheckItem = -1;
+    public ItemClickListener itemClickListener;
+    ArrayList<DcfpEntrySetUpList> selectedShiftList = new ArrayList<DcfpEntrySetUpList>();
 
-    public DcfpEntrySetUpAdapter(Context context, List<DcfpEntrySetUpList> entrySetUpList) {
+    public DcfpEntrySetUpAdapter(Context context, List<DcfpEntrySetUpList> entrySetUpList, ItemClickListener itemClickListener) {
         this.inflater = LayoutInflater.from(context);
         this.entrySetUpLists = entrySetUpList;
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
     public DcfpSetUpViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.dcfp_entry_setup_row, viewGroup, false);
         View view = inflater.inflate(R.layout.dcfp_entry_setup_row, viewGroup, false);
         return new DcfpSetUpViewHolder(view);
     }
@@ -44,17 +45,47 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         holder.tp_week.setText(dcfpEntryModel.getTpWeek());
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
         holder.setSelectedShift(dcfpEntryModel, position);
+
         holder.morningShift.setOnClickListener(v -> {
-            selectedShiftList.add(dcfpEntryModel);
+            if (selectedShiftList.size() > 0) {
+                for (int i = 0; i < selectedShiftList.size(); i++) {
+                    if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
+                        //selectedShiftList.remove(selectedShiftList.get(i));
+                        dcfpEntryModel.setShiftType("M");
+                        selectedShiftList.set(i, dcfpEntryModel);
+                        //selectedShiftList.add(dcfpEntryModel);
+                    } else if (!selectedShiftList.contains(dcfpEntryModel)){
+                        dcfpEntryModel.setShiftType("M");
+                        selectedShiftList.add(dcfpEntryModel);
+                    }
+                }
+            } else {
+                dcfpEntryModel.setShiftType("M");
+                selectedShiftList.add(dcfpEntryModel);
+            }
+            itemClickListener.onClick(position, selectedShiftList);
+            Log.d("shiftList1", selectedShiftList.toString());
         });
         holder.eveningShift.setOnClickListener(v -> {
-
+            if (selectedShiftList.size() > 0) {
+                for (int i = 0; i < selectedShiftList.size(); i++) {
+                    if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
+                        //selectedShiftList.remove(selectedShiftList.get(i));
+                        dcfpEntryModel.setShiftType("E");
+                        selectedShiftList.set(i, dcfpEntryModel);
+                        //selectedShiftList.add(dcfpEntryModel);
+                    } else if (!selectedShiftList.contains(dcfpEntryModel)){
+                        dcfpEntryModel.setShiftType("E");
+                        selectedShiftList.add(dcfpEntryModel);
+                    }
+                }
+            } else {
+                dcfpEntryModel.setShiftType("E");
+                selectedShiftList.add(dcfpEntryModel);
+            }
+            itemClickListener.onClick(position, selectedShiftList);
+            Log.d("shiftList2", selectedShiftList.toString());
         });
-
-//        holder.selectedShift.setSelected(position == lastCheckItem);
-//        holder.itemView.setOnClickListener(view -> {
-//            itemClickListener.onClick(position, dcrFollowupModel);
-//        });
     }
 
     @Override
@@ -100,7 +131,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         }
     }
 
-//    public interface ItemClickListener {
-//        void onClick(int position, DcrFollowupModel model);
-//    }
+    public interface ItemClickListener {
+        void onClick(int position, ArrayList<DcfpEntrySetUpList> model);
+    }
 }

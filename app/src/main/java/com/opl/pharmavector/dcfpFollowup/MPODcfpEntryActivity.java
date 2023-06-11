@@ -35,7 +35,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class MPODcfpEntryActivity extends Activity {
+public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdapter.ItemClickListener {
     TextView tvfromdate, tvtodate;
     Button backBtn, submitBtn, doctorListBtn;
     Calendar c_todate, c_fromdate;
@@ -218,7 +218,7 @@ public class MPODcfpEntryActivity extends Activity {
                                 dcfpSetUpData.get(i).getTpDay()));
                     }
                     setUpDialog.dismiss();
-                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList);
+                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
                     dcfpSetUpRecycler.setLayoutManager(manager);
                     dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);
@@ -236,5 +236,10 @@ public class MPODcfpEntryActivity extends Activity {
                 dcfpDoctorListInfo();
             }
         });
+    }
+
+    @Override
+    public void onClick(int position, ArrayList<DcfpEntrySetUpList> model) {
+
     }
 }

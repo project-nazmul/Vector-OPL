@@ -1,5 +1,7 @@
 package com.opl.pharmavector.dcfpFollowup;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,6 +17,15 @@ public class DcfpEntrySetUpList {
     private String tpDay;
     public int checkedId = -1;
     public boolean isAnswered;
+    public String shiftType;
+
+    public String getShiftType() {
+        return shiftType;
+    }
+
+    public void setShiftType(String shiftType) {
+        this.shiftType = shiftType;
+    }
 
     public boolean isAnswered() {
         return isAnswered;
@@ -60,5 +71,16 @@ public class DcfpEntrySetUpList {
 
     public void setTpDay(String tpDay) {
         this.tpDay = tpDay;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "DcfpEntrySetUpList{" +
+                "slno='" + slno + '\'' +
+                ", tpWeek='" + tpWeek + '\'' +
+                ", tpDay='" + tpDay + '\'' +
+                ", shiftType='" + shiftType + '\'' +
+                '}';
     }
 }

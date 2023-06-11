@@ -330,6 +330,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         actv.setFocusableInTouchMode(true);
         actv.setFocusable(true);
         actv.requestFocus();
+
         actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

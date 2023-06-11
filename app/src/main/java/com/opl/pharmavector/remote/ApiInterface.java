@@ -257,6 +257,9 @@ public interface ApiInterface {
     @GET("dcfp/get_dcfp_setup.php")
     Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList();
 
+//    @POST("dcfp/submit_dcfp.php")
+//    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList();
+
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("dcfp/self_followup.php")
@@ -286,7 +289,6 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("msd_doc_support/msd_program_commitment_followup.php")
     Call<List<MSDCommitmentModel>> getMSDCommitmentFollowup(@Field("p_month") String p_month);
-
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
@@ -327,8 +329,6 @@ public interface ApiInterface {
             @Field("mpo_code") String mpo_code,
             @Field("report_type") String report_type,
             @Field("pres_sub_type") String pres_sub_type
-
-
     );
 
     @FormUrlEncoded
@@ -361,9 +361,7 @@ public interface ApiInterface {
             @Field("product_code") String product_code,
             @Field("manager_code") String manager_code,
             @Field("mpo_code") String mpo_code
-
     );
-
 
     @FormUrlEncoded
     @POST("doctor_gift/insert_feedback.php")
@@ -397,21 +395,16 @@ public interface ApiInterface {
             @Field("feedback_date") String feedback_date
     );
 
-
     //postmsdReq
-
     @FormUrlEncoded
     @POST("msd_doc_support/insert_msd_req.php")
     Call<Patient> postmsdReq(
-
             @Field("img") String img,
             @Field("mpo_code") String mpo_code,
             @Field("doc_code") String doc_code,
             @Field("gift_items") String gift_items,
             @Field("date") String date,
             @Field("description") String description
-
-
     );
      /*
                 params.put("img", getStringImage(decoded));
@@ -433,7 +426,6 @@ public interface ApiInterface {
             @Field("gps_status") String status,
             @Field("chambar_img") String image
     );
-
 
     @FormUrlEncoded
     @POST("utils/otpConfirmation.php")
@@ -462,7 +454,6 @@ public interface ApiInterface {
     Call<List<Patient>> postDcrCheck(
             @Field("mpo_code") String mpo_code,
             @Field("from_date") String from_date
-
     );
 
     @FormUrlEncoded
@@ -485,7 +476,6 @@ public interface ApiInterface {
             @Field("promo_month") String proposed_date2,
             @Field("promo_subtype") String promo_subtype
     );
-
 
     @FormUrlEncoded
     @POST("promofollowupv2/rm_promo_followup.php")
@@ -511,7 +501,6 @@ public interface ApiInterface {
     @POST("utils/get_master_code_all.php")
     Call<List<Patient>> getMasterCode(
             @Field("id") String mpo_code
-
     );
 
     @FormUrlEncoded
@@ -519,7 +508,6 @@ public interface ApiInterface {
     Call<List<Patient>> msd_mpo_followup(
             @Field("mpo_code") String mpo_code,
             @Field("user_flag") String user_flag
-
     );
 
     @FormUrlEncoded
@@ -528,9 +516,7 @@ public interface ApiInterface {
             @Field("mpo_code") String mpo_code,
             @Field("user_flag") String user_flag,
             @Field("month") String month
-
     );
-
 
     @FormUrlEncoded
     @POST("prescription_survey/executive_summary/sm_followup.php")
@@ -539,8 +525,6 @@ public interface ApiInterface {
             @Field("user_flag") String user_flag,
             @Field("service_month") String service_month,
             @Field("summary_type") String summary_type
-
-
     );
 
     @FormUrlEncoded
@@ -550,30 +534,24 @@ public interface ApiInterface {
             @Field("self_flag") String self_flag,
             @Field("summary_type") String summary_type,
             @Field("service_month") String service_month
-
     );
 
     //mrd_doc_followup
-
     @FormUrlEncoded
     @POST("prescription_survey/executive_summary/mrd_doc_followup.php")
     Call<List<Patient>> mrd_doc_followup(
             @Field("mpo_code") String user_code,
             @Field("service_month") String service_month,
             @Field("summary_type") String summary_type
-
-
     );
 
     @FormUrlEncoded
     @POST("prescription_survey/executive_summary/mrd_prod_followup.php")
     Call<List<Patient>> mrd_prod_followup(
-
             @Field("mpo_code") String mpo_code,
             @Field("doc_code") String doc_code,
             @Field("service_month") String service_month,
             @Field("summary_type") String summary_type
-
     );
 
     @FormUrlEncoded
@@ -581,7 +559,5 @@ public interface ApiInterface {
     Call<Patient> postupdateStatus(
             @Field("selected_service_no") String selected_service_no,
             @Field("selected_service_no_serial") String selected_service_no_serial
-
     );
-
 }
