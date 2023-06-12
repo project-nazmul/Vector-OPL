@@ -44,47 +44,45 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         DcfpEntrySetUpList dcfpEntryModel = entrySetUpLists.get(position);
         holder.tp_week.setText(dcfpEntryModel.getTpWeek());
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
-        holder.setSelectedShift(dcfpEntryModel, position);
+        holder.setSelectedShift(dcfpEntryModel, position, holder);
 
+        if (dcfpEntryModel.getTpType() != null) {
+            selectedShiftList.add(dcfpEntryModel);
+            Log.d("previousList1", selectedShiftList.toString());
+        }
         holder.morningShift.setOnClickListener(v -> {
             if (selectedShiftList.size() > 0) {
                 for (int i = 0; i < selectedShiftList.size(); i++) {
                     if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
-                        //selectedShiftList.remove(selectedShiftList.get(i));
-                        dcfpEntryModel.setShiftType("M");
+                        dcfpEntryModel.setTpType("M");
                         selectedShiftList.set(i, dcfpEntryModel);
-                        //selectedShiftList.add(dcfpEntryModel);
-                    } else if (!selectedShiftList.contains(dcfpEntryModel)){
-                        dcfpEntryModel.setShiftType("M");
+                    } else if (!selectedShiftList.contains(dcfpEntryModel)) {
+                        dcfpEntryModel.setTpType("M");
                         selectedShiftList.add(dcfpEntryModel);
                     }
                 }
             } else {
-                dcfpEntryModel.setShiftType("M");
+                dcfpEntryModel.setTpType("M");
                 selectedShiftList.add(dcfpEntryModel);
             }
             itemClickListener.onClick(position, selectedShiftList);
-            Log.d("shiftList1", selectedShiftList.toString());
         });
         holder.eveningShift.setOnClickListener(v -> {
             if (selectedShiftList.size() > 0) {
                 for (int i = 0; i < selectedShiftList.size(); i++) {
                     if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
-                        //selectedShiftList.remove(selectedShiftList.get(i));
-                        dcfpEntryModel.setShiftType("E");
+                        dcfpEntryModel.setTpType("E");
                         selectedShiftList.set(i, dcfpEntryModel);
-                        //selectedShiftList.add(dcfpEntryModel);
-                    } else if (!selectedShiftList.contains(dcfpEntryModel)){
-                        dcfpEntryModel.setShiftType("E");
+                    } else if (!selectedShiftList.contains(dcfpEntryModel)) {
+                        dcfpEntryModel.setTpType("E");
                         selectedShiftList.add(dcfpEntryModel);
                     }
                 }
             } else {
-                dcfpEntryModel.setShiftType("E");
+                dcfpEntryModel.setTpType("E");
                 selectedShiftList.add(dcfpEntryModel);
             }
             itemClickListener.onClick(position, selectedShiftList);
-            Log.d("shiftList2", selectedShiftList.toString());
         });
     }
 
@@ -111,23 +109,30 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
             eveningShift = view.findViewById(R.id.radioBtnEvening);
         }
 
-        public void setSelectedShift(DcfpEntrySetUpList dcfpEntryModel, int position) {
-            selectedShift.setTag(position);
-            if (dcfpEntryModel.isAnswered) {
-                selectedShift.check(dcfpEntryModel.getCheckedId());
-            } else {
-                selectedShift.check(-1);
-            }
-            selectedShift.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    int pos = (int) group.getTag();
-                    DcfpEntrySetUpList que = entrySetUpLists.get(pos);
-                    que.isAnswered = true;
-                    que.checkedId = checkedId;
-                    Log.d("shift", pos + " :onCheckedChanged: " + que.toString());
+        public void setSelectedShift(DcfpEntrySetUpList dcfpEntryModel, int position, DcfpSetUpViewHolder holder) {
+            if (dcfpEntryModel.getTpType() != null) {
+                if (dcfpEntryModel.getTpType().equals("M")) {
+                    holder.morningShift.setChecked(true);
+                } else if (dcfpEntryModel.getTpType().equals("E")) {
+                    holder.eveningShift.setChecked(true);
                 }
-            });
+            } else {
+                selectedShift.setTag(position);
+                if (dcfpEntryModel.isAnswered) {
+                    selectedShift.check(dcfpEntryModel.getCheckedId());
+                } else {
+                    selectedShift.check(-1);
+                }
+                selectedShift.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        int pos = (int) group.getTag();
+                        DcfpEntrySetUpList queue = entrySetUpLists.get(pos);
+                        queue.isAnswered = true;
+                        queue.checkedId = checkedId;
+                    }
+                });
+            }
         }
     }
 

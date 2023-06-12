@@ -1,15 +1,20 @@
 package com.opl.pharmavector.dcfpFollowup;
 
+import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -23,9 +28,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.order_online.ProductListAdapter2;
+import com.opl.pharmavector.order_online.ProductOrdernew;
+import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +50,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdapter.ItemClickListener {
+    public static final String TAG_SUCCESS = "success";
+    public static final String TAG_MESSAGE = "message";
     TextView tvfromdate, tvtodate;
     Button backBtn, submitBtn, doctorListBtn;
     Calendar c_todate, c_fromdate;
@@ -43,15 +59,21 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
     String current_todate, current_fromdate, ff_code, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     private RecyclerView dcfpSetUpRecycler;
-    public String userName, userName_2, new_version, message_3;
+    public String userName, userName_2, new_version, message_3, message;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     AutoCompleteTextView autoDoctorFFList, autoDoctorTerriList;
     String selectedDocName = "";
+    String selectedDocCode = "";
+    public int success;
+    Toast toast1, toast2;
+    JSONParser jsonParser = new JSONParser();
+    List<NameValuePair> params = new ArrayList<NameValuePair>();
     public ProgressDialog setUpDialog, doctorDialog;
     private ArrayList<DcfpEntrySetUpList> dcfpSetUpList = new ArrayList<>();
     private ArrayList<DcfpEntryDoctorList> dcfpDoctorList = new ArrayList<>();
+    private ArrayList<DcfpEntrySetUpList> selectedItemList = new ArrayList<>();
     private DcfpEntrySetUpAdapter dcfpEntrySetUpAdapter;
-    //private ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
+    public static String DCFP_SUBMIT_URL = BASE_URL+"dcfp/submit_dcfp.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,25 +99,65 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
 
     @SuppressLint("ClickableViewAccessibility")
     private void initViews() {
-        //context = this;
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        //preferenceManager = new PreferenceManager(this);
-        //count = preferenceManager.getTasbihCounter();
-
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
         userName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
-
         backBtn = findViewById(R.id.backBtn);
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060");
-
+        submitBtn = findViewById(R.id.submitBtn);
+        submitBtn.setTypeface(fontFamily);
+        submitBtn.setText("\uf1d8"); // &#xf1d8
         doctorListBtn = findViewById(R.id.doctorListBtn);
         dcfpSetUpRecycler = findViewById(R.id.recyclerSetUpList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
+        toast1 = Toast.makeText(MPODcfpEntryActivity.this, "Order submit Successfully!", Toast.LENGTH_SHORT);
+        toast2 = Toast.makeText(MPODcfpEntryActivity.this, "Error, please try again!", Toast.LENGTH_SHORT);
 
+        submitBtn.setOnClickListener(v -> {
+            if (selectedItemList.size() > 0) {
+                for (int i = 0; i < selectedItemList.size(); i++) {
+                        params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i+1), selectedItemList.get(i).getTpWeek()));
+                        params.add(new BasicNameValuePair("TP_DAY" + String.valueOf(i+1), selectedItemList.get(i).getTpDay()));
+                        params.add(new BasicNameValuePair("TP_TYPE" + String.valueOf(i+1), selectedItemList.get(i).getTpType()));
+                    }
+                params.add(new BasicNameValuePair("id", userName));
+                params.add(new BasicNameValuePair("TOTAL_REC", String.valueOf(selectedItemList.size())));
+                params.add(new BasicNameValuePair("DOC_CODE", selectedDocCode));
+
+                final ProgressDialog progress = ProgressDialog.show(this, "Submit Data", "Please Wait..", true);
+                Thread server = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject json = jsonParser.makeHttpRequest(DCFP_SUBMIT_URL, "POST", params);
+                        progress.dismiss();
+
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+
+                            if (success == 1) {
+                                selectedItemList.clear();
+                                runOnUiThread(() -> {
+                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    dcfpSetUpListInfo();
+                                });
+                            } else {
+                                toast2.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                server.start();
+            } else {
+                Toast.makeText(MPODcfpEntryActivity.this, "Dcfp Already added, please select another one!", Toast.LENGTH_LONG).show();
+            }
+        });
         autoDoctorFFList.setOnTouchListener((v, event) -> {
             autoDoctorFFList.showDropDown();
             return false;
@@ -118,8 +180,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
             public void afterTextChanged(final Editable s) {
                 try {
                     final String mpoCode = s.toString();
-                    //autoDoctorFFList.setText(mpoCode);
-                    //KeyboardUtils.hideKeyboard(DoctorListActivity.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -143,9 +203,10 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
             inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
 
             String selectedItem = (String) parent.getItemAtPosition(position);
-            String[] selectedDocName = selectedItem.split("//");
-            if (selectedDocName.length > 0) {
-                this.selectedDocName = selectedDocName[0].trim();
+            String[] selectedDocInfo = selectedItem.split("//");
+            if (selectedDocInfo.length > 0) {
+                selectedDocName = selectedDocInfo[0].trim();
+                selectedDocCode = selectedDocInfo[1].trim();
             }
         });
     }
@@ -176,7 +237,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     }
                     setUpDialog.dismiss();
                     populateDcfpDoctorList();
-                    //Log.d("company List", companyDatalist.get(0).getComDesc());
                 } else {
                     setUpDialog.dismiss();
                     Toast.makeText(MPODcfpEntryActivity.this, "No data Available", Toast.LENGTH_LONG).show();
@@ -198,7 +258,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         setUpDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList();
+        Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList(selectedDocCode);
         dcfpSetUpList.clear();
 
         call.enqueue(new Callback<DcfpEntrySetUpModel>() {
@@ -215,15 +275,14 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                         dcfpSetUpList.add(new DcfpEntrySetUpList(
                                 dcfpSetUpData.get(i).getSlno(),
                                 dcfpSetUpData.get(i).getTpWeek(),
-                                dcfpSetUpData.get(i).getTpDay()));
+                                dcfpSetUpData.get(i).getTpDay(),
+                                dcfpSetUpData.get(i).getTpType()));
                     }
                     setUpDialog.dismiss();
                     dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
                     dcfpSetUpRecycler.setLayoutManager(manager);
                     dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);
-                    //dcfpSetUpRecycler.addItemDecoration(new DividerItemDecoration(MPODcfpEntryActivity.this, DividerItemDecoration.VERTICAL));
-                    //Log.d("company List", companyDatalist.get(0).getComDesc());
                 } else {
                     setUpDialog.dismiss();
                     Toast.makeText(MPODcfpEntryActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
@@ -240,6 +299,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
 
     @Override
     public void onClick(int position, ArrayList<DcfpEntrySetUpList> model) {
-
+        selectedItemList = model;
     }
 }

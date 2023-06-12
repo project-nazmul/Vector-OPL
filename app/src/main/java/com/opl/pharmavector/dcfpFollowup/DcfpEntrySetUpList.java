@@ -15,9 +15,20 @@ public class DcfpEntrySetUpList {
     @SerializedName("TP_DAY")
     @Expose
     private String tpDay;
+    @SerializedName("TP_TYPE")
+    @Expose
+    private String tpType;
     public int checkedId = -1;
     public boolean isAnswered;
     public String shiftType;
+
+    public String getTpType() {
+        return tpType;
+    }
+
+    public void setTpType(String tpType) {
+        this.tpType = tpType;
+    }
 
     public String getShiftType() {
         return shiftType;
@@ -43,10 +54,11 @@ public class DcfpEntrySetUpList {
         this.checkedId = checkedId;
     }
 
-    public DcfpEntrySetUpList(String slno, String tpWeek, String tpDay) {
+    public DcfpEntrySetUpList(String slno, String tpWeek, String tpDay, String tpType) {
         this.slno = slno;
         this.tpWeek = tpWeek;
         this.tpDay = tpDay;
+        this.tpType = tpType;
     }
 
     public String getSlno() {
@@ -73,13 +85,15 @@ public class DcfpEntrySetUpList {
         this.tpDay = tpDay;
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "DcfpEntrySetUpList{" +
                 "slno='" + slno + '\'' +
                 ", tpWeek='" + tpWeek + '\'' +
                 ", tpDay='" + tpDay + '\'' +
+                ", tpType='" + tpType + '\'' +
+                ", checkedId=" + checkedId +
+                ", isAnswered=" + isAnswered +
                 ", shiftType='" + shiftType + '\'' +
                 '}';
     }

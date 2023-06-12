@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -254,11 +255,13 @@ public interface ApiInterface {
     @POST("dcfp/get_doctor.php")
     Call<DcfpEntryDoctorModel> getDcfpEntryDoctorList(@Field("id") String id);
 
-    @GET("dcfp/get_dcfp_setup.php")
-    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList();
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("dcfp/get_dcfp_setup.php")
+    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList(@Field("DOC_CODE") String doc_code);
 
-//    @POST("dcfp/submit_dcfp.php")
-//    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList();
+    //@POST("dcfp/submit_dcfp.php")
+    //Call<DcfpEntrySetUpModel> getDcfpEntryListSubmit(@Body );
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
