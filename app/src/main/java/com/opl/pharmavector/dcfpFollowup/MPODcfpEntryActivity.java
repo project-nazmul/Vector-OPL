@@ -7,14 +7,12 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -24,15 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.order_online.ProductListAdapter2;
-import com.opl.pharmavector.order_online.ProductOrdernew;
-import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -45,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +47,8 @@ import retrofit2.Callback;
 public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdapter.ItemClickListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    TextView tvfromdate, tvtodate;
-    Button backBtn, submitBtn, doctorListBtn;
+    TextView tvfromdate, tvtodate, entryCounter;
+    Button backBtn, submitBtn, showBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
     String current_todate, current_fromdate, ff_code, toDate, fromDate;
@@ -88,7 +83,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                 finish();
             }
         });
-        doctorListBtn.setOnClickListener(v -> {
+        showBtn.setOnClickListener(v -> {
             if (!selectedDocName.isEmpty()) {
                 dcfpSetUpListInfo();
             } else {
@@ -111,7 +106,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
         submitBtn.setText("\uf1d8"); // &#xf1d8
-        doctorListBtn = findViewById(R.id.doctorListBtn);
+        showBtn = findViewById(R.id.showBtn);
+        entryCounter = findViewById(R.id.entryCounter);
         dcfpSetUpRecycler = findViewById(R.id.recyclerSetUpList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
         toast1 = Toast.makeText(MPODcfpEntryActivity.this, "Order submit Successfully!", Toast.LENGTH_SHORT);
@@ -134,6 +130,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     public void run() {
                         JSONObject json = jsonParser.makeHttpRequest(DCFP_SUBMIT_URL, "POST", params);
                         progress.dismiss();
+                        Log.d("shiftParam", params.toString());
 
                         try {
                             success = json.getInt(TAG_SUCCESS);
@@ -146,7 +143,10 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                     dcfpSetUpListInfo();
                                 });
                             } else {
-                                toast2.show();
+                                runOnUiThread(() -> {
+                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    //entryCounter.setText("-");
+                                });
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -155,16 +155,14 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                 });
                 server.start();
             } else {
-                Toast.makeText(MPODcfpEntryActivity.this, "Dcfp Already added, please select another one!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MPODcfpEntryActivity.this, "This plan already in the List, please select another dcfp plan!", Toast.LENGTH_LONG).show();
             }
         });
         autoDoctorFFList.setOnTouchListener((v, event) -> {
             autoDoctorFFList.showDropDown();
             return false;
         });
-        autoDoctorFFList.setOnClickListener(v -> {
-
-        });
+        autoDoctorFFList.setOnClickListener(v -> {});
         autoDoctorFFList.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -208,6 +206,11 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                 selectedDocName = selectedDocInfo[0].trim();
                 selectedDocCode = selectedDocInfo[1].trim();
             }
+            if (!selectedDocName.isEmpty()) {
+                dcfpSetUpListInfo();
+            } else {
+                Toast.makeText(MPODcfpEntryActivity.this, "Please select Doctor!", Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -239,7 +242,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     populateDcfpDoctorList();
                 } else {
                     setUpDialog.dismiss();
-                    Toast.makeText(MPODcfpEntryActivity.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MPODcfpEntryActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -258,7 +261,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         setUpDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList(selectedDocCode);
+        Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList(userName, selectedDocCode);
         dcfpSetUpList.clear();
 
         call.enqueue(new Callback<DcfpEntrySetUpModel>() {
@@ -276,7 +279,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                 dcfpSetUpData.get(i).getSlno(),
                                 dcfpSetUpData.get(i).getTpWeek(),
                                 dcfpSetUpData.get(i).getTpDay(),
-                                dcfpSetUpData.get(i).getTpType()));
+                                dcfpSetUpData.get(i).getTpType(),
+                                dcfpSetUpData.get(i).getUpdStat()));
                     }
                     setUpDialog.dismiss();
                     dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
@@ -297,8 +301,13 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(int position, ArrayList<DcfpEntrySetUpList> model) {
-        selectedItemList = model;
+        List<DcfpEntrySetUpList> itemList = model.stream().distinct().collect(Collectors.toList());
+        selectedItemList = (ArrayList<DcfpEntrySetUpList>) itemList;
+        entryCounter.setText("Total Count: " + itemList.size());
+        Log.d("shiftFinal", model.toString() + model.size());
+        Log.d("shiftFinal", itemList.toString() + itemList.size());
     }
 }

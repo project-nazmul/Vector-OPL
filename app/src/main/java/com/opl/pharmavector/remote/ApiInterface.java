@@ -258,7 +258,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("dcfp/get_dcfp_setup.php")
-    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList(@Field("DOC_CODE") String doc_code);
+    Call<DcfpEntrySetUpModel> getDcfpEntrySetUpList(@Field("id") String id, @Field("DOC_CODE") String doc_code);
 
     //@POST("dcfp/submit_dcfp.php")
     //Call<DcfpEntrySetUpModel> getDcfpEntryListSubmit(@Body );

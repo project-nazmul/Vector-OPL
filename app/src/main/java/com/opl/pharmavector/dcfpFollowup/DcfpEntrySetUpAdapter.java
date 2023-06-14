@@ -1,5 +1,6 @@
 package com.opl.pharmavector.dcfpFollowup;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.opl.pharmavector.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Callback;
 
@@ -25,6 +27,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
     private Context context;
     private LayoutInflater inflater;
     public ItemClickListener itemClickListener;
+    public boolean isListAdded = false;
     ArrayList<DcfpEntrySetUpList> selectedShiftList = new ArrayList<DcfpEntrySetUpList>();
 
     public DcfpEntrySetUpAdapter(Context context, List<DcfpEntrySetUpList> entrySetUpList, ItemClickListener itemClickListener) {
@@ -46,9 +49,12 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
         holder.setSelectedShift(dcfpEntryModel, position, holder);
 
-        if (dcfpEntryModel.getTpType() != null) {
+        if (dcfpEntryModel.getUpdStat().equals("U") && !dcfpEntryModel.getTpType().equals("N")) {
+            isListAdded = true;
             selectedShiftList.add(dcfpEntryModel);
+            List<DcfpEntrySetUpList> list = selectedShiftList.stream().distinct().collect(Collectors.toList());
             Log.d("previousList1", selectedShiftList.toString());
+            Log.d("previousList2", list.toString());
         }
         holder.morningShift.setOnClickListener(v -> {
             if (selectedShiftList.size() > 0) {
@@ -65,6 +71,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
                 dcfpEntryModel.setTpType("M");
                 selectedShiftList.add(dcfpEntryModel);
             }
+            Log.d("shift1", selectedShiftList.toString());
             itemClickListener.onClick(position, selectedShiftList);
         });
         holder.eveningShift.setOnClickListener(v -> {
@@ -82,6 +89,25 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
                 dcfpEntryModel.setTpType("E");
                 selectedShiftList.add(dcfpEntryModel);
             }
+            Log.d("shift2", selectedShiftList.toString());
+            itemClickListener.onClick(position, selectedShiftList);
+        });
+        holder.noneShift.setOnClickListener(v -> {
+            if (selectedShiftList.size() > 0) {
+                for (int i = 0; i < selectedShiftList.size(); i++) {
+                    if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
+                        dcfpEntryModel.setTpType("N");
+                        selectedShiftList.remove(dcfpEntryModel);
+                    } else if (!selectedShiftList.contains(dcfpEntryModel)) {
+                        dcfpEntryModel.setTpType("N");
+                        selectedShiftList.remove(dcfpEntryModel);
+                    }
+                }
+            } else {
+                dcfpEntryModel.setTpType("N");
+                //selectedShiftList.add(dcfpEntryModel);
+            }
+            Log.d("shift3", selectedShiftList.toString());
             itemClickListener.onClick(position, selectedShiftList);
         });
     }
@@ -98,7 +124,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
     public class DcfpSetUpViewHolder extends RecyclerView.ViewHolder {
         public TextView tp_week, tp_day, t_type;
         public RadioGroup selectedShift;
-        public RadioButton morningShift, eveningShift;
+        public RadioButton morningShift, eveningShift, noneShift;
 
         public DcfpSetUpViewHolder(View view) {
             super(view);
@@ -107,14 +133,22 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
             selectedShift = view.findViewById(R.id.radioGroupShift);
             morningShift = view.findViewById(R.id.radioBtnMorning);
             eveningShift = view.findViewById(R.id.radioBtnEvening);
+            noneShift = view.findViewById(R.id.radioBtnNone);
         }
 
         public void setSelectedShift(DcfpEntrySetUpList dcfpEntryModel, int position, DcfpSetUpViewHolder holder) {
             if (dcfpEntryModel.getTpType() != null) {
-                if (dcfpEntryModel.getTpType().equals("M")) {
-                    holder.morningShift.setChecked(true);
-                } else if (dcfpEntryModel.getTpType().equals("E")) {
-                    holder.eveningShift.setChecked(true);
+                selectedShift.setTag(position);
+                switch (dcfpEntryModel.getTpType()) {
+                    case "M":
+                        holder.morningShift.setChecked(true);
+                        break;
+                    case "E":
+                        holder.eveningShift.setChecked(true);
+                        break;
+                    case "N":
+                        holder.noneShift.setChecked(true);
+                        break;
                 }
             } else {
                 selectedShift.setTag(position);
