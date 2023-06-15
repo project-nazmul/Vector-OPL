@@ -4,9 +4,12 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,8 +28,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -48,7 +53,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     TextView tvfromdate, tvtodate, entryCounter;
-    Button backBtn, submitBtn, showBtn;
+    Button backBtn, submitBtn, showBtn, deleteBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
     String current_todate, current_fromdate, ff_code, toDate, fromDate;
@@ -68,7 +73,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
     private ArrayList<DcfpEntryDoctorList> dcfpDoctorList = new ArrayList<>();
     private ArrayList<DcfpEntrySetUpList> selectedItemList = new ArrayList<>();
     private DcfpEntrySetUpAdapter dcfpEntrySetUpAdapter;
-    public static String DCFP_SUBMIT_URL = BASE_URL+"dcfp/submit_dcfp.php";
+    public static String DCFP_SUBMIT_URL = BASE_URL + "dcfp/submit_dcfp.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,19 +112,67 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         submitBtn.setTypeface(fontFamily);
         submitBtn.setText("\uf1d8"); // &#xf1d8
         showBtn = findViewById(R.id.showBtn);
+        deleteBtn = findViewById(R.id.deleteBtn);
         entryCounter = findViewById(R.id.entryCounter);
         dcfpSetUpRecycler = findViewById(R.id.recyclerSetUpList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
         toast1 = Toast.makeText(MPODcfpEntryActivity.this, "Order submit Successfully!", Toast.LENGTH_SHORT);
         toast2 = Toast.makeText(MPODcfpEntryActivity.this, "Error, please try again!", Toast.LENGTH_SHORT);
 
+        deleteBtn.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MPODcfpEntryActivity.this, R.style.Theme_Design_BottomSheetDialog);
+            builder.setTitle("DCFP Plan Reschedule").setMessage("Are you sure you want to delete entire dcfp plan. Press Confirm to proceed?")
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            params.add(new BasicNameValuePair("id", userName));
+                            params.add(new BasicNameValuePair("TOTAL_REC", "0"));
+                            params.add(new BasicNameValuePair("DOC_CODE", selectedDocCode));
+
+                            final ProgressDialog progress = ProgressDialog.show(MPODcfpEntryActivity.this, "Deleting Data", "Please Wait..", true);
+                            Thread server = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    JSONObject json = jsonParser.makeHttpRequest(DCFP_SUBMIT_URL, "POST", params);
+                                    progress.dismiss();
+                                    Log.d("shiftDelete", params.toString());
+
+                                    try {
+                                        success = json.getInt(TAG_SUCCESS);
+                                        message = json.getString(TAG_MESSAGE);
+
+                                        if (success == 1) {
+                                            selectedItemList.clear();
+                                            runOnUiThread(() -> {
+                                                Toast.makeText(MPODcfpEntryActivity.this, "DCFP Plan Delete Successfully!", Toast.LENGTH_SHORT).show();
+                                                dcfpSetUpListInfo();
+                                            });
+                                        } else {
+                                            runOnUiThread(() -> {
+                                                Toast.makeText(MPODcfpEntryActivity.this, "Something Wrong, Please Try Again!", Toast.LENGTH_SHORT).show();
+                                            });
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            server.start();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {}
+                    })
+                    .show();
+        });
         submitBtn.setOnClickListener(v -> {
             if (selectedItemList.size() > 0) {
                 for (int i = 0; i < selectedItemList.size(); i++) {
-                        params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i+1), selectedItemList.get(i).getTpWeek()));
-                        params.add(new BasicNameValuePair("TP_DAY" + String.valueOf(i+1), selectedItemList.get(i).getTpDay()));
-                        params.add(new BasicNameValuePair("TP_TYPE" + String.valueOf(i+1), selectedItemList.get(i).getTpType()));
-                    }
+                    params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i + 1), selectedItemList.get(i).getTpWeek()));
+                    params.add(new BasicNameValuePair("TP_DAY" + String.valueOf(i + 1), selectedItemList.get(i).getTpDay()));
+                    params.add(new BasicNameValuePair("TP_TYPE" + String.valueOf(i + 1), selectedItemList.get(i).getTpType()));
+                }
                 params.add(new BasicNameValuePair("id", userName));
                 params.add(new BasicNameValuePair("TOTAL_REC", String.valueOf(selectedItemList.size())));
                 params.add(new BasicNameValuePair("DOC_CODE", selectedDocCode));
@@ -162,7 +215,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
             autoDoctorFFList.showDropDown();
             return false;
         });
-        autoDoctorFFList.setOnClickListener(v -> {});
+        autoDoctorFFList.setOnClickListener(v -> {
+        });
         autoDoctorFFList.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
