@@ -9,7 +9,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,10 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -43,7 +40,9 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -72,8 +71,11 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
     private ArrayList<DcfpEntrySetUpList> dcfpSetUpList = new ArrayList<>();
     private ArrayList<DcfpEntryDoctorList> dcfpDoctorList = new ArrayList<>();
     private ArrayList<DcfpEntrySetUpList> selectedItemList = new ArrayList<>();
+    private ArrayList<DcfpEntrySetUpList> previousItemList = new ArrayList<>();
+    List<DcfpEntrySetUpList> emptyList = Collections.<DcfpEntrySetUpList>emptyList();
     private DcfpEntrySetUpAdapter dcfpEntrySetUpAdapter;
     public static String DCFP_SUBMIT_URL = BASE_URL + "dcfp/submit_dcfp.php";
+    public static String DCFP_DELETE_URL = BASE_URL + "dcfp/submit_delete_dcfp.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                             Thread server = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    JSONObject json = jsonParser.makeHttpRequest(DCFP_SUBMIT_URL, "POST", params);
+                                    JSONObject json = jsonParser.makeHttpRequest(DCFP_DELETE_URL, "POST", params);
                                     progress.dismiss();
                                     Log.d("shiftDelete", params.toString());
 
@@ -144,7 +146,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                         if (success == 1) {
                                             selectedItemList.clear();
                                             runOnUiThread(() -> {
-                                                Toast.makeText(MPODcfpEntryActivity.this, "DCFP Plan Delete Successfully!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
                                                 dcfpSetUpListInfo();
                                             });
                                         } else {
@@ -167,6 +169,9 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     .show();
         });
         submitBtn.setOnClickListener(v -> {
+            if (previousItemList.size() > 0) {
+                selectedItemList.addAll(previousItemList);
+            }
             if (selectedItemList.size() > 0) {
                 for (int i = 0; i < selectedItemList.size(); i++) {
                     params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i + 1), selectedItemList.get(i).getTpWeek()));
@@ -190,10 +195,12 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                             message = json.getString(TAG_MESSAGE);
 
                             if (success == 1) {
+                                previousItemList.clear();
                                 selectedItemList.clear();
                                 runOnUiThread(() -> {
                                     Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
-                                    dcfpSetUpListInfo();
+                                    autoDoctorFFList.setText("");
+                                    dcfpSetUpEmptyList(emptyList);
                                 });
                             } else {
                                 runOnUiThread(() -> {
@@ -261,6 +268,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                 selectedDocCode = selectedDocInfo[1].trim();
             }
             if (!selectedDocName.isEmpty()) {
+                autoDoctorFFList.setText(selectedDocName);
                 dcfpSetUpListInfo();
             } else {
                 Toast.makeText(MPODcfpEntryActivity.this, "Please select Doctor!", Toast.LENGTH_LONG).show();
@@ -317,6 +325,62 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList(userName, selectedDocCode);
         dcfpSetUpList.clear();
+        previousItemList.clear();
+
+        call.enqueue(new Callback<DcfpEntrySetUpModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<DcfpEntrySetUpModel> call, @NonNull retrofit2.Response<DcfpEntrySetUpModel> response) {
+                List<DcfpEntrySetUpList> dcfpSetUpData = null;
+                if (response.body() != null) {
+                    dcfpSetUpData = response.body().getSetUpLists();
+                }
+                if (Objects.requireNonNull(dcfpSetUpData).size() > 0) {
+                    for (DcfpEntrySetUpList item : dcfpSetUpData) {
+                        if (item.getUpdStat().equals("U") && !item.getTpType().equals("N")) {
+                            previousItemList.add(item);
+                        }
+                    }
+                }
+                Log.d("prevData", previousItemList.toString());
+
+                if (response.isSuccessful()) {
+                    for (int i = 0; i < dcfpSetUpData.size(); i++) {
+                        dcfpSetUpList.add(new DcfpEntrySetUpList(
+                                dcfpSetUpData.get(i).getSlno(),
+                                dcfpSetUpData.get(i).getTpWeek(),
+                                dcfpSetUpData.get(i).getTpDay(),
+                                dcfpSetUpData.get(i).getTpType(),
+                                dcfpSetUpData.get(i).getUpdStat()));
+                    }
+                    setUpDialog.dismiss();
+                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
+                    dcfpSetUpRecycler.setLayoutManager(manager);
+                    dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);
+                } else {
+                    setUpDialog.dismiss();
+                    Toast.makeText(MPODcfpEntryActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DcfpEntrySetUpModel> call, @NonNull Throwable t) {
+                setUpDialog.dismiss();
+                dcfpDoctorListInfo();
+            }
+        });
+    }
+
+    public void dcfpSetUpEmptyList(List<DcfpEntrySetUpList> emptyList) {
+        setUpDialog = new ProgressDialog(MPODcfpEntryActivity.this);
+        setUpDialog.setMessage("Dcfp Entry List Loading...");
+        setUpDialog.setTitle("Dcfp Entry List Followup");
+        setUpDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcfpEntrySetUpModel> call = apiInterface.getDcfpEntrySetUpList(userName, selectedDocCode);
+        dcfpSetUpList.clear();
 
         call.enqueue(new Callback<DcfpEntrySetUpModel>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -337,7 +401,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                 dcfpSetUpData.get(i).getUpdStat()));
                     }
                     setUpDialog.dismiss();
-                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
+                    dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, emptyList, MPODcfpEntryActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpEntryActivity.this);
                     dcfpSetUpRecycler.setLayoutManager(manager);
                     dcfpSetUpRecycler.setAdapter(dcfpEntrySetUpAdapter);

@@ -49,13 +49,12 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
         holder.setSelectedShift(dcfpEntryModel, position, holder);
 
-        if (dcfpEntryModel.getUpdStat().equals("U") && !dcfpEntryModel.getTpType().equals("N")) {
-            isListAdded = true;
-            selectedShiftList.add(dcfpEntryModel);
-            List<DcfpEntrySetUpList> list = selectedShiftList.stream().distinct().collect(Collectors.toList());
-            Log.d("previousList1", selectedShiftList.toString());
-            Log.d("previousList2", list.toString());
-        }
+//        if (dcfpEntryModel.getUpdStat().equals("U") && !dcfpEntryModel.getTpType().equals("N")) {
+//            isListAdded = true;
+//            selectedShiftList.add(dcfpEntryModel);
+//            List<DcfpEntrySetUpList> list = selectedShiftList.stream().distinct().collect(Collectors.toList());
+//            Log.d("saveData", selectedShiftList.toString());
+//        }
         holder.morningShift.setOnClickListener(v -> {
             if (selectedShiftList.size() > 0) {
                 for (int i = 0; i < selectedShiftList.size(); i++) {
