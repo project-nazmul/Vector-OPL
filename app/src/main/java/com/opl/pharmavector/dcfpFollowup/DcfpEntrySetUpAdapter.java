@@ -96,15 +96,17 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
                 for (int i = 0; i < selectedShiftList.size(); i++) {
                     if (selectedShiftList.get(i).getTpWeek().equals(dcfpEntryModel.getTpWeek()) && selectedShiftList.get(i).getTpDay().equals(dcfpEntryModel.getTpDay())) {
                         dcfpEntryModel.setTpType("N");
-                        selectedShiftList.remove(dcfpEntryModel);
+                        //selectedShiftList.remove(dcfpEntryModel);
+                        selectedShiftList.set(i, dcfpEntryModel);
                     } else if (!selectedShiftList.contains(dcfpEntryModel)) {
                         dcfpEntryModel.setTpType("N");
-                        selectedShiftList.remove(dcfpEntryModel);
+                        //selectedShiftList.remove(dcfpEntryModel);
+                        selectedShiftList.add(dcfpEntryModel);
                     }
                 }
             } else {
                 dcfpEntryModel.setTpType("N");
-                //selectedShiftList.add(dcfpEntryModel);
+                selectedShiftList.add(dcfpEntryModel);
             }
             Log.d("shift3", selectedShiftList.toString());
             itemClickListener.onClick(position, selectedShiftList);

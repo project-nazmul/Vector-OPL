@@ -118,8 +118,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         entryCounter = findViewById(R.id.entryCounter);
         dcfpSetUpRecycler = findViewById(R.id.recyclerSetUpList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
-        toast1 = Toast.makeText(MPODcfpEntryActivity.this, "Order submit Successfully!", Toast.LENGTH_SHORT);
-        toast2 = Toast.makeText(MPODcfpEntryActivity.this, "Error, please try again!", Toast.LENGTH_SHORT);
+        toast1 = Toast.makeText(MPODcfpEntryActivity.this, "Order submit Successfully!", Toast.LENGTH_LONG);
+        toast2 = Toast.makeText(MPODcfpEntryActivity.this, "Error, please try again!", Toast.LENGTH_LONG);
 
         deleteBtn.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MPODcfpEntryActivity.this, R.style.Theme_Design_BottomSheetDialog);
@@ -146,12 +146,12 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                         if (success == 1) {
                                             selectedItemList.clear();
                                             runOnUiThread(() -> {
-                                                Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_LONG).show();
                                                 dcfpSetUpListInfo();
                                             });
                                         } else {
                                             runOnUiThread(() -> {
-                                                Toast.makeText(MPODcfpEntryActivity.this, "Something Wrong, Please Try Again!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MPODcfpEntryActivity.this, "Something Wrong, Please Try Again!", Toast.LENGTH_LONG).show();
                                             });
                                         }
                                     } catch (JSONException e) {
@@ -169,17 +169,34 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     .show();
         });
         submitBtn.setOnClickListener(v -> {
+            Log.d("test11", selectedItemList.toString());
+            Log.d("test12", previousItemList.toString());
+
             if (previousItemList.size() > 0) {
+                for (int i = 0; i < previousItemList.size(); i++) {
+                    for (int j = 0; j < selectedItemList.size(); j++) {
+                        if (previousItemList.get(i).getTpWeek().equals(selectedItemList.get(j).getTpWeek()) &&
+                                previousItemList.get(i).getTpDay().equals(selectedItemList.get(j).getTpDay())) {
+                            previousItemList.set(i, selectedItemList.get(j));
+                        }
+                    }
+                }
+                Log.d("test1", previousItemList.toString());
                 selectedItemList.addAll(previousItemList);
+                Log.d("test2", selectedItemList.toString());
             }
-            if (selectedItemList.size() > 0) {
-                for (int i = 0; i < selectedItemList.size(); i++) {
-                    params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i + 1), selectedItemList.get(i).getTpWeek()));
-                    params.add(new BasicNameValuePair("TP_DAY" + String.valueOf(i + 1), selectedItemList.get(i).getTpDay()));
-                    params.add(new BasicNameValuePair("TP_TYPE" + String.valueOf(i + 1), selectedItemList.get(i).getTpType()));
+            selectedItemList.removeIf(item -> item.getTpType().equals("N"));
+            Log.d("test3", previousItemList.toString());
+            List<DcfpEntrySetUpList> itemList = selectedItemList.stream().distinct().collect(Collectors.toList());
+            Log.d("test4", itemList.toString());
+            if (itemList.size() > 0) {
+                for (int i = 0; i < itemList.size(); i++) {
+                    params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i + 1), itemList.get(i).getTpWeek()));
+                    params.add(new BasicNameValuePair("TP_DAY" + String.valueOf(i + 1), itemList.get(i).getTpDay()));
+                    params.add(new BasicNameValuePair("TP_TYPE" + String.valueOf(i + 1), itemList.get(i).getTpType()));
                 }
                 params.add(new BasicNameValuePair("id", userName));
-                params.add(new BasicNameValuePair("TOTAL_REC", String.valueOf(selectedItemList.size())));
+                params.add(new BasicNameValuePair("TOTAL_REC", String.valueOf(itemList.size())));
                 params.add(new BasicNameValuePair("DOC_CODE", selectedDocCode));
 
                 final ProgressDialog progress = ProgressDialog.show(this, "Submit Data", "Please Wait..", true);
@@ -195,17 +212,17 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                             message = json.getString(TAG_MESSAGE);
 
                             if (success == 1) {
+                                itemList.clear();
                                 previousItemList.clear();
                                 selectedItemList.clear();
                                 runOnUiThread(() -> {
-                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_LONG).show();
                                     autoDoctorFFList.setText("");
                                     dcfpSetUpEmptyList(emptyList);
                                 });
                             } else {
                                 runOnUiThread(() -> {
-                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_SHORT).show();
-                                    //entryCounter.setText("-");
+                                    Toast.makeText(MPODcfpEntryActivity.this, message, Toast.LENGTH_LONG).show();
                                 });
                             }
                         } catch (JSONException e) {
@@ -328,7 +345,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         previousItemList.clear();
 
         call.enqueue(new Callback<DcfpEntrySetUpModel>() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onResponse(@NonNull Call<DcfpEntrySetUpModel> call, @NonNull retrofit2.Response<DcfpEntrySetUpModel> response) {
                 List<DcfpEntrySetUpList> dcfpSetUpData = null;
@@ -342,7 +359,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                         }
                     }
                 }
-                Log.d("prevData", previousItemList.toString());
+                entryCounter.setText("Total Count: " + String.valueOf(previousItemList.size()));
 
                 if (response.isSuccessful()) {
                     for (int i = 0; i < dcfpSetUpData.size(); i++) {
@@ -424,8 +441,20 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
     public void onClick(int position, ArrayList<DcfpEntrySetUpList> model) {
         List<DcfpEntrySetUpList> itemList = model.stream().distinct().collect(Collectors.toList());
         selectedItemList = (ArrayList<DcfpEntrySetUpList>) itemList;
-        entryCounter.setText("Total Count: " + itemList.size());
-        Log.d("shiftFinal", model.toString() + model.size());
-        Log.d("shiftFinal", itemList.toString() + itemList.size());
+
+        if (previousItemList.size() > 0) {
+            for (int i = 0; i < previousItemList.size(); i++) {
+                for (int j = 0; j < selectedItemList.size(); j++) {
+                    if (previousItemList.get(i).getTpWeek().equals(selectedItemList.get(j).getTpWeek()) &&
+                            previousItemList.get(i).getTpDay().equals(selectedItemList.get(j).getTpDay())) {
+                        previousItemList.set(i, selectedItemList.get(j));
+                    }
+                }
+            }
+            selectedItemList.addAll(previousItemList);
+        }
+        selectedItemList.removeIf(item -> item.getTpType().equals("N"));
+        List<DcfpEntrySetUpList> itemCountList = selectedItemList.stream().distinct().collect(Collectors.toList());
+        entryCounter.setText("Total Count: " + String.valueOf(itemCountList.size()));
     }
 }

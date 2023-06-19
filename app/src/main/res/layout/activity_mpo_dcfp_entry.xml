@@ -212,12 +212,12 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="center"
-            android:paddingTop="@dimen/_6sdp"
+            android:paddingTop="@dimen/_8sdp"
             android:paddingBottom="@dimen/_6sdp"
             android:text=""
             android:textStyle="bold"
             android:textColor="@color/base"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_14sdp" />
 
         <Button
             app:layout_constraintEnd_toEndOf="parent"
