@@ -60,8 +60,8 @@ public class NotificationUtils {
                         mContext,
                         0,
                         intent,
-                        PendingIntent.FLAG_IMMUTABLE
-                        //PendingIntent.FLAG_CANCEL_CURRENT
+                        //PendingIntent.FLAG_IMMUTABLE
+                        PendingIntent.FLAG_CANCEL_CURRENT
                 );
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
         final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + "/raw/notification");
@@ -97,7 +97,7 @@ public class NotificationUtils {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                .setStyle(inboxStyle)
+                //.setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.vector_launch)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
@@ -127,8 +127,8 @@ public class NotificationUtils {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                .setStyle(bigPictureStyle)
-                 //.setWhen(getTimeMilliSec(timeStamp))
+                //.setStyle(bigPictureStyle)
+                //.setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.vector_launch)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)

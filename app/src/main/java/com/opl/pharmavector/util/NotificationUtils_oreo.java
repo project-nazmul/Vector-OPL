@@ -59,6 +59,7 @@ public class NotificationUtils_oreo {
                         mContext,
                         0,
                         intent,
+                        //PendingIntent.FLAG_IMMUTABLE
                         PendingIntent.FLAG_CANCEL_CURRENT
                 );
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
@@ -88,7 +89,7 @@ public class NotificationUtils_oreo {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                .setStyle(inboxStyle)
+                //.setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
@@ -109,7 +110,7 @@ public class NotificationUtils_oreo {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                .setStyle(bigPictureStyle)
+                //.setStyle(bigPictureStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
