@@ -1,18 +1,16 @@
 package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
-
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -36,14 +34,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
 import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
 import com.github.tutorialsandroid.appxupdater.enums.AppUpdaterError;
@@ -77,7 +75,6 @@ import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
 import com.opl.pharmavector.util.ResetPasswordDialog;
-
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -126,6 +123,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
 
+//        String[] notiPermission = { Manifest.permission.PostNotifications };
+//        if ((int) Build.VERSION.SdkInt < 33) return;
+//        if (this.CheckSelfPermission(Manifest.Permission.PostNotifications) != Permission.Granted) {
+//            this.RequestPermissions(notiPermission, requestLocationId);
+//        }
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);

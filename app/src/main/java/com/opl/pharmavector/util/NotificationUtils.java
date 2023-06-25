@@ -1,11 +1,11 @@
 package com.opl.pharmavector.util;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,13 @@ import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
+
 import androidx.core.app.NotificationCompat;
 
+import android.os.Build;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,9 +33,6 @@ import java.util.List;
 import java.util.Locale;
 
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.app.Config;
-
-import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class NotificationUtils {
     private static String TAG = NotificationUtils.class.getSimpleName();
@@ -49,25 +46,33 @@ public class NotificationUtils {
         showNotificationMessage(title, message, timeStamp, intent, null);
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     public void showNotificationMessage(final String title, final String message, final String timeStamp, Intent intent, String imageUrl) {
+        PendingIntent resultPendingIntent;
         if (TextUtils.isEmpty(message))
             return;
 
         final int icon = R.mipmap.ic_launcher;
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        final PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        mContext,
-                        0,
-                        intent,
-                        //PendingIntent.FLAG_IMMUTABLE
-                        PendingIntent.FLAG_CANCEL_CURRENT
-                );
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            resultPendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            resultPendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+//        final PendingIntent resultPendingIntent =
+//                PendingIntent.getActivity(
+//                        mContext,
+//                        0,
+//                        intent,
+//                        //PendingIntent.FLAG_IMMUTABLE
+//                        PendingIntent.FLAG_CANCEL_CURRENT
+//                );
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
         final Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + mContext.getPackageName() + "/raw/notification");
 
         if (!TextUtils.isEmpty(imageUrl)) {
-            if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
+            if (imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
                 Bitmap bitmap = getBitmapFromURL(imageUrl);
                 if (bitmap != null) {
                     showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
@@ -88,7 +93,7 @@ public class NotificationUtils {
         NotificationManager notificationManager;
 
         int notifyID = 1;
-        String CHANNEL_ID = "my_channel_01"; // The id of the channel.
+        String CHANNEL_ID = "my_channel_01";
         int importance = NotificationManager.IMPORTANCE_HIGH;
 
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Vector", importance);
@@ -97,7 +102,7 @@ public class NotificationUtils {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                //.setStyle(inboxStyle)
+                .setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.vector_launch)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
@@ -106,7 +111,7 @@ public class NotificationUtils {
                 .build();
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
-        ShortcutBadger.applyNotification(mContext, notification, 1);
+        //ShortcutBadger.applyNotification(mContext, notification, 1);
         notificationManager.notify(notifyID , notification);
     }
 
@@ -127,7 +132,7 @@ public class NotificationUtils {
                 .setContentTitle(title)
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
-                //.setStyle(bigPictureStyle)
+                .setStyle(bigPictureStyle)
                 //.setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.vector_launch)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
@@ -136,7 +141,7 @@ public class NotificationUtils {
                 .build();
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
-        ShortcutBadger.applyNotification(mContext, notification, 1);
+        //ShortcutBadger.applyNotification(mContext, notification, 1);
         notificationManager.notify(notifyID , notification);
     }
 
@@ -181,7 +186,7 @@ public class NotificationUtils {
                 }
             }
         }
-        return isInBackground;
+        return !isInBackground;
     }
 
     public static void clearNotifications(Context context) {

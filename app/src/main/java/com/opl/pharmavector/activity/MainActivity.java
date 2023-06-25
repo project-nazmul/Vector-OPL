@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,31 +29,26 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.util.NotificationUtils;
 
-
-
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
     public static String newToken;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_notification);
+
         txtRegId = (TextView) findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) findViewById(R.id.txt_push_message);
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( MainActivity.this,  new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 newToken = instanceIdResult.getToken();
-
-
             }
         });
-
 
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -68,25 +62,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 // checking for type intent filter
                 if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
                     FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
-
-
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     String message = intent.getStringExtra("message");
                     txtMessage.setText(message);
                 }
             }
         };
-
-
-
 
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
@@ -96,13 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         },1);
-
-
     }
-
-
-
-
 
     @Override
     protected void onResume() {
@@ -110,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
         NotificationUtils.clearNotifications(getApplicationContext());
-
-
     }
 
     @Override

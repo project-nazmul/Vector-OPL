@@ -2,6 +2,7 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -59,8 +61,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
@@ -74,7 +81,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GMDashboard1 extends Activity implements View.OnClickListener {
+public class GMDashboard1 extends AppCompatActivity implements View.OnClickListener { // Activity -> (AppCompatActivity) replaced by me
     public String userName_1, userName, userName_2, UserName_2, user, sm_code, gm_code,global_admin_Code,global_admin_name,global_admin_terri;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -118,11 +125,37 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     public static String team_logo,profile_image;
     public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
     private String log_status ="A";
+    final int NOTIFICATION_PERMISSION_CODE = 101;
+
+//    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+//        Log.d("notiPermission2", result.toString());
+//        if (result) {
+//            //main activity
+//            startActivity(new Intent(GMDashboard1.this, Login.class));
+//        } else {
+//            //show error message
+//            showErrorMessage();
+//        }
+//    });
 
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);
+
+        Log.d("sdkVersion", String.valueOf(Build.VERSION.SDK_INT));
+//        if (Build.VERSION.SDK_INT > 32) {
+//            if (!shouldShowRequestPermissionRationale("101")){
+//                getNotificationPermission();
+//            }
+//        }
+        CardView cardView = findViewById(R.id.cardView2);
+        cardView.setOnClickListener(v -> {
+            //if (Build.VERSION.SDK_INT >= 33) {
+                askForNotificationPermission();
+            Log.d("notiPermission1", "clicked!");
+            //}
+        });
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -140,8 +173,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(com.opl.pharmavector.app.Config.REGISTRATION_COMPLETE)) {
-                    FirebaseMessaging.getInstance().subscribeToTopic(com.opl.pharmavector.app.Config.TOPIC_GLOBAL);
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     String message = intent.getStringExtra("message");
                 }
@@ -182,6 +215,26 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
         });
         btn_vector_feedback.setOnClickListener(v -> FeedbackshowSnack());
         autoLogout();
+    }
+
+    public void getNotificationPermission(){
+        try {
+            if (Build.VERSION.SDK_INT > 32) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_CODE);
+            }
+        } catch (Exception e){
+
+        }
+    }
+    private void showErrorMessage() {
+        Toast.makeText(this, "Permission is not granted", Toast.LENGTH_SHORT).show();
+    }
+    @SuppressLint("SupportAnnotationUsage")
+    private void askForNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33) {
+            //requestLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+        }
     }
 
     private void autoLogout() {
@@ -1207,14 +1260,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Permission granted.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show();
-                }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission granted.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permission denied.", Toast.LENGTH_SHORT).show();
             }
         }
     }

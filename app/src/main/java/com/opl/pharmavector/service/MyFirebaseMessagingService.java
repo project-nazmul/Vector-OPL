@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -37,10 +39,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             final String title = jsonObject.getString("title");
             final String description = jsonObject.getString("description");
             final String image = jsonObject.getString("imageUrl"); */
-        if (remoteMessage.getNotification() == null) {
-            remoteMessage.getData();
-        }
-        handleNotification(remoteMessage.getNotification().getBody());
+        Log.d("fbMessage", remoteMessage.toString());
+//        if (remoteMessage.getNotification() == null) {
+//            remoteMessage.getData();
+//        }
+//        handleNotification(remoteMessage.getNotification().getBody());
 
         if (remoteMessage.getNotification() != null) {
             handleNotification(remoteMessage.getNotification().getBody());
@@ -56,14 +59,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    public void onNewToken(String s) {
+    public void onNewToken(@NonNull String s) {
         sendRegistrationToServer(s);
     }
 
     private void sendRegistrationToServer(String s) {}
 
     private void handleNotification(String message) {
-        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+        if (NotificationUtils.isAppIsInBackground(getApplicationContext())) {
             //app is in foreground, broadcast the push message
             Intent pushNotification = new Intent(Config.PUSH_NOTIFICATION);
             pushNotification.putExtra("message", message);
@@ -88,7 +91,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             resultIntent.putExtra("article_data", message);
             resultIntent.putExtra("image", imageUrl);
 
-            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+            if (NotificationUtils.isAppIsInBackground(getApplicationContext())) {
                 resultIntent.putExtra("message", message);
 
                 if (TextUtils.isEmpty(imageUrl)) {
