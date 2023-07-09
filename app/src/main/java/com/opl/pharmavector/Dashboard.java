@@ -207,7 +207,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         doctorGiftEvent();
         vectorFeedback();
         getDevicedetails();
-        firebaseEvent();
         msdDocSupport();
         pmdContact();
         doctorListInfo();
@@ -222,7 +221,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
         vector_version = pkgInfo.versionName;
-
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
@@ -253,8 +251,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         .show();
             }
         });
-
         instance = this;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
@@ -296,8 +294,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
         customerlist = new ArrayList<>();
         //vector_version = getString(R.string.vector_version);
         Log.e("vector_version---->", vector_version);
+
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
+        firebaseEvent();
         autoLogout();
         TeamLogo();
         userLogIn();
@@ -1174,7 +1174,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         practiceCard4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1470,7 +1469,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
-
         img_btn_salereports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -1747,7 +1745,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
                                             Intent logoutIntent = new Intent(Dashboard.this, Login.class);
                                             startActivity(logoutIntent);
                                             finish();
-
                                         }
                                     })
                                     .show();
@@ -1766,18 +1763,20 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add);
+        //Log.d("tokenApi->", vectorToken);
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
                 assert response.body() != null;
                 int success = response.body().getSuccess();
                 String message = response.body().getMassage();
-                Log.e("mpoLocationUpdate->", message + "===>" + Dashboard.track_lat + "-----" + Dashboard.track_lang);
+                Log.d("mpoLocationUpdate->", message + "===>" + vectorToken);
             }
 
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
-
+                Log.d("tokenError", "error called! " + t);
             }
         });
     }
@@ -1804,6 +1803,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         updateUIReciver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.d("broadcast1", "called!");
                 String parselang = intent.getStringExtra("langtitude");
                 String parselat = intent.getStringExtra("latitude");
                 fetchedlang = Double.parseDouble(parselang);
@@ -1819,7 +1819,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private PendingIntent getPendingIntent() {
         Intent myIntent = new Intent(this, MyLocationService.class);
         myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
-        return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_IMMUTABLE);
+        return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
 
     private void buildLocationRequest() {
@@ -1856,7 +1856,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private void firebaseEvent() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Dashboard.this, instanceIdResult -> {
             vectorToken = instanceIdResult.getToken();
-            Log.e("vectorToken-->", vectorToken);
+            Log.d("vectorToken-->", vectorToken);
+
+            if (vectorToken != null) {
+                //userLog(log_status);
+            }
         });
 
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
@@ -1921,8 +1925,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
     @Override
     protected void onResume() {

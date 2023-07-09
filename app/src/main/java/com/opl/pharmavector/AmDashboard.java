@@ -76,7 +76,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AmDashboard extends Activity implements View.OnClickListener{
+public class AmDashboard extends Activity implements View.OnClickListener {
     public String userName_1, userName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -84,7 +84,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     private ListView lv, lv2;
     private ProgressDialog pDialog;
     private AmDatabaseHandler db;
-    private String submit_url = BASE_URL+"notification/save_vector_notification_token_data_test.php";
+    private String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
     private String TAG = Offlinereport.class.getSimpleName();
     private Button logout;
     Calendar calander;
@@ -103,24 +103,24 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private int count;
     PreferenceManager preferenceManager;
-    private String log_status ="A";
-    public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type,build_model,build_brand,
-            build_manufac,build_id,build_device,build_version,password,globalempCode,globalempName,new_version, message_3,vector_version;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard4,practiceCard5,practiceCard6,
-            practiceCard7,practiceCard8,practiceCard9,cardview_pc,cardview_promomat,cardview_salereports,cardview_msd,cardview_pmd_contact,cardview_doctor_list;
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,img_btn_docgiftfeedback,
-            img_btn_notification,img_btn_rx,img_btn_personalexpense,img_btn_pc,img_btn_promomat,img_btn_salereports,img_btn_msd,img_btn_exam,img_pmd_contact,img_doctor_list;
-    TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,tv_docgiftfeedback,
-            tv_notification,tv_rx,tv_personalexpense,tv_pc,tv_promomat,tv_salereports,tv_msd,tv_exam,tv_pmd_contact,tv_doctor_list;
-    Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,
-            btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback,btn_pmd_contact,btn_doctor_list;
-    public TextView t4,t5;
-    public ImageView imageView2,logo_team;
-    public static String team_logo,profile_image;
-    public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
+    private String log_status = "A";
+    public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type, build_model, build_brand,
+            build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3, vector_version;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
+    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
+            img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
+    TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
+            tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
+    Button btn_dcr, btn_productorder, btn_dcc, btn_docservice,
+            btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
+    public TextView t4, t5;
+    public ImageView imageView2, logo_team;
+    public static String team_logo, profile_image;
+    public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
 
     @SuppressLint("CutPasteId")
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.amdashboard);
         setContentView(R.layout.activity_vector_fm_dashboard);
@@ -129,11 +129,12 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         initViews();
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
-        global_admin_Code=preferenceManager.getAdmin_Code();
-        Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
+        global_admin_Code = preferenceManager.getAdmin_Code();
+        Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnSuccessListener(AmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(AmDashboard.this, instanceIdResult -> {
+            vectorToken = instanceIdResult.getToken();
+        });
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(task -> {
                     String msg = getString(R.string.msg_subscribed) + vectorToken;
@@ -142,7 +143,6 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                     }
                     Log.d(TAG, msg);
                 });
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -158,11 +158,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -184,11 +182,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         bar_18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
@@ -1841,12 +1837,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         bar_20.setOnClickListener(new View.OnClickListener() {
@@ -1935,35 +1928,35 @@ public class AmDashboard extends Activity implements View.OnClickListener{
 
     private void TeamLogo() {
         String team = ff_type;
-        team_logo = ApiClient.BASE_URL+"team_logo/" ;
+        team_logo = ApiClient.BASE_URL + "team_logo/";
 
         switch (team) {
             case "G":
-                String logo_image = team_logo+"d"+"."+"png";
+                String logo_image = team_logo + "d" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "T":
-                logo_image = team_logo+"t"+"."+"png";
+                logo_image = team_logo + "t" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "I":
-                logo_image = team_logo+"i"+"."+"png";
+                logo_image = team_logo + "i" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "V":
-                logo_image = team_logo+"v"+"."+"png";
+                logo_image = team_logo + "v" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
                 break;
             case "C":
-                logo_image = team_logo+"g"+"."+"png";
+                logo_image = team_logo + "g" + "." + "png";
                 Picasso.get()
                         .load(logo_image)
                         .into(logo_team);
@@ -1972,7 +1965,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     }
 
     private void autoLogout() {
-        if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")){
+        if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")) {
             log_status = "N";
             preferenceManager.clearPreferences();
             count = 0;
@@ -1988,82 +1981,82 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     }
 
     @SuppressLint("CutPasteId")
-    private void initViews(){
-        logout= findViewById(R.id.logout);
+    private void initViews() {
+        logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
-        t4= findViewById(R.id.t4);
-        t5= findViewById(R.id.t5);
+        t4 = findViewById(R.id.t4);
+        t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
-        logo_team =findViewById(R.id.logo_team);
+        logo_team = findViewById(R.id.logo_team);
 
-        btn_productorder     = findViewById(R.id.btn_productorder);
+        btn_productorder = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
-        tv_productorder      = findViewById(R.id.tv_productorder);
-        practiceCard7        = findViewById(R.id.practiceCard7);
+        tv_productorder = findViewById(R.id.tv_productorder);
+        practiceCard7 = findViewById(R.id.practiceCard7);
 
-        btn_dcr       = findViewById(R.id.btn_dcr);
-        img_btn_dcr   = findViewById(R.id.img_btn_dcr);
-        tv_dcr        = findViewById(R.id.tv_dcr);
-        cardview_dcr  = findViewById(R.id.cardview_dcr);
+        btn_dcr = findViewById(R.id.btn_dcr);
+        img_btn_dcr = findViewById(R.id.img_btn_dcr);
+        tv_dcr = findViewById(R.id.tv_dcr);
+        cardview_dcr = findViewById(R.id.cardview_dcr);
 
-        btn_dcc        = findViewById(R.id.btn_dcc);
-        img_btn_dcc    = findViewById(R.id.img_btn_dcc);
-        tv_dcc         = findViewById(R.id.tv_dcc);
-        practiceCard2  = findViewById(R.id.practiceCard2);
+        btn_dcc = findViewById(R.id.btn_dcc);
+        img_btn_dcc = findViewById(R.id.img_btn_dcc);
+        tv_dcc = findViewById(R.id.tv_dcc);
+        practiceCard2 = findViewById(R.id.practiceCard2);
 
-        btn_docservice       = findViewById(R.id.btn_docservice);
-        img_btn_docservice   = findViewById(R.id.img_btn_docservice);
-        tv_docservice        = findViewById(R.id.tv_docservice);
-        practiceCard3        = findViewById(R.id.practiceCard3);
+        btn_docservice = findViewById(R.id.btn_docservice);
+        img_btn_docservice = findViewById(R.id.img_btn_docservice);
+        tv_docservice = findViewById(R.id.tv_docservice);
+        practiceCard3 = findViewById(R.id.practiceCard3);
 
-        btn_docgiftfeedback       = findViewById(R.id.btn_docgiftfeedback);
-        img_btn_docgiftfeedback   = findViewById(R.id.img_btn_docgiftfeedback);
-        tv_docgiftfeedback        = findViewById(R.id.tv_docgiftfeedback);
-        practiceCard4             = findViewById(R.id.practiceCard4);
+        btn_docgiftfeedback = findViewById(R.id.btn_docgiftfeedback);
+        img_btn_docgiftfeedback = findViewById(R.id.img_btn_docgiftfeedback);
+        tv_docgiftfeedback = findViewById(R.id.tv_docgiftfeedback);
+        practiceCard4 = findViewById(R.id.practiceCard4);
 
-        btn_notification       = findViewById(R.id.btn_notification);
-        img_btn_notification   = findViewById(R.id.img_btn_notification);
-        tv_notification        = findViewById(R.id.tv_notification);
-        practiceCard6             = findViewById(R.id.practiceCard6);
+        btn_notification = findViewById(R.id.btn_notification);
+        img_btn_notification = findViewById(R.id.img_btn_notification);
+        tv_notification = findViewById(R.id.tv_notification);
+        practiceCard6 = findViewById(R.id.practiceCard6);
 
-        btn_rx       = findViewById(R.id.btn_rx);
-        img_btn_rx   = findViewById(R.id.img_btn_rx);
-        tv_rx        = findViewById(R.id.tv_rx);
+        btn_rx = findViewById(R.id.btn_rx);
+        img_btn_rx = findViewById(R.id.img_btn_rx);
+        tv_rx = findViewById(R.id.tv_rx);
         practiceCard8 = findViewById(R.id.practiceCard8);
 
-        btn_personalexpense       = findViewById(R.id.btn_personalexpense);
-        img_btn_personalexpense   = findViewById(R.id.img_btn_personalexpense);
-        tv_personalexpense        = findViewById(R.id.tv_personalexpense);
-        practiceCard9             = findViewById(R.id.practiceCard9);
+        btn_personalexpense = findViewById(R.id.btn_personalexpense);
+        img_btn_personalexpense = findViewById(R.id.img_btn_personalexpense);
+        tv_personalexpense = findViewById(R.id.tv_personalexpense);
+        practiceCard9 = findViewById(R.id.practiceCard9);
 
-        btn_pc       = findViewById(R.id.btn_pc);
-        img_btn_pc   = findViewById(R.id.img_btn_pc);
-        tv_pc        = findViewById(R.id.tv_pc);
-        cardview_pc  = findViewById(R.id.cardview_pc);
+        btn_pc = findViewById(R.id.btn_pc);
+        img_btn_pc = findViewById(R.id.img_btn_pc);
+        tv_pc = findViewById(R.id.tv_pc);
+        cardview_pc = findViewById(R.id.cardview_pc);
 
-        btn_promomat       = findViewById(R.id.btn_promomat);
-        img_btn_promomat  = findViewById(R.id.img_btn_promomat);
-        tv_promomat       = findViewById(R.id.tv_promomat);
-        cardview_promomat  = findViewById(R.id.cardview_promomat);
+        btn_promomat = findViewById(R.id.btn_promomat);
+        img_btn_promomat = findViewById(R.id.img_btn_promomat);
+        tv_promomat = findViewById(R.id.tv_promomat);
+        cardview_promomat = findViewById(R.id.cardview_promomat);
 
-        btn_salereports       = findViewById(R.id.btn_salereports);
-        img_btn_salereports  = findViewById(R.id.img_btn_salereports);
-        tv_salereports       = findViewById(R.id.tv_salereports);
-        cardview_salereports  = findViewById(R.id.cardview_salereports);
+        btn_salereports = findViewById(R.id.btn_salereports);
+        img_btn_salereports = findViewById(R.id.img_btn_salereports);
+        tv_salereports = findViewById(R.id.tv_salereports);
+        cardview_salereports = findViewById(R.id.cardview_salereports);
 
         btn_msd = findViewById(R.id.btn_msd);
-        img_btn_msd  = findViewById(R.id.img_btn_msd);
-        tv_msd       = findViewById(R.id.tv_msd);
-        cardview_msd  = findViewById(R.id.cardview_msd);
+        img_btn_msd = findViewById(R.id.img_btn_msd);
+        tv_msd = findViewById(R.id.tv_msd);
+        cardview_msd = findViewById(R.id.cardview_msd);
 
         btn_exam = findViewById(R.id.btn_exam);
-        img_btn_exam  = findViewById(R.id.img_btn_exam);
-        tv_exam       = findViewById(R.id.tv_exam);
-        practiceCard5  = findViewById(R.id.practiceCard5);
+        img_btn_exam = findViewById(R.id.img_btn_exam);
+        tv_exam = findViewById(R.id.tv_exam);
+        practiceCard5 = findViewById(R.id.practiceCard5);
 
-        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
-        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
-        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        btn_pmd_contact = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
@@ -2072,24 +2065,22 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
-        ff_type      = null;
-        Bundle b     = getIntent().getExtras();
-        assert b    != null;
-        userName    = b.getString("UserName");
-        UserName_2  = b.getString("UserName_2");
+        ff_type = null;
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        userName = b.getString("UserName");
+        UserName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
-        message_3   = b.getString("message_3");
-        password    = b.getString("password");
-        ff_type     = b.getString("ff_type");
-        vector_version =b.getString("vector_version");
-        globalempCode  =b.getString("emp_code");
-        globalempName =b.getString("emp_name");
+        message_3 = b.getString("message_3");
+        password = b.getString("password");
+        ff_type = b.getString("ff_type");
+        vector_version = b.getString("vector_version");
+        globalempCode = b.getString("emp_code");
+        globalempName = b.getString("emp_name");
 
         user_show1.setText(globalempName);
-        profile_image= base_url+globalempCode+"."+"jpg" ;
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
+        profile_image = base_url + globalempCode + "." + "jpg";
+        Picasso.get().load(profile_image).into(imageView2);
         globalFMCode = userName;
         globalAreaCode = UserName_2;
         globalFMCode = userName;
@@ -2153,7 +2144,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         bottomSheetDialog.show();
     }
 
-    private void mpoDCREvent(){
+    private void mpoDCREvent() {
         practiceCard4.setOnClickListener(v -> showBottomSheetDialog_MPODCR());
     }
 
@@ -2386,7 +2377,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         bottomSheetDialog.show();
     }
 
-    private void personalExpenseEvent(){
+    private void personalExpenseEvent() {
         practiceCard9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showBottomSheetDialog_PE();
@@ -2650,9 +2641,9 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AmDashboard.this, ImageLoadActivity.class);
-                i.putExtra("manager_code",AmDashboard.globalFMCode);
+                i.putExtra("manager_code", AmDashboard.globalFMCode);
                 i.putExtra("manager_detail", AmDashboard.globalAreaCode);
-                i.putExtra("manager_flag","FM");
+                i.putExtra("manager_flag", "FM");
                 startActivity(i);
             }
         });
@@ -2660,7 +2651,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AmDashboard.this, PrescriptionFollowup.class);
-                i.putExtra("manager_code",AmDashboard.globalFMCode);
+                i.putExtra("manager_code", AmDashboard.globalFMCode);
                 i.putExtra("manager_detail", "FM");
                 startActivity(i);
                 //bottomSheetDialog2.dismiss();
@@ -2670,7 +2661,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AmDashboard.this, PrescriptionFollowup2.class);
-                i.putExtra("manager_code",AmDashboard.globalFMCode);
+                i.putExtra("manager_code", AmDashboard.globalFMCode);
                 i.putExtra("manager_detail", "FM");
                 startActivity(i);
             }
@@ -2737,7 +2728,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                 bottomSheetDialog.dismiss();
             }
         });
-        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener(){
+        Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(AmDashboard.this, PromoMaterialFollowup.class);
@@ -2779,7 +2770,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         bottomSheetDialog.show();
     }
 
-    private void promoMaterialFollowupEvent(){
+    private void promoMaterialFollowupEvent() {
         btn_promomat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -3277,7 +3268,8 @@ public class AmDashboard extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {}
+    public void onClick(View v) {
+    }
 
     @Override
     protected void onResume() {
@@ -3311,7 +3303,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onPause----->",global_admin_Code);
+        Log.e("onPause----->", global_admin_Code);
     }
 
     @Override
@@ -3327,7 +3319,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onDestroy----->",global_admin_Code);
+        Log.e("onDestroy----->", global_admin_Code);
         //updateLocation();
     }
 
@@ -3344,9 +3336,10 @@ public class AmDashboard extends Activity implements View.OnClickListener{
             public void onResponse(@NonNull Call<Patient> call, @NonNull Response<Patient> response) {
                 //progressDialog.dismiss();
                 assert response.body() != null;
-                String status      = response.body().getTerritory_name();
-                Log.e("Check locked user-->",status);
-                if (status.equals("Y")){
+                String status = response.body().getTerritory_name();
+                Log.e("Check locked user-->", status);
+
+                if (status.equals("Y")) {
                     Toast.makeText(AmDashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
                     log_status = "N";
                     preferenceManager.clearPreferences();
@@ -3356,6 +3349,7 @@ public class AmDashboard extends Activity implements View.OnClickListener{
                     finish();
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();

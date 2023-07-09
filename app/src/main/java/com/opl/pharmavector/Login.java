@@ -3,6 +3,7 @@ package com.opl.pharmavector;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.apache.http.NameValuePair;
@@ -66,6 +67,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.login_dashboard.MPODashboard;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.msd_doc_support.DashboardMSD;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
@@ -128,6 +130,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
 //        if (this.CheckSelfPermission(Manifest.Permission.PostNotifications) != Permission.Granted) {
 //            this.RequestPermissions(notiPermission, requestLocationId);
 //        }
+
+        getDeviceDetails();
+        firebaseEvent();
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);
@@ -440,6 +445,24 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setfftype(preferenceManager.getfftype());
             preferenceManager.setexecutive_name(preferenceManager.getexecutive_name());
             startActivity(i);
+        } else if (count == 8) {
+            Log.e("preferenceManager->", "MSD rUN");
+            Intent i = new Intent(Login.this, DashboardMSD.class);
+            i.putExtra("executive_code", preferenceManager.getuserrole());
+            i.putExtra("executive_loc", preferenceManager.getexecutive_name());
+            i.putExtra("executive_loccode", preferenceManager.getusername());
+            i.putExtra("executive_locpass", preferenceManager.getpassword());
+            i.putExtra("executive_type", preferenceManager.getfftype());
+            i.putExtra("executive_name", preferenceManager.getuserdtl());
+            preferenceManager.setTasbihCounter(8);
+
+            preferenceManager.setusername(preferenceManager.getusername());
+            preferenceManager.setpassword(preferenceManager.getpassword());
+            preferenceManager.setuserrole(preferenceManager.getuserrole());
+            preferenceManager.setuserdtl(preferenceManager.getuserdtl());
+            preferenceManager.setfftype(preferenceManager.getfftype());
+            preferenceManager.setexecutive_name(preferenceManager.getexecutive_name());
+            startActivity(i);
         }
     }
 
@@ -493,6 +516,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.vectorlogin(tempLogin, tempPassword, vectorToken);
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(@NonNull Call<Patient> call, @NonNull Response<Patient> response) {
@@ -508,6 +532,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 String new_version = response.body().getnew_version();
                 globalempName = response.body().getFirst_name();
                 globalempCode = response.body().getLast_name();
+
+                if (!Objects.equals(vectorToken, "xxxx")) {
+                    userLog("", message);
+                }
 
                 if (success == 2) {
                     globalempName = response.body().getFirst_name();
@@ -704,6 +732,27 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             startActivity(i);
                             break;
                         }
+                        case "MSD": {
+                            Intent i = new Intent(Login.this, DashboardMSD.class);
+                            i.putExtra("executive_code", message);
+                            i.putExtra("executive_loc", message_1);
+                            i.putExtra("executive_loccode", tempLogin);
+                            i.putExtra("executive_locpass", tempPassword);
+                            i.putExtra("executive_type", mpo_ff_type);
+                            i.putExtra("executive_name", new_version);
+                            f_name = user.getText().toString();
+                            s_name = pass.getText().toString();
+                            db.addContacts(new Contact(f_name, s_name, message_2));
+                            preferenceManager.setTasbihCounter(8);
+                            preferenceManager.setusername(tempLogin); // LOCATION CODE
+                            preferenceManager.setpassword(tempPassword); // LOCATION PASSWORD
+                            preferenceManager.setuserrole(message); // EXECUTIVE CODE
+                            preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
+                            preferenceManager.setfftype(mpo_ff_type); // EXECUTIVE TYPE
+                            preferenceManager.setexecutive_name(message_1); // EXECUTIVE LOCATION DETAILS
+                            startActivity(i);
+                            break;
+                        }
                     }
                 } else if (success == 1) {
                     Intent i = new Intent(Login.this, Changepassword.class);
@@ -740,7 +789,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
             vectorToken = instanceIdResult.getToken();
             Log.e("LoginvectorToken-->", vectorToken);
         });
-
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(task -> {
                     String msg = getString(R.string.msg_subscribed) + vectorToken;
@@ -749,7 +797,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     }
                     Log.d(TAG, msg);
                 });
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -761,6 +808,35 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 }
             }
         };
+    }
+
+    private void userLog(final String key, String employeeCode) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, "", "", build_model, build_brand, employeeCode, "");
+        //Log.d("tokenApi->", vectorToken);
+
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                assert response.body() != null;
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+                Log.d("mpoLocationUpdate->", message + "===>" + vectorToken);
+            }
+
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+                Log.d("tokenError", "error called! " + t);
+            }
+        });
+    }
+
+    public void getDeviceDetails() {
+        build_version = Build.VERSION.RELEASE;
+        build_model = Build.MODEL;
+        build_device = Build.DEVICE;
+        build_brand = Build.BRAND;
+        build_id = Build.ID;
     }
 
     @Override

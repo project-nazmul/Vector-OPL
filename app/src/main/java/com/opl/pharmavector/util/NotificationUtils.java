@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.opl.pharmavector.R;
 
@@ -201,7 +202,7 @@ public class NotificationUtils {
         //SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         try {
             Date date = sdf.parse(timeStamp);
-            return date.getTime();
+            return Objects.requireNonNull(date).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

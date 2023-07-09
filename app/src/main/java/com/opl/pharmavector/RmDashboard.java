@@ -1707,7 +1707,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             Intent i = new Intent(RmDashboard.this, DcfpFollowupActivity.class);
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
-            i.putExtra("userName_3", globalRMCode);
+            i.putExtra("UserName_3", globalRMCode);
             startActivity(i);
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {

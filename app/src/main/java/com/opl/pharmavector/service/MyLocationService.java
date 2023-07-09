@@ -19,20 +19,19 @@ import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 
-
 public class MyLocationService extends BroadcastReceiver {
-
     public static final String ACTION_PROCESS_UPDATE= "com.opl.pharmavector.googlelocationbackground.UPDATE_LOCATION";
     private Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null){
+        if (intent != null) {
             final String aciton = intent.getAction();
 
-            if(ACTION_PROCESS_UPDATE.equals(aciton)){
-                LocationResult result =LocationResult.extractResult(intent);
-                if(result !=null){
+            if (ACTION_PROCESS_UPDATE.equals(aciton)) {
+                LocationResult result = LocationResult.extractResult(intent);
+
+                if(result != null){
                     Location location = result.getLastLocation();
                     String location_string = new StringBuilder(""+location.getLatitude()).
                             append("/").append(location.getLongitude()).
@@ -42,9 +41,9 @@ public class MyLocationService extends BroadcastReceiver {
                     String lang= String.valueOf(location.getLongitude());
                     double latitude = location.getLatitude();
                     double langtitude= location.getLongitude();
-                    try{
-                        Log.e("tryBlock-->",latitude+"---"+langtitude);
 
+                    try {
+                        Log.e("tryBlock-->",latitude+"---"+langtitude);
                         String myLang = String.valueOf(langtitude);
                         String myLat = String.valueOf(latitude);
                         Intent local = new Intent();
@@ -52,21 +51,11 @@ public class MyLocationService extends BroadcastReceiver {
                         local.putExtra("langtitude", myLang);
                         local.putExtra("latitude", myLat);
                         context.sendBroadcast(local);
-
-
                     } catch (Exception e) {
-
                         e.printStackTrace();
                     }
-
                 }
             }
-
         }
     }
-
-
-
-
-
 }

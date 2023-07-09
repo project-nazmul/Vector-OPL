@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -11,14 +10,11 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowNoTitle">true</item>
     </style>
 
-
     <!-- ########################################  start telemedince style import  ################################# -->
-
     <style name="EditorTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#3c4c93</item>
@@ -33,7 +29,6 @@
         <item name="colorOnError">#FFFFFF</item>
         <item name="colorSurface">#FFFFFF</item>
         <item name="actionMenuTextColor">#FFFFFF</item>
-
     </style>
 
     <style name="EditorTheme.NoActionBar">
@@ -55,8 +50,6 @@
         <item name="font">@font/acme</item>
     </style>
 
-
-
     <style name="OutlinedRoundedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
         <item name="boxStrokeColor">#3c4c93</item>
@@ -69,7 +62,6 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="hintColor_">#3c4c93</item>
     </style>
-
 
     <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
         <item name="cornerFamily">cut</item>
@@ -91,11 +83,7 @@
         </item>
     </style>
 
-
-
-
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-
         <item name="boxStrokeColor">#3c4c93</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="cornerFamily">rounded</item>
@@ -103,10 +91,7 @@
         <item name="hintColor_">#3c4c93</item>
     </style>
 
-
     <!---  ########################################endtelemedicine style import######################################### -->
-
-
     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
@@ -147,7 +132,6 @@
         <item name="android:minWidth">200dp</item>
     </style>
 
-
     <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:dropDownListViewStyle">@style/MyTheme.MySpinnerStyle</item>
     </style>
@@ -157,7 +141,6 @@
         <item name="android:dividerHeight">1dp</item>
         <item name="android:textSize">10dp</item>
     </style>
-
 
     <style name="DashboardButton">
         <item name="android:layout_gravity">center_vertical</item>
@@ -179,27 +162,20 @@
     </style>
 
     <style name="spinner" parent="android:Widget.TextView.SpinnerItem">
-
         <item name="android:paddingLeft">0dp</item>
         <item name="android:textSize">10px</item>
         <item name="android:textColor">#ff29549f</item>
-
     </style>
 
     <style name="spinner_item" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
         <item name="android:dividerHeight">1dp</item>
         <item name="android:textSize">10px</item>
-
     </style>
-
-
 
     <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/rounded_shape</item>
         <item name="android:fontFamily">@font/acme</item>
         <item name="android:textSize">12sp</item>
-
-
     </style>
 
     <style name="mytheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -264,11 +240,9 @@
         <item name="android:popupBackground">#DFFFFFFF</item>
     </style>
 
-
     <style name="BasicToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">#ff29549f</item>
         <item name="colorControlNormal">#FFFFFF</item>
-
     </style>
 
     <style name="MasterCode" parent="Theme.AppCompat.Light.DarkActionBar">

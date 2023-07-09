@@ -47,74 +47,48 @@ public class Patient {
     private String message_3;
     @SerializedName("message_4")
     private String message_4;
-
     @SerializedName("new_version")
     private String new_version;
-
-
     @SerializedName("serial")
     private String serial;
-
     @SerializedName("mpo_code")
     private String mpo_code;
-
     @SerializedName("month")
     private String month;
-
     @SerializedName("pack_size")
     private String pack_size;
-
     @SerializedName("sample_name")
     private String sample_name;
-
     @SerializedName("total")
     private String total;
-
     @SerializedName("type")
     private String type;
-
-
     @SerializedName("week1")
     private String week1;
-
     @SerializedName("week2")
     private String week2;
-
     @SerializedName("week3")
     private String week3;
-
     @SerializedName("week4")
     private String week4;
-
-
     @SerializedName("aci")
     public String aci;
-
     @SerializedName("ari")
     public String ari;
-
     @SerializedName("pop")
     public String pop;
-
     @SerializedName("rad")
     public String rad;
-
     @SerializedName("osl")
     public String osl;
-
     @SerializedName("oth")
     public String oth;
-
-
     @SerializedName("base")
     public String base;
-
     @SerializedName("oplbase")
     public String oplbase;
-
     @SerializedName("oplshare")
     public String oplshare;
-
 
     public String getnew_version() {
         return new_version;
@@ -140,7 +114,6 @@ public class Patient {
         this.message_3 = message_3;
     }
 
-
     public String getTerritory_name() {
         return message_1;
     }
@@ -148,7 +121,6 @@ public class Patient {
     public void setTerritory_name(String message_1) {
         this.message_1 = message_1;
     }
-
 
     public int getSuccess() {
         return success;
@@ -158,7 +130,6 @@ public class Patient {
         this.success = success;
     }
 
-
     public String getPassword() {
         return password;
     }
@@ -166,7 +137,6 @@ public class Patient {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public int getId() {
         return id;
@@ -176,7 +146,6 @@ public class Patient {
         this.id = id;
     }
 
-
     public String getFirst_name() {
         return first_name;
     }
@@ -184,7 +153,6 @@ public class Patient {
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
-
 
     public String getLast_name() {
         return last_name;
@@ -194,7 +162,6 @@ public class Patient {
         this.last_name = last_name;
     }
 
-
     public String getPhone_number() {
         return phone_number;
     }
@@ -202,7 +169,6 @@ public class Patient {
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
-
 
     public String getEmail() {
         return email;
@@ -212,7 +178,6 @@ public class Patient {
         this.email = email;
     }
 
-
     public String getGender() {
         return gender;
     }
@@ -220,7 +185,6 @@ public class Patient {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
 
     public String getBirth() {
         return birth;
@@ -238,7 +202,6 @@ public class Patient {
         this.love = love;
     }
 
-
     public String getPicture() {
         return picture;
     }
@@ -246,7 +209,6 @@ public class Patient {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-
 
     public String getStatus() {
         return status;
@@ -256,7 +218,6 @@ public class Patient {
         this.status = status;
     }
 
-
     public String getValue() {
         return value;
     }
@@ -264,7 +225,6 @@ public class Patient {
     public void setValue(String value) {
         this.value = value;
     }
-
 
     public String getMassage() {
         return massage;
@@ -298,7 +258,6 @@ public class Patient {
         this.scheduleid = scheduleid;
     }
 
-
     public String getDoctorCode() {
         return doctorcode;
     }
@@ -306,7 +265,6 @@ public class Patient {
     public void setDoctorCode(String doctorcode) {
         this.doctorcode = doctorcode;
     }
-
 
     public String getSerial() {
         return serial;
@@ -340,7 +298,6 @@ public class Patient {
         this.sample_name = sample_name;
     }
 
-
     public String getPacksize() {
         return pack_size;
     }
@@ -348,7 +305,6 @@ public class Patient {
     public void setPacksize(String pack_size) {
         this.pack_size = pack_size;
     }
-
 
     public String getType() {
         return type;
@@ -358,7 +314,6 @@ public class Patient {
         this.type = type;
     }
 
-
     public String getTotal() {
         return total;
     }
@@ -366,9 +321,6 @@ public class Patient {
     public void setTotal(String total) {
         this.total = total;
     }
-
-
-
 
     public String getWeek1() {
         return week1;
@@ -434,7 +386,6 @@ public class Patient {
         this.rad = rad;
     }
 
-
     public String getOsl() {
         return osl;
     }
@@ -443,18 +394,18 @@ public class Patient {
         this.osl = osl;
     }
 
-
     public String getBase() {
         return base;
     }
+
     public void setBase(String base) {
         this.base = base;
     }
 
-
     public String getOplBase() {
         return oplbase;
     }
+
     public void setOplBase(String oplbase) {
         this.oplbase = oplbase;
     }
@@ -462,9 +413,8 @@ public class Patient {
     public String getOplShare() {
         return oplshare;
     }
+
     public void setOplShare(String oplshare) {
         this.oplshare = oplshare;
     }
-
-
 }

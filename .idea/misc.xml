@@ -12,16 +12,23 @@
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable/dcr_page_button.xml" value="0.15" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable/ic_today_1.xml" value="0.15" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable/icon_delete.xml" value="0.15" />
-        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" value="0.251171875" />
-        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_vector_gm_dashboard.xml" value="0.251171875" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable/top_button_shape.xml" value="0.15" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboard_msd.xml" value="0.38472222222222224" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" value="0.148828125" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_vector_asm_dashboard.xml" value="0.251171875" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_vector_gm_dashboard.xml" value="0.38472222222222224" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-hdpi/activity_vector_rm_dashboard.xml" value="0.251171875" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-land/dcr_followup_row.xml" value="0.108203125" />
-        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" value="0.108203125" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-large-land/activity_dashboard_msd.xml" value="0.108203125" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" value="0.17" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_dashboard_msd.xml" value="0.75" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_dashboardpmd.xml" value="0.7176165803108808" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_dcfp.xml" value="0.251171875" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_dcfp_followup.xml" value="0.251171875" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_main_notification.xml" value="0.13125" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_message_show.xml" value="0.251171875" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_mpo_dcfp_entry.xml" value="0.33" />
+        <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/activity_vector_gm_dashboard.xml" value="1.3395833333333333" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/dcfp_entry_setup_row.xml" value="0.19236111111111112" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/pmd_rx_bottom_sheet_dialog.xml" value="0.251171875" />
         <entry key="..\:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/layout/productorder.xml" value="0.251171875" />
