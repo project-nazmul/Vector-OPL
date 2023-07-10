@@ -156,7 +156,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             Log.d("notiPermission1", "clicked!");
             //}
         });
-
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         statusBarHide();
@@ -223,7 +222,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_CODE);
             }
-        } catch (Exception e){
+        } catch (Exception ignored){
 
         }
     }
@@ -253,7 +252,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
-    private void initViews(){
+    private void initViews() {
         logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4 = findViewById(R.id.t4);

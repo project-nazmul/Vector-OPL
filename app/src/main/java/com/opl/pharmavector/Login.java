@@ -739,7 +739,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("executive_loccode", tempLogin);
                             i.putExtra("executive_locpass", tempPassword);
                             i.putExtra("executive_type", mpo_ff_type);
-                            i.putExtra("executive_name", new_version);
+                            i.putExtra("executive_name", globalempName);
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
                             db.addContacts(new Contact(f_name, s_name, message_2));

@@ -548,7 +548,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             //List<Address> addresses = geocoder.getFromLocation(fetchedlat, fetchedlang, 1);
-
             Address obj = addresses.get(0);
             track_add = obj.getAddressLine(0);
             track_add = track_add + "\n" + obj.getCountryName();
