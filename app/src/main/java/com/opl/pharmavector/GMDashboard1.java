@@ -77,6 +77,7 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
+import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -114,7 +115,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     Typeface fontFamily;
     CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,
              practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact,cardview_ff_contact;
-    ImageButton profileB, img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
+    ImageButton profileB,img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
             img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode,img_pmd_contact,img_doctor_list;
     TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,
             tv_notification,tv_rx,tv_pc,tv_salereports,tv_msd,tv_salesfollowup,tv_mastercode,tv_pmd_contact,tv_doctor_list;
@@ -525,7 +526,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("user_name", GMDashboard1.globalAdminDtl);
             i.putExtra("user_flag", "GM");
             startActivity(i);
-
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
             Intent i = new Intent(GMDashboard1.this, DocSupportFollowup.class);
@@ -807,6 +807,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
+                                ShortcutBadger.applyCount(getBaseContext(), 0);
                                 Intent i = new Intent(GMDashboard1.this, NoticeBoard.class);
                                 i.putExtra("UserName", globalAdmin);
                                 i.putExtra("UserName_2", globalAdminDtl);

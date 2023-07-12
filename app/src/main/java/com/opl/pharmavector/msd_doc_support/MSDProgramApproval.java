@@ -90,9 +90,10 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         String first_date = "JAN" + "-" + year_name.toUpperCase();
         String last_date = month_name.toUpperCase() + "-" + year_name.toUpperCase();
         ed_date.setText(last_date);
+        proposed_date2 = "01" + "-" + last_date;
 
         Bundle b = getIntent().getExtras();
-        userName = b.getString("userName");
+        userName = b.getString("user_code");
         UserName_2 = b.getString("UserName_2");
         promo_type = b.getString("promo_type");
         user_flag = b.getString("user_flag");
@@ -161,7 +162,7 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
         msdApprovalDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList(userName, proposed_date1);
+        Call<List<MSDApprovalModel>> call = apiInterface.getMSDApprovalList(userName, proposed_date2);
         msdApprovalList.clear();
 
         call.enqueue(new Callback<List<MSDApprovalModel>>() {
@@ -171,14 +172,14 @@ public class MSDProgramApproval extends AppCompatActivity implements MSDApproval
                     msdApprovalList.addAll(response.body());
                     Log.d("tag", msdApprovalList.toString());
                 }
+                msdApprovalAdapter = new MSDApprovalAdapter(MSDProgramApproval.this, msdApprovalList, MSDProgramApproval.this);
+                LinearLayoutManager manager = new LinearLayoutManager(MSDProgramApproval.this);
+                recyclerMSDApproval.setLayoutManager(manager);
+                recyclerMSDApproval.setAdapter(msdApprovalAdapter);
+                recyclerMSDApproval.addItemDecoration(new DividerItemDecoration(MSDProgramApproval.this, DividerItemDecoration.VERTICAL));
 
                 if (msdApprovalList.size() > 0) {
                     msdApprovalDialog.dismiss();
-                    msdApprovalAdapter = new MSDApprovalAdapter(MSDProgramApproval.this, msdApprovalList, MSDProgramApproval.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(MSDProgramApproval.this);
-                    recyclerMSDApproval.setLayoutManager(manager);
-                    recyclerMSDApproval.setAdapter(msdApprovalAdapter);
-                    recyclerMSDApproval.addItemDecoration(new DividerItemDecoration(MSDProgramApproval.this, DividerItemDecoration.VERTICAL));
                 } else {
                     msdApprovalDialog.dismiss();
                     Toast.makeText(MSDProgramApproval.this, "No data Available!", Toast.LENGTH_LONG).show();

@@ -170,8 +170,7 @@ public class MSDProgramFollowup extends FragmentActivity implements OnClickListe
                                 giftitemCount.get(i).getTotal(),
                                 giftitemCount.get(i).getAci(),giftitemCount.get(i).getAristo(),
                                 giftitemCount.get(i).getPopular(),giftitemCount.get(i).getRadient(),
-                                giftitemCount.get(i).getOsl()
-                                ));
+                                giftitemCount.get(i).getOsl()));
                     }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();

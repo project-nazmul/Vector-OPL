@@ -1,6 +1,6 @@
 package com.opl.pharmavector.msd_doc_support;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -27,9 +27,9 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.opl.pharmavector.GMDashboard1;
 import com.opl.pharmavector.Login;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -45,10 +45,11 @@ public class DashboardMSD extends Activity {
     private String logStatus = "M";
     LocationRequest locationRequest;
     PreferenceManager preferenceManager;
+    CardView cardMsdApproval, cardMsdCommitment, cardMsdFollowUp;
     TextView profileName, profileCode, profileDesignation;
     FusedLocationProviderClient fusedLocationProviderClient;
-    String globalCode, globalName, globalTerri, profileImageUrl, pmdName, pmdLoc, pmdLocCode, pmdLocPass, pmdType, pmdCode;
-    String imageBaseurl = ApiClient.BASE_URL+"vector_ff_image/";
+    String globalCode, globalName, globalTerri, profileImageUrl, msdUserName, msdUserLoc, msdLocCode, msdLocPass, msdUserType, msdUserCode;
+    String imageBaseurl = ApiClient.BASE_URL + "vector_ff_image/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,27 @@ public class DashboardMSD extends Activity {
                     .setNegativeButton("No", (dialog, which) -> {
                     })
                     .show();
+        });
+        cardMsdApproval.setOnClickListener(v -> {
+            Intent i = new Intent(DashboardMSD.this, MSDProgramApproval.class);
+            i.putExtra("user_code", msdUserCode);
+            i.putExtra("userName", msdUserName);
+            i.putExtra("user_flag", "MSD");
+            startActivity(i);
+        });
+        cardMsdCommitment.setOnClickListener(v -> {
+            Intent i = new Intent(DashboardMSD.this, MSDCommitmentFollowup.class);
+            i.putExtra("user_code", msdUserCode);
+            i.putExtra("user_name", msdUserName);
+            i.putExtra("user_flag", "MSD");
+            startActivity(i);
+        });
+        cardMsdFollowUp.setOnClickListener(v -> {
+            Intent i = new Intent(DashboardMSD.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", msdUserCode);
+            i.putExtra("userName", msdUserName);
+            i.putExtra("user_flag", "MSD");
+            startActivity(i);
         });
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -122,22 +144,25 @@ public class DashboardMSD extends Activity {
         globalTerri = preferenceManager.getAdmin_Terri();
         bundle = getIntent().getExtras();
         assert bundle != null;
-        pmdCode = bundle.getString("executive_code");
-        pmdName = bundle.getString("executive_name");
-        pmdLoc = bundle.getString("executive_loc");
-        pmdLocCode = bundle.getString("executive_loccode");
-        pmdLocPass = bundle.getString("executive_locpass");
-        pmdType = bundle.getString("executive_type");
+        msdUserCode = bundle.getString("executive_code");
+        msdUserName = bundle.getString("executive_name");
+        msdUserLoc = bundle.getString("executive_loc");
+        msdLocCode = bundle.getString("executive_loccode");
+        msdLocPass = bundle.getString("executive_locpass");
+        msdUserType = bundle.getString("executive_type");
         profileName = findViewById(R.id.executive_name);
-        profileName.setText(pmdName);
+        profileName.setText(msdUserName);
         profileImage = findViewById(R.id.imageView2);
-        profileImageUrl = imageBaseurl+globalCode+"."+"jpg" ;
+        profileImageUrl = imageBaseurl + globalCode + "." + "jpg";
         Picasso.get().load(profileImageUrl).into(profileImage);
         profileCode = findViewById(R.id.executive_code);
-        profileCode.setText(pmdCode);
+        profileCode.setText(msdUserCode);
         profileDesignation = findViewById(R.id.executive_loc);
-        profileDesignation.setText(pmdLoc);
+        profileDesignation.setText(msdUserLoc);
         logout = findViewById(R.id.logout);
+        cardMsdApproval = findViewById(R.id.cardMsdApproval);
+        cardMsdCommitment = findViewById(R.id.cardMsdCommitment);
+        cardMsdFollowUp = findViewById(R.id.cardMsdFollowUp);
     }
 
     private void dexterPermission(Context context, String... permissions) {
@@ -175,8 +200,10 @@ public class DashboardMSD extends Activity {
                             updateLocation();
                         }
                     }
+
                     @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {}
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                    }
                 }).check();
     }
 

@@ -35,6 +35,8 @@ import java.util.Objects;
 
 import com.opl.pharmavector.R;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 public class NotificationUtils {
     private static String TAG = NotificationUtils.class.getSimpleName();
     private Context mContext;
@@ -113,6 +115,7 @@ public class NotificationUtils {
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
         //ShortcutBadger.applyNotification(mContext, notification, 1);
+        ShortcutBadger.applyCount(mContext, 1);
         notificationManager.notify(notifyID , notification);
     }
 
@@ -143,6 +146,7 @@ public class NotificationUtils {
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
         //ShortcutBadger.applyNotification(mContext, notification, 1);
+        ShortcutBadger.applyCount(mContext, 1);
         notificationManager.notify(notifyID , notification);
     }
 

@@ -1,6 +1,5 @@
 package com.opl.pharmavector.serverCalls;
 
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import com.opl.pharmavector.Dashboard;
@@ -16,22 +15,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FavouriteCategoriesJsonParser6 {
-
     public static ArrayList<String> selectedCategories4 = new ArrayList<>();
     final String URL_CUSOTMER = BASE_URL+"doctor_service/mpo_doctor_service_followup.php";
 
-
     public ArrayList<Category5> getParsedCategories() {
-
         ArrayList<Category5> MyArraylist = new ArrayList<>();
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
         ServiceHandler jsonParser = new ServiceHandler();
         String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+
         try {
             JSONArray jsonArray2 = new JSONArray(json);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
                 Category5 genres = new Category5();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
@@ -49,11 +46,11 @@ public class FavouriteCategoriesJsonParser6 {
                 genres.setCategory_Name10(MyJsonObject.getString("PAYMENT_DT"));
                 genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                 MyArraylist.add(genres);
+
                 if (MyJsonObject.getString("SELECTED").equals("true")) {
                     selectedCategories4.add(MyJsonObject.getString("SERVICE_NO"));
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

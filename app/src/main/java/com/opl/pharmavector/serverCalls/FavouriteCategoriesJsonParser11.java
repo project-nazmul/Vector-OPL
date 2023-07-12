@@ -17,13 +17,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class FavouriteCategoriesJsonParser11{
-    
     public static ArrayList<String> selectedCategories = new ArrayList<>();
     public static ArrayList<String> selectedphonenumber = new ArrayList<>();
-    
     private final String URL_CUSOTMER = BASE_URL+"pc_conference_doctor.php";
     
     public ArrayList<Category> getParsedCategories() {
@@ -31,20 +27,17 @@ public class FavouriteCategoriesJsonParser11{
         List<NameValuePair> params=new ArrayList<NameValuePair>();
         PendingProposalDoc uername;
         String myvalue;
-
         myvalue = PendingProposalDoc.UserName;
         params.add(new BasicNameValuePair("id",myvalue));
         ServiceHandler jsonParser=new ServiceHandler();
         String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
-        try{
 
+        try {
             JSONArray jsonArray2 = new JSONArray(json);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
-
-
                 Category genres = new Category();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
-
                 genres.setCateogry_sl(MyJsonObject.getString("SERIAL"));
                 genres.setCateogry_id(MyJsonObject.getString("DOC_CODE"));
                 genres.setCategory_Name(MyJsonObject.getString("DOC_CODE"));
@@ -53,21 +46,14 @@ public class FavouriteCategoriesJsonParser11{
                 genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                 MyArraylist.add(genres);
 
-
                 if (MyJsonObject.getString("SELECTED").equals("true")) {
                     selectedCategories.add(MyJsonObject.getString("DOC_CODE"));
                     selectedphonenumber.add(MyJsonObject.getString("DOC_PHONE"));
-
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
         return MyArraylist;
     }
 }

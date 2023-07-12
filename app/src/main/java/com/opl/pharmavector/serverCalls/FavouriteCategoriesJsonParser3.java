@@ -17,13 +17,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class FavouriteCategoriesJsonParser3 {
-
     public static ArrayList<String> selectedCategories3 = new ArrayList<>();
     private String URL_CUSOTMER = BASE_URL+"pcconference/pc_conference_cancel_mpo.php";
-
 
     public ArrayList<Category> getParsedCategories() {
         ArrayList<Category> MyArraylist = new ArrayList<>();
@@ -41,9 +37,10 @@ public class FavouriteCategoriesJsonParser3 {
         params.add(new BasicNameValuePair("conf_type",conf_type_val));
         ServiceHandler jsonParser=new ServiceHandler();
         String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
-        try{
 
+        try {
             JSONArray jsonArray2 = new JSONArray(json);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
                 Category genres = new Category();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
@@ -54,18 +51,14 @@ public class FavouriteCategoriesJsonParser3 {
                 genres.setCategory_Name3(MyJsonObject.getString("DOC_PHONE"));
                 genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                 MyArraylist.add(genres);
+
                 if (MyJsonObject.getString("SELECTED").equals("true")) {
                     selectedCategories3.add(MyJsonObject.getString("DOC_CODE"));
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
         return MyArraylist;
     }
 }

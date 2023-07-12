@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dashboard_back"
-    tools:context=".Dashboard"
-    android:fitsSystemWindows="true"
-    tools:ignore="HardcodedText">
+    tools:context=".msd_doc_support.DashboardMSD"
+    android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -151,7 +150,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/practiceCard1"
+                    android:id="@+id/cardMsdApproval"
                     android:layout_width="137dp"
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
@@ -203,6 +202,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_dashboard_1"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -219,7 +219,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/practiceCard2"
+                    android:id="@+id/cardMsdCommitment"
                     android:layout_width="137dp"
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
@@ -273,6 +273,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_dashboard_2"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"

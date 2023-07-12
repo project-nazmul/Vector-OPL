@@ -16,29 +16,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
 public class FavouriteCategoriesJsonParser {
-
-
     public static ArrayList<String> selectedCategories = new ArrayList<>();
     public static ArrayList<String> selectedphonenumber = new ArrayList<>();
-
     private String URL_CUSOTMER = BASE_URL+"pcconference/pc_conference_doctor.php";
 
-
     public ArrayList<Category> getParsedCategories() {
-
-
         ArrayList<Category> MyArraylist = new ArrayList<>();
         List<NameValuePair> params=new ArrayList<NameValuePair>();
         PcProposalDoc uername;
         String myvalue;
-
         myvalue = PcProposalDoc.UserName;
-
-
         Log.e("PcProposalDocvalue",myvalue);
 
         params.add(new BasicNameValuePair("id",myvalue));
@@ -46,18 +34,13 @@ public class FavouriteCategoriesJsonParser {
         String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
         Log.e("MYResponse: ", "> " + json);
 
-
-                try{
-
+                try {
                     JSONArray jsonArray2 = new JSONArray(json);
                     Log.e("MYResponse: ", "> " + jsonArray2);
 
                     for (int i = 0; i < jsonArray2.length(); i++) {
-
-
                             Category genres = new Category();
                             JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
-
                             genres.setCateogry_sl(MyJsonObject.getString("SERIAL"));
                             genres.setCateogry_id(MyJsonObject.getString("DOC_CODE"));
                             genres.setCategory_Name(MyJsonObject.getString("DOC_CODE"));
@@ -66,21 +49,14 @@ public class FavouriteCategoriesJsonParser {
                             genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                             MyArraylist.add(genres);
 
-
                         if (MyJsonObject.getString("SELECTED").equals("true")) {
                             selectedCategories.add(MyJsonObject.getString("DOC_CODE"));
                             selectedphonenumber.add(MyJsonObject.getString("DOC_PHONE"));
-
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
-
         return MyArraylist;
     }
 }

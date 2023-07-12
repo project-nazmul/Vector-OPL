@@ -17,27 +17,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FavouriteCategoriesJsonParser5 {
     public static ArrayList<String> selectedCategories5 = new ArrayList<>();
     private final String URL_CUSOTMER = BASE_URL+"pc_conference_bill_approval.php";
-    public ArrayList<Category4> getParsedCategories() {
 
+    public ArrayList<Category4> getParsedCategories() {
         ArrayList<Category4> MyArraylist = new ArrayList<>();
         List<NameValuePair> params=new ArrayList<NameValuePair>();
         PcBillApproval RM_CODE;
         String myvalue;
         String conf_type_val;
         String conf_date;
-
         myvalue = PcBillApproval.UserName;
         params.add(new BasicNameValuePair("id",myvalue));
         ServiceHandler jsonParser=new ServiceHandler();
         String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
 
-
-        try{
+        try {
             JSONArray jsonArray2 = new JSONArray(json);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
                 Category4 genres = new Category4();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
@@ -55,12 +53,12 @@ public class FavouriteCategoriesJsonParser5 {
                 genres.setCategory_Name10(MyJsonObject.getString("NOF_IN_HOUSE"));
                 genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                 MyArraylist.add(genres);
+
                 if (MyJsonObject.getString("SELECTED").equals("true")) {
                     selectedCategories5.add(MyJsonObject.getString("PC_SLNO"));
 
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

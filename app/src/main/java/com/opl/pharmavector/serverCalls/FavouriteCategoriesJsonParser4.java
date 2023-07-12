@@ -35,8 +35,10 @@ public class FavouriteCategoriesJsonParser4 {
         params.add(new BasicNameValuePair("id", myvalue));
         ServiceHandler jsonParser = new ServiceHandler();
         String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+
         try {
             JSONArray jsonArray2 = new JSONArray(json);
+
             for (int i = 0; i < jsonArray2.length(); i++) {
                 Category4 genres = new Category4();
                 JSONObject MyJsonObject = jsonArray2.getJSONObject(i);
@@ -54,16 +56,14 @@ public class FavouriteCategoriesJsonParser4 {
                 genres.setCategory_Name10(MyJsonObject.getString("NOF_IN_HOUSE"));
                 genres.setSelected(Boolean.parseBoolean(MyJsonObject.getString("SELECTED")));
                 MyArraylist.add(genres);
+
                 if (MyJsonObject.getString("SELECTED").equals("true")) {
                     selectedCategories4.add(MyJsonObject.getString("PC_SLNO"));
                 }
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         return MyArraylist;
     }
 }
