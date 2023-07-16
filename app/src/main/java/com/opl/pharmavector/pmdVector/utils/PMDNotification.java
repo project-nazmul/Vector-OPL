@@ -1,7 +1,5 @@
 package com.opl.pharmavector.pmdVector.utils;
 
-
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,9 +43,7 @@ import com.opl.pharmavector.pmdVector.adapter.PMDNotificationAdapter;
 import com.opl.pharmavector.remote.ApiClient;
 import com.squareup.picasso.Picasso;
 
-
 public class PMDNotification extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_SUCCESS1 = "success_1";
     public static final String TAG_MESSAGE = "message";
@@ -58,12 +54,11 @@ public class PMDNotification extends Activity implements OnClickListener {
     public static final String TAG_target = "target";
     public static final String TAG_achivement = "achivement";
     public String userName_1, userName="xx";
-    // array list for spinner adapter
+    //array list for spinner adapter
     static ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
     Button back_btn;
-
     public String get_ext_dt3;
     public String brand_name;
     public int success, success_1, ordsl;
@@ -83,21 +78,17 @@ public class PMDNotification extends Activity implements OnClickListener {
     HashMap<Integer, String> mapQuantity;
     public static HashMap<String, Integer> nameSerialPair;
     ArrayList<String> sl;
-
     private final String campaign_credit = ApiClient.BASE_URL+"notification/get_notification.php";
     public static String base_url = ApiClient.BASE_URL+"pmd_vector/pmd_images/";
 
     @SuppressLint("DefaultLocale")
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
         setContentView(R.layout.activity_pmd_notice_board);
 
         initViews();
-
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 String notification_id = (String) productListView.getAdapter().getItem(arg2);
@@ -112,41 +103,27 @@ public class PMDNotification extends Activity implements OnClickListener {
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 finish();
-
-
             }
         });
-
         new GetCategories().execute();
-
-
-
     }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView =  findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
-
         TextView parent_menu= findViewById(R.id.parent_menu);
-
         parent_menu.setText(MessageFormat.format("{0}\nNotification", DashBoardPMD.pmd_loccode));
-
         ImageView imageView2 = findViewById(R.id.imageView2);
         String profile_image= base_url+DashBoardPMD.pmd_code+"."+"jpg" ;
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
+        Picasso.get().load(profile_image).into(imageView2);
         back_btn = findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");// &#xf060
-
         PMDNotificationAdapter.qnty = null;
         PMDNotificationAdapter.qntyID.clear();
         PMDNotificationAdapter.qntyVal.clear();
-
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         mapQuantity = new HashMap<Integer, String>();
@@ -158,25 +135,21 @@ public class PMDNotification extends Activity implements OnClickListener {
         categoriesList = new ArrayList<Category>();
     }
 
-
     public void finishActivity(View v) {
         finish();
     }
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         // System.out.println("EditTxtID " + PMDNotificationAdapter.editTxtID.size());
         super.onResume();
-
     }
 
-
     private void populateSpinner() {
-
         lables = new ArrayList<String>();
         quanty = new ArrayList<Integer>();
         sl = new ArrayList<String>();
+
         for (int i = 0; i < categoriesList.size(); i++) {
             lables.add(categoriesList.get(i).getName());
             sl.add(categoriesList.get(i).getsl());
@@ -193,12 +166,9 @@ public class PMDNotification extends Activity implements OnClickListener {
         }
         adapter = new PMDNotificationAdapter(PMDNotification.this, sl, lables, mapQuantity, PPM_CODE, P_CODE);
         productListView.setAdapter(adapter);
-
     }
 
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -207,7 +177,6 @@ public class PMDNotification extends Activity implements OnClickListener {
             pDialog.setMessage("Loading Notifications ... ... ");
             pDialog.setCancelable(true);
             pDialog.show();
-
         }
 
         @Override
@@ -216,12 +185,13 @@ public class PMDNotification extends Activity implements OnClickListener {
             params.add(new BasicNameValuePair("MPO_CODE", userName));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.POST, params);
-
             Log.e("json-->",json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(catObj.getString("sl"),
@@ -234,15 +204,12 @@ public class PMDNotification extends Activity implements OnClickListener {
                                 catObj.getString("P_CODE"));
                         categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
 
             }
-
             return null;
         }
 
@@ -253,9 +220,7 @@ public class PMDNotification extends Activity implements OnClickListener {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -265,7 +230,6 @@ public class PMDNotification extends Activity implements OnClickListener {
     protected void onPostExecute() {
 
     }
-
 }
 
 

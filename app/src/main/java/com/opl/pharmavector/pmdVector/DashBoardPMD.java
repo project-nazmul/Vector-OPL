@@ -84,6 +84,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -255,6 +256,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
                             } else {
+                                ShortcutBadger.applyCount(getBaseContext(), 0);
                                 Intent i = new Intent(DashBoardPMD.this, PMDNotification.class);
                                 //i.putExtra("UserName", DashBoardPMD.pmd_loccode);
                                 //i.putExtra("UserName_2", DashBoardPMD.pmd_code);

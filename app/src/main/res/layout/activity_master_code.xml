@@ -51,12 +51,13 @@
         android:id="@+id/headerScroll"
         android:layout_height="@dimen/_40sdp">
 
-        <LinearLayout android:orientation="horizontal"
+        <LinearLayout
+            android:orientation="horizontal"
             android:background="@color/lightgray"
             android:layout_width="wrap_content"
             android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_2sdp"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/_40sdp">
 
             <TextView
                 android:layout_width="@dimen/_30sdp"

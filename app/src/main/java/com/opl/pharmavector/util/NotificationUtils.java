@@ -114,7 +114,7 @@ public class NotificationUtils {
                 .build();
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
-        //ShortcutBadger.applyNotification(mContext, notification, 1);
+        ShortcutBadger.applyNotification(mContext, notification, 1);
         ShortcutBadger.applyCount(mContext, 1);
         notificationManager.notify(notifyID , notification);
     }
@@ -145,7 +145,7 @@ public class NotificationUtils {
                 .build();
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(mChannel);
-        //ShortcutBadger.applyNotification(mContext, notification, 1);
+        ShortcutBadger.applyNotification(mContext, notification, 1);
         ShortcutBadger.applyCount(mContext, 1);
         notificationManager.notify(notifyID , notification);
     }

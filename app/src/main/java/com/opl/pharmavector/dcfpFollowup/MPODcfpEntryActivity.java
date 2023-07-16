@@ -112,7 +112,7 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
         backBtn.setText("\uf060");
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
-        submitBtn.setText("\uf1d8"); // &#xf1d8
+        submitBtn.setText("\uf1d8");
         showBtn = findViewById(R.id.showBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
         entryCounter = findViewById(R.id.entryCounter);
@@ -137,7 +137,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                 public void run() {
                                     JSONObject json = jsonParser.makeHttpRequest(DCFP_DELETE_URL, "POST", params);
                                     progress.dismiss();
-                                    Log.d("shiftDelete", params.toString());
 
                                     try {
                                         success = json.getInt(TAG_SUCCESS);
@@ -169,9 +168,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     .show();
         });
         submitBtn.setOnClickListener(v -> {
-            Log.d("test11", selectedItemList.toString());
-            Log.d("test12", previousItemList.toString());
-
             if (previousItemList.size() > 0) {
                 for (int i = 0; i < previousItemList.size(); i++) {
                     for (int j = 0; j < selectedItemList.size(); j++) {
@@ -181,14 +177,11 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                         }
                     }
                 }
-                Log.d("test1", previousItemList.toString());
                 selectedItemList.addAll(previousItemList);
-                Log.d("test2", selectedItemList.toString());
             }
             selectedItemList.removeIf(item -> item.getTpType().equals("N"));
-            Log.d("test3", previousItemList.toString());
             List<DcfpEntrySetUpList> itemList = selectedItemList.stream().distinct().collect(Collectors.toList());
-            Log.d("test4", itemList.toString());
+
             if (itemList.size() > 0) {
                 for (int i = 0; i < itemList.size(); i++) {
                     params.add(new BasicNameValuePair("TP_WEEK" + String.valueOf(i + 1), itemList.get(i).getTpWeek()));
@@ -205,7 +198,6 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                     public void run() {
                         JSONObject json = jsonParser.makeHttpRequest(DCFP_SUBMIT_URL, "POST", params);
                         progress.dismiss();
-                        Log.d("shiftParam", params.toString());
 
                         try {
                             success = json.getInt(TAG_SUCCESS);

@@ -153,7 +153,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         CardView cardView = findViewById(R.id.cardView2);
         cardView.setOnClickListener(v -> {
             //if (Build.VERSION.SDK_INT >= 33) {
-                askForNotificationPermission();
+            askForNotificationPermission();
             Log.d("notiPermission1", "clicked!");
             //}
         });

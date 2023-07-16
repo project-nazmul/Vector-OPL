@@ -130,9 +130,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 //        if (this.CheckSelfPermission(Manifest.Permission.PostNotifications) != Permission.Granted) {
 //            this.RequestPermissions(notiPermission, requestLocationId);
 //        }
-
         getDeviceDetails();
-        firebaseEvent();
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);
@@ -157,6 +155,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 }
             }
         });
+        firebaseEvent();
         //initAppUpdate();
     }
 

@@ -77,6 +77,7 @@ import java.text.SimpleDateFormat;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
+import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -744,6 +745,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
+                                ShortcutBadger.applyCount(getBaseContext(), 0);
                                 Intent i = new Intent(SalesManagerDashboard.this, NoticeBoard.class);
                                 i.putExtra("UserName", globalSMCode);
                                 i.putExtra("UserName_2", globalDivisionCode);

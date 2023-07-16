@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
@@ -40,6 +43,8 @@ import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -77,7 +82,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         rvCompany.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+                super.onScrolled(recyclerView, 2, dy);
                 scrollX += dx;
                 headerScroll.scrollTo(scrollX, 0);
             }
@@ -130,6 +135,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
+
                 if (response.isSuccessful()) {
                     for (int i = 0; i < (giftitemCount != null ? giftitemCount.size() : 0); i++) {
                         promoList.add(new Promo(giftitemCount.get(i).getSerial(),

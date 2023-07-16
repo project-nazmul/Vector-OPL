@@ -111,6 +111,7 @@ import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -1212,6 +1213,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                         if (!NetInfo.isOnline(getBaseContext())) {
                             showSnack();
                         } else {
+                            ShortcutBadger.applyCount(getBaseContext(), 0);
                             ArrayList<String> UserName_2 = db.getterritoryname();
                             String user = UserName_2.toString();
                             Intent i = new Intent(Dashboard.this, NoticeBoard.class);
