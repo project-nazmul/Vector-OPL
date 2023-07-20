@@ -142,7 +142,6 @@ public class OfferDialoge extends BottomSheetDialogFragment {
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("CUST_CODE", customercode));
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.GET, params);
             Log.e("Response: ", "> " + json);

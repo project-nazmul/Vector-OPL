@@ -40,6 +40,7 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
+import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
@@ -113,7 +114,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     private int count;
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode;
     Typeface fontFamily;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,
+    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,cardview_prescriber,
              practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact,cardview_ff_contact;
     ImageButton profileB,img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
             img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode,img_pmd_contact,img_doctor_list;
@@ -191,6 +192,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         prescriptionentry();
         pmdContact();
         doctorListInfo();
+        topPrescriber();
 
         logout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
@@ -215,6 +217,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         });
         btn_vector_feedback.setOnClickListener(v -> FeedbackshowSnack());
         autoLogout();
+    }
+
+    private void topPrescriber() {
+        cardview_prescriber.setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, TopPrescriberActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
     }
 
     public void getNotificationPermission(){
@@ -322,6 +336,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
+        cardview_prescriber = findViewById(R.id.cardview_prescriber);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -1120,6 +1135,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
         cardview4.setVisibility(View.GONE);
+
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1158,7 +1174,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         bottomSheetDialog2.show();
     }
 
-    private void prescriptionentry(){
+    private void prescriptionentry() {
         practiceCard8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

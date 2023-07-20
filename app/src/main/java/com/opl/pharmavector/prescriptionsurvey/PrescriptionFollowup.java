@@ -84,7 +84,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
     public int success;
     public String message, ord_no;
     TextView fromdate, todate;
-    public TextView totqty, totval, prescription_head,prescription_head2;
+    public TextView totqty, totval, prescription_head, prescription_head2;
     public TextView sub_tot_opd, sub_tot_ipd, sub_tot_reg , sub_tot_bl, sub_tot_sg,sub_tot_sd, sub_tot_rx, sub_tot;
     public String userName_1, userName, active_string, act_desiredString;
     public String from_date, to_date;
@@ -227,7 +227,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             cardview4.setVisibility(View.VISIBLE);
             initUserHintSpinner();
             initTypeHintSpinner();
-        }else{
+        } else {
             cardview4.setVisibility(View.GONE);
             initTypeHintSpinner();
         }
@@ -391,6 +391,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void autoCompleteEvents() {
         actv_brand_name.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -736,34 +737,32 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        int cat_length = categories.length();
-                        if (cat_length == 0) {
-                            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(PrescriptionFollowup.this, "No data available on this search", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }else{
-                            for (int i = 0; i < categories.length(); i++) {
-                                JSONObject catObj = (JSONObject) categories.get(i);
-                                com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                        catObj.getString("sl"),
-                                        catObj.getString("id"), //brand_name
-                                        catObj.getString("name"), //regular
-                                        catObj.getInt("quantity"), //special
-                                        catObj.getString("PROD_RATE"),//brand_loyalty
-                                        catObj.getString("PROD_VAT"),//total
-                                        catObj.getString("PPM_CODE"),  //mpocode
-                                        catObj.getString("P_CODE"),  //RX_TARGET
-                                        catObj.getString("SHIFT_CODE"),  //SG_TARGET
-                                        catObj.getString("PACK_CODE"), //BL_TARGET
-                                        catObj.getString("TOTAL_CODE") //TOTAL_TARGET
-                                );
-                                categoriesList.add(cat);
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    int cat_length = categories.length();
+                    if (cat_length == 0) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(PrescriptionFollowup.this, "No data available on this search", Toast.LENGTH_SHORT).show();
                             }
+                        });
+                    }else{
+                        for (int i = 0; i < categories.length(); i++) {
+                            JSONObject catObj = (JSONObject) categories.get(i);
+                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
+                                    catObj.getString("sl"),
+                                    catObj.getString("id"), //brand_name
+                                    catObj.getString("name"), //regular
+                                    catObj.getInt("quantity"), //special
+                                    catObj.getString("PROD_RATE"),//brand_loyalty
+                                    catObj.getString("PROD_VAT"),//total
+                                    catObj.getString("PPM_CODE"),  //mpoCode
+                                    catObj.getString("P_CODE"),  //RX_TARGET
+                                    catObj.getString("SHIFT_CODE"),  //SG_TARGET
+                                    catObj.getString("PACK_CODE"), //BL_TARGET
+                                    catObj.getString("TOTAL_CODE") //TOTAL_TARGET
+                            );
+                            categoriesList.add(cat);
                         }
                     }
                 }catch (JSONException e) {
@@ -827,21 +826,21 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             params.add(new BasicNameValuePair("function", fieldforce_val.trim()));
             params.add(new BasicNameValuePair("manager_code", manager_code));
             params.add(new BasicNameValuePair("manager_detail", manager_detail));
-            Log.e("spinnerLoadParam==>", fieldforce_val.trim() + "----" + manager_code+"---"+ manager_detail);
+            Log.d("spinnerLoadParam==>", fieldforce_val.trim() + "----" + manager_code+"---"+ manager_detail);
+
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_LIST, ServiceHandler.POST, params);
             customerlist.clear();
             Log.e("getList==>",json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

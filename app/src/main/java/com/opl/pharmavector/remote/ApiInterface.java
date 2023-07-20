@@ -21,6 +21,10 @@ import com.opl.pharmavector.pmdVector.model.ProductModel;
 import com.opl.pharmavector.pmdVector.model.RXModel;
 import com.opl.pharmavector.pmdVector.model.RegionUnitModel;
 import com.opl.pharmavector.pmdVector.model.RegionValModel;
+import com.opl.pharmavector.prescriber.FieldForceModel;
+import com.opl.pharmavector.prescriber.FromDateModel;
+import com.opl.pharmavector.prescriber.GenericTypeModel;
+import com.opl.pharmavector.prescriber.TopPrescriberModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
 
@@ -209,6 +213,45 @@ public interface ApiInterface {
     Call<ArrayList<RecyclerData>> getcontactinfo(
             @Field("mpo_code") String mpo_code,
             @Field("brand_code") String brand_code
+    );
+
+    @FormUrlEncoded
+    @POST("4p/get_from_month.php")
+    Call<FromDateModel> getPrescriberFromDate(
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("4p/get_to_month.php")
+    Call<FromDateModel> getPrescriberToDate(
+            @Field("id") String id,
+            @Field("f_date") String f_date
+    );
+
+    @FormUrlEncoded
+    @POST("4p/get_List.php")
+    Call<FieldForceModel> getFieldForceCode(
+            @Field("function") String function,
+            @Field("manager_code") String manager_code,
+            @Field("manager_detail") String manager_detail
+    );
+
+    @FormUrlEncoded
+    @POST("4p/get_generic.php")
+    Call<GenericTypeModel> getGenericTypeList(
+            @Field("id") String id,
+            @Field("f_date") String f_date,
+            @Field("t_date") String t_date
+    );
+
+    @FormUrlEncoded
+    @POST("4p/get_top_prescriber.php")
+    Call<TopPrescriberModel> getPrescriberDetailList(
+            @Field("id") String id,
+            @Field("f_date") String f_date,
+            @Field("t_date") String t_date,
+            @Field("ff_code") String ff_code,
+            @Field("Gen_code") String Gen_code
     );
 
     @FormUrlEncoded

@@ -1,25 +1,23 @@
-
-
 package com.opl.pharmavector.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.opl.pharmavector.Dashboard;
 
+import java.util.Objects;
 
 public final class Activity_sim {
-	
-	
-
+	@SuppressLint({"MissingPermission", "HardwareIds"})
 	private static String getMyPhoneNumber( ){
 	    TelephonyManager mTelephonyMgr;
-	    mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE); 
-	    return mTelephonyMgr.getLine1Number();
+	    mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		assert mTelephonyMgr != null;
+		return mTelephonyMgr.getLine1Number();
 	}
 
 	private static TelephonyManager getSystemService(String telephonyService) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -29,16 +27,6 @@ public final class Activity_sim {
 	}	
 
 	public static boolean isSim(){
-		if (getMy11DigitPhoneNumber().isEmpty()) {
-			return false;
-		}
-		else {
-			return true;
-		}
-		
+		return !Objects.requireNonNull(getMy11DigitPhoneNumber()).isEmpty();
 	}
-
-
-
-	
 }

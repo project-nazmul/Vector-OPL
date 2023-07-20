@@ -1,6 +1,5 @@
 package com.opl.pharmavector.util;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,11 +37,8 @@ import android.widget.TextView;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-//import android.widget.Filter.FilterResults;
-//ProductListAdapter2
 @SuppressLint("ViewHolder")
 public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
-
     Context mContext;
     ArrayList<String> p_names;
     ArrayList<String> sl;
@@ -51,33 +47,27 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
     ArrayList<String> PROD_VAT;
     ArrayList<String> PPM_CODE;
     ArrayList<String> SHIFT_CODE;
-
     ArrayList<String> P_CODE;
     ArrayList<String> value7;
     ArrayList<String> value8;
-
     ArrayList<String> value9;
     ArrayList<String> value10;
-
     ArrayList<String> value11;
     ArrayList<String> value12;
     ArrayList<String> PPM_TYPE;
     ArrayList<String> PROD_REQ;
 
-
     static HashSet<Integer> mProductSerialList;
     public static TextView edit_qnty;
-
-    // public static String[] quantity;
+    //public static String[] quantity;
     ArrayList<String> Data_Openingstock = new ArrayList<String>();
-
-    // ArrayList<Integer> p_quanty;
+    //ArrayList<Integer> p_quanty;
     static HashMap<Integer, String> p_quanty;
-    // OnClickListener callBack;
+    //OnClickListener callBack;
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     private String productname = null;
-    // public static Integer total_quantity=0;
+    //public static Integer total_quantity=0;
     private ArrayList<String> arraylist;
     private boolean InputState;
     private String[] valueList;
@@ -85,7 +75,6 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
     public static int focusvalue=0;
 
     private com.opl.pharmavector.util.OfferDialogeAdapter.ValueFilter valueFilter;
-
     Toast toast;
 
     public OfferDialogeAdapter(Activity activity,
@@ -101,15 +90,6 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
         this.arraylist = new ArrayList<String>();
         this.arraylist.add(productname);
     }
-
-
-
-
-
-
-
-
-
     View rowView;
     public static int last_position;
     public static int last_value;
@@ -120,57 +100,38 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
 
     static ArrayList<Integer> qntyID = new ArrayList<Integer>();
     static ArrayList<String> qntyVal = new ArrayList<String>();
-
     static HashMap<Integer, String> dataSet = new HashMap<Integer, String>();
-
     // static HashMap<Integer, String,String> dataSet2 = new HashMap<Integer, String,String>();
-
     // static Set<String> set1=new HashSet<String>();
     static Set<Integer> set2 = new HashSet<Integer>();
-
     public static ArrayList<String> editTxtID = new ArrayList<String>();
-
-
-
-
-
-
 
     OfferDialogeAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9,
                                   ArrayList<String> value10, ArrayList<String> value11) {
-
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty = p_quanty;
         this.value7 = value7;
         this.value8 = value8;
-
         this.value9 = value9;
         this.value10 = value10;
-
         this.value11 = value11;
-
         this.sl = sl;
         this.mContext = con;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getFilter();
         mProductSerialList = new HashSet<Integer>();
-
     }
-
 
     OfferDialogeAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9,
                                   ArrayList<String> value10, ArrayList<String> value11,ArrayList<String> value12) {
-
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty = p_quanty;
         this.value7 = value7;
         this.value8 = value8;
-
         this.value9 = value9;
         this.value10 = value10;
-
         this.value11 = value11;
         this.value12 = value12;
         this.sl = sl;
@@ -178,30 +139,21 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getFilter();
         mProductSerialList = new HashSet<Integer>();
-
     }
-
-
-
-
-
 
     @Override
     public int getCount() {
-
         return mStringList.size();
     }
 
     // Get the data item associated with the specified position in the data set.
     @Override
     public Object getItem(int position) {
-
         return mStringList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -224,43 +176,31 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final com.opl.pharmavector.util.OfferDialogeAdapter.ViewHolder holder;
-
         rowView = convertView;
 
         if (rowView == null) {
             // convertView = inflater.inflate(R.layout.doc_ppm_list, null);
             // convertView = inflater.inflate(R.layout.doc_ppm_list, null);
-
-           // convertView = inflater.inflate(R.layout.admin_product_list_adapter, null);
+            // convertView = inflater.inflate(R.layout.admin_product_list_adapter, null);
             convertView = inflater.inflate(R.layout.product_offerlist_adapter, null);
-
 
             holder = new com.opl.pharmavector.util.OfferDialogeAdapter.ViewHolder();
             holder.serial = (TextView) convertView.findViewById(R.id.serial);
             holder.p_name = (TextView) convertView.findViewById(R.id.product_name_admin);
             holder.ppm_error = (TextView) convertView.findViewById(R.id.ppm_error);
             holder.quantity = (TextView) convertView.findViewById(R.id.mrp_val);
-
             holder.p_code1 = (TextView) convertView.findViewById(R.id.p_code1);
             holder.pack_size = (TextView) convertView.findViewById(R.id.pack_size);
             holder.brand_code = (TextView) convertView.findViewById(R.id.brand_code);
             holder.tp = (TextView) convertView.findViewById(R.id.tp);
             holder.TP_VT = (TextView) convertView.findViewById(R.id.TP_VT);
-
             edit_qnty= (TextView) convertView.findViewById(R.id.order_qnty);
-
-
             holder.checkbox = (CheckBox) convertView.findViewById(R.id.checkbox);
             convertView.setTag(holder);
-
-
         } else {
             holder = (com.opl.pharmavector.util.OfferDialogeAdapter.ViewHolder) convertView.getTag();
         }
-
-
         // holder.serial.setText(sl.get(position));
         holder.p_name.setText(mStringList.get(position));
         final int poss = Integer.parseInt(sl.get(position));
@@ -269,35 +209,15 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
         // holder.quantity.setTag(serialNo);
         final int srl = OfferDialoge.nameSerialPair.get(holder.p_name.getText().toString());
         holder.serial.setText(String.valueOf(srl));
-
-
-
         holder.pack_size.setText(value9.get(srl-1)); // pack size
-
-
         holder.tp.setText(value10.get(srl-1)); // trade price
-
-
-
         holder.TP_VT.setText(value7.get(srl-1)); // vat
-
-
         holder.quantity.setText(value12.get(srl-1) ); //mrp value
-
-
-
         holder.p_code1.setText(value11.get(srl-1)); // product code
-
-
-
         holder.brand_code.setText(value8.get(srl-1)); // brand code
-
         Log.w("extra_valu11",value11.get(srl-1));//P_CODE
         Log.w("mrpvalue",value12.get(srl-1));//COMM_TP
-
-
         return convertView;
-
     }
 
 

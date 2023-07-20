@@ -1,7 +1,6 @@
 package com.opl.pharmavector.util;
 
 public interface PreferenceConstants {
-
     String PREFERENCE_NAME = "Vector";
     String SHARED_PREF_STRING_DEFAULT_VALUE = "0";
     String password = "password";
