@@ -40,10 +40,12 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
         holder.prescriberAsm.setText("1");
         holder.prescriberDocCode.setText(prescriberModel.getDocCode());
         holder.prescriberDocName.setText(prescriberModel.getDocName());
-        holder.prescriberAddress.setText("1");
+        holder.prescriberTotalPres.setText("1");
         holder.prescriberSpecialist.setText("1");
         holder.prescriberTop.setText(prescriberModel.getTopValueShare());
+        holder.prescriberTopPres.setText(prescriberModel.getTopValueShare());
         holder.prescriberOpl.setText(prescriberModel.getOplValueShare());
+        holder.prescriberOplPres.setText(prescriberModel.getOplValueShare());
     }
 
     @Override
@@ -52,7 +54,8 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
     }
 
     public class PrescriberViewHolder extends RecyclerView.ViewHolder {
-        public TextView prescriberSl, prescriberMpo, prescriberAm, prescriberRm, prescriberAsm, prescriberDocCode, prescriberDocName, prescriberAddress, prescriberSpecialist, prescriberTop, prescriberOpl;
+        public TextView prescriberSl, prescriberMpo, prescriberAm, prescriberRm, prescriberAsm, prescriberDocCode, prescriberDocName, prescriberTotalPres, prescriberSpecialist,
+                prescriberTop, prescriberOpl, prescriberTopPres, prescriberOplPres;
 
         public PrescriberViewHolder(View view) {
             super(view);
@@ -63,10 +66,12 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
             prescriberAsm = view.findViewById(R.id.prescriberAsm);
             prescriberDocCode = view.findViewById(R.id.prescriberDocCode);
             prescriberDocName = view.findViewById(R.id.prescriberDocName);
-            prescriberAddress = view.findViewById(R.id.prescriberAddress);
+            prescriberTotalPres = view.findViewById(R.id.prescriberTotalPres);
             prescriberSpecialist = view.findViewById(R.id.prescriberSpecialist);
             prescriberTop = view.findViewById(R.id.prescriberTop);
+            prescriberTopPres = view.findViewById(R.id.prescriberTopPres);
             prescriberOpl = view.findViewById(R.id.prescriberOpl);
+            prescriberOplPres = view.findViewById(R.id.prescriberOplPres);
         }
     }
 }

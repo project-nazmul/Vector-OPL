@@ -251,7 +251,7 @@ public interface ApiInterface {
             @Field("f_date") String f_date,
             @Field("t_date") String t_date,
             @Field("ff_code") String ff_code,
-            @Field("Gen_code") String Gen_code
+            @Field("gen_code") String gen_code
     );
 
     @FormUrlEncoded

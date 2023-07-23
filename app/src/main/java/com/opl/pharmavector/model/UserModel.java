@@ -1,9 +1,8 @@
 package com.opl.pharmavector.model;
 
-
-
 public class UserModel {
     int id;
+    String image, name;
 
     public int getId() {
         return id;
@@ -28,6 +27,4 @@ public class UserModel {
     public void setName(String name) {
         this.name = name;
     }
-
-    String image, name;
 }

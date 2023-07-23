@@ -3,6 +3,7 @@ package com.opl.pharmavector.prescriber;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -73,13 +75,22 @@ public class TopPrescriberActivity extends Activity {
         } else {
             fieldType.setVisibility(View.GONE);
         }
-        showBtn.setOnClickListener(v -> prescriberDetailsInfo());
+        showBtn.setOnClickListener(v -> {
+            hideSoftKeyboard(v);
+            prescriberDetailsInfo();
+                });
         fieldForce.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 fieldForce.showDropDown();
                 return false;
             }
+        });
+        genericType.setOnItemClickListener((parent, view, position, id) -> {
+            hideSoftKeyboard(view);
+        });
+        fieldForce.setOnItemClickListener((parent, view, position, id) -> {
+            hideSoftKeyboard(view);
         });
         fieldForce.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,15 +163,20 @@ public class TopPrescriberActivity extends Activity {
                         String[] first_split = inputFieldForce.split("-");
                         genName = first_split[0].trim();
                         genCode = first_split[1].trim();
-                        fieldForce.setText(genCode);
+                        //genericType.setText(inputFieldForce);
                         //KeyboardUtils.hideKeyboard(TopPrescriberActivity.this);
-                        Log.d("genericType", "ffValue:: "+ ffValue);
+                        Log.d("genericType", "ffValue:: "+ ffValue + " :: " + inputFieldForce);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void hideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 
     private void initViews() {
@@ -443,11 +459,18 @@ public class TopPrescriberActivity extends Activity {
                 if (response.isSuccessful()) {
                     for (int i = 0; i < (prescriberData != null ? prescriberData.size() : 0); i++) {
                         topPrescriberLists.add(new TopPrescriberList(
+                                prescriberData.get(i).getSlno(),
+                                prescriberData.get(i).getMpoCode(),
+                                prescriberData.get(i).getFmCode(),
+                                prescriberData.get(i).getRmCode(),
+                                prescriberData.get(i).getAmCode(),
+                                prescriberData.get(i).getSmCode(),
                                 prescriberData.get(i).getDocCode(),
                                 prescriberData.get(i).getDocName(),
-                                prescriberData.get(i).getBaseQnty(),
-                                prescriberData.get(i).getOplPresQnty(),
-                                prescriberData.get(i).getMaxPresQnty(),
+                                prescriberData.get(i).getDocSpec(),
+                                prescriberData.get(i).getTotalPres(),
+                                prescriberData.get(i).getOplPres(),
+                                prescriberData.get(i).getTopPres(),
                                 prescriberData.get(i).getOplValueShare(),
                                 prescriberData.get(i).getTopValueShare()));
                     }
