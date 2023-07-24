@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ import retrofit2.Response;
 
 public class TopPrescriberActivity extends Activity {
     Button showBtn;
+    TextView genericName;
     MaterialSpinner fieldType;
     AutoCompleteTextView fieldForce, genericType;
     PreferenceManager preferenceManager;
@@ -163,6 +165,7 @@ public class TopPrescriberActivity extends Activity {
                         String[] first_split = inputFieldForce.split("-");
                         genName = first_split[0].trim();
                         genCode = first_split[1].trim();
+                        genericName.setText(genName);
                         //genericType.setText(inputFieldForce);
                         //KeyboardUtils.hideKeyboard(TopPrescriberActivity.this);
                         Log.d("genericType", "ffValue:: "+ ffValue + " :: " + inputFieldForce);
@@ -196,6 +199,7 @@ public class TopPrescriberActivity extends Activity {
         fieldType = findViewById(R.id.fieldType);
         fieldForce = findViewById(R.id.fieldForce);
         genericType = findViewById(R.id.genericType);
+        genericName = findViewById(R.id.genericName);
         recyclerPrescriber = findViewById(R.id.recyclerPrescriber);
     }
 

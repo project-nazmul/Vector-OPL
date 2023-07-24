@@ -27,7 +27,7 @@
                 android:id="@+id/prescriberSl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
+                android:layout_weight="0.4"
                 android:focusable="true"
                 android:gravity="center"
                 android:paddingTop="6dp"
@@ -40,7 +40,7 @@
                 android:id="@+id/prescriberMpo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:focusable="true"
                 android:gravity="center"
                 android:text="MPO"
@@ -51,29 +51,29 @@
                 android:id="@+id/prescriberAm"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:focusable="true"
                 android:gravity="center"
                 android:text="AM"
-                android:textColor="@color/blue"
+                android:textColor="@color/gallan"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
                 android:id="@+id/prescriberRm"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:focusable="true"
                 android:gravity="center"
                 android:text="RM"
-                android:textColor="@color/blue"
+                android:textColor="@color/base"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
                 android:id="@+id/prescriberAsm"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="ASM"
@@ -90,7 +90,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Doctor Code"
-                android:textColor="@color/blue"
+                android:textColor="@color/colorAccentEditor"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -102,7 +102,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Doctor Name"
-                android:textColor="@color/blue"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -114,7 +114,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Specialization"
-                android:textColor="@color/blue"
+                android:textColor="@color/colorAccentEditor"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -122,11 +122,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Total Pres"
-                android:textColor="@color/blue"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -134,11 +134,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="TOP"
-                android:textColor="@color/blue"
+                android:textColor="@color/green1"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -146,11 +146,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Top Pres"
-                android:textColor="@color/blue"
+                android:textColor="@color/green1"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -158,11 +158,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="OPL"
-                android:textColor="@color/blue"
+                android:textColor="@color/vergence"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
@@ -170,11 +170,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:clickable="true"
                 android:gravity="center"
                 android:text="Opl Pres"
-                android:textColor="@color/blue"
+                android:textColor="@color/vergence"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

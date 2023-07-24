@@ -33,19 +33,19 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
     @Override
     public void onBindViewHolder(PrescriberViewHolder holder, int position) {
         TopPrescriberList prescriberModel = prescriberLists.get(position);
-        holder.prescriberSl.setText("1");
-        holder.prescriberMpo.setText("1");
-        holder.prescriberAm.setText("1");
-        holder.prescriberRm.setText("1");
-        holder.prescriberAsm.setText("1");
+        holder.prescriberSl.setText(String.valueOf(prescriberModel.getSlno()));
+        holder.prescriberMpo.setText(prescriberModel.getMpoCode());
+        holder.prescriberAm.setText(prescriberModel.getFmCode());
+        holder.prescriberRm.setText(prescriberModel.getRmCode());
+        holder.prescriberAsm.setText(prescriberModel.getAmCode());
         holder.prescriberDocCode.setText(prescriberModel.getDocCode());
         holder.prescriberDocName.setText(prescriberModel.getDocName());
-        holder.prescriberTotalPres.setText("1");
-        holder.prescriberSpecialist.setText("1");
+        holder.prescriberTotalPres.setText(prescriberModel.getTotalPres());
+        holder.prescriberSpecialist.setText(prescriberModel.getDocSpec());
         holder.prescriberTop.setText(prescriberModel.getTopValueShare());
-        holder.prescriberTopPres.setText(prescriberModel.getTopValueShare());
+        holder.prescriberTopPres.setText(prescriberModel.getTopPres());
         holder.prescriberOpl.setText(prescriberModel.getOplValueShare());
-        holder.prescriberOplPres.setText(prescriberModel.getOplValueShare());
+        holder.prescriberOplPres.setText(prescriberModel.getOplPres());
     }
 
     @Override

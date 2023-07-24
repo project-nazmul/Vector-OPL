@@ -138,7 +138,7 @@ public class DoctorListActivity extends Activity {
         }
         String[] mpoCodeList = mpoCode.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, mpoCodeList);
-        autoDoctorFFList.setThreshold(2);
+        autoDoctorFFList.setThreshold(1);
         autoDoctorFFList.setAdapter(Adapter);
         autoDoctorFFList.setTextColor(Color.BLUE);
 
