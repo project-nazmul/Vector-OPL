@@ -175,4 +175,17 @@ public class PreferenceManager {
                 PreferenceConstants.admin_terri, "National"
         );
     }
+
+    public void setDesignation(String designation) {
+        getPreferences().edit().putString(
+                PreferenceConstants.designation,
+                designation
+        ).apply();
+    }
+
+    public String getDesignation() {
+        return getPreferences().getString(
+                PreferenceConstants.designation, ""
+        );
+    }
 }

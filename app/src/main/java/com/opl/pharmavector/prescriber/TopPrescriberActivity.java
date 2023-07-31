@@ -20,21 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.R;
-import com.opl.pharmavector.doctorList.DoctorListActivity;
-import com.opl.pharmavector.doctorList.adapter.DoctorAdapter;
-import com.opl.pharmavector.doctorList.model.DoctorList;
-import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
-import com.opl.pharmavector.util.KeyboardUtils;
 import com.opl.pharmavector.util.PreferenceManager;
 
 import java.util.ArrayList;
@@ -53,7 +46,7 @@ public class TopPrescriberActivity extends Activity {
     PreferenceManager preferenceManager;
     RecyclerView recyclerPrescriber;
     private PrescriberAdapter prescriberAdapter;
-    String fieldforce_val="Territory", manager_code, manager_detail;
+    String fieldForceValue ="Territory", manager_code, manager_detail;
     private List<FromDateList> fromDateLists = new ArrayList<>();
     private List<FromDateList> toDateLists = new ArrayList<>();
     private List<FieldForceList> fieldForceLists = new ArrayList<>();
@@ -76,11 +69,17 @@ public class TopPrescriberActivity extends Activity {
             initFieldTypeSpinner();
         } else {
             fieldType.setVisibility(View.GONE);
+            fieldForce.setText(userCode);
         }
         showBtn.setOnClickListener(v -> {
             hideSoftKeyboard(v);
-            prescriberDetailsInfo();
-                });
+            if (userRole.equals("MPO")) {
+                ffCode = userCode;
+                prescriberDetailsInfo();
+            } else {
+                prescriberDetailsInfo();
+            }
+        });
         fieldForce.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -301,17 +300,11 @@ public class TopPrescriberActivity extends Activity {
 
         fieldType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                Snackbar snackbar = Snackbar.make(view, "Field Type: " + item, Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null);
-//                View sbView = snackbar.getView();
-//                sbView.setBackgroundColor(ContextCompat.getColor(TopPrescriberActivity.this, R.color.colorAccentEditor));
-//                snackbar.show();
-
-                fieldforce_val = String.valueOf(item);
-                if (fieldforce_val.trim() != "National") {
+                fieldForceValue = String.valueOf(item);
+                if (!fieldForceValue.trim().equals("National")) {
                     getFieldForceInfo();
                 }
-//                if (fieldforce_val.trim().equals("National")) {
+//                if (fieldForceValue.trim().equals("National")) {
 //                    passed_manager_code = manager_code;
 //                    brand_code="xx";
 //                    actv_rm.setText("");
@@ -388,7 +381,7 @@ public class TopPrescriberActivity extends Activity {
 
     private void getFieldForceInfo() {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<FieldForceModel> call = apiInterface.getFieldForceCode(fieldforce_val, userCode, userRole);
+        Call<FieldForceModel> call = apiInterface.getFieldForceCode(fieldForceValue, userCode, userRole);
         fieldForceLists.clear();
         Log.d("fieldForce", userCode);
 

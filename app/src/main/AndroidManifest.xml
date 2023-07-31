@@ -44,6 +44,7 @@
         <activity
             android:name=".msd_doc_support.DashboardMSD"
             android:label="@string/app_name"
+            android:exported="true"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".dcfpFollowup.MPODcfpEntryActivity"

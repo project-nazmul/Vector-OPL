@@ -65,7 +65,8 @@ public interface ApiInterface {
             @Field("model") String model,
             @Field("brand") String brand,
             @Field("user_code") String user_code,
-            @Field("user_loc") String user_loc
+            @Field("user_loc") String user_loc,
+            @Field("loc_name") String loc_name
     );
 
     @FormUrlEncoded

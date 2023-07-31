@@ -102,7 +102,6 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import static com.opl.pharmavector.util.KeyboardUtils.hideKeyboard;
 
 public class DoctorChamberLocate extends AppCompatActivity {
-
     private Toolbar toolbar;
     private TabLayout tabLayout;
     String json;
@@ -139,39 +138,33 @@ public class DoctorChamberLocate extends AppCompatActivity {
         initViews();
         permissionEvent();
 
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 if (imageView.getDrawable() == null) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             new AlertDialog.Builder(DoctorChamberLocate.this).setTitle("Alert ! No Image is selected")
-                                    .setMessage("Please Capture Doctors Chambar picture to submit")
+                                    .setMessage("Please Capture Doctors Chamber picture to submit")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
+                                        public void onClick(DialogInterface dialog, int which) {}
                                     }).show();
                         }
                     });
-
-                }else {
+                } else {
                     if (distance < 950) {
                         status = "Y";
-                        // postGpsLoc();
+                        //postGpsLoc();
                         submitMessage();
                         uploadImage();
                     } else {
                         status = "P";
                         showSnack();
                         Log.e("KEY_IMAGE==>", getStringImage(decoded));
-
                         uploadImage();
                     }
                 }
-
             }
         });
 
@@ -184,14 +177,12 @@ public class DoctorChamberLocate extends AppCompatActivity {
             }
         });
 
-
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
     }
 
     private void initViews() {
@@ -209,7 +200,7 @@ public class DoctorChamberLocate extends AppCompatActivity {
         buttonCapture = findViewById(R.id.buttonCapture);
         fab1 = findViewById(R.id.back);
         fab1.setTypeface(fontFamily);
-        fab1.setText("\uf060 ");// &#xf060
+        fab1.setText("\uf060 "); //&#xf060
 
         imageView = findViewById(R.id.imageView);
         imageView.setImageResource(0);
@@ -218,7 +209,6 @@ public class DoctorChamberLocate extends AppCompatActivity {
         tv_doc_chamber_address.setText(Dashboard.track_add);
         tv_doc_chamber_address.setClickable(false);
         tv_doc_chamber_address.setEnabled(false);
-
         new GetDoctor().execute();
         doctorAutocompleteEvent();
     }
@@ -236,6 +226,7 @@ public class DoctorChamberLocate extends AppCompatActivity {
                             String name = jObj.getString("success");
                             String email = jObj.getString("message");
                             success = jObj.getInt(TAG_SUCCESS);
+
                             if (success == 1) {
                                 Toast.makeText(DoctorChamberLocate.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 new AlertDialog.Builder(DoctorChamberLocate.this).setTitle("Succesful")
@@ -245,9 +236,7 @@ public class DoctorChamberLocate extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int which) {
                                             }
                                         }).show();
-
                                 refresh();
-
                             } else {
                                 Toast.makeText(DoctorChamberLocate.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
@@ -256,7 +245,6 @@ public class DoctorChamberLocate extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         loading.dismiss();
-
                     }
                 },
                 new com.android.volley.Response.ErrorListener() {
@@ -266,16 +254,14 @@ public class DoctorChamberLocate extends AppCompatActivity {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                             Toast.makeText(DoctorChamberLocate.this, DoctorChamberLocate.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
                         } else if (error instanceof AuthFailureError) {
-                            //TODO
+
                         } else if (error instanceof ServerError) {
-                            //TODO
+
                         } else if (error instanceof NetworkError) {
 
-                            //TODO
                         } else if (error instanceof ParseError) {
-                            //TODO
-                        }
 
+                        }
                     }
                 }) {
             @Override
@@ -291,59 +277,45 @@ public class DoctorChamberLocate extends AppCompatActivity {
                 return params;
             }
         };
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 1000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-
-
     }
-
-
 
     private void refresh() {
         imageView.setImageResource(0);
 
     }
+    @SuppressLint("ClickableViewAccessibility")
     private void doctorAutocompleteEvent() {
         actv_doc.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_doc.showDropDown();
                 return false;
             }
         });
         actv_doc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_doc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("-") != -1) {
+
+                    if (inputorder.contains("-")) {
                         Log.e("SelectedDoctor ==>", inputorder);
                         doc_code = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
@@ -354,17 +326,11 @@ public class DoctorChamberLocate extends AppCompatActivity {
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-            }
-
+            private void length() {}
         });
     }
 
@@ -406,23 +372,18 @@ public class DoctorChamberLocate extends AppCompatActivity {
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -433,7 +394,6 @@ public class DoctorChamberLocate extends AppCompatActivity {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -450,10 +410,10 @@ public class DoctorChamberLocate extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             String URL_DOC_ADDRESS = "http://opsonin.com.bd/vector_opl_v1/geoloc/get_doc_address.php";
             params.add(new BasicNameValuePair("doc_code", doc_code));
             JSONObject json = jsonParser.makeHttpRequest(URL_DOC_ADDRESS, "POST", params);
+
             if (json != null) {
                 try {
                     doc_address = json.getString("ADDRESS");
@@ -461,9 +421,11 @@ public class DoctorChamberLocate extends AppCompatActivity {
                     List<Address> address;
                     LatLng p1 = null;
                     LatLng p2 = null;
+
                     try {
                         doc_address = doc_address.trim();
                         address = coder.getFromLocationName(doc_address, 30);
+
                         if (address == null) {
                             Log.e("address==>", String.valueOf(address));
                         }
@@ -483,9 +445,7 @@ public class DoctorChamberLocate extends AppCompatActivity {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } else {
@@ -501,11 +461,10 @@ public class DoctorChamberLocate extends AppCompatActivity {
             Thread backthred = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         if (!NetInfo.isOnline(getBaseContext())) {
-                        } else {
 
+                        } else {
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -514,66 +473,51 @@ public class DoctorChamberLocate extends AppCompatActivity {
                                     doc_opl_db_address.setClickable(false);
                                 }
                             });
-
-
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
-
             });
             backthred.start();
-
         }
     }
 
     public void getAddress(double lat, double lng) {
         Geocoder geocoder = new Geocoder(DoctorChamberLocate.this, Locale.getDefault());
-        try {
 
+        try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 30);
             Address obj = addresses.get(0);
             String opl_add = obj.getAddressLine(0);
             opl_add = opl_add + "\n" + obj.getCountryName();
             opl_add = opl_add + "\n" + obj.getCountryCode();
-
-
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-
     public void getLocationFromAddress(DoctorChamberLocate context, String strAddress) {
         Geocoder coder = new Geocoder(DoctorChamberLocate.this);
         List<Address> address;
         LatLng p1 = null;
-        try {
 
+        try {
             strAddress = doc_address;
             strAddress = strAddress.trim();
-
             address = coder.getFromLocationName(strAddress, 30);
+
             if (address == null) {
                 return;
             }
             Address location = address.get(0);
             p1 = new LatLng(location.getLatitude(), location.getLongitude());
             Log.e("opllocationfromfunc==>", String.valueOf(p1));
-
-
         } catch (IOException ex) {
-
             ex.printStackTrace();
         }
-
     }
-
 
     private void showSnack() {
         new Thread() {
@@ -583,12 +527,10 @@ public class DoctorChamberLocate extends AppCompatActivity {
                         String message;
                         message = "Your submitted Chamber location in under Verification.";
                         Toasty.warning(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-
                     }
                 });
             }
         }.start();
-
     }
 
     private void submitMessage() {
@@ -599,12 +541,10 @@ public class DoctorChamberLocate extends AppCompatActivity {
                         String message;
                         message = "Your Location is successfully submitted";
                         Toasty.warning(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-
                     }
                 });
             }
         }.start();
-
     }
 
     private void permissionEvent() {
@@ -623,7 +563,6 @@ public class DoctorChamberLocate extends AppCompatActivity {
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
             }
         }
-
     }
 
     private void openCamera() {
@@ -631,7 +570,6 @@ public class DoctorChamberLocate extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             List<Image> images = ImagePicker.getImages(data);
             ArrayList<Uri> mArrayUri = new ArrayList<>();
@@ -640,12 +578,11 @@ public class DoctorChamberLocate extends AppCompatActivity {
                 imagesEncodedList.add(image.getPath());
             }
 
-            if (mArrayUri.size() > 1) {// multiple images selected
+            if (mArrayUri.size() > 1) { // multiple images selected
                 imageView.setVisibility(View.GONE);
                 Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
                 setToImageView(decodedBitmap);
             } else if (mArrayUri.size() == 1) {// single image selected
-
                 imageView.setVisibility(View.VISIBLE);
                 setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
                 img_local_path = mArrayUri.get(0).getPath();
@@ -658,22 +595,16 @@ public class DoctorChamberLocate extends AppCompatActivity {
                 }
                 //ShowExif(exif);
             }
-
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
     private void setToImageView(Bitmap bmp) {
-
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
         imageView.setImageBitmap(decoded);
-
     }
-
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
@@ -698,23 +629,18 @@ public class DoctorChamberLocate extends AppCompatActivity {
         return encodedImage;
     }
 
-
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
 
     @Override
     protected void onStop() {
-
         super.onStop();
     }
 }

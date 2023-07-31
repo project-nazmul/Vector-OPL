@@ -114,7 +114,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private int count;
     public String tempPassword, tmpLocation, tempLogin, tempDtl, tempRole, tmpFFtype, tmpvectorVersion, vector_version, tmpEmpName, tmpEmpCode;
     public static String vectorToken = "xxxx";
-    public String globalempName, globalempCode, build_model, build_brand, build_manufac, build_id, build_device, build_version;
+    public String globalempName, globalempCode, build_model, build_brand, build_manufac, build_id, build_device, build_version, designation;
     AppUpdateManager mAppUpdateManager;
     private static final int RC_APP_UPDATE = 123;
     private InstallStateUpdatedListener installStateUpdatedListener;
@@ -531,6 +531,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 String new_version = response.body().getnew_version();
                 globalempName = response.body().getFirst_name();
                 globalempCode = response.body().getLast_name();
+                designation = response.body().getDesignation();
 
                 if (!Objects.equals(vectorToken, "xxxx")) {
                     userLog("", message);
@@ -554,6 +555,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             db.logindata();
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
@@ -567,6 +569,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setcurrentVersion(vector_version);
                             preferenceManager.setexecutive_name(globalempName);
                             preferenceManager.setemp_code(globalempCode);
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }
@@ -582,6 +585,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             db.logindata();
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
@@ -595,6 +599,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setcurrentVersion(vector_version);
                             preferenceManager.setexecutive_name(globalempName);
                             preferenceManager.setemp_code(globalempCode);
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }
@@ -610,6 +615,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             db.logindata();
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
@@ -623,6 +629,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setcurrentVersion(vector_version);
                             preferenceManager.setexecutive_name(globalempName);
                             preferenceManager.setemp_code(globalempCode);
+                            preferenceManager.setDesignation(designation);
                             Log.e("user_ff_type", user_ff_type);
                             startActivity(i);
                             break;
@@ -639,6 +646,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             preferenceManager.setTasbihCounter(4);
                             preferenceManager.setusername(tempLogin);
                             preferenceManager.setpassword(tempPassword);
@@ -648,6 +656,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setcurrentVersion(vector_version);
                             preferenceManager.setexecutive_name(globalempName);
                             preferenceManager.setemp_code(globalempCode);
+                            preferenceManager.setDesignation(designation);
                             Log.e("passed==>", message_1);
                             startActivity(i);
                             break;
@@ -664,6 +673,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             db.logindata();
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
@@ -677,6 +687,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setcurrentVersion(vector_version);
                             preferenceManager.setexecutive_name(globalempName);
                             preferenceManager.setemp_code(globalempCode);
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }
@@ -691,6 +702,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("vector_version", vector_version);
                             i.putExtra("emp_name", globalempName);
                             i.putExtra("emp_code", globalempCode);
+                            i.putExtra("designation", designation);
                             db.logindata();
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
@@ -707,6 +719,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setAdmin_Code(globalempCode);
                             preferenceManager.setAdmin_Name(globalempName);
                             preferenceManager.setAdmin_Terri(message_2);
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }
@@ -718,6 +731,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("executive_locpass", tempPassword);
                             i.putExtra("executive_type", mpo_ff_type);
                             i.putExtra("executive_name", new_version);
+                            i.putExtra("designation", designation);
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
                             db.addContacts(new Contact(f_name, s_name, message_2));
@@ -728,6 +742,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
                             preferenceManager.setfftype(mpo_ff_type); // EXECUTIVE TYPE
                             preferenceManager.setexecutive_name(message_1); // EXECUTIVE LOCATION DETAILS
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }
@@ -739,6 +754,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             i.putExtra("executive_locpass", tempPassword);
                             i.putExtra("executive_type", mpo_ff_type);
                             i.putExtra("executive_name", globalempName);
+                            i.putExtra("designation", designation);
                             f_name = user.getText().toString();
                             s_name = pass.getText().toString();
                             db.addContacts(new Contact(f_name, s_name, message_2));
@@ -749,6 +765,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
                             preferenceManager.setfftype(mpo_ff_type); // EXECUTIVE TYPE
                             preferenceManager.setexecutive_name(message_1); // EXECUTIVE LOCATION DETAILS
+                            preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;
                         }

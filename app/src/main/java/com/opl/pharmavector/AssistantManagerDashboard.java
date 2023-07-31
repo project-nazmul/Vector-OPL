@@ -42,6 +42,7 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
+import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
@@ -116,7 +117,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     PreferenceManager preferenceManager;
     private int count;
     public static String globalempCode, globalempName;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact, cardView_prescriber,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup, img_pmd_contact, img_doctor_list,
@@ -125,7 +126,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_salesfollowup, tv_mastercode, tv_pmd_contact;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_doctor_list,
             btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_mastercode, btn_salesfollowup, btn_pmd_contact;
-    public TextView t4, t5;
+    public TextView t4, t5, tvDesignation;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
@@ -137,9 +138,9 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         //setContentView(R.layout.assistantmanager);
         setContentView(R.layout.activity_vector_asm_dashboard);
 
+        preferenceManager = new PreferenceManager(this);
         statusBarHide();
         initViews();
-        preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         global_admin_Code = preferenceManager.getAdmin_Code();
         Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
@@ -157,6 +158,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         pcConferenceEvent();
         pmdContact();
         doctorListInfo();
+        topPrescriberEvent();
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -1008,6 +1010,18 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         */
     }
 
+    private void topPrescriberEvent() {
+        cardView_prescriber.setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, TopPrescriberActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", new_version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "ASM");
+            startActivity(i);
+        });
+    }
+
     private void TeamLogo() {
         String team = ff_type;
         team_logo = ApiClient.BASE_URL + "team_logo/";
@@ -1140,12 +1154,14 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
+        cardView_prescriber = findViewById(R.id.cardView_prescriber);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         img_doctor_list = findViewById(R.id.img_doctor_list);
         cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
+        tvDesignation = findViewById(R.id.textView3);
 
         ff_type = null;
         Bundle b = getIntent().getExtras();
@@ -1172,6 +1188,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         globalASMCode = userName;
         t4.setText(globalASMCode);
         t5.setText(globalZONECode);
+        tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
     }
 

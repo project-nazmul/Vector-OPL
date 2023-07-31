@@ -24,7 +24,6 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 
 public class GpsUtils {
-
     private Context context;
     private SettingsClient mSettingsClient;
     private LocationSettingsRequest mLocationSettingsRequest;
@@ -51,7 +50,6 @@ public class GpsUtils {
 
     // method for turn on GPS
     public void turnGPSOn(onGpsListener onGpsListener) {
-
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (onGpsListener != null) {
                 onGpsListener.gpsStatus(true);
@@ -63,8 +61,7 @@ public class GpsUtils {
                         @SuppressLint("MissingPermission")
                         @Override
                         public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-
-                            //  GPS is already enable, callback GPS status through listener
+                            // GPS is already enable, callback GPS status through listener
                             if (onGpsListener != null) {
                                 onGpsListener.gpsStatus(true);
                             }
@@ -76,7 +73,6 @@ public class GpsUtils {
                             int statusCode = ((ApiException) e).getStatusCode();
                             switch (statusCode) {
                                 case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-
                                     try {
                                         // Show the dialog by calling startResolutionForResult(), and check the
                                         // result in onActivityResult().

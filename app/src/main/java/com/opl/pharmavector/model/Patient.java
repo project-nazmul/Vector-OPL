@@ -90,6 +90,17 @@ public class Patient {
     @SerializedName("oplshare")
     public String oplshare;
 
+    @SerializedName("designation")
+    public String designation;
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
     public String getnew_version() {
         return new_version;
     }

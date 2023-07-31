@@ -31,29 +31,26 @@ public class MyLocationService extends BroadcastReceiver {
             if (ACTION_PROCESS_UPDATE.equals(aciton)) {
                 LocationResult result = LocationResult.extractResult(intent);
 
-                if(result != null){
-                    Location location = result.getLastLocation();
-                    String location_string = new StringBuilder(""+location.getLatitude()).
-                            append("/").append(location.getLongitude()).
-                            toString();
+                Location location = result.getLastLocation();
+                String location_string = "" + location.getLatitude() +
+                        "/" + location.getLongitude();
 
-                    String lat= String.valueOf(location.getLatitude());
-                    String lang= String.valueOf(location.getLongitude());
-                    double latitude = location.getLatitude();
-                    double langtitude= location.getLongitude();
+                String lat= String.valueOf(location.getLatitude());
+                String lang= String.valueOf(location.getLongitude());
+                double latitude = location.getLatitude();
+                double longitude= location.getLongitude();
 
-                    try {
-                        Log.e("tryBlock-->",latitude+"---"+langtitude);
-                        String myLang = String.valueOf(langtitude);
-                        String myLat = String.valueOf(latitude);
-                        Intent local = new Intent();
-                        local.setAction(ACTION_PROCESS_UPDATE);
-                        local.putExtra("langtitude", myLang);
-                        local.putExtra("latitude", myLat);
-                        context.sendBroadcast(local);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Log.e("tryBlock-->",latitude+"---"+longitude);
+                    String myLang = String.valueOf(longitude);
+                    String myLat = String.valueOf(latitude);
+                    Intent local = new Intent();
+                    local.setAction(ACTION_PROCESS_UPDATE);
+                    local.putExtra("langtitude", myLang);
+                    local.putExtra("latitude", myLat);
+                    context.sendBroadcast(local);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }

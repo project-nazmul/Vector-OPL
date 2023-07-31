@@ -90,7 +90,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashBoardPMD extends Activity implements View.OnClickListener {
-    TextView executive_name, executive_code, executive_loc;
+    TextView executive_name, executive_code, executive_loc, executive_designation;
     Bundle b;
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
@@ -109,7 +109,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private String log_status = "P";
+    private String log_status = "P", designation;
     double fetchedlang, fetchedlat;
     Context context;
     private DatabaseHandler db;
@@ -431,6 +431,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         executive_name = findViewById(R.id.executive_name);
         executive_code = findViewById(R.id.executive_code);
         executive_loc = findViewById(R.id.executive_loc);
+        executive_designation = findViewById(R.id.textView3);
         imageView2 = findViewById(R.id.imageView2);
         logout = findViewById(R.id.logout);
         btn_dashboard_1 = findViewById(R.id.btn_dashboard_1);
@@ -468,6 +469,8 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         executive_code.setText(pmd_code);
         executive_name.setText(pmd_name);
         executive_loc.setText(pmd_loc);
+        designation = preferenceManager.getDesignation();
+        executive_designation.setText(designation);
         profile_image = base_url + pmd_code + "." + "jpg";
         vector_version = getString(R.string.vector_version);
         Picasso.get().load(profile_image).into(imageView2);

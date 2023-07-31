@@ -43,6 +43,7 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
+import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
@@ -83,7 +84,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SalesManagerDashboard extends Activity implements View.OnClickListener {
-    public String userName_1, userName, userName_2, user, sm_code,global_admin_Code;
+    public String userName_1, userName, userName_2, user, sm_code, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
@@ -120,7 +121,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     PreferenceManager preferenceManager;
     private int count;
     public static String globalempCode, globalempName ;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_doctor_list, cardview_ff_contact,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_doctor_list, cardview_ff_contact, cardView_prescriber,
              practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
              img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup,
@@ -129,7 +130,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
              tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd,tv_exam, tv_salesfollowup, tv_mastercode, tv_pmd_contact;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice, btn_doctor_list,
             btn_docgiftfeedback,btn_notification,btn_rx,btn_personalexpense,btn_pc,btn_promomat,btn_salereports,btn_msd,btn_exam,btn_vector_feedback,btn_mastercode,btn_salesfollowup;
-    public TextView t4,t5,textView3;
+    public TextView t4, t5, tvDesignation;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
     public String base_url =  ApiClient.BASE_URL+"vector_ff_image/";
@@ -142,12 +143,12 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         //setContentView(R.layout.assistantmanager);
         setContentView(R.layout.activity_vector_asm_dashboard);
 
+        preferenceManager = new PreferenceManager(this);
         statusBarHide();
         initViews();
-        preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
-        global_admin_Code=preferenceManager.getAdmin_Code();
-        Log.e("Admin Code--->",preferenceManager.getAdmin_Code());
+        global_admin_Code = preferenceManager.getAdmin_Code();
+        Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
 
         logoutEvent();
         firebaseToken();
@@ -164,6 +165,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         dccFollowup();
         pmdContact();
         doctorListInfo();
+        topPrescriberEvent();
 
         cardview_ff_contact.setOnClickListener(v -> {
             Thread backthred = new Thread(() -> {
@@ -192,6 +194,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         VacantPassword();
         msdDocSupport();
         */
+    }
+
+    private void topPrescriberEvent() {
+        cardView_prescriber.setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, TopPrescriberActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", new_version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "SM");
+            startActivity(i);
+        });
     }
 
     /*
@@ -296,7 +310,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         user_show1 = findViewById(R.id.user_show1);
         t4 = findViewById(R.id.t4);
         t5 = findViewById(R.id.t5);
-        textView3 = findViewById(R.id.textView3);
+        tvDesignation = findViewById(R.id.textView3);
         imageView2 = findViewById(R.id.imageView2);
         logo_team = findViewById(R.id.logo_team);
 
@@ -380,6 +394,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
+        cardView_prescriber = findViewById(R.id.cardView_prescriber);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -408,7 +423,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         globalSMCode = userName;
         t4.setText(globalSMCode);
         t5.setText(globalDivisionCode);
-        textView3.setText("Sales Manager");
+        tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
     }
 

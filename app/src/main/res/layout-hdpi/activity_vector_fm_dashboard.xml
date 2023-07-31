@@ -1257,7 +1257,6 @@
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -1281,9 +1280,7 @@
                             android:layout_width="40dp"
                             android:layout_height="36dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/doctor_list"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -1313,11 +1310,80 @@
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
-                            android:gravity="left"
-                            android:paddingLeft="10dp"
+                            android:gravity="start"
+                            android:paddingStart="10dp"
                             android:text="15"
                             android:textColor="@android:color/black"
                             android:textSize="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView_prescriber"
+                    android:layout_width="137dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#A9B6F8"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:clickable="false"
+                            android:id="@+id/img_btn_prescriber"
+                            android:layout_width="42dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/ic_rx_capture"
+                            android:padding="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_ff_prescriber"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.862" />
+
+                        <TextView
+                            android:layout_marginTop="4dp"
+                            android:layout_marginStart="8dp"
+                            android:id="@+id/tv_ff_prescriber"
+                            android:layout_width="65dp"
+                            android:layout_height="31dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="Top\nPrescriber"
+                            android:textColor="@android:color/black"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_btn_prescriber"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.68" />
+
+                        <Button
+                            android:clickable="false"
+                            android:id="@+id/btn_ff_prescriber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:background="@drawable/top_button_shape"
+                            android:gravity="start"
+                            android:paddingStart="10dp"
+                            android:text="16"
+                            android:textColor="@android:color/black"
+                            android:textSize="10sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

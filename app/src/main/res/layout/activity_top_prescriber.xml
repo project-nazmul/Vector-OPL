@@ -31,8 +31,7 @@
                 android:background="#070707"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="1dp"
-                android:weightSum="6">
+                android:padding="1dp">
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/fromDate"

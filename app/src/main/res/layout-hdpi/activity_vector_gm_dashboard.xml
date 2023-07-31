@@ -1235,7 +1235,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardview_prescriber"
+                    android:id="@+id/cardView_prescriber"
                     android:layout_width="137dp"
                     android:layout_height="75dp"
                     android:layout_margin="8dp"

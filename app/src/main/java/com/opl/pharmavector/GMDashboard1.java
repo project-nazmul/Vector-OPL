@@ -62,11 +62,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -114,7 +110,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     private int count;
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode;
     Typeface fontFamily;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,cardview_prescriber,
+    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,cardView_prescriber,
              practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact,cardview_ff_contact;
     ImageButton profileB,img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
             img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode,img_pmd_contact,img_doctor_list;
@@ -122,7 +118,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             tv_notification,tv_rx,tv_pc,tv_salereports,tv_msd,tv_salesfollowup,tv_mastercode,tv_pmd_contact,tv_doctor_list;
     Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,btn_notification,btn_rx,btn_pc,btn_salereports,btn_msd,btn_salesfollowup,btn_vector_feedback,
             btn_mastercode,btn_pmd_contact,btn_doctor_list;
-    public TextView t4,t5;
+    public TextView t4, t5, tvDesignation;
     public ImageView imageView2,logo_team;
     public static String team_logo,profile_image;
     public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
@@ -145,7 +141,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);
 
-        Log.d("sdkVersion", String.valueOf(Build.VERSION.SDK_INT));
+//        Log.d("sdkVersion", String.valueOf(Build.VERSION.SDK_INT));
 //        if (Build.VERSION.SDK_INT > 32) {
 //            if (!shouldShowRequestPermissionRationale("101")){
 //                getNotificationPermission();
@@ -192,7 +188,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         prescriptionentry();
         pmdContact();
         doctorListInfo();
-        topPrescriber();
+        topPrescriberEvent();
 
         logout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
@@ -219,8 +215,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         autoLogout();
     }
 
-    private void topPrescriber() {
-        cardview_prescriber.setOnClickListener(v -> {
+    private void topPrescriberEvent() {
+        cardView_prescriber.setOnClickListener(v -> {
             Intent i = new Intent(GMDashboard1.this, TopPrescriberActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", globalempCode);
@@ -336,13 +332,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
-        cardview_prescriber = findViewById(R.id.cardview_prescriber);
+        cardView_prescriber = findViewById(R.id.cardView_prescriber);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         img_doctor_list = findViewById(R.id.img_doctor_list);
         cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
         btn_vector_feedback  = findViewById(R.id.btn_vector_feedback);
+        tvDesignation  = findViewById(R.id.textView3);
 
         ff_type      = null;
         Bundle b     = getIntent().getExtras();
@@ -359,7 +356,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         global_admin_Code = preferenceManager.getAdmin_Code();
         global_admin_name = preferenceManager.getAdmin_Name();
         global_admin_terri = preferenceManager.getAdmin_Terri();
-        Log.e("UserCode------>",global_admin_Code + "-----------" + global_admin_name + "-----------" + global_admin_terri);
+        Log.d("UserCode",global_admin_Code + "-----------" + global_admin_name + "-----------" + global_admin_terri);
 
         //user_show1.setText(globalempName);
         user_show1.setText(global_admin_name);
@@ -372,6 +369,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         globalAdminDtl = UserName_2;
         t4.setText(global_admin_Code);
         t5.setText(global_admin_terri);
+        tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(global_admin_Code);
     }
 

@@ -73,6 +73,7 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
+import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
@@ -161,7 +162,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     double fetchedlang, fetchedlat;
     Context context;
     BroadcastReceiver updateUIReciver;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback, img_doctor_list,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam,
@@ -170,7 +171,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports,
             btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
-    public TextView t4, t5;
+    public TextView t4, t5, tvDesignation;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
@@ -184,11 +185,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
+        Log.d("lifeCycle", "onCreate called!");
 
+        preferenceManager = new PreferenceManager(this);
         statusBarHide();
         initViews();
         RunAnimation();
-        preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         global_admin_Code = preferenceManager.getAdmin_Code();
@@ -211,6 +213,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
         msdDocSupport();
         pmdContact();
         doctorListInfo();
+        updateLocation();
+        prescriberEvent();
 
         session = new SessionManager(getApplicationContext());
         PackageManager pm = getApplicationContext().getPackageManager();
@@ -222,6 +226,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
         vector_version = pkgInfo.versionName;
+
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
@@ -301,7 +306,19 @@ public class Dashboard extends Activity implements View.OnClickListener {
         firebaseEvent();
         autoLogout();
         TeamLogo();
-        userLogIn();
+        //userLogIn();
+    }
+
+    private void prescriberEvent() {
+        cardView_prescriber.setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, TopPrescriberActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "MPO");
+            startActivity(i);
+        });
     }
 
     private void TeamLogo() {
@@ -450,6 +467,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
         img_doctor_list = findViewById(R.id.img_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
+        cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        tvDesignation = findViewById(R.id.textView3);
 
         ff_type = null;
         Bundle b = getIntent().getExtras();
@@ -476,6 +495,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         globalmpocode = userName;
         t4.setText(globalmpocode);
         t5.setText(globalterritorycode);
+        tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
     }
 
@@ -1783,9 +1803,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
     }
 
-    private void userLogIn() {
+    private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add, loc_name);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -1821,7 +1841,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private PendingIntent getPendingIntent() {
         Intent myIntent = new Intent(this, MyLocationService.class);
         myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
-        return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        //return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        //return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
     }
 
     private void buildLocationRequest() {
@@ -1830,7 +1856,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         locationRequest.setInterval(100);
         locationRequest.setFastestInterval(200);
         locationRequest.setSmallestDisplacement(10f);
-        Log.e("loca-->", locationRequest.toString());
+        Log.d("loca-->", locationRequest.toString());
     }
 
     public void getAddress(double lat, double lng) {
@@ -1839,9 +1865,15 @@ public class Dashboard extends Activity implements View.OnClickListener {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             Address obj = addresses.get(0);
             track_add = obj.getAddressLine(0);
-            track_add = track_add + "\n" + obj.getCountryName();
-            track_add = track_add + "\n" + obj.getCountryCode();
+            //track_add = track_add + "\n" + obj.getCountryName();
+            //track_add = track_add + "\n" + obj.getCountryCode();
+            //t4.setText(track_add);
             //userLog(log_status);
+            if (track_add != null) {
+                userLogIn(track_add);
+            } else {
+                userLogIn("No Address");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1932,6 +1964,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("lifeCycle", "onResume called!");
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
         NotificationUtils.clearNotifications(getApplicationContext());
@@ -1948,6 +1981,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
+        Log.d("lifeCycle", "onPause called!");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         updateLocation();
         super.onPause();
@@ -1967,6 +2001,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("lifeCycle", "onDestroy called!");
         unregisterReceiver(updateUIReciver);
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(userName);
@@ -1986,6 +2021,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     protected void onStop() {
         updateLocation();
         super.onStop();
+        Log.d("lifeCycle", "onStop called!");
     }
 
     private void lock_emp_check(String emp_code) {
@@ -2003,6 +2039,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 assert response.body() != null;
                 String status = response.body().getTerritory_name();
                 Log.e("Check locked user-->", status);
+
                 if (status.equals("Y")) {
                     Toast.makeText(Dashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
                     log_status = "N";
