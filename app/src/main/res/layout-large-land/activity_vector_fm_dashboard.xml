@@ -111,16 +111,45 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottiePhoneCall"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_32sdp"
+                android:layout_width="42dp"
+                android:layout_height="40dp"
                 android:paddingEnd="@dimen/_8sdp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/textView3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/dashboard_anim" />
+
+            <LinearLayout
+                android:paddingTop="@dimen/_4sdp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/t5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/img_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_location"
+                    android:padding="8dp"
+                    android:contentDescription="Location" />
+
+                <TextView
+                    android:textAlignment="center"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:id="@+id/location_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotoregular"
+                    android:text="....."
+                    android:textColor="@color/darkblue"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -155,7 +184,6 @@
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -176,9 +204,7 @@
                             android:layout_width="42dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/ic_dcr"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -283,10 +309,10 @@
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
                             android:gravity="left"
-                            android:paddingLeft="10dp"
+                            android:paddingStart="10dp"
                             android:text="2"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
+                            android:textSize="10sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -777,10 +803,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -800,7 +823,6 @@
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -823,9 +845,7 @@
                             android:layout_width="42dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/ic_personal_expense"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -840,11 +860,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
                             android:fontFamily="@font/robotoregular"
                             android:text="Personal\nExpenses"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
+                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/img_btn_personalexpense"
@@ -856,19 +875,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
-                            android:gravity="left"
+                            android:gravity="start"
                             android:paddingLeft="10dp"
                             android:text="9"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
+                            android:textSize="10sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_pc"
@@ -876,7 +892,6 @@
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -899,9 +914,7 @@
                             android:layout_width="42dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/ic_pc_conference"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -941,11 +954,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -959,14 +968,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_promomat"
                     android:layout_width="137dp"
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -989,9 +996,7 @@
                             android:layout_width="42dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/ic_promo_mat"
                             android:padding="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -1006,11 +1011,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
                             android:fontFamily="@font/robotoregular"
                             android:text="Promo\nMaterial"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
+                            android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/img_btn_promomat"
@@ -1022,11 +1026,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
-                            android:gravity="left"
+                            android:gravity="start"
                             android:paddingLeft="10dp"
                             android:text="11"
                             android:textColor="@android:color/black"
-                            android:textSize="10dp"
+                            android:textSize="10sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -1305,9 +1309,7 @@
                             android:layout_width="40dp"
                             android:layout_height="36dp"
                             android:layout_marginStart="2dp"
-                            android:layout_marginLeft="2dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
                             android:background="@drawable/doctor_list"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -1337,8 +1339,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
-                            android:gravity="left"
-                            android:paddingLeft="10dp"
+                            android:gravity="start"
+                            android:paddingStart="10dp"
                             android:text="15"
                             android:textColor="@android:color/black"
                             android:textSize="10dp"

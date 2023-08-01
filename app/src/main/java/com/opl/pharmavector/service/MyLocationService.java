@@ -20,28 +20,30 @@ import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 
 public class MyLocationService extends BroadcastReceiver {
-    public static final String ACTION_PROCESS_UPDATE= "com.opl.pharmavector.googlelocationbackground.UPDATE_LOCATION";
+    public static final String ACTION_PROCESS_UPDATE = "com.opl.pharmavector.googlelocationbackground.UPDATE_LOCATION";
     private Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d("locationAdd", "MyLocationService onReceive called!");
         if (intent != null) {
             final String aciton = intent.getAction();
 
             if (ACTION_PROCESS_UPDATE.equals(aciton)) {
                 LocationResult result = LocationResult.extractResult(intent);
 
-                Location location = result.getLastLocation();
-                String location_string = "" + location.getLatitude() +
-                        "/" + location.getLongitude();
-
-                String lat= String.valueOf(location.getLatitude());
-                String lang= String.valueOf(location.getLongitude());
-                double latitude = location.getLatitude();
-                double longitude= location.getLongitude();
-
                 try {
-                    Log.e("tryBlock-->",latitude+"---"+longitude);
+                    Location location = result.getLastLocation();
+                    String location_string = "" + location.getLatitude() +
+                            "/" + location.getLongitude();
+
+                    String lat = String.valueOf(location.getLatitude());
+                    String lang = String.valueOf(location.getLongitude());
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+
+                    // try {
+                    Log.e("tryBlock-->", latitude + "---" + longitude);
                     String myLang = String.valueOf(longitude);
                     String myLat = String.valueOf(latitude);
                     Intent local = new Intent();

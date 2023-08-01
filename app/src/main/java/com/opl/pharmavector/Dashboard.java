@@ -133,11 +133,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private DatabaseHandler db;
     private String TAG = Offlinereport.class.getSimpleName();
     private Button logout;
-    public TextView user_show1, user_show2;
+    public TextView user_show1, user_show2, tvLocationName;
     private SessionManager session;
     private final String fetch_exam_flag = BASE_URL + "/vectorexam/fetch_exam_flag.php";
     private final String submit_url = BASE_URL + "/notification/save_vector_notification_token_data_test.php";
-    public String message;
+    public String message, locationName;
     public String success, mymessage, mysuccess, myexamid, myexamtime, myexamtimeleft;
     public String exam_flag;
     public static String globalmpocode, globalmpoflag, globalterritorycode, globalfftype, ff_type, build_model, build_brand,
@@ -188,14 +188,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Log.d("lifeCycle", "onCreate called!");
 
         preferenceManager = new PreferenceManager(this);
-        statusBarHide();
-        initViews();
-        RunAnimation();
         count = preferenceManager.getTasbihCounter();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         global_admin_Code = preferenceManager.getAdmin_Code();
+        statusBarHide();
+        initViews();
+        initBroadcastReceiver();
+        registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
+        //RunAnimation();
         Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
 
+        updateLocation();
         orderEvents();
         dcrClickEvent();
         personalExpenseEvent();
@@ -213,7 +216,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         msdDocSupport();
         pmdContact();
         doctorListInfo();
-        updateLocation();
         prescriberEvent();
 
         session = new SessionManager(getApplicationContext());
@@ -300,9 +302,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         customerlist = new ArrayList<>();
         //vector_version = getString(R.string.vector_version);
         Log.e("vector_version---->", vector_version);
-
-        initBroadcastReceiver();
-        registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
         firebaseEvent();
         autoLogout();
         TeamLogo();
@@ -391,6 +390,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team = findViewById(R.id.logo_team);
+        tvLocationName = findViewById(R.id.location_name);
 
         btn_productorder = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -1839,12 +1839,13 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private PendingIntent getPendingIntent() {
+        Log.d("locationAdd", "getPendingIntent called!");
         Intent myIntent = new Intent(this, MyLocationService.class);
         myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
         //return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         //return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_MUTABLE);
         } else {
             return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
@@ -1867,7 +1868,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             track_add = obj.getAddressLine(0);
             //track_add = track_add + "\n" + obj.getCountryName();
             //track_add = track_add + "\n" + obj.getCountryCode();
-            //t4.setText(track_add);
+            tvLocationName.setText(track_add);
             //userLog(log_status);
             if (track_add != null) {
                 userLogIn(track_add);
@@ -1920,6 +1921,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     }
 
     private void updateLocation() {
+        Log.d("locationAdd", "updateLocation called!");
         buildLocationRequest();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -1982,8 +1984,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onPause() {
         Log.d("lifeCycle", "onPause called!");
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        updateLocation();
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        //updateLocation();
         super.onPause();
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(userName);
@@ -2003,6 +2005,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         super.onDestroy();
         Log.d("lifeCycle", "onDestroy called!");
         unregisterReceiver(updateUIReciver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(userName);
         preferenceManager.setpassword(password);
@@ -2014,12 +2017,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
         Log.e("onDestroy----->", global_admin_Code);
-        updateLocation();
+        //updateLocation();
     }
 
     @Override
     protected void onStop() {
-        updateLocation();
+        //updateLocation();
         super.onStop();
         Log.d("lifeCycle", "onStop called!");
     }

@@ -63,7 +63,6 @@ public class TopPrescriberActivity extends Activity {
 
         initViews();
         getFromDateInfo();
-        getToDateInfo();
         if (!"MPO".equals(userRole)) {
             fieldType.setVisibility(View.VISIBLE);
             initFieldTypeSpinner();
@@ -326,6 +325,11 @@ public class TopPrescriberActivity extends Activity {
     }
 
     private void getFromDateInfo() {
+        ProgressDialog fromDateDialog = new ProgressDialog(TopPrescriberActivity.this);
+        fromDateDialog.setMessage("From Date Loading...");
+        fromDateDialog.setTitle("From Date Followup");
+        fromDateDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<FromDateModel> call = apiInterface.getPrescriberFromDate(userCode);
         fromDateLists.clear();
@@ -335,7 +339,9 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onResponse(Call<FromDateModel> call, Response<FromDateModel> response) {
                 if (response.isSuccessful()) {
+                    fromDateDialog.dismiss();
                     fromDateLists = Objects.requireNonNull(response.body()).getFromDateLists();
+
                     if (fromDateLists.size() > 0) {
                         initFromDateList(fromDateLists);
                     }
@@ -345,6 +351,7 @@ public class TopPrescriberActivity extends Activity {
 
             @Override
             public void onFailure(Call<FromDateModel> call, Throwable t) {
+                fromDateDialog.dismiss();
                 Log.d("fromDate", "Failed to Retrieved Data -- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data!", Toast.LENGTH_SHORT);
                 toast.show();
@@ -353,6 +360,11 @@ public class TopPrescriberActivity extends Activity {
     }
 
     private void getToDateInfo() {
+        ProgressDialog toDateDialog = new ProgressDialog(TopPrescriberActivity.this);
+        toDateDialog.setMessage("To Date Loading...");
+        toDateDialog.setTitle("To Date Followup");
+        toDateDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<FromDateModel> call = apiInterface.getPrescriberToDate(userCode, fromDateFormat);
         toDateLists.clear();
@@ -362,7 +374,9 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onResponse(Call<FromDateModel> call, Response<FromDateModel> response) {
                 if (response.isSuccessful()) {
+                    toDateDialog.dismiss();
                     toDateLists = Objects.requireNonNull(response.body()).getFromDateLists();
+
                     if (toDateLists.size() > 0) {
                         initToDateList(toDateLists);
                     }
@@ -373,6 +387,7 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onFailure(Call<FromDateModel> call, Throwable t) {
                 Log.d("toDate", "Failed to Retrieved Data -- " + t);
+                toDateDialog.dismiss();
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data!", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -380,6 +395,11 @@ public class TopPrescriberActivity extends Activity {
     }
 
     private void getFieldForceInfo() {
+        ProgressDialog fieldForceDialog = new ProgressDialog(TopPrescriberActivity.this);
+        fieldForceDialog.setMessage("Field Force Loading...");
+        fieldForceDialog.setTitle("Field Force Followup");
+        fieldForceDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<FieldForceModel> call = apiInterface.getFieldForceCode(fieldForceValue, userCode, userRole);
         fieldForceLists.clear();
@@ -389,6 +409,7 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onResponse(Call<FieldForceModel> call, Response<FieldForceModel> response) {
                 if (response.isSuccessful()) {
+                    fieldForceDialog.dismiss();
                     fieldForceLists = Objects.requireNonNull(response.body()).getFieldForceLists();
                     if (fieldForceLists.size() > 0) {
                         initFieldForceSpinner();
@@ -400,6 +421,7 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onFailure(Call<FieldForceModel> call, Throwable t) {
                 Log.d("fieldForce", "Failed to Retrieved Data -- " + t);
+                fieldForceDialog.dismiss();
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data!", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -407,6 +429,11 @@ public class TopPrescriberActivity extends Activity {
     }
 
     private void getGenericTypeInfo() {
+        ProgressDialog genericTypeDialog = new ProgressDialog(TopPrescriberActivity.this);
+        genericTypeDialog.setMessage("Generic Loading...");
+        genericTypeDialog.setTitle("Generic Followup");
+        genericTypeDialog.show();
+
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<GenericTypeModel> call = apiInterface.getGenericTypeList(userCode, fromDateFormat, toDateFormat);
         genericTypeLists.clear();
@@ -416,6 +443,7 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onResponse(Call<GenericTypeModel> call, Response<GenericTypeModel> response) {
                 if (response.isSuccessful()) {
+                    genericTypeDialog.dismiss();
                     genericTypeLists = Objects.requireNonNull(response.body()).getGenericLists();
                     if (genericTypeLists.size() > 0) {
                         initGenericTypeSpinner();
@@ -427,6 +455,7 @@ public class TopPrescriberActivity extends Activity {
             @Override
             public void onFailure(Call<GenericTypeModel> call, Throwable t) {
                 Log.d("genericType", "Failed to Retrieved Data -- " + t);
+                genericTypeDialog.dismiss();
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data!", Toast.LENGTH_SHORT);
                 toast.show();
             }

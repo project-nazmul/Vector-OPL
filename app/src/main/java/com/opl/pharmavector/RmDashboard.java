@@ -2,15 +2,22 @@ package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,9 +27,17 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -46,6 +61,7 @@ import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -53,6 +69,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.widget.ImageButton;
@@ -63,12 +80,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -105,7 +124,13 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             tv_notification, tv_rx, tv_personalexpense, tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice,
             btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports, btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
-    public TextView t4, t5, tvDesignation;
+    LocationManager locationManager;
+    BroadcastReceiver updateUIReciver;
+    double fetchedlang, fetchedlat;
+    LocationRequest locationRequest;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    public static String track_lat, track_lang, track_add;
+    public TextView t4, t5, tvDesignation, tvLocationName;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
@@ -118,14 +143,18 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_vector_rm_dashboard);
 
         preferenceManager = new PreferenceManager(this);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         statusBarHide();
         initViews();
+        initBroadcastReceiver();
+        registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
         count = preferenceManager.getTasbihCounter();
         checkdatelist = new ArrayList<Customer>();
         global_admin_Code = preferenceManager.getAdmin_Code();
         Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
         //autoLogout();
 
+        updateLocation();
         dcrClickEvent();
         amMonitor();
         personalExpenseEvent();
@@ -181,7 +210,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             });
             backthred.start();
         });
-
         /*
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1256,7 +1284,6 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             }
         });
         */
-
         session = new SessionManager(getApplicationContext());
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -1287,6 +1314,174 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         .show();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
+                checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(RmDashboard.this, R.style.Theme_Design_BottomSheetDialog);
+                builder.setTitle("App Require Location").setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running")
+                        .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Thread server = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                            dexterPermission(RmDashboard.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                        } else {
+                                            dexterPermission(RmDashboard.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                        }
+                                    }
+                                });
+                                server.start();
+                            }
+                        })
+                        .setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                preferenceManager.clearPreferences();
+                                count = 0;
+                                Intent logoutIntent = new Intent(RmDashboard.this, Login.class);
+                                startActivity(logoutIntent);
+                                finish();
+
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
+    private void updateLocation() {
+            Log.d("locationAdd", "updateLocation called!");
+            buildLocationRequest();
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest, getPendingIntent());
+    }
+
+    private void buildLocationRequest() {
+        locationRequest = new LocationRequest();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(100);
+        locationRequest.setFastestInterval(200);
+        locationRequest.setSmallestDisplacement(10f);
+        Log.d("loca-->", locationRequest.toString());
+    }
+
+    private PendingIntent getPendingIntent() {
+        Log.d("locationAdd", "getPendingIntent called!");
+        Intent myIntent = new Intent(this, MyLocationService.class);
+        myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+    }
+
+    private void initBroadcastReceiver() {
+        updateUIReciver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d("broadcast1", "called!");
+                String parselang = intent.getStringExtra("langtitude");
+                String parselat = intent.getStringExtra("latitude");
+                fetchedlang = Double.parseDouble(parselang);
+                fetchedlat = Double.parseDouble(parselat);
+                track_lat = parselat;
+                track_lang = parselang;
+                getAddress(fetchedlat, fetchedlang);
+                //userLog(log_status);
+            }
+        };
+    }
+
+    public void getAddress(double lat, double lng) {
+        Geocoder geocoder = new Geocoder(RmDashboard.this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            Address obj = addresses.get(0);
+            track_add = obj.getAddressLine(0);
+            //track_add = track_add + "\n" + obj.getCountryName();
+            //track_add = track_add + "\n" + obj.getCountryCode();
+            tvLocationName.setText(track_add);
+            //userLog(log_status);
+            if (track_add != null) {
+                userLogIn(track_add);
+            } else {
+                userLogIn("No Address");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void userLogIn(String loc_name) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, Dashboard.track_lat, Dashboard.track_lang, Dashboard.build_model, Dashboard.build_brand, Dashboard.globalmpocode, Dashboard.track_add, loc_name);
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                assert response.body() != null;
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+            }
+
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void dexterPermission(Context context, String... permissions) {
+        Dexter.withContext(this)
+                .withPermissions(permissions).withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (!report.areAllPermissionsGranted()) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(RmDashboard.this, R.style.Theme_Design_BottomSheetDialog);
+                            builder.setTitle("App Require Location").setMessage("All permission must be Granted")
+                                    .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Thread server = new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dexterPermission(RmDashboard.this);
+                                                }
+                                            });
+                                            server.start();
+                                        }
+                                    })
+                                    .setNegativeButton("Quit App", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            preferenceManager.clearPreferences();
+                                            count = 0;
+                                            Intent logoutIntent = new Intent(RmDashboard.this, Login.class);
+                                            startActivity(logoutIntent);
+                                            finish();
+                                        }
+                                    })
+                                    .show();
+                        } else {
+                            updateLocation();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                    }
+                }).check();
     }
 
     private void topPrescriberEvent() {
@@ -1585,6 +1780,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team = findViewById(R.id.logo_team);
+        tvLocationName = findViewById(R.id.location_name);
 
         btn_productorder = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
@@ -2735,6 +2931,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(updateUIReciver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(userName);
         preferenceManager.setpassword(password);
@@ -2751,6 +2949,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
     }
 
     private void lock_emp_check(String emp_code) {

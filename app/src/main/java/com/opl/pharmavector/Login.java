@@ -764,7 +764,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             preferenceManager.setuserrole(message); // EXECUTIVE CODE
                             preferenceManager.setuserdtl(new_version); // EXECUTIVE NAME
                             preferenceManager.setfftype(mpo_ff_type); // EXECUTIVE TYPE
-                            preferenceManager.setexecutive_name(message_1); // EXECUTIVE LOCATION DETAILS
+                            preferenceManager.setexecutive_name(globalempName); // EXECUTIVE LOCATION DETAILS
                             preferenceManager.setDesignation(designation);
                             startActivity(i);
                             break;

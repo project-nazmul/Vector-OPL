@@ -46,7 +46,7 @@ public class DashboardMSD extends Activity {
     LocationRequest locationRequest;
     PreferenceManager preferenceManager;
     CardView cardMsdApproval, cardMsdCommitment, cardMsdFollowUp;
-    TextView profileName, profileCode, profileDesignation;
+    TextView profileName, profileCode, profileDesignation, profileDepartment;
     FusedLocationProviderClient fusedLocationProviderClient;
     String globalCode, globalName, globalTerri, profileImageUrl, msdUserName, msdUserLoc, msdLocCode, msdLocPass, msdUserType, msdUserCode;
     String imageBaseurl = ApiClient.BASE_URL + "vector_ff_image/";
@@ -151,14 +151,16 @@ public class DashboardMSD extends Activity {
         msdLocPass = bundle.getString("executive_locpass");
         msdUserType = bundle.getString("executive_type");
         profileName = findViewById(R.id.executive_name);
-        profileName.setText(msdUserName);
+        profileName.setText(preferenceManager.getexecutive_name());
         profileImage = findViewById(R.id.imageView2);
         profileImageUrl = imageBaseurl + globalCode + "." + "jpg";
         Picasso.get().load(profileImageUrl).into(profileImage);
         profileCode = findViewById(R.id.executive_code);
         profileCode.setText(msdUserCode);
-        profileDesignation = findViewById(R.id.executive_loc);
-        profileDesignation.setText(msdUserLoc);
+        profileDepartment = findViewById(R.id.executive_loc);
+        profileDepartment.setText(msdUserLoc);
+        profileDesignation = findViewById(R.id.executive_design);
+        profileDesignation.setText(preferenceManager.getDesignation());
         logout = findViewById(R.id.logout);
         cardMsdApproval = findViewById(R.id.cardMsdApproval);
         cardMsdCommitment = findViewById(R.id.cardMsdCommitment);
@@ -229,5 +231,9 @@ public class DashboardMSD extends Activity {
         Intent myIntent = new Intent(this, MyLocationService.class);
         myIntent.setAction(MyLocationService.ACTION_PROCESS_UPDATE);
         return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
