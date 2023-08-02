@@ -187,8 +187,6 @@ public class TopPrescriberActivity extends Activity {
         userName = b.getString("UserName");
         userCode = b.getString("UserCode");
         userRole = b.getString("UserRole");
-        //manager_code = b.getString("manager_code");
-        //manager_detail = b.getString("manager_detail");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
         globalUserCode = preferenceManager.getAdmin_Code();

@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
@@ -34,12 +33,8 @@ import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -51,20 +46,15 @@ import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
-import com.opl.pharmavector.doctorservice.DoctorServiceDashboard;
-import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
 import com.opl.pharmavector.doctorservice.DoctorServiceFollowup;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
-import com.opl.pharmavector.exam.ExamDashboard;
 import com.opl.pharmavector.exam.ExamResultFollowup;
 import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
-import com.opl.pharmavector.login_dashboard.MPODashboard;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mpodcr.Dcr;
-import com.opl.pharmavector.msd_doc_support.DocSupportDashboard;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.DocSupportReq;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
@@ -74,13 +64,11 @@ import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
-import com.opl.pharmavector.promomat.PromomaterialDashboard;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
@@ -95,14 +83,11 @@ import java.util.List;
 import android.app.ProgressDialog;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -111,7 +96,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -142,10 +126,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public String exam_flag;
     public static String globalmpocode, globalmpoflag, globalterritorycode, globalfftype, ff_type, build_model, build_brand,
             build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3;
-    public static String track_lat, track_lang, track_add;
+    public static String track_lat, track_lang, track_add = "No Address";
     public static String vectorToken;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private int count;
+    Boolean isAddressSubmit;
     PreferenceManager preferenceManager;
     AppUpdaterUtils appUpdaterUtils;
     AppUpdater appUpdater;
@@ -187,6 +172,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_vector_mpo_dashboard);
         Log.d("lifeCycle", "onCreate called!");
 
+        isAddressSubmit = true;
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -212,7 +198,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         prescriptionEvent();
         doctorGiftEvent();
         vectorFeedback();
-        getDevicedetails();
+        getDeviceDetails();
         msdDocSupport();
         pmdContact();
         doctorListInfo();
@@ -1805,7 +1791,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add, loc_name);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, track_lat, track_lang, build_model, build_brand, globalmpocode, track_add);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -1870,17 +1856,16 @@ public class Dashboard extends Activity implements View.OnClickListener {
             //track_add = track_add + "\n" + obj.getCountryCode();
             tvLocationName.setText(track_add);
             //userLog(log_status);
-            if (track_add != null) {
+            if (isAddressSubmit) {
                 userLogIn(track_add);
-            } else {
-                userLogIn("No Address");
+                isAddressSubmit = false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void getDevicedetails() {
+    public void getDeviceDetails() {
         build_version = Build.VERSION.RELEASE;
         build_model = Build.MODEL;
         build_device = Build.DEVICE;

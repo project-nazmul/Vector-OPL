@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -139,8 +140,9 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     BroadcastReceiver updateUIReciver;
     double fetchedlang, fetchedlat;
     LocationRequest locationRequest;
+    Boolean isAddressSubmit;
     FusedLocationProviderClient fusedLocationProviderClient;
-    public static String track_lat, track_lang, track_add;
+    public static String track_lat, track_lang, track_add = "No Address";
     public TextView t4, t5, tvDesignation;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
@@ -152,6 +154,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         //setContentView(R.layout.amdashboard);
         setContentView(R.layout.activity_vector_fm_dashboard);
 
+        isAddressSubmit = true;
         preferenceManager = new PreferenceManager(this);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         statusBarHide();
@@ -1903,6 +1906,16 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         });
         */
         session = new SessionManager(getApplicationContext());
+        PackageManager pm = getApplicationContext().getPackageManager();
+        String pkgName = getApplicationContext().getPackageName();
+        PackageInfo pkgInfo = null;
+        try {
+            pkgInfo = pm.getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        vector_version = pkgInfo.versionName;
+
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AmDashboard.this, R.style.Theme_Design_BottomSheetDialog);
@@ -1934,6 +1947,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         .show();
             }
         });
+        getDeviceDetails();
         updateLocation();
         dcrClickEvent();
         dccfollowupEvent();
@@ -1954,6 +1968,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         doctorListInfo();
         topPrescriberEvent();
         //autoLogout();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
@@ -2052,19 +2067,26 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             //track_add = track_add + "\n" + obj.getCountryCode();
             tvLocationName.setText(track_add);
             //userLog(log_status);
-            if (track_add != null) {
+            if (isAddressSubmit) {
                 userLogIn(track_add);
-            } else {
-                userLogIn("No Address");
+                isAddressSubmit = false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void getDeviceDetails() {
+        build_version = Build.VERSION.RELEASE;
+        build_model = Build.MODEL;
+        build_device = Build.DEVICE;
+        build_brand = Build.BRAND;
+        build_id = Build.ID;
+    }
+
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add, loc_name);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {

@@ -34,17 +34,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".report.LocationTrackerActivity"
+            android:exported="false" />
         <activity
             android:name=".prescriber.TopPrescriberActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".msd_doc_support.DashboardMSD"
-            android:label="@string/app_name"
             android:exported="true"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".dcfpFollowup.MPODcfpEntryActivity"

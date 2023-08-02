@@ -65,8 +65,7 @@ public interface ApiInterface {
             @Field("model") String model,
             @Field("brand") String brand,
             @Field("user_code") String user_code,
-            @Field("user_loc") String user_loc,
-            @Field("loc_name") String loc_name
+            @Field("user_loc") String user_loc
     );
 
     @FormUrlEncoded
@@ -232,6 +231,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("4p/get_List.php")
     Call<FieldForceModel> getFieldForceCode(
+            @Field("function") String function,
+            @Field("manager_code") String manager_code,
+            @Field("manager_detail") String manager_detail
+    );
+
+    @FormUrlEncoded
+    @POST("location_tracker/get_List.php")
+    Call<FieldForceModel> getLocationFfCode(
             @Field("function") String function,
             @Field("manager_code") String manager_code,
             @Field("manager_detail") String manager_detail

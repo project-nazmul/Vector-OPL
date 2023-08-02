@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -115,7 +116,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     private int count;
     private ArrayList<Customer> checkdatelist;
     PreferenceManager preferenceManager;
-    public static String password, globalempCode, globalempName, new_version, message_3, vector_version;
+    public static String password, globalempCode, globalempName, new_version, message_3, vector_version, build_model, build_brand, build_id, build_device, build_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardView_prescriber,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list, cardview_ff_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
@@ -128,8 +129,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     BroadcastReceiver updateUIReciver;
     double fetchedlang, fetchedlat;
     LocationRequest locationRequest;
+    Boolean isAddressSubmit;
     FusedLocationProviderClient fusedLocationProviderClient;
-    public static String track_lat, track_lang, track_add;
+    public static String track_lat, track_lang, track_add = "No Address";
     public TextView t4, t5, tvDesignation, tvLocationName;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
@@ -142,6 +144,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         //setContentView(R.layout.rmdashboard);
         setContentView(R.layout.activity_vector_rm_dashboard);
 
+        isAddressSubmit = true;
         preferenceManager = new PreferenceManager(this);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         statusBarHide();
@@ -154,6 +157,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Log.e("Admin Code--->", preferenceManager.getAdmin_Code());
         //autoLogout();
 
+        getDeviceDetails();
         updateLocation();
         dcrClickEvent();
         amMonitor();
@@ -1285,6 +1289,16 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         });
         */
         session = new SessionManager(getApplicationContext());
+        PackageManager pm = getApplicationContext().getPackageManager();
+        String pkgName = getApplicationContext().getPackageName();
+        PackageInfo pkgInfo = null;
+        try {
+            pkgInfo = pm.getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        vector_version = pkgInfo.versionName;
+
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RmDashboard.this, R.style.Theme_Design_BottomSheetDialog);
@@ -1413,19 +1427,26 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             //track_add = track_add + "\n" + obj.getCountryCode();
             tvLocationName.setText(track_add);
             //userLog(log_status);
-            if (track_add != null) {
+            if (isAddressSubmit) {
                 userLogIn(track_add);
-            } else {
-                userLogIn("No Address");
+                isAddressSubmit = false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void getDeviceDetails() {
+        build_version = Build.VERSION.RELEASE;
+        build_model = Build.MODEL;
+        build_device = Build.DEVICE;
+        build_brand = Build.BRAND;
+        build_id = Build.ID;
+    }
+
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, Dashboard.track_lat, Dashboard.track_lang, Dashboard.build_model, Dashboard.build_brand, Dashboard.globalmpocode, Dashboard.track_add, loc_name);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {

@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.nativecss.NativeCSS;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
+import com.opl.pharmavector.report.LocationTrackerActivity;
 import com.opl.pharmavector.util.NetInfo;
 
 import org.apache.http.NameValuePair;
@@ -59,7 +60,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     private SessionManager session;
     Bundle b;
     Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
-    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription;
+    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription, cardLocationTracker;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +82,14 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                     })
                     .setNegativeButton("No", (dialog, which) -> Log.d("MainActivity", ""))
                     .show();
+        });
+
+        cardLocationTracker.setOnClickListener(v -> {
+            Intent i = new Intent(AdminReportDashboard.this, LocationTrackerActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "AD");
+            startActivity(i);
         });
 
         cardProductSale.setOnClickListener(v -> {
@@ -290,6 +299,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         cardMrdPrescription = findViewById(R.id.cardMrdPrescription);
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription = findViewById(R.id.cardMspPrescription);
+        cardLocationTracker = findViewById(R.id.cardLocationTracker);
 
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");

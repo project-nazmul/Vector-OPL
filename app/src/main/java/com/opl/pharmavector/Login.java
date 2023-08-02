@@ -112,7 +112,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     AppUpdater appUpdater;
     PreferenceManager preferenceManager;
     private int count;
-    public String tempPassword, tmpLocation, tempLogin, tempDtl, tempRole, tmpFFtype, tmpvectorVersion, vector_version, tmpEmpName, tmpEmpCode;
+    public String tempPassword, tmpLocation, tempLogin, tempDtl, tempRole, tmpFFtype, tmpvectorVersion, vector_version, tmpEmpName, tmpEmpCode, tempDesignation;
     public static String vectorToken = "xxxx";
     public String globalempName, globalempCode, build_model, build_brand, build_manufac, build_id, build_device, build_version, designation;
     AppUpdateManager mAppUpdateManager;
@@ -241,6 +241,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, Dashboard.class);
             i.putExtra("UserName", tempLogin);
@@ -253,6 +254,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
 
             preferenceManager.setTasbihCounter(1);
             preferenceManager.setusername(tempLogin);
@@ -263,6 +265,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         } else if (count == 2) {
             tempLogin = preferenceManager.getusername();
@@ -273,6 +276,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, AmDashboard.class);
             i.putExtra("UserName", tempLogin);
@@ -285,6 +289,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
 
             preferenceManager.setTasbihCounter(2);
             preferenceManager.setusername(tempLogin);
@@ -295,6 +300,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         } else if (count == 3) {
             tempLogin = preferenceManager.getusername();
@@ -305,6 +311,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, RmDashboard.class);
             i.putExtra("UserName", tempLogin);
@@ -317,6 +324,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
 
             preferenceManager.setTasbihCounter(3);
             preferenceManager.setusername(tempLogin);
@@ -327,6 +335,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             //A Log.e("getVal==>", tempDtl);
             startActivity(i);
         } else if (count == 4) {
@@ -338,6 +347,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, AssistantManagerDashboard.class);
             i.putExtra("UserName", tempLogin);
@@ -350,6 +360,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
 
             preferenceManager.setTasbihCounter(4);
             preferenceManager.setusername(tempLogin);
@@ -360,6 +371,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         } else if (count == 5) {
             tempLogin = preferenceManager.getusername();
@@ -370,6 +382,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, SalesManagerDashboard.class);
             i.putExtra("UserName", tempLogin);
@@ -382,6 +395,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
 
             preferenceManager.setTasbihCounter(5);
             preferenceManager.setusername(tempLogin);
@@ -392,6 +406,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         } else if (count == 6) {
             tempLogin = preferenceManager.getusername();
@@ -402,6 +417,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpvectorVersion = preferenceManager.getcurrentVersion();
             tmpEmpName = preferenceManager.getexecutive_name();
             tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
 
             Intent i = new Intent(Login.this, GMDashboard1.class);
             i.putExtra("UserName", tempLogin);
@@ -414,6 +430,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("vector_version", tmpvectorVersion);
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
+            i.putExtra("emp_design", tempDesignation);
             Log.e("countff_type==>", "AD---" + tempLogin);
 
             preferenceManager.setTasbihCounter(6);
@@ -425,6 +442,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setcurrentVersion(tmpvectorVersion);
             preferenceManager.setexecutive_name(tmpEmpName);
             preferenceManager.setemp_code(tmpEmpCode);
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         } else if (count == 7) {
             Log.e("preferenceManager->", "PMD rUN");
@@ -445,7 +463,16 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setexecutive_name(preferenceManager.getexecutive_name());
             startActivity(i);
         } else if (count == 8) {
-            Log.e("preferenceManager->", "MSD rUN");
+            tempLogin = preferenceManager.getusername();
+            tempPassword = preferenceManager.getpassword();
+            tempRole = preferenceManager.getuserrole();
+            tempDtl = preferenceManager.getuserdtl();
+            tmpFFtype = preferenceManager.getfftype();
+            tmpvectorVersion = preferenceManager.getcurrentVersion();
+            tmpEmpName = preferenceManager.getexecutive_name();
+            tmpEmpCode = preferenceManager.getemp_code();
+            tempDesignation = preferenceManager.getDesignation();
+
             Intent i = new Intent(Login.this, DashboardMSD.class);
             i.putExtra("executive_code", preferenceManager.getuserrole());
             i.putExtra("executive_loc", preferenceManager.getexecutive_name());
@@ -453,6 +480,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("executive_locpass", preferenceManager.getpassword());
             i.putExtra("executive_type", preferenceManager.getfftype());
             i.putExtra("executive_name", preferenceManager.getuserdtl());
+            i.putExtra("emp_design", tempDesignation);
             preferenceManager.setTasbihCounter(8);
 
             preferenceManager.setusername(preferenceManager.getusername());
@@ -461,6 +489,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setuserdtl(preferenceManager.getuserdtl());
             preferenceManager.setfftype(preferenceManager.getfftype());
             preferenceManager.setexecutive_name(preferenceManager.getexecutive_name());
+            preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
         }
     }

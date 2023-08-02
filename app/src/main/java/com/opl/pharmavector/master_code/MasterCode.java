@@ -234,7 +234,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         switch (user_role) {
             case "MPO": {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Master Code Access").setMessage("You are going to login into MPO screen.Press Confirm to proceed")
+                builder.setTitle("Master Code Access").setMessage("You are going to login into MPO screen. Press Confirm to proceed")
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

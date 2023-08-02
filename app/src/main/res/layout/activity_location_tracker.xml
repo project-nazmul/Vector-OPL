@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".report.LocationTrackerActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:background="#070707"
+                android:orientation="horizontal"
+                android:padding="1dp">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/locationFieldType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:ms_hint="Select Field Type"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/locationFieldForce"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Field force Code"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_6sdp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:id="@+id/locationFromDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_today_1"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:gravity="center_vertical"
+                    android:selectAllOnFocus="true"
+                    android:text="Start Date"
+                    android:textSize="@dimen/_8sdp"
+                    tools:ignore="RtlSymmetry" />
+
+                <Button
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:id="@+id/locationShowBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@drawable/submit_btton_selector"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="show"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

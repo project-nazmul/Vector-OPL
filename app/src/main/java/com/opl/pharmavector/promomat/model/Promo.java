@@ -37,7 +37,6 @@ public class Promo {
     @SerializedName("total")
     public String total;
 
-
     @SerializedName("aci")
     public String aci;
 
@@ -65,10 +64,7 @@ public class Promo {
     @SerializedName("oplshare")
     public String oplshare;
 
-
-    public Promo(String serial, String code, String month, String sample_name, String pack_size, String type,
-                 String week1, String week2, String week3, String week4, String total, String aci)
-    {
+    public Promo(String serial, String code, String month, String sample_name, String pack_size, String type, String week1, String week2, String week3, String week4, String total, String aci) {
         this.serial = serial;
         this.code = code;
         this.month = month;
@@ -275,8 +271,6 @@ public class Promo {
     public void setOplShare(String oplshare) {
         this.oplshare = oplshare;
     }
-
-
 
     public String getTotal() {
         return total;
