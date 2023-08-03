@@ -1,6 +1,9 @@
 package com.opl.pharmavector.report;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +30,18 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.prescriber.FieldForceList;
 import com.opl.pharmavector.prescriber.FieldForceModel;
+import com.opl.pharmavector.prescriber.PrescriberAdapter;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -49,11 +56,17 @@ public class LocationTrackerActivity extends Activity {
     PreferenceManager preferenceManager;
     MaterialSpinner locationFieldType;
     TextView locationFromDate;
+    Button locationShowBtn;
+    LocationTrackerAdapter locationAdapter;
+    RecyclerView recyclerLocation;
+    ArrayAdapter<String> ffAdapter;
     AutoCompleteTextView locationFieldForce;
     DatePickerDialog.OnDateSetListener fromDatePicker;
     public String userName, userCode, userRole, locationFfCode, locationRmCode;
-    String fieldForceValue ="Territory", manager_code, manager_detail, currentFromDate;
+    String fieldForceValue = "Territory", manager_code, manager_detail, currentFromDate, location_date;
+    List<String> fieldForceList = new ArrayList<String>();
     private List<FieldForceList> fieldForceLists = new ArrayList<>();
+    private List<LocationReportList> locationReportLists = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -67,6 +80,7 @@ public class LocationTrackerActivity extends Activity {
         locationFieldForce.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                Log.d("onTouch", String.valueOf(v.getId()));
                 locationFieldForce.showDropDown();
                 return false;
             }
@@ -108,6 +122,7 @@ public class LocationTrackerActivity extends Activity {
                 }
             }
         });
+        locationShowBtn.setOnClickListener(v -> getLocationReportList());
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -158,9 +173,11 @@ public class LocationTrackerActivity extends Activity {
         userCode = b.getString("userCode");
         userRole = b.getString("userRole");
 
+        locationShowBtn = findViewById(R.id.locationShowBtn);
+        recyclerLocation = findViewById(R.id.recyclerLocation);
+        locationFromDate = findViewById(R.id.locationFromDate);
         locationFieldType = findViewById(R.id.locationFieldType);
         locationFieldForce = findViewById(R.id.locationFieldForce);
-        locationFromDate = findViewById(R.id.locationFromDate);
     }
 
     private void initFieldTypeSpinner() {
@@ -182,10 +199,17 @@ public class LocationTrackerActivity extends Activity {
                 break;
         }
         locationFieldType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                locationFieldForce.setText("");
                 fieldForceValue = String.valueOf(item);
+
                 if (!fieldForceValue.trim().equals("National")) {
                     getFieldForceInfo();
+                } else {
+                    fieldForceList.clear();
+                    fieldForceLists.clear();
+                    initFieldForceSpinner();
                 }
             }
         });
@@ -225,15 +249,67 @@ public class LocationTrackerActivity extends Activity {
         });
     }
 
-    private void initFieldForceSpinner() {
-        List<String> fieldForceList = new ArrayList<String>();
+    @SuppressLint("SimpleDateFormat")
+    private void getLocationReportList() {
+        location_date = "";
+        SimpleDateFormat fromDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MMM/yyyy");
+        Date from_date = null;
 
+        try {
+            from_date = fromDate.parse(locationFromDate.getText().toString());
+            assert from_date != null;
+            location_date = formatDate.format(from_date.getTime());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        Log.d("p_date", location_date);
+
+        ProgressDialog locReportDialog = new ProgressDialog(LocationTrackerActivity.this);
+        locReportDialog.setMessage("Location Tracker Loading...");
+        locReportDialog.setTitle("Location Tracker Followup");
+        locReportDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<LocationReportModel> call = apiInterface.getLocationReportList(location_date, locationFfCode);
+        locationReportLists.clear();
+        //Log.d("fieldForce", );
+
+        call.enqueue(new Callback<LocationReportModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<LocationReportModel> call, Response<LocationReportModel> response) {
+                if (response.isSuccessful()) {
+                    locReportDialog.dismiss();
+                    locationReportLists = Objects.requireNonNull(response.body()).getLocationReportList();
+
+                    locationAdapter = new LocationTrackerAdapter(LocationTrackerActivity.this, locationReportLists);
+                    LinearLayoutManager manager = new LinearLayoutManager(LocationTrackerActivity.this);
+                    recyclerLocation.setLayoutManager(manager);
+                    recyclerLocation.setAdapter(locationAdapter);
+                    recyclerLocation.addItemDecoration(new DividerItemDecoration(LocationTrackerActivity.this, DividerItemDecoration.VERTICAL));
+                    Log.d("location", String.valueOf(locationReportLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LocationReportModel> call, Throwable t) {
+                Log.d("fieldForce", "Failed to Retrieved Data -- " + t);
+                locReportDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void initFieldForceSpinner() {
+        fieldForceList.clear();
         for (int i = 0; i < fieldForceLists.size(); i++) {
             fieldForceList.add(fieldForceLists.get(i).getName());
         }
-        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, fieldForceList);
+        ffAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, fieldForceList);
         locationFieldForce.setThreshold(2);
-        locationFieldForce.setAdapter(Adapter);
+        locationFieldForce.setAdapter(ffAdapter);
         locationFieldForce.setTextColor(Color.BLUE);
     }
 }

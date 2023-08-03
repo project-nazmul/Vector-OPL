@@ -27,6 +27,7 @@ import com.opl.pharmavector.prescriber.GenericTypeModel;
 import com.opl.pharmavector.prescriber.TopPrescriberModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
+import com.opl.pharmavector.report.LocationReportModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -243,6 +244,14 @@ public interface ApiInterface {
             @Field("manager_code") String manager_code,
             @Field("manager_detail") String manager_detail
     );
+
+    @FormUrlEncoded
+    @POST("location_tracker/get_location.php")
+    Call<LocationReportModel> getLocationReportList(
+            @Field("p_date") String p_date,
+            @Field("ff_code") String ff_code
+    );
+
 
     @FormUrlEncoded
     @POST("4p/get_generic.php")

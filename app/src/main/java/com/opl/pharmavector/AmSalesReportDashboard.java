@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
+import com.opl.pharmavector.report.LocationTrackerActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -51,7 +52,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
     Button mpo_wise_product_sale_btn, brand_wise_sale_btn, targetquantity_btn, targetvalue_btn, achivement_btn,
             back_btn, mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,13 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                 });
                 backthred.start();
             }
+        });
+        cardLocationTracker.setOnClickListener(v -> {
+            Intent i = new Intent(AmSalesReportDashboard.this, LocationTrackerActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "FM");
+            startActivity(i);
         });
         cardProductQuantity.setOnClickListener(new OnClickListener() {
             @Override
@@ -401,6 +409,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
         card4pPrescription =  findViewById(R.id.card4pPrescription);
         cardMspPrescription =  findViewById(R.id.cardMspPrescription);
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
+        cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardDccCampaign.setVisibility(View.GONE);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
+import com.opl.pharmavector.report.LocationTrackerActivity;
 import com.opl.pharmavector.rxdcc.DccRxCamp;
 
 public class RmSalesReportDashboard extends Activity implements OnClickListener {
@@ -54,7 +55,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
     Button targetquantity_btn, targetvalue_btn, brand_wise_sale, achivement_btn, mpo_wise_product_sale_btn,
             mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,back_btn,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,13 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
             public void onClick(final View v) {
                 logoutUser();
             }
+        });
+        cardLocationTracker.setOnClickListener(v -> {
+            Intent i = new Intent(RmSalesReportDashboard.this, LocationTrackerActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName);
+            i.putExtra("userRole", "RM");
+            startActivity(i);
         });
         cardDccCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -398,6 +406,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription= findViewById(R.id.cardMspPrescription);
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
+        cardLocationTracker = findViewById(R.id.cardLocationTracker);
 
         //mpo_wise_product_sale_btn.setText("4. Product wise Sales Follow-up");
         //mpo_achv_followup.setText("6. Target, Sale, Achievement \nand Growth of Area Manager");

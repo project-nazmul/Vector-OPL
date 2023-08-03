@@ -118,9 +118,9 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
     String actv_rm_code_split, rm_name, rm_code = "xx";
     String am_name, am_code;
     CardView cardview4;
-    String fieldforce_val="Territory";
-    String Prescription_val="All";
-    String pres_type ="xx";
+    String fieldforce_val = "Territory";
+    String Prescription_val = "All";
+    String pres_type = "xx";
     //private String URL_PRODUCT_VIEW = BASE_URL+"prescription_survey/prescription_report_target_achv_followup.php";
     //private String URL_PRES_VIEW = BASE_URL+"prescription_survey/prescription_type_report_target_achv_followup.php";
     private String URL_PRODUCT_VIEW = BASE_URL+"prescription_survey/prescription_survey_followup.php";
@@ -423,7 +423,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("-") != -1) {
+                    if (inputorder.contains("-")) {
                         actv_brand_code_split = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
                         brand_name = first_split[0].trim();
@@ -560,6 +560,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.pres_sub_total(passed_manager_code,brand_code,fromdate.getText().toString(), todate.getText().toString(),pres_type);
         call.enqueue(new Callback<List<Patient>>() {
+            @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
@@ -583,7 +584,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(PrescriptionFollowup.this, "Server error! Please try moments later", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -602,7 +602,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         Call<List<Patient>> call = apiInterface.prescriptioncount(passed_manager_code,brand_code,fromdate.getText().toString(), todate.getText().toString(),pres_type);
         Log.e("brand_code",brand_code);
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
@@ -805,7 +805,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         }
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        spin_rm.setAdapter(spinnerAdapter);  // 09/01/2023
+        spin_rm.setAdapter(spinnerAdapter);
         //String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_rm.setThreshold(2);

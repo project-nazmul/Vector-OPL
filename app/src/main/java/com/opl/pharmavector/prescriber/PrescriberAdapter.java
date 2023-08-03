@@ -24,6 +24,7 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
         this.prescriberLists = prescriberList;
     }
 
+    @NonNull
     @Override
     public PrescriberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.prescriber_top_row, viewGroup, false);
@@ -53,7 +54,7 @@ public class PrescriberAdapter extends RecyclerView.Adapter<PrescriberAdapter.Pr
         return prescriberLists.size();
     }
 
-    public class PrescriberViewHolder extends RecyclerView.ViewHolder {
+    public static class PrescriberViewHolder extends RecyclerView.ViewHolder {
         public TextView prescriberSl, prescriberMpo, prescriberAm, prescriberRm, prescriberAsm, prescriberDocCode, prescriberDocName, prescriberTotalPres, prescriberSpecialist,
                 prescriberTop, prescriberOpl, prescriberTopPres, prescriberOplPres;
 
