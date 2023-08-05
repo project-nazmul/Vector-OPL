@@ -1852,8 +1852,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             Address obj = addresses.get(0);
             track_add = obj.getAddressLine(0);
-            //track_add = track_add + "\n" + obj.getCountryName();
-            //track_add = track_add + "\n" + obj.getCountryCode();
             tvLocationName.setText(track_add);
             //userLog(log_status);
             if (isAddressSubmit) {

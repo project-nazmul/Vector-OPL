@@ -122,6 +122,7 @@
                 app:lottie_rawRes="@raw/dashboard_anim" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:paddingTop="@dimen/_4sdp"
                 android:gravity="center"
                 android:orientation="horizontal"

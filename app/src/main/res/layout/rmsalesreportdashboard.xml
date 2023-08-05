@@ -746,6 +746,7 @@
                 android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
+                    android:visibility="gone"
                     android:id="@+id/cardLocationTracker"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
