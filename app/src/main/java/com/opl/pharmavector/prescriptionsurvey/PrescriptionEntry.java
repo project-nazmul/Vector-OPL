@@ -2,6 +2,7 @@ package com.opl.pharmavector.prescriptionsurvey;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +20,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -92,6 +97,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -146,14 +152,14 @@ public class PrescriptionEntry extends AppCompatActivity {
     String tag_json_obj = "json_obj_req";
     ArrayList<String> imageList = new ArrayList<>();
     ArrayList<String> imagesEncodedList = new ArrayList<>();
-    private final String UPLOAD_URL_MULTI = BASE_URL+"prescription_survey/doc_prescription_multi_upload.php";
-    private final String UPLOAD_URL = BASE_URL+"prescription_survey/image_upload_api/vector_pres_survey_web_new.php";
-    private final String UPLOAD_Gift_URL = BASE_URL+"prescription_survey/image_upload_api/gift_pres_survey_web.php";
-    private final String URL_CUSOTMER = BASE_URL+"prescription_survey/get_mpowise_doc.php";
-    private final String URL_INST = BASE_URL+"prescription_survey/get_institute.php";
-    private final String URL_DEPT_WARD = BASE_URL+"prescription_survey/get_depward.php";
-    private final String URL_GIFT_LIST = BASE_URL+"prescription_survey/get_mpowise_giftlist.php";
-    private final String URL_GIFT_WISE_DOC_LIST = BASE_URL+"prescription_survey/get_giftwise_doclist.php";
+    private final String UPLOAD_URL_MULTI = BASE_URL + "prescription_survey/doc_prescription_multi_upload.php";
+    private final String UPLOAD_URL = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_new.php";
+    private final String UPLOAD_Gift_URL = BASE_URL + "prescription_survey/image_upload_api/gift_pres_survey_web.php";
+    private final String URL_CUSOTMER = BASE_URL + "prescription_survey/get_mpowise_doc.php";
+    private final String URL_INST = BASE_URL + "prescription_survey/get_institute.php";
+    private final String URL_DEPT_WARD = BASE_URL + "prescription_survey/get_depward.php";
+    private final String URL_GIFT_LIST = BASE_URL + "prescription_survey/get_mpowise_giftlist.php";
+    private final String URL_GIFT_WISE_DOC_LIST = BASE_URL + "prescription_survey/get_giftwise_doclist.php";
     private String KEY_IMAGE = "image";
     private String KEY_EMP_CODE = "empcode";
     private String KEY_IMAGE_TYPE = "imagetype";
@@ -182,7 +188,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     String json;
     private TextView tv_wardname;
     public String img_local_path;
-    String img_make, img_model, img_len, img_width, img_datetime,camera_image_time;
+    String img_make, img_model, img_len, img_width, img_datetime, camera_image_time;
     public int selected_brand;
     public int mymultiupload = 0;
     public StringRequest stringRequest;
@@ -195,12 +201,17 @@ public class PrescriptionEntry extends AppCompatActivity {
     TabLayout tabLayout;
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private static final int MY_GALLERY_PERMISSION_CODE = 101;
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pres_entry);
+
+        ActivityCompat.requestPermissions(PrescriptionEntry.this,
+                permissions(),
+                1);
 
         initViews();
         getDevicedetails();
@@ -236,8 +247,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         ActivityCompat.requestPermissions(PrescriptionEntry.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
-        if (ContextCompat
-                .checkSelfPermission(PrescriptionEntry.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(PrescriptionEntry.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(PrescriptionEntry.this,
@@ -265,9 +275,18 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
 
         buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
+//                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//                galleryIntent.setType("image/*");
+//                galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
+//                resultLauncher.launch(galleryIntent);
+
+//                Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+//                resultLauncher.launch(intent);
+
                 if (Tab_Flag.equals("D")) {
                     if (degree_name.getText().toString().equals("") || degree_name.getText().toString() == null) {
                         doctorSnack();
@@ -287,7 +306,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                             initSingleUpload();
                         }
                     }
-                } else if (Tab_Flag.equals("O")) {
+                }
+                else if (Tab_Flag.equals("O")) {
                     if (actv_doc.getText().toString().equals("") || actv_doc.getText().toString() == null) {
                         doctorSnack();
                         actv_doc.setFocusableInTouchMode(true);
@@ -306,7 +326,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                             initSingleUpload();
                         }
                     }
-                } else if (Tab_Flag.equals("I")) {
+                }
+                else if (Tab_Flag.equals("I")) {
                     if (actv_doc.getText().toString().equals("") || actv_doc.getText().toString() == null) {
                         doctorSnack();
                         actv_doc.setFocusableInTouchMode(true);
@@ -397,14 +418,8 @@ public class PrescriptionEntry extends AppCompatActivity {
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (degree_name.getText().toString().trim() == null) {
-                    new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Alert !")
-                            .setMessage("Please Select a Brand for your prescription")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {}
-                            }).show();
-                } else if (imageView.getDrawable() == null) {
+                degree_name.getText().toString().trim();
+                if (imageView.getDrawable() == null) {
                     new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Alert ! No Prescription to Upload ")
                             .setMessage("Please Select a Prescription to Upload")
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -417,7 +432,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         uploadGiftImage();
                     } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
                         uploadGiftImage();
-                    }  else if (Tab_Flag.equals("G") && GIFT_Tab_Flag.equals("Rx")) {
+                    } else if (Tab_Flag.equals("G") && GIFT_Tab_Flag.equals("Rx")) {
                         uploadGiftImage();
                     } else {
                         uploadImage();
@@ -428,12 +443,12 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     public void getDevicedetails() {
-        Log.e("model",Build.MODEL);
-        Log.e("brand",Build.BRAND);
-        Log.e("manufacturer",Build.MANUFACTURER);
-        Log.e("id",Build.ID);
-        Log.e("device",Build.DEVICE);
-        Log.e("versioncode",Build.VERSION.RELEASE);
+        Log.e("model", Build.MODEL);
+        Log.e("brand", Build.BRAND);
+        Log.e("manufacturer", Build.MANUFACTURER);
+        Log.e("id", Build.ID);
+        Log.e("device", Build.DEVICE);
+        Log.e("versioncode", Build.VERSION.RELEASE);
     }
 
     private void doctorSnack() {
@@ -470,7 +485,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_doc.setHint("Please  Select Doctor Name...");
                         new GetDoctor().execute();
                         break;
-
                     case 1:
                         Tab_Flag = "O";
                         GIFT_Tab_Flag = "R";
@@ -485,7 +499,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
                         break;
-
                     case 2:
                         Tab_Flag = "I";
                         GIFT_Tab_Flag = "R";
@@ -501,7 +514,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                         new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
                         break;
-
                     case 3:
                         Tab_Flag = "G";
                         GIFT_Tab_Flag = "Rx";
@@ -531,9 +543,9 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setVisibility(View.VISIBLE);
                         tv_wardname.setVisibility(View.GONE);
                         customerlist.clear();
-                        Log.e("ONCLICKtabflag-->",Tab_Flag);
+                        Log.e("ONCLICKtabflag-->", Tab_Flag);
                         actv_doc.setHint("Select Institute name...");
-                        // new GetDoctor().execute();
+                        //new GetDoctor().execute();
                         buttonChoose.setEnabled(true);
                         break;
                 }
@@ -648,11 +660,15 @@ public class PrescriptionEntry extends AppCompatActivity {
         });
         actv_dept.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View v) {
+
+            }
         });
         actv_dept.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -689,18 +705,22 @@ public class PrescriptionEntry extends AppCompatActivity {
         actv_doc.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_doc.showDropDown();
                 return false;
             }
         });
         actv_doc.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View v) {
+
+            }
         });
         actv_doc.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -743,7 +763,9 @@ public class PrescriptionEntry extends AppCompatActivity {
                 }
             }
 
-            private void length() {}
+            private void length() {
+
+            }
         });
     }
 
@@ -752,21 +774,27 @@ public class PrescriptionEntry extends AppCompatActivity {
         actv_gift.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_gift.showDropDown();
                 return false;
             }
         });
         actv_gift.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View v) {
+
+            }
         });
         actv_gift.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
 
             @Override
             public void afterTextChanged(final Editable s) {
@@ -789,7 +817,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         Log.e("ppm_code=>", ppm_code);
                         actv_gift.setText(ppm_name);
 
-                        if (Tab_Flag.equals("G")){
+                        if (Tab_Flag.equals("G")) {
                             new GetDoctor().execute();
                         } else {
                             new GetDoctorforGift().execute();
@@ -803,7 +831,9 @@ public class PrescriptionEntry extends AppCompatActivity {
                 }
             }
 
-            private void length() {}
+            private void length() {
+
+            }
         });
     }
 
@@ -811,13 +841,13 @@ public class PrescriptionEntry extends AppCompatActivity {
         degree_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
+                //chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
             }
         });
         degree_name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
+                //chiplayout.setBackgroundResource(R.drawable.bg_accent_rectangle_rounded_corners);
             }
         });
         degree_name.addLayoutTextChangedListener(new TextWatcher() {
@@ -901,7 +931,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         showFileChooserSingle();
     }
 
-    private void initMultiUpload(){
+    private void initMultiUpload() {
         imageView.setVisibility(View.GONE);
         gvGallery.setVisibility(View.VISIBLE);
         buttonmultiUpload.setVisibility(View.VISIBLE);
@@ -909,6 +939,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         showFileChooserMultiple();
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         toolbar = findViewById(R.id.toolbar);
@@ -989,7 +1020,7 @@ public class PrescriptionEntry extends AppCompatActivity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
             params.add(new BasicNameValuePair("gift_tab_flag", GIFT_Tab_Flag));
-            Log.e("ID==>", Dashboard.globalmpocode +"\n"+GIFT_Tab_Flag);
+            Log.e("ID==>", Dashboard.globalmpocode + "\n" + GIFT_Tab_Flag);
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_GIFT_LIST, ServiceHandler.POST, params);
             Log.e("JSONGift", json);
@@ -999,6 +1030,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -1027,10 +1059,10 @@ public class PrescriptionEntry extends AppCompatActivity {
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, lables);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
-        doc_adapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, customer);
+        String[] customer = lables.toArray(new String[0]);
+        doc_adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_doc.setThreshold(2);
         actv_doc.setAdapter(doc_adapter);
         actv_doc.setTextColor(Color.BLUE);
@@ -1091,10 +1123,10 @@ public class PrescriptionEntry extends AppCompatActivity {
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, lables);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
-        doc_adapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, customer);
+        doc_adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_doc.setThreshold(2);
         actv_doc.setAdapter(doc_adapter);
         actv_doc.setTextColor(Color.BLUE);
@@ -1116,7 +1148,7 @@ public class PrescriptionEntry extends AppCompatActivity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
             ServiceHandler jsonParser = new ServiceHandler();
-            Log.e("tab_flaGPASSED==>",Tab_Flag);
+            Log.e("tab_flaGPASSED==>", Tab_Flag);
 
             if (Tab_Flag.equals("D")) {
                 json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
@@ -1238,15 +1270,16 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {}
+            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            }
         });
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         Log.e("img_datetime", img_datetime);
-         if ((img_datetime.trim().equals("null"))) {
-            Log.e("SecondValueisnull-->", img_local_path.trim());
-             img_datetime = img_local_path.trim();
+        if ((img_datetime.trim().equals("null"))) {
+            Log.e("SecondValuenull-->", img_local_path.trim());
+            img_datetime = img_local_path.trim();
         }
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
@@ -1266,7 +1299,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                                         .setMessage(" Prescription has been submitted")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {}
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
                                         }).show();
                                 refresh();
                             } else {
@@ -1287,15 +1321,9 @@ public class PrescriptionEntry extends AppCompatActivity {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                             Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
                         } else if (error instanceof AuthFailureError) {
-                            //TODO
                         } else if (error instanceof ServerError) {
-                            //TODO
                         } else if (error instanceof NetworkError) {
-                            //TODO
-                        } else if (error instanceof ParseError) {
-                            //TODO
-                        }
-                    }
+                        } else if (error instanceof ParseError) {} }
                 }) {
             @Override
             protected Map<String, String> getParams() {
@@ -1323,22 +1351,22 @@ public class PrescriptionEntry extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
-    private void uploadGiftImage(){
-            Log.e("uploadGiftImage==>", "uploadGiftImage-->1448");
-            Log.e("ppm_code", ppm_code);
-            Log.e("brand_names", ppm_prod_code);
-            Log.e("ppm_name", ppm_name);
-            Log.e("mpo_code", Dashboard.globalmpocode);
-            Log.e("tab_flag", Tab_Flag);
-            Log.e("gift_tab_flag", GIFT_Tab_Flag);
-            Log.e("brand_code", ppm_prod_code);
-            Log.e("doc_code", doc_code);
-            Log.e("dept_name", dept_name);
-            Log.e("img_make", Build.BRAND);
-            Log.e("img_model", Build.MODEL);
-            Log.e("img_len", img_len);
-            Log.e("img_width", img_width);
-            Log.e("img_datetime", img_datetime);
+    private void uploadGiftImage() {
+        Log.e("uploadGiftImage==>", "uploadGiftImage-->1448");
+        Log.e("ppm_code", ppm_code);
+        Log.e("brand_names", ppm_prod_code);
+        Log.e("ppm_name", ppm_name);
+        Log.e("mpo_code", Dashboard.globalmpocode);
+        Log.e("tab_flag", Tab_Flag);
+        Log.e("gift_tab_flag", GIFT_Tab_Flag);
+        Log.e("brand_code", ppm_prod_code);
+        Log.e("doc_code", doc_code);
+        Log.e("dept_name", dept_name);
+        Log.e("img_make", Build.BRAND);
+        Log.e("img_model", Build.MODEL);
+        Log.e("img_len", img_len);
+        Log.e("img_width", img_width);
+        Log.e("img_datetime", img_datetime);
 
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
@@ -1351,18 +1379,16 @@ public class PrescriptionEntry extends AppCompatActivity {
                             String name = jObj.getString("success");
                             String email = jObj.getString("message");
                             success = jObj.getInt(TAG_SUCCESS);
+
                             if (success == 1) {
                                 Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Succesful")
+                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Successful")
                                         .setMessage(" Prescription has been submitted")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
+                                            public void onClick(DialogInterface dialog, int which) {}
                                         }).show();
-
                                 refresh();
-
                             } else {
                                 Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
@@ -1371,7 +1397,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         loading.dismiss();
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -1381,20 +1406,12 @@ public class PrescriptionEntry extends AppCompatActivity {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                             Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
                         } else if (error instanceof AuthFailureError) {
-                            //TODO
                         } else if (error instanceof ServerError) {
-                            //TODO
                         } else if (error instanceof NetworkError) {
-
-                            //TODO
-                        } else if (error instanceof ParseError) {
-                            //TODO
-                        }
-                    }
+                        } else if (error instanceof ParseError) {} }
                 }) {
             @Override
-            protected Map<String, String> getParams(){
-
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put(KEY_IMAGE, getStringImage(decoded));
                 params.put("ppm_code", ppm_code);
@@ -1414,7 +1431,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 return params;
             }
         };
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 90000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -1422,35 +1438,33 @@ public class PrescriptionEntry extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
-    private void uploadMultiImage(){
+    private void uploadMultiImage() {
         int j;
-        for (j = 0; j < imagesEncodedList.size(); j++){
+        for (j = 0; j < imagesEncodedList.size(); j++) {
             Log.e("imagesEncodedList-->", String.valueOf(j));
 
             try {
                 Bitmap bitmap = PhotoLoader.init().from(imagesEncodedList.get(j)).requestSize(512, 512).getBitmap();
                 encodedStringmulti = ImageBase64.encode(bitmap);
             } catch (FileNotFoundException e) {
-                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
             }
             String myimagepath = imagesEncodedList.get(j);
-            Log.e("myImagepathOnclick-->",myimagepath);
+            Log.e("myImagePathOnclick-->", myimagepath);
             ExifInterface exif2 = null;
-                try {
-                    exif2 = new ExifInterface(myimagepath);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+            try {
+                exif2 = new ExifInterface(myimagepath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert exif2 != null;
             String img_make_multi = getTagString(ExifInterface.TAG_MAKE, exif2);
             String img_model_multi = getTagString(ExifInterface.TAG_MODEL, exif2);
             String img_len_multi = getTagString(ExifInterface.TAG_IMAGE_LENGTH, exif2);
             String img_width_multi = getTagString(ExifInterface.TAG_IMAGE_WIDTH, exif2);
             String img_datetime_multi = getTagString(ExifInterface.TAG_DATETIME, exif2);
             String img_datetime_multi2 = img_datetime_multi.substring(img_datetime_multi.indexOf(':') + 1);
-            String url = BASE_URL+"prescription_survey/image_upload_api/vector_pres_survey_web_multi_test.php";
-
+            String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_multi_test.php";
 
             stringRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
@@ -1461,6 +1475,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 String name = jObj.getString("success");
                                 String email = jObj.getString("message");
                                 success = jObj.getInt(TAG_SUCCESS);
+
                                 if (success == 1) {
                                     Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                     AutoDismiss();
@@ -1479,22 +1494,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                                 Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
-
                             } else if (error instanceof AuthFailureError) {
-
                             } else if (error instanceof ServerError) {
-
                             } else if (error instanceof NetworkError) {
-                            } else if (error instanceof ParseError) {
-
-                            }
-                        }
+                            } else if (error instanceof ParseError) {} }
                     }) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-
-                    Log.e("multiimageDetails-->",img_make_multi+img_model_multi+img_len_multi+img_width_multi+img_datetime_multi2);
+                    Log.e("multiImageDetails-->", img_make_multi + img_model_multi + img_len_multi + img_width_multi + img_datetime_multi2);
 
                     params.put("image", encodedStringmulti);
                     params.put("countimage", String.valueOf(imagesEncodedList.size()));
@@ -1504,32 +1512,26 @@ public class PrescriptionEntry extends AppCompatActivity {
                     params.put("gift_tab_flag", GIFT_Tab_Flag);
                     params.put("doc_code", doc_code);
                     params.put("dept_name", dept_name);
-
                     params.put("img_make", Build.BRAND);
                     params.put("img_model", Build.MODEL);
-
                     params.put("img_len", img_len_multi);
                     params.put("img_width", img_width_multi);
                     params.put("img_datetime", img_datetime_multi2);
                     return params;
                 }
             };
-
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(90000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
         }
-
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
-
     }
 
-
     private void uploadGiftMultiImage() {
-
         Log.e("clicked==>", "uploadGiftMultiImage");
+
         int j;
         for (j = 0; j < imagesEncodedList.size(); j++) {
             try {
@@ -1539,16 +1541,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT)
                         .show();
             }
-
             String myimagepath = imagesEncodedList.get(j);
-            Log.e("myImagepathOnclick-->",myimagepath);
+            Log.e("myImagePathOnclick-->", myimagepath);
             ExifInterface exif2 = null;
+
             try {
                 exif2 = new ExifInterface(myimagepath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             String img_make_multi = getTagString(ExifInterface.TAG_MAKE, exif2);
             String img_model_multi = getTagString(ExifInterface.TAG_MODEL, exif2);
             String img_len_multi = getTagString(ExifInterface.TAG_IMAGE_LENGTH, exif2);
@@ -1556,8 +1557,7 @@ public class PrescriptionEntry extends AppCompatActivity {
             String img_datetime_multi = getTagString(ExifInterface.TAG_DATETIME, exif2);
             String img_datetime_multi2 = img_datetime_multi.substring(img_datetime_multi.indexOf(':') + 1);
 
-
-            String url = BASE_URL+"prescription_survey/image_upload_api/vector_pres_survey_gift_multi.php";
+            String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_gift_multi.php";
             stringRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -1567,6 +1567,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 String name = jObj.getString("success");
                                 String email = jObj.getString("message");
                                 success = jObj.getInt(TAG_SUCCESS);
+
                                 if (success == 1) {
                                     Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                     AutoDismiss();
@@ -1585,21 +1586,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         public void onErrorResponse(VolleyError error) {
                             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                                 Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
-
                             } else if (error instanceof AuthFailureError) {
-
                             } else if (error instanceof ServerError) {
-
                             } else if (error instanceof NetworkError) {
-                            } else if (error instanceof ParseError) {
-
-                            }
-                        }
+                            } else if (error instanceof ParseError) {} }
                     }) {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    Log.e("multiimageDetails-->",img_make_multi+img_model_multi+img_len_multi+img_width_multi+img_datetime_multi2);
+                    Log.e("multiimageDetails-->", img_make_multi + img_model_multi + img_len_multi + img_width_multi + img_datetime_multi2);
                     params.put("image", encodedStringmulti);
                     params.put("countimage", String.valueOf(imagesEncodedList.size()));
                     params.put("brand_names", degree_name.getText().toString().trim());
@@ -1622,14 +1617,11 @@ public class PrescriptionEntry extends AppCompatActivity {
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
         }
-
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
         finish();
         startActivity(getIntent());
-
     }
-
 
     private void showFileChooserSingle() {
         ImagePicker.create(this)
@@ -1646,42 +1638,152 @@ public class PrescriptionEntry extends AppCompatActivity {
                 .start();
     }
 
-
     private void openCamera() {
         ImagePicker.cameraOnly().start(this);
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
-        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000, true);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
         return Uri.parse(path);
     }
 
+    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
+                        Log.d("imageUrl", result.toString());
+                        assert result.getData() != null;
+                        Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
+                        Bitmap bitmap2 = Bitmap.createScaledBitmap(photo, 600, 600, true);
+                        imageView.setImageBitmap(bitmap2);
+                        setToImageView(photo);
+                        getStringImage(decoded);
+                        Uri _uri = getImageUri(getApplicationContext(), photo);
+                        String filePath = null;
+
+                        if (_uri != null && "content".equals(_uri.getScheme())) {
+                            Cursor cursor = PrescriptionEntry.this.getContentResolver().query(_uri, new String[]{
+                                    android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
+                            cursor.moveToFirst();
+                            filePath = cursor.getString(0);
+                            cursor.close();
+                        } else {
+                            assert _uri != null;
+                            filePath = _uri.getPath();
+                        }
+                        String filename = _uri.getLastPathSegment();
+                        Log.e("filePath-->", filename);
+                        ExifInterface exif = null;
+
+                        try {
+                            exif = new ExifInterface(filePath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        ShowExif(exif);
+                        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                        img_datetime = currentTime;
+                        Log.e("cameraCaptureTime-->", img_datetime);
+                    } else {
+                        if (ImagePicker.shouldHandle(result.getResultCode(), result.getResultCode(), result.getData())) {
+                            List<Image> images = ImagePicker.getImages(result.getData());
+                            ArrayList<Uri> mArrayUri = new ArrayList<>();
+
+                            for (Image image : images) {
+                                mArrayUri.add(Uri.parse(image.getPath()));
+                                imagesEncodedList.add(image.getPath());
+                                Log.e("mArrayuri-->", String.valueOf(Uri.parse(image.getPath())));
+                                Log.e("imagesEncodedList-->", String.valueOf(image.getPath()));
+                            }
+
+                            if (mArrayUri.size() > 1) { // multiple images selected
+                                imageView.setVisibility(View.GONE);
+                                gvGallery.setVisibility(View.VISIBLE);
+                                buttonmultiUpload.setVisibility(View.VISIBLE);
+                                buttonUpload.setVisibility(View.GONE);
+                                Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
+                                setToImageView(decodedBitmap);
+                                galleryAdapter = new GalleryAdapter(getApplicationContext(), mArrayUri);
+                                gvGallery.setAdapter(galleryAdapter);
+                                gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
+                                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
+                                mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
+                            } else if (mArrayUri.size() == 1) {
+                                imageView.setVisibility(View.VISIBLE);
+                                gvGallery.setVisibility(View.GONE);
+                                buttonmultiUpload.setVisibility(View.GONE);
+                                buttonUpload.setVisibility(View.VISIBLE);
+                                setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
+                                img_local_path = mArrayUri.get(0).getPath();
+                                Log.e("imglocalpath=>", img_local_path);
+
+                                ExifInterface exif = null;
+                                try {
+                                    exif = new ExifInterface(img_local_path);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                ShowExif(exif);
+                            }
+                        }
+                    }
+                }
+            });
+//    private void checkSystemPermission() {
+//       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//           requestPermissions(new String[] { Manifest.permission.READ_MEDIA_IMAGES }, MY_GALLERY_PERMISSION_CODE, new Activity().setP);
+//       }
+//    }
+
+    public static String[] storge_permissions = {
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+     };
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static String[] storge_permissions_33 = {
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_AUDIO,
+            Manifest.permission.READ_MEDIA_VIDEO
+    };
+
+    public static String[] permissions() {
+        String[] p;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            p = storge_permissions_33;
+        } else {
+            p = storge_permissions;
+        }
+        return p;
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK){
-
+        Log.d("imageUrl1", String.valueOf(data.getExtras().get("data")));
+        if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            Bitmap bitmap2 = Bitmap.createScaledBitmap(photo,  600 ,600, true);
+            Bitmap bitmap2 = Bitmap.createScaledBitmap(photo, 600, 600, true);
             imageView.setImageBitmap(bitmap2);
             setToImageView(photo);
             getStringImage(decoded);
             Uri _uri = getImageUri(getApplicationContext(), photo);
             String filePath = null;
+
             if (_uri != null && "content".equals(_uri.getScheme())) {
                 Cursor cursor = this.getContentResolver().query(_uri, new String[] {
-                        android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                        android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
                 cursor.moveToFirst();
                 filePath = cursor.getString(0);
                 cursor.close();
             } else {
+                assert _uri != null;
                 filePath = _uri.getPath();
             }
-
             String filename = _uri.getLastPathSegment();
-            Log.e("filePath-->",filename);
+            Log.e("filePath-->", filename);
             ExifInterface exif = null;
+
             try {
                 exif = new ExifInterface(filePath);
             } catch (IOException e) {
@@ -1689,13 +1791,14 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
             ShowExif(exif);
             String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-            img_datetime=  currentTime;
-            Log.e("cameraCpaturTime-->",img_datetime);
-
-        }else{
+            img_datetime = currentTime;
+            Log.e("cameraCaptureTime-->", img_datetime);
+        }
+        else {
             if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 List<Image> images = ImagePicker.getImages(data);
                 ArrayList<Uri> mArrayUri = new ArrayList<>();
+
                 for (Image image : images) {
                     mArrayUri.add(Uri.parse(image.getPath()));
                     imagesEncodedList.add(image.getPath());
@@ -1703,7 +1806,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                     Log.e("imagesEncodedList-->", String.valueOf(image.getPath()));
                 }
 
-                if (mArrayUri.size() > 1) {// multiple images selected
+                if (mArrayUri.size() > 1) { // multiple images selected
                     imageView.setVisibility(View.GONE);
                     gvGallery.setVisibility(View.VISIBLE);
                     buttonmultiUpload.setVisibility(View.VISIBLE);
@@ -1716,15 +1819,13 @@ public class PrescriptionEntry extends AppCompatActivity {
                     ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
                     mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
                 } else if (mArrayUri.size() == 1) {
-
                     imageView.setVisibility(View.VISIBLE);
                     gvGallery.setVisibility(View.GONE);
                     buttonmultiUpload.setVisibility(View.GONE);
                     buttonUpload.setVisibility(View.VISIBLE);
                     setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
                     img_local_path = mArrayUri.get(0).getPath();
-
-                    Log.e("imglocalpath=>",img_local_path);
+                    Log.e("imglocalpath=>", img_local_path);
 
                     ExifInterface exif = null;
                     try {
@@ -1737,18 +1838,11 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
             super.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 
-
-
     private void ShowExif(ExifInterface exif) {
-
         String myAttribute = "Exif information ---\n";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            myAttribute += getTagString(ExifInterface.TAG_DATETIME_ORIGINAL, exif);
-        }
-
+        myAttribute += getTagString(ExifInterface.TAG_DATETIME_ORIGINAL, exif);
         myAttribute += getTagString(ExifInterface.TAG_GPS_TIMESTAMP, exif);
         myAttribute += getTagString(ExifInterface.TAG_DATETIME, exif);
         myAttribute += getTagString(ExifInterface.TAG_FLASH, exif);
@@ -1767,12 +1861,9 @@ public class PrescriptionEntry extends AppCompatActivity {
         img_len = getTagString(ExifInterface.TAG_IMAGE_LENGTH, exif);
         img_width = getTagString(ExifInterface.TAG_IMAGE_WIDTH, exif);
         img_datetime = getTagString(ExifInterface.TAG_DATETIME, exif);
-
         img_datetime = img_datetime.substring(img_datetime.indexOf(':') + 1);
-
-        Log.e("myimgtime-->",img_datetime);
-
-        Log.e("myAttribute--->",myAttribute);
+        Log.e("myimgtime-->", img_datetime);
+        Log.e("myAttribute--->", myAttribute);
     }
 
     public static String[] GetStringArray(ArrayList<String> arr) {
@@ -1787,7 +1878,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     public String getStringImage(Bitmap bmp) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -1799,9 +1889,8 @@ public class PrescriptionEntry extends AppCompatActivity {
         return (tag + " : " + exif.getAttribute(tag) + "\n");
     }
 
-
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         //outState.putParcelable("imageUri", imageUri);
     }
@@ -1810,31 +1899,25 @@ public class PrescriptionEntry extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        //  imageUri= savedInstanceState.getParcelable("picUri");
+        //imageUri= savedInstanceState.getParcelable("picUri");
     }
 
-
     private void setToImageView(Bitmap bmp) {
-
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
         imageView.setImageBitmap(decoded);
-
     }
-
-
 
     private void refresh() {
         imageView.setImageResource(0);
         gvGallery.setAdapter(null);
     }
 
-
     public void AutoDismiss() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PrescriptionEntry.this);
         builder.setTitle("Uploading Images")
-                .setMessage("Uploaded Succesfully")
+                .setMessage("Uploaded Successfully")
                 .setCancelable(false).setCancelable(false)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -1851,11 +1934,11 @@ public class PrescriptionEntry extends AppCompatActivity {
                     alertDialog.dismiss();
                 }
             }
-        }, 50); //change 5000 with a specific time you want
+        }, 50); // change 5000 with a specific time you want
     }
 
     private void hideKeyBoard() {
-        // InputMethodManager imm = (InputMethodManager) context.getSystemService(PrescroptionImageSearch.INPUT_METHOD_SERVICE);
+        // InputMethodManager imm = (InputMethodManager) context.getSystemService(PrescriptionImageSearch.INPUT_METHOD_SERVICE);
         // imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         InputMethodManager imm = (InputMethodManager) getSystemService(PrescroptionImageSearch.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);

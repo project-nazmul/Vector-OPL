@@ -14,7 +14,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <!-- ########################################  start telemedince style import  ################################# -->
+    <!-- ########################################  start telemedicine style import  ################################# -->
     <style name="EditorTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#3c4c93</item>

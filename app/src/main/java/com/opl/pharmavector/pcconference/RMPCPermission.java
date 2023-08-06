@@ -129,6 +129,7 @@ public class RMPCPermission extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.proposal_activity_main);
+
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -361,14 +362,13 @@ public class RMPCPermission extends AppCompatActivity {
                             params.add(new BasicNameValuePair("RM_CODE", RM_CODE));
                             params.add(new BasicNameValuePair("CONF_TYPE", conf_type));
                             params.add(new BasicNameValuePair("CONF_DATE", proposed_conference_date));
-                            // params.add(new BasicNameValuePair("rm_depot_code", rm_depot_code));
+                            //params.add(new BasicNameValuePair("rm_depot_code", rm_depot_code));
                             JSONObject json = jsonParser.makeHttpRequest(pc_conference_permission_delete, "POST", params);
                             try {
                                 success = json.getInt(TAG_SUCCESS);
                                 message = json.getString(TAG_MESSAGE);
                                 showCancelSnack();
                             } catch (JSONException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
                             Intent in = getIntent();
@@ -397,10 +397,10 @@ public class RMPCPermission extends AppCompatActivity {
                 categoriesPhone = categoriesPhone.substring(1, categoriesPhone.length() - 1);
                 Bundle b = getIntent().getExtras();
                 int commas = 0;
+
                 for (int i = 0; i < categoriesCsv.length(); i++) {
                     if (categoriesCsv.charAt(i) == ',') commas++;
                 }
-
                 int count_submit_mpo = (commas + 1);
                 int remain_pc_for_month = (left_pc - count_submit_mpo);
 
@@ -424,16 +424,13 @@ public class RMPCPermission extends AppCompatActivity {
                             params.add(new BasicNameValuePair("CONF_TYPE", conf_type));
                             params.add(new BasicNameValuePair("CONF_DATE", proposed_conference_date));
                             JSONObject json = jsonParser.makeHttpRequest(pc_conference_permission_rm, "POST", params);
+
                             try {
                                 success = json.getInt(TAG_SUCCESS);
                                 message = json.getString(TAG_MESSAGE);
-                                // showSnack();
                             } catch (JSONException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
-
                             }
-
                             Intent in = getIntent();
                             Intent inten = getIntent();
                             Bundle bundle = in.getExtras();
@@ -448,31 +445,24 @@ public class RMPCPermission extends AppCompatActivity {
                     });
                     server.start();
                 }
-
             }
         });
-
     }
 
     String formatMonthYear(String str) {
         Date date = null;
         try {
             date = input.parse(str);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (java.text.ParseException e) {
+        } catch (ParseException | java.text.ParseException e) {
             e.printStackTrace();
         }
         return sdf.format(date);
     }
 
-
     public class asyncTask_getCategories2 extends AsyncTask<Void, Void, Void> {
-        // ProgressDialog dialog = new ProgressDialog(context);
-
+        //ProgressDialog dialog = new ProgressDialog(context);
         @Override
         protected void onPreExecute() {
-
             array_list = new ArrayList<>();
             my_val = RM_CODE;
             conf_type_val = conf_type;
@@ -492,13 +482,10 @@ public class RMPCPermission extends AppCompatActivity {
             mListViewBooks.setAdapter(categoryAdapter);
             super.onPostExecute(s);
         }
-
     }
 
-
     public class asyncTask_getCategories extends AsyncTask<Void, Void, Void> {
-        // ProgressDialog dialog = new ProgressDialog(context);
-
+        //ProgressDialog dialog = new ProgressDialog(context);
         @Override
         protected void onPreExecute() {
             array_list = new ArrayList<>();
@@ -516,18 +503,17 @@ public class RMPCPermission extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void s) {
-
             mListViewBooks = (ListView) findViewById(R.id.category_listView);
             final CategoryAdapter2 categoryAdapter = new CategoryAdapter2(context, R.layout.row_category, array_list);
             mListViewBooks.setAdapter(categoryAdapter);
             super.onPostExecute(s);
-
         }
     }
 
     private void pc_conference_date_check() {
         date_flag = "0";
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < checkdatelist.size(); i++) {
             date_flag = checkdatelist.get(i).getName();
         }
@@ -541,9 +527,7 @@ public class RMPCPermission extends AppCompatActivity {
         );
     }
 
-
     class GeTPcConferenceDate extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -551,7 +535,6 @@ public class RMPCPermission extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", RM_CODE));
@@ -560,25 +543,20 @@ public class RMPCPermission extends AppCompatActivity {
 
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(pc_conference_date_check, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < 1; i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            checkdatelist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < 1; i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        checkdatelist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-            } else {
-            }
-
+            } else {}
             return null;
         }
 
@@ -587,19 +565,15 @@ public class RMPCPermission extends AppCompatActivity {
             super.onPostExecute(result);
             pc_conference_date_check();
         }
-
     }
 
     private void rm_depo_count_check_new() {
         available_pc_initial = (int) ((double) count_of_pc / (double) count_of_depot);
-
     }
 
     class GeTRmDepotCheck extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
-
             super.onPreExecute();
             pDialog = new ProgressDialog(RMPCPermission.this);
             pDialog.setTitle("Please wait !");
@@ -616,6 +590,7 @@ public class RMPCPermission extends AppCompatActivity {
             params.add(new BasicNameValuePair("conf_type", conf_type));
             params.add(new BasicNameValuePair("proposed_conference_date", proposed_conference_date));
             JSONObject json = jsonParser.makeHttpRequest(rm_depo_check_new, "POST", params);
+
             try {
                 count_of_depot = json.getInt(tag_get_depot);
                 count_of_pc = json.getInt(tag_get_count_of_pc);
@@ -623,7 +598,6 @@ public class RMPCPermission extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
-
         }
 
         @Override
@@ -632,9 +606,7 @@ public class RMPCPermission extends AppCompatActivity {
             pDialog.dismiss();
             rm_depo_count_check_new();
         }
-
     }
-
 
     private void showSnack() {
         new Thread() {
@@ -644,15 +616,11 @@ public class RMPCPermission extends AppCompatActivity {
                         String message;
                         message = "Territory Assigned Succesfully";
                         Toasty.success(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-
-
                     }
                 });
             }
         }.start();
-
     }
-
 
     private void showCancelSnack() {
         new Thread() {
@@ -662,13 +630,10 @@ public class RMPCPermission extends AppCompatActivity {
                         String message;
                         message = "Territory Cancelled Succesfully";
                         Toasty.warning(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-
-
                     }
                 });
             }
         }.start();
-
     }
 }
 

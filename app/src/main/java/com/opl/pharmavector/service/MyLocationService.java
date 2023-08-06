@@ -42,7 +42,7 @@ public class MyLocationService extends BroadcastReceiver {
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
 
-                    // try {
+                    //try {
                     Log.e("tryBlock-->", latitude + "---" + longitude);
                     String myLang = String.valueOf(longitude);
                     String myLat = String.valueOf(latitude);

@@ -90,6 +90,7 @@ public class ImageLoadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_more);
+
         initView();
         caclenderEvent();
         brandSelectEvent();
@@ -97,8 +98,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         buttonEvent();
         setUpAdapter();
         load(0);
-
-
     }
 
     private void setUpAdapter() {

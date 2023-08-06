@@ -74,9 +74,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class PrescriptionFollowup2 extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
@@ -143,8 +141,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         manager_detail = b.getString("manager_detail");
         passed_manager_code = manager_code;
 
-
-
         initViews();
         initCalender();
         btnClickEvent();
@@ -153,12 +149,11 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         paraMeterCheck();
         autoCompleteEvents();
 
-
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 //Log.i("Selected Item in list", arg0.toString());
                 String rm_code = (String) productListView.getAdapter().getItem(arg2);
-               // Log.i("rmdccfollowup", rm_code);
+                //Log.i("rmdccfollowup", rm_code);
                 String first_split[] = rm_code.split("/");
                 String brand_split = first_split[0].trim();
                 String  passed_mpo = first_split[1].trim();
@@ -175,16 +170,12 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 i.putExtra("report_type","B");
                 i.putExtra("pres_sub_type",rx_gift_code);
                 Log.e("passedforLoadImage==>",passed_brandcode+"\n"+passed_mpo+"\n"+pres_type+"\n"+rx_gift_code);
-                 startActivity(i);
-
-
+                startActivity(i);
             }
         });
-
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = findViewById(R.id.pListView);
         back_btn = findViewById(R.id.backbt);
@@ -196,7 +187,7 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
         customerlist = new ArrayList<Customer>();
@@ -217,7 +208,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         } else {
             layout2.setVisibility(View.VISIBLE);
         }
-
         spin_doc = findViewById(R.id.spin_doc);
         spin_brand = findViewById(R.id.spin_brand);
         spin_rm = findViewById(R.id.spin_rm);
@@ -226,7 +216,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         actv_mpo = findViewById(R.id.autoCompleteTextView1);
         actv_brand_name = findViewById(R.id.autoCompleteTextView2);
         actv_rm = findViewById(R.id.actv_rm);
-
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
 
         if (!"MPO".equals(manager_detail)) {
@@ -237,27 +226,21 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
             cardview4.setVisibility(View.GONE);
             initTypeHintSpinner();
         }
-
-
     }
 
     private void initUserHintSpinner() {
-
         MaterialSpinner mspinner = findViewById(R.id.mspinner);
-        switch (manager_detail) {
 
+        switch (manager_detail) {
             case "AD":
                 mspinner.setItems("National", "Division", "Zone", "Region", "Area", "Territory");
                 break;
-
             case "SM":
                 mspinner.setItems("Zone", "Region", "Area", "Territory");
                 break;
-
             case "ASM":
                 mspinner.setItems("Region", "Area", "Territory");
                 break;
-
             case "RM":
                 mspinner.setItems("Area", "Territory");
                 break;
@@ -267,7 +250,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         }
 
         mspinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar snackbar = Snackbar.make(view, "Field Type: " + item, Snackbar.LENGTH_LONG)
@@ -275,9 +257,8 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(PrescriptionFollowup2.this, R.color.colorAccentEditor));
                 snackbar.show();
-
-
                 fieldforce_val = String.valueOf(item);
+
                 if (fieldforce_val.trim().equals("National")) {
                     passed_manager_code = manager_code;
                     brand_code = "xx";
@@ -285,11 +266,8 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                     actv_brand_name.setText("");
                     customerlist.clear();
                     categoriesList.clear();
-
                     new GetCategories().execute();
                     postPrescriptionCount();
-
-
                 } else {
                     actv_rm.setText("");
                     actv_brand_name.setText("");
@@ -298,16 +276,12 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 }
             }
         });
-
-
     }
 
     private void initTypeHintSpinner() {
-
         MaterialSpinner mspinner2 = findViewById(R.id.mspinner2);
         mspinner2.setItems("All", "OPD", "Indoor", "Rx Generation");
         mspinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar snackbar = Snackbar.make(view, "Prescription Type: " + item, Snackbar.LENGTH_LONG)
@@ -315,8 +289,8 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(PrescriptionFollowup2.this, R.color.colorAccentEditor));
                 snackbar.show();
-
                 Prescription_val = String.valueOf(item);
+
                 if (Prescription_val.trim().equals("All")) {
                     pres_type = "xx";
                     cardview_rx_dtl.setVisibility(View.GONE);
@@ -334,14 +308,10 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                     cardview_rx_dtl.setVisibility(View.VISIBLE);
                     new GetBrandList2().execute();
                     actv_brand_name.setText("");
-
                 }
             }
         });
-
-
     }
-
 
     private void paraMeterCheck() {
         switch (manager_detail) {
@@ -352,7 +322,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 cardview4.setVisibility(View.VISIBLE);
                 new GetBrandList().execute();
                 break;
-
             case "AD":
                 cardview4.setVisibility(View.VISIBLE);
                 new GetList().execute();
@@ -361,10 +330,8 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         }
     }
 
-
     @SuppressLint("SimpleDateFormat")
     private void initCalender() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
@@ -374,11 +341,10 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -396,9 +362,7 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -413,7 +377,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
         fromdate.setOnClickListener(new OnClickListener() {
             @Override
@@ -423,10 +386,8 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
             }
         });
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(PrescriptionFollowup2.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -436,12 +397,10 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
 
     @SuppressLint("ClickableViewAccessibility")
     private void autoCompleteEvents() {
-
-
         actv_brand_name.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_brand_name.showDropDown();
                 return false;
             }
@@ -453,7 +412,6 @@ public class PrescriptionFollowup2 extends Activity implements OnClickListener {
             }
         });
         actv_brand_name.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
