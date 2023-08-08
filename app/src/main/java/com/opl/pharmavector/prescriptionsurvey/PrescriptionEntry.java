@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -81,6 +83,7 @@ import com.opl.pharmavector.SessionManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -130,6 +133,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     TextView txt_name, user_show1, user_show2;
     Bitmap bitmap, decoded;
     int success;
+    Uri imageUri;
     Button buttonCapture;
     Button btn_multi;
     int PICK_IMAGE_REQUEST = 2;
@@ -184,6 +188,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     String ppm_name, ppm_code = "xxxxxx", ppm_prod_code;
     ArrayAdapter<String> doc_adapter;
     TabLayout tabLayout;
+    ArrayList<Uri> mImageUriList = new ArrayList<>();
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int MY_GALLERY_PERMISSION_CODE = 101;
@@ -395,7 +400,11 @@ public class PrescriptionEntry extends AppCompatActivity {
                 } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
                     uploadGiftMultiImage();
                 } else {
-                    uploadMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadMultiImageOS13();
+                    } else {
+                        uploadMultiImage();
+                    }
                 }
             }
         });
@@ -413,7 +422,8 @@ public class PrescriptionEntry extends AppCompatActivity {
 
                                 }
                             }).show();
-                } else {
+                }
+                else {
                     if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("SG")) {
                         uploadGiftImage();
                     } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
@@ -1429,20 +1439,98 @@ public class PrescriptionEntry extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
+    private void uploadMultiImageOS13() {
+        int j;
+        for (j = 0; j < imagesEncodedList.size(); j++) {
+            Log.d("imagesEncodedList-->", String.valueOf(j));
+
+                try {
+                    Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(j));
+                    encodedStringmulti = ImageBase64.encode(image);
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_multi_test.php";
+
+            stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jObj = new JSONObject(response);
+                                String name = jObj.getString("success");
+                                String email = jObj.getString("message");
+                                success = jObj.getInt(TAG_SUCCESS);
+
+                                if (success == 1) {
+                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    AutoDismiss();
+                                    refresh();
+                                } else {
+                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                            } else if (error instanceof AuthFailureError) {
+                            } else if (error instanceof ServerError) {
+                            } else if (error instanceof NetworkError) {
+                            } else if (error instanceof ParseError) {} }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("image", encodedStringmulti);
+                    params.put("countimage", String.valueOf(imagesEncodedList.size()));
+                    params.put("brand_names", degree_name.getText().toString().trim());
+                    params.put("mpo_code", Dashboard.globalmpocode);
+                    params.put("tab_flag", Tab_Flag);
+                    params.put("gift_tab_flag", GIFT_Tab_Flag);
+                    params.put("doc_code", doc_code);
+                    params.put("dept_name", dept_name);
+                    params.put("img_make", Build.BRAND);
+                    params.put("img_model", Build.MODEL);
+                    params.put("img_len", "ImageLength: 1600\\n");
+                    params.put("img_width", "ImageWidth: 720\\n");
+                    params.put("img_datetime", "2023:05:07 17:52:36\\n");
+                    return params;
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(90000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+        }
+        gvGallery.setAdapter(null);
+        imagesEncodedList.clear();
+    }
+
     private void uploadMultiImage() {
         int j;
         for (j = 0; j < imagesEncodedList.size(); j++) {
             Log.d("imagesEncodedList-->", String.valueOf(j));
 
-            try {
-                Bitmap bitmap = PhotoLoader.init().from(imagesEncodedList.get(j)).requestSize(512, 512).getBitmap();
-                encodedStringmulti = ImageBase64.encode(bitmap);
-            } catch (FileNotFoundException e) {
-                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
-            }
+                try {
+                    Bitmap bitmap = PhotoLoader.init().from(imagesEncodedList.get(j)).requestSize(512, 512).getBitmap();
+                    encodedStringmulti = ImageBase64.encode(bitmap);
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+                }
             String myimagepath = imagesEncodedList.get(j);
             Log.e("myImagePathOnclick-->", myimagepath);
             ExifInterface exif2 = null;
+
             try {
                 exif2 = new ExifInterface(myimagepath);
             } catch (IOException e) {
@@ -1629,13 +1717,19 @@ public class PrescriptionEntry extends AppCompatActivity {
                 .start();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void showFileChooserMultipleOS13() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        resultLauncher.launch(intent);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), 102);
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        //resultLauncher.launch(intent);
+//        startActivityForResult(Intent.createChooser(intent,"Select Picture"), 102);
+
+        int mediaSelectionLimit = 2;
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        intent.putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, mediaSelectionLimit);
+        startActivityForResult(intent, 102);
     }
 
     private void openCamera() {
@@ -1807,42 +1901,47 @@ public class PrescriptionEntry extends AppCompatActivity {
         else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 int count = data.getClipData().getItemCount();
-                ArrayList<Uri> mArrayUri = new ArrayList<>();
 
                 //Bitmap photo = (Bitmap) data.getExtras().get("data");
                 Log.d("imageUrl0", String.valueOf(data.getData()));
 
                 for (int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    mArrayUri.add(imageUri);
-                    imagesEncodedList.add(imageUri.getEncodedPath());
+                    mImageUriList.add(imageUri);
+                    imagesEncodedList.add(imageUri.getPath());
                     Log.d("imageUrl1-->", String.valueOf(imageUri));
                     Log.d("imageUrl2-->", String.valueOf(imageUri.getPath()));
                 }
 
-                    if (mArrayUri.size() > 1) { // multiple images selected
+                    if (mImageUriList.size() > 1) { // multiple images selected
                         imageView.setVisibility(View.GONE);
                         gvGallery.setVisibility(View.VISIBLE);
                         buttonmultiUpload.setVisibility(View.VISIBLE);
                         buttonUpload.setVisibility(View.GONE);
-                        //Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
-                        //setToImageView(decodedBitmap);
+                        //Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mImageUriList.get(0).getPath(), 2048);
+//                        Bitmap image;
+//                        try {
+//                            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(0));
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        setToImageView(image);
                         //imageView.setImageURI(mArrayUri.get(0));  // test
-                        galleryAdapter = new GalleryAdapter(getApplicationContext(), mArrayUri);
+                        galleryAdapter = new GalleryAdapter(getApplicationContext(), mImageUriList);
                         gvGallery.setAdapter(galleryAdapter);
                         gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
                         ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
                         mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
-                    } else if (mArrayUri.size() == 1) {
+                    } else if (mImageUriList.size() == 1) {
                         imageView.setVisibility(View.VISIBLE);
                         gvGallery.setVisibility(View.GONE);
                         buttonmultiUpload.setVisibility(View.GONE);
                         buttonUpload.setVisibility(View.VISIBLE);
-                        Bitmap photo1 = (Bitmap) data.getExtras().get("data");
-                        imageView.setImageBitmap(photo1);
-                        //setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
-                        img_local_path = mArrayUri.get(0).getPath();
-                        Log.d("imgLocalPath=>", photo1.toString());
+                        Uri imageUri = data.getClipData().getItemAt(0).getUri();
+                        imageView.setImageURI(imageUri);
+                        //setToImageView(ImageUtil.getDecodedBitmap(mImageUriList.get(0).getPath(), 2048));
+                        img_local_path = mImageUriList.get(0).getPath();
+                        //Log.d("imgLocalPath=>", photo1.toString());
 
                         ExifInterface exif = null;
                         try {
@@ -1852,7 +1951,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                         }
                         ShowExif(exif);
                     }
-            } else {
+            }
+            else {
                 if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                     List<Image> images = ImagePicker.getImages(data);
                     ArrayList<Uri> mArrayUri = new ArrayList<>();
@@ -1864,7 +1964,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         Log.e("imageUrl2-->", String.valueOf(image.getPath()));
                     }
 
-                    if (mArrayUri.size() > 1) { //multiple images selected
+                    if (mArrayUri.size() > 1) { // multiple images selected
                         imageView.setVisibility(View.GONE);
                         gvGallery.setVisibility(View.VISIBLE);
                         buttonmultiUpload.setVisibility(View.VISIBLE);
