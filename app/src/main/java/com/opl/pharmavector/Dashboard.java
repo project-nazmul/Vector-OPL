@@ -19,6 +19,9 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -77,6 +80,7 @@ import com.opl.pharmavector.util.NetInfo;
 import org.apache.http.NameValuePair;
 
 import java.io.IOException;
+import java.security.acl.Permission;
 import java.util.HashMap;
 import java.util.List;
 
@@ -89,6 +93,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
@@ -134,7 +139,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     PreferenceManager preferenceManager;
     AppUpdaterUtils appUpdaterUtils;
     AppUpdater appUpdater;
-    public static String version;
+    public static String version, phoneNumber;
     static Dashboard instance;
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -161,6 +166,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     LocationManager locationManager;
+    private static final int PHONE_NUMBER_CODE = 101;
 
     public static Dashboard getInstance() {
         return instance;
@@ -202,6 +208,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         pmdContact();
         doctorListInfo();
         prescriberEvent();
+        getDeviceSimNumber();
 
         session = new SessionManager(getApplicationContext());
         PackageManager pm = getApplicationContext().getPackageManager();
@@ -512,6 +519,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
+            i.putExtra("emp_code", globalempCode);
+            i.putExtra("emp_location", track_add);
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
@@ -1868,6 +1877,42 @@ public class Dashboard extends Activity implements View.OnClickListener {
         build_device = Build.DEVICE;
         build_brand = Build.BRAND;
         build_id = Build.ID;
+    }
+
+    @SuppressLint({"MissingPermission", "HardwareIds"})
+    public void getDeviceSimNumber() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            ActivityCompat.requestPermissions(Dashboard.this, new String[]{Manifest.permission.READ_PHONE_NUMBERS}, PHONE_NUMBER_CODE);
+        } else {
+            TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            phoneNumber = tMgr.getLine1Number();
+        }
+
+        if (ContextCompat.checkSelfPermission(Dashboard.this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.shouldShowRequestPermissionRationale(Dashboard.this, Manifest.permission.READ_PHONE_NUMBERS);
+        } else {
+            SubscriptionManager subscriptionManager = SubscriptionManager.from(getApplicationContext());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                phoneNumber = subscriptionManager.getPhoneNumber(0);
+                Log.d("phoneNumber", phoneNumber);
+            }
+            List<SubscriptionInfo> subsInfoList = subscriptionManager.getActiveSubscriptionInfoList();
+            Log.d("Test", "Current list = " + subsInfoList);
+
+            for (SubscriptionInfo subscriptionInfo : subsInfoList) {
+                String number = subscriptionInfo.getNumber();
+                Log.d("phoneNumber", " Number is  " + number);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PHONE_NUMBER_CODE) {
+            //String phoneNumber = data.
+            Log.d("phoneNumber1", String.valueOf(data));
+        }
     }
 
     private void firebaseEvent() {

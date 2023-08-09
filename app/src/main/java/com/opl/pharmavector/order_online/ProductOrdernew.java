@@ -78,7 +78,7 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
     static TextView totalsellvalue;
     public LinearLayout totalshow;
     public Button calc;
-    public String brand;
+    public String brand, empCode, empLocation;
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
     public static ArrayList<String> PROD_RATE;
@@ -287,6 +287,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
         extra.getString("CUST_CODE");
         bundle.getString("ORDER_DELEVERY_DATE");
         bundle.getString("ORDER_REFERANCE_NO");
+        empCode = bundle.getString("emp_code");
+        empLocation = bundle.getString("emp_location");
 
         submit.setOnClickListener(this);
     }
@@ -756,6 +758,8 @@ public class ProductOrdernew extends FragmentActivity implements OnClickListener
                     }
                 }
                 params.add(new BasicNameValuePair("MPO_CODE", MPO_CODE));
+                params.add(new BasicNameValuePair("p_location", empLocation));
+                params.add(new BasicNameValuePair("p_emp_code", empCode));
                 params.add(new BasicNameValuePair("CUST_CODE", CUST_CODE));
                 params.add(new BasicNameValuePair("AM_PM", AM_PM));
                 params.add(new BasicNameValuePair("PAY_MODE", cash_credit));

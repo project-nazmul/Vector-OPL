@@ -233,8 +233,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     private void permissionEvent() {
-        ActivityCompat.requestPermissions(PrescriptionEntry.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+        ActivityCompat.requestPermissions(PrescriptionEntry.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
         if (ContextCompat.checkSelfPermission(PrescriptionEntry.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {

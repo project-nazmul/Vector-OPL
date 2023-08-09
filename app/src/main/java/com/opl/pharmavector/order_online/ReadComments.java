@@ -84,7 +84,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
     private SessionManager session;
     public String get_ext_dt3, get_ext_dt4;
     public Button next, back;
-    public static String name = null, newversion_text = null, ename = null;
+    public static String name = null, newversion_text = null, ename = null, empCode, empLocation;
     public int credit_party = 0, cash_party = 0;
     Editor editor;
     public EditText osi, op, od, dateResult, ref;
@@ -289,6 +289,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             String UserName_1 = b.getString("UserName_1");
                             extras.putString("MPO_CODE", userName);
                             extras.putString("UserName_1", UserName_1);
+                            extras.putString("emp_code", empCode);
+                            extras.putString("emp_location", empLocation);
                             extras.putString("CUST_CODE", cust_code_new);
                             extras.putString("AM_PM", ampmspin.getSelectedItem().toString());
                             extras.putString("cash_credit", select_party_new);
@@ -394,6 +396,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
             private void length() {}
         });
     }
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -410,12 +413,12 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         achiv =  findViewById(R.id.achivement);
         inv =  findViewById(R.id.invoice);
         updateorders.setTypeface(fontFamily);
-        updateorders.setText("\uf044");    // ï�„ fa-edit (alias) [&#xf044;]
+        updateorders.setText("\uf044"); // ï�„ fa-edit (alias) [&#xf044;]
         vieworders.setTypeface(fontFamily);
         vieworders.setText("\uf06e"); // &#xf06e
         next =  findViewById(R.id.next);
         next.setTypeface(fontFamily);
-        next.setText("\uf061");  // &#xf061
+        next.setText("\uf061"); // &#xf061
         achivbtn.setTypeface(fontFamily);
         achivbtn.setText("\uf080");
         error_dt =  findViewById(R.id.errordt);
@@ -446,6 +449,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
 
         name = b.getString("UserName_1");
         ename = b.getString("UserName_2");
+        empCode = b.getString("emp_code");
+        empLocation = b.getString("emp_location");
         newversion_text = b.getString("new_version");
         newversion.setText(newversion_text);
         if (b.isEmpty()) {
