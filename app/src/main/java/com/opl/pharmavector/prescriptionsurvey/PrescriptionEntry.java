@@ -89,6 +89,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -199,10 +201,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pres_entry);
 
-        ActivityCompat.requestPermissions(PrescriptionEntry.this,
-                permissions(),
-                1);
-
+        ActivityCompat.requestPermissions(PrescriptionEntry.this, permissions(), 1);
         initViews();
         getDevicedetails();
         new GetDoctor().execute();
@@ -242,7 +241,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(PrescriptionEntry.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
             } else {
                 ActivityCompat.requestPermissions(PrescriptionEntry.this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
@@ -269,14 +267,6 @@ public class PrescriptionEntry extends AppCompatActivity {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
-//                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//                galleryIntent.setType("image/*");
-//                galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
-//                resultLauncher.launch(galleryIntent);
-
-//                Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-//                resultLauncher.launch(intent);
-
                 if (Tab_Flag.equals("D")) {
                     if (degree_name.getText().toString().equals("") || degree_name.getText().toString() == null) {
                         doctorSnack();
@@ -396,9 +386,17 @@ public class PrescriptionEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("SG")) {
-                    uploadGiftMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadGiftMultiImageOS13();
+                    } else {
+                        uploadGiftMultiImage();
+                    }
                 } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
-                    uploadGiftMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadGiftMultiImageOS13();
+                    } else {
+                        uploadGiftMultiImage();
+                    }
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         uploadMultiImageOS13();
@@ -425,13 +423,29 @@ public class PrescriptionEntry extends AppCompatActivity {
                 }
                 else {
                     if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("SG")) {
-                        uploadGiftImage();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            uploadGiftImageOS13();
+                        } else {
+                            uploadGiftImage();
+                        }
                     } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
-                        uploadGiftImage();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            uploadGiftImageOS13();
+                        } else {
+                            uploadGiftImage();
+                        }
                     } else if (Tab_Flag.equals("G") && GIFT_Tab_Flag.equals("Rx")) {
-                        uploadGiftImage();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            uploadGiftImageOS13();
+                        } else {
+                            uploadGiftImage();
+                        }
                     } else {
-                        uploadImage();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                           uploadImageOS13();
+                        } else {
+                            uploadImage();
+                        }
                     }
                 }
             }
@@ -923,7 +937,14 @@ public class PrescriptionEntry extends AppCompatActivity {
         gvGallery.setVisibility(View.GONE);
         buttonmultiUpload.setVisibility(View.GONE);
         buttonUpload.setVisibility(View.VISIBLE);
-        showFileChooserSingle();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mImageUriList.clear();
+            imagesEncodedList.clear();
+            showFileChooserSingleOS13();
+        } else {
+            showFileChooserSingle();
+        }
     }
 
     private void initMultiUpload() {
@@ -933,6 +954,12 @@ public class PrescriptionEntry extends AppCompatActivity {
         buttonUpload.setVisibility(View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (galleryAdapter != null) {
+                mImageUriList.clear();
+                imagesEncodedList.clear();
+                galleryAdapter =  new GalleryAdapter(getApplicationContext(), mImageUriList);
+                galleryAdapter.notifyDataSetChanged();
+            }
             showFileChooserMultipleOS13();
         } else {
             showFileChooserMultiple();
@@ -1271,8 +1298,89 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
+
             }
         });
+    }
+
+    private void uploadImageOS13() {
+        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        Bitmap image = null;
+        try {
+            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(0));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        encodedStringmulti = ImageBase64.encode(image);
+
+        final ProgressDialog loading = ProgressDialog
+                .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
+        stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            String name = jObj.getString("success");
+                            String email = jObj.getString("message");
+                            success = jObj.getInt(TAG_SUCCESS);
+
+                            if (success == 1) {
+                                mImageUriList.clear();
+                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Successful")
+                                        .setMessage("Prescription has been submitted")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        }).show();
+                                refresh();
+                            } else {
+                                refresh();
+                                Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        loading.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.dismiss();
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                        } else if (error instanceof AuthFailureError) {
+                        } else if (error instanceof ServerError) {
+                        } else if (error instanceof NetworkError) {
+                        } else if (error instanceof ParseError) {} }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(KEY_IMAGE, encodedStringmulti);
+                params.put("brand_names", degree_name.getText().toString().trim());
+                params.put("mpo_code", Dashboard.globalmpocode);
+                params.put("tab_flag", Tab_Flag);
+                params.put("gift_tab_flag", GIFT_Tab_Flag);
+                params.put("doc_code", doc_code);
+                params.put("dept_name", dept_name);
+                params.put("img_make", Build.BRAND);
+                params.put("img_model", Build.MODEL);
+                params.put("img_len", "ImageLength: 1600\\n");
+                params.put("img_width", "ImageWidth: 720\\n");
+                params.put("img_datetime", currentTime);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                90000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
     private void uploadImage() {
@@ -1345,6 +1453,87 @@ public class PrescriptionEntry extends AppCompatActivity {
             }
         };
 
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                90000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+    }
+
+    private void uploadGiftImageOS13() {
+        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        Bitmap image = null;
+        try {
+            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(0));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        encodedStringmulti = ImageBase64.encode(image);
+
+        final ProgressDialog loading = ProgressDialog
+                .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
+        stringRequest = new StringRequest(Request.Method.POST, UPLOAD_Gift_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            String name = jObj.getString("success");
+                            String email = jObj.getString("message");
+                            success = jObj.getInt(TAG_SUCCESS);
+
+                            if (success == 1) {
+                                mImageUriList.clear();
+                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Successful")
+                                        .setMessage(" Prescription has been submitted")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {}
+                                        }).show();
+                                refresh();
+                            } else {
+                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        loading.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.dismiss();
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                        } else if (error instanceof AuthFailureError) {
+                        } else if (error instanceof ServerError) {
+                        } else if (error instanceof NetworkError) {
+                        } else if (error instanceof ParseError) {} }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(KEY_IMAGE, encodedStringmulti);
+                params.put("ppm_code", ppm_code);
+                params.put("brand_names", ppm_prod_code);
+                params.put("ppm_name", ppm_name);
+                params.put("mpo_code", Dashboard.globalmpocode);
+                params.put("tab_flag", Tab_Flag);
+                params.put("gift_tab_flag", GIFT_Tab_Flag);
+                params.put("brand_code", ppm_prod_code);
+                params.put("doc_code", doc_code);
+                params.put("dept_name", dept_name);
+                params.put("img_make", Build.BRAND);
+                params.put("img_model", Build.MODEL);
+                params.put("img_len", "ImageLength: 1600\n");
+                params.put("img_width", "ImageWidth: 720\n");
+                params.put("img_datetime", currentTime);
+                return params;
+            }
+        };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 90000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -1441,9 +1630,7 @@ public class PrescriptionEntry extends AppCompatActivity {
 
     private void uploadMultiImageOS13() {
         int j;
-        for (j = 0; j < imagesEncodedList.size(); j++) {
-            Log.d("imagesEncodedList-->", String.valueOf(j));
-
+        for (j = 0; j < mImageUriList.size(); j++) {
                 try {
                     Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(j));
                     encodedStringmulti = ImageBase64.encode(image);
@@ -1453,6 +1640,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_multi_test.php";
+            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
             stringRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
@@ -1492,7 +1680,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                     Map<String, String> params = new HashMap<String, String>();
 
                     params.put("image", encodedStringmulti);
-                    params.put("countimage", String.valueOf(imagesEncodedList.size()));
+                    params.put("countimage", String.valueOf(mImageUriList.size()));
                     params.put("brand_names", degree_name.getText().toString().trim());
                     params.put("mpo_code", Dashboard.globalmpocode);
                     params.put("tab_flag", Tab_Flag);
@@ -1503,7 +1691,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                     params.put("img_model", Build.MODEL);
                     params.put("img_len", "ImageLength: 1600\\n");
                     params.put("img_width", "ImageWidth: 720\\n");
-                    params.put("img_datetime", "2023:05:07 17:52:36\\n");
+                    params.put("img_datetime", currentTime);
                     return params;
                 }
             };
@@ -1514,6 +1702,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
+        mImageUriList.clear();
     }
 
     private void uploadMultiImage() {
@@ -1606,6 +1795,85 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
+    }
+
+    private void uploadGiftMultiImageOS13() {
+        int j;
+        for (j = 0; j < mImageUriList.size(); j++) {
+            try {
+                Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(j));
+                encodedStringmulti = ImageBase64.encode(image);
+            } catch (FileNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+            String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_gift_multi.php";
+
+            stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jObj = new JSONObject(response);
+                                String name = jObj.getString("success");
+                                String email = jObj.getString("message");
+                                success = jObj.getInt(TAG_SUCCESS);
+
+                                if (success == 1) {
+                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    AutoDismiss();
+                                    refresh();
+                                } else {
+                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                            } else if (error instanceof AuthFailureError) {
+                            } else if (error instanceof ServerError) {
+                            } else if (error instanceof NetworkError) {
+                            } else if (error instanceof ParseError) {} }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("image", encodedStringmulti);
+                    params.put("countimage", String.valueOf(mImageUriList.size()));
+                    params.put("brand_names", degree_name.getText().toString().trim());
+                    params.put("mpo_code", Dashboard.globalmpocode);
+                    params.put("tab_flag", Tab_Flag);
+                    params.put("gift_tab_flag", GIFT_Tab_Flag);
+                    params.put("doc_code", doc_code);
+                    params.put("dept_name", dept_name);
+                    params.put("img_make", Build.BRAND);
+                    params.put("img_model", Build.MODEL);
+                    params.put("img_len", "ImageLength: 1600\n");
+                    params.put("img_width", "ImageWidth: 720\n");
+                    params.put("img_datetime", currentTime);
+                    return params;
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    90000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+        }
+        gvGallery.setAdapter(null);
+        imagesEncodedList.clear();
+        mImageUriList.clear();
+        finish();
+        startActivity(getIntent());
     }
 
     private void uploadGiftMultiImage() {
@@ -1718,6 +1986,14 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    private void showFileChooserSingleOS13() {
+        int imageSelectLimit = 1;
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        intent.putExtra(MediaStore.ACTION_PICK_IMAGES, imageSelectLimit);
+        startActivityForResult(intent, 102);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void showFileChooserMultipleOS13() {
 //        Intent intent = new Intent();
 //        intent.setType("image/*");
@@ -1726,9 +2002,9 @@ public class PrescriptionEntry extends AppCompatActivity {
 //        //resultLauncher.launch(intent);
 //        startActivityForResult(Intent.createChooser(intent,"Select Picture"), 102);
 
-        int mediaSelectionLimit = 2;
+        int imageSelectLimit = 5;
         Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-        intent.putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, mediaSelectionLimit);
+        intent.putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, imageSelectLimit);
         startActivityForResult(intent, 102);
     }
 
@@ -1741,105 +2017,6 @@ public class PrescriptionEntry extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
         return Uri.parse(path);
     }
-
-    ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    InputStream is = null;
-                    try {
-                        assert result.getData() != null;
-                        is = getContentResolver().openInputStream(Uri.parse(result.getData().toURI()));
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    Log.d("imageUrl", String.valueOf(bitmap));
-//                    if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
-//                        Log.d("imageUrl", result.toString());
-//                        assert result.getData() != null;
-//                        Bitmap photo = (Bitmap) result.getData().getExtras().get("data");
-//                        Bitmap bitmap2 = Bitmap.createScaledBitmap(photo, 600, 600, true);
-//                        imageView.setImageBitmap(bitmap2);
-//                        setToImageView(photo);
-//                        getStringImage(decoded);
-//                        Uri _uri = getImageUri(getApplicationContext(), photo);
-//                        String filePath = null;
-//
-//                        if (_uri != null && "content".equals(_uri.getScheme())) {
-//                            Cursor cursor = PrescriptionEntry.this.getContentResolver().query(_uri, new String[]{
-//                                    android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
-//                            cursor.moveToFirst();
-//                            filePath = cursor.getString(0);
-//                            cursor.close();
-//                        } else {
-//                            assert _uri != null;
-//                            filePath = _uri.getPath();
-//                        }
-//                        String filename = _uri.getLastPathSegment();
-//                        Log.e("filePath-->", filename);
-//                        ExifInterface exif = null;
-//
-//                        try {
-//                            exif = new ExifInterface(filePath);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        ShowExif(exif);
-//                        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-//                        img_datetime = currentTime;
-//                        Log.e("cameraCaptureTime-->", img_datetime);
-//                    }
-//                    else {
-//                        if (ImagePicker.shouldHandle(result.getResultCode(), result.getResultCode(), result.getData())) {
-//                            List<Image> images = ImagePicker.getImages(result.getData());
-//                            ArrayList<Uri> mArrayUri = new ArrayList<>();
-//
-//                            for (Image image : images) {
-//                                mArrayUri.add(Uri.parse(image.getPath()));
-//                                imagesEncodedList.add(image.getPath());
-//                                Log.e("mArrayuri-->", String.valueOf(Uri.parse(image.getPath())));
-//                                Log.e("imagesEncodedList-->", String.valueOf(image.getPath()));
-//                            }
-//
-//                            if (mArrayUri.size() > 1) { // multiple images selected
-//                                imageView.setVisibility(View.GONE);
-//                                gvGallery.setVisibility(View.VISIBLE);
-//                                buttonmultiUpload.setVisibility(View.VISIBLE);
-//                                buttonUpload.setVisibility(View.GONE);
-//                                Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
-//                                setToImageView(decodedBitmap);
-//                                galleryAdapter = new GalleryAdapter(getApplicationContext(), mArrayUri);
-//                                gvGallery.setAdapter(galleryAdapter);
-//                                gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
-//                                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
-//                                mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
-//                            } else if (mArrayUri.size() == 1) {
-//                                imageView.setVisibility(View.VISIBLE);
-//                                gvGallery.setVisibility(View.GONE);
-//                                buttonmultiUpload.setVisibility(View.GONE);
-//                                buttonUpload.setVisibility(View.VISIBLE);
-//                                setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
-//                                img_local_path = mArrayUri.get(0).getPath();
-//                                Log.e("imglocalpath=>", img_local_path);
-//
-//                                ExifInterface exif = null;
-//                                try {
-//                                    exif = new ExifInterface(img_local_path);
-//                                } catch (IOException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                ShowExif(exif);
-//                            }
-//                        }
-//                    }
-                }
-            });
-//    private void checkSystemPermission() {
-//       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//           requestPermissions(new String[] { Manifest.permission.READ_MEDIA_IMAGES }, MY_GALLERY_PERMISSION_CODE, new Activity().setP);
-//       }
-//    }
 
     public static String[] storge_permissions = {
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -1864,7 +2041,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //Log.d("imageUrl1", String.valueOf(data.getExtras().get("data")));
         if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Bitmap bitmap2 = Bitmap.createScaledBitmap(photo, 600, 600, true);
@@ -1900,102 +2076,84 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
         else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                int count = data.getClipData().getItemCount();
+                if (data != null) {
+                    int count = data.getClipData().getItemCount();
 
-                //Bitmap photo = (Bitmap) data.getExtras().get("data");
-                Log.d("imageUrl0", String.valueOf(data.getData()));
+                    for (int i = 0; i < count; i++) {
+                        Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        mImageUriList.add(imageUri);
+                        imagesEncodedList.add(imageUri.getPath());
+                        Log.d("imageUrl1-->", String.valueOf(imageUri));
+                        Log.d("imageUrl2-->", String.valueOf(imageUri.getPath()));
+                    }
 
-                for (int i = 0; i < count; i++) {
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    mImageUriList.add(imageUri);
-                    imagesEncodedList.add(imageUri.getPath());
-                    Log.d("imageUrl1-->", String.valueOf(imageUri));
-                    Log.d("imageUrl2-->", String.valueOf(imageUri.getPath()));
-                }
-
-                    if (mImageUriList.size() > 1) { // multiple images selected
+                    if (mImageUriList.size() > 1) {
                         imageView.setVisibility(View.GONE);
                         gvGallery.setVisibility(View.VISIBLE);
                         buttonmultiUpload.setVisibility(View.VISIBLE);
                         buttonUpload.setVisibility(View.GONE);
-                        //Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mImageUriList.get(0).getPath(), 2048);
-//                        Bitmap image;
-//                        try {
-//                            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(0));
-//                        } catch (IOException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        setToImageView(image);
-                        //imageView.setImageURI(mArrayUri.get(0));  // test
+
                         galleryAdapter = new GalleryAdapter(getApplicationContext(), mImageUriList);
                         gvGallery.setAdapter(galleryAdapter);
                         gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
                         ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
                         mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
-                    } else if (mImageUriList.size() == 1) {
+                    }
+                    else if (mImageUriList.size() == 1) {
                         imageView.setVisibility(View.VISIBLE);
                         gvGallery.setVisibility(View.GONE);
                         buttonmultiUpload.setVisibility(View.GONE);
                         buttonUpload.setVisibility(View.VISIBLE);
                         Uri imageUri = data.getClipData().getItemAt(0).getUri();
                         imageView.setImageURI(imageUri);
-                        //setToImageView(ImageUtil.getDecodedBitmap(mImageUriList.get(0).getPath(), 2048));
-                        img_local_path = mImageUriList.get(0).getPath();
-                        //Log.d("imgLocalPath=>", photo1.toString());
-
-                        ExifInterface exif = null;
-                        try {
-                            exif = new ExifInterface(img_local_path);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        ShowExif(exif);
-                    }
-            }
-            else {
-                if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-                    List<Image> images = ImagePicker.getImages(data);
-                    ArrayList<Uri> mArrayUri = new ArrayList<>();
-
-                    for (Image image: images) {
-                        mArrayUri.add(Uri.parse(image.getPath()));
-                        imagesEncodedList.add(image.getPath());
-                        Log.e("imageUrl1-->", String.valueOf(Uri.parse(image.getPath())));
-                        Log.e("imageUrl2-->", String.valueOf(image.getPath()));
-                    }
-
-                    if (mArrayUri.size() > 1) { // multiple images selected
-                        imageView.setVisibility(View.GONE);
-                        gvGallery.setVisibility(View.VISIBLE);
-                        buttonmultiUpload.setVisibility(View.VISIBLE);
-                        buttonUpload.setVisibility(View.GONE);
-                        Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
-                        setToImageView(decodedBitmap);
-                        galleryAdapter = new GalleryAdapter(getApplicationContext(), mArrayUri);
-                        gvGallery.setAdapter(galleryAdapter);
-                        gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
-                        ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
-                        mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
-                    } else if (mArrayUri.size() == 1) {
-                        imageView.setVisibility(View.VISIBLE);
-                        gvGallery.setVisibility(View.GONE);
-                        buttonmultiUpload.setVisibility(View.GONE);
-                        buttonUpload.setVisibility(View.VISIBLE);
-                        setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
-                        img_local_path = mArrayUri.get(0).getPath();
-                        Log.e("imgLocalPath=>", img_local_path);
-
-                        ExifInterface exif = null;
-                        try {
-                            exif = new ExifInterface(img_local_path);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        ShowExif(exif);
+                        //img_local_path = mImageUriList.get(0).getPath();
                     }
                 }
-            }
-            super.onActivityResult(requestCode, resultCode, data);
+                } else {
+                    if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+                        List<Image> images = ImagePicker.getImages(data);
+                        ArrayList<Uri> mArrayUri = new ArrayList<>();
+
+                        for (Image image : images) {
+                            mArrayUri.add(Uri.parse(image.getPath()));
+                            imagesEncodedList.add(image.getPath());
+                            Log.e("imageUrl1-->", String.valueOf(Uri.parse(image.getPath())));
+                            Log.e("imageUrl2-->", String.valueOf(image.getPath()));
+                        }
+
+                        if (mArrayUri.size() > 1) { // multiple images selected
+                            imageView.setVisibility(View.GONE);
+                            gvGallery.setVisibility(View.VISIBLE);
+                            buttonmultiUpload.setVisibility(View.VISIBLE);
+                            buttonUpload.setVisibility(View.GONE);
+                            Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
+                            setToImageView(decodedBitmap);
+                            galleryAdapter = new GalleryAdapter(getApplicationContext(), mArrayUri);
+                            gvGallery.setAdapter(galleryAdapter);
+                            gvGallery.setVerticalSpacing(gvGallery.getHorizontalSpacing());
+                            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) gvGallery.getLayoutParams();
+                            mlp.setMargins(0, gvGallery.getHorizontalSpacing(), 0, 0);
+                        }
+                        else if (mArrayUri.size() == 1) {
+                            imageView.setVisibility(View.VISIBLE);
+                            gvGallery.setVisibility(View.GONE);
+                            buttonmultiUpload.setVisibility(View.GONE);
+                            buttonUpload.setVisibility(View.VISIBLE);
+                            setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
+                            img_local_path = mArrayUri.get(0).getPath();
+                            Log.e("imgLocalPath=>", img_local_path);
+
+                            ExifInterface exif = null;
+                            try {
+                                exif = new ExifInterface(img_local_path);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            ShowExif(exif);
+                        }
+                    }
+                }
+                super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
