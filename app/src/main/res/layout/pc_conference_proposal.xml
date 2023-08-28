@@ -345,8 +345,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                >
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <EditText
                     android:id="@+id/food"

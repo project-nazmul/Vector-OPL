@@ -13,9 +13,9 @@ public class Category {
 	private String SHIFT_CODE;
 	private String PACK_CODE;
 	private String TOTAL_CODE;
+	private String FF_NAME;
 
-
-	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE ){
+	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE){
 		this.sl=sl;
 		this.id = id;
 		this.name = name;
@@ -27,8 +27,6 @@ public class Category {
 		this.SHIFT_CODE =  SHIFT_CODE;
 		//this.array_length = array_length;
 	}
-
-
 
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE){
 		this.sl=sl;
@@ -42,12 +40,6 @@ public class Category {
 		//this.array_length = array_length;
 	}
 
-
-
-
-
-
-
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE){
 		this.sl=sl;
 		this.id = id;
@@ -59,7 +51,6 @@ public class Category {
 		//this.array_length = array_length;
 	}
 
-
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT){
 		this.sl=sl;
 		this.id = id;
@@ -67,7 +58,6 @@ public class Category {
 		this.quantity = quantity;
 		this.PROD_RATE = PROD_RATE;
 		this.PROD_VAT = PROD_VAT;
-
 		//this.array_length = array_length;
 	}
 
@@ -78,10 +68,7 @@ public class Category {
 		this.PPM_CODE = PPM_CODE;
 		this.PROD_RATE = PROD_RATE;
 		this.PROD_VAT = PROD_VAT;
-
 	}
-
-
 
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE,String PACK_CODE  ){
 		this.sl=sl;
@@ -94,7 +81,6 @@ public class Category {
 		this.P_CODE =  P_CODE;
 		this.SHIFT_CODE =  SHIFT_CODE;
 		this.PACK_CODE =  PACK_CODE;
-
 	}
 
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE,String PACK_CODE,String TOTAL_CODE  ){
@@ -109,16 +95,7 @@ public class Category {
 		this.SHIFT_CODE =  SHIFT_CODE;
 		this.PACK_CODE =  PACK_CODE;
 		this.TOTAL_CODE =  TOTAL_CODE;
-
 	}
-
-
-
-
-
-
-
-
 
 	public void setsl(String sl){
 		this.sl = sl;
@@ -147,14 +124,9 @@ public class Category {
 	public void setTOTAL_CODE(String TOTAL_CODE){
 		this.TOTAL_CODE=TOTAL_CODE;
 	}
-
-
 	public String getsl() {
-		// TODO Auto-generated method stub
 		return this.sl;
 	}
-		
-	
 	public String getId(){
 		return this.id;
 	}
@@ -175,6 +147,4 @@ public class Category {
 	public String getSHIFT_CODE(){ return this.SHIFT_CODE; }
 	public String getPACK_CODE(){ return this.PACK_CODE; }
 	public String getTOTAL_CODE(){ return this.TOTAL_CODE; }
-	
-	
 }

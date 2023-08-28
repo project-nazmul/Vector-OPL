@@ -139,14 +139,11 @@ import com.opl.pharmavector.mpodcr.GiftOrder;
         return PPM_CODE.get(position);
     }
 
-    public Object P_CODE(int position) { return P_CODE.get(position);
-    }
+    public Object P_CODE(int position) { return P_CODE.get(position); }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final ViewHolder holder;
-
         rowView = convertView;
 
         if (rowView == null) {
@@ -191,37 +188,30 @@ import com.opl.pharmavector.mpodcr.GiftOrder;
             }
         });
 
-
         holder.quantity.addTextChangedListener(new TextWatcher() {
-
             float total_value = 0;
             int total_quanty = 0;
             int current_quantity = 0;
             float current_rate = 0f;
             float product_value = 0f;
-
             String tempStr;
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //	holder.quantity.setBackgroundResource(R.drawable.active);
                 //	holder.serial.setBackgroundResource(R.drawable.active);
                 //	holder.p_name.setBackgroundResource(R.drawable.active);
 
                 if (s.length() > 0) {
-
                     tempStr = s.toString();
                     qnty = tempStr;
-
                 }
-
                 int testt = s.toString().length();
                 if (testt> 0) {
 
                 } else {
 
-                    //		holder.quantity.setText("0");
+                    //holder.quantity.setText("0");
 
                 }
 

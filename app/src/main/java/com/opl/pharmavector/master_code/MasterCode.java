@@ -193,8 +193,8 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
         searchview = findViewById(R.id.p_search);
-        searchview.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        searchview.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+        searchview.setFilters(new InputFilter[]{ new InputFilter.AllCaps()} );
+        searchview.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(5)} );
     }
 
     public void setUpRecyclerView() {

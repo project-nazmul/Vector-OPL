@@ -335,7 +335,7 @@ public class Report extends Activity implements OnClickListener {
                 Bundle b = getIntent().getExtras();
                 usename12 = b.getString("UserName");
                 pDialog = new ProgressDialog(Report.this);
-                pDialog.setMessage("Calculating your Achievment ");
+                pDialog.setMessage("Calculating your Achievement ");
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(true);
                 pDialog.show();

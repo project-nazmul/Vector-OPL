@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -48,7 +49,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    private ArrayList<CategoryNew2> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
@@ -83,7 +84,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     AutoCompleteTextView actv;
-    TextView sproduct_name, sqnty1, ssellvelue, mpo_code, gval, achivement;
+    TextView sproduct_name, sqnty1, ssellvelue, mpo_code, mpo_name, gval, achivement;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +114,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
@@ -140,6 +142,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void initCalendar() {
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
@@ -153,9 +156,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         myCalendar = Calendar.getInstance();
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -166,18 +167,15 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
                 //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-
                 fromdate.setTextColor(Color.BLACK);
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AMfollowMpoAchv2.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -186,9 +184,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -203,14 +199,11 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AMfollowMpoAchv2.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -231,8 +224,10 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         ssellvelue = findViewById(R.id.ssellvelue);
         achivement = findViewById(R.id.achivement_sales_admin);
         mpo_code = findViewById(R.id.mpo_code);
+        mpo_name = findViewById(R.id.mpo_name);
         gval = findViewById(R.id.gval);
-        mpo_code.setText("Segment");
+        mpo_code.setText("Segment\nCode");
+        mpo_name.setText("Segment\nName");
         mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         sproduct_name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         sqnty1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
@@ -244,7 +239,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         cust.setOnItemSelectedListener(this);
         actv = findViewById(R.id.autoCompleteTextView1);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
@@ -253,7 +248,7 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
+        categoriesList = new ArrayList<CategoryNew2>();
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
         fromdate.setText(b.getString("from_date"));
@@ -262,16 +257,11 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         cust.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
@@ -280,11 +270,9 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
         }
     }
 
-
     public void finishActivity(View v) {
         finish();
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -296,41 +284,35 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
+            ArrayList<String> ff_names = new ArrayList<String>();
             ArrayList<String> growth_val = new ArrayList<String>();
             int quantity = 0;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
-            String mpo, growth;
+            String mpo, growth, ff_name;
 
             for (int i = 0; i < categoriesList.size(); i++) {
-
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
                 quantity = categoriesList.get(i).getQuantity();
-
-
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
                 mpo = String.valueOf(categoriesList.get(i).getPPM_CODE());
+                ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
-
                 value.add(prod_rate);
-
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
+                ff_names.add(ff_name);
                 growth_val.add(growth);
             }
-
             MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(AMfollowMpoAchv2.this, lables, quanty,
-                    value, achv, mpo_code, growth_val);
-
-
+                    value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -344,7 +326,6 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
     }
 
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         String fromdate1 = fromdate.getText().toString();
         String todate1 = todate.getText().toString();
         Bundle b = getIntent().getExtras();
@@ -373,34 +354,32 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        CategoryNew2 cat = new CategoryNew2(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("FF_NAME")
+                        );
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(AMfollowMpoAchv2.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AMfollowMpoAchv2.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(AMfollowMpoAchv2.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -416,28 +395,21 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
             popSpinner();
             totqty.setText("");
             totval.setText("");
-
             //totqty.setText("Total target quantity="+sp.getTotalQ());
             //totval.setText("Total Sales quantity="+sp.getTotalV());
-
         }
     }
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(AMfollowMpoAchv2.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

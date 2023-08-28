@@ -38,13 +38,13 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    private ArrayList<CategoryNew2> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submitBtn;
     public int success;
     public String message, ord_no;
-    TextView tvfromdate, tvtodate;
+    TextView tvfromdate, tvtodate, mpo_code, mpo_name;
     public TextView totqty, totval;
     public String userName_1, userName, active_string, act_desiredString;
     public String from_date, to_date;
@@ -228,6 +228,10 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
         ln = findViewById(R.id.totalshow);
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
+        mpo_code = findViewById(R.id.mpo_code);
+        mpo_name = findViewById(R.id.mpo_name);
+        mpo_code.setText("Territory\nCode");
+        mpo_name.setText("Territory\nName");
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
@@ -262,11 +266,12 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
+            ArrayList<String> ff_names = new ArrayList<String>();
             ArrayList<String> growth_val = new ArrayList<String>();
             int quantity = 0;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
-            String mpo, growth;
+            String mpo, growth, ff_name;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -276,13 +281,15 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
                 mpo = String.valueOf(categoriesList.get(i).getPPM_CODE());
+                ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
+                ff_names.add(ff_name);
                 growth_val.add(growth);
             }
-            MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(AMfollowMpoAchv.this, lables, quanty, value, achv, mpo_code, growth_val);
+            MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(AMfollowMpoAchv.this, lables, quanty, value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
 
@@ -327,7 +334,7 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                     JSONArray categories = jsonObj.getJSONArray("categories");
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
-                        Category cat = new Category(
+                        CategoryNew2 cat = new CategoryNew2(
                                 catObj.getString("sl"),
                                 catObj.getString("id"),
                                 catObj.getString("name"),
@@ -335,7 +342,8 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                                 catObj.getString("PROD_RATE"),
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
-                                catObj.getString("P_CODE")
+                                catObj.getString("P_CODE"),
+                                catObj.getString("FF_NAME")
                         );
                         categoriesList.add(cat);
                     }

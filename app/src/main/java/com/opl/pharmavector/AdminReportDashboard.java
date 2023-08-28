@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.nativecss.NativeCSS;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
+import com.opl.pharmavector.offer.ProductOffersActivity;
 import com.opl.pharmavector.report.LocationTrackerActivity;
 import com.opl.pharmavector.util.NetInfo;
 
@@ -60,7 +61,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     private SessionManager session;
     Bundle b;
     Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
-    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription, cardLocationTracker;
+    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription, cardLocationTracker, cardProductOffer;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +85,16 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                     .show();
         });
 
-        cardLocationTracker.setOnClickListener(v -> {
-            Intent i = new Intent(AdminReportDashboard.this, LocationTrackerActivity.class);
+//        cardLocationTracker.setOnClickListener(v -> {
+//            Intent i = new Intent(AdminReportDashboard.this, LocationTrackerActivity.class);
+//            i.putExtra("userName", userName);
+//            i.putExtra("userCode", UserName_2);
+//            i.putExtra("userRole", "AD");
+//            startActivity(i);
+//        });
+
+        cardProductOffer.setOnClickListener(v -> {
+            Intent i = new Intent(AdminReportDashboard.this, ProductOffersActivity.class);
             i.putExtra("userName", userName);
             i.putExtra("userCode", UserName_2);
             i.putExtra("userRole", "AD");
@@ -284,14 +293,14 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
 
     private void initViews() {
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-        brand_wise_sale_btn = findViewById(R.id.brand_wise_sale);
+        //brand_wise_sale_btn = findViewById(R.id.brand_wise_sale);
         logout = findViewById(R.id.logout);
         admin_product_list = findViewById(R.id.admin_product_list);
-        product_wise_sale = findViewById(R.id.product_wise_sale);
-        group_wise_product_ord_summary = findViewById(R.id.group_wise_product_ord_summary);
-        fourp_pres_report = findViewById(R.id.fourp_pres_report);
-        msp_pres_report = findViewById(R.id.msp_pres_report);
-        mrd_pres_report = findViewById(R.id.mrd_pres_report);
+        //product_wise_sale = findViewById(R.id.product_wise_sale);
+        //group_wise_product_ord_summary = findViewById(R.id.group_wise_product_ord_summary);
+        //fourp_pres_report = findViewById(R.id.fourp_pres_report);
+        //msp_pres_report = findViewById(R.id.msp_pres_report);
+        //mrd_pres_report = findViewById(R.id.mrd_pres_report);
         cardBrandSale = findViewById(R.id.cardBrandSale);
         cardProductSale = findViewById(R.id.cardProductSale);
         cardOpsoProduct = findViewById(R.id.cardOpsoProduct);
@@ -299,10 +308,11 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         cardMrdPrescription = findViewById(R.id.cardMrdPrescription);
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription = findViewById(R.id.cardMspPrescription);
-        cardLocationTracker = findViewById(R.id.cardLocationTracker);
-
+        //cardLocationTracker = findViewById(R.id.cardLocationTracker);
+        cardProductOffer = findViewById(R.id.cardProductOffer);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");
+
         b = getIntent().getExtras();
         userName = b.getString("UserName");
         UserName_2 = b.getString("UserName_2");
@@ -312,7 +322,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         new_version = b.getString("new_version");
         backbt = (Button) findViewById(R.id.backbt);
         backbt.setTypeface(fontFamily);
-        backbt.setText("\uf060 "); //&#xf060
+        backbt.setText("\uf060 "); // &#xf060
         db = new DatabaseHandler(this);
     }
 

@@ -339,9 +339,7 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
 
     }
 
-
     class LoadProduct extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -349,7 +347,6 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             pDialog.setMessage("Loading Products ...");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
@@ -360,11 +357,8 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
-
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
@@ -378,15 +372,12 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
                             customerlist.add(custo);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -396,11 +387,8 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             if (pDialog.isShowing())
                 pDialog.dismiss();
             producpopulatespinner();
-
         }
-
     }
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
@@ -409,15 +397,11 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             description.add(categoriesList.get(i).getId());
             Log.d("Changep---assword", "Login" + categoriesList.get(i).getId());
         }
-
-
     }
-
 
     public void finishActivity(View v) {
         finish();
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -433,14 +417,11 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
 
-
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code,growth_code;
-
             String mpo, quantity;
 
             for (int i = 0; i < categoriesList.size(); i++) {
-
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
@@ -465,7 +446,6 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -560,21 +540,16 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
     }
     /*------------- list items on click event----------------*/
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(SMBrandwiseProductSale.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

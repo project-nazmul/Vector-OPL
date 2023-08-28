@@ -547,7 +547,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpPreview = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         CardView cardview_dcfpEntry = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
-        cardview_dcfpEntry.setVisibility(View.VISIBLE);
+        Objects.requireNonNull(cardview_dcfpEntry).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -599,7 +599,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
-            //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "BottomSheetDialog is Dismissed", Toast.LENGTH_LONG).show();
         });
         bottomSheetDialog.show();
     }

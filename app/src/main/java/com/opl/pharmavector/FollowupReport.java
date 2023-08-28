@@ -95,7 +95,8 @@ public class FollowupReport extends Activity implements OnClickListener {
     public String get_ext_dt;
     private ArrayList<Customer> mpodcrlist;
     private ArrayList<String> array_sort = new ArrayList<String>();
-    private final String URL_PRODUCT_VIEW = BASE_URL+"RMFollowupReport.php";
+    //private final String URL_PRODUCT_VIEW = BASE_URL+"RMFollowupReport.php";
+    private final String URL_PRODUCT_VIEW = "http://192.168.10.195/"+"RMFollowupReport.php";
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -354,7 +355,7 @@ public class FollowupReport extends Activity implements OnClickListener {
            //RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FollowupReport.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11);
            //RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FollowupReport.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
            //value14,value15);
-            RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FollowupReport.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
+            RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FollowupReport.this, sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
                     value14,value15,value16,value17);
             productListView.setAdapter(adapter);
         }
@@ -397,7 +398,7 @@ public class FollowupReport extends Activity implements OnClickListener {
             params.add(new BasicNameValuePair("to_date", tvtodate.getText().toString()));
             params.add(new BasicNameValuePair("from_date", tvfromdate.getText().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW,ServiceHandler.POST, params);
+            String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
 
             if (json != null) {

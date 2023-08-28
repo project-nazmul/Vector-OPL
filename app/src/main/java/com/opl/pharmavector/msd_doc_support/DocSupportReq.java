@@ -1,6 +1,5 @@
 package com.opl.pharmavector.msd_doc_support;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -123,7 +122,6 @@ import retrofit2.Response;
 import static com.opl.pharmavector.util.KeyboardUtils.hideKeyboard;
 
 public class DocSupportReq extends AppCompatActivity {
-
     private Toolbar toolbar;
     private TabLayout tabLayout;
     String json;
@@ -151,7 +149,6 @@ public class DocSupportReq extends AppCompatActivity {
     int success;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-
     Button fab1;
     MultiSelectionSpinner2 multi_spinner;
     MultiAutoCompleteTextView m_actv;
@@ -159,37 +156,32 @@ public class DocSupportReq extends AppCompatActivity {
     int pos;
     EditText ded;
     String msd_services[]={"Articale/Journals","Up-To-Date DVD","Dr. Najeebs Lecture","Medical Books/Journals"};
-
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
     String serviceno;
     String errormessage;
     String user_code,user_name,user_flag;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_msd_doc_support_req);
+
         initViews();
         multiSpinnerinitViews();
         permissionEvent();
 
         MultiSelectionSpinner2 multiSelectionSpinner = new MultiSelectionSpinner2(DocSupportReq.this);
         String onlick = multiSelectionSpinner.simple_adapter.toString();
-
-
-
         btn_submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (actv_doc.getText().toString().equals("") ){
                     errormessage ="Select Doctor";
                     showSnack();
-                }else if(multi_spinner.getSelectedItem().toString().equals("Select Requirements")){
+                } else if (multi_spinner.getSelectedItem().toString().equals("Select Requirements")){
                     errormessage ="Select Doctor's Requirement";
                     showSnack();
-                }else if(tv_doc_chamber_address.getText().toString().equals("")){
+                } else if (tv_doc_chamber_address.getText().toString().equals("")){
                     errormessage ="Select Requirement Description";
                     showSnack();
                 }
@@ -198,7 +190,7 @@ public class DocSupportReq extends AppCompatActivity {
                     showSnack();
                 }
 */
-                else{
+                else {
                     postuploadImage();
                     //Log.e("chambar_img", getStringImage(decoded));
                     Log.e("mpo_code", Dashboard.globalmpocode);
@@ -207,9 +199,6 @@ public class DocSupportReq extends AppCompatActivity {
                     Log.e("require_date",ded.getText().toString().trim());
                     Log.e("description",tv_doc_chamber_address.getText().toString().trim() );
                 }
-
-
-
             }
         });
         
@@ -225,15 +214,10 @@ public class DocSupportReq extends AppCompatActivity {
         buttonGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (multi_spinner.getSelectedItem().toString().trim() == null) {
-                    showSnack();
-                } else {
-                    initSingleUpload();
-                }
-
+                multi_spinner.getSelectedItem().toString().trim();
+                initSingleUpload();
             }
         });
-
 
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,19 +233,16 @@ public class DocSupportReq extends AppCompatActivity {
                 i.putExtra("emp_code", Dashboard.globalempCode);
                 i.putExtra("emp_name", Dashboard.globalempName);
                 startActivity(i);
-
             }
         });
     }
-
-
 
     private void initSingleUpload() {
         imageView.setVisibility(View.VISIBLE);
         showFileChooserSingle();
     }
 
-    private void multiSpinnerinitViews(){
+    private void multiSpinnerinitViews() {
         multi_spinner = findViewById(R.id.input1);
         List<String> list = new ArrayList<String>();
         list.add("Article/Journals");
@@ -276,10 +257,7 @@ public class DocSupportReq extends AppCompatActivity {
         multi_spinner.setItems(list);
     }
 
-
-
     private void initViews(){
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -296,32 +274,25 @@ public class DocSupportReq extends AppCompatActivity {
         ded =  findViewById(R.id.date);
         multi_spinner = findViewById(R.id.input1);
 
-
         Bundle b = getIntent().getExtras();
         assert b != null;
         user_code = b.getString("user_code");
         user_name = b.getString("user_name");
         user_flag = b.getString("user_flag");
-
         fab1 = findViewById(R.id.back);
         fab1.setTypeface(fontFamily);
-        fab1.setText("\uf060 ");// &#xf060
-
+        fab1.setText("\uf060 "); // &#xf060
         imageView = findViewById(R.id.imageView);
         imageView.setImageResource(0);
         current_lang = Dashboard.track_lang;
         current_lat = Dashboard.track_lat;
 
-
         new GetDoctor().execute();
         doctorAutocompleteEvent();
         calendarInit();
-        
     }
 
-
     private void calendarInit() {
-
         myCalendar = Calendar.getInstance();
 
         ded.setOnClickListener(new View.OnClickListener() {
@@ -332,31 +303,27 @@ public class DocSupportReq extends AppCompatActivity {
         });
     }
 
-
-
     private void showDatePicker(EditText textView) {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+        @SuppressLint("SetTextI18n") DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             textView.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
-
-
     private void postuploadImage() {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = null;
+
         if((imageView.getDrawable() == null)) {
              call = apiInterface.postmsdReq("AAAAAAAAA", Dashboard.globalmpocode,
                     doc_code, multi_spinner.getSelectedItem().toString(),
                     ded.getText().toString().trim(), tv_doc_chamber_address.getText().toString().trim());
-        }else {
+        } else {
             call = apiInterface.postmsdReq(getStringImage(decoded), Dashboard.globalmpocode,
                     doc_code, multi_spinner.getSelectedItem().toString(),
                     ded.getText().toString().trim(), tv_doc_chamber_address.getText().toString().trim());
@@ -367,7 +334,6 @@ public class DocSupportReq extends AppCompatActivity {
             public void onResponse(Call<Patient> call, Response<Patient> response) {
                 progressDialog.dismiss();
                 assert response.body() != null;
-
                 String value = response.body().getValue();
                 String message = response.body().getMassage();
                 serviceno = response.body().getSamplename();
@@ -385,16 +351,14 @@ public class DocSupportReq extends AppCompatActivity {
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(DocSupportReq.this, t.getMessage().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DocSupportReq.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
 
     public class ViewDialog {
-
-        public void showDialog( ){
+        public void showDialog() {
             final Dialog dialog = new Dialog(DocSupportReq.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
@@ -404,7 +368,6 @@ public class DocSupportReq extends AppCompatActivity {
             TextView message = (TextView) dialog.findViewById(R.id.message);
             TextView service = (TextView) dialog.findViewById(R.id.service);
             service.setText(serviceno);
-
 
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -416,30 +379,22 @@ public class DocSupportReq extends AppCompatActivity {
                     i.putExtra("user_name", Dashboard.globalterritorycode);
                     i.putExtra("user_flag", "MPO");
                     startActivity(i);
-
                 }
             });
-
             dialog.show();
-
         }
     }
 
     private void refresh() {
-
         imageView.setImageResource(0);
     }
 
-
-
     @SuppressLint("ClickableViewAccessibility")
     private void doctorAutocompleteEvent() {
-
-
         actv_doc.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_doc.showDropDown();
                 return false;
             }
@@ -448,56 +403,46 @@ public class DocSupportReq extends AppCompatActivity {
         actv_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
             }
         });
 
         actv_doc.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("-") != -1) {
+
+                    if (inputorder.contains("-")) {
                         Log.e("SelectedDoctor ==>", inputorder);
                         doc_code = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
                         doc_name = first_split[0].trim();
                         actv_doc.setText(doc_name);
                         hideKeyboard(DocSupportReq.this);
-
                     } else {
 
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             private void length() {
-                // TODO Auto-generated method stub
+
             }
-
         });
-
-
     }
 
     private void populateSpinner() {
@@ -507,7 +452,7 @@ public class DocSupportReq extends AppCompatActivity {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         doc_adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_doc.setThreshold(2);
         actv_doc.setAdapter(doc_adapter);
@@ -537,23 +482,19 @@ public class DocSupportReq extends AppCompatActivity {
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
-                    }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
 
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -564,13 +505,7 @@ public class DocSupportReq extends AppCompatActivity {
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
-
-
-
-
-
 
     private void showSnack() {
         new Thread() {
@@ -578,12 +513,10 @@ public class DocSupportReq extends AppCompatActivity {
                 DocSupportReq.this.runOnUiThread(new Runnable() {
                     public void run() {
                         Toasty.warning(getApplicationContext(), errormessage, Toast.LENGTH_LONG, true).show();
-
                     }
                 });
             }
         }.start();
-
     }
 
     private void submitMessage() {
@@ -594,34 +527,23 @@ public class DocSupportReq extends AppCompatActivity {
                         String message;
                         message = "Your Requisition is successfully submitted";
                         Toasty.warning(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
-
                     }
                 });
             }
         }.start();
-
     }
-
 
     private void permissionEvent() {
-        ActivityCompat.requestPermissions(DocSupportReq.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+        ActivityCompat.requestPermissions(DocSupportReq.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
-        if (ContextCompat
-                .checkSelfPermission(DocSupportReq.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(DocSupportReq.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ContextCompat.checkSelfPermission(DocSupportReq.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(DocSupportReq.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
             } else {
-                ActivityCompat.requestPermissions(DocSupportReq.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+                ActivityCompat.requestPermissions(DocSupportReq.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
             }
         }
-
     }
-
 
     private void showFileChooserSingle() {
         ImagePicker.create(this)
@@ -630,22 +552,21 @@ public class DocSupportReq extends AppCompatActivity {
                 .start();
     }
 
-
     private void openCamera() {
         ImagePicker.cameraOnly().start(this);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             List<Image> images = ImagePicker.getImages(data);
             ArrayList<Uri> mArrayUri = new ArrayList<>();
+
             for (Image image : images) {
                 mArrayUri.add(Uri.parse(image.getPath()));
                 imagesEncodedList.add(image.getPath());
             }
-            if (mArrayUri.size() > 1) {// multiple images selected
+
+            if (mArrayUri.size() > 1) { // multiple images selected
                 imageView.setVisibility(View.GONE);
                 Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
                 setToImageView(decodedBitmap);
@@ -664,22 +585,14 @@ public class DocSupportReq extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
-
-
-
     private void setToImageView(Bitmap bmp) {
-
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
         imageView.setImageBitmap(decoded);
-
     }
-
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
@@ -704,8 +617,6 @@ public class DocSupportReq extends AppCompatActivity {
         return encodedImage;
     }
 
-
-
     private void ShowExif(ExifInterface exif) {
         String myAttribute = "Exif information ---\n";
         myAttribute += getTagString(ExifInterface.TAG_DATETIME, exif);
@@ -721,7 +632,6 @@ public class DocSupportReq extends AppCompatActivity {
         myAttribute += getTagString(ExifInterface.TAG_ORIENTATION, exif);
         myAttribute += getTagString(ExifInterface.TAG_WHITE_BALANCE, exif);
         Log.e("myAttribute==> ", myAttribute);
-
         /*
         img_make = getTagString(ExifInterface.TAG_MAKE, exif);
         img_model = getTagString(ExifInterface.TAG_MODEL, exif);
@@ -734,7 +644,7 @@ public class DocSupportReq extends AppCompatActivity {
 
     public static String[] GetStringArray(ArrayList<String> arr) {
         // declaration and initialise String Array
-        String str[] = new String[arr.size()];
+        String[] str = new String[arr.size()];
         // ArrayList to Array Conversion
         for (int j = 0; j < arr.size(); j++) {
             // Assign each value to String array
@@ -743,31 +653,22 @@ public class DocSupportReq extends AppCompatActivity {
         return str;
     }
 
-
-
-
     private String getTagString(String tag, ExifInterface exif) {
         return (tag + " : " + exif.getAttribute(tag) + "\n");
     }
 
-
-
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
 
     @Override
     protected void onStop() {
-
         super.onStop();
     }
 }

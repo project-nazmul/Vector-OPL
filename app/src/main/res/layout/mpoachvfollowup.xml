@@ -200,7 +200,6 @@
             android:text="TodaySale"
             android:textColor="@color/green1"
               android:textSize="@dimen/_8sdp" />
-
     </LinearLayout>
 
         </LinearLayout>
@@ -240,7 +239,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-
             android:gravity="end"
             android:text="" />
 
@@ -265,7 +263,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/dcr_page_button"
-
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
             android:onClick="finishActivity"
@@ -274,8 +271,5 @@
             android:textColor="#FFF"
             android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

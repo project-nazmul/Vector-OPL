@@ -1,8 +1,4 @@
-
-
 //AMDccFollowupAdapter
-
-
 package com.opl.pharmavector;
 
 import java.util.ArrayList;
@@ -21,7 +17,6 @@ import android.widget.TextView;
 //AMDccFollowupAdapter
 @SuppressLint("ViewHolder")
 public class AMDccFollowupAdapter  extends BaseAdapter {
-
     TextView serial;
     // TextView p_name;
     // EditText quanty;

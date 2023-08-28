@@ -123,8 +123,8 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
         mProductSerialList = new HashSet<Integer>();
     }
 
-    OfferDialogeAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9,
-                                  ArrayList<String> value10, ArrayList<String> value11,ArrayList<String> value12) {
+    public OfferDialogeAdapter(Context con, ArrayList<String> sl, ArrayList<String> p_name, HashMap<Integer, String> p_quanty, ArrayList<String> value7, ArrayList<String> value8, ArrayList<String> value9,
+                               ArrayList<String> value10, ArrayList<String> value11, ArrayList<String> value12) {
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty = p_quanty;

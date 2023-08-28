@@ -99,14 +99,14 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                     selected_service_no = promoList.get(position).getCode();
                     selected_service_no_serial = promoList.get(position).getSerial();
 
-                    if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("N") ){
+                    if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("N")) {
                         ViewDialog alert = new ViewDialog();
                         alert.showDialog();
-                    } if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y") ){
+                    } if (promoList.get(position).getWeek2().equals("Y") &&  promoList.get(position).getWeek3().equals("Y")) {
                         ViewDialog alert = new ViewDialog();
                         //alert.showDialog();
                         alert.approvedDialog();
-                    } else if (promoList.get(position).getWeek2().equals("N")){
+                    } else if (promoList.get(position).getWeek2().equals("N")) {
                         ViewDialog alert = new ViewDialog();
                         alert.alertDialog();
                     }
@@ -236,12 +236,9 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
-
             dialog.show();
-
         }
 
         public void alertDialog( ){
@@ -257,22 +254,17 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
             message.setText("MSD is working on it. Please wait.");
             TextView service =  dialog.findViewById(R.id.service);
             service.setText("Pending Service\t"+selected_service_no);
-
             dialogButton.setText("Ok");
 
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-                    //  refresh();
-
+                    // refresh();
                 }
             });
-
             dialog.show();
-
         }
-
 
         public void approvedDialog( ){
             final Dialog dialog = new Dialog(DocSupportFollowup.this);
@@ -287,7 +279,6 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
             message.setText("You have already confirmed this service.");
             TextView service =  dialog.findViewById(R.id.service);
             service.setText("Confirmed Service\t"+selected_service_no);
-
             dialogButton.setText("Ok");
 
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -296,23 +287,16 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
                     dialog.dismiss();
                 }
             });
-
             dialog.show();
-
         }
-
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
-
         rvCompany = findViewById(R.id.rvCompany);
         headerScroll = findViewById(R.id.headerScroll);
         user_show1 =  findViewById(R.id.user_show1);
         back_btn = findViewById(R.id.backbt);
-
-
         mpo_code =  findViewById(R.id.mpo_code);
         sproduct_name =  findViewById(R.id.sproduct_name);
         sserial =  findViewById(R.id.sserial);
@@ -320,18 +304,12 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
         ssellvelue =  findViewById(R.id.ssellvelue);
         gval =  findViewById(R.id.gval);
         achivement =  findViewById(R.id.achivement_sales_admin);
-
         week1 =  findViewById(R.id.week1);
         week2 =  findViewById(R.id.week2);
         week3 =  findViewById(R.id.week3);
         week4 =  findViewById(R.id.week4);
-
-
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
-
-
-
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("userName");
@@ -339,63 +317,37 @@ public class DocSupportFollowup extends Activity implements OnClickListener, Ada
         promo_type = b.getString("promo_type");
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
-
     }
 
-
-
-
-
-
     public void setUpRecyclerView() {
-
         promoAdapter = new MSDAdapter(DocSupportFollowup.this, promoList);
-
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvCompany.setLayoutManager(manager);
         rvCompany.setAdapter(promoAdapter);
         rvCompany.addItemDecoration(new DividerItemDecoration(DocSupportFollowup.this, DividerItemDecoration.VERTICAL));
-
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
-    }
-
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     public void finishActivity(View v) {
         finish();
     }
 
-
-
-
-
-
-
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(DocSupportFollowup.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

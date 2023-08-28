@@ -1,5 +1,5 @@
-
 package com.opl.pharmavector;
+
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.net.MalformedURLException;
@@ -46,17 +46,16 @@ import android.widget.Toast;
 
 import com.kosalgeek.android.photoutil.MainActivity;
 
-
 public class ManagersSalesFollowup2 extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    //array list for spinner adapter
+    private ArrayList<CategoryNew2> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
@@ -64,7 +63,7 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
     public String message, ord_no;
     TextView date2, ded, fromdate, todate;
     int textlength = 0;
-    public TextView totqty, totval, mpo_code;
+    public TextView totqty, totval, mpo_code, mpo_name;
     //public android.widget.Spinner ordspin;
     public String userName_1, userName, active_string, act_desiredString;
     public String from_date, to_date;
@@ -79,7 +78,6 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
     private ArrayList<Customer> mpodcrlist;
     private ArrayList<String> array_sort = new ArrayList<String>();
     //private String URL_PRODUCT_VIEW ="http://opsonin.com.bd/dept_order_android_v2/ViewbyDate.php";
-
     private final String URL_PRODUCT_VIEW = BASE_URL+"salesfollowupreport/RMSalesFollowup.php";
     private final String URL_DCR = BASE_URL+"get_product_followup.php";
     private android.widget.Spinner cust;
@@ -89,9 +87,7 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //setContentView(R.layout.amtargetquantity);
-
         setContentView(R.layout.mpoachvfollowup);
 
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -102,32 +98,26 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         fromdate = (TextView) findViewById(R.id.fromdate);
         todate = (TextView) findViewById(R.id.todate);
         mpo_code = (TextView) findViewById(R.id.mpo_code);
-
+        mpo_name = (TextView) findViewById(R.id.mpo_name);
 
         TextView sproduct_name = (TextView) findViewById(R.id.sproduct_name);
-
         TextView sqnty1 = (TextView) findViewById(R.id.sqnty1);
         TextView ssellvelue = (TextView) findViewById(R.id.ssellvelue);
-
         TextView achivement = (TextView) findViewById(R.id.achivement_sales_admin);
         TextView gval = (TextView) findViewById(R.id.gval);
-
         mpo_code.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         sproduct_name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         sqnty1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         ssellvelue.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         achivement.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
         gval.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
-
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
 
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); // &#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
@@ -135,15 +125,12 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         //totval.setText("Sellvalue");
         final int listsize = productListView.getChildCount();
         final String listvalue = productListView.toString();
-
-
         Log.i("Size of ProductLIstview", "ProductLIstView SIZE: " + listsize);
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
-
+        categoriesList = new ArrayList<CategoryNew2>();
 
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
@@ -152,7 +139,6 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         fromdate.setText(b.getString("from_date"));
         todate.setText(b.getString("to_date"));
         Log.e("tttttttttttttt----->", b.getString("to_date"));
-
         asm_flag = b.getString("asm_flag");
         sm_flag = b.getString("sm_flag");
         gm_flag = b.getString("gm_flag");
@@ -163,21 +149,16 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             am_flag = "Y";
         }
 
-
         if (asm_flag.equals("Y")) {
-
-            mpo_code.setText("Region");
-
+            mpo_code.setText("Region\nCode");
+            mpo_name.setText("Region\nName");
             productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // TODO Auto-generated method stub
                     query_code = (String) productListView.getAdapter().getItem(position);
                     Log.i("Selected Item in list", query_code);
 
                     Intent i = new Intent(ManagersSalesFollowup2.this, AMwiseProductSale2.class);
-
                     i.putExtra("sm_flag", "N");
                     i.putExtra("asm_flag", "N");
                     i.putExtra("gm_flag", "N");
@@ -194,23 +175,19 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                     i.putExtra("from_date", fromdate.getText().toString());
                     //Toast.makeText(ManagersSalesFollowup2.this, "ManagerSalesFollowup2-AMwiseProductSale2", Toast.LENGTH_LONG).show();
                     startActivity(i);
-
                 }
             });
         } else if (sm_flag.equals("Y")) {
-
-            mpo_code.setText("Zone");
+            mpo_code.setText("Zone\nCode");
+            mpo_name.setText("Zone\nName");
 
             productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // TODO Auto-generated method stub
                     query_code = (String) productListView.getAdapter().getItem(position);
                     Log.i("Selected Item in list", query_code);
 
                     Intent i = new Intent(ManagersSalesFollowup2.this, ManagersSalesFollowup2.class);
-
                     i.putExtra("sm_flag", "N");
                     i.putExtra("asm_flag", "Y");
                     i.putExtra("gm_flag", "N");
@@ -219,20 +196,15 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                     i.putExtra("to_date", todate.getText().toString());
                     i.putExtra("from_date", fromdate.getText().toString());
                     startActivity(i);
-
-
                 }
             });
-
-
         } else if (gm_flag.equals("Y")) {
-            mpo_code.setText("Division");
+            mpo_code.setText("Division\nCode");
+            mpo_name.setText("Division\nName");
 
             productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // TODO Auto-generated method stub
                     query_code = (String) productListView.getAdapter().getItem(position);
                     Log.i("Selected Item in list", query_code);
 
@@ -245,11 +217,8 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                     i.putExtra("to_date", todate.getText().toString());
                     i.putExtra("from_date", fromdate.getText().toString());
                     startActivity(i);
-
-
                 }
             });
-
         }
 
 /*
@@ -619,15 +588,11 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             description.add(categoriesList.get(i).getId());
             Log.d("Changep---assword", "Login" + categoriesList.get(i).getId());
         }
-
-
     }
-
 
     public void finishActivity(View v) {
         finish();
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -639,38 +604,33 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
+            ArrayList<String> ff_names = new ArrayList<String>();
             //growth_val
             ArrayList<String> growth_val = new ArrayList<String>();
             int quantity = 0;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
-            String mpo, growth;
+            String mpo, growth, ff_name;
 
             for (int i = 0; i < categoriesList.size(); i++) {
-
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
                 quantity = categoriesList.get(i).getQuantity();
-
-
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
                 mpo = String.valueOf(categoriesList.get(i).getPPM_CODE());
+                ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
+                ff_names.add(ff_name);
                 growth_val.add(growth);
             }
-
-            //  MPOwiseProductSaleShowAdapter adapter = new MPOwiseProductSaleShowAdapter(ManagersSalesFollowup2.this,lables, quanty,value,achv,mpo_code);
-
-
+            //MPOwiseProductSaleShowAdapter adapter = new MPOwiseProductSaleShowAdapter(ManagersSalesFollowup2.this,lables, quanty,value,achv,mpo_code);
             MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(ManagersSalesFollowup2.this, lables,
-                    quanty, value, achv, mpo_code, growth_val);
-
-
+                    quanty, value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
 
@@ -707,15 +667,6 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
 
         @Override
         protected Void doInBackground(Void... arg0) {
-           // Log.e("Response: ", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy---------------------------y");
-            //Bundle b = getIntent().getExtras();
-            //String userName = b.getString("UserName");
-            //String UserName = b.getString("UserName");
-            //Log.e(" todate:  yyyyyyy", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" + todate1);
-            //Log.e(" fromdate:  yyyyyyy", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy" + fromdate1);
-            //Log.e(" id:  yyyyyyy", query_code);
-            //Log.e(" UserName:  yyyyyyy", UserName);
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", query_code));
             params.add(new BasicNameValuePair("to_date", todate1));
@@ -724,35 +675,32 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             params.add(new BasicNameValuePair("sm_flag", sm_flag));
             params.add(new BasicNameValuePair("gm_flag", gm_flag));
 
-
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        CategoryNew2 cat = new CategoryNew2(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("FF_NAME")
+                        );
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(ManagersSalesFollowup2.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
