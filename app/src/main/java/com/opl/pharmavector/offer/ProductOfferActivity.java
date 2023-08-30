@@ -2,13 +2,16 @@ package com.opl.pharmavector.offer;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -16,7 +19,6 @@ import com.opl.pharmavector.Category;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.order_online.ReadComments;
-import com.opl.pharmavector.util.OfferDialoge;
 import com.opl.pharmavector.util.OfferDialogeAdapter;
 
 import org.apache.http.NameValuePair;
@@ -29,11 +31,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProductOffersActivity extends Activity {
+public class ProductOfferActivity extends Activity {
     ListView productListView;
     List<String> mList = new ArrayList<>();
     ArrayAdapter<String> mAdapter;
-    private String campaign_credit = BASE_URL+"opsonin_product_offer.php";
+    private String campaign_credit = BASE_URL+"opsonin_product_offer_new.php";
     static ArrayList<Category> categoriesList;
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
@@ -53,14 +55,16 @@ public class ProductOffersActivity extends Activity {
     OfferDialogeAdapter adapter;
     public String customercode;
     public ImageButton remove;
+    public AutoCompleteTextView autoProductList;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_offers);
+        setContentView(R.layout.activity_product_offer);
 
         categoriesList = new ArrayList<Category>();
-        categoriesList.clear();
+        //categoriesList.clear();
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         mapQuantity = new HashMap<Integer, String>();
@@ -70,16 +74,44 @@ public class ProductOffersActivity extends Activity {
         SHIFT_CODE = new ArrayList<String>();
         PPM_CODE = new ArrayList<String>();
         P_CODE = new ArrayList<String>();
-        categoriesList = new ArrayList<Category>();
+        //categoriesList = new ArrayList<Category>();
         customercode = ReadComments.CustomerCode;
         productListView = findViewById(R.id.pListView);
-        remove = findViewById(R.id.remove);
+        autoProductList = findViewById(R.id.autoProductList);
+        //remove = findViewById(R.id.remove);
 
         //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, mList);
         new GetCategories().execute();
         remove.setOnClickListener(v -> {
             //you can use isShowing() because BottomSheet inherit from Dialog class
             finish();
+        });
+        autoProductList.setOnTouchListener((v, event) -> {
+            autoProductList.showDropDown();
+            return false;
+        });
+        autoProductList.setOnClickListener(v -> {
+
+        });
+        autoProductList.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                autoProductList.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                autoProductList.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String mpoCode = s.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -97,7 +129,7 @@ public class ProductOffersActivity extends Activity {
             lables.add(categoriesList.get(i).getName());
             sl.add(categoriesList.get(i).getsl());
             int o = Integer.parseInt(categoriesList.get(i).getsl());
-            Log.e("serial",""+o);
+            Log.e("serial","" + o);
             p_ids.add(categoriesList.get(i).getId());
             PROD_RATE.add(categoriesList.get(i).getPROD_RATE());
             PROD_VAT.add(categoriesList.get(i).getPROD_VAT());
@@ -109,8 +141,8 @@ public class ProductOffersActivity extends Activity {
             quanty.add(categoriesList.get(i).getQuantity());
             mapQuantity.put(o, String.valueOf(categoriesList.get(i).getQuantity()));
         }
-        Log.e("Total Products",""+categoriesList.size());
-        adapter = new OfferDialogeAdapter(ProductOffersActivity.this, sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE);
+        Log.d("Total Products","" + categoriesList.size());
+        adapter = new OfferDialogeAdapter(ProductOfferActivity.this, sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE);
         productListView.setAdapter(adapter);
     }
 
@@ -126,12 +158,13 @@ public class ProductOffersActivity extends Activity {
             params.add(new BasicNameValuePair("CUST_CODE", customercode));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.GET, params);
-            Log.e("Response: ", "> " + json);
+            Log.d("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(
@@ -151,7 +184,7 @@ public class ProductOffersActivity extends Activity {
                     e.printStackTrace();
                 }
             } else {
-                Log.e("JSON Data", "Didn't receive any data from server!");
+                Log.d("JSON Data", "Didn't receive any data from server!");
             }
             return null;
         }

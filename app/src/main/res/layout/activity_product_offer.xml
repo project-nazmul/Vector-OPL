@@ -11,13 +11,64 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/remove"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="2dp"
-            android:layout_gravity="center"
-            android:background="@drawable/minusoffer" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/productLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="1dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoProductList"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginLeft="0sp"
+                    android:layout_marginRight="0sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_weight="8.7"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Product"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_8sdp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3">
+
+                    <Button
+                        android:id="@+id/showBtn"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/submit_btton_selector"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:soundEffectsEnabled="true"
+                        android:text="show"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/_8sdp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/title"

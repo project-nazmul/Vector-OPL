@@ -37,7 +37,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".offer.ProductOffersActivity"
+            android:name=".offer.ProductOfferActivity"
             android:exported="false" />
         <activity
             android:name=".report.LocationTrackerActivity"

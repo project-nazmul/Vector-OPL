@@ -87,7 +87,6 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
             View view = LayoutInflater.from(viewGroup.getContext()).
                     inflate(R.layout.adapter_master_code_row, viewGroup, false);
             return new ClubViewHolder(view);
-
         } else {
             View view = LayoutInflater.from(viewGroup.getContext()).
                     inflate(R.layout.adapter_master_code_row_colorful, viewGroup, false);

@@ -262,6 +262,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                         .show();
@@ -295,6 +296,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                         .show();
@@ -327,6 +329,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                         .show();
@@ -359,6 +362,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                         .show();
@@ -391,6 +395,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                             }
                         })
                         .show();
@@ -399,10 +404,6 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         }
     }
 }
-
-
-
-
 
 
 

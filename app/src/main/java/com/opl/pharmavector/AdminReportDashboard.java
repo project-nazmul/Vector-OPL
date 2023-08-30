@@ -2,7 +2,6 @@ package com.opl.pharmavector;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,30 +11,22 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.nativecss.NativeCSS;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
-import com.opl.pharmavector.offer.ProductOffersActivity;
-import com.opl.pharmavector.report.LocationTrackerActivity;
-import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.offer.ProductOfferActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import android.app.ProgressDialog;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
-
-import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 
 import androidx.cardview.widget.CardView;
 
@@ -94,7 +85,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
 //        });
 
         cardProductOffer.setOnClickListener(v -> {
-            Intent i = new Intent(AdminReportDashboard.this, ProductOffersActivity.class);
+            Intent i = new Intent(AdminReportDashboard.this, ProductOfferActivity.class);
             i.putExtra("userName", userName);
             i.putExtra("userCode", UserName_2);
             i.putExtra("userRole", "AD");
