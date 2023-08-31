@@ -219,7 +219,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                 myNum = Integer.parseInt(constraint.toString());
                 System.out.println("myNum "+myNum);
 
-                if (myNum> 0) {
+                if (myNum > 0) {
                     ArrayList<String> filterList = new ArrayList<String>();
 
                     for (int i = 0; i < p_names.size(); i++) {
@@ -228,7 +228,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
                         String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
                         int current_qnty = Integer.parseInt(Quantity);
 
-                        if(current_qnty >= myNum){
+                        if (current_qnty >= myNum){
                             System.out.println("productsl="+Integer.parseInt(sl.get(i))+"FilterproductQuantity="+Quantity);
                             mProductSerialList.add(Integer.parseInt(sl.get(i)));
                             filterList.add(  p_names.get(i));

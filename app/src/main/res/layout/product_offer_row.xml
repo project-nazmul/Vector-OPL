@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="8">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/productOfferSl"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/serial"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/productOfferCode"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pcode"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/productOfferName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/pn"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/productDiscount"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="TP"
+                android:textColor="@color/ef_colorPrimaryDark"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

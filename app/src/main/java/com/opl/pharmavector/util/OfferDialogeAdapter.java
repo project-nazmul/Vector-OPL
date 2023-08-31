@@ -77,9 +77,7 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
     private com.opl.pharmavector.util.OfferDialogeAdapter.ValueFilter valueFilter;
     Toast toast;
 
-    public OfferDialogeAdapter(Activity activity,
-                                         ArrayList<HashMap<String, String>> list, String productname,
-                                         boolean state) {
+    public OfferDialogeAdapter(Activity activity, ArrayList<HashMap<String, String>> list, String productname, boolean state) {
         super();
         inflater = LayoutInflater.from(mContext);
         this.activity = activity;
@@ -209,14 +207,14 @@ public class OfferDialogeAdapter extends BaseAdapter implements Filterable {
         // holder.quantity.setTag(serialNo);
         final int srl = OfferDialoge.nameSerialPair.get(holder.p_name.getText().toString());
         holder.serial.setText(String.valueOf(srl));
-        holder.pack_size.setText(value9.get(srl-1)); // pack size
-        holder.tp.setText(value10.get(srl-1)); // trade price
-        holder.TP_VT.setText(value7.get(srl-1)); // vat
+        holder.pack_size.setText(value9.get(srl-1)); //pack size
+        holder.tp.setText(value10.get(srl-1)); //trade price
+        holder.TP_VT.setText(value7.get(srl-1)); //vat
         holder.quantity.setText(value12.get(srl-1) ); //mrp value
-        holder.p_code1.setText(value11.get(srl-1)); // product code
-        holder.brand_code.setText(value8.get(srl-1)); // brand code
-        Log.w("extra_valu11",value11.get(srl-1));//P_CODE
-        Log.w("mrpvalue",value12.get(srl-1));//COMM_TP
+        holder.p_code1.setText(value11.get(srl-1)); //product code
+        holder.brand_code.setText(value8.get(srl-1)); //brand code
+        Log.w("extra_valu11",value11.get(srl-1)); //P_CODE
+        Log.w("mrpvalue",value12.get(srl-1)); //COMM_TP
         return convertView;
     }
 

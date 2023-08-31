@@ -13,6 +13,7 @@ import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
+import com.opl.pharmavector.offer.ProductOfferModel;
 import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
 import com.opl.pharmavector.pmdVector.model.CompanyModel;
@@ -243,6 +244,12 @@ public interface ApiInterface {
             @Field("function") String function,
             @Field("manager_code") String manager_code,
             @Field("manager_detail") String manager_detail
+    );
+
+    @FormUrlEncoded
+    @POST("opsonin_product_offer_new.php")
+    Call<ProductOfferModel> getProductOfferList(
+            @Field("CUST_CODE") String cust_code
     );
 
     @FormUrlEncoded
