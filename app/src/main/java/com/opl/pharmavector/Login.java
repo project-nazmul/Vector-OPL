@@ -431,7 +431,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             i.putExtra("emp_name", tmpEmpName);
             i.putExtra("emp_code", tmpEmpCode);
             i.putExtra("emp_design", tempDesignation);
-            Log.e("countff_type==>", "AD---" + tempLogin);
+            Log.d("countff_type==>", "AD---" + tempLogin);
 
             preferenceManager.setTasbihCounter(6);
             preferenceManager.setusername(tempLogin);

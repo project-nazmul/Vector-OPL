@@ -97,7 +97,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GMDashboard1 extends Activity implements View.OnClickListener { // Activity -> (AppCompatActivity) replaced by me
-    public String userName_1, userName, userName_2, UserName_2, user, sm_code, gm_code,global_admin_Code,global_admin_name,global_admin_terri;
+    public String userName_1, userName, userName_2, UserName_2, user, sm_code, gm_code, global_admin_Code, global_admin_name, global_admin_terri;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
@@ -113,7 +113,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     String Date;
     public TextView user_show1, user_show2, sm;
     private SessionManager session;
-    private final String submit_url = BASE_URL+"notification/save_vector_notification_token_data_test.php";
+    private final String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
     public String message;
     public int success;
     public String tokenid, globalterritorycode;
@@ -128,14 +128,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode,
             build_model, build_brand, build_id, build_device, build_version;
     Typeface fontFamily;
-    CardView cardview_dcr,practiceCard2,practiceCard3,practiceCard6,cardview_doctor_list,cardView_prescriber,
-             practiceCard7,practiceCard8,cardview_pc,cardview_salereports,cardview_msd,cardview_salesfollowup,cardview_mastercode,cardview_pmd_contact,cardview_ff_contact;
-    ImageButton profileB,img_btn_dcr,img_btn_dcc,img_btn_productorder,img_btn_docservice,
-            img_btn_notification,img_btn_rx,img_btn_pc,img_btn_salereports,img_btn_msd,img_btn_salesfollowup,img_btn_mastercode,img_pmd_contact,img_doctor_list;
-    TextView tv_dcr,tv_productorder,tv_dcc,tv_docservice,
-            tv_notification,tv_rx,tv_pc,tv_salereports,tv_msd,tv_salesfollowup,tv_mastercode,tv_pmd_contact,tv_doctor_list;
-    Button btn_dcr,btn_productorder,btn_dcc,btn_docservice,btn_notification,btn_rx,btn_pc,btn_salereports,btn_msd,btn_salesfollowup,btn_vector_feedback,
-            btn_mastercode,btn_pmd_contact,btn_doctor_list;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber,
+            practiceCard7, practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact, cardview_ff_contact;
+    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice,
+            img_btn_notification, img_btn_rx, img_btn_pc, img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
+    TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
+            tv_notification, tv_rx, tv_pc, tv_salereports, tv_msd, tv_salesfollowup, tv_mastercode, tv_pmd_contact, tv_doctor_list;
+    Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_notification, btn_rx, btn_pc, btn_salereports, btn_msd, btn_salesfollowup, btn_vector_feedback,
+            btn_mastercode, btn_pmd_contact, btn_doctor_list;
     LocationManager locationManager;
     BroadcastReceiver updateUIReciver;
     double fetchedlang, fetchedlat;
@@ -144,13 +144,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     FusedLocationProviderClient fusedLocationProviderClient;
     public static String track_lat, track_lang, track_add = "No Address";
     public TextView t4, t5, tvDesignation, tvLocationName;
-    public ImageView imageView2,logo_team;
-    public static String team_logo,profile_image;
-    public String base_url = ApiClient.BASE_URL+"vector_ff_image/";
-    private String log_status ="A";
+    public ImageView imageView2, logo_team;
+    public static String team_logo, profile_image;
+    public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
+    private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
 
-//    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+    //    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
 //        Log.d("notiPermission2", result.toString());
 //        if (result) {
 //            //main activity
@@ -174,8 +174,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         CardView cardView = findViewById(R.id.cardView2);
         cardView.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= 33) {
-            askForNotificationPermission();
-            Log.d("notification33", "clicked!");
+                askForNotificationPermission();
+                Log.d("notification33", "clicked!");
             }
         });
         preferenceManager = new PreferenceManager(this);
@@ -246,7 +246,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         server.start();
                         //logoutUser();
                     })
-                    .setNegativeButton("No", (dialog, which) -> {})
+                    .setNegativeButton("No", (dialog, which) -> {
+                    })
                     .show();
         });
         btn_vector_feedback.setOnClickListener(v -> FeedbackshowSnack());
@@ -461,7 +462,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     }
 
     private void autoLogout() {
-        if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")){
+        if (preferenceManager.getexecutive_name().equals("PMD") || preferenceManager.getexecutive_name().equals("Vector") || preferenceManager.getexecutive_name().equals(" ")) {
             log_status = "N";
             preferenceManager.clearPreferences();
             count = 0;
@@ -482,68 +483,68 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         t4 = findViewById(R.id.t4);
         t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
-        logo_team  = findViewById(R.id.logo_team);
-        tvLocationName  = findViewById(R.id.location_name);
+        logo_team = findViewById(R.id.logo_team);
+        tvLocationName = findViewById(R.id.location_name);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
 
-        btn_productorder     = findViewById(R.id.btn_productorder);
+        btn_productorder = findViewById(R.id.btn_productorder);
         img_btn_productorder = findViewById(R.id.img_btn_productorder);
-        tv_productorder      = findViewById(R.id.tv_productorder);
-        practiceCard7        = findViewById(R.id.practiceCard7);
+        tv_productorder = findViewById(R.id.tv_productorder);
+        practiceCard7 = findViewById(R.id.practiceCard7);
 
-        btn_dcr       = findViewById(R.id.btn_dcr);
-        img_btn_dcr   = findViewById(R.id.img_btn_dcr);
-        tv_dcr        = findViewById(R.id.tv_dcr);
-        cardview_dcr  = findViewById(R.id.cardview_dcr);
+        btn_dcr = findViewById(R.id.btn_dcr);
+        img_btn_dcr = findViewById(R.id.img_btn_dcr);
+        tv_dcr = findViewById(R.id.tv_dcr);
+        cardview_dcr = findViewById(R.id.cardview_dcr);
 
-        btn_dcc        = findViewById(R.id.btn_dcc);
-        img_btn_dcc    = findViewById(R.id.img_btn_dcc);
-        tv_dcc         = findViewById(R.id.tv_dcc);
-        practiceCard2  = findViewById(R.id.practiceCard2);
+        btn_dcc = findViewById(R.id.btn_dcc);
+        img_btn_dcc = findViewById(R.id.img_btn_dcc);
+        tv_dcc = findViewById(R.id.tv_dcc);
+        practiceCard2 = findViewById(R.id.practiceCard2);
 
-        btn_docservice       = findViewById(R.id.btn_docservice);
-        img_btn_docservice   = findViewById(R.id.img_btn_docservice);
-        tv_docservice        = findViewById(R.id.tv_docservice);
-        practiceCard3        = findViewById(R.id.practiceCard3);
+        btn_docservice = findViewById(R.id.btn_docservice);
+        img_btn_docservice = findViewById(R.id.img_btn_docservice);
+        tv_docservice = findViewById(R.id.tv_docservice);
+        practiceCard3 = findViewById(R.id.practiceCard3);
 
-        btn_notification       = findViewById(R.id.btn_notification);
-        img_btn_notification   = findViewById(R.id.img_btn_notification);
-        tv_notification        = findViewById(R.id.tv_notification);
-        practiceCard6          = findViewById(R.id.practiceCard6);
+        btn_notification = findViewById(R.id.btn_notification);
+        img_btn_notification = findViewById(R.id.img_btn_notification);
+        tv_notification = findViewById(R.id.tv_notification);
+        practiceCard6 = findViewById(R.id.practiceCard6);
 
-        btn_rx        = findViewById(R.id.btn_rx);
-        img_btn_rx    = findViewById(R.id.img_btn_rx);
-        tv_rx         = findViewById(R.id.tv_rx);
+        btn_rx = findViewById(R.id.btn_rx);
+        img_btn_rx = findViewById(R.id.img_btn_rx);
+        tv_rx = findViewById(R.id.tv_rx);
         practiceCard8 = findViewById(R.id.practiceCard8);
 
-        btn_pc       = findViewById(R.id.btn_pc);
-        img_btn_pc   = findViewById(R.id.img_btn_pc);
-        tv_pc        = findViewById(R.id.tv_pc);
-        cardview_pc  = findViewById(R.id.cardview_pc);
+        btn_pc = findViewById(R.id.btn_pc);
+        img_btn_pc = findViewById(R.id.img_btn_pc);
+        tv_pc = findViewById(R.id.tv_pc);
+        cardview_pc = findViewById(R.id.cardview_pc);
 
-        btn_salesfollowup      = findViewById(R.id.btn_salesfollowup);
-        img_btn_salesfollowup  = findViewById(R.id.img_btn_salesfollowup);
-        tv_salesfollowup       = findViewById(R.id.tv_salesfollowup);
+        btn_salesfollowup = findViewById(R.id.btn_salesfollowup);
+        img_btn_salesfollowup = findViewById(R.id.img_btn_salesfollowup);
+        tv_salesfollowup = findViewById(R.id.tv_salesfollowup);
         cardview_salesfollowup = findViewById(R.id.cardview_salesfollowup);
 
-        btn_salereports      = findViewById(R.id.btn_salereports);
-        img_btn_salereports  = findViewById(R.id.img_btn_salereports);
-        tv_salereports       = findViewById(R.id.tv_salereports);
+        btn_salereports = findViewById(R.id.btn_salereports);
+        img_btn_salereports = findViewById(R.id.img_btn_salereports);
+        tv_salereports = findViewById(R.id.tv_salereports);
         cardview_salereports = findViewById(R.id.cardview_salereports);
 
-        btn_msd       = findViewById(R.id.btn_msd);
-        img_btn_msd   = findViewById(R.id.img_btn_msd);
-        tv_msd        = findViewById(R.id.tv_msd);
-        cardview_msd  = findViewById(R.id.cardview_msd);
+        btn_msd = findViewById(R.id.btn_msd);
+        img_btn_msd = findViewById(R.id.img_btn_msd);
+        tv_msd = findViewById(R.id.tv_msd);
+        cardview_msd = findViewById(R.id.cardview_msd);
 
-        btn_mastercode       = findViewById(R.id.btn_mastercode);
-        img_btn_mastercode   = findViewById(R.id.img_btn_mastercode);
-        tv_mastercode        = findViewById(R.id.tv_mastercode);
-        cardview_mastercode  = findViewById(R.id.cardview_mastercode);
+        btn_mastercode = findViewById(R.id.btn_mastercode);
+        img_btn_mastercode = findViewById(R.id.img_btn_mastercode);
+        tv_mastercode = findViewById(R.id.tv_mastercode);
+        cardview_mastercode = findViewById(R.id.cardview_mastercode);
 
-        btn_pmd_contact      = findViewById(R.id.btn_pmd_contact);
-        img_pmd_contact      = findViewById(R.id.img_pmd_contact);
-        tv_pmd_contact       = findViewById(R.id.tv_pmd_contact);
+        btn_pmd_contact = findViewById(R.id.btn_pmd_contact);
+        img_pmd_contact = findViewById(R.id.img_pmd_contact);
+        tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
@@ -552,29 +553,29 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         img_doctor_list = findViewById(R.id.img_doctor_list);
         cardview_doctor_list = findViewById(R.id.cardview_doctor_list);
-        btn_vector_feedback  = findViewById(R.id.btn_vector_feedback);
-        tvDesignation  = findViewById(R.id.textView3);
+        btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
+        tvDesignation = findViewById(R.id.textView3);
 
-        ff_type      = null;
-        Bundle b     = getIntent().getExtras();
-        assert b    != null;
-        userName     = b.getString("UserName");
-        UserName_2   = b.getString("UserName_2");
-        new_version  = b.getString("new_version");
-        message_3    = b.getString("message_3");
-        password     = b.getString("password");
-        ff_type      = b.getString("ff_type");
+        ff_type = null;
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        userName = b.getString("UserName");
+        UserName_2 = b.getString("UserName_2");
+        new_version = b.getString("new_version");
+        message_3 = b.getString("message_3");
+        password = b.getString("password");
+        ff_type = b.getString("ff_type");
         vector_version = String.valueOf(R.string.vector_version);
-        globalempCode  = b.getString("emp_code");
-        globalempName  = b.getString("emp_name");
+        globalempCode = b.getString("emp_code");
+        globalempName = b.getString("emp_name");
         global_admin_Code = preferenceManager.getAdmin_Code();
         global_admin_name = preferenceManager.getAdmin_Name();
         global_admin_terri = preferenceManager.getAdmin_Terri();
-        Log.d("UserCode",global_admin_Code + "-----------" + global_admin_name + "-----------" + global_admin_terri);
+        Log.d("UserCode", global_admin_Code + "-----------" + global_admin_name + "-----------" + global_admin_terri);
 
         //user_show1.setText(globalempName);
         user_show1.setText(global_admin_name);
-        profile_image = base_url+global_admin_Code+"."+"jpg" ;
+        profile_image = base_url + global_admin_Code + "." + "jpg";
         Picasso.get().load(profile_image).into(imageView2);
         db = new DatabaseHandler(this);
         ArrayList<String> mpo_code_interna = db.getterritoryname();
@@ -1117,7 +1118,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             Thread backthred = new Thread(() -> {
                 try {
                     if (!NetInfo.isOnline(getBaseContext())) {
-                     showSnack();
+                        showSnack();
                     } else {
                         Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
                         i.putExtra("UserName", globalAdmin);
@@ -1258,7 +1259,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("UserName_2", globalAdminDtl);
             i.putExtra("new_version", R.string.vector_version);
             i.putExtra("UserName", globalAdmin);
-            Log.e("globalAdmin==>",globalAdmin);
+            Log.e("globalAdmin==>", globalAdmin);
             startActivity(i);
         });
         Objects.requireNonNull(cardview2).setOnClickListener(v -> {
@@ -1285,6 +1286,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         });
         bottomSheetDialog2.show();
     }
+
     private void pcConferenceEvent() {
         cardview_pc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1358,9 +1360,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GMDashboard1.this, ImageLoadActivity.class);
-                i.putExtra("manager_code",GMDashboard1.globalAdmin);
-                i.putExtra("manager_detail",GMDashboard1.globalAdminDtl);
-                i.putExtra("manager_flag","AD");
+                i.putExtra("manager_code", GMDashboard1.globalAdmin);
+                i.putExtra("manager_detail", GMDashboard1.globalAdminDtl);
+                i.putExtra("manager_flag", "AD");
                 startActivity(i);
             }
         });
@@ -1368,7 +1370,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GMDashboard1.this, PrescriptionFollowup.class);
-                i.putExtra("manager_code",GMDashboard1.globalAdmin);
+                i.putExtra("manager_code", GMDashboard1.globalAdmin);
                 i.putExtra("manager_detail", "AD");
                 startActivity(i);
                 //bottomSheetDialog2.dismiss();
@@ -1378,7 +1380,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GMDashboard1.this, PrescriptionFollowup2.class);
-                i.putExtra("manager_code",GMDashboard1.globalAdmin);
+                i.putExtra("manager_code", GMDashboard1.globalAdmin);
                 i.putExtra("manager_detail", "AD");
                 startActivity(i);
             }
@@ -1397,50 +1399,50 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     }
 
     private void pmdContact() {
-            cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
-                    i.putExtra("UserName", globalAdmin);
-                    i.putExtra("UserName_2", globalAdminDtl);
-                    i.putExtra("new_version", Login.version);
-                    i.putExtra("message_3", message_3);
-                    startActivity(i);
-                }
-            });
-            img_pmd_contact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
-                    i.putExtra("UserName", globalAdmin);
-                    i.putExtra("UserName_2", globalAdminDtl);
-                    i.putExtra("new_version", Login.version);
-                    i.putExtra("message_3", message_3);
-                    startActivity(i);
-                }
-            });
-            btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
-                    i.putExtra("UserName", globalAdmin);
-                    i.putExtra("UserName_2", globalAdminDtl);
-                    i.putExtra("new_version", Login.version);
-                    i.putExtra("message_3", message_3);
-                    startActivity(i);
-                }
-            });
-            tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
-                    i.putExtra("UserName", globalAdmin);
-                    i.putExtra("UserName_2", globalAdminDtl);
-                    i.putExtra("new_version", Login.version);
-                    i.putExtra("message_3", message_3);
-                    startActivity(i);
-                }
-            });
+        cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", globalAdmin);
+                i.putExtra("UserName_2", globalAdminDtl);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        img_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", globalAdmin);
+                i.putExtra("UserName_2", globalAdminDtl);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        btn_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", globalAdmin);
+                i.putExtra("UserName_2", globalAdminDtl);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+        tv_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(GMDashboard1.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", globalAdmin);
+                i.putExtra("UserName_2", globalAdminDtl);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
     }
 
     private void doctorListInfo() {
@@ -1554,7 +1556,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         preferenceManager.setAdmin_Code(global_admin_Code);
         preferenceManager.setAdmin_Name(global_admin_name);
         preferenceManager.setAdmin_Terri(global_admin_terri);
-        Log.e("onResume------->",global_admin_Code);
+        Log.e("onResume------->", global_admin_Code);
     }
 
     @Override
@@ -1573,7 +1575,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         preferenceManager.setAdmin_Code(global_admin_Code);
         preferenceManager.setAdmin_Name(global_admin_name);
         preferenceManager.setAdmin_Terri(global_admin_terri);
-        Log.e("onPause----->",global_admin_Code);
+        Log.e("onPause----->", global_admin_Code);
     }
 
     @Override
@@ -1593,7 +1595,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         preferenceManager.setAdmin_Code(global_admin_Code);
         preferenceManager.setAdmin_Name(global_admin_name);
         preferenceManager.setAdmin_Terri(global_admin_terri);
-        Log.e("Destroy----->",userName);
+        Log.e("Destroy----->", userName);
     }
 
     public void onBackPressed() {
@@ -1601,7 +1603,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     }
 
     @Override
-    public void onClick(View v) {}
+    public void onClick(View v) {
+    }
 
     private void lock_emp_check(String emp_code) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -1618,7 +1621,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 assert response.body() != null;
                 String status = response.body().getTerritory_name();
                 Log.e("Check locked user-->", status);
-                if (status.equals("Y")){
+                if (status.equals("Y")) {
                     Toast.makeText(GMDashboard1.this, "You are locked...", Toast.LENGTH_LONG).show();
                     log_status = "N";
                     preferenceManager.clearPreferences();
@@ -1628,6 +1631,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                     finish();
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();

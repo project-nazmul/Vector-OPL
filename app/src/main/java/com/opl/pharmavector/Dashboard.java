@@ -460,6 +460,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        cardView_prescriber.setVisibility(View.GONE);
         tvDesignation = findViewById(R.id.textView3);
 
         ff_type = null;
