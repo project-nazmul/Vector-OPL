@@ -83,7 +83,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
 //            i.putExtra("userRole", "AD");
 //            startActivity(i);
 //        });
-
         cardProductOffer.setOnClickListener(v -> {
             Intent i = new Intent(AdminReportDashboard.this, ProductOfferActivity.class);
             i.putExtra("userName", userName);

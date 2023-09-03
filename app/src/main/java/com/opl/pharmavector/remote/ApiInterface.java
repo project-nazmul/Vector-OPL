@@ -287,11 +287,22 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("achv_and_earn/ff_contacts/get_ff_contact_info.php")
+    Call<ArrayList<RecyclerData>> getAchvEarnFFContact(
+            @Field("deignation_type") String deignation_type,
+            @Field("ff_code") String ff_code,
+            @Field("team_type") String team_type
+    );
+
+    @FormUrlEncoded
     @POST("mpodcr/get_dcfp_flag.php")
     Call<DcfpStatusModel> getDcfpStatusFlag( @Field("id") String id);
 
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();
+
+    @GET("get_team_new.php")
+    Call<FFTeamModel> getAchieveFFTeamList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

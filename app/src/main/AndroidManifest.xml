@@ -37,6 +37,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".achievement.AchieveEarnActivity"
+            android:exported="false" />
+        <activity
             android:name=".offer.ProductOfferActivity"
             android:exported="false" />
         <activity

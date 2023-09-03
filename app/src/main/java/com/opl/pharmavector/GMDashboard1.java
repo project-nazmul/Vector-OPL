@@ -39,6 +39,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.opl.pharmavector.achievement.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -128,7 +129,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode,
             build_model, build_brand, build_id, build_device, build_version;
     Typeface fontFamily;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact, cardview_ff_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice,
             img_btn_notification, img_btn_rx, img_btn_pc, img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
@@ -149,7 +150,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
-
     //    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
 //        Log.d("notiPermission2", result.toString());
 //        if (result) {
@@ -160,10 +160,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
 //            showErrorMessage();
 //        }
 //    });
+
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);
+
 //        Log.d("sdkVersion", String.valueOf(Build.VERSION.SDK_INT));
 //        if (Build.VERSION.SDK_INT > 32) {
 //            if (!shouldShowRequestPermissionRationale("101")){
@@ -218,6 +220,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         pmdContact();
         doctorListInfo();
         topPrescriberEvent();
+        achievementEarnEvent();
 
         PackageManager pm = getApplicationContext().getPackageManager();
         String pkgName = getApplicationContext().getPackageName();
@@ -439,6 +442,19 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         });
     }
 
+    private void achievementEarnEvent() {
+        cardview_achv_earn.setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, AchieveEarnActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+    }
+
+
     public void getNotificationPermission() {
         try {
             if (Build.VERSION.SDK_INT > 32) {
@@ -548,6 +564,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);

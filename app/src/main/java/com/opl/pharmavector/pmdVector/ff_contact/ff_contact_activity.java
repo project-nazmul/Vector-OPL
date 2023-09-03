@@ -94,7 +94,6 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                 getContact();
             }
         });
-
 //        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
 //            @Override
 //            public void onClick(View view, int position) {
@@ -118,7 +117,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); // &#xf060
         customerlist = new ArrayList<Customer>();
         autoCompleteTextView2 = findViewById(R.id.autoCompleteTextView2);
         lbl_place_name= findViewById(R.id.lbl_place_name);
