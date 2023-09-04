@@ -61,7 +61,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
-    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX", place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX";;
+    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
+            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "";
     Button back_btn, submitBtn;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2;
@@ -91,6 +92,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         initPlaceSpinner();
         initDesignationSpinner();
         getTeamList();
+        getAchievementMonth();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +187,38 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
+    private void getAchievementMonth() {
+        ProgressDialog pDialog = new ProgressDialog(AchieveEarnActivity.this);
+        pDialog.setMessage("Loading Month ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<AchvMonthModel> call = apiInterface.getAchievementMonth();
+
+        call.enqueue(new Callback<AchvMonthModel>() {
+            @Override
+            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<AchvMonthList> achvMonthList = null;
+                    if (response.body() != null) {
+                        achvMonthList = (response.body()).getAchvMonthList();
+                    }
+                    initMonthSpinner(achvMonthList);
+                    Log.d("Month List -- : ", String.valueOf(achvMonthList));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
@@ -210,6 +244,30 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     }
                 }
                 Log.d("team code", team_type);
+            }
+        });
+    }
+
+    private void initMonthSpinner(List<AchvMonthList> monthList) {
+        MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
+        ArrayList<String> monthNameList = new ArrayList<>();
+        if (monthList.size() > 0) {
+            for (AchvMonthList monthName : monthList) {
+                monthNameList.add(monthName.getMnyrDesc());
+            }
+        }
+        monthSpinner.setItems(monthNameList);
+
+        monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                team_name = String.valueOf(item).trim();
+                for (int i = 0; i < monthList.size(); i++) {
+                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                        month_name = monthList.get(i).getMnyr();
+                    }
+                }
+                Log.d("month name", month_name);
             }
         });
     }
@@ -251,15 +309,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
 
     private void initDesignationSpinner() {
         MaterialSpinner mspinner3 = findViewById(R.id.mspinner3);
-        mspinner3.setItems("All", "MPO", "AM", "RM", "ASM/DSM", "SM");
+        mspinner3.setItems("MPO", "AM", "RM", "ASM/DSM", "SM");
 
         mspinner3.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 deignation_name = String.valueOf(item);
-                if (deignation_name.trim().equals("All")) {
-                    deignation_type = "XX";
-                } else if (deignation_name.trim().equals("MPO")) {
+                if (deignation_name.trim().equals("MPO")) {
                     deignation_type = "MPO";
                 } else if (deignation_name.trim().equals("AM")) {
                     deignation_type = "FM";
@@ -445,9 +501,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                         intent.setData(Uri.parse("tel:" + selected_number));
                         startActivity(intent);
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(),
-                                "Call failed, please try again later!",
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Call failed, please try again later!", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }

@@ -1,6 +1,7 @@
 package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
+import com.opl.pharmavector.achievement.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
 import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
@@ -303,6 +304,9 @@ public interface ApiInterface {
 
     @GET("get_team_new.php")
     Call<FFTeamModel> getAchieveFFTeamList();
+
+    @GET("achv_and_earn/get_mon.php")
+    Call<AchvMonthModel> getAchievementMonth();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

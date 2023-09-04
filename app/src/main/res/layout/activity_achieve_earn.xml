@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="#eeef"
     android:orientation="vertical"
-    android:padding="5dp"
     android:weightSum="100"
     tools:context="com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity"
     android:id="@+id/ff_contact_layout">
@@ -15,7 +14,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview4"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="56dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
@@ -24,19 +23,33 @@
             android:id="@+id/layout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="7"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:gravity="center"
             android:background="#FFD180"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="2">
+            android:padding="2dp"
+            android:weightSum="3">
 
             <com.jaredrummler.materialspinner.MaterialSpinner
+                android:textSize="@dimen/_8sdp"
+                android:id="@+id/monthSpinner"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                app:ms_hint="Select Month"
+                app:ms_hint_color="@color/colorAccentEditor"
+                app:ms_text_color="@color/colorAccentEditor" />
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:textSize="@dimen/_8sdp"
                 android:id="@+id/mspinner"
                 android:layout_width="0dp"
-                android:layout_height="57dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 app:ms_hint="Select Team"
                 app:ms_hint_color="@color/colorAccentEditor"
@@ -47,9 +60,10 @@
                 android:layout_height="match_parent" />
 
             <com.jaredrummler.materialspinner.MaterialSpinner
+                android:textSize="@dimen/_8sdp"
                 android:id="@+id/mspinner2"
                 android:layout_width="0dp"
-                android:layout_height="57dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 app:ms_hint="Place Type"
                 app:ms_hint_color="@color/colorAccentEditor"
@@ -58,30 +72,30 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:id="@+id/cardview2"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="40dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
-        android:background="@color/base"
-        app:cardUseCompatPadding="true">
+        android:background="@color/base">
 
         <LinearLayout
             android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="2"
             android:gravity="center"
             android:background="#B9F6CA"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="2dp">
 
             <com.jaredrummler.materialspinner.MaterialSpinner
+                android:textSize="@dimen/_8sdp"
                 android:id="@+id/mspinner3"
                 android:layout_width="0dp"
-                android:layout_height="57dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 app:ms_hint="Designation"
                 app:ms_hint_color="@color/colorAccentEditor"
@@ -105,6 +119,7 @@
                 android:paddingLeft="10dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/_8sdp" />
+
             <Spinner
                 android:id="@+id/spin_rm"
                 android:layout_width="match_parent"
@@ -236,7 +251,7 @@
                 android:layout_weight="1.1"
                 android:textAlignment="center"
                 android:textColor="#3F51B5"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:text="Contact no." />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
