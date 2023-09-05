@@ -41,8 +41,7 @@ public class MPOwiseAchvfollowupAdapter extends BaseAdapter {
     static ArrayList<String> qntyID;
     static ArrayList<String> qntyVal;
 
-    MPOwiseAchvfollowupAdapter(Context con, ArrayList<String> product_name,
-                               ArrayList<Integer> qnty, ArrayList<String> value, ArrayList<String> achv, String mpo_code) {
+    MPOwiseAchvfollowupAdapter(Context con, ArrayList<String> product_name, ArrayList<Integer> qnty, ArrayList<String> value, ArrayList<String> achv, String mpo_code) {
         this.product_name = product_name;
         this.qnty = qnty;
         this.value = value;
@@ -109,17 +108,15 @@ public class MPOwiseAchvfollowupAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final ViewHolder holder = new ViewHolder();
         //rowView = inflater.inflate(R.layout.amviewbydateproduct_show1, parent, false);
-
-        rowView = inflater.inflate(R.layout.amviewbydateproduct_show2, parent, false);
+        rowView = inflater.inflate(R.layout.amviewbydateproduct_show3, parent, false);
         serial = (TextView) rowView.findViewById(R.id.serial);
         holder.product_name = (TextView) rowView.findViewById(R.id.product_name);
         holder.mpo_code = (TextView) rowView.findViewById(R.id.mpo_ter);
-        holder.mpo_name = (TextView) rowView.findViewById(R.id.mpo_name);
+        //holder.mpo_name = (TextView) rowView.findViewById(R.id.mpo_name);
         holder.qnty = (TextView) rowView.findViewById(R.id.amqnty2);
         holder.value = (TextView) rowView.findViewById(R.id.amvalue2);
         holder.achv = (TextView) rowView.findViewById(R.id.amachivement1);
         holder.growth_val = (TextView) rowView.findViewById(R.id.growth_col);
-
         serial.setText(String.valueOf(position + 1));
         Log.w("productname---adap--", product_name.get(position));
 
@@ -129,8 +126,8 @@ public class MPOwiseAchvfollowupAdapter extends BaseAdapter {
         DecimalFormat formatter = new DecimalFormat("#,##,###.##");
         String formatted = formatter.format(amount);
         Log.w("saletarget---ADAPTER---", formatted);
-
         holder.product_name.setText(formatted);
+
         /*=====================TARGET==============================*/
         String number1 = qnty.get(position).toString();
         double amount1 = Double.parseDouble(number1);
@@ -142,31 +139,23 @@ public class MPOwiseAchvfollowupAdapter extends BaseAdapter {
         String number = mpo_code.get(position);
         Log.w("qnty", number);
         holder.mpo_code.setText(mpo_code.get(position));
-        holder.mpo_name.setText(mpo_name.get(position));
+        //holder.mpo_name.setText(mpo_name.get(position));
         holder.growth_val.setText(growth_val.get(position));
-        // String valu_format =  value.get(position).toString();
-        // double val_for=Double.parseDouble(valu_format);
-        // DecimalFormat formatter2 = new DecimalFormat("#,##,###.##");
-        // String formatted4 = formatter2.format(val_for);
-
+        //String valu_format = value.get(position).toString();
+        //double val_for=Double.parseDouble(valu_format);
+        //DecimalFormat formatter2 = new DecimalFormat("#,##,###.##");
+        //String formatted4 = formatter2.format(val_for);
         Log.w("value", value.get(position));
         holder.value.setText(value.get(position));
-        //  holder.value.setText(formatted4);
-
+        //holder.value.setText(formatted4);
         String number04 = achv.get(position);
         double amount4 = Double.parseDouble(number04);
         DecimalFormat formatter4 = new DecimalFormat("#,##,###.##");
         String formatted4 = formatter4.format(amount4);
         Log.w("sale_target", formatted);
-
-
         holder.achv.setText(formatted4);
-
         Log.w("achv", achv.get(position));
-
-
         return rowView;
-
     }
 
     private class ViewHolder {
@@ -177,8 +166,8 @@ public class MPOwiseAchvfollowupAdapter extends BaseAdapter {
         TextView mpo_name;
         TextView growth_val;
         TextView achv;
-        // int click_pos;
-        // int last_position;
+        //int click_pos;
+        //int last_position;
     }
 }
 

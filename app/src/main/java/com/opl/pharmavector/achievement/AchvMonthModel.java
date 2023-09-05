@@ -8,13 +8,13 @@ import java.util.List;
 public class AchvMonthModel {
     @SerializedName("customer")
     @Expose
-    private List<AchvMonthList> achvMonthList;
+    private List<AchieveMonthList> achvMonthList;
 
-    public List<AchvMonthList> getAchvMonthList() {
+    public List<AchieveMonthList> getAchvMonthList() {
         return achvMonthList;
     }
 
-    public void setAchvMonthList(List<AchvMonthList> achvMonthList) {
+    public void setAchvMonthList(List<AchieveMonthList> achvMonthList) {
         this.achvMonthList = achvMonthList;
     }
 }

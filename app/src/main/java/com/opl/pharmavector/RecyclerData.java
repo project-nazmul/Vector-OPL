@@ -1,7 +1,7 @@
 package com.opl.pharmavector;
 
 public class RecyclerData  {
-    public String  col1,col2,col3,col4,col5,col6,col7,col8;
+    public String col1, col2, col3, col4, col5, col6, col7, col8;
     private String headerString;
 
     public String getCol1(){ return col1;    }

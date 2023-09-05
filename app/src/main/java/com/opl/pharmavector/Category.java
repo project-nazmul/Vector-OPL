@@ -28,7 +28,7 @@ public class Category {
 		//this.array_length = array_length;
 	}
 
-	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE){
+	public Category(String sl, String id, String name, int quantity, String PROD_RATE, String PROD_VAT, String PPM_CODE, String P_CODE){
 		this.sl=sl;
 		this.id = id;
 		this.name = name;

@@ -204,7 +204,7 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("//") != -1) {
+                    if (inputorder.contains("//")) {
                         String arr[] = inputorder.split("//");
                         String product_name = arr[0].trim();
                         String product_code = arr[1].trim();
@@ -354,8 +354,7 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                     } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-                    }
-                    else {
+                    } else {
                         categoriesList.clear();
                         new GetCategories().execute();
                     }

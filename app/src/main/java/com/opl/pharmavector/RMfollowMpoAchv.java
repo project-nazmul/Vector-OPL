@@ -42,7 +42,7 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    private ArrayList<CategoryNew> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
@@ -249,7 +249,7 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-        categoriesList = new ArrayList<com.opl.pharmavector.Category>();
+        categoriesList = new ArrayList<CategoryNew>();
 
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
@@ -343,22 +343,15 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             if (pDialog.isShowing())
                 pDialog.dismiss();
             producpopulatespinner();
-
         }
-
     }
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
-
         }
-
-
     }
-
 
     public void finishActivity(View v) {
         finish();
@@ -376,15 +369,15 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> growth_val = new ArrayList<String>();
-            int quantity = 0;
+            //int quantity = 0;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
-            String mpo, growth;
+            String mpo, growth, quantity;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
-                quanty.add(categoriesList.get(i).getQuantity());
+                quanty.add(Integer.parseInt(categoriesList.get(i).getQuantity()));
                 quantity = categoriesList.get(i).getQuantity();
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
@@ -397,8 +390,6 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             }
             MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(RMfollowMpoAchv.this, lables,
                     quanty, value, achv, mpo_code, growth_val);
-
-
             productListView.setAdapter(adapter);
         }
 
@@ -445,31 +436,29 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
             params.add(new BasicNameValuePair("from_date", fromdate1));
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        CategoryNew cat = new CategoryNew(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("FF_NAME")
+                        );
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }

@@ -151,10 +151,26 @@
                 android:paddingLeft="10dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/_10sdp" />
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="show"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,UnusedAttribute" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/_10sdp"
@@ -180,16 +196,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="(If Any Place Selected )"
+            android:text="(If Any Place Selected)"
             android:textColor="@color/pink"
             android:textSize="@dimen/_10sdp"
             android:textStyle="bold"/>
 
         <Button
-            android:id="@+id/submitBtn"
+            android:id="@+id/submitBtn1"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/submit_btton_selector"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
@@ -257,10 +273,9 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerAchieveEarn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cardview_title"
         android:background="@android:color/white"
         android:divider="@android:color/transparent"
         android:padding="4dp"

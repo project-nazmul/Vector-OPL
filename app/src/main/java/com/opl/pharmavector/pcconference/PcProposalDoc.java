@@ -1,4 +1,5 @@
 package com.opl.pharmavector.pcconference;
+
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.app.ProgressDialog;
@@ -32,9 +33,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class PcProposalDoc extends AppCompatActivity{
-    
     Context context;
     ArrayList<Category> array_list;
     FavouriteCategoriesJsonParser categoryJsonParser;
@@ -70,21 +69,17 @@ public class PcProposalDoc extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_proposal_activity);
 
         initViews();
-
         user_show.setText(String.format("%s %s ", UserName, UserName_2));
 
         if (venue_charge.trim().equals("")) {
             venue_charge="0";
-        }if (miscell_bdt.trim().equals("")) {
+        } if (miscell_bdt.trim().equals("")) {
             miscell_bdt="0";
         }
-
-
         int result1 = Integer.valueOf(food_total_bdt);
         int result2 = Integer.valueOf(miscell_bdt);
         int result3 = Integer.valueOf(venue_charge);
@@ -94,25 +89,17 @@ public class PcProposalDoc extends AppCompatActivity{
         logback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +112,7 @@ public class PcProposalDoc extends AppCompatActivity{
 
             if (categoriesCsv.length() < 0) {
             Toast.makeText(context, "Please Select Doctor", Toast.LENGTH_SHORT).show();
-            }
-                else {
+            } else {
                     Thread server = new Thread(new Runnable() {
 
                         @Override

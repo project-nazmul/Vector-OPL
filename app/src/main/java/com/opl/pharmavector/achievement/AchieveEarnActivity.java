@@ -36,7 +36,6 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.pmdVector.ff_contact.FFContactAdapter;
-import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.pmdVector.model.FFTeamList;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
 import com.opl.pharmavector.remote.ApiClient;
@@ -70,11 +69,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     private ArrayList<Customer> departmentlist;
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
     TextView lbl_place_name;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerAchieve;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<RecyclerData> recyclerDataArrayList;
+    private ArrayList<AchieveEarningList> achieveEarnList;
     List<FFTeamList> recyclerTeamList;
-    private FFContactAdapter ffContactAdapter;
+    private AchieveEarnAdapter achieveEarnAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
     private String selected_number, selected_person, profile_image;
@@ -97,8 +96,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerView.setAdapter(null);
-                getContact();
+                recyclerAchieve.setAdapter(null);
+                getAchievementEarnList();
             }
         });
     }
@@ -115,39 +114,39 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         lbl_place_name = findViewById(R.id.lbl_place_name);
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerAchieve = findViewById(R.id.recyclerAchieveEarn);
         layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerDataArrayList = new ArrayList<>();
+        recyclerAchieve.setLayoutManager(layoutManager);
+        achieveEarnList = new ArrayList<>();
     }
 
-    private void getContact() {
+    private void getAchievementEarnList() {
         ProgressDialog ppDialog = new ProgressDialog(AchieveEarnActivity.this);
-        ppDialog.setMessage("Loading Data ...");
+        ppDialog.setMessage("Loading Achievement Data ...");
         ppDialog.setCancelable(true);
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ArrayList<RecyclerData>> call = apiInterface.getAchvEarnFFContact(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type);
+        Call<ArrayList<AchieveEarningList>> call = apiInterface.getAchievementEarnList(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type, month_name);
         Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
 
-        call.enqueue(new Callback<ArrayList<RecyclerData>>() {
+        call.enqueue(new Callback<ArrayList<AchieveEarningList>>() {
             @Override
-            public void onResponse(Call<ArrayList<RecyclerData>> call, Response<ArrayList<RecyclerData>> response) {
+            public void onResponse(Call<ArrayList<AchieveEarningList>> call, Response<ArrayList<AchieveEarningList>> response) {
                 if (response.isSuccessful()) {
                     ppDialog.dismiss();
-                    recyclerDataArrayList = response.body();
+                    achieveEarnList = response.body();
 
-                    for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        ffContactAdapter = new FFContactAdapter(AchieveEarnActivity.this, recyclerDataArrayList, pmdImageUrl, AchieveEarnActivity.this);
+                    for (int i = 0; i < achieveEarnList.size(); i++) {
+                        achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, achieveEarnList, pmdImageUrl, AchieveEarnActivity.this);
                         LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
-                        recyclerView.setLayoutManager(manager);
-                        recyclerView.setAdapter(ffContactAdapter);
+                        recyclerAchieve.setLayoutManager(manager);
+                        recyclerAchieve.setAdapter(achieveEarnAdapter);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<RecyclerData>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<AchieveEarningList>> call, Throwable t) {
                 Log.e("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
                 toast.show();
@@ -200,7 +199,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<AchvMonthList> achvMonthList = null;
+                    List<AchieveMonthList> achvMonthList = null;
                     if (response.body() != null) {
                         achvMonthList = (response.body()).getAchvMonthList();
                     }
@@ -225,7 +224,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
 
     private void initTeamSpinner(List<FFTeamList> teamList) {
         MaterialSpinner mspinner = findViewById(R.id.mspinner);
-        //mspinner.setItems("All", "Dynamos", "Titan", "Gallant", "Excelon", "Vergence");
         ArrayList<String> teamNameList = new ArrayList<>();
         if (teamList.size() > 0) {
             for (FFTeamList teamName : teamList) {
@@ -248,11 +246,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void initMonthSpinner(List<AchvMonthList> monthList) {
+    private void initMonthSpinner(List<AchieveMonthList> monthList) {
         MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayList<String> monthNameList = new ArrayList<>();
         if (monthList.size() > 0) {
-            for (AchvMonthList monthName : monthList) {
+            for (AchieveMonthList monthName : monthList) {
                 monthNameList.add(monthName.getMnyrDesc());
             }
         }
@@ -405,8 +403,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        //ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
-        //spin_rm.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         autoCompleteTextView2.setThreshold(2);
@@ -419,7 +415,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         autoCompleteTextView2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                //hideKeyBoard();
                 autoCompleteTextView2.showDropDown();
                 return false;
             }

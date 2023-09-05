@@ -260,7 +260,7 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                 } else if (conf_type_val.equals("R") && Integer.parseInt(food.getText().toString().trim()) > Integer.parseInt(budget_limit)) {
                     food.setError("Food cost limit is exceed");
                     error_dt.setText("Food cost is not more then   BDT. " + budget_limit + " Tk ");
-                } else if (conf_type_val.equals("R") && Integer.parseInt(food.getText().toString().trim()) >= Integer.parseInt(bolow_budget_limit)) {
+                } else if (conf_type_val.equals("R") && Integer.parseInt(food.getText().toString().trim()) < Integer.parseInt(bolow_budget_limit)) {
                     food.setError("Food cost limit must go over the limit");
                     error_dt.setText("Food cost is not less then   BDT. " + bolow_budget_limit + " Tk ");
                 } else {
@@ -309,7 +309,6 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                             extras.putString("total_budget", fd_bdt.getText().toString().trim());
                             in.putExtras(extras);
                             startActivity(in);
-
                         }
                     });
                     next.start();
