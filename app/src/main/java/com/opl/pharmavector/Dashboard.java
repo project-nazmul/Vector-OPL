@@ -44,6 +44,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.opl.pharmavector.achievement.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
@@ -152,7 +153,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     double fetchedlang, fetchedlat;
     Context context;
     BroadcastReceiver updateUIReciver;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback, img_doctor_list,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam,
@@ -208,6 +209,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         pmdContact();
         doctorListInfo();
         prescriberEvent();
+        achieveEarnEvent();
         getDeviceSimNumber();
 
         session = new SessionManager(getApplicationContext());
@@ -303,6 +305,18 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private void prescriberEvent() {
         cardView_prescriber.setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, TopPrescriberActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "MPO");
+            startActivity(i);
+        });
+    }
+
+    private void achieveEarnEvent() {
+        cardview_achv_earn.setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, AchieveEarnActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", userName);
             i.putExtra("new_version", version);
@@ -460,6 +474,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
         cardView_prescriber.setVisibility(View.GONE);
         tvDesignation = findViewById(R.id.textView3);
 

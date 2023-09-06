@@ -5,15 +5,15 @@
     android:id="@+id/cardProductQuantity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_10sdp"
-    android:clickable="true"
+    android:layout_margin="0dp"
+    android:clickable="false"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="8dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardPreventCornerOverlap="true"
+    app:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="false">
 
     <LinearLayout
@@ -22,6 +22,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/infoLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_75sdp"
             android:baselineAligned="false"
@@ -63,6 +64,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:visibility="gone"
                     android:maxLines="1"
                     android:paddingTop="@dimen/_2sdp"
                     android:id="@+id/tvEmpDesignation"
@@ -81,7 +83,7 @@
                     android:gravity="start"
                     android:text="Phone"
                     android:textColor="#3F51B5"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -104,96 +106,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/achieveLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:background="@drawable/dcr_border"
-            android:weightSum="4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/doctorLayout">
-
-            <TextView
-                android:id="@+id/brand_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="@dimen/_4sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Brand Name"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_8sdp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#424242" />
-
-            <TextView
-                android:id="@+id/acheivement"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:gravity="center"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Achievement"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#424242" />
-
-            <TextView
-                android:id="@+id/growth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Growth"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#424242" />
-
-            <TextView
-                android:id="@+id/targeted_growth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Targeted Growth"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerAchieveEarn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:divider="@android:color/transparent"
-            android:padding="4dp"
-            android:scrollbars="vertical"/>
-
-        <LinearLayout
+            android:visibility="gone"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
             tools:visibility="visible"
             android:weightSum="2"
             android:id="@+id/hotlineLayout"
@@ -257,5 +172,172 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/achvTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/dcr_border"
+            android:weightSum="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/doctorLayout">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Brand Name"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Achievement"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Growth"
+                android:textColor="@color/pink"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Targeted Growth"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/achieveLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/dcr_border"
+            android:weightSum="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/doctorLayout">
+
+            <TextView
+                android:id="@+id/brandName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Brand Name"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/achievement"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Achievement"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/growth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Growth"
+                android:textColor="@color/pink"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/targeted_growth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Targeted Growth"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recyclerAchieveEarn"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@android:color/white"-->
+<!--            android:divider="@android:color/transparent"-->
+<!--            android:padding="4dp"-->
+<!--            android:scrollbars="vertical"/>-->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

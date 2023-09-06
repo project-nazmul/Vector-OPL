@@ -31,6 +31,17 @@ public class AchieveEarningList {
     @SerializedName("GROWTH_TAR")
     @Expose
     private String growthTar;
+    @SerializedName("EMP_CODE")
+    @Expose
+    private String empCode;
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode;
+    }
 
     public Integer getSl() {
         return sl;

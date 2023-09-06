@@ -1,6 +1,7 @@
 package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
+import com.opl.pharmavector.achievement.AchieveEarnModel;
 import com.opl.pharmavector.achievement.AchieveEarningList;
 import com.opl.pharmavector.achievement.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
@@ -290,10 +291,17 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("achv_and_earn/get_achv_and_earn.php")
-    Call<ArrayList<AchieveEarningList>> getAchievementEarnList(
+    Call<AchieveEarnModel> getAchievementEarnList(
             @Field("deignation_type") String designation_type,
             @Field("ff_code") String ff_code,
             @Field("team_type") String team_type,
+            @Field("p_month") String p_month
+    );
+
+    @FormUrlEncoded
+    @POST("achv_and_earn/get_achv_and_earn_self.php")
+    Call<AchieveEarnModel> getAchieveEarnSelfList(
+            @Field("ff_code") String ff_code,
             @Field("p_month") String p_month
     );
 

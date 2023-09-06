@@ -565,7 +565,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
-        cardview_achv_earn.setVisibility(View.GONE);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);

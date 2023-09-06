@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,18 +53,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AchieveEarnActivity extends Activity implements View.OnClickListener, FFContactAdapter.FFContactCallback {
+public class AchieveEarnActivity extends Activity implements View.OnClickListener, AchieveEarnAdapter.ContactCallback {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
     public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
-            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "";
-    Button back_btn, submitBtn;
+            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "", userName, userCode, userRole;
+    Button back_btn, submitBtn, submitBtn1;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2;
     private ArrayList<Customer> customerlist;
@@ -76,6 +79,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     private AchieveEarnAdapter achieveEarnAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
+    LinearLayout layoutMpo, gmLayout;
+    MaterialSpinner teamSpinner, divisionSpinner, desigSpinner;
     private String selected_number, selected_person, profile_image;
     public String pmdImageUrl = ApiClient.BASE_URL + "vector_ff_image/sales/";
     private final String url_getfieldforce = BASE_URL + "achv_and_earn/get_ff_list.php";
@@ -97,7 +102,19 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 recyclerAchieve.setAdapter(null);
-                getAchievementEarnList();
+                if (Objects.equals(userRole, "AD")) {
+                    getAchievementEarnList();
+                } else {
+                    getAchieveEarnSelfList();
+                }
+            }
+        });
+
+        submitBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerAchieve.setAdapter(null);
+                getAchieveEarnSelfList();
             }
         });
     }
@@ -107,17 +124,35 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         back_btn = findViewById(R.id.backbt);
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
-        back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");
+        submitBtn1 = findViewById(R.id.submitBtn1);
         customerlist = new ArrayList<Customer>();
         autoCompleteTextView2 = findViewById(R.id.autoCompleteTextView2);
-        lbl_place_name = findViewById(R.id.lbl_place_name);
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         recyclerAchieve = findViewById(R.id.recyclerAchieveEarn);
         layoutManager = new LinearLayoutManager(this);
         recyclerAchieve.setLayoutManager(layoutManager);
         achieveEarnList = new ArrayList<>();
+        layoutMpo = findViewById(R.id.layoutMpo);
+        gmLayout = findViewById(R.id.gmLayout);
+        teamSpinner = findViewById(R.id.teamSpinner);
+        desigSpinner = findViewById(R.id.desigSpinner);
+        divisionSpinner = findViewById(R.id.divisionSpinner);
+
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        userName = bundle.getString("UserName");
+        userCode = bundle.getString("UserCode");
+        userRole = bundle.getString("UserRole");
+
+        if (Objects.equals(userRole, "MPO")) {
+            gmLayout.setVisibility(View.GONE);
+            layoutMpo.setVisibility(View.VISIBLE);
+            teamSpinner.setVisibility(View.GONE);
+            divisionSpinner.setVisibility(View.GONE);
+            desigSpinner.setVisibility(View.GONE);
+            autoCompleteTextView2.setVisibility(View.GONE);
+        }
     }
 
     private void getAchievementEarnList() {
@@ -126,27 +161,63 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         ppDialog.setCancelable(true);
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ArrayList<AchieveEarningList>> call = apiInterface.getAchievementEarnList(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type, month_name);
+        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type, month_name);
         Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
 
-        call.enqueue(new Callback<ArrayList<AchieveEarningList>>() {
+        call.enqueue(new Callback<AchieveEarnModel>() {
             @Override
-            public void onResponse(Call<ArrayList<AchieveEarningList>> call, Response<ArrayList<AchieveEarningList>> response) {
+            public void onResponse(Call<AchieveEarnModel> call, Response<AchieveEarnModel> response) {
+                List<AchieveEarningList> achieveLists = null;
                 if (response.isSuccessful()) {
                     ppDialog.dismiss();
-                    achieveEarnList = response.body();
-
-                    for (int i = 0; i < achieveEarnList.size(); i++) {
-                        achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, achieveEarnList, pmdImageUrl, AchieveEarnActivity.this);
-                        LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
-                        recyclerAchieve.setLayoutManager(manager);
-                        recyclerAchieve.setAdapter(achieveEarnAdapter);
+                    if (response.body() != null) {
+                        achieveLists = (response.body()).getAchieveEarnList();
                     }
+                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, AchieveEarnActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
+                    recyclerAchieve.setLayoutManager(manager);
+                    recyclerAchieve.setAdapter(achieveEarnAdapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<AchieveEarningList>> call, Throwable t) {
+            public void onFailure(Call<AchieveEarnModel> call, Throwable t) {
+                ppDialog.dismiss();
+                Log.e("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getAchieveEarnSelfList() {
+        ProgressDialog ppDialog = new ProgressDialog(AchieveEarnActivity.this);
+        ppDialog.setMessage("Loading Achievement Data ...");
+        ppDialog.setCancelable(true);
+        ppDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<AchieveEarnModel> call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
+        Log.d("ff_type", userCode);
+
+        call.enqueue(new Callback<AchieveEarnModel>() {
+            @Override
+            public void onResponse(Call<AchieveEarnModel> call, Response<AchieveEarnModel> response) {
+                List<AchieveEarningList> achieveLists = null;
+                if (response.isSuccessful()) {
+                    ppDialog.dismiss();
+                    if (response.body() != null) {
+                        achieveLists = (response.body()).getAchieveEarnList();
+                    }
+                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, AchieveEarnActivity.this);
+                    LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
+                    recyclerAchieve.setLayoutManager(manager);
+                    recyclerAchieve.setAdapter(achieveEarnAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AchieveEarnModel> call, Throwable t) {
+                ppDialog.dismiss();
                 Log.e("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
                 toast.show();
@@ -203,7 +274,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         achvMonthList = (response.body()).getAchvMonthList();
                     }
-                    initMonthSpinner(achvMonthList);
+                    if (Objects.equals(userRole, "AD")) {
+                        initMonthSpinner(achvMonthList);
+                    } else {
+                        initMpoMonthSpinner(achvMonthList);
+                    }
                     Log.d("Month List -- : ", String.valueOf(achvMonthList));
                 }
             }
@@ -223,16 +298,15 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     }
 
     private void initTeamSpinner(List<FFTeamList> teamList) {
-        MaterialSpinner mspinner = findViewById(R.id.mspinner);
         ArrayList<String> teamNameList = new ArrayList<>();
         if (teamList.size() > 0) {
             for (FFTeamList teamName : teamList) {
                 teamNameList.add(teamName.getTeamName());
             }
         }
-        mspinner.setItems(teamNameList);
+        teamSpinner.setItems(teamNameList);
 
-        mspinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        teamSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 team_name = String.valueOf(item).trim();
@@ -270,11 +344,34 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void initPlaceSpinner() {
-        MaterialSpinner mspinner2 = findViewById(R.id.mspinner2);
-        mspinner2.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
+    private void initMpoMonthSpinner(List<AchieveMonthList> monthList) {
+        MaterialSpinner mpoSpinner = findViewById(R.id.mpoMonthSpinner);
+        ArrayList<String> monthNameList = new ArrayList<>();
+        if (monthList.size() > 0) {
+            for (AchieveMonthList monthName : monthList) {
+                monthNameList.add(monthName.getMnyrDesc());
+            }
+        }
+        mpoSpinner.setItems(monthNameList);
 
-        mspinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        mpoSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                team_name = String.valueOf(item).trim();
+                for (int i = 0; i < monthList.size(); i++) {
+                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                        month_name = monthList.get(i).getMnyr();
+                    }
+                }
+                Log.d("month name", month_name);
+            }
+        });
+    }
+
+    private void initPlaceSpinner() {
+        divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
+
+        divisionSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -294,7 +391,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                 }
                 if (place_type.equals("XX")) {
                     autoCompleteTextView2.setText("XX");
-                    lbl_place_name.setText("All");
                 } else {
                     autoCompleteTextView2.setText("");
                     customerlist.clear();
@@ -306,10 +402,9 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     }
 
     private void initDesignationSpinner() {
-        MaterialSpinner mspinner3 = findViewById(R.id.mspinner3);
-        mspinner3.setItems("MPO", "AM", "RM", "ASM/DSM", "SM");
+        desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM");
 
-        mspinner3.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        desigSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 deignation_name = String.valueOf(item);
@@ -331,10 +426,10 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onFFContactPhoneCall(RecyclerData contact) {
+    public void onContactPhoneCall(AchieveEarningList achieveList) {
         try {
             Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + contact.getCol4()));
+            intent.setData(Uri.parse("tel:" + achieveList.getMobilePhone()));
             startActivity(intent);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Call failed, please try again later!", Toast.LENGTH_LONG).show();
@@ -343,11 +438,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onFFContactPhoneSms(RecyclerData contact) {
+    public void onContactPhoneSms(AchieveEarningList achieveList) {
         try {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setData(Uri.parse("smsto:" + contact.getCol4()));
+            intent.setData(Uri.parse("smsto:" + achieveList.getMobilePhone()));
             intent.putExtra("sms_body", "Dear Sir,");
             startActivity(intent);
         } catch (Exception e) {
@@ -421,7 +516,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
         autoCompleteTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View v) {
+            }
         });
         autoCompleteTextView2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -446,7 +542,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                         ff_name = first_split[0].trim();
                         ff_code = first_split[1].trim();
                         autoCompleteTextView2.setText(ff_code);
-                        lbl_place_name.setText(ff_name);
                         KeyboardUtils.hideKeyboard(AchieveEarnActivity.this);
                     }
                 } catch (Exception e) {

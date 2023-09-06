@@ -33,12 +33,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 public class AMfollowMpoAchv extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    private ArrayList<CategoryNew2> categoriesList;
+    private ArrayList<CategoryNew> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submitBtn;
@@ -262,13 +263,13 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
 
         private void populateSpinner() {
             ArrayList<String> lables = new ArrayList<String>();
-            ArrayList<Integer> quanty = new ArrayList<Integer>();
+            ArrayList<String> quanty = new ArrayList<String>();
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
             ArrayList<String> growth_val = new ArrayList<String>();
-            int quantity = 0;
+            String quantity = "";
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth, ff_name;
@@ -289,7 +290,7 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                 ff_names.add(ff_name);
                 growth_val.add(growth);
             }
-            MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(AMfollowMpoAchv.this, lables, quanty, value, achv, mpo_code, ff_names, growth_val);
+            MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(AMfollowMpoAchv.this, lables, quanty, value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
 
@@ -334,11 +335,11 @@ public class AMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                     JSONArray categories = jsonObj.getJSONArray("categories");
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
-                        CategoryNew2 cat = new CategoryNew2(
+                        CategoryNew cat = new CategoryNew(
                                 catObj.getString("sl"),
                                 catObj.getString("id"),
                                 catObj.getString("name"),
-                                catObj.getInt("quantity"),
+                                catObj.getString("quantity"),
                                 catObj.getString("PROD_RATE"),
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),

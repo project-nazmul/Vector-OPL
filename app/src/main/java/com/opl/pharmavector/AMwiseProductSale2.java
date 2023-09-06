@@ -49,7 +49,7 @@ public class AMwiseProductSale2 extends Activity implements OnClickListener, Ada
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    private ArrayList<CategoryNew2> categoriesList;
+    private ArrayList<CategoryNew> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
@@ -120,7 +120,7 @@ public class AMwiseProductSale2 extends Activity implements OnClickListener, Ada
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-        categoriesList = new ArrayList<CategoryNew2>();
+        categoriesList = new ArrayList<CategoryNew>();
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
         fromdate.setText(b.getString("from_date"));
@@ -424,14 +424,14 @@ public class AMwiseProductSale2 extends Activity implements OnClickListener, Ada
 
         private void populateSpinner() {
             ArrayList<String> lables = new ArrayList<String>();
-            ArrayList<Integer> quanty = new ArrayList<Integer>();
+            ArrayList<String> quanty = new ArrayList<String>();
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
             //growth_val
             ArrayList<String> growth_val = new ArrayList<String>();
-            int quantity = 0;
+            String quantity = "";
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth , ff_name;
@@ -452,7 +452,7 @@ public class AMwiseProductSale2 extends Activity implements OnClickListener, Ada
                 ff_names.add(ff_name);
                 growth_val.add(growth);
             }
-            MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(AMwiseProductSale2.this, lables, quanty, value, achv, mpo_code, ff_names, growth_val);
+            MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(AMwiseProductSale2.this, lables, quanty, value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
 
@@ -513,11 +513,11 @@ public class AMwiseProductSale2 extends Activity implements OnClickListener, Ada
 
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
-                        CategoryNew2 cat = new CategoryNew2(
+                        CategoryNew cat = new CategoryNew(
                                 catObj.getString("sl"),
                                 catObj.getString("id"),
                                 catObj.getString("name"),
-                                catObj.getInt("quantity"),
+                                catObj.getString("quantity"),
                                 catObj.getString("PROD_RATE"),
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),

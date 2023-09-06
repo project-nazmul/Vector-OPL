@@ -51,7 +51,7 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     //array list for spinner adapter
-    private ArrayList<CategoryNew2> categoriesList;
+    private ArrayList<CategoryNew> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
@@ -130,7 +130,7 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         p_quanty = new ArrayList<Integer>();
         PROD_RATE = new ArrayList<String>();
         PROD_VAT = new ArrayList<String>();
-        categoriesList = new ArrayList<CategoryNew2>();
+        categoriesList = new ArrayList<CategoryNew>();
 
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
@@ -600,14 +600,14 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
 
         private void populateSpinner() {
             ArrayList<String> lables = new ArrayList<String>();
-            ArrayList<Integer> quanty = new ArrayList<Integer>();
+            ArrayList<String> quanty = new ArrayList<String>();
             ArrayList<String> value = new ArrayList<String>();
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
             //growth_val
             ArrayList<String> growth_val = new ArrayList<String>();
-            int quantity = 0;
+            String quantity = "";
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth, ff_name;
@@ -629,7 +629,7 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                 growth_val.add(growth);
             }
             //MPOwiseProductSaleShowAdapter adapter = new MPOwiseProductSaleShowAdapter(ManagersSalesFollowup2.this,lables, quanty,value,achv,mpo_code);
-            MPOwiseAchvfollowupAdapter adapter = new MPOwiseAchvfollowupAdapter(ManagersSalesFollowup2.this, lables,
+            MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(ManagersSalesFollowup2.this, lables,
                     quanty, value, achv, mpo_code, ff_names, growth_val);
             productListView.setAdapter(adapter);
         }
@@ -685,11 +685,11 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                     JSONArray categories = jsonObj.getJSONArray("categories");
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
-                        CategoryNew2 cat = new CategoryNew2(
+                        CategoryNew cat = new CategoryNew(
                                 catObj.getString("sl"),
                                 catObj.getString("id"),
                                 catObj.getString("name"),
-                                catObj.getInt("quantity"),
+                                catObj.getString("quantity"),
                                 catObj.getString("PROD_RATE"),
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
