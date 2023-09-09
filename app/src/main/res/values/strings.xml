@@ -285,6 +285,9 @@
     <string name="territory_wise_prescription_details">Territory Wise Prescription Details</string>
     <string name="mrd">MRD</string>
     <string name="_4p">4P</string>
+    <string name="achieve_notice">Important Notice: \nThis calculator is in beta version. It can be used for rough calculations only. Any claim based on this calculator will not be taken into consideration. Final assessment will be done in CHQ for money disbursement as per existing procedure.
+\nএই ক্যালকুলেটরটি বিটা সংস্করণে রয়েছে। এটি শুধুমাত্র আনুমানিক হিসাবের জন্য  ব্যবহার করা যেতে পারে। এই ক্যালকুলেটরের উপর ভিত্তি করে কোনো দাবি বিবেচনায় নেওয়া হবে না। বিদ্যমান পদ্ধতি অনুযায়ী অর্থ প্রদানের জন্য CHQ-এ মূল্যায়নই চূড়ান্ত ।
+</string>
     <string name="dcfpStatusMsg">You have DCFP plan so you can not change date</string>
     <string name="doctor_share_details">Doctor Share Details</string>
     <string name="capture_image_from_camera">Capture image from Camera</string>

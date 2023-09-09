@@ -44,7 +44,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.opl.pharmavector.achievement.AchieveEarnActivity;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
@@ -81,7 +81,6 @@ import com.opl.pharmavector.util.NetInfo;
 import org.apache.http.NameValuePair;
 
 import java.io.IOException;
-import java.security.acl.Permission;
 import java.util.HashMap;
 import java.util.List;
 

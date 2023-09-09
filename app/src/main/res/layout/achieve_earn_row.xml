@@ -180,7 +180,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/dcr_border"
-            android:weightSum="4"
+            android:weightSum="5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/doctorLayout">
@@ -248,6 +248,23 @@
                 android:text="Targeted Growth"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Remain Value"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 
         <LinearLayout
@@ -257,7 +274,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/dcr_border"
-            android:weightSum="4"
+            android:weightSum="5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/doctorLayout">
@@ -329,15 +346,40 @@
                 android:text="Targeted Growth"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/remain_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Remain Value"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/recyclerAchieveEarn"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@android:color/white"-->
-<!--            android:divider="@android:color/transparent"-->
-<!--            android:padding="4dp"-->
-<!--            android:scrollbars="vertical"/>-->
+        <TextView
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:visibility="gone"
+            android:id="@+id/notice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:text="@string/achieve_notice"
+            android:textColor="#000000"
+            android:textSize="@dimen/_10sdp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

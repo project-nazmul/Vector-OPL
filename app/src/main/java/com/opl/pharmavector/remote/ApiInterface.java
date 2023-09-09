@@ -1,9 +1,8 @@
 package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
-import com.opl.pharmavector.achievement.AchieveEarnModel;
-import com.opl.pharmavector.achievement.AchieveEarningList;
-import com.opl.pharmavector.achievement.AchvMonthModel;
+import com.opl.pharmavector.achieve.AchieveEarnModel;
+import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
 import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
@@ -37,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

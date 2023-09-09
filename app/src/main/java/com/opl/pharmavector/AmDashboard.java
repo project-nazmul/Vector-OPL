@@ -38,6 +38,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -128,7 +129,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     private String log_status = "A";
     public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type, build_model, build_brand,
             build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3, vector_version;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
@@ -1966,6 +1967,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         vacantMpoPwd();
         pmdContact();
         doctorListInfo();
+        achieveEarnEvent();
         topPrescriberEvent();
         //autoLogout();
 
@@ -2114,6 +2116,19 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         });
     }
 
+    private void achieveEarnEvent() {
+        cardview_achv_earn.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, AchieveEarnActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", vector_version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "FM");
+            i.putExtra("TeamCode", ff_type);
+            startActivity(i);
+        });
+    }
+
     private void TeamLogo() {
         String team = ff_type;
         team_logo = ApiClient.BASE_URL + "team_logo/";
@@ -2248,6 +2263,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         tv_pmd_contact = findViewById(R.id.tv_pmd_contact);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
