@@ -45,6 +45,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -141,7 +142,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     PreferenceManager preferenceManager;
     private int count;
     public static String globalempCode, globalempName, build_model, build_brand, build_id, build_device, build_version;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_doctor_list, cardview_ff_contact, cardView_prescriber,
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_doctor_list, cardview_ff_contact, cardView_prescriber, cardview_achv_earn,
              practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
              img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup,
@@ -198,6 +199,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         dccFollowup();
         pmdContact();
         doctorListInfo();
+        achieveEarnEvent();
         topPrescriberEvent();
 
         PackageManager pm = getApplicationContext().getPackageManager();
@@ -421,6 +423,19 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         });
     }
 
+    private void achieveEarnEvent() {
+        cardview_achv_earn.setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, AchieveEarnActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", userName);
+            i.putExtra("new_version", new_version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "SM");
+            i.putExtra("TeamCode", ff_type);
+            startActivity(i);
+        });
+    }
+
     /*
     private void initViews() {
         followup_report = (Button) findViewById(R.id.followup_report);
@@ -608,6 +623,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
+        cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);

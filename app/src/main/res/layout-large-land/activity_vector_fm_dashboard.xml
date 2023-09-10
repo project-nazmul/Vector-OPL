@@ -1498,7 +1498,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#EDDEB0"
+                    app:cardBackgroundColor="@color/achieveEarn"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"

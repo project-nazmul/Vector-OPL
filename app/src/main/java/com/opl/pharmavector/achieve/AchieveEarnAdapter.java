@@ -2,8 +2,8 @@ package com.opl.pharmavector.achieve;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +26,13 @@ public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.
     private ArrayList<AchieveEarningList> achieveEarnLists;
     private ArrayList<AchieveEarningList> checkAchieveLists = new ArrayList<>();
     Context context;
-    String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/sales/", profileImage, userRole;
+    String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/sales/", profileImage, userRole, designationType;
     ContactCallback contactCallback;
 
-    public AchieveEarnAdapter(Context context, ArrayList<AchieveEarningList> achieveEarnList, String userRole, ContactCallback contactCallback) {
+    public AchieveEarnAdapter(Context context, ArrayList<AchieveEarningList> achieveEarnList, String userRole, String designationType, ContactCallback contactCallback) {
         this.context = context;
         this.userRole = userRole;
+        this.designationType = designationType;
         this.achieveEarnLists = achieveEarnList;
         this.contactCallback = contactCallback;
     }
@@ -79,10 +80,23 @@ public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.
         profileImage = pmdImageUrl+achieveModel.getEmpCode()+"."+"jpg" ;
         Picasso.get().load(profileImage).into(holder.imgPmdContact);
 
-        if (Objects.equals(userRole, "MPO") && position == achieveEarnLists.size()-1) {
+        Spanned title = Html.fromHtml("<h2><font color='red'>Important Notice</font><h2><br><p>This calculator is in beta version. It can be used for rough calculations only. Any claim based on this calculator will not be taken into consideration. Final assessment will be done in CHQ for money disbursement as per existing procedure." +
+                "<br><br>এই ক্যালকুলেটরটি বিটা সংস্করণে রয়েছে। এটি শুধুমাত্র আনুমানিক হিসাবের জন্য  ব্যবহার করা যেতে পারে। এই ক্যালকুলেটরের উপর ভিত্তি করে কোনো দাবি বিবেচনায় নেওয়া হবে না। বিদ্যমান পদ্ধতি অনুযায়ী অর্থ প্রদানের জন্য CHQ-এ মূল্যায়নই চূড়ান্ত ।</p>", Html.FROM_HTML_MODE_COMPACT);
+        if ((Objects.equals(userRole, "MPO") && position == achieveEarnLists.size()-1)) {
             holder.notice_title.setVisibility(View.VISIBLE);
-            holder.notice_title.setText(Html.fromHtml("<h2><font color='red'>Important Notice</font><h2><br><p>This calculator is in beta version. It can be used for rough calculations only. Any claim based on this calculator will not be taken into consideration. Final assessment will be done in CHQ for money disbursement as per existing procedure." +
-                    "<br><br>এই ক্যালকুলেটরটি বিটা সংস্করণে রয়েছে। এটি শুধুমাত্র আনুমানিক হিসাবের জন্য  ব্যবহার করা যেতে পারে। এই ক্যালকুলেটরের উপর ভিত্তি করে কোনো দাবি বিবেচনায় নেওয়া হবে না। বিদ্যমান পদ্ধতি অনুযায়ী অর্থ প্রদানের জন্য CHQ-এ মূল্যায়নই চূড়ান্ত ।</p>", Html.FROM_HTML_MODE_COMPACT));
+            holder.notice_title.setText(title);
+        } else if (Objects.equals(userRole, "FM") && Objects.equals(designationType, "SELF") && position == achieveEarnLists.size()-1) {
+            holder.notice_title.setVisibility(View.VISIBLE);
+            holder.notice_title.setText(title);
+        } else if (Objects.equals(userRole, "RM") && Objects.equals(designationType, "SELF") && position == achieveEarnLists.size()-1) {
+            holder.notice_title.setVisibility(View.VISIBLE);
+            holder.notice_title.setText(title);
+        } else if (Objects.equals(userRole, "ASM") && Objects.equals(designationType, "SELF") && position == achieveEarnLists.size()-1) {
+            holder.notice_title.setVisibility(View.VISIBLE);
+            holder.notice_title.setText(title);
+        } else if (Objects.equals(userRole, "SM") && Objects.equals(designationType, "SELF") && position == achieveEarnLists.size()-1) {
+            holder.notice_title.setVisibility(View.VISIBLE);
+            holder.notice_title.setText(title);
         }
 
         holder.tvEmployeePhone.setOnClickListener(new View.OnClickListener() {

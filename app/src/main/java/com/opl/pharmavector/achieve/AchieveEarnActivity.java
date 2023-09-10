@@ -98,7 +98,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 recyclerAchieve.setAdapter(null);
-                getAchievementEarnList();
+                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && Objects.equals(deignation_type, "SELF")) {
+                    getAchieveEarnSelfList();
+                } else {
+                    getAchievementEarnList();
+                }
             }
         });
 
@@ -147,17 +151,25 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             autoCompleteTextView2.setVisibility(View.GONE);
         } else if (Objects.equals(userRole, "FM")) {
             divisionSpinner.setVisibility(View.GONE);
+            autoCompleteTextView2.setVisibility(View.GONE);
         }
     }
 
     private void getAchievementEarnList() {
+        String ff_type = "";
         ProgressDialog ppDialog = new ProgressDialog(AchieveEarnActivity.this);
-        ppDialog.setMessage("Loading Achievement Data ...");
+        ppDialog.setMessage("Loading Achieve Data ...");
         ppDialog.setCancelable(true);
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, autoCompleteTextView2.getText().toString().trim(), team_type, month_name);
-        Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
+
+        if (Objects.equals(userRole, "FM")) {
+            ff_type = "XX";
+        } else {
+            ff_type = autoCompleteTextView2.getText().toString().trim();
+        }
+        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, ff_type, team_type, month_name);
+        Log.d("ff_type", ff_type);
 
         call.enqueue(new Callback<AchieveEarnModel>() {
             @Override
@@ -169,7 +181,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         achieveLists = (response.body()).getAchieveEarnList();
                     }
-                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, AchieveEarnActivity.this);
+                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, deignation_type, AchieveEarnActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerAchieve.setLayoutManager(manager);
                     recyclerAchieve.setAdapter(achieveEarnAdapter);
@@ -188,7 +200,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
 
     private void getAchieveEarnSelfList() {
         ProgressDialog ppDialog = new ProgressDialog(AchieveEarnActivity.this);
-        ppDialog.setMessage("Loading Achievement Data ...");
+        ppDialog.setMessage("Loading Achieve Data ...");
         ppDialog.setCancelable(true);
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -204,7 +216,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         achieveLists = (response.body()).getAchieveEarnList();
                     }
-                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, AchieveEarnActivity.this);
+                    achieveEarnAdapter = new AchieveEarnAdapter(AchieveEarnActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, deignation_type, AchieveEarnActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(AchieveEarnActivity.this, LinearLayoutManager.VERTICAL, false);
                     recyclerAchieve.setLayoutManager(manager);
                     recyclerAchieve.setAdapter(achieveEarnAdapter);
@@ -239,19 +251,17 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         teamList = (response.body()).getTeamList();
                     }
-                    initTeamSpinner(Objects.requireNonNull(teamList));
 
-                    if (userRole.equals("FM")) {
+                    if (userRole.equals("FM") || userRole.equals("RM") || userRole.equals("ASM") || userRole.equals("SM")) {
+                        assert teamList != null;
                         for (FFTeamList teamInfo: teamList) {
                             if (Objects.equals(teamInfo.getTeamCode(), teamCode)) {
                                 teamSpinner.setText(teamInfo.getTeamName());
                                 team_type = teamInfo.getTeamCode();
-
-                                if (!Objects.equals(team_type, "XX")) {
-                                    new GetFieldForce().execute();
-                                }
                             }
                         }
+                    } else {
+                        initTeamSpinner(Objects.requireNonNull(teamList));
                     }
                     Log.d("Team List -- : ", String.valueOf(teamList));
                 }
@@ -285,7 +295,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         achvMonthList = (response.body()).getAchvMonthList();
                     }
-                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM")) {
+                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
                         initMonthSpinner(Objects.requireNonNull(achvMonthList));
                     } else {
                         initMpoMonthSpinner(Objects.requireNonNull(achvMonthList));
@@ -381,8 +391,19 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void initPlaceSpinner() {
-        divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
+        if (Objects.equals(userRole, "RM")) {
+            divisionSpinner.setItems("All", "Area", "Territory");
+        } else if (Objects.equals(userRole, "ASM")) {
+            divisionSpinner.setItems("All", "Region", "Area", "Territory");
+        } else if (Objects.equals(userRole, "SM")) {
+            divisionSpinner.setItems("All", "Zone", "Region", "Area", "Territory");
+        } else {
+            divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
+        }
+        divisionSpinner.setText("All");
+        autoCompleteTextView2.setText("XX");
 
         divisionSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @SuppressLint("SetTextI18n")
@@ -417,7 +438,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
 
     private void initDesignationSpinner() {
         if (Objects.equals(userRole, "FM")) {
-            desigSpinner.setItems("MPO");
+            desigSpinner.setItems("MPO", "SELF");
+        } else if (Objects.equals(userRole, "RM")) {
+            desigSpinner.setItems("MPO", "AM", "SELF");
+        } else if (Objects.equals(userRole, "ASM")) {
+            desigSpinner.setItems("MPO", "AM", "RM", "SELF");
+        } else if (Objects.equals(userRole, "SM")) {
+            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
         } else {
             desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM");
         }
@@ -438,6 +465,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     deignation_type = "AM";
                 } else if (deignation_name.trim().equals("SM")) {
                     deignation_type = "SM";
+                } else if (deignation_name.trim().equals("SELF")) {
+                    deignation_type = "SELF";
                 }
             }
         });
@@ -535,6 +564,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         autoCompleteTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
         autoCompleteTextView2.addTextChangedListener(new TextWatcher() {
