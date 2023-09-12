@@ -344,26 +344,15 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(ManagersSalesFollowup2.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-        /*---------------------------from date range-----------------end-----------*/
-
-
-
-
-
-        /*--------------------------to-date range----------------------------*/
 
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
@@ -400,10 +389,8 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         });
 
         /*---------------------------to date range-----------------end-----------*/
-
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
-
             //UserName = b.getString("UserName");
             //UserName_1= b.getString("UserName_1");
             //UserName_2= b.getString("UserName_2");
@@ -411,32 +398,20 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             public void onClick(final View v) {
                 // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             finish();
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
 
-
         submitBtn.setOnClickListener(new OnClickListener() {
-
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
@@ -445,11 +420,8 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                 try {
                     String fromdate1 = fromdate.getText().toString();
                     String todate1 = todate.getText().toString();
-
                     System.out.println("else  fromdate1 " + fromdate1);
-
                     System.out.println("query_code" + query_code);
-
 
                     if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
                         //fromdate.setError( "From Date is required!" );
@@ -457,20 +429,15 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                         fromdate.setTextColor(Color.RED);
                     } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
                         //todate.setError( "To Date is required!" );
-
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
                     } else {
                         System.out.println("after text change elsfromdate1eeeeeeeee" + fromdate1);
                         System.out.println("elsetodate1 " + todate1);
-
                         categoriesList.clear();
                         new GetCategories().execute();
 
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -478,32 +445,24 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
         });
 
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
             }
         });
-
     }
-
 
     private void producpopulatespinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
-
-
         }
-
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -549,13 +508,11 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
 
                 } catch (JSONException e) {
@@ -605,9 +562,9 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
-            //growth_val
             ArrayList<String> growth_val = new ArrayList<String>();
-            String quantity = "";
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            String quantity = "", monGrowth;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth, ff_name;
@@ -622,15 +579,17 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                 mpo = String.valueOf(categoriesList.get(i).getPPM_CODE());
                 ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
                 ff_names.add(ff_name);
                 growth_val.add(growth);
+                mon_growth.add(monGrowth);
             }
             //MPOwiseProductSaleShowAdapter adapter = new MPOwiseProductSaleShowAdapter(ManagersSalesFollowup2.this,lables, quanty,value,achv,mpo_code);
             MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(ManagersSalesFollowup2.this, lables,
-                    quanty, value, achv, mpo_code, ff_names, growth_val);
+                    quanty, value, achv, mpo_code, ff_names, growth_val, mon_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -694,7 +653,8 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("FF_NAME")
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -719,29 +679,26 @@ public class ManagersSalesFollowup2 extends Activity implements OnClickListener,
             popSpinner();
             totqty.setText("");
             totval.setText("");
-
             //totqty.setText("Total target quantity="+sp.getTotalQ());
             //totval.setText("Total Sales quantity="+sp.getTotalV());
-
         }
     }
     /*------------- list items on click event----------------*/
 
-
     @Override
     public void onClick(View v) {
+
     }
 
     protected void onPostExecute() {
+
     }
 
     private void view() {
         Intent i = new Intent(ManagersSalesFollowup2.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

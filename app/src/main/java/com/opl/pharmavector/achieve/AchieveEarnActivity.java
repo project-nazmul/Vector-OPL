@@ -403,7 +403,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
         }
         divisionSpinner.setText("All");
-        autoCompleteTextView2.setText("XX");
+
+        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) {
+            place_type = userCode;
+            autoCompleteTextView2.setText(place_type);
+        } else {
+            autoCompleteTextView2.setText(place_type);
+        }
 
         divisionSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @SuppressLint("SetTextI18n")
@@ -411,7 +417,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 place_name = String.valueOf(item);
                 if (place_name.trim().equals("All")) {
-                    place_type = "XX";
+                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) {
+                        place_type = userCode;
+                    } else {
+                        place_type = "XX";
+                    }
                 } else if (place_name.trim().equals("Division")) {
                     place_type = "D";
                 } else if (place_name.trim().equals("Zone")) {
@@ -427,10 +437,14 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                 if (place_type.equals("XX")) {
                     autoCompleteTextView2.setText("XX");
                 } else {
-                    autoCompleteTextView2.setText("");
-                    customerlist.clear();
-                    categoriesList.clear();
-                    new GetFieldForce().execute();
+                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) && place_name.trim().equals("All")) {
+                        autoCompleteTextView2.setText(place_type);
+                    } else {
+                        autoCompleteTextView2.setText("");
+                        customerlist.clear();
+                        categoriesList.clear();
+                        new GetFieldForce().execute();
+                    }
                 }
             }
         });

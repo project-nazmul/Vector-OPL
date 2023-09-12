@@ -420,7 +420,7 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
         cust.setOnItemSelectedListener(this);
         actv = findViewById(R.id.autoCompleteTextView1);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 "); //&#xf060
+        back_btn.setText("\uf060 "); // &#xf060
         ln = findViewById(R.id.totalshow);
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
@@ -488,7 +488,8 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
             ArrayList<String> mpo_code = new ArrayList<String>();
             ArrayList<String> growth_val = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
-            String quantity;
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            String quantity, monGrowth;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth, ff_name;
@@ -503,14 +504,16 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                 mpo = String.valueOf(categoriesList.get(i).getPPM_CODE());
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
                 ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
                 ff_names.add(ff_name);
                 growth_val.add(growth);
+                mon_growth.add(monGrowth);
             }
             MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(ManagersSalesFollowup.this, lables, quanty,
-                    value, achv, mpo_code, ff_names, growth_val);
+                    value, achv, mpo_code, ff_names, growth_val, mon_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -575,7 +578,8 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("FF_NAME")
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -583,7 +587,7 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(ManagersSalesFollowup.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManagersSalesFollowup.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ManagersSalesFollowup.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;

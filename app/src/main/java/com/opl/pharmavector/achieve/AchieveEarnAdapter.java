@@ -65,8 +65,10 @@ public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.
             holder.infoLayout.setVisibility(View.VISIBLE);
             holder.achvTextLayout.setVisibility(View.VISIBLE);
         }
-        holder.tvEmployeeCode.setText("("+achieveModel.getFfCode()+")");
+        holder.tvEmployeeCode.setText("[ "+achieveModel.getFfCode()+" ]");
         holder.tvEmployeeName.setText(achieveModel.getEmpName());
+        holder.tvFFName.setText(achieveModel.getFfName());
+
         if (achieveModel.getRemainValue() != null) {
             holder.remain_value.setText(achieveModel.getRemainValue());
         } else {
@@ -113,7 +115,7 @@ public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.
     }
 
     public class AchieveEarnViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvEmployeeSL, tvEmployeeCode, tvEmployeeName, remain_value, tvEmployeePhone, tvPhoneCall, tvPhoneSms, brandName, achievement, growth, targeted_growth, notice_title;
+        public TextView tvEmployeeSL, tvEmployeeCode, tvEmployeeName, remain_value, tvEmployeePhone, tvPhoneCall, tvPhoneSms, brandName, achievement, growth, targeted_growth, notice_title, tvFFName;
         public ImageView imgPmdContact;
         public LottieAnimationView lottiePhoneCall, lottiePhoneSms;
         public LinearLayout hotlineLayout, achieveLayout, infoLayout, achvTextLayout;
@@ -129,6 +131,7 @@ public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.
             brandName = (TextView) itemView.findViewById(R.id.brandName);
             achievement = (TextView) itemView.findViewById(R.id.achievement);
             growth = (TextView) itemView.findViewById(R.id.growth);
+            tvFFName = (TextView) itemView.findViewById(R.id.tvFFName);
             remain_value = (TextView) itemView.findViewById(R.id.remain_value);
             notice_title = (TextView) itemView.findViewById(R.id.notice_title);
             targeted_growth = (TextView) itemView.findViewById(R.id.targeted_growth);

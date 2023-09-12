@@ -158,9 +158,9 @@
                     android:id="@+id/sproduct_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:gravity="center"
-                    android:text="Target "
+                    android:text="Target Value"
                     android:textSize="@dimen/_10sdp"
                     android:textColor="#775AAD" />
 
@@ -169,8 +169,8 @@
                     android:id="@+id/sqnty1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Sales"
-                    android:layout_weight="4"
+                    android:text="Sales Value"
+                    android:layout_weight="3"
                     android:gravity="center"
                     android:textColor="#4CAF50"
                     android:textSize="@dimen/_10sdp" />
@@ -181,9 +181,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"
-                    android:text="Achiev"
+                    android:text="Achiev (%)"
                     android:gravity="center"
                     android:textColor="#9C27B0"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/monthGrowth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="Monthly\nGrowth"
+                    android:textColor="#673AB7"
                     android:textSize="@dimen/_10sdp" />
 
                 <TextView
@@ -193,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="Growth"
+                    android:text="Yearly\nGrowth"
                     android:textColor="#A42E56"
                     android:textSize="@dimen/_10sdp" />
 
