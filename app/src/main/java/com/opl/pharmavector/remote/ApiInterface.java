@@ -5,8 +5,10 @@ import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
+import com.opl.pharmavector.dcfpFollowup.DcfpFollowMpoModel;
 import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntryDoctorModel;
+import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.model.Patient;
@@ -185,6 +187,26 @@ public interface ApiInterface {
     Call<DcfpModel> getDcfpPreviewList(
             @Field("id") String id,
             @Field("select_date") String to_date
+    );
+
+    @FormUrlEncoded
+    @POST("dcfp/get_mpo_dcfp_list.php")
+    Call<MpoDcfpFollowModel> getDcfpMpoFollowupList(
+            @Field("id") String id,
+            @Field("select_date") String to_date,
+            @Field("ts_code") String ts_code
+    );
+
+    @FormUrlEncoded
+    @POST("get_mpo_list.php")
+    Call<DcfpFollowMpoModel> getDcfpFollowMpoList(
+            @Field("ff_code") String ff_code
+    );
+
+    @FormUrlEncoded
+    @POST("get_segment_list.php")
+    Call<DcfpFollowMpoModel> getDcfpMpoSegmentList(
+            @Field("mpo_code") String mpo_code
     );
 
     @FormUrlEncoded

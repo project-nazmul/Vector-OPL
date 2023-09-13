@@ -29,31 +29,35 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ achievement &amp; earn done!">
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ sales Follow-up update!&#10;+ version update!">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DcfpFollowMpoList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DcfpFollowMpoModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mpo_dcfp_follow.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/mpo_dcfp_follow_row.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.27.apk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMfollowMpoAchv.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMfollowMpoAchv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMfollowMpoAchv2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMfollowMpoAchv2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMwiseProductSale2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AMwiseProductSale2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/CategoryNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/CategoryNew.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/MPOwiseAchvfollowupAdapter2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/MPOwiseAchvfollowupAdapter2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/ManagersSalesFollowup.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/ManagersSalesFollowup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/ManagersSalesFollowup2.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/ManagersSalesFollowup2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RMfollowMpoAchv.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RMfollowMpoAchv.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AssistantManagerDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AssistantManagerDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RmDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/SalesManagerDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/SalesManagerDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/mpoachvfollowup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/mpoachvfollowup.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/achieve_earn_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/achieve_earn_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/amviewbydateproduct_show2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/amviewbydateproduct_show2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_achieve_earn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_achieve_earn.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/pmd_rx_bottom_sheet_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/pmd_rx_bottom_sheet_dialog.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\m.hasan\.android\avd\Pixel_API_33.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[987473067500021]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -84,8 +88,8 @@
       <list>
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -190,6 +194,9 @@
     </key>
     <key name="android.template.-1637754152">
       <recent name="com.opl.pharmavector.report" />
+    </key>
+    <key name="android.template.-1237817187">
+      <recent name="com.opl.pharmavector.dcfpFollowup" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.opl.pharmavector.msd_doc_support" />
@@ -419,13 +426,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
-    </task>
-    <task id="LOCAL-00057" summary="+ brand wise sale in mpo dashboard!">
-      <created>1683115090502</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1683115090502</updated>
     </task>
     <task id="LOCAL-00058" summary="+ date range added in dcr report!">
       <created>1683200387603</created>
@@ -763,7 +763,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694347285941</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="+ sales Follow-up update!&#10;+ version update!">
+      <created>1694521196723</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1694521196723</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -779,7 +786,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ msd dashboard added!&#10;+ notification token added!" />
     <MESSAGE value="+ msd dashboard design done!" />
     <MESSAGE value="+ notification counter done!" />
     <MESSAGE value="+ notification counter remove!" />
@@ -804,7 +810,8 @@
     <MESSAGE value="+ achievement &amp; earn design loading II!" />
     <MESSAGE value="+ achievement &amp; earn modify!" />
     <MESSAGE value="+ achievement &amp; earn done!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ achievement &amp; earn done!" />
+    <MESSAGE value="+ sales Follow-up update!&#10;+ version update!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ sales Follow-up update!&#10;+ version update!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -927,7 +934,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
-          <line>2861</line>
+          <line>2871</line>
           <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1112,27 +1119,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>562</line>
+          <line>584</line>
           <option name="timeStamp" value="350" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>563</line>
+          <line>585</line>
           <option name="timeStamp" value="351" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>564</line>
+          <line>586</line>
           <option name="timeStamp" value="352" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>565</line>
+          <line>587</line>
           <option name="timeStamp" value="353" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>567</line>
+          <line>589</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1307,12 +1314,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>216</line>
+          <line>238</line>
           <option name="timeStamp" value="440" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>217</line>
+          <line>239</line>
           <option name="timeStamp" value="441" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1834,21 +1841,6 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DcfpFollowupActivity.java</url>
           <line>143</line>
           <option name="timeStamp" value="596" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
-          <line>2398</line>
-          <option name="timeStamp" value="598" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
-          <line>2399</line>
-          <option name="timeStamp" value="599" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
-          <line>2401</line>
-          <option name="timeStamp" value="600" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MPODcfpEntryActivity.java</url>
@@ -2937,12 +2929,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>210</line>
+          <line>211</line>
           <option name="timeStamp" value="1247" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>220</line>
+          <line>221</line>
           <option name="timeStamp" value="1248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -2952,27 +2944,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>232</line>
+          <line>233</line>
           <option name="timeStamp" value="1251" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>287</line>
+          <line>288</line>
           <option name="timeStamp" value="1252" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>170</line>
+          <line>171</line>
           <option name="timeStamp" value="1253" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>181</line>
+          <line>182</line>
           <option name="timeStamp" value="1254" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>454</line>
+          <line>455</line>
           <option name="timeStamp" value="1257" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -2982,7 +2974,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
-          <line>400</line>
+          <line>401</line>
           <option name="timeStamp" value="1260" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -2994,6 +2986,51 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/ManagersSalesFollowup.java</url>
           <line>568</line>
           <option name="timeStamp" value="1262" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
+          <line>2409</line>
+          <option name="timeStamp" value="1264" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java</url>
+          <line>2410</line>
+          <option name="timeStamp" value="1265" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowActivity.java</url>
+          <line>273</line>
+          <option name="timeStamp" value="1266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowActivity.java</url>
+          <line>278</line>
+          <option name="timeStamp" value="1267" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/MpoDcfpFollowActivity.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="1268" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="1269" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/SalesManagerDashboard.java</url>
+          <line>429</line>
+          <option name="timeStamp" value="1270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/SalesManagerDashboard.java</url>
+          <line>428</line>
+          <option name="timeStamp" value="1272" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java</url>
+          <line>409</line>
+          <option name="timeStamp" value="1273" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

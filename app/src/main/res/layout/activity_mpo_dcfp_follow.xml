@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:weightSum="4"
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoDcfpMpoList"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5sp"
+                    android:layout_weight="3"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Mpo"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/todate"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:ems="10"
+                    android:enabled="true"
+                    android:selectAllOnFocus="true"
+                    android:text="End Date"
+                    android:textSize="@dimen/_8sdp"
+                    card_view:drawableStartCompat="@drawable/ic_today_1"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:background="@android:drawable/editbox_background"
+                    android:id="@+id/segmentSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_8sdp"
+                    app:ms_hint="Segment Code"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+
+                <Button
+                    android:id="@+id/submitBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="show"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/_8sdp"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:id="@+id/slistLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:weightSum="7">
+
+            <TextView
+                android:id="@+id/dcr_sl"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_weight="0.3"
+                android:focusable="true"
+                android:text="VT"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/dco_chem_name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.7"
+                android:focusable="true"
+                android:text="D. CODE"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/ppm_pm_name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:clickable="true"
+                android:paddingStart="@dimen/_4sdp"
+                android:text="DOCTOR NAME "
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:paddingStart="@dimen/_4sdp"
+                android:id="@+id/segCode"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:text="S. CODE"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:id="@+id/all_rest_quant"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:text="MARKET"
+                android:textAlignment="center"
+                android:textColor="@color/vergence"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMpoDcfp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="98"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/transparent"
+        android:listSelector="@drawable/active" />
+
+    <LinearLayout
+        android:id="@+id/totalshow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:drawable/status_bar_item_background"
+        android:visibility="gone"
+        android:weightSum="98">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#FFF"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totalsellquantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:text=""
+            android:textColor="@color/darkblue"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totalsellvalue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="45"
+            android:gravity="end"
+            android:text=""
+            android:textColor="@color/darkblue"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:text="* VT -> Visit Type"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="* M -> Morning"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="* E -> Evening"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/_8sdp"
+                android:text="* S. CODE -> Segment Code"
+                android:textColor="#FB0505"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </RelativeLayout>
+</LinearLayout>

@@ -650,7 +650,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
-        Objects.requireNonNull(textView5).setText("Dcfp\nFollowup");
+        Objects.requireNonNull(textView5).setText("DCFP\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);

@@ -42,12 +42,14 @@ import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
+import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.exam.ExamResultFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
@@ -2363,6 +2365,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_dcfp_mpo = bottomSheetDialog.findViewById(R.id.cardview_dcfp_mpo);
+        Objects.requireNonNull(cardview_dcfp_mpo).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2376,7 +2380,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(button3).setText("1.3");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
-        Objects.requireNonNull(textView6).setText("Dcfp\nFollowup");
+        Objects.requireNonNull(textView6).setText("DCFP\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -2399,6 +2403,12 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalFMCode);
             i.putExtra("UserName_2", globalAreaCode);
             i.putExtra("UserName_3", globalFMCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfp_mpo).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, MpoDcfpFollowActivity.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

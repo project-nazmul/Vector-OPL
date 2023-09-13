@@ -37,6 +37,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".dcfpFollowup.MpoDcfpFollowActivity"
+            android:exported="false" />
+        <activity
             android:name=".achieve.AchieveEarnActivity"
             android:exported="false" />
         <activity

@@ -164,7 +164,8 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         if (Objects.equals(userRole, "FM")) {
-            ff_type = "XX";
+            //ff_type = "XX";
+            ff_type = userCode;
         } else {
             ff_type = autoCompleteTextView2.getText().toString().trim();
         }
@@ -404,7 +405,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         }
         divisionSpinner.setText("All");
 
-        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) {
+        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
             place_type = userCode;
             autoCompleteTextView2.setText(place_type);
         } else {
@@ -417,7 +418,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 place_name = String.valueOf(item);
                 if (place_name.trim().equals("All")) {
-                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) {
+                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
                         place_type = userCode;
                     } else {
                         place_type = "XX";
@@ -437,7 +438,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                 if (place_type.equals("XX")) {
                     autoCompleteTextView2.setText("XX");
                 } else {
-                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM")) && place_name.trim().equals("All")) {
+                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && place_name.trim().equals("All")) {
                         autoCompleteTextView2.setText(place_type);
                     } else {
                         autoCompleteTextView2.setText("");
