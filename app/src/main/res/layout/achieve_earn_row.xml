@@ -68,10 +68,10 @@
                             android:textStyle="normal" />
 
                         <TextView
-                            android:layout_marginStart="@dimen/_4sdp"
                             android:id="@+id/tvEmployeeCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="Employee Code"
                             android:textColor="#837A7D"
                             android:textSize="10sp"
@@ -204,6 +204,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:focusable="true"
                 android:gravity="center"
@@ -222,6 +223,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:focusable="true"
                 android:gravity="center"
@@ -244,6 +246,24 @@
                 android:gravity="center"
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
+                android:text="Achievement\nRemain Value"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
                 android:text="Growth"
                 android:textColor="@color/pink"
                 android:textSize="@dimen/_8sdp" />
@@ -256,6 +276,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
@@ -263,23 +284,6 @@
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Targeted Growth"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#424242" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Remain Value"
-                android:textColor="@color/darkblue"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 
@@ -333,6 +337,24 @@
                 android:background="#424242" />
 
             <TextView
+                android:id="@+id/remain_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
+                android:text="Remain Value"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
                 android:id="@+id/growth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -361,24 +383,6 @@
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Targeted Growth"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_8sdp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#424242" />
-
-            <TextView
-                android:id="@+id/remain_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
-                android:text="Remain Value"
-                android:textColor="@color/darkblue"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 

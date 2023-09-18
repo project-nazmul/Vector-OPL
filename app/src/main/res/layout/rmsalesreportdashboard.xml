@@ -518,6 +518,7 @@
                 android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
+                    android:visibility="gone"
                     android:id="@+id/cardMrdPrescription"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
@@ -571,6 +572,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:visibility="gone"
                     android:id="@+id/card4pPrescription"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
@@ -632,6 +634,7 @@
                 android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
+                    android:visibility="gone"
                     android:id="@+id/cardMspPrescription"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
@@ -728,7 +731,7 @@
                             android:background="@drawable/left_button_shape"
                             android:clickable="false"
                             android:gravity="center"
-                            android:text="12"
+                            android:text="9"
                             android:textColor="@android:color/black"
                             android:textSize="20sp"
                             android:textStyle="bold"
