@@ -26,6 +26,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
     ArrayList<String> mpo_name;
     ArrayList<String> growth_val;
     ArrayList<String> mon_val;
+    ArrayList<String> cum_growth;
     //growth_val
     //ArrayList<String> p_rates;
     ArrayList<String> qnty;
@@ -59,7 +60,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
         this.mContext = con;
     }
 
-    MPOwiseAchvfollowupAdapter2(Context con, ArrayList<String> product_name, ArrayList<String> qnty, ArrayList<String> value, ArrayList<String> achv, ArrayList<String> mpo_code, ArrayList<String> mpo_name, ArrayList<String> growth_val, ArrayList<String> mon_val) {
+    MPOwiseAchvfollowupAdapter2(Context con, ArrayList<String> product_name, ArrayList<String> qnty, ArrayList<String> value, ArrayList<String> achv, ArrayList<String> mpo_code, ArrayList<String> mpo_name, ArrayList<String> growth_val, ArrayList<String> mon_val, ArrayList<String> cum_growth) {
         this.product_name = product_name;
         this.qnty = qnty;
         this.value = value;
@@ -68,6 +69,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
         this.mpo_name = mpo_name;
         this.growth_val = growth_val;
         this.mon_val = mon_val;
+        this.cum_growth = cum_growth;
         this.mContext = con;
     }
 
@@ -110,6 +112,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
         holder.achv = (TextView) rowView.findViewById(R.id.amachivement1);
         holder.growth_val = (TextView) rowView.findViewById(R.id.growth_col);
         holder.growth_mon = (TextView) rowView.findViewById(R.id.growth_mon);
+        holder.y_growth = (TextView) rowView.findViewById(R.id.y_growth);
         serial.setText(String.valueOf(position + 1));
 
         //holder.product_name.setText(product_name.get(position));
@@ -137,6 +140,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
         holder.mpo_name.setText(mpo_name.get(position));
         holder.growth_val.setText(growth_val.get(position));
         holder.growth_mon.setText(mon_val.get(position));
+        holder.y_growth.setText(cum_growth.get(position));
 
         //String valu_format =  value.get(position).toString();
         //double val_for=Double.parseDouble(valu_format);
@@ -163,7 +167,7 @@ public class MPOwiseAchvfollowupAdapter2 extends BaseAdapter {
         TextView product_name;
         TextView mpo_code;
         TextView mpo_name;
-        TextView growth_val, growth_mon;
+        TextView growth_val, growth_mon, y_growth;
         TextView achv;
         //int click_pos;
         //int last_position;

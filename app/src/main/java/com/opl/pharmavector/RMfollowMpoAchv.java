@@ -453,7 +453,8 @@ public class RMfollowMpoAchv extends Activity implements OnClickListener, Adapte
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
                                 catObj.getString("FF_NAME"),
-                                catObj.getString("MON_GROWTH")
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

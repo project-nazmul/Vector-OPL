@@ -28,6 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import org.apache.http.NameValuePair;
@@ -45,7 +47,7 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
-public class ManagersSalesFollowup extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
+public class ManagersSalesFollowup extends AppCompatActivity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -489,7 +491,8 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
             ArrayList<String> growth_val = new ArrayList<String>();
             ArrayList<String> ff_names = new ArrayList<String>();
             ArrayList<String> mon_growth = new ArrayList<String>();
-            String quantity, monGrowth;
+            ArrayList<String> cum_growth = new ArrayList<String>();
+            String quantity, monGrowth, cumGrowth;
             float achievment;
             String prod_rate, prod_vat, sellvalue;
             String mpo, growth, ff_name;
@@ -505,15 +508,17 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                 growth = String.valueOf(categoriesList.get(i).getP_CODE());
                 ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
                 monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
                 ff_names.add(ff_name);
                 growth_val.add(growth);
                 mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
             }
             MPOwiseAchvfollowupAdapter2 adapter = new MPOwiseAchvfollowupAdapter2(ManagersSalesFollowup.this, lables, quanty,
-                    value, achv, mpo_code, ff_names, growth_val, mon_growth);
+                    value, achv, mpo_code, ff_names, growth_val, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -579,7 +584,8 @@ public class ManagersSalesFollowup extends Activity implements OnClickListener, 
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
                                 catObj.getString("FF_NAME"),
-                                catObj.getString("MON_GROWTH")
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

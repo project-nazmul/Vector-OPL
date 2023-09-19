@@ -239,6 +239,7 @@
                 android:background="#424242" />
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -247,7 +248,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Achievement\nRemain Value"
-                android:textColor="@color/darkblue"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_8sdp" />
 
             <View
@@ -265,7 +266,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Growth"
-                android:textColor="@color/pink"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
 
             <View
@@ -283,7 +284,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Targeted Growth"
-                android:textColor="@color/blue"
+                android:textColor="@color/pink"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 
@@ -337,6 +338,7 @@
                 android:background="#424242" />
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/remain_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -346,7 +348,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Remain Value"
-                android:textColor="@color/darkblue"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_8sdp" />
 
             <View
@@ -364,7 +366,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Growth"
-                android:textColor="@color/pink"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
 
             <View
@@ -382,7 +384,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingBottom="@dimen/_6sdp"
                 android:text="Targeted Growth"
-                android:textColor="@color/blue"
+                android:textColor="@color/pink"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
 

@@ -14,8 +14,9 @@ public class CategoryNew {
     private String PROD_VAT_2;
     private String FF_NAME;
     private String MON_GROWTH;
+    private String CUM_GROWTH;
 
-    public CategoryNew(String sl, String id, String name, String quantity, String PROD_RATE, String PROD_VAT, String PPM_CODE, String P_CODE, String FF_NAME, String MON_GROWTH) {
+    public CategoryNew(String sl, String id, String name, String quantity, String PROD_RATE, String PROD_VAT, String PPM_CODE, String P_CODE, String FF_NAME, String MON_GROWTH, String CUM_GROWTH) {
         this.sl = sl;
         this.id = id;
         this.name = name;
@@ -26,7 +27,15 @@ public class CategoryNew {
         this.P_CODE = P_CODE;
         this.FF_NAME = FF_NAME;
         this.MON_GROWTH = MON_GROWTH;
-        //this.array_length = array_length;
+        this.CUM_GROWTH = CUM_GROWTH;
+    }
+
+    public String getCUM_GROWTH() {
+        return CUM_GROWTH;
+    }
+
+    public void setCUM_GROWTH(String CUM_GROWTH) {
+        this.CUM_GROWTH = CUM_GROWTH;
     }
 
     public String getMON_GROWTH() {
