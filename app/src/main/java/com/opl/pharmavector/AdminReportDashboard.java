@@ -185,7 +185,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                 Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
                 i.putExtra("userName", userName);
                 i.putExtra("UserName", userName);
-                i.putExtra("report_flag", "MRD");
+                i.putExtra("report_flag", "SPI");
                 i.putExtra("asm_flag", asm_flag);
                 i.putExtra("sm_flag", sm_flag);
                 i.putExtra("gm_flag", gm_flag);

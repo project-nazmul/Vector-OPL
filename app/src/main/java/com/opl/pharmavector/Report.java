@@ -510,7 +510,7 @@ public class Report extends Activity implements OnClickListener {
                     Intent i = new Intent(Report.this, MRDPresReport.class);
                     i.putExtra("userName", userName);
                     i.putExtra("UserName", userName);
-                    i.putExtra("report_flag", "MRD");
+                    i.putExtra("report_flag", "SPI");
                     i.putExtra("asm_flag", "N");
                     i.putExtra("sm_flag", "N");
                     i.putExtra("gm_flag", "N");

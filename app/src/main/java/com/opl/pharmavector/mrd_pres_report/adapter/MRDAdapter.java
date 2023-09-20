@@ -19,54 +19,41 @@ import com.opl.pharmavector.promomat.model.Promo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> implements Filterable
-{
+public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> implements Filterable {
     private static final int TYPE_ROW = 0;
     private static final int TYPE_ROW_COLORFUL = 1;
-
     public List<Promo> companyList;
     public List<Promo> filteredCompanyList;
     private Context context;
 
-    public MRDAdapter(Context context, List<Promo> companyList)
-    {
+    public MRDAdapter(Context context, List<Promo> companyList) {
         this.context = context;
         this.companyList = companyList;
         this.filteredCompanyList = companyList;
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
-        if (position % 2 == 0)
-        {
+    public int getItemViewType(int position) {
+        if (position % 2 == 0) {
             return TYPE_ROW_COLORFUL;
         }
-
         return TYPE_ROW;
     }
 
     @Override
-    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
-    {
-        if (viewType == TYPE_ROW)
-        {
+    public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        if (viewType == TYPE_ROW) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
-
             return new ClubViewHolder(view);
-        } else
-        {
+        } else {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
             return new ClubViewHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(ClubViewHolder holder, int position)
-    {
-
+    public void onBindViewHolder(ClubViewHolder holder, int position) {
             Promo company = filteredCompanyList.get(position);
-
             holder.serial.setText(company.serial);
             holder.mpocode.setText(company.code);
             holder.month.setText(company.month);
@@ -86,7 +73,6 @@ public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> 
             holder.base.setText(company.base);
             holder.oplbase.setText(company.oplbase);
             holder.oplshare.setText(company.oplshare);
-
     }
 
     @Override
@@ -95,13 +81,11 @@ public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> 
         return filteredCompanyList.size();
     }
 
-    public class ClubViewHolder extends RecyclerView.ViewHolder
-    {
-        public TextView serial, mpocode, month, sample_name, pack_size, type,week1,week2,week3,week4,total,aci,ari,pop,rad,
-                osl,oth,base,oplbase,oplshare;
+    public class ClubViewHolder extends RecyclerView.ViewHolder {
+        public TextView serial, mpocode, month, sample_name, pack_size, type,week1,week2,week3,week4,total,aci,ari,pop,rad,osl,oth,base,oplbase,oplshare;
         public ImageView imgLogo;
-        public ClubViewHolder(View view)
-        {
+
+        public ClubViewHolder(View view) {
             super(view);
             serial = view.findViewById(R.id.serial);
             mpocode = view.findViewById(R.id.mpocode);
@@ -114,58 +98,44 @@ public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> 
             week3 = view.findViewById(R.id.week3);
             week4 = view.findViewById(R.id.week4);
             total = view.findViewById(R.id.total);
-
             aci = view.findViewById(R.id.aci);
             ari = view.findViewById(R.id.ari);
             pop = view.findViewById(R.id.pop);
             rad = view.findViewById(R.id.rad);
             osl = view.findViewById(R.id.osl);
             oth = view.findViewById(R.id.oth);
-
             base = view.findViewById(R.id.base);
             oplbase = view.findViewById(R.id.oplbase);
             oplshare = view.findViewById(R.id.oplshare);
-
-
         }
     }
 
     @Override
-    public Filter getFilter()
-    {
-        return new Filter()
-        {
+    public Filter getFilter() {
+        return new Filter() {
             @Override
-            protected FilterResults performFiltering(CharSequence charSequence)
-            {
+            protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
-                if (charString.isEmpty())
-                {
+                if (charString.isEmpty()) {
                     filteredCompanyList = companyList;
-                } else
-                {
+                } else {
                     List<Promo> filteredList = new ArrayList<>();
-                    for (Promo company : companyList)
-                    {
-                        if (company.serial.toLowerCase().contains(charString.toLowerCase()) )
-                        {
+                    for (Promo company : companyList) {
+                        if (company.serial.toLowerCase().contains(charString.toLowerCase()) ) {
                             filteredList.add(company);
                         }
                     }
-
                     filteredCompanyList = filteredList;
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredCompanyList;
                 return filterResults;
             }
 
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults)
-            {
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 filteredCompanyList = (ArrayList<Promo>) filterResults.values;
-                // refresh the list with filtered data
+                //refresh the list with filtered data
                 notifyDataSetChanged();
             }
         };

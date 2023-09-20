@@ -99,7 +99,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
                         Intent i = new Intent(RmSalesReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", userName);
                         i.putExtra("UserName", userName);
-                        i.putExtra("report_flag", "MRD");
+                        i.putExtra("report_flag", "SPI");
                         i.putExtra("asm_flag", "N");
                         i.putExtra("sm_flag", "N");
                         i.putExtra("gm_flag", "N");

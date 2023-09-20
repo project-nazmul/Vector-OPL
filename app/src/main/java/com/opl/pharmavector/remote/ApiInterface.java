@@ -642,7 +642,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("prescription_survey/executive_summary/sm_followup.php")
+    @POST("spi/sm_followup.php")
     Call<List<Patient>> mrd_sm_followup(
             @Field("mpo_code") String mpo_code,
             @Field("user_flag") String user_flag,
@@ -651,7 +651,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("prescription_survey/executive_summary/self_followup.php")
+    @POST("spi/self_followup.php")
     Call<List<Patient>> mrd_self_followup(
             @Field("mpo_code") String mpo_code,
             @Field("self_flag") String self_flag,
@@ -661,7 +661,7 @@ public interface ApiInterface {
 
     //mrd_doc_followup
     @FormUrlEncoded
-    @POST("prescription_survey/executive_summary/mrd_doc_followup.php")
+    @POST("spi/spi_doc_followup.php")
     Call<List<Patient>> mrd_doc_followup(
             @Field("mpo_code") String user_code,
             @Field("service_month") String service_month,
@@ -669,7 +669,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("prescription_survey/executive_summary/mrd_prod_followup.php")
+    @POST("spi/spi_prod_followup.php")
     Call<List<Patient>> mrd_prod_followup(
             @Field("mpo_code") String mpo_code,
             @Field("doc_code") String doc_code,
@@ -678,7 +678,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("msd_doc_support/update_status.php")
+    @POST("spi/update_status.php")
     Call<Patient> postupdateStatus(
             @Field("selected_service_no") String selected_service_no,
             @Field("selected_service_no_serial") String selected_service_no_serial

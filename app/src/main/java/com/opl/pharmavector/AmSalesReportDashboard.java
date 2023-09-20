@@ -337,7 +337,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                         Intent i = new Intent(AmSalesReportDashboard.this, MRDPresReport.class);
                         i.putExtra("userName", AmDashboard.globalFMCode);
                         i.putExtra("UserName", AmDashboard.globalFMCode);
-                        i.putExtra("report_flag", "MRD");
+                        i.putExtra("report_flag", "SPI");
                         i.putExtra("asm_flag", "N");
                         i.putExtra("sm_flag", "N");
                         i.putExtra("gm_flag", "N");

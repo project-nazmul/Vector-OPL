@@ -638,60 +638,6 @@
 
                 <androidx.cardview.widget.CardView
                     android:visibility="gone"
-                    android:id="@+id/cardMrdPrescription"
-                    android:layout_width="0dp"
-                    android:layout_height="75dp"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#8BC34A"
-                    app:cardCornerRadius="15dp"
-                    app:cardElevation="0dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true"
-                    card_view:cardUseCompatPadding="false">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/tvMrdPrescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginEnd="5dp"
-                            android:fontFamily="@font/robotoregular"
-                            android:text="MRD Prescription\nSharing Report"
-                            android:textColor="#FDFAFA"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/btnMrdPrescription"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.50" />
-
-                        <Button
-                            android:id="@+id/btnMrdPrescription"
-                            android:layout_width="28dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/right_button_shape"
-                            android:clickable="false"
-                            android:gravity="center"
-                            android:text="11"
-                            android:textColor="@android:color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:visibility="gone"
                     android:id="@+id/cardMspPrescription"
                     android:layout_width="0dp"
                     android:layout_height="75dp"
@@ -869,7 +815,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#8BC34A"
+                    app:cardBackgroundColor="#B297F2"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
@@ -900,7 +846,7 @@
                             android:id="@+id/btnSpecialRate"
                             android:layout_width="28dp"
                             android:layout_height="match_parent"
-                            android:background="@drawable/right_button_shape"
+                            android:background="@drawable/left_button_shape"
                             android:clickable="false"
                             android:gravity="center"
                             android:text="12"
@@ -983,7 +929,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#B297F2"
+                    app:cardBackgroundColor="#8BC34A"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
@@ -1014,7 +960,7 @@
                             android:id="@+id/btnCustomerReplacement"
                             android:layout_width="28dp"
                             android:layout_height="match_parent"
-                            android:background="@drawable/left_button_shape"
+                            android:background="@drawable/right_button_shape"
                             android:clickable="false"
                             android:gravity="center"
                             android:text="14"
@@ -1085,6 +1031,59 @@
                             android:text="15"
                             android:textColor="@android:color/black"
                             android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardMrdPrescription"
+                    android:layout_width="0dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#B297F2"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    card_view:cardUseCompatPadding="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMrdPrescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/robotoregular"
+                            android:text="SPI Report"
+                            android:textColor="#FDFAFA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/btnMrdPrescription"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.50" />
+
+                        <Button
+                            android:id="@+id/btnMrdPrescription"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/left_button_shape"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:text="16"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
