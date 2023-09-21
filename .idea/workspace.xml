@@ -29,29 +29,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ sales follow-up update!">
-      <change afterPath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.30.apk" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ SPI report added!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AdminReportDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AdminReportDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmSalesReportDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmSalesReportDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RmSalesReportDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/RmSalesReportDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/adapter/MRDAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/adapter/MRDAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mrd_pres_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mrd_pres_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/adapter_mrd_pres_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_mrd_pres_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/adminreportdashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adminreportdashboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/amsalesreportdashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/amsalesreportdashboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/rmsalesreportdashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/rmsalesreportdashboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/scroll.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/scroll.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/achieve_earn_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/achieve_earn_row.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[987473067500021]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\m.hasan\.android\avd\Pixel_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -421,13 +409,6 @@
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
     </task>
-    <task id="LOCAL-00061" summary="+ Dcr followup added!">
-      <created>1684583507029</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1684583507029</updated>
-    </task>
     <task id="LOCAL-00062" summary="+ Dcr followup done!&#10;+ Dcfp followup done!&#10;+ Msd approval added!">
       <created>1684756041096</created>
       <option name="number" value="00062" />
@@ -764,7 +745,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695125249802</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="+ SPI report added!">
+      <created>1695210849048</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1695210849049</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -780,7 +768,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ top prescriber added!" />
     <MESSAGE value="+ top prescriber added 2!" />
     <MESSAGE value="+ designation dynamic added!" />
     <MESSAGE value="+ location address added in AM, RM!" />
@@ -805,7 +792,8 @@
     <MESSAGE value="+ mpo dcfp follow-up(Only for AM)!&#10;+ version update!" />
     <MESSAGE value="+ sales report update!&#10;+ achieve and earn update!" />
     <MESSAGE value="+ sales follow-up update!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ sales follow-up update!" />
+    <MESSAGE value="+ SPI report added!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ SPI report added!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -3018,23 +3006,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java</url>
-          <line>1755</line>
+          <line>1785</line>
           <option name="timeStamp" value="1277" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java</url>
-          <line>1762</line>
+          <line>1792</line>
           <option name="timeStamp" value="1278" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java</url>
-          <line>1709</line>
+          <line>1738</line>
           <option name="timeStamp" value="1279" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java</url>
-          <line>1716</line>
+          <line>1746</line>
           <option name="timeStamp" value="1280" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mrd_pres_report/MRDPresReport.java</url>
+          <line>1749</line>
+          <option name="timeStamp" value="1281" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

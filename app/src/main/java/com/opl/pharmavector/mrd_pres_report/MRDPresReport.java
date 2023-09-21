@@ -231,6 +231,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         user_code = areaList.get(position).getCode();
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -320,6 +322,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -395,6 +399,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -457,6 +463,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -685,6 +693,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         user_code = areaList.get(position).getCode();
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -774,6 +784,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -848,6 +860,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -908,6 +922,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -1134,6 +1150,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         user_code = areaList.get(position).getCode();
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -1221,6 +1239,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -1294,6 +1314,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -1354,6 +1376,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
                                         setUpRV_MPO();
+                                        prepareDocList();
+                                        setUpRV_DoclIST();
                                     }
 
                                     @Override
@@ -1705,6 +1729,11 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     }
 
     public void prepareDocList() {
+        pDialogProd = new ProgressDialog(MRDPresReport.this);
+        pDialogProd.setMessage("Loading Doctor List...");
+        pDialogProd.setTitle("Please wait");
+        pDialogProd.show();
+
         docAdapterflag ="Y";
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.mrd_doc_followup(user_code, service_month, summary_type);
@@ -1714,6 +1743,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
+                pDialogProd.dismiss();
                 List<Patient> giftitemCount = response.body();
                 //Log.e("docListCount-->",giftitemCount.toString());
 
@@ -1741,7 +1771,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-
+                pDialogProd.dismiss();
             }
         });
     }
