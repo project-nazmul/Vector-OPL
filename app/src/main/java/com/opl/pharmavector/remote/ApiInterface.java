@@ -669,8 +669,25 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("spi/spi_mpo_doc_followup.php")
+    Call<List<Patient>> mrd_mpo_doc_followup(
+            @Field("mpo_code") String user_code,
+            @Field("service_month") String service_month,
+            @Field("summary_type") String summary_type
+    );
+
+    @FormUrlEncoded
     @POST("spi/spi_prod_followup.php")
     Call<List<Patient>> mrd_prod_followup(
+            @Field("mpo_code") String mpo_code,
+            @Field("doc_code") String doc_code,
+            @Field("service_month") String service_month,
+            @Field("summary_type") String summary_type
+    );
+
+    @FormUrlEncoded
+    @POST("spi/spi_mpo_prod_followup.php")
+    Call<List<Patient>> mrd_mpo_prod_followup(
             @Field("mpo_code") String mpo_code,
             @Field("doc_code") String doc_code,
             @Field("service_month") String service_month,

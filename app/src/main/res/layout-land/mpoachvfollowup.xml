@@ -332,11 +332,12 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        app:fabCustomSize="48dp"
+        android:scaleType="fitCenter"
+        android:foregroundGravity="center"
         android:onClick="finishActivity"
         android:backgroundTint="@color/vector_logo_color"
-        android:layout_marginBottom="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_6sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"

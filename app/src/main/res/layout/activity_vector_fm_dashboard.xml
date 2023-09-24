@@ -1603,11 +1603,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/robotoregular"
                 android:gravity="center"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -1623,6 +1622,14 @@
                     android:text="Log out"
                     android:textAllCaps="false"
                     android:textColor="#868FBE" />
+
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/versionname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:text="@string/vector_version"
+                    android:textColor="@color/base" />
             </LinearLayout>
 
             <LinearLayout

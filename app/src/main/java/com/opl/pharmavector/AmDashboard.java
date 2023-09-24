@@ -115,9 +115,9 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     Calendar calander;
     SimpleDateFormat simpledateformat;
     String Date;
-    public TextView user_show1, user_show2, tvLocationName;
+    public TextView user_show1, user_show2, tvLocationName, versionname;
     private SessionManager session;
-    public String message;
+    public String message, currentVersion;
     public int success;
     public String tokenid;
     public static final String TAG_SUCCESS = "success";
@@ -2193,6 +2193,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team = findViewById(R.id.logo_team);
+        versionname = findViewById(R.id.versionname);
         tvLocationName = findViewById(R.id.location_name);
 
         btn_productorder = findViewById(R.id.btn_productorder);
@@ -2293,11 +2294,21 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         globalFMCode = userName;
         globalAreaCode = UserName_2;
         globalFMCode = userName;
-
         t4.setText(globalFMCode);
         t5.setText(globalAreaCode);
         tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
+
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
     }
 
     private void showBottomSheetDialog_MPODCR() {

@@ -121,10 +121,10 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     Calendar calander;
     SimpleDateFormat simpledateformat;
     String Date;
-    public TextView user_show1, user_show2, sm;
+    public TextView user_show1, user_show2, sm, versionname;
     private SessionManager session;
     private String submit_url = BASE_URL+"notification/save_vector_notification_token_data_test.php";
-    public String message;
+    public String message, currentVersion;
     public int success;
     public String tokenid;
     public static final String TAG_SUCCESS = "success";
@@ -654,6 +654,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         t5.setText(globalDivisionCode);
         tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
+
+        versionname = findViewById(R.id.versionname);
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
     }
 
     private void logoutEvent() {

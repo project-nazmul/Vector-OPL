@@ -134,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@color/lightgray"
+                        android:background="#CDF4A0"
                         android:orientation="horizontal"
                         android:padding="@dimen/_8sdp">
 
@@ -369,13 +369,12 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:background="#9AED9E"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@color/lightgray"
                         android:orientation="horizontal"
                         android:padding="@dimen/_8sdp">
-
 
                         <TextView
                             android:layout_width="@dimen/_30sdp"
@@ -615,10 +614,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@color/lightgray"
+                        android:background="#E6B9AA"
                         android:orientation="horizontal"
                         android:padding="@dimen/_8sdp">
-
 
                         <TextView
                             android:layout_width="@dimen/_30sdp"
@@ -637,7 +635,6 @@
                             android:text="Code"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -667,7 +664,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -675,7 +671,6 @@
                             android:text="Opsonin"
                             android:textColor="@color/green"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -695,7 +690,6 @@
                             android:textColor="@color/green1"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="match_parent"
@@ -704,7 +698,6 @@
                             android:text="Beximco"
                             android:textColor="@color/colorAccentEditor"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -725,7 +718,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -735,7 +727,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -753,9 +744,7 @@
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -765,7 +754,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -776,7 +764,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -816,9 +803,7 @@
                             android:textAllCaps="true"
                             android:textColor="@android:color/holo_red_dark"
                             android:textSize="@dimen/_8sdp" />
-
                     </LinearLayout>
-
                 </HorizontalScrollView>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -826,10 +811,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
                     android:paddingTop="@dimen/_30sdp">
-
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/rmcardview"
@@ -848,7 +831,6 @@
                     android:textColor="@color/vector_logo_color"
                     android:textSize="@dimen/_7sdp"
                     tools:ignore="UnusedAttribute">
-
                 </TextView>
 
                 <HorizontalScrollView
@@ -860,10 +842,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@color/lightgray"
+                        android:background="#91D8E1"
                         android:orientation="horizontal"
                         android:padding="@dimen/_8sdp">
-
 
                         <TextView
                             android:layout_width="@dimen/_30sdp"
@@ -882,7 +863,6 @@
                             android:text="Code"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -912,7 +892,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -920,7 +899,6 @@
                             android:text="Opsonin"
                             android:textColor="@color/green"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -940,7 +918,6 @@
                             android:textColor="@color/green1"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="match_parent"
@@ -949,7 +926,6 @@
                             android:text="Beximco"
                             android:textColor="@color/colorAccentEditor"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -970,7 +946,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -980,7 +955,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -998,9 +972,7 @@
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1010,7 +982,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1021,7 +992,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1061,9 +1031,7 @@
                             android:textAllCaps="true"
                             android:textColor="@android:color/holo_red_dark"
                             android:textSize="@dimen/_8sdp" />
-
                     </LinearLayout>
-
                 </HorizontalScrollView>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -1071,11 +1039,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_150sdp"
                     android:paddingTop="@dimen/_30sdp">
-
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.cardview.widget.CardView>
 
-            <!---areamanager-->
+            <!---area manager-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/fmcardview"
                 android:layout_width="match_parent"
@@ -1093,7 +1060,6 @@
                     android:textColor="@color/vector_logo_color"
                     android:textSize="@dimen/_7sdp"
                     tools:ignore="UnusedAttribute">
-
                 </TextView>
 
                 <HorizontalScrollView
@@ -1105,10 +1071,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_2sdp"
-                        android:background="@color/lightgray"
+                        android:background="#EDDBA3"
                         android:orientation="horizontal"
                         android:padding="@dimen/_8sdp">
-
 
                         <TextView
                             android:layout_width="@dimen/_30sdp"
@@ -1127,7 +1092,6 @@
                             android:text="Code"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -1157,7 +1121,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1165,7 +1128,6 @@
                             android:text="Opsonin"
                             android:textColor="@color/green"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -1185,7 +1147,6 @@
                             android:textColor="@color/green1"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="match_parent"
@@ -1194,7 +1155,6 @@
                             android:text="Beximco"
                             android:textColor="@color/colorAccentEditor"
                             android:textSize="@dimen/_8sdp" />
-
 
                         <TextView
                             android:layout_width="@dimen/cell_width"
@@ -1215,7 +1175,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1225,7 +1184,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1243,9 +1201,7 @@
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
 
-
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1255,7 +1211,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1266,7 +1221,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/_5sdp"
@@ -1297,7 +1251,6 @@
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
-
                             android:visibility="gone"
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="match_parent"
@@ -1307,9 +1260,7 @@
                             android:textAllCaps="true"
                             android:textColor="@android:color/holo_red_dark"
                             android:textSize="@dimen/_8sdp" />
-
                     </LinearLayout>
-
                 </HorizontalScrollView>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -1317,10 +1268,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_200sdp"
                     android:paddingTop="@dimen/_30sdp">
-
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.cardview.widget.CardView>
-            <!--end areamanager-->
+            <!--end area manager-->
 
             <androidx.cardview.widget.CardView
                 android:visibility="gone"
@@ -2043,6 +1993,7 @@
                             android:text="Serial"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
+
                         <TextView
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="wrap_content"
@@ -2087,9 +2038,7 @@
                             android:text="Prescription\nQnty"
                             android:textColor="@color/vergence"
                             android:textSize="@dimen/_8sdp" />
-
                     </LinearLayout>
-
                 </HorizontalScrollView>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -2100,12 +2049,8 @@
                     android:paddingTop="@dimen/_30sdp">
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
-
     </androidx.core.widget.NestedScrollView>
-
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -2114,8 +2059,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

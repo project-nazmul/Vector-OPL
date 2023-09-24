@@ -122,11 +122,11 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private DatabaseHandler db;
     private String TAG = Offlinereport.class.getSimpleName();
     private Button logout;
-    public TextView user_show1, user_show2, tvLocationName;
+    public TextView user_show1, user_show2, tvLocationName, versionname;
     private SessionManager session;
     private final String fetch_exam_flag = BASE_URL + "/vectorexam/fetch_exam_flag.php";
     private final String submit_url = BASE_URL + "/notification/save_vector_notification_token_data_test.php";
-    public String message, locationName;
+    public String message, locationName, currentVersion;
     public String success, mymessage, mysuccess, myexamid, myexamtime, myexamtimeleft;
     public String exam_flag;
     public static String globalmpocode, globalmpoflag, globalterritorycode, globalfftype, ff_type, build_model, build_brand,
@@ -395,6 +395,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         t5 = findViewById(R.id.t5);
         imageView2 = findViewById(R.id.imageView2);
         logo_team = findViewById(R.id.logo_team);
+        versionname = findViewById(R.id.versionname);
         tvLocationName = findViewById(R.id.location_name);
 
         btn_productorder = findViewById(R.id.btn_productorder);
@@ -504,6 +505,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
         t5.setText(globalterritorycode);
         tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
+
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
     }
 
     @SuppressLint("SetTextI18n")

@@ -119,10 +119,10 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     Calendar calander;
     SimpleDateFormat simpledateformat;
     String Date;
-    public TextView user_show1, user_show2;
+    public TextView user_show1, user_show2, versionname;
     private SessionManager session;
     private final String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
-    public String message;
+    public String message, currentVersion;
     public int success;
     public String tokenid;
     public static final String TAG_SUCCESS = "success";
@@ -1409,11 +1409,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
 
         user_show1.setText(globalempName);
         profile_image = base_url + globalempCode + "." + "jpg";
-
-        Picasso.get()
-                .load(profile_image)
-                .into(imageView2);
-
+        Picasso.get().load(profile_image).into(imageView2);
         globalASMCode = userName;
         globalZONECode = UserName_2;
         globalASMCode = userName;
@@ -1421,6 +1417,18 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         t5.setText(globalZONECode);
         tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
+
+        versionname = findViewById(R.id.versionname);
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
     }
 
     private void dcrfollowup() {

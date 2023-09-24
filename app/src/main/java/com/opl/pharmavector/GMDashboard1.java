@@ -112,10 +112,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     Calendar calander;
     SimpleDateFormat simpledateformat;
     String Date;
-    public TextView user_show1, user_show2, sm;
+    public TextView user_show1, user_show2, sm, versionname;
     private SessionManager session;
     private final String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
-    public String message;
+    public String message, currentVersion;
     public int success;
     public String tokenid, globalterritorycode;
     public static String IMEINumber = "0000", DeviceID = "XXXX";
@@ -150,7 +150,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
-    //    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
+//    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
 //        Log.d("notiPermission2", result.toString());
 //        if (result) {
 //            //main activity
@@ -603,6 +603,18 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         t5.setText(global_admin_terri);
         tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(global_admin_Code);
+
+        versionname = findViewById(R.id.versionname);
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionname.setText(currentVersion);
+        }
     }
 
     private void dcrfollowup() {
