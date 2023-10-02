@@ -87,7 +87,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RX Generation" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -116,7 +115,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Service Doctor" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -249,7 +247,6 @@
                 android:id="@+id/autoCompleteTextViewDept"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@android:drawable/editbox_background"
                 android:focusable="true"
@@ -264,11 +261,28 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
+            <AutoCompleteTextView
+                android:id="@+id/autoDoctorNew"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@android:drawable/editbox_background"
+                android:focusable="true"
+                android:hint="Please Select Doctor Name..."
+                android:inputType="textPhonetic"
+                android:minLines="2"
+                android:padding="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:singleLine="false"
+                android:textColor="#23283a"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/tv_wardname"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@android:drawable/editbox_background"
                 android:focusable="true"
@@ -376,7 +390,7 @@
                 android:background="@android:drawable/gallery_thumb"
                 android:numColumns="5"
                 android:scrollbars="vertical"
-                android:visibility="gone"></GridView>
+                android:visibility="gone" />
         </LinearLayout>
 
         <Button

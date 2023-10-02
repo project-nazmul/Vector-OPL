@@ -34,6 +34,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -83,6 +84,7 @@ public class AMwiseProductSale2 extends AppCompatActivity implements OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mpoachvfollowup);
 
+        screenShortProtect();
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -329,6 +331,10 @@ public class AMwiseProductSale2 extends AppCompatActivity implements OnClickList
 
             }
         });
+    }
+
+    private void screenShortProtect() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     private void producpopulatespinner() {

@@ -34,6 +34,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -89,9 +90,12 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mpoachvfollowup);
+
         initViews();
         initCalendar();
+        screenShortProtect();
         new GetCategories().execute();
+
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
 
@@ -140,6 +144,10 @@ public class AMfollowMpoAchv2 extends Activity implements OnClickListener, Adapt
             @Override
             public void onClick(View v) {}
         });
+    }
+
+    private void screenShortProtect() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @SuppressLint("SimpleDateFormat")

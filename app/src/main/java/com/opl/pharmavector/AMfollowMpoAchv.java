@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -77,6 +78,7 @@ public class AMfollowMpoAchv extends AppCompatActivity implements OnClickListene
         userName ="xx";
         initViews();
         initCalender();
+        screenShortProtect();
 
         new GetCategories().execute();
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,6 +120,10 @@ public class AMfollowMpoAchv extends AppCompatActivity implements OnClickListene
             @Override
             public void onClick(View v) {}
         });
+    }
+
+    private void screenShortProtect() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @SuppressLint("SimpleDateFormat")

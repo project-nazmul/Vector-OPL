@@ -145,11 +145,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
 
         mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
-            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 try {
-                    mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this
-                            , RC_APP_UPDATE);
+                    mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this, RC_APP_UPDATE);
                 } catch (IntentSender.SendIntentException e) {
                     e.printStackTrace();
                 }
@@ -167,7 +165,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         Log.e("isUpdateAvailable=====>", String.valueOf(isUpdateAvailable));
                         version = update.getLatestVersion();
                         vector_version = update.getLatestVersion();
-
                         Log.e("Version=====>", version);
                         Log.e("vector_version=====>", vector_version);
                     }

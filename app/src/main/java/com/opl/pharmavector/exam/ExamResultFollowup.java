@@ -1,5 +1,5 @@
-
 package com.opl.pharmavector.exam;
+
 import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 import static com.opl.pharmavector.exam.ExamApi.BASE_URL_EXAM;
 
@@ -59,7 +59,7 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
-    TextView date2, ded,fromdate,todate,rname;
+    TextView date2, ded, fromdate, todate, rname;
     int textlength = 0;
     public TextView totqty, totval;
     public String userName_1,userName,UserName_2,active_string,act_desiredString,user,sm_flag,sm_code;
@@ -93,10 +93,10 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
     private ArrayList<String> array_sort = new ArrayList<String>();
     private String URL_PRODUCT_VIEW = BASE_URL_EXAM+"exam_result_followup.php";
 
-    protected void onCreate(Bundle savedInstanceState){
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.examresultfollowup);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -120,7 +120,6 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
         mporeqdcr = new ArrayList<com.opl.pharmavector.Customer>();
 
         new GetCategories().execute();
-
         session = new SessionManager(getApplicationContext());
 
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -131,19 +130,14 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Thread server = new Thread(new Runnable() {
-
                                     @Override
                                     public void run() {
-
                                         JSONParser jsonParser = new JSONParser();
                                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                                         params.add(new BasicNameValuePair("logout", "logout"));
-
                                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
-
                                     }
                                 });
-
                                 server.start();
                                 logoutUser();
                             }
@@ -153,35 +147,18 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("MainActivity", "");
                             }
-                        })
-                        .show();
-
+                        }).show();
                 // finish();
-
-
-
-
-
-
-
-
             }
         });
-
-
-
     }
-
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
+
         for (int i = 0; i < categoriesList2.size(); i++) {
             description.add(categoriesList2.get(i).getId());
-
         }
-
-
     }
 
     public void finishActivity(View v) {
@@ -204,24 +181,15 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
             ArrayList<String> value9 = new ArrayList<String>();
             ArrayList<String> value10 = new ArrayList<String>();
             ArrayList<String> value11 = new ArrayList<String>();
-
-
-
             ArrayList<String> value12 = new ArrayList<String>();
             ArrayList<String> value13 = new ArrayList<String>();
             ArrayList<String> value14 = new ArrayList<String>();
             ArrayList<String> value15 = new ArrayList<String>();
             ArrayList<String> value16 = new ArrayList<String>();
-
-
-
             ArrayList<String> value17 = new ArrayList<String>();
             ArrayList<String> value18 = new ArrayList<String>();
             ArrayList<String> value19 = new ArrayList<String>();
             ArrayList<String> value20 = new ArrayList<String>();
-
-
-
 
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
@@ -229,139 +197,63 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
                     prod_vat_14,prod_vat_15,
                     sellvalue_2,sellvalue_3;
 
-
-
             for (int i = 0; i < categoriesList2.size(); i++) {
-
-
                 sl.add(categoriesList2.get(i).getsl());
-
                 lables.add(categoriesList2.get(i).getName());
-
                 p_ids.add(categoriesList2.get(i).getId());
-
                 quanty.add(categoriesList2.get(i).getQuantity());
-
-
-
-
                 prod_rate_1 = categoriesList2.get(i).getPROD_RATE();
                 value.add(prod_rate_1);
-
-
                 prod_vat_1= categoriesList2.get(i).getPROD_VAT();
                 value4.add(prod_vat_1);
-
-
-
-
                 prod_vat_2= categoriesList2.get(i).getPROD_VAT_2();
                 value5.add(prod_vat_2);
-
-
-
-
                 prod_vat_3= categoriesList2.get(i).getPROD_VAT_3();
                 value6.add(prod_vat_3);
-
-
-
                 prod_vat_4= categoriesList2.get(i).getPROD_VAT_4();
                 value7.add(prod_vat_4);
-
-
-
-
                 prod_vat_5= categoriesList2.get(i).getPROD_VAT_5();
                 value8.add(prod_vat_5);
-
-
-
-
-
                 prod_vat_6= categoriesList2.get(i).getPROD_VAT_6();
                 value9.add(prod_vat_6);
-
-
-
                 prod_vat_7= categoriesList2.get(i).getPROD_VAT_7();
                 value10.add(prod_vat_7);
-
-
-
-
-
                 prod_vat_8= categoriesList2.get(i).getPROD_VAT_8();
                 value11.add(prod_vat_8);
-
-
-
                 prod_vat_9= categoriesList2.get(i).getPROD_VAT_9();
                 value12.add(prod_vat_9);
-
-
-
                 prod_vat_10= categoriesList2.get(i).getPROD_VAT_10();
                 value13.add(prod_vat_10);
                 Log.w("FOLLOWUPvalue14",prod_vat_10);
-
-
-
                 prod_vat_11= categoriesList2.get(i).getPROD_VAT_11();
                 value14.add(prod_vat_11);
-
                 Log.w("FOLLOWUPvalue15",prod_vat_11);
-
                 prod_vat_12= categoriesList2.get(i).getPROD_VAT_12();
                 value15.add(prod_vat_12);
                 Log.w("FOLLOWUPvalue16",prod_vat_12);
-
-
                 prod_vat_13= categoriesList2.get(i).getPROD_VAT_13();
                 value16.add(prod_vat_13);
                 Log.w("FOLLOWUPvalue17",prod_vat_13);
-
-
             }
-
-
-
-
             ExamResultAdapter adapter = new ExamResultAdapter(ExamResultFollowup.this,  sl,lables, quanty, value,value4,value5,
                     value6,value7,value8,value9,value10,value11,value12,value13, value14,value15,value16,value17);
-
-
-
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
+
         public String getTotalQ() {
             return TotalQ;
         }
+
         public String getTotalV() {
             return TotalV;
         }
     }
 
-
-
-
-
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
-
-
-
-
-
-
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -371,60 +263,55 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
             pDialog.setCancelable(false);
             pDialog.show();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            Log.e("PASSEDVALUE: ", "> " + userName);
+            Log.e("PASSED VALUE: ", "> " + userName);
             params.add(new BasicNameValuePair("id", userName));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW,ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-
-
-                            com.opl.pharmavector.Category6 cat3 = new com.opl.pharmavector.Category6(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getString("quantity"),
-                                    catObj.getString("PROD_RATE"),
-
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PROD_VAT_2"),
-                                    catObj.getString("PROD_VAT_3"),
-                                    catObj.getString("PROD_VAT_4"),
-                                    catObj.getString("PROD_VAT_5"),
-                                    catObj.getString("PROD_VAT_6"),
-                                    catObj.getString("PROD_VAT_7"),
-                                    catObj.getString("PROD_VAT_8"),
-                                    catObj.getString("PROD_VAT_9"),
-                                    catObj.getString("PROD_VAT_10"),
-                                    catObj.getString("PROD_VAT_11"),
-                                    catObj.getString("PROD_VAT_12"),
-                                    catObj.getString("PROD_VAT_13")
-                            );
-                            categoriesList2.add(cat3);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category6 cat3 = new Category6(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PROD_VAT_2"),
+                                catObj.getString("PROD_VAT_3"),
+                                catObj.getString("PROD_VAT_4"),
+                                catObj.getString("PROD_VAT_5"),
+                                catObj.getString("PROD_VAT_6"),
+                                catObj.getString("PROD_VAT_7"),
+                                catObj.getString("PROD_VAT_8"),
+                                catObj.getString("PROD_VAT_9"),
+                                catObj.getString("PROD_VAT_10"),
+                                catObj.getString("PROD_VAT_11"),
+                                catObj.getString("PROD_VAT_12"),
+                                catObj.getString("PROD_VAT_13")
+                        );
+                        categoriesList2.add(cat3);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(ExamResultFollowup.this, "Nothing To Disply",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExamResultFollowup.this, "Nothing To Display",Toast.LENGTH_SHORT).show();
                 Toast.makeText(ExamResultFollowup.this, "Please make a order first !",Toast.LENGTH_LONG).show();
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -433,38 +320,22 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
             ExamResultFollowup.Spinner sp = new ExamResultFollowup.Spinner();
             sp.populateSpinner();
             popSpinner();
-
-
-
         }
     }
 
-
-
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
-
-
-
-
-
+    protected void onPostExecute() {}
 
     private void logoutUser() {
         session.setLogin(false);
-        // session.removeAttribute();
+        //session.removeAttribute();
         session.invalidate();
         Intent intent = new Intent(ExamResultFollowup.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
-
 }
 

@@ -57,7 +57,6 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class ExamDashboard extends Activity implements View.OnClickListener {
-
     public String userName_1, userName, userName_2;
     public AutoCompleteTextView actv;
     private DatabaseHandler db;
@@ -72,7 +71,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
     public String myexamid;
     public String myexamtime, myexamtimeleft,myexamstarttime,myexamendtime;
     public String user_flag;
-
     final String mpofetch_exam_flag = BASE_URL_EXAM+"mpo_fetch_exam_flag.json";
     final String amfetch_exam_flag =  BASE_URL_EXAM+"am_fetch_exam_flag.php";
     final String rmfetch_exam_flag =  BASE_URL_EXAM+"rm_fetch_exam_flag.php";
@@ -90,6 +88,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.examdashboard);
+
         initViews();
         switch (user_flag) {
             case "M":
@@ -104,8 +103,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                 new mpoFetchExamFlag().execute();
                             }
                         });
-
-
                 }
             });
                 bar_1.setOnClickListener(new View.OnClickListener() {
@@ -120,24 +117,17 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                     }
                 });
                 break;
-
-
             case "A":
                 new amFetchExamFlag().execute();
                 break;
             case "R":
                 new rmFetchExamFlag().execute();
                 break;
-
-
         }
-
-
 
         exam_result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 ArrayList<String> UserName_2 = db.getterritoryname();
                 String user = UserName_2.toString();
                 Intent i = new Intent(ExamDashboard.this, ExamResultFollowup.class);
@@ -149,13 +139,11 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                 i.putExtra("myexamtime", myexamtime);
                 i.putExtra("user_flag", user_flag);
                 startActivity(i);
-
             }
         });
         bar_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 ArrayList<String> UserName_2 = db.getterritoryname();
                 String user = UserName_2.toString();
                 Intent i = new Intent(ExamDashboard.this, ExamResultFollowup.class);
@@ -176,7 +164,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
             }
         });
         session = new SessionManager(getApplicationContext());
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -215,24 +202,25 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
         user_show1.setText(name + " " + ename + " ");
     }
 
-
     @SuppressLint("StaticFieldLeak")
     class mpoFetchExamFlag extends AsyncTask<Void, Void, Void> {
-
         final JSONParser jsonParser = new JSONParser();
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(ExamDashboard.this, "Preparing your Quiz", "Wait....", true);
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             params.add(new BasicNameValuePair("id", name));
             mymessage = "0";
             myexamtimeleft = "0";
             JSONObject json = jsonParser.makeHttpRequest(mpofetch_exam_flag, "POST", params);
+
             if (json != null) {
                 try {
                     mysuccess = json.getString("mysuccess");
@@ -243,17 +231,18 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                     myexamstarttime = json.getString("starttime");
                     myexamendtime = json.getString("endtime");
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
             exam_flag = mysuccess;
+
             Thread backthred = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -269,6 +258,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                          System.out.println(date1.compareTo(date2));
                          int output = date1.compareTo(date2);
                          System.out.println(output);
+
                          if (output < 0){
                              runOnUiThread(new Runnable() {
                                  @Override
@@ -279,7 +269,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                      textView.setText("Exam will Start at "+ myexamstarttime);
                                  }
                              });
-                         }else if(output == 0){
+                         } else if (output == 0) {
                              ArrayList<String> UserName_2 = db.getterritoryname();
                              String user = UserName_2.toString();
                              Intent i = new Intent(ExamDashboard.this, QuizActivity.class);
@@ -292,7 +282,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                              i.putExtra("myexamtimeleft", myexamtime);
                              i.putExtra("user_flag", user_flag);
                              startActivity(i);
-                         }else {
+                         } else {
                              int output2 = date1.compareTo(date3);
                              Log.e("output2==>", String.valueOf(output2));
 
@@ -309,8 +299,9 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                  i.putExtra("myexamtimeleft", myexamtime);
                                  i.putExtra("user_flag", user_flag);
                                  startActivity(i);
-                             }else{
+                             } else {
                                  runOnUiThread(new Runnable() {
+                                     @SuppressLint("SetTextI18n")
                                      @Override
                                      public void run() {
                                          l2.setVisibility(View.VISIBLE);
@@ -321,7 +312,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                  });
                              }
                          }
-                     }catch (ParseException e){
+                     } catch (ParseException e) {
                          Log.e("error-->", String.valueOf(e));
                      }
                  }else{
@@ -333,31 +324,31 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                              textView.setText("No exam is Scheduled");
                          }
                      });
-
-                 }
+                  }
                 }
             });
             backthred.start();
-
         }
     }
-
 
     class amFetchExamFlag extends AsyncTask<Void, Void, Void> {
         final JSONParser jsonParser = new JSONParser();
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(ExamDashboard.this, "Preparing your Quiz", "Wait....", true);
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             params.add(new BasicNameValuePair("id", name));
             mymessage = "0";
             myexamtimeleft = "0";
             JSONObject json = jsonParser.makeHttpRequest(amfetch_exam_flag, "POST", params);
+
             if (json != null) {
                 try {
                     mysuccess = json.getString("mysuccess");
@@ -366,21 +357,21 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                     myexamtime = json.getString("myexamtime");
                     myexamtimeleft = json.getString("myexamtimeleft");
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
             exam_flag = mysuccess;
+
             Thread backthred = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         switch (exam_flag) {
                             case "Y":
@@ -401,6 +392,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                             }
                             case "F":
                                 runOnUiThread(new Runnable() {
+                                    @SuppressLint("SetTextI18n")
                                     @Override
                                     public void run() {
                                         message_head.setVisibility(View.GONE);
@@ -414,15 +406,14 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                     @Override
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-                                        // AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
+                                        //AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
                                         builder.setTitle("Currently No exam !").setMessage("Exam is not Scheduled")
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         Thread server = new Thread(new Runnable() {
                                                             @Override
-                                                            public void run() {
-                                                            }
+                                                            public void run() {}
                                                         });
                                                         server.start();
                                                     }
@@ -435,9 +426,8 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {
-
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-                                        // AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
+                                        //AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
                                         builder.setTitle("You can not enroll !").setMessage("You have already given this exam.")
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -452,7 +442,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     }
                                                 })
                                                 .show();
-
                                     }
                                 });
                                 message_head.setVisibility(View.GONE);
@@ -467,7 +456,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                         int number = Integer.parseInt(mymessage.toString());
                                         if (number > 0) {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-
                                             builder.setTitle("Please Wait !").setMessage("Exam will start within\n" + mymessage + "\nMinutes")
                                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         @Override
@@ -482,6 +470,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     })
                                                     .show();
                                             int mycountdown_timer = (Integer.parseInt(mymessage));
+
                                             new CountDownTimer(mycountdown_timer * 60000, 1000) {
                                                 @SuppressLint("SetTextI18n")
                                                 public void onTick(long millisUntilFinished) {
@@ -492,6 +481,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     textView.setText(text);
                                                     counter++;
                                                 }
+
                                                 public void onFinish() {
                                                     ArrayList<String> UserName_2 = db.getterritoryname();
                                                     String user = UserName_2.toString();
@@ -507,7 +497,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     startActivity(i);
                                                 }
                                             }.start();
-
                                         } else {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
                                             builder.setTitle("You are late !").setMessage("Exam already Started\n")
@@ -528,35 +517,34 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                 });
                                 break;
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             });
             backthred.start();
-
         }
     }
-
 
     @SuppressLint("StaticFieldLeak")
     class rmFetchExamFlag extends AsyncTask<Void, Void, Void> {
         final JSONParser jsonParser = new JSONParser();
         final List<NameValuePair> params = new ArrayList<NameValuePair>();
         private ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = ProgressDialog.show(ExamDashboard.this, "Preparing your Quiz", "Wait....", true);
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             params.add(new BasicNameValuePair("id", name));
             mymessage = "0";
             myexamtimeleft = "0";
             JSONObject json = jsonParser.makeHttpRequest(rmfetch_exam_flag, "POST", params);
+
             if (json != null) {
                 try {
                     mysuccess = json.getString("mysuccess");
@@ -565,21 +553,21 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                     myexamtime = json.getString("myexamtime");
                     myexamtimeleft = json.getString("myexamtimeleft");
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
             exam_flag = mysuccess;
+
             Thread backthred = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // TODO Auto-generated method stub
                     try {
                         switch (exam_flag) {
                             case "Y":
@@ -600,6 +588,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                             }
                             case "F":
                                 runOnUiThread(new Runnable() {
+                                    @SuppressLint("SetTextI18n")
                                     @Override
                                     public void run() {
                                         message_head.setVisibility(View.GONE);
@@ -613,7 +602,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                     @Override
                                     public void run() {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-                                        // AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
+                                        //AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
                                         builder.setTitle("Currently No exam !").setMessage("Exam is not Scheduled")
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -621,6 +610,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                         Thread server = new Thread(new Runnable() {
                                                             @Override
                                                             public void run() {
+
                                                             }
                                                         });
                                                         server.start();
@@ -634,9 +624,8 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {
-
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-                                        // AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
+                                        //AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
                                         builder.setTitle("You can not enroll !").setMessage("You have already given this exam.")
                                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -651,7 +640,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     }
                                                 })
                                                 .show();
-
                                     }
                                 });
                                 message_head.setVisibility(View.GONE);
@@ -666,7 +654,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                         int number = Integer.parseInt(mymessage.toString());
                                         if (number > 0) {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
-
                                             builder.setTitle("Please Wait !").setMessage("Exam will start within\n" + mymessage + "\nMinutes")
                                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         @Override
@@ -674,6 +661,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                             Thread server = new Thread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
+
                                                                 }
                                                             });
                                                             server.start();
@@ -681,6 +669,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     })
                                                     .show();
                                             int mycountdown_timer = (Integer.parseInt(mymessage));
+
                                             new CountDownTimer(mycountdown_timer * 60000, 1000) {
                                                 @SuppressLint("SetTextI18n")
                                                 public void onTick(long millisUntilFinished) {
@@ -691,6 +680,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     textView.setText(text);
                                                     counter++;
                                                 }
+
                                                 public void onFinish() {
                                                     ArrayList<String> UserName_2 = db.getterritoryname();
                                                     String user = UserName_2.toString();
@@ -706,7 +696,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                     startActivity(i);
                                                 }
                                             }.start();
-
                                         } else {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(ExamDashboard.this, R.style.Theme_Design_BottomSheetDialog);
                                             builder.setTitle("You are late !").setMessage("Exam already Started\n")
@@ -716,6 +705,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                                             Thread server = new Thread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
+
                                                                 }
                                                             });
                                                             server.start();
@@ -727,11 +717,9 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                                 });
                                 break;
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             });
             backthred.start();
@@ -739,23 +727,21 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
         }
     }
 
-
-
-
     private void logoutUser() {
         session.setLogin(false);
         session.invalidate();
+
         Intent intent = new Intent(ExamDashboard.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
     }
+
     @Override
     public void onClick(View v) {
 

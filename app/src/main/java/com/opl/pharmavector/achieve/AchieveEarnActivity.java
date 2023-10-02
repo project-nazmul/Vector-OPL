@@ -525,6 +525,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("team_type", team_type));
             params.add(new BasicNameValuePair("place_type", place_type));
+
             if (Objects.equals(userRole, "AD")) {
                 params.add(new BasicNameValuePair("ff_code", "XX"));
             } else {

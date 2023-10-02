@@ -17,6 +17,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -91,6 +92,7 @@ public class ManagersSalesFollowup extends AppCompatActivity implements OnClickL
 
         initViews();
         calendarInit();
+        screenShortProtect();
 
         if (asm_flag.equals("Y")) {
             mpo_code.setText("Region\nCode");
@@ -372,6 +374,10 @@ public class ManagersSalesFollowup extends AppCompatActivity implements OnClickL
 
             }
         });
+    }
+
+    private void screenShortProtect() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     private void restructureValidation() {

@@ -33,6 +33,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -92,6 +93,7 @@ public class ManagersSalesFollowup2 extends AppCompatActivity implements OnClick
         //setContentView(R.layout.amtargetquantity);
         setContentView(R.layout.mpoachvfollowup);
 
+        screenShortProtect();
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -101,7 +103,6 @@ public class ManagersSalesFollowup2 extends AppCompatActivity implements OnClick
         todate = (TextView) findViewById(R.id.todate);
         mpo_code = (TextView) findViewById(R.id.mpo_code);
         mpo_name = (TextView) findViewById(R.id.mpo_name);
-
         TextView sproduct_name = (TextView) findViewById(R.id.sproduct_name);
         TextView sqnty1 = (TextView) findViewById(R.id.sqnty1);
         TextView ssellvelue = (TextView) findViewById(R.id.ssellvelue);
@@ -452,6 +453,10 @@ public class ManagersSalesFollowup2 extends AppCompatActivity implements OnClick
 
             }
         });
+    }
+
+    private void screenShortProtect() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     private void producpopulatespinner() {

@@ -454,7 +454,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         });
     }
 
-
     public void getNotificationPermission() {
         try {
             if (Build.VERSION.SDK_INT > 32) {

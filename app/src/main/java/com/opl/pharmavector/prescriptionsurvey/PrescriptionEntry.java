@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,10 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import androidx.annotation.RequiresApi;
@@ -33,7 +28,6 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -83,14 +77,10 @@ import com.opl.pharmavector.SessionManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -147,6 +137,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     private final String UPLOAD_URL = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_new.php";
     private final String UPLOAD_Gift_URL = BASE_URL + "prescription_survey/image_upload_api/gift_pres_survey_web.php";
     private final String URL_CUSOTMER = BASE_URL + "prescription_survey/get_mpowise_doc.php";
+    private final String URL_DOCTOR_NEW = BASE_URL + "prescription_survey/get_mpowise_doc_inst.php";
     private final String URL_INST = BASE_URL + "prescription_survey/get_institute.php";
     private final String URL_DEPT_WARD = BASE_URL + "prescription_survey/get_depward.php";
     private final String URL_GIFT_LIST = BASE_URL + "prescription_survey/get_mpowise_giftlist.php";
@@ -170,12 +161,13 @@ public class PrescriptionEntry extends AppCompatActivity {
     private TabLayout tab, gift_tab;
     String Tab_Flag = "D";
     String GIFT_Tab_Flag = "R";
-    AutoCompleteTextView actv_doc, actv_dept;
+    AutoCompleteTextView actv_doc, actv_dept, autoDoctorNew;
     private ArrayList<Customer> customerlist;
+    private ArrayList<Customer> doctorListNew;
     private ArrayList<Customer> departmentlist;
     private ArrayList<Customer> giftlist;
     Spinner cust, dept, gift;
-    ProgressDialog pDialog, pDialog2;
+    ProgressDialog pDialog, pDialog2, pDialogNew;
     String json;
     private TextView tv_wardname;
     public String img_local_path;
@@ -410,6 +402,7 @@ public class PrescriptionEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 degree_name.getText().toString().trim();
+
                 if (imageView.getDrawable() == null) {
                     new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Alert ! No Prescription to Upload ")
                             .setMessage("Please Select a Prescription to Upload")
@@ -480,6 +473,8 @@ public class PrescriptionEntry extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
+                        //doc_code = "";
+                        //doc_name = "";
                         Tab_Flag = "D";
                         buttonChoose.setEnabled(true);
                         constrainlayout.setVisibility(View.VISIBLE);
@@ -488,6 +483,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setText("");
                         actv_dept.setVisibility(View.GONE);
                         tv_wardname.setVisibility(View.GONE);
+                        autoDoctorNew.setVisibility(View.GONE);
                         customerlist.clear();
                         gift_tab.setVisibility(View.VISIBLE);
                         gift_tab.getTabAt(0).select();
@@ -495,20 +491,28 @@ public class PrescriptionEntry extends AppCompatActivity {
                         new GetDoctor().execute();
                         break;
                     case 1:
+                        //doc_code = "";
+                        //doc_name = "";
                         Tab_Flag = "O";
                         GIFT_Tab_Flag = "R";
                         constrainlayout.setVisibility(View.VISIBLE);
                         gift_tab_layout.setVisibility(View.GONE);
                         gift_tab.setVisibility(View.GONE);
                         actv_doc.setText("");
+                        autoDoctorNew.setText("");
                         actv_dept.setVisibility(View.VISIBLE);
                         tv_wardname.setVisibility(View.GONE);
+                        autoDoctorNew.setVisibility(View.VISIBLE);
                         customerlist.clear();
                         actv_doc.setHint("Select Institute name...");
                         new GetDoctor().execute();
+                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
+                        doctorAutoEventNew();
                         break;
                     case 2:
+                        //doc_code = "";
+                        //doc_name = "";
                         Tab_Flag = "I";
                         GIFT_Tab_Flag = "R";
                         buttonChoose.setEnabled(true);
@@ -516,14 +520,20 @@ public class PrescriptionEntry extends AppCompatActivity {
                         gift_tab_layout.setVisibility(View.GONE);
                         gift_tab.setVisibility(View.GONE);
                         actv_doc.setText("");
+                        autoDoctorNew.setText("");
                         actv_dept.setVisibility(View.VISIBLE);
                         tv_wardname.setVisibility(View.GONE);
+                        autoDoctorNew.setVisibility(View.VISIBLE);
                         customerlist.clear();
                         actv_doc.setHint("Select Institute name...");
                         new GetDoctor().execute();
+                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
+                        doctorAutoEventNew();
                         break;
                     case 3:
+                        //doc_code = "";
+                        //doc_name = "";
                         Tab_Flag = "G";
                         GIFT_Tab_Flag = "Rx";
                         /* gift_tab_layout.setVisibility(View.GONE);
@@ -549,13 +559,17 @@ public class PrescriptionEntry extends AppCompatActivity {
                         gift_tab_layout.setVisibility(View.VISIBLE);
                         gift_tab.setVisibility(View.GONE);
                         actv_doc.setText("");
+                        autoDoctorNew.setText("");
                         actv_dept.setVisibility(View.VISIBLE);
                         tv_wardname.setVisibility(View.GONE);
+                        autoDoctorNew.setVisibility(View.VISIBLE);
                         customerlist.clear();
                         Log.e("ONCLICKtabflag-->", Tab_Flag);
                         actv_doc.setHint("Select Institute name...");
                         //new GetDoctor().execute();
+                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
+                        doctorAutoEventNew();
                         break;
                 }
             }
@@ -774,6 +788,53 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             private void length() {
 
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void doctorAutoEventNew() {
+        autoDoctorNew.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                autoDoctorNew.showDropDown();
+                return false;
+            }
+        });
+        autoDoctorNew.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        autoDoctorNew.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String inputOrder = s.toString();
+                    int total_string = inputOrder.length();
+
+                    if (inputOrder.contains("-")) {
+                        Log.e("SelectedDoctor ==>", inputOrder);
+                        String doc_code = inputOrder.substring(inputOrder.indexOf("-") + 1);
+                        String[] first_split = inputOrder.split("-");
+                        String doc_name = first_split[0].trim();
+                        autoDoctorNew.setText(doc_name);
+                        hideKeyBoard();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -998,9 +1059,11 @@ public class PrescriptionEntry extends AppCompatActivity {
         tab = findViewById(R.id.tablayout);
         gift_tab = findViewById(R.id.tablayout2);
         tv_wardname = findViewById(R.id.tv_wardname);
+        autoDoctorNew = findViewById(R.id.autoDoctorNew);
         actv_doc = findViewById(R.id.autoCompleteTextViewDoctor);
         actv_dept = findViewById(R.id.autoCompleteTextViewDept);
         customerlist = new ArrayList<Customer>();
+        doctorListNew = new ArrayList<Customer>();
         departmentlist = new ArrayList<Customer>();
         giftlist = new ArrayList<Customer>();
         cust = findViewById(R.id.customer);
@@ -1158,6 +1221,18 @@ public class PrescriptionEntry extends AppCompatActivity {
         actv_doc.setTextColor(Color.BLUE);
     }
 
+    private void populateDoctorListNew() {
+        List<String> labels = new ArrayList<String>();
+        for (int i = 0; i < doctorListNew.size(); i++) {
+            labels.add(doctorListNew.get(i).getName());
+        }
+        String[] customer = labels.toArray(new String[0]);
+        ArrayAdapter<String> doc_adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+        autoDoctorNew.setThreshold(2);
+        autoDoctorNew.setAdapter(doc_adapter);
+        autoDoctorNew.setTextColor(Color.BLUE);
+    }
+
     class GetDoctor extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -1213,6 +1288,54 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
     }
 
+    class GetNewDoctorList extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialogNew = new ProgressDialog(PrescriptionEntry.this);
+            pDialogNew.setMessage("Fetching Doctors..");
+            pDialogNew.setCancelable(true);
+            pDialogNew.show();
+        }
+
+        @SuppressLint("WrongThread")
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(URL_DOCTOR_NEW, ServiceHandler.POST, params);
+            doctorListNew.clear();
+            Log.e("tab_flaGPASSED==>", Tab_Flag);
+
+            if (json != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json);
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        doctorListNew.add(custo);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e("JSON Data", "Didn't receive any data from server!");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialogNew.isShowing())
+                pDialogNew.dismiss();
+            populateDoctorListNew();
+        }
+    }
+
     private void populateDept() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < departmentlist.size(); i++) {
@@ -1220,8 +1343,8 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         dept.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
-        // ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
+        String[] customer = lables.toArray(new String[0]);
+        //ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_dept.setThreshold(2);
         actv_dept.setAdapter(Adapter);
@@ -1251,13 +1374,11 @@ public class PrescriptionEntry extends AppCompatActivity {
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            departmentlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        departmentlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1677,7 +1798,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-
                     params.put("image", encodedStringmulti);
                     params.put("countimage", String.valueOf(mImageUriList.size()));
                     params.put("brand_names", degree_name.getText().toString().trim());
