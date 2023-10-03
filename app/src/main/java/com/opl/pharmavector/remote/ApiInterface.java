@@ -326,6 +326,14 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("achv_and_earn/get_achv_and_earn_self.php")
+    Call<AchieveEarnModel> getADAchieveEarnSelfList(
+            @Field("ff_code") String ff_code,
+            @Field("p_month") String p_month,
+            @Field("team_type_ad") String team_type_ad
+    );
+
+    @FormUrlEncoded
     @POST("achv_and_earn/ff_contacts/get_ff_contact_info.php")
     Call<ArrayList<RecyclerData>> getAchvEarnFFContact(
             @Field("deignation_type") String deignation_type,

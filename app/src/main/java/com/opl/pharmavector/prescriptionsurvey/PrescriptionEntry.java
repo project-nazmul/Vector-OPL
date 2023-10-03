@@ -179,7 +179,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     public ArrayList<String> mylist;
     public static ArrayList<String> selectedCategories = new ArrayList<>();
     LinearLayout gift_tab_layout;
-    String ppm_name, ppm_code = "xxxxxx", ppm_prod_code;
+    String ppm_name, ppm_code = "xxxxxx", ppm_prod_code, inst_type;
     ArrayAdapter<String> doc_adapter;
     TabLayout tabLayout;
     ArrayList<Uri> mImageUriList = new ArrayList<>();
@@ -204,6 +204,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         giftAutocompleteEvent();
         doctorAutocompleteEvent();
         departmentwardAutocompleteEvent();
+        doctorAutoEventNew();
         brandselectEvent();
         btnevents();
     }
@@ -289,6 +290,11 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setFocusableInTouchMode(true);
                         actv_dept.setFocusable(true);
                         actv_dept.requestFocus();
+                    } else if (autoDoctorNew.getText().toString().equals("") || autoDoctorNew.getText().toString() == null) {
+                        doctorSnack();
+                        autoDoctorNew.setFocusableInTouchMode(true);
+                        autoDoctorNew.setFocusable(true);
+                        autoDoctorNew.requestFocus();
                     } else {
                         degree_name.setEnabled(false);
                         if (selected_brand == 1) {
@@ -309,6 +315,11 @@ public class PrescriptionEntry extends AppCompatActivity {
                         actv_dept.setFocusableInTouchMode(true);
                         actv_dept.setFocusable(true);
                         actv_dept.requestFocus();
+                    } else if (autoDoctorNew.getText().toString().equals("") || autoDoctorNew.getText().toString() == null) {
+                        doctorSnack();
+                        autoDoctorNew.setFocusableInTouchMode(true);
+                        autoDoctorNew.setFocusable(true);
+                        autoDoctorNew.requestFocus();
                     } else {
                         degree_name.setEnabled(false);
                         if (selected_brand == 1) {
@@ -389,11 +400,12 @@ public class PrescriptionEntry extends AppCompatActivity {
                         uploadGiftMultiImage();
                     }
                 } else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        uploadMultiImageOS13();
-                    } else {
-                        uploadMultiImage();
-                    }
+                    uploadMultiImage();
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                        uploadMultiImageOS13();
+//                    } else {
+//                        uploadMultiImage();
+//                    }
                 }
             }
         });
@@ -433,11 +445,12 @@ public class PrescriptionEntry extends AppCompatActivity {
                             uploadGiftImage();
                         }
                     } else {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                           uploadImageOS13();
-                        } else {
-                            uploadImage();
-                        }
+                        uploadImage();
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                           uploadImageOS13();
+//                        } else {
+//                            uploadImage();
+//                        }
                     }
                 }
             }
@@ -495,6 +508,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         //doc_name = "";
                         Tab_Flag = "O";
                         GIFT_Tab_Flag = "R";
+                        inst_type = "OPD";
                         constrainlayout.setVisibility(View.VISIBLE);
                         gift_tab_layout.setVisibility(View.GONE);
                         gift_tab.setVisibility(View.GONE);
@@ -506,15 +520,14 @@ public class PrescriptionEntry extends AppCompatActivity {
                         customerlist.clear();
                         actv_doc.setHint("Select Institute name...");
                         new GetDoctor().execute();
-                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
-                        doctorAutoEventNew();
                         break;
                     case 2:
                         //doc_code = "";
                         //doc_name = "";
                         Tab_Flag = "I";
                         GIFT_Tab_Flag = "R";
+                        inst_type = "IPD";
                         buttonChoose.setEnabled(true);
                         constrainlayout.setVisibility(View.VISIBLE);
                         gift_tab_layout.setVisibility(View.GONE);
@@ -527,15 +540,14 @@ public class PrescriptionEntry extends AppCompatActivity {
                         customerlist.clear();
                         actv_doc.setHint("Select Institute name...");
                         new GetDoctor().execute();
-                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
-                        doctorAutoEventNew();
                         break;
                     case 3:
                         //doc_code = "";
                         //doc_name = "";
                         Tab_Flag = "G";
                         GIFT_Tab_Flag = "Rx";
+                        inst_type = "RXG";
                         /* gift_tab_layout.setVisibility(View.GONE);
                         giftlist.clear();
                         actv_gift.setAdapter(null);
@@ -567,9 +579,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                         Log.e("ONCLICKtabflag-->", Tab_Flag);
                         actv_doc.setHint("Select Institute name...");
                         //new GetDoctor().execute();
-                        new GetNewDoctorList().execute();
                         buttonChoose.setEnabled(true);
-                        doctorAutoEventNew();
                         break;
                 }
             }
@@ -768,18 +778,19 @@ public class PrescriptionEntry extends AppCompatActivity {
                         if (Tab_Flag.equals("O")) {
                             actv_dept.setVisibility(View.VISIBLE);
                             new GetDept().execute();
+                            new GetNewDoctorList().execute();
                             buttonChoose.setEnabled(true);
                         } else if (Tab_Flag.equals("I")) {
                             actv_dept.setVisibility(View.VISIBLE);
                             new GetDept().execute();
+                            new GetNewDoctorList().execute();
                             buttonChoose.setEnabled(true);
                         } else if (Tab_Flag.equals("G")) {
                             actv_dept.setVisibility(View.VISIBLE);
                             new GetDept().execute();
+                            new GetNewDoctorList().execute();
                             buttonChoose.setEnabled(true);
                         }
-                    } else {
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1214,7 +1225,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         doc_adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_doc.setThreshold(2);
         actv_doc.setAdapter(doc_adapter);
@@ -1249,12 +1260,13 @@ public class PrescriptionEntry extends AppCompatActivity {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
             ServiceHandler jsonParser = new ServiceHandler();
-            Log.e("tab_flaGPASSED==>", Tab_Flag);
+            Log.e("tab_flgPASSED==>", Tab_Flag);
 
             if (Tab_Flag.equals("D")) {
                 json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
                 Log.e("JSONDoctor", json);
             } else {
+                params.add(new BasicNameValuePair("inst_for", inst_type));
                 json = jsonParser.makeServiceCall(URL_INST, ServiceHandler.POST, params);
                 Log.e("JSON opd", json);
             }
@@ -1303,10 +1315,11 @@ public class PrescriptionEntry extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", Dashboard.globalmpocode));
+            params.add(new BasicNameValuePair("inst_code", doc_code));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DOCTOR_NEW, ServiceHandler.POST, params);
             doctorListNew.clear();
-            Log.e("tab_flaGPASSED==>", Tab_Flag);
+            Log.e("tab_flagPASSED==>", Tab_Flag);
 
             if (json != null) {
                 try {
@@ -1410,8 +1423,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                 for (int i = 0; i < patientdetail.size(); i++) {
                     lables.add(patientdetail.get(i).getFirst_name());
                 }
-                String[] str = GetStringArray((ArrayList<String>) lables);
-                doc_degree = str; // new String[]{"india", "australia", "austria", "indonesia", "canada"};
+                doc_degree = GetStringArray((ArrayList<String>) lables); // new String[]{"india", "australia", "austria", "indonesia", "canada"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(PrescriptionEntry.this, R.layout.spinner_text_view, doc_degree);
                 degree_name.setAdapter(adapter);
             }
@@ -1523,8 +1535,8 @@ public class PrescriptionEntry extends AppCompatActivity {
 
                             if (success == 1) {
                                 Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Succesful")
-                                        .setMessage(" Prescription has been submitted")
+                                new AlertDialog.Builder(PrescriptionEntry.this).setTitle("Successful")
+                                        .setMessage("Prescription has been submitted")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -2225,7 +2237,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         buttonUpload.setVisibility(View.VISIBLE);
                         Uri imageUri = data.getClipData().getItemAt(0).getUri();
                         imageView.setImageURI(imageUri);
-                        //img_local_path = mImageUriList.get(0).getPath();
+                        img_local_path = mImageUriList.get(0).getPath();
+
+                        ExifInterface exif = null;
+                        try {
+                            exif = new ExifInterface(img_local_path);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        ShowExif(exif);
                     }
                 }
                 } else {

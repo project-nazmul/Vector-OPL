@@ -98,7 +98,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 recyclerAchieve.setAdapter(null);
-                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && Objects.equals(deignation_type, "SELF")) {
+                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "AD")) && Objects.equals(deignation_type, "SELF")) {
                     getAchieveEarnSelfList();
                 } else {
                     getAchievementEarnList();
@@ -205,8 +205,14 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         ppDialog.setCancelable(true);
         ppDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchieveEarnModel> call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
-        Log.d("ff_type", userCode);
+
+        Call<AchieveEarnModel> call;
+        if (Objects.equals(userRole, "AD")) {
+            call = apiInterface.getADAchieveEarnSelfList(userCode, month_name, team_type);
+        } else {
+           call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
+        }
+        Log.d("ff_type", team_type);
 
         call.enqueue(new Callback<AchieveEarnModel>() {
             @Override
@@ -461,7 +467,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         } else if (Objects.equals(userRole, "SM")) {
             desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
         } else {
-            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM");
+            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM", "SELF");
         }
 
         desigSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
