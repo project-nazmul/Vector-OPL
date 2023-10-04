@@ -59,6 +59,7 @@ import com.opl.pharmavector.Login;
 import com.opl.pharmavector.ManagersSalesFollowup;
 import com.opl.pharmavector.NoticeBoard;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
@@ -95,7 +96,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
-    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales;
+    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn;
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
     TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
@@ -457,6 +458,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         img_btn_ff_contact = findViewById(R.id.img_btn_ff_contact);
         tv_ff_contact = findViewById(R.id.tv_ff_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
+        cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
 
         b = getIntent().getExtras();
         assert b != null;
@@ -474,6 +476,17 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         profile_image = base_url + pmd_code + "." + "jpg";
         vector_version = getString(R.string.vector_version);
         Picasso.get().load(profile_image).into(imageView2);
+    }
+
+    private void achieveEarnEvent() {
+        cardview_achv_earn.setOnClickListener(v -> {
+            Intent i = new Intent(DashBoardPMD.this, AchieveEarnActivity.class);
+            i.putExtra("UserName", pmd_name);
+            i.putExtra("UserCode", pmd_code);
+            i.putExtra("message_3", pmd_loc);
+            i.putExtra("UserRole", "PMD");
+            startActivity(i);
+        });
     }
 
     @SuppressLint("SetTextI18n")
