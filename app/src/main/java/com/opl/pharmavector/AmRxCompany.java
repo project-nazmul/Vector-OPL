@@ -342,19 +342,14 @@ public class AmRxCompany extends Activity implements OnClickListener {
                     mHandler.postDelayed(mAction, mRepeatDelay);
                 }
             };
-
         });
 
         try {
 
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -363,14 +358,12 @@ public class AmRxCompany extends Activity implements OnClickListener {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchview.setText(result.get(0));
                 }
                 break;
             }
-
         }
     }
     /*------------Extra menus end-------------------*/

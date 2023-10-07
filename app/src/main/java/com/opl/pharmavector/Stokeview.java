@@ -40,17 +40,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Stokeview extends Activity implements OnClickListener {
-
 	public static final String TAG_SUCCESS = "success";
 	public static final String TAG_MESSAGE = "message";
-	// array list for spinner adapter
+	//array list for spinner adapter
 	private ArrayList<Category> categoriesList;
 	ProgressDialog pDialog;
 	ListView productListView;
 	Button submit;
-	// private EditText current_qnty;
+	//private EditText current_qnty;
 	EditText qnty;
-
 	EditText inputOne, inputtwo;
 	public int success;
 	public String message, ord_no;
@@ -62,54 +60,37 @@ public class Stokeview extends Activity implements OnClickListener {
 	List<NameValuePair> params;
 	public String CurrenOrder;
 	public AutoCompleteTextView actv;
-
 	public static ArrayList<String> p_ids;
 	public static ArrayList<Integer> p_quanty;
-
 	public static ArrayList<String> PROD_RATE;
 	public static ArrayList<String> PROD_VAT;
-
 	private ArrayList<String> array_sort = new ArrayList<String>();
-
-
 	private String URL_PRODUCT_VIEW =BASE_URL+"mposalesreports/depo_report/Stokeview.php";
-
-
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stokeview);
-		Typeface fontFamily = Typeface.createFromAsset(getAssets(),
-				"fonts/fontawesome.ttf");
+
+		Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
 		productListView = (ListView) findViewById(R.id.pListView);
 		ordspin = (android.widget.Spinner) findViewById(R.id.orderno);
 		actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
 		Button back_btn = (Button) findViewById(R.id.backbt);
-
-
-
-
 		back_btn.setTypeface(fontFamily);
-		back_btn.setText("\uf060 ");// &#xf060
+		back_btn.setText("\uf060 "); // &#xf060
 
 		final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
 		totqty = (TextView) findViewById(R.id.totalsellquantity);
 		totval = (TextView) findViewById(R.id.totalsellvalue);
-
 		totqty.setText("Quantity");
 		totval.setText("");
-
-
 		p_ids = new ArrayList<String>();
 		p_quanty = new ArrayList<Integer>();
-
 		PROD_RATE = new ArrayList<String>();
-
 		categoriesList = new ArrayList<Category>();
 		Bundle b = getIntent().getExtras();
 		String userName = b.getString("UserName");
 		new GetCategories().execute();
-
 
 		ordspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> adapterView, View view,

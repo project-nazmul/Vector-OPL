@@ -573,7 +573,7 @@
                             android:clickable="false"
                             android:gravity="start"
                             android:paddingStart="10dp"
-                            android:text="16"
+                            android:text="6"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             app:layout_constraintEnd_toEndOf="parent"

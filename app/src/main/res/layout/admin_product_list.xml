@@ -208,8 +208,7 @@
         android:divider="@android:color/transparent"
         android:layout_weight="98"
         android:descendantFocusability="beforeDescendants"
-        android:padding="@dimen/_4sdp"
-      >
+        android:padding="@dimen/_4sdp">
     </ListView>
 
     <LinearLayout

@@ -140,6 +140,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         sales_reports();
         FF_Contact_Event();
         Sales_4p_Event();
+        achieveEarnEvent();
         instance = this;
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||

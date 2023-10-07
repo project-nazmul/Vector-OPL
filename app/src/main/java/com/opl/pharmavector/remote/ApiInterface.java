@@ -351,6 +351,11 @@ public interface ApiInterface {
     @GET("get_team_new.php")
     Call<FFTeamModel> getAchieveFFTeamList();
 
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("get_team_new.php")
+    Call<FFTeamModel> getPmdAchieveTeamList(@Field("id") String userId);
+
     @GET("achv_and_earn/get_mon.php")
     Call<AchvMonthModel> getAchievementMonth();
 

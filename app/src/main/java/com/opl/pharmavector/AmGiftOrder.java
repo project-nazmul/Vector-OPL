@@ -351,12 +351,11 @@ public class AmGiftOrder extends Activity implements OnClickListener {
                 }
                 break;
             }
-
         }
     }
     /*------------Extra menus end-------------------*/
     public void swapfocus(View v){
-        //	GiftListAdapter.focusvalue=0;
+        //GiftListAdapter.focusvalue=0;
         if (com.opl.pharmavector.AmGiftListAdapter.focusvalue==0) {
             v.clearFocus();
             searchview.setFocusable(true);

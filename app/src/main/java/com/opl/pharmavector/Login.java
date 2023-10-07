@@ -125,11 +125,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_login);
 
-//        String[] notiPermission = { Manifest.permission.PostNotifications };
-//        if ((int) Build.VERSION.SdkInt < 33) return;
-//        if (this.CheckSelfPermission(Manifest.Permission.PostNotifications) != Permission.Granted) {
-//            this.RequestPermissions(notiPermission, requestLocationId);
-//        }
         getDeviceDetails();
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -141,7 +136,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
         statusBarHide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
-        //mAppUpdateManager = AppUpdateManagerFactory.create(this);
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
 
         mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
@@ -154,7 +148,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
             }
         });
         firebaseEvent();
-        //initAppUpdate();
     }
 
     private void initAppUpdate() {
@@ -205,7 +198,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         user = findViewById(R.id.username);
         pass = findViewById(R.id.password);
         versionname = findViewById(R.id.versionname);
-        //versionname.setText("65.2.11");
+
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }

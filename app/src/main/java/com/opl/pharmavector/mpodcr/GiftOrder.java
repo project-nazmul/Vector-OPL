@@ -272,8 +272,7 @@ public class GiftOrder extends Activity implements OnClickListener {
         if (GiftListAdapter.focusvalue==0) {
             v.clearFocus();
             searchview.setFocusable(true);
-        }
-        else {
+        } else {
             v.clearFocus();
             searchview.setFocusable(false);
         }
@@ -285,9 +284,8 @@ public class GiftOrder extends Activity implements OnClickListener {
 
     @Override
     protected void onResume() {
-        // System.out.println("EditTxtID " + GiftListAdapter.editTxtID.size());
+        //System.out.println("EditTxtID " + GiftListAdapter.editTxtID.size());
         super.onResume();
-
     }
 
     private void populateSpinner() {

@@ -570,7 +570,7 @@ public class DocSupportReq extends AppCompatActivity {
                 imageView.setVisibility(View.GONE);
                 Bitmap decodedBitmap = ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048);
                 setToImageView(decodedBitmap);
-            } else if (mArrayUri.size() == 1) {// single image selected
+            } else if (mArrayUri.size() == 1) { // single image selected
                 imageView.setVisibility(View.VISIBLE);
                 setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 2048));
                 img_local_path = mArrayUri.get(0).getPath();

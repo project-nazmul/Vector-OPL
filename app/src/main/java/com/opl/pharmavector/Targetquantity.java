@@ -32,8 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Targetquantity extends Activity implements OnClickListener {
-
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
@@ -65,6 +63,7 @@ public class Targetquantity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amtargetquantity);
+
         initViews();
         calenClickEvents();
         new GetCategories().execute();
@@ -315,8 +314,6 @@ public class Targetquantity extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String UserName = b.getString("UserName");
@@ -329,6 +326,7 @@ public class Targetquantity extends Activity implements OnClickListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);

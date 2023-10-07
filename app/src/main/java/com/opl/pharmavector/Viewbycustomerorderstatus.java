@@ -67,16 +67,13 @@ public class Viewbycustomerorderstatus extends Activity implements OnClickListen
     final String URL_PRODUCT_VIEW = BASE_URL+"mposalesreports/depo_report/partywiseordstatus.php";
     final String URL_CUSOTMER = BASE_URL+"mposalesreports/depo_report/ord_wise_customerlist.php";
 
-
-
     @SuppressLint({"SimpleDateFormat", "ClickableViewAccessibility"})
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.viewbycustomerorderstatus);
+
         initViews();
         initCalender();
-
         new GetCategories1().execute();
 
         ordspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,13 +81,13 @@ public class Viewbycustomerorderstatus extends Activity implements OnClickListen
                 CurrenCustomer = ordspin.getSelectedItem().toString();
             }
             public void onNothingSelected(AdapterView<?> adapterView) {
+
 			}
         });
 
         actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 CurrenCustomer = actv.getText().toString();
                 active_string = actv.getText().toString();
                 if (active_string.contains("//")) {

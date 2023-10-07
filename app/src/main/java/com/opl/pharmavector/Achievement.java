@@ -89,8 +89,8 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.achievement);
-        initViews();
 
+        initViews();
         logout.setOnClickListener(v -> finish());
         submitBtn.setOnClickListener(v -> {
             if (!NetInfo.isOnline(getBaseContext())) {

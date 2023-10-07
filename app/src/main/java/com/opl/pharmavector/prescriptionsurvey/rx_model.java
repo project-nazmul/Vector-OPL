@@ -1,9 +1,7 @@
 package com.opl.pharmavector.prescriptionsurvey;
 
-
 public class rx_model  {
-    
-    public String  ff_code,brandcount,ff_roll,ff_type,title,emp_code,img_path;
+    public String ff_code, brandcount, ff_roll, ff_type, title, emp_code, img_path;
 
     public String getFF_Code(){
         return ff_code;

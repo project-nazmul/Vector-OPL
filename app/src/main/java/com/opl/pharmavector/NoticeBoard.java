@@ -381,6 +381,7 @@ public class NoticeBoard extends Activity implements OnClickListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(catObj.getString("sl"),
@@ -449,8 +450,8 @@ public class NoticeBoard extends Activity implements OnClickListener {
                 }
                 int k = 0;
                 int submit_value = 0;
-
                 product_flag = 0;
+
                 for (int m = 1; m < NoticeBoardAdapter.p_quanty.size(); m++) {
                     brand = P_CODE.get(m - 1);
                     String testbrand = p_ids.get(m - 1);
@@ -483,6 +484,7 @@ public class NoticeBoard extends Activity implements OnClickListener {
                         params.add(new BasicNameValuePair("PROD_VAT" + k, PROD_VAT.get(i - 1)));
                         String p_min = PPM_CODE.get(i - 1);
                         int my_quant = Integer.parseInt(p_min);
+
                         if (my_quant > 0) {
                             product_min = product_min + 1;
                         }

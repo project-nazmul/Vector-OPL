@@ -286,7 +286,6 @@ public class OfflineProductOrder extends Activity implements View.OnClickListene
                 }
                 break;
             }
-
         }
     }
 

@@ -142,29 +142,15 @@ public class MPODCCSplit extends Activity implements OnClickListener {
         calc.setTypeface(fontFamily);
         calc.setText("\uf1ec"); // &#xf01e &#xf1ec
         calc.setOnClickListener(this);
-
         calc.setVisibility(View.GONE);
-
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search = (TextView) findViewById(R.id.search);
-
         heading = (TextView) findViewById(R.id.heading);
-
         hqnty1 = (TextView) findViewById(R.id.hqnty1);
-
-
         heading.setText("DCC Quantity in hand to split");
-
         hqnty1.setText("Quantity");
-
-
         mpodcrlist = new ArrayList<AmCustomer>();
         mporeqdcr = new ArrayList<com.opl.pharmavector.AmCustomer>();
-
-
-
-
-
         search.setTypeface(fontFamily);
         search.setText("\uf056"); // &#xf002 , &#xf010
         TextView mic=(TextView)findViewById(R.id.mic);
@@ -175,31 +161,25 @@ public class MPODCCSplit extends Activity implements OnClickListener {
         search.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 try {
                     searchview.setText("");
                     //qnty.clearFocus();
                     searchview.requestFocus();
                 }
                 catch (Exception e) {
-                    // TODO: handle exception
                     //DCCSplitAdapter.qnty.c
                 }
-
             }
         });
-
         totalsellquantity = (TextView) findViewById(R.id.totalsellquantity);
         totalsellquantity.setVisibility(View.GONE);
-
         totalsellvalue = (TextView) findViewById(R.id.totalsellvalue);
         Spinner am_pm = (Spinner) findViewById(R.id.ampm);
         Spinner cash_credit = (Spinner) findViewById(R.id.cashcredit);
         Spinner credit = (Spinner) findViewById(R.id.credit);
-
         totalshow = (LinearLayout) findViewById(R.id.totalshow);
-        // totalshow.setOnClickListener(this);
-        // Button print=(Button)findViewById(R.id.print);
+        //totalshow.setOnClickListener(this);
+        //Button print=(Button)findViewById(R.id.print);
         DCCSplitAdapter.qnty = null;
         DCCSplitAdapter.qntyID.clear();
         DCCSplitAdapter.qntyVal.clear();
@@ -213,8 +193,6 @@ public class MPODCCSplit extends Activity implements OnClickListener {
         Intent in = getIntent();
         Intent inten = getIntent();
         Bundle bundle = in.getExtras();
-
-
         // 5. get status value from bundle
         Bundle extra = inten.getExtras();
         final String MPO_CODE = extra.getString("MPO_CODE");
@@ -224,59 +202,43 @@ public class MPODCCSplit extends Activity implements OnClickListener {
         final String rest_quant=b.getString("rest_quant");
         mpo_code=userName;
         split_prod=b.getString("p_code");
-
         Log.w("dccsplitsctivity", brand_code + "---" + userName + "---------reaminquant -----" + rest_quant + "---splitflag-----"+split_prod+"mpo_code"+mpo_code  );
-
-
-
-
         Toast.makeText(MPODCCSplit.this, userName, Toast.LENGTH_LONG).show();
 
         new REQ_MPO().execute();
-
         submit.setOnClickListener(this);
-
-
-     //   totalsellvalue.setText(rest_quant);
-
-
-
+        //totalsellvalue.setText(rest_quant);
         brandlist = new ArrayList<Customer>();
-        //	cust.setOnItemSelectedListener(this);
-
+        //cust.setOnItemSelectedListener(this);
 
         back_btn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Inflater inf = new Inflater();
                 inf.end();
                 finish();
-			/*	Intent intent = new Intent(MPODCCSplit.this,
-						ReadComments.class);
+			/*Intent intent = new Intent(MPODCCSplit.this,ReadComments.class);
 				intent.putExtra("UserName", MPO_CODE);
 				finishActivity(v);
 				startActivity(intent);*/
-
             }
         });
+
         showorders.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 searchString="1";
-                //	searchview.setText(null);
-                //	searchview.setVisibility(LinearLayout.GONE);;
+                //searchview.setText(null);
+                //searchview.setVisibility(LinearLayout.GONE);;
                 adapter.getFilter().filter(searchString);
             }});
+
         searchview.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("Search Feild clicked");
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(searchview, InputMethodManager.SHOW_IMPLICIT);
-
                 searchview.setFocusable(true);
                 searchview.setFocusableInTouchMode(true);
                 searchview.setClickable(true);
@@ -284,12 +246,10 @@ public class MPODCCSplit extends Activity implements OnClickListener {
             }
         });
 
-
         searchview.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<String> resList = new ArrayList<String>();
                 ArrayList<Integer> resList2 = new ArrayList<Integer>();
                 String searchString = s.toString().toLowerCase();
@@ -302,29 +262,20 @@ public class MPODCCSplit extends Activity implements OnClickListener {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
-
             }
         });
 
-
-
        new GetCategories().execute();
-
-
-
         TextView clickme = (TextView) findViewById(R.id.clickme);
-        clickme.setOnTouchListener(new View.OnTouchListener() {
 
+        clickme.setOnTouchListener(new View.OnTouchListener() {
             private Handler mHandler;
             private long mInitialDelay = 100;
             private long mRepeatDelay = 80;
@@ -351,21 +302,16 @@ public class MPODCCSplit extends Activity implements OnClickListener {
             Runnable mAction = new Runnable() {
                 @Override
                 public void run() {
-                    // LinearLayout
-                    // listview=(LinearLayout)findViewById(R.id.listview);
+                    //LinearLayout
+                    //listview=(LinearLayout)findViewById(R.id.listview);
                     productListView.scrollTo(
                             (int) productListView.getScrollX(),
                             (int) productListView.getScrollY() + 11);
                     mHandler.postDelayed(mAction, mRepeatDelay);
                 }
             };
-
         });
-
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -374,14 +320,12 @@ public class MPODCCSplit extends Activity implements OnClickListener {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchview.setText(result.get(0));
                 }
                 break;
             }
-
         }
     }
     /*------------Extra menus end-------------------*/

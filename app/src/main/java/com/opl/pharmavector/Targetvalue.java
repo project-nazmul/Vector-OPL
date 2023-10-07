@@ -1,6 +1,5 @@
 package com.opl.pharmavector;
 
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.net.MalformedURLException;
@@ -83,9 +82,9 @@ public class Targetvalue extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amtargetvalue);
+
         initViews();
         calenClickEvents();
-
         new GetCategories().execute();
         back_btn.setOnClickListener(new OnClickListener() {
             @Override

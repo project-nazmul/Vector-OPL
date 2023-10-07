@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -390,26 +391,26 @@ public class PrescriptionEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("SG")) {
-                    uploadGiftMultiImage();
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                        uploadGiftMultiImageOS13();
-//                    } else {
-//                        uploadGiftMultiImage();
-//                    }
+                    //uploadGiftMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadGiftMultiImageOS13();
+                    } else {
+                        uploadGiftMultiImage();
+                    }
                 } else if (Tab_Flag.equals("D") && GIFT_Tab_Flag.equals("BL")) {
-                    uploadGiftMultiImage();
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                        uploadGiftMultiImageOS13();
-//                    } else {
-//                        uploadGiftMultiImage();
-//                    }
+                    //uploadGiftMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadGiftMultiImageOS13();
+                    } else {
+                        uploadGiftMultiImage();
+                    }
                 } else {
-                    uploadMultiImage();
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                        uploadMultiImageOS13();
-//                    } else {
-//                        uploadMultiImage();
-//                    }
+                    //uploadMultiImage();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        uploadMultiImageOS13();
+                    } else {
+                        uploadMultiImage();
+                    }
                 }
             }
         });
@@ -878,9 +879,9 @@ public class PrescriptionEntry extends AppCompatActivity {
 
                     if (inputOrder.contains("-")) {
                         Log.e("SelectedDoctor ==>", inputOrder);
-                        String doc_code = inputOrder.substring(inputOrder.indexOf("-") + 1);
+                        doc_code = inputOrder.substring(inputOrder.indexOf("-") + 1);
                         String[] first_split = inputOrder.split("-");
-                        String doc_name = first_split[0].trim();
+                        doc_name = first_split[0].trim();
                         autoDoctorNew.setText(doc_name);
                         //hideKeyBoard();
                     }
@@ -1565,6 +1566,13 @@ public class PrescriptionEntry extends AppCompatActivity {
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
 
+        String encodedImage;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            encodedImage = getStringImageOS13();
+        } else {
+            encodedImage = getStringImage(decoded);
+        }
+
         if (!Objects.equals(img_make, "Make : null\n")) {
             if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase())) {
                 if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n")) {
@@ -1614,7 +1622,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put(KEY_IMAGE, getStringImage(decoded));
+                            //params.put(KEY_IMAGE, getStringImage(decoded));
+                            params.put(KEY_IMAGE, encodedImage);
                             params.put("brand_names", degree_name.getText().toString().trim());
                             params.put("mpo_code", Dashboard.globalmpocode);
                             params.put("tab_flag", Tab_Flag);
@@ -1752,6 +1761,13 @@ public class PrescriptionEntry extends AppCompatActivity {
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
 
+        String encodedImage;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            encodedImage = getStringImageOS13();
+        } else {
+            encodedImage = getStringImage(decoded);
+        }
+
         if (!Objects.equals(img_make, "Make : null\n")) {
             if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase())) {
                 if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n")) {
@@ -1798,7 +1814,8 @@ public class PrescriptionEntry extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<String, String>();
-                            params.put(KEY_IMAGE, getStringImage(decoded));
+                            //params.put(KEY_IMAGE, getStringImage(decoded));
+                            params.put(KEY_IMAGE, encodedImage);
                             params.put("ppm_code", ppm_code);
                             params.put("brand_names", ppm_prod_code);
                             params.put("ppm_name", ppm_name);
@@ -1840,74 +1857,106 @@ public class PrescriptionEntry extends AppCompatActivity {
 
     private void uploadMultiImageOS13() {
         int j;
+        String encodedImage;
         for (j = 0; j < mImageUriList.size(); j++) {
-                try {
-                    Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(j));
-                    encodedStringmulti = ImageBase64.encode(image);
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(j));
+                encodedStringmulti = ImageBase64.encode(image);
+                //encodedImage = getStringImageOS13();
+            } catch (FileNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String selectImagePath = getImagePath(mImageUriList.get(j));
+            //String myimagepath = mImageUriList.get(j);
+            Log.e("uploadMultiImageOS13-->", selectImagePath);
+            ExifInterface exif2 = null;
+
+            try {
+                exif2 = new ExifInterface(selectImagePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert exif2 != null;
+            img_make_multi = getTagString(ExifInterface.TAG_MAKE, exif2);
+            img_lat_multi = getTagString(ExifInterface.TAG_GPS_LATITUDE, exif2);
+            img_long_multi = getTagString(ExifInterface.TAG_GPS_LONGITUDE, exif2);
+            String img_model_multi = getTagString(ExifInterface.TAG_MODEL, exif2);
+            String img_len_multi = getTagString(ExifInterface.TAG_IMAGE_LENGTH, exif2);
+            String img_width_multi = getTagString(ExifInterface.TAG_IMAGE_WIDTH, exif2);
+            String img_datetime_multi = getTagString(ExifInterface.TAG_DATETIME, exif2);
+            String img_datetime_multi2 = img_datetime_multi.substring(img_datetime_multi.indexOf(':') + 1);
             String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_web_multi_test.php";
-            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
-            stringRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jObj = new JSONObject(response);
-                                String name = jObj.getString("success");
-                                String email = jObj.getString("message");
-                                success = jObj.getInt(TAG_SUCCESS);
+            if (!Objects.equals(img_make_multi, "Make : null\n")) {
+                if (img_make_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
+                    if (!Objects.equals(img_lat_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_multi, "GPSLongitude : null\n")) {
+                        stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jObj = new JSONObject(response);
+                                            String name = jObj.getString("success");
+                                            String email = jObj.getString("message");
+                                            success = jObj.getInt(TAG_SUCCESS);
 
-                                if (success == 1) {
-                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                    AutoDismiss();
-                                    refresh();
-                                } else {
-                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                    Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                            if (success == 1) {
+                                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                                AutoDismiss();
+                                                refresh();
+                                            } else {
+                                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                                Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                            Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                                        } else if (error instanceof AuthFailureError) {
+                                        } else if (error instanceof ServerError) {
+                                        } else if (error instanceof NetworkError) {
+                                        } else if (error instanceof ParseError) {} }
+                                }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("image", encodedStringmulti);
+                                params.put("countimage", String.valueOf(mImageUriList.size()));
+                                params.put("brand_names", degree_name.getText().toString().trim());
+                                params.put("mpo_code", Dashboard.globalmpocode);
+                                params.put("tab_flag", Tab_Flag);
+                                params.put("gift_tab_flag", GIFT_Tab_Flag);
+                                params.put("doc_code", doc_code);
+                                params.put("dept_name", dept_name);
+                                params.put("img_make", Build.BRAND);
+                                params.put("img_model", Build.MODEL);
+                                params.put("img_len", img_len_multi);
+                                params.put("img_width", img_width_multi);
+                                params.put("img_datetime", img_datetime_multi2);
+                                return params;
                             }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                                Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
-                            } else if (error instanceof AuthFailureError) {
-                            } else if (error instanceof ServerError) {
-                            } else if (error instanceof NetworkError) {
-                            } else if (error instanceof ParseError) {} }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("image", encodedStringmulti);
-                    params.put("countimage", String.valueOf(mImageUriList.size()));
-                    params.put("brand_names", degree_name.getText().toString().trim());
-                    params.put("mpo_code", Dashboard.globalmpocode);
-                    params.put("tab_flag", Tab_Flag);
-                    params.put("gift_tab_flag", GIFT_Tab_Flag);
-                    params.put("doc_code", doc_code);
-                    params.put("dept_name", dept_name);
-                    params.put("img_make", Build.BRAND);
-                    params.put("img_model", Build.MODEL);
-                    params.put("img_len", "ImageLength: 1600\\n");
-                    params.put("img_width", "ImageWidth: 720\\n");
-                    params.put("img_datetime", currentTime);
-                    return params;
+                        };
+                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(90000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+                    } else {
+                        imageCopyAlert("This image is captured by others Device. !!!");
+                    }
+                } else {
+                    imageCopyAlert("This image is captured by others Device. !!!");
                 }
-            };
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(90000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+            } else {
+                imageCopyAlert("This image is downloaded from communication apps like messenger, whatsApp etc. !!!");
+            }
         }
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
@@ -1919,12 +1968,12 @@ public class PrescriptionEntry extends AppCompatActivity {
         for (j = 0; j < imagesEncodedList.size(); j++) {
             Log.d("imagesEncodedList-->", String.valueOf(j));
 
-                try {
-                    Bitmap bitmap = PhotoLoader.init().from(imagesEncodedList.get(j)).requestSize(512, 512).getBitmap();
-                    encodedStringmulti = ImageBase64.encode(bitmap);
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
-                }
+            try {
+                Bitmap bitmap = PhotoLoader.init().from(imagesEncodedList.get(j)).requestSize(512, 512).getBitmap();
+                encodedStringmulti = ImageBase64.encode(bitmap);
+            } catch (FileNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "" + e, Toast.LENGTH_SHORT).show();
+            }
             String myimagepath = imagesEncodedList.get(j);
             Log.e("myImagePathOnclick-->", myimagepath);
             ExifInterface exif2 = null;
@@ -2042,66 +2091,96 @@ public class PrescriptionEntry extends AppCompatActivity {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+            String selectImagePath = getImagePath(mImageUriList.get(j));
+            Log.e("uploadMultiImageOS13-->", selectImagePath);
+            ExifInterface exif2 = null;
+
+            try {
+                exif2 = new ExifInterface(selectImagePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert exif2 != null;
+            img_make_multi = getTagString(ExifInterface.TAG_MAKE, exif2);
+            img_lat_multi = getTagString(ExifInterface.TAG_GPS_LATITUDE, exif2);
+            img_long_multi = getTagString(ExifInterface.TAG_GPS_LONGITUDE, exif2);
+            String img_model_multi = getTagString(ExifInterface.TAG_MODEL, exif2);
+            String img_len_multi = getTagString(ExifInterface.TAG_IMAGE_LENGTH, exif2);
+            String img_width_multi = getTagString(ExifInterface.TAG_IMAGE_WIDTH, exif2);
+            String img_datetime_multi = getTagString(ExifInterface.TAG_DATETIME, exif2);
+            String img_datetime_multi2 = img_datetime_multi.substring(img_datetime_multi.indexOf(':') + 1);
             String url = BASE_URL + "prescription_survey/image_upload_api/vector_pres_survey_gift_multi.php";
 
-            stringRequest = new StringRequest(Request.Method.POST, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jObj = new JSONObject(response);
-                                String name = jObj.getString("success");
-                                String email = jObj.getString("message");
-                                success = jObj.getInt(TAG_SUCCESS);
 
-                                if (success == 1) {
-                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                    AutoDismiss();
-                                    refresh();
-                                } else {
-                                    Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                    Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            if (!Objects.equals(img_make_multi, "Make : null\n")) {
+                if (img_make_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
+                    if (!Objects.equals(img_lat_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_multi, "GPSLongitude : null\n")) {
+                        stringRequest = new StringRequest(Request.Method.POST, url,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jObj = new JSONObject(response);
+                                            String name = jObj.getString("success");
+                                            String email = jObj.getString("message");
+                                            success = jObj.getInt(TAG_SUCCESS);
+
+                                            if (success == 1) {
+                                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                                AutoDismiss();
+                                                refresh();
+                                            } else {
+                                                Toast.makeText(PrescriptionEntry.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                                Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                            Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
+                                        } else if (error instanceof AuthFailureError) {
+                                        } else if (error instanceof ServerError) {
+                                        } else if (error instanceof NetworkError) {
+                                        } else if (error instanceof ParseError) {} }
+                                }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<String, String>();
+                                params.put("image", encodedStringmulti);
+                                params.put("countimage", String.valueOf(mImageUriList.size()));
+                                params.put("brand_names", degree_name.getText().toString().trim());
+                                params.put("mpo_code", Dashboard.globalmpocode);
+                                params.put("tab_flag", Tab_Flag);
+                                params.put("gift_tab_flag", GIFT_Tab_Flag);
+                                params.put("doc_code", doc_code);
+                                params.put("dept_name", dept_name);
+                                params.put("img_make", Build.BRAND);
+                                params.put("img_model", Build.MODEL);
+                                params.put("img_len", img_len_multi);
+                                params.put("img_width", img_width_multi);
+                                params.put("img_datetime", img_datetime_multi2);
+                                return params;
                             }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                                Toast.makeText(PrescriptionEntry.this, PrescriptionEntry.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
-                            } else if (error instanceof AuthFailureError) {
-                            } else if (error instanceof ServerError) {
-                            } else if (error instanceof NetworkError) {
-                            } else if (error instanceof ParseError) {} }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("image", encodedStringmulti);
-                    params.put("countimage", String.valueOf(mImageUriList.size()));
-                    params.put("brand_names", degree_name.getText().toString().trim());
-                    params.put("mpo_code", Dashboard.globalmpocode);
-                    params.put("tab_flag", Tab_Flag);
-                    params.put("gift_tab_flag", GIFT_Tab_Flag);
-                    params.put("doc_code", doc_code);
-                    params.put("dept_name", dept_name);
-                    params.put("img_make", Build.BRAND);
-                    params.put("img_model", Build.MODEL);
-                    params.put("img_len", "ImageLength: 1600\n");
-                    params.put("img_width", "ImageWidth: 720\n");
-                    params.put("img_datetime", currentTime);
-                    return params;
+                        };
+                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                                90000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+                    } else {
+                        imageCopyAlert("This image is captured by others Device. !!!");
+                    }
+                } else {
+                    imageCopyAlert("This image is captured by others Device. !!!");
                 }
-            };
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    90000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+            } else {
+                imageCopyAlert("This image is downloaded from communication apps like messenger, whatsApp etc. !!!");
+            }
         }
         gvGallery.setAdapter(null);
         imagesEncodedList.clear();
@@ -2281,6 +2360,7 @@ public class PrescriptionEntry extends AppCompatActivity {
         return p;
     }
 
+    @SuppressLint("Recycle")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -2347,11 +2427,16 @@ public class PrescriptionEntry extends AppCompatActivity {
                         buttonUpload.setVisibility(View.VISIBLE);
                         Uri imageUri = data.getClipData().getItemAt(0).getUri();
                         imageView.setImageURI(imageUri);
-                        img_local_path = mImageUriList.get(0).getPath();
+
+                        ClipData.Item clippedFile = data.getClipData().getItemAt(0);
+                        Uri singleImgUri = clippedFile.getUri();
+                        Log.d("imageUri1", String.valueOf(singleImgUri));
+                        String selectImagePath = getImagePath(singleImgUri);
+                        Log.d("imageUri2", String.valueOf(selectImagePath));
 
                         ExifInterface exif = null;
                         try {
-                            exif = new ExifInterface(img_local_path);
+                            exif = new ExifInterface(selectImagePath);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -2406,6 +2491,23 @@ public class PrescriptionEntry extends AppCompatActivity {
         }
     }
 
+    public String getImagePath(Uri uri) {
+        if( uri == null ) {
+            return null;
+        }
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+
+        if( cursor != null ){
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index);
+            cursor.close();
+            return path;
+        }
+        return uri.getPath();
+    }
+
     private void ShowExif(ExifInterface exif) {
         String myAttribute = "Exif information ---\n";
         myAttribute += getTagString(ExifInterface.TAG_DATETIME_ORIGINAL, exif);
@@ -2451,6 +2553,16 @@ public class PrescriptionEntry extends AppCompatActivity {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    public String getStringImageOS13() {
+        Bitmap bitmapImage = null;
+        try {
+            bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUriList.get(0));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+       return ImageBase64.encode(bitmapImage);
     }
 
     private String getTagString(String tag, ExifInterface exif) {

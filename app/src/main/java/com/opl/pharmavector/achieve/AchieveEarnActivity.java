@@ -98,7 +98,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 recyclerAchieve.setAdapter(null);
-                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "AD")) && Objects.equals(deignation_type, "SELF")) {
+                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "AD") || Objects.equals(userRole, "PMD")) && Objects.equals(deignation_type, "SELF")) {
                     getAchieveEarnSelfList();
                 } else {
                     getAchievementEarnList();
@@ -207,7 +207,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<AchieveEarnModel> call;
-        if (Objects.equals(userRole, "AD")) {
+        if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "PMD")) {
             call = apiInterface.getADAchieveEarnSelfList(userCode, month_name, team_type);
         } else {
            call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
@@ -246,7 +246,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<FFTeamModel> call = apiInterface.getAchieveFFTeamList();
+        Call<FFTeamModel> call;
+
+        if (Objects.equals(userRole, "PMD")) {
+            call = apiInterface.getPmdAchieveTeamList(userCode);
+        } else {
+            call = apiInterface.getAchieveFFTeamList();
+        }
 
         call.enqueue(new Callback<FFTeamModel>() {
             @Override
@@ -267,6 +273,10 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                                 team_type = teamInfo.getTeamCode();
                             }
                         }
+                    } else if (userRole.equals("PMD")) {
+                        assert teamList != null;
+                        teamSpinner.setText(teamList.get(0).getTeamName());
+                        team_type = teamList.get(0).getTeamCode();
                     } else {
                         initTeamSpinner(Objects.requireNonNull(teamList));
                     }
@@ -302,7 +312,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     if (response.body() != null) {
                         achvMonthList = (response.body()).getAchvMonthList();
                     }
-                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
+                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
                         initMonthSpinner(Objects.requireNonNull(achvMonthList));
                     } else {
                         initMpoMonthSpinner(Objects.requireNonNull(achvMonthList));

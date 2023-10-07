@@ -343,32 +343,26 @@ public class ProductOrder extends Activity implements OnClickListener {
             Runnable mAction = new Runnable() {
                 @Override
                 public void run() {
-                    // LinearLayout
-                    // listview=(LinearLayout)findViewById(R.id.listview);
+                    //LinearLayout
+                    //listview=(LinearLayout)findViewById(R.id.listview);
                     productListView.scrollTo(
                             (int) productListView.getScrollX(),
                             (int) productListView.getScrollY() + 11);
                     mHandler.postDelayed(mAction, mRepeatDelay);
                 }
             };
-
         });
 
         try {
-		/*	Toast myToast = new Toast(getBaseContext());
-
-			// String displayedText =
-			// (((LinearLayout)myToast.getView()).getChildAt(0)).getContext().toString();
+		/*Toast myToast = new Toast(getBaseContext());
+			//String displayedText =
+			//(((LinearLayout)myToast.getView()).getChildAt(0)).getContext().toString();
 			String displayedText = myToast.getView().getContext().toString();
 			totalsellquantity.setText("--" + displayedText);*/
-
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -377,14 +371,11 @@ public class ProductOrder extends Activity implements OnClickListener {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchview.setText(result.get(0));
                 }
                 break;
             }
-
         }
     }
     /*------------Extra menus end-------------------*/

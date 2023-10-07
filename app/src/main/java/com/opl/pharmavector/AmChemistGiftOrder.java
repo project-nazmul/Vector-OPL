@@ -370,7 +370,6 @@ public class AmChemistGiftOrder extends Activity implements OnClickListener {
                 }
                 break;
             }
-
         }
     }
     /*------------Extra menus end-------------------*/

@@ -382,18 +382,18 @@ public class GroupwiseProductOrderSummary extends Activity implements OnClickLis
                 }
                 break;
             }
-
         }
     }
+
     public void finishActivity(View v) {
         finish();
     }
+
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
-
     }
+
     private void populateSpinner() {
 
         lables = new ArrayList<String>();

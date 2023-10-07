@@ -1,4 +1,5 @@
 package com.opl.pharmavector;
+
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.io.File;
@@ -51,15 +52,14 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category3> categoriesList;
     private SessionManager session;
     private ArrayList<com.opl.pharmavector.Category6> categoriesList2;
-
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit,submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
@@ -73,8 +73,6 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
     public String from_date,to_date,  pc_conference_serial,pc_conference_flag,pc_conference_flag_1;
     JSONParser jsonParser;
     List<NameValuePair> params;
-
-
     public static ArrayList<String> sl;
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
@@ -83,7 +81,6 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
     public static ArrayList<String> PROD_VAT_2;
     public static ArrayList<String> PROD_VAT_3;
     public static ArrayList<String> PROD_VAT_4;
-
     public static ArrayList<String> PROD_VAT_5;
     public static ArrayList<String> PROD_VAT_6;
     public static ArrayList<String> PROD_VAT_7;
@@ -103,10 +100,10 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
     private ArrayList<String> array_sort = new ArrayList<String>();
     private final String URL_PRODUCT_VIEW = BASE_URL+"GroupwiseProductOrderSummary2.php";
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grp_wise_prd_ord2);
+
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -137,9 +134,7 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar1.set(Calendar.YEAR, year);
                 myCalendar1.set(Calendar.MONTH, monthOfYear);
                 myCalendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -157,17 +152,13 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
         };
 
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(GroupwiseProductOrderSummary2.this, date_to, myCalendar1
                         .get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-
         rname = (TextView) findViewById(R.id.rm_code);
         mpodcrlist = new ArrayList<Customer>();
         dateextendlist = new ArrayList<com.opl.pharmavector.Customer>();
@@ -175,51 +166,35 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
         mporeqdcr = new ArrayList<com.opl.pharmavector.Customer>();
 
         new GetCategories().execute();
-       // session = new SessionManager(getApplicationContext());
+        //session = new SessionManager(getApplicationContext());
         submitBtn.setOnClickListener(new OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
                 try {
-
                     String todate1=todate.getText().toString();
                     if (todate1.isEmpty()||(todate1.equals("To Date"))||(todate1.equals("To Date is required"))) {
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-                    }
-                    else {
+                    } else {
                         categoriesList.clear();
                         categoriesList2.clear();
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-
-
         back_btn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Inflater inf = new Inflater();
                 inf.end();
                 finish();
-
-
             }
         });
-
-
-
     }
-
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
