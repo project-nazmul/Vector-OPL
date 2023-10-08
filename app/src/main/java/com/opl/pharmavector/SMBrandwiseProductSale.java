@@ -15,9 +15,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -29,6 +31,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -73,6 +76,7 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
     private ArrayList<Customer> customerlist;
     public String product_name;
 
+    @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
@@ -85,13 +89,14 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
         fromdate = (TextView) findViewById(R.id.fromdate);
         todate = (TextView) findViewById(R.id.todate);
         TextView mpode = (TextView) findViewById(R.id.mpode);
+        TextView terriName = (TextView) findViewById(R.id.terriName);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Brand Name");
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); // &#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
@@ -109,6 +114,7 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
         submitBtn.setTextSize(10);
         Toast.makeText(SMBrandwiseProductSale.this, userName, Toast.LENGTH_LONG).show();
         mpode.setText("Division\nCode");
+        terriName.setText("Division\nName");
 
         Calendar c_todate = Calendar.getInstance();
         SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
@@ -171,14 +177,14 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("//") != -1) {
-                        String arr[] = inputorder.split("//");
+                    if (inputorder.contains("//")) {
+                        String[] arr = inputorder.split("//");
                         product_name = arr[0].trim();
                         String product_code = arr[1].trim();
                         p_code = product_code;
                         actv.setText(product_name);
                     } else {
-                        // ded.setText("Select Date");
+                        //ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -265,66 +271,56 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
         submitBtn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
+                hideSoftKeyboard(v);
+
                 if ((actv.getText().toString().trim().equals(""))) {
                     actv.setError("Select a Brand");
                 } else {
                     try {
                         String fromdate1 = fromdate.getText().toString();
                         String todate1 = todate.getText().toString();
-                        System.out.println("else  fromdate1 " + fromdate1);
+                        System.out.println("else fromdate1 " + fromdate1);
                         System.out.println("else todate1" + todate1);
+
                         if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
                             fromdate.setText("From Date is required");
                             fromdate.setTextColor(Color.RED);
                         } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
-
-
                             todate.setText("To Date is required");
                             todate.setTextColor(Color.RED);
-
                         } else {
                             categoriesList.clear();
                             new GetCategories().execute();
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 }
             }
         });
 
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
             }
         });
-
     }
-
 
     private void producpopulatespinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
-
-
         }
-
-
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -364,13 +360,11 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -388,6 +382,11 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
                 pDialog.dismiss();
             producpopulatespinner();
         }
+    }
+
+    private void hideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 
     private void popSpinner() {
@@ -416,16 +415,22 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
 
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code,growth_code;
-            String mpo, quantity;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
                 mpo = String.valueOf(categoriesList.get(i).getId());
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
@@ -438,10 +443,12 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
                 sale_value.add(ppm_code);
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(SMBrandwiseProductSale.this, lables, quanty,
-                    value, achv, mpo_code, sale_value, target_value, growth_value);
-
+                    value, achv, mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -476,12 +483,10 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            Log.e("Response: ", ">  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy---------------------------y");
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-            String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("id", userName));
             params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("p_code", p_code));
             params.add(new BasicNameValuePair("from_date", fromdate1));
@@ -493,30 +498,32 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(SMBrandwiseProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SMBrandwiseProductSale.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(SMBrandwiseProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -532,13 +539,10 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
             popSpinner();
             totqty.setText("");
             totval.setText("");
-
             //totqty.setText("Total target quantity="+sp.getTotalQ());
             //totval.setText("Total Sales quantity="+sp.getTotalV());
-
         }
     }
-    /*------------- list items on click event----------------*/
 
     @Override
     public void onClick(View v) {}

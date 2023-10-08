@@ -14,6 +14,47 @@ public class Category {
 	private String PACK_CODE;
 	private String TOTAL_CODE;
 	private String FF_NAME;
+	private String MON_GROWTH;
+	private String CUM_GROWTH;
+
+	public String getFF_NAME() {
+		return FF_NAME;
+	}
+
+	public void setFF_NAME(String FF_NAME) {
+		this.FF_NAME = FF_NAME;
+	}
+
+	public String getMON_GROWTH() {
+		return MON_GROWTH;
+	}
+
+	public void setMON_GROWTH(String MON_GROWTH) {
+		this.MON_GROWTH = MON_GROWTH;
+	}
+
+	public String getCUM_GROWTH() {
+		return CUM_GROWTH;
+	}
+
+	public void setCUM_GROWTH(String CUM_GROWTH) {
+		this.CUM_GROWTH = CUM_GROWTH;
+	}
+
+	public Category(String sl, String id, String name, int quantity, String PROD_RATE, String PROD_VAT, String PPM_CODE, String P_CODE, String SHIFT_CODE, String FF_NAME, String MON_GROWTH, String CUM_GROWTH){
+		this.sl = sl;
+		this.id = id;
+		this.name = name;
+		this.quantity = quantity;
+		this.PROD_RATE = PROD_RATE;
+		this.PROD_VAT = PROD_VAT;
+		this.PPM_CODE = PPM_CODE;
+		this.P_CODE = P_CODE;
+		this.SHIFT_CODE = SHIFT_CODE;
+		this.FF_NAME = FF_NAME;
+		this.MON_GROWTH = MON_GROWTH;
+		this.CUM_GROWTH = CUM_GROWTH;
+	}
 
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE){
 		this.sl=sl;

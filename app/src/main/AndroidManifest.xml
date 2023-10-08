@@ -360,6 +360,7 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".SegmentSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
@@ -605,18 +606,22 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".BrandwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".FMBrandwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".ASMBrandwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".SMBrandwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
@@ -625,6 +630,7 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".RMBrandwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />

@@ -34,8 +34,6 @@
                 android:id="@+id/backbt"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:background="@drawable/dcr_page_button"
                 android:gravity="center"
                 android:hapticFeedbackEnabled="true"

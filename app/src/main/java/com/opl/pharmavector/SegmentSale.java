@@ -262,7 +262,9 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
         todate = findViewById(R.id.todate);
 
         TextView mpode = findViewById(R.id.mpode);
+        TextView terriName = findViewById(R.id.terriName);
         mpode.setText("Segment\nCode");
+        terriName.setText("Segment\nName");
         cust = findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
@@ -336,9 +338,13 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
+
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
-            String mpo, quantity;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -346,6 +352,9 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
                 quanty.add(categoriesList.get(i).getQuantity());
                 mpo = String.valueOf(categoriesList.get(i).getId());
                 quantity = categoriesList.get(i).getP_CODE();
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
                 prod_rate = String.valueOf((categoriesList.get(i).getPROD_RATE()));
                 prod_vat = String.valueOf((categoriesList.get(i).getPROD_VAT()));
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
@@ -357,9 +366,12 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
                 sale_value.add(ppm_code);
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(SegmentSale.this, lables, quanty, value, achv,
-                    mpo_code, sale_value, target_value, growth_value);
+                    mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
 
             productListView.setAdapter(adapter);
         }
@@ -429,7 +441,10 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -513,7 +528,10 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
