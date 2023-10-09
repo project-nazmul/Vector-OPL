@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Filter;
 
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.master_code.model.MasterCList;
+import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.promomat.model.Promo;
 
 import java.util.ArrayList;
@@ -22,14 +24,14 @@ import java.util.List;
 public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHolder> implements Filterable {
     private static final int TYPE_ROW = 0;
     private static final int TYPE_ROW_COLORFUL = 1;
-    public List<Promo> companyList;
-    public List<Promo> filteredCompanyList;
+    public List<MasterCList> companyList;
+    public List<MasterCList> filteredCompanyList;
     private Context context;
     private MasterAdapterListener listener;
     private ValueFilter valueFilter;
 
     public class ClubViewHolder extends RecyclerView.ViewHolder {
-        public TextView serial, mpocode, month, sample_name, pack_size, type, week1, week2, week3, week4, total;
+        public TextView serial, mpocode, month, sample_name, pack_size, type, week1;
 
         public ClubViewHolder(View view) {
             super(view);
@@ -40,10 +42,6 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
             pack_size = view.findViewById(R.id.pack_size);
             type = view.findViewById(R.id.type);
             week1 = view.findViewById(R.id.week1);
-            week2 = view.findViewById(R.id.week2);
-            week3 = view.findViewById(R.id.week3);
-            week4 = view.findViewById(R.id.week4);
-            total = view.findViewById(R.id.total);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,14 +52,14 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
         }
     }
 
-    public MasterAdapter(Context context, List<Promo> companyList) {
+    public MasterAdapter(Context context, List<MasterCList> companyList) {
         this.context = context;
         this.companyList = companyList;
         this.filteredCompanyList = companyList;
         getFilter();
     }
 
-    public MasterAdapter(Context context, List<Promo> companyList, MasterAdapterListener listener) {
+    public MasterAdapter(Context context, List<MasterCList> companyList, MasterAdapterListener listener) {
         this.context = context;
         this.listener = listener;
         this.companyList = companyList;
@@ -96,18 +94,14 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
 
     @Override
     public void onBindViewHolder(ClubViewHolder holder, int position) {
-        Promo company = filteredCompanyList.get(position);
-        holder.serial.setText(company.serial);
-        holder.mpocode.setText(company.code);
-        holder.month.setText(company.month);
-        holder.sample_name.setText(company.sample_name);
-        holder.pack_size.setText(company.pack_size);
-        holder.type.setText(company.type);
-        holder.week1.setText(company.week1);
-        holder.week2.setText(company.week2);
-        holder.week3.setText(company.week3);
-        holder.week4.setText(company.week4);
-        holder.total.setText(company.total);
+        MasterCList company = filteredCompanyList.get(position);
+        holder.serial.setText(String.valueOf(company.getSl()));
+        holder.mpocode.setText(company.getMpoCode());
+        holder.month.setText(company.getFfRoll());
+        holder.sample_name.setText(company.getEmpno());
+        holder.pack_size.setText(company.getTerriName());
+        holder.type.setText(company.getEname());
+        holder.week1.setText(company.getDepotDesc());
     }
 
     @Override
@@ -124,11 +118,12 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
                 if (charString.isEmpty()) {
                     filteredCompanyList = companyList;
                 } else {
-                    List<Promo> filteredList = new ArrayList<>();
-                    for (Promo company : companyList) {
-                        if (company.code.toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(company);
-                        }
+                    List<MasterCList> filteredList = new ArrayList<>();
+
+                    for (MasterCList company : companyList) {
+//                        if (company.code.toLowerCase().contains(charString.toLowerCase())) {
+//                            filteredList.add(company);
+//                        }
                     }
                     filteredCompanyList = filteredList;
                 }
@@ -140,22 +135,11 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
             @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                filteredCompanyList = (ArrayList<Promo>) filterResults.values;
+                filteredCompanyList = (ArrayList<MasterCList>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
-
-/*
-    @Override
-    public Filter getFilter() {
-        // TODO Auto-generated method stub
-        if (valueFilter == null) {
-            valueFilter = new ValueFilter();
-        }
-        return valueFilter;
-    }
-*/
 
     private class ValueFilter extends Filter {
         @SuppressLint("NotifyDataSetChanged")
@@ -165,11 +149,11 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
             if (charString.isEmpty()) {
                 filteredCompanyList = companyList;
             } else {
-                List<Promo> filteredList = new ArrayList<>();
-                for (Promo company : companyList) {
-                    if (company.code.toLowerCase().contains(charString.toLowerCase())) {
-                        filteredList.add(company);
-                    }
+                List<MasterCList> filteredList = new ArrayList<>();
+                for (MasterCList company : companyList) {
+//                    if (company.code.toLowerCase().contains(charString.toLowerCase())) {
+//                        filteredList.add(company);
+//                    }
                 }
                 filteredCompanyList = filteredList;
                 notifyDataSetChanged();
@@ -182,12 +166,14 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
         @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            filteredCompanyList = (ArrayList<Promo>) filterResults.values;
+            filteredCompanyList = (ArrayList<MasterCList>) filterResults.values;
             notifyDataSetChanged();
         }
     }
 
     public interface MasterAdapterListener {
+        void onPromoSelected(MasterCList promo);
+
         void onPromoSelected(Promo promo);
     }
 }

@@ -349,13 +349,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="landscape"
             android:name=".RMWiseProductSale"
             android:label="@string/app_name" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".FMwiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".ProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
@@ -399,10 +403,12 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".ASMWiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="landscape"
             android:name=".SMWiseProductSale"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />

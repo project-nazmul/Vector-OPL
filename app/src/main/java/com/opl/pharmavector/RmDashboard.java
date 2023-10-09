@@ -67,6 +67,7 @@ import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -145,6 +146,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         //setContentView(R.layout.rmdashboard);
         setContentView(R.layout.activity_vector_rm_dashboard);
 
+        VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
         preferenceManager = new PreferenceManager(this);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);

@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -31,6 +32,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -39,8 +41,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.opl.pharmavector.util.VectorUtils;
 
 public class RMWiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
@@ -82,6 +87,7 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
         //setContentView(R.layout.amtargetquantity);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -90,6 +96,7 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
         TextView mpode= (TextView) findViewById(R.id.mpode);
+        TextView terriName= (TextView) findViewById(R.id.terriName);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
@@ -119,6 +126,7 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
         submitBtn.setTextSize(10);
         Toast.makeText(RMWiseProductSale.this, userName, Toast.LENGTH_LONG).show();
         mpode.setText("Region\nCode");
+        terriName.setText("Region\nName");
 
         Calendar c_todate = Calendar .getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
@@ -328,12 +336,13 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
 
     private void producpopulatespinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i <customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setAdapter(Adapter);
@@ -421,9 +430,13 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
-            float  achievment;
-            String prod_rate, prod_vat,ppm_code,shift_code,growth_code;
-            String mpo,quantity;
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
+
+            float achievment;
+            String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -436,7 +449,12 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
                 ppm_code= String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code= String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code=String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
-
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
@@ -444,8 +462,8 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
             }
-            BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(RMWiseProductSale.this,lables, quanty,value,
-                    achv,mpo_code,sale_value,target_value,growth_value);
+            BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(RMWiseProductSale.this,lables, quanty, value,
+                    achv,mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -507,7 +525,10 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -578,7 +599,10 @@ public class RMWiseProductSale extends Activity implements OnClickListener, Adap
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

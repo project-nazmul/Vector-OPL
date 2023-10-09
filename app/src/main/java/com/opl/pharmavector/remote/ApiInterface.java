@@ -11,6 +11,8 @@ import com.opl.pharmavector.dcfpFollowup.DcfpEntryDoctorModel;
 import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
+import com.opl.pharmavector.master_code.model.MasterCList;
+import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.mpodcr.DcfpStatusModel;
@@ -636,6 +638,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("utils/get_master_code_all.php")
     Call<List<Patient>> getMasterCode(
+            @Field("id") String mpo_code
+    );
+
+    @FormUrlEncoded
+    @POST("utils/get_master_code_v1.php")
+    Call<MasterModel> getNewMasterCode(
             @Field("id") String mpo_code
     );
 

@@ -33,6 +33,7 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -56,6 +57,7 @@ public class DashboardMSD extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_msd);
 
+        VectorUtils.screenShotProtect(this);
         initViews();
         statusBarHide();
         logout.setOnClickListener(v -> {

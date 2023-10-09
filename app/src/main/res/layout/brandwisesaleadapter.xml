@@ -30,7 +30,8 @@
                 android:focusable="false"
                 android:gravity="center"
                 android:text="@string/serial"
-                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView

@@ -60,8 +60,8 @@
             android:layout_height="@dimen/_40sdp">
 
             <TextView
-                android:layout_width="@dimen/_30sdp"
-                android:id="@+id/sserial"
+                android:layout_width="20dp"
+                android:id="@+id/masterSl"
                 android:gravity="center|start"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="Sl."
@@ -71,8 +71,8 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/cell_width"
-                android:id="@+id/mpo_code"
+                android:layout_width="50dp"
+                android:id="@+id/masterCode"
                 android:gravity="center|start"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="Code"
@@ -82,22 +82,21 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/cell_width"
-                android:id="@+id/sproduct_name"
+                android:layout_width="80dp"
+                android:id="@+id/masterRole"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:text="User Role"
                 android:textSize="@dimen/_8sdp"
-
                 android:textAllCaps="true"
                 android:gravity="center|start"
                 android:textColor="@color/blue"
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/cell_width"
+                android:layout_width="50dp"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:id="@+id/ssellvelue"
-                android:text="Emp\ncode"
+                android:id="@+id/masterEmpNo"
+                android:text="Emp\nCode"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
                 android:gravity="center|start"
@@ -105,9 +104,9 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/_80sdp"
-                android:id="@+id/sqnty1"
-                android:text="Password"
+                android:layout_width="80dp"
+                android:id="@+id/masterTerriName"
+                android:text="Terri Name"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
@@ -116,71 +115,26 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/cell_width"
-                android:id="@+id/gval"
+                android:layout_width="80dp"
+                android:id="@+id/masterEmpName"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:gravity="center|start"
-                android:text="Type"
+                android:text="Emp Name"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="@dimen/_60sdp"
-                android:id="@+id/week1"
+                android:layout_width="60dp"
+                android:id="@+id/masterDepotDsc"
                 android:gravity="center|start"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:text="Loc code"
-                android:textSize="@dimen/_8sdp"
-                android:textAllCaps="true"
-                android:textColor="@color/vector_logo_color"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_width="@dimen/_60sdp"
-                android:id="@+id/week2"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:gravity="center|start"
                 android:text="Depo"
-                android:textAllCaps="true"
-                android:textSize="@dimen/_8sdp"
-                android:textColor="@color/vector_logo_color"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_width="@dimen/_80sdp"
-                android:id="@+id/week3"
-                android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Location"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
                 android:textColor="@color/vector_logo_color"
                 android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:id="@+id/week4"
-                android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Section"
-                android:textSize="@dimen/_8sdp"
-                android:textAllCaps="true"
-                android:visibility="gone"
-                android:textColor="@color/vector_logo_color"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/achivement_sales_admin"
-                android:layout_width="@dimen/_60sdp"
-                android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="Role"
-                android:textSize="@dimen/_8sdp"
-                android:textAllCaps="true"
-                android:textColor="@color/colorAccentEditor"
-                android:layout_height="match_parent" />
         </LinearLayout>
     </HorizontalScrollView>
 

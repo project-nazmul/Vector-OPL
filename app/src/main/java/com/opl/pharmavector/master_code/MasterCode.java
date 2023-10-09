@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -24,8 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
@@ -35,7 +32,8 @@ import com.opl.pharmavector.RmDashboard;
 import com.opl.pharmavector.SalesManagerDashboard;
 import com.opl.pharmavector.master_code.adapter.MasterAdapter;
 import com.opl.pharmavector.master_code.adapter.PromoAdapter;
-import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.master_code.model.MasterCList;
+import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
 import com.opl.pharmavector.remote.ApiClient;
@@ -43,7 +41,6 @@ import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,17 +53,17 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
     Button back_btn;
     public int success;
     public String message, ord_no;
-    public TextView totqty, totval, mpo_code, fromdate, todate;
+    public TextView totqty, totval, masterCode, fromdate, todate;
     public String userName_1, userName, active_string, act_desiredString, admin_code;
     public String from_date, to_date;
-    TextView sproduct_name, sserial, sqnty1, ssellvelue, gval, user_show1, achivement, week1, week2, week3, week4;
+    TextView masterRole, masterSl, masterTerriName, masterEmpNo, masterEmpName, user_show1, achivement, masterDepotDsc, week2, week3, week4;
     public String p_code, asm_flag, sm_flag, gm_flag, user_code, promo_type, user_flag, UserName_2;
     int scrollX = 0;
     RecyclerView rvCompany;
     HorizontalScrollView headerScroll;
     PromoAdapter promoAdapter;
     SearchView searchView;
-    List<Promo> promoList = new ArrayList<>();
+    List<MasterCList> masterList = new ArrayList<>();
     EditText searchview;
     MasterAdapter masterAdapter;
 
@@ -128,28 +125,17 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         pDialog.setTitle("Please wait ");
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.getMasterCode(user_code);
+        Call<MasterModel> call = apiInterface.getNewMasterCode(user_code);
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<MasterModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<MasterModel> call, retrofit2.Response<MasterModel> response) {
+                assert response.body() != null;
+                List<MasterCList> masterCodeList = (response.body().getMasterCodeList());
 
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < (giftitemCount != null ? giftitemCount.size() : 0); i++) {
-                        promoList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                giftitemCount.get(i).getMpocode(),
-                                giftitemCount.get(i).getMonth(),
-                                giftitemCount.get(i).getPacksize(),
-                                giftitemCount.get(i).getSamplename(),
-                                giftitemCount.get(i).getType(),
-                                giftitemCount.get(i).getWeek1(),
-                                giftitemCount.get(i).getWeek2(),
-                                giftitemCount.get(i).getWeek3(),
-                                giftitemCount.get(i).getWeek4(),
-                                giftitemCount.get(i).getTotal()));
-                    }
+                    masterList.addAll(masterCodeList);
                     masterAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
                 } else {
@@ -159,12 +145,56 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<MasterModel> call, Throwable t) {
                 pDialog.dismiss();
                 prepareMasterCode();
             }
         });
     }
+
+//    public void prepareMasterCode() {
+//        pDialog = new ProgressDialog(MasterCode.this);
+//        pDialog.setMessage("Loading Master Code...");
+//        pDialog.setTitle("Please wait ");
+//        pDialog.show();
+//        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+//        Call<List<Patient>> call = apiInterface.getMasterCode(user_code);
+//
+//        call.enqueue(new Callback<List<Patient>>() {
+//            @SuppressLint("NotifyDataSetChanged")
+//            @Override
+//            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
+//                List<Patient> giftitemCount = response.body();
+//
+//                if (response.isSuccessful()) {
+//                    for (int i = 0; i < (giftitemCount != null ? giftitemCount.size() : 0); i++) {
+//                        promoList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                giftitemCount.get(i).getMpocode(),
+//                                giftitemCount.get(i).getMonth(),
+//                                giftitemCount.get(i).getPacksize(),
+//                                giftitemCount.get(i).getSamplename(),
+//                                giftitemCount.get(i).getType(),
+//                                giftitemCount.get(i).getWeek1(),
+//                                giftitemCount.get(i).getWeek2(),
+//                                giftitemCount.get(i).getWeek3(),
+//                                giftitemCount.get(i).getWeek4(),
+//                                giftitemCount.get(i).getTotal()));
+//                    }
+//                    masterAdapter.notifyDataSetChanged();
+//                    pDialog.dismiss();
+//                } else {
+//                    pDialog.dismiss();
+//                    Toast.makeText(MasterCode.this, "No data Available", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Patient>> call, Throwable t) {
+//                pDialog.dismiss();
+//                prepareMasterCode();
+//            }
+//        });
+//    }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -172,14 +202,14 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         headerScroll = findViewById(R.id.headerScroll);
         user_show1 = findViewById(R.id.user_show1);
         back_btn = findViewById(R.id.backbt);
-        mpo_code = findViewById(R.id.mpo_code);
-        sproduct_name = findViewById(R.id.sproduct_name);
-        sserial = findViewById(R.id.sserial);
-        sqnty1 = findViewById(R.id.sqnty1);
-        ssellvelue = findViewById(R.id.ssellvelue);
-        gval = findViewById(R.id.gval);
+        masterCode = findViewById(R.id.masterCode);
+        masterRole = findViewById(R.id.masterRole);
+        masterSl = findViewById(R.id.masterSl);
+        masterTerriName = findViewById(R.id.masterTerriName);
+        masterEmpNo = findViewById(R.id.masterEmpNo);
+        masterEmpName = findViewById(R.id.masterEmpName);
         achivement = findViewById(R.id.achivement_sales_admin);
-        week1 = findViewById(R.id.week1);
+        masterDepotDsc = findViewById(R.id.masterDepotDsc);
         week2 = findViewById(R.id.week2);
         week3 = findViewById(R.id.week3);
         week4 = findViewById(R.id.week4);
@@ -193,12 +223,12 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
         searchview = findViewById(R.id.p_search);
-        searchview.setFilters(new InputFilter[]{ new InputFilter.AllCaps()} );
-        searchview.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(5)} );
+        searchview.setFilters(new InputFilter[] { new InputFilter.AllCaps()} );
+        searchview.setFilters(new InputFilter[] { new InputFilter.LengthFilter(5)} );
     }
 
     public void setUpRecyclerView() {
-        masterAdapter = new MasterAdapter(this, promoList, this);
+        masterAdapter = new MasterAdapter(this, masterList, this);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvCompany.setLayoutManager(manager);
@@ -222,14 +252,14 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
     protected void onPostExecute() {}
 
     @Override
-    public void onPromoSelected(Promo promo) {
-        String user_code = promo.getCode();
-        String user_role = promo.getMonth();
-        String mpo_ff_type = promo.getType();
-        String message_1 = promo.getWeek3();
+    public void onPromoSelected(MasterCList promo) {
+        String user_code = promo.getMpoCode();
+        String user_role = promo.getFfRoll();
+        String mpo_ff_type = promo.getTerriName();
+        String message_1 = promo.getDepotDesc();
         String message_2 = message_1;
-        String emp_code = promo.getSample_name();
-        String emp_name = promo.getTotal();
+        String emp_code = promo.getEmpno();
+        String emp_name = promo.getEname();
 
         switch (user_role) {
             case "MPO": {
@@ -402,6 +432,11 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                 break;
             }
         }
+    }
+
+    @Override
+    public void onPromoSelected(Promo promo) {
+
     }
 }
 

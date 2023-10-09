@@ -77,6 +77,7 @@ import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -128,6 +129,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboardpmd);
 
+        VectorUtils.screenShotProtect(this);
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
         statusBarHide();

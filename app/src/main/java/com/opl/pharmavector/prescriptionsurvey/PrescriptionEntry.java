@@ -261,7 +261,9 @@ public class PrescriptionEntry extends AppCompatActivity {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
+                mImageUriList.clear();
                 imagesEncodedList.clear();
+
                 if (Tab_Flag.equals("D")) {
                     if (degree_name.getText().toString().equals("") || degree_name.getText().toString() == null) {
                         doctorSnack();
@@ -1558,11 +1560,6 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     private void uploadImage() {
-        Log.e("img_datetime", img_datetime);
-        if ((img_datetime.trim().equals("null"))) {
-            Log.e("SecondValueNull-->", img_local_path.trim());
-            img_datetime = img_local_path.trim();
-        }
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
 
@@ -1576,6 +1573,11 @@ public class PrescriptionEntry extends AppCompatActivity {
         if (!Objects.equals(img_make, "Make : null\n")) {
             if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase())) {
                 if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n")) {
+                    Log.e("img_datetime", img_datetime);
+                    if ((img_datetime.trim().equals("null"))) {
+                        Log.e("SecondValueNull-->", img_local_path.trim());
+                        img_datetime = img_local_path.trim();
+                    }
                     stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                             new Response.Listener<String>() {
                                 @Override
@@ -1950,12 +1952,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
                     } else {
                         imageCopyAlert("This image is captured by others Device. !!!");
+                        break;
                     }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
+                    break;
                 }
             } else {
                 imageCopyAlert("This image is downloaded from communication apps like messenger, whatsApp etc. !!!");
+                break;
             }
         }
         gvGallery.setAdapter(null);
@@ -2174,12 +2179,15 @@ public class PrescriptionEntry extends AppCompatActivity {
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
                     } else {
                         imageCopyAlert("This image is captured by others Device. !!!");
+                        break;
                     }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
+                    break;
                 }
             } else {
                 imageCopyAlert("This image is downloaded from communication apps like messenger, whatsApp etc. !!!");
+                break;
             }
         }
         gvGallery.setAdapter(null);

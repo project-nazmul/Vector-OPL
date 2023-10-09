@@ -222,6 +222,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("/")) {
                         Log.e("selectedsegment==>", inputorder);
                         String mpo_segment_code = inputorder.substring(inputorder.indexOf("/") + 1);

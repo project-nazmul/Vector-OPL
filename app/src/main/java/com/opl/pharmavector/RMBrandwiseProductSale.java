@@ -43,6 +43,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.VectorUtils;
+
 public class RMBrandwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
@@ -87,6 +89,7 @@ public class RMBrandwiseProductSale extends Activity implements OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);

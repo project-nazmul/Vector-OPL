@@ -41,6 +41,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.VectorUtils;
+
 public class FMwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
@@ -82,7 +84,7 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
     String current_todate, current_fromdate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
-    TextView mpode;
+    TextView mpode, terriName;
 
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
 
         initViews();
         calenderinitView();
+        VectorUtils.screenShotProtect(this);
 
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")){
             actv.setText(product_name);
@@ -304,6 +307,7 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         mpode = findViewById(R.id.mpode);
+        terriName = findViewById(R.id.terriName);
         cust = findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
@@ -327,6 +331,7 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
         product_name = b.getString("product_name");
         submitBtn.setTextSize(10);
         mpode.setText("Area\nCode");
+        terriName.setText("Area\nName");
         customerlist = new ArrayList<>();
         cust.setOnItemSelectedListener(this);
     }
@@ -427,9 +432,13 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
+
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
-            String mpo, quantity;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -442,6 +451,12 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code = String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code = String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
@@ -450,7 +465,7 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
                 growth_value.add(growth_code);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(FMwiseProductSale.this, lables,
-                    quanty, value, achv, mpo_code, sale_value, target_value, growth_value);
+                    quanty, value, achv, mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -519,7 +534,10 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -601,7 +619,10 @@ public class FMwiseProductSale extends Activity implements OnClickListener, Adap
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

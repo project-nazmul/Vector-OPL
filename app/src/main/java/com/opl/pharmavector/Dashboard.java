@@ -108,6 +108,7 @@ import retrofit2.Response;
 
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 public class Dashboard extends Activity implements View.OnClickListener {
@@ -177,6 +178,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_mpo_dashboard);
 
+        VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();

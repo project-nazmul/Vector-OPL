@@ -18,6 +18,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -29,6 +30,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -39,6 +41,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.opl.pharmavector.util.VectorUtils;
 
 public class SMWiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
@@ -85,6 +89,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -93,6 +98,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         fromdate = (TextView) findViewById(R.id.fromdate);
         todate = (TextView) findViewById(R.id.todate);
         TextView mpode = (TextView) findViewById(R.id.mpode);
+        TextView terriName = (TextView) findViewById(R.id.terriName);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
@@ -119,6 +125,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         submitBtn.setTextSize(10);
         Toast.makeText(SMWiseProductSale.this, userName, Toast.LENGTH_LONG).show();
         mpode.setText("Division\nCode");
+        terriName.setText("Division\nName");
         Calendar c_todate = Calendar.getInstance();
         SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
@@ -157,14 +164,12 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
 
         actv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
@@ -175,15 +180,13 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf("//") != -1) {
-                        String arr[] = inputorder.split("//");
+                    if (inputorder.contains("//")) {
+                        String[] arr = inputorder.split("//");
                         product_name = arr[0].trim();
-                        String product_code = arr[1].trim();
-                        p_code = product_code;
+                        p_code = arr[1].trim();
                         actv.setText(product_name);
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                    }  //ded.setText("Select Date");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -222,12 +225,10 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
             }
         });
 
-
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -274,19 +275,22 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
+                hideSoftKeyboard(v);
+
                 if ((actv.getText().toString().trim().equals(""))) {
                     actv.setError("Select a Brand");
                 } else {
                     try {
                         String fromdate1 = fromdate.getText().toString();
                         String todate1 = todate.getText().toString();
+
                         if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
                             fromdate.setText("From Date is required");
                             fromdate.setTextColor(Color.RED);
                         } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
-
                             todate.setText("To Date is required");
                             todate.setTextColor(Color.RED);
                         } else {
@@ -307,8 +311,14 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         });
     }
 
+    private void hideSoftKeyboard(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+    }
+
     private void producpopulatespinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
@@ -407,10 +417,13 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
 
             float achievment;
-            String prod_rate, prod_vat, ppm_code, shift_code,growth_code;
-            String mpo, quantity;
+            String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -424,6 +437,12 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code = String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code = String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
@@ -431,10 +450,10 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
             }
-           // BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(SMWiseProductSale.this, lables, quanty,
-                  //  value, achv, mpo_code, sale_value, target_value);
+           //BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(SMWiseProductSale.this, lables, quanty,
+                  // value, achv, mpo_code, sale_value, target_value);
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(SMWiseProductSale.this, lables, quanty,
-                    value, achv, mpo_code, sale_value, target_value,growth_value);
+                    value, achv, mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -470,8 +489,7 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
-            String userName = b.getString("UserName");
-            String id = userName;
+            String id = b.getString("UserName");
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             params.add(new BasicNameValuePair("to_date", todate1));
@@ -485,23 +503,24 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

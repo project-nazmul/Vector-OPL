@@ -23,15 +23,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -42,7 +39,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -92,7 +88,7 @@ public class ManagersSalesFollowup extends AppCompatActivity implements OnClickL
 
         initViews();
         calendarInit();
-        screenShortProtect();
+        screenShotProtect();
 
         if (asm_flag.equals("Y")) {
             mpo_code.setText("Region\nCode");
@@ -376,7 +372,7 @@ public class ManagersSalesFollowup extends AppCompatActivity implements OnClickL
         });
     }
 
-    private void screenShortProtect() {
+    private void screenShotProtect() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 

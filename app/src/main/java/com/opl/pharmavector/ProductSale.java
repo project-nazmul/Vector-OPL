@@ -49,6 +49,7 @@ import android.widget.Toast;
 
 import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.util.VectorUtils;
 
 public class ProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
@@ -103,6 +104,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         initViews();
         caclenderInit();
         new LoadProduct().execute();
+        VectorUtils.screenShotProtect(this);
 
         actv.setOnClickListener(v -> {
             if (!actv.getText().toString().equals("")) {
@@ -194,6 +196,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
         productListView.setOnItemClickListener((arg0, arg1, arg2, arg3) -> {
             select_fm_code = (String) productListView.getAdapter().getItem(arg2);
             if (select_fm_code.trim().equals("TOTAL")) {
+
             } else {
                 new callserver().execute();
             }
@@ -415,9 +418,13 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
+
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
-            String mpo, quantity;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -430,6 +437,12 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code = String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code = String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
@@ -438,7 +451,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
                 growth_value.add(growth_code);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(ProductSale.this, lables, quanty, value, achv,
-                    mpo_code, sale_value, target_value, growth_value);
+                    mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -484,7 +497,6 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("p_code", p_code));
             params.add(new BasicNameValuePair("from_date", fromdate1));
-
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
@@ -492,30 +504,32 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(ProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductSale.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -569,30 +583,32 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE"),
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
+                        );
+                        categoriesList.add(cat);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(ProductSale.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductSale.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ProductSale.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -629,6 +645,7 @@ public class ProductSale extends Activity implements OnClickListener, AdapterVie
             String URL_DOC_ADDRESS = BASE_URL + "productwisesales/check_flag.php";
             params.add(new BasicNameValuePair("select_fm_code", select_fm_code));
             JSONObject json = jsonParser.makeHttpRequest(URL_DOC_ADDRESS, "POST", params);
+
             if (json != null) {
                 try {
                     check_flag = json.getString("PROD_GRP");

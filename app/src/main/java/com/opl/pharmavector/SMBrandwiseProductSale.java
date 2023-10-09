@@ -43,6 +43,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.VectorUtils;
+
 public class SMBrandwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
@@ -81,6 +83,7 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -391,6 +394,7 @@ public class SMBrandwiseProductSale extends Activity implements OnClickListener,
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
+
         for (int i = 0; i < categoriesList.size(); i++) {
             Log.d("Changepa---ssword", categoriesList.get(i).getId());
             description.add(categoriesList.get(i).getId());

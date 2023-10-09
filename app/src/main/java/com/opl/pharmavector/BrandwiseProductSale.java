@@ -48,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.util.VectorUtils;
 
 public class BrandwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
@@ -105,6 +106,7 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         initViews();
         calenderInit();
         cust.setOnItemSelectedListener(this);
+        VectorUtils.screenShotProtect(this);
 
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
             actv.setText(product_name);
@@ -115,7 +117,7 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
             actv.setSelection(actv.getText().length());
         }
         actv.setOnClickListener(v -> {
-            if (actv.getText().toString() != "") {
+            if (!actv.getText().toString().equals("")) {
                 String selectedcustomer = actv.getText().toString();
                 cust.setTag(selectedcustomer);
             }
@@ -140,15 +142,12 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
-                    if (inputorder.indexOf("//") != -1) {
-                        String arr[] = inputorder.split("//");
+                    if (inputorder.contains("//")) {
+                        String[] arr = inputorder.split("//");
                         product_name = arr[0].trim();
-                        String product_code = arr[1].trim();
-                        p_code = product_code;
+                        p_code = arr[1].trim();
                         actv.setText(product_name);
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                    }  //ded.setText("Select Date");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -318,7 +317,7 @@ public class BrandwiseProductSale extends Activity implements OnClickListener, A
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,  R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setAdapter(Adapter);

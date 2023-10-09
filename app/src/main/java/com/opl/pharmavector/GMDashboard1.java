@@ -65,6 +65,7 @@ import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
@@ -96,6 +97,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import com.opl.pharmavector.util.VectorUtils;
 
 public class GMDashboard1 extends Activity implements View.OnClickListener { // Activity -> (AppCompatActivity) replaced by me
     public String userName_1, userName, userName_2, UserName_2, user, sm_code, gm_code, global_admin_Code, global_admin_name, global_admin_terri;
@@ -150,28 +152,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
-//    ActivityResultLauncher<String> requestLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), result -> {
-//        Log.d("notiPermission2", result.toString());
-//        if (result) {
-//            //main activity
-//            startActivity(new Intent(GMDashboard1.this, Login.class));
-//        } else {
-//            //show error message
-//            showErrorMessage();
-//        }
-//    });
 
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);
 
-//        Log.d("sdkVersion", String.valueOf(Build.VERSION.SDK_INT));
-//        if (Build.VERSION.SDK_INT > 32) {
-//            if (!shouldShowRequestPermissionRationale("101")){
-//                getNotificationPermission();
-//            }
-//        }
+        VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
         CardView cardView = findViewById(R.id.cardView2);
         cardView.setOnClickListener(v -> {
@@ -927,8 +914,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Check Internet connection", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Check Internet connection", Toast.LENGTH_LONG).show();
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();

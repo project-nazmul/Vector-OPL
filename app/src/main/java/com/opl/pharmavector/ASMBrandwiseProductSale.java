@@ -42,6 +42,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.VectorUtils;
+
 public class ASMBrandwiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
@@ -86,6 +88,7 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -157,7 +160,6 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 String rm_code = (String) productListView.getAdapter().getItem(arg2);
                 Log.i("rmdccfollowup", rm_code);
-
                 Intent i = new Intent(ASMBrandwiseProductSale.this, RMBrandwiseProductSale.class);
                 i.putExtra("UserName", rm_code);
                 i.putExtra("UserName", rm_code);
@@ -421,11 +423,9 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -435,13 +435,8 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
             if (pDialog.isShowing())
                 pDialog.dismiss();
             producpopulatespinner();
-
         }
-
     }
-
-
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
@@ -450,16 +445,11 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
             description.add(categoriesList.get(i).getId());
             Log.d("Changep---assword","Login"+categoriesList.get(i).getId());
         }
-
-
     }
-
-
 
     public void finishActivity(View v) {
         finish();
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -479,7 +469,7 @@ public class ASMBrandwiseProductSale extends Activity implements OnClickListener
             ArrayList<String> cum_growth = new ArrayList<String>();
 
             float achievment;
-            String prod_rate, prod_vat, ppm_code, shift_code,growth_code;
+            String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
             String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {

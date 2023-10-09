@@ -45,6 +45,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.VectorUtils;
+
 public class ASMWiseProductSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
@@ -83,6 +85,7 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.brandwisesale);
 
+        VectorUtils.screenShotProtect(this);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         Button back_btn = (Button) findViewById(R.id.backbt);
@@ -91,12 +94,13 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
         fromdate = (TextView) findViewById(R.id.fromdate);
         todate = (TextView) findViewById(R.id.todate);
         TextView mpode = (TextView) findViewById(R.id.mpode);
+        TextView terriName = (TextView) findViewById(R.id.terriName);
         cust = (android.widget.Spinner) findViewById(R.id.dcrlist);
         mpodcrlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
+
         final AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setHint("Type Product Name");
-
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
@@ -120,6 +124,7 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
         submitBtn.setTextSize(10);
         Toast.makeText(ASMWiseProductSale.this, userName, Toast.LENGTH_LONG).show();
         mpode.setText("Zone\nCode");
+        terriName.setText("Zone\nName");
 
         Calendar c_todate = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
@@ -152,7 +157,6 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
             Log.i("Selected Item in list", arg0.toString());
             String rm_code = (String) productListView.getAdapter().getItem(arg2);
             Log.i("rmdccfollowup", rm_code);
-
             product_name = actv.getText().toString();
             Intent i = new Intent(ASMWiseProductSale.this, RMWiseProductSale.class);
             i.putExtra("UserName", rm_code);
@@ -435,11 +439,13 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
-            //growth_value
+            ArrayList<String> ff_name = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
 
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
-            String mpo, quantity;
+            String mpo, quantity, ffName, monGrowth, cumGrowth;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -452,8 +458,12 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code = String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code = String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
-
-                //growth_code
+                ffName = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
+                ff_name.add(ffName);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
@@ -462,7 +472,7 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                 growth_value.add(growth_code);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(ASMWiseProductSale.this, lables, quanty,
-                    value, achv, mpo_code, sale_value, target_value, growth_value);
+                    value, achv, mpo_code, sale_value, target_value, growth_value, ff_name, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -519,6 +529,7 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(
@@ -530,7 +541,10 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }
@@ -595,6 +609,7 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(
@@ -606,7 +621,10 @@ public class ASMWiseProductSale extends Activity implements OnClickListener, Ada
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

@@ -49,6 +49,7 @@ import android.widget.Toast;
 
 import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.util.VectorUtils;
 
 public class SegmentSale extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
@@ -92,6 +93,7 @@ public class SegmentSale extends Activity implements OnClickListener, AdapterVie
         setContentView(R.layout.brandwisesale);
 
         initViews();
+        VectorUtils.screenShotProtect(this);
         cust.setOnItemSelectedListener(this);
         if (p_code != null && product_name != null && !p_code.equals("null") && !product_name.equals("null")) {
             actv.setText(product_name);
