@@ -112,7 +112,7 @@ import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
 public class Dashboard extends Activity implements View.OnClickListener {
-    public String userName_1, userName, userName_2, UserName_2, global_admin_Code;
+    public String userName_1, userName, designation, terriName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public static final String TAG_SUCCESS = "mysuccess";
@@ -484,6 +484,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Bundle b = getIntent().getExtras();
         assert b != null;
         userName = b.getString("UserName");
+        designation = b.getString("Designation");
+        terriName = b.getString("TerriName");
         UserName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
@@ -504,10 +506,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
         globalterritorycode = UserName_2;
         globalmpocode = userName;
         t4.setText(globalmpocode);
-        t5.setText(globalterritorycode);
-        tvDesignation.setText(preferenceManager.getDesignation());
-        lock_emp_check(globalempCode);
+        //t5.setText(globalterritorycode);
 
+        if (designation != null && terriName != null) {
+            tvDesignation.setText(designation);
+            t5.setText(terriName);
+        } else {
+            tvDesignation.setText(preferenceManager.getDesignation());
+            t5.setText(globalterritorycode);
+        }
+        //tvDesignation.setText(preferenceManager.getDesignation());
+        lock_emp_check(globalempCode);
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);

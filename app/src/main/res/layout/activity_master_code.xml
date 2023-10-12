@@ -60,10 +60,10 @@
             android:layout_height="@dimen/_40sdp">
 
             <TextView
-                android:layout_width="20dp"
-                android:id="@+id/masterSl"
+                android:textStyle="bold"
                 android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_width="28dp"
+                android:id="@+id/masterSlNo"
                 android:text="Sl."
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
@@ -71,10 +71,10 @@
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="50dp"
-                android:id="@+id/masterCode"
-                android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:textStyle="bold"
+                android:layout_width="60dp"
+                android:id="@+id/masterTerriCode"
+                android:gravity="center"
                 android:text="Code"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
@@ -82,54 +82,54 @@
                 android:layout_height="match_parent"/>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="80dp"
-                android:id="@+id/masterRole"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="User Role"
+                android:id="@+id/masterEmpName"
+                android:gravity="center"
+                android:text="Emp Name"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
-                android:gravity="center|start"
-                android:textColor="@color/blue"
+                android:textColor="#2196F3"
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="50dp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:id="@+id/masterEmpNo"
-                android:text="Emp\nCode"
-                android:textSize="@dimen/_8sdp"
-                android:textAllCaps="true"
-                android:gravity="center|start"
-                android:textColor="@color/blue"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_width="80dp"
+                android:textStyle="bold"
+                android:layout_width="160dp"
                 android:id="@+id/masterTerriName"
                 android:text="Terri Name"
-                android:layout_marginStart="@dimen/_5sdp"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
-                android:gravity="center|start"
+                android:gravity="center"
                 android:textColor="@android:color/holo_red_dark"
                 android:layout_height="match_parent"/>
 
             <TextView
-                android:layout_width="80dp"
-                android:id="@+id/masterEmpName"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:gravity="center|start"
-                android:text="Emp Name"
+                android:textStyle="bold"
+                android:layout_width="148dp"
+                android:id="@+id/masterUserRole"
+                android:text="User Role"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"
-                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:textColor="@color/green1"
                 android:layout_height="match_parent"/>
 
             <TextView
+                android:textStyle="bold"
+                android:layout_width="60dp"
+                android:id="@+id/masterEmpNo"
+                android:text="Emp Code"
+                android:textSize="@dimen/_8sdp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textColor="@color/vergence"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:textStyle="bold"
                 android:layout_width="60dp"
                 android:id="@+id/masterDepotDsc"
-                android:gravity="center|start"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:gravity="end|center"
                 android:text="Depo"
                 android:textSize="@dimen/_8sdp"
                 android:textAllCaps="true"

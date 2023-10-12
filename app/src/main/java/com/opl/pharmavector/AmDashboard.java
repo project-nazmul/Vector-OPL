@@ -103,7 +103,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AmDashboard extends Activity implements View.OnClickListener {
-    public String userName_1, userName, userName_2, UserName_2, global_admin_Code;
+    public String userName_1, userName, designation, terriName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
@@ -2281,6 +2281,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         Bundle b = getIntent().getExtras();
         assert b != null;
         userName = b.getString("UserName");
+        designation = b.getString("Designation");
+        terriName = b.getString("TerriName");
         UserName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
@@ -2297,10 +2299,17 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         globalAreaCode = UserName_2;
         globalFMCode = userName;
         t4.setText(globalFMCode);
-        t5.setText(globalAreaCode);
-        tvDesignation.setText(preferenceManager.getDesignation());
+        //t5.setText(globalAreaCode);
+        //tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
 
+        if (designation != null && terriName != null) {
+            tvDesignation.setText(designation);
+            t5.setText(terriName);
+        } else {
+            tvDesignation.setText(preferenceManager.getDesignation());
+            t5.setText(globalAreaCode);
+        }
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);

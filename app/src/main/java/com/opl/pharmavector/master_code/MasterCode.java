@@ -34,13 +34,17 @@ import com.opl.pharmavector.master_code.adapter.MasterAdapter;
 import com.opl.pharmavector.master_code.adapter.PromoAdapter;
 import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.master_code.model.MasterModel;
+import com.opl.pharmavector.productOffer.ProductOfferList;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -104,9 +108,9 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String searchString = s.toString();
-                masterAdapter.getFilter().filter(searchString);
-                masterAdapter.notifyDataSetChanged();
+//                String searchString = s.toString();
+//                masterAdapter.getFilter().filter(searchString);
+//                masterAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -114,9 +118,22 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
 
             @Override
             public void afterTextChanged(Editable s) {
-                //masterAdapter.notifyDataSetChanged();
+                masterCodeFilter(s.toString().trim());
             }
         });
+    }
+
+    void masterCodeFilter(String query) {
+        List<MasterCList> masterCodeList = new ArrayList<>();
+
+        for (MasterCList codeList: masterList) {
+            if (codeList.getMpoCode().toUpperCase().contains(query.toUpperCase()) || codeList.getFfRoll().toLowerCase().contains(query.toLowerCase()) ||
+                 codeList.getEmpno().toUpperCase().contains(query.toUpperCase()) || codeList.getTerriName().toUpperCase().contains(query.toUpperCase()) ||
+                  codeList.getEname().toUpperCase().contains(query.toUpperCase()) || codeList.getDepotDesc().toUpperCase().contains(query.toUpperCase())) {
+                masterCodeList.add(codeList);
+            }
+        }
+        masterAdapter.searchMasterCode(masterCodeList);
     }
 
     public void prepareMasterCode() {
@@ -152,59 +169,15 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         });
     }
 
-//    public void prepareMasterCode() {
-//        pDialog = new ProgressDialog(MasterCode.this);
-//        pDialog.setMessage("Loading Master Code...");
-//        pDialog.setTitle("Please wait ");
-//        pDialog.show();
-//        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-//        Call<List<Patient>> call = apiInterface.getMasterCode(user_code);
-//
-//        call.enqueue(new Callback<List<Patient>>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-//                List<Patient> giftitemCount = response.body();
-//
-//                if (response.isSuccessful()) {
-//                    for (int i = 0; i < (giftitemCount != null ? giftitemCount.size() : 0); i++) {
-//                        promoList.add(new Promo(giftitemCount.get(i).getSerial(),
-//                                giftitemCount.get(i).getMpocode(),
-//                                giftitemCount.get(i).getMonth(),
-//                                giftitemCount.get(i).getPacksize(),
-//                                giftitemCount.get(i).getSamplename(),
-//                                giftitemCount.get(i).getType(),
-//                                giftitemCount.get(i).getWeek1(),
-//                                giftitemCount.get(i).getWeek2(),
-//                                giftitemCount.get(i).getWeek3(),
-//                                giftitemCount.get(i).getWeek4(),
-//                                giftitemCount.get(i).getTotal()));
-//                    }
-//                    masterAdapter.notifyDataSetChanged();
-//                    pDialog.dismiss();
-//                } else {
-//                    pDialog.dismiss();
-//                    Toast.makeText(MasterCode.this, "No data Available", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Patient>> call, Throwable t) {
-//                pDialog.dismiss();
-//                prepareMasterCode();
-//            }
-//        });
-//    }
-
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         rvCompany = findViewById(R.id.rvCompany);
         headerScroll = findViewById(R.id.headerScroll);
         user_show1 = findViewById(R.id.user_show1);
         back_btn = findViewById(R.id.backbt);
-        masterCode = findViewById(R.id.masterCode);
-        masterRole = findViewById(R.id.masterRole);
-        masterSl = findViewById(R.id.masterSl);
+        masterCode = findViewById(R.id.masterTerriCode);
+        masterRole = findViewById(R.id.masterUserRole);
+        masterSl = findViewById(R.id.masterSlNo);
         masterTerriName = findViewById(R.id.masterTerriName);
         masterEmpNo = findViewById(R.id.masterEmpNo);
         masterEmpName = findViewById(R.id.masterEmpName);
@@ -223,8 +196,8 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
         user_flag = b.getString("user_flag");
         user_code = b.getString("user_code");
         searchview = findViewById(R.id.p_search);
-        searchview.setFilters(new InputFilter[] { new InputFilter.AllCaps()} );
-        searchview.setFilters(new InputFilter[] { new InputFilter.LengthFilter(5)} );
+        //searchview.setFilters(new InputFilter[] { new InputFilter.AllCaps()} );
+        //searchview.setFilters(new InputFilter[] { new InputFilter.LengthFilter(5)} );
     }
 
     public void setUpRecyclerView() {
@@ -255,7 +228,9 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
     public void onPromoSelected(MasterCList promo) {
         String user_code = promo.getMpoCode();
         String user_role = promo.getFfRoll();
-        String mpo_ff_type = promo.getTerriName();
+        String ff_type = promo.getFfType();
+        String user_designation = promo.getFfDesc();
+        String user_terriName = promo.getTerriName();
         String message_1 = promo.getDepotDesc();
         String message_2 = message_1;
         String emp_code = promo.getEmpno();
@@ -274,15 +249,16 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                         Intent i = new Intent(MasterCode.this, Dashboard.class);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", user_role);
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("Designation", user_designation);
                                         i.putExtra("vector_version", "MC1");
                                         i.putExtra("UserName", user_code);
                                         i.putExtra("UserName_1", message_1);
                                         i.putExtra("UserName_2", message_2);
                                         i.putExtra("new_version", R.string.vector_version);
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("TerriName", user_terriName);
                                         i.putExtra("emp_code", emp_code);
                                         i.putExtra("emp_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
                                         startActivity(i);
                                     }
                                 });
@@ -301,7 +277,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
 
             case "AM": {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Confirm").setMessage("You are going to login into Area Manager screen.Press Confirm to proceed")
+                builder.setTitle("Confirm").setMessage("You are going to login into Area Manager screen. Press Confirm to proceed")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -310,13 +286,15 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                     public void run() {
                                         Intent i = new Intent(MasterCode.this, AmDashboard.class);
                                         i.putExtra("UserName", user_code);
+                                        i.putExtra("Designation", user_designation);
                                         i.putExtra("UserName_1", message_1);
                                         i.putExtra("UserName_2", message_2);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", "FM");
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("TerriName", user_terriName);
                                         i.putExtra("emp_code", emp_code);
                                         i.putExtra("emp_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
                                         startActivity(i);
                                     }
                                 });
@@ -334,7 +312,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             }
             case "RM": {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Master Code Access").setMessage("You are going to login into Regional Manager screen.Press Confirm to proceed")
+                builder.setTitle("Master Code Access").setMessage("You are going to login into Regional Manager screen. Press Confirm to proceed")
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -343,13 +321,15 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                     public void run() {
                                         Intent i = new Intent(MasterCode.this, RmDashboard.class);
                                         i.putExtra("UserName", user_code);
+                                        i.putExtra("Designation", user_designation);
                                         i.putExtra("UserName_1", message_1);
                                         i.putExtra("UserName_2", message_2);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", user_role);
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("TerriName", user_terriName);
                                         i.putExtra("emp_code", emp_code);
                                         i.putExtra("emp_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
                                         startActivity(i);
                                     }
                                 });
@@ -367,7 +347,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             }
             case "ASM": {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Master Code Access").setMessage("You are going to login into Assistant/Deputy Sales Manager screen.Press Confirm to proceed")
+                builder.setTitle("Master Code Access").setMessage("You are going to login into Assistant/Deputy Sales Manager screen. Press Confirm to proceed")
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -376,13 +356,15 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                     public void run() {
                                         Intent i = new Intent(MasterCode.this, AssistantManagerDashboard.class);
                                         i.putExtra("UserName", user_code);
+                                        i.putExtra("Designation", user_designation);
                                         i.putExtra("UserName_1", message_1);
                                         i.putExtra("UserName_2", message_2);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", "AM");
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("TerriName", user_terriName);
                                         i.putExtra("emp_code", emp_code);
                                         i.putExtra("emp_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
                                         startActivity(i);
                                     }
                                 });
@@ -400,7 +382,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
             }
             case "SM": {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
-                builder.setTitle("Master Code Access").setMessage("You are going to login into Sales Manager screen.Press Confirm to proceed")
+                builder.setTitle("Master Code Access").setMessage("You are going to login into Sales Manager screen. Press Confirm to proceed")
                         .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -409,13 +391,15 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                     public void run() {
                                         Intent i = new Intent(MasterCode.this, SalesManagerDashboard.class);
                                         i.putExtra("UserName", user_code);
+                                        i.putExtra("Designation", user_designation);
                                         i.putExtra("UserName_1", message_1);
                                         i.putExtra("UserName_2", message_2);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", user_role);
-                                        i.putExtra("ff_type", mpo_ff_type);
+                                        i.putExtra("TerriName", user_terriName);
                                         i.putExtra("emp_code", emp_code);
                                         i.putExtra("emp_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
                                         startActivity(i);
                                     }
                                 });

@@ -43,7 +43,7 @@
             android:name=".achieve.AchieveEarnActivity"
             android:exported="false" />
         <activity
-            android:name=".offer.ProductOfferActivity"
+            android:name=".productOffer.ProductOfferActivity"
             android:exported="false" />
         <activity
             android:name=".report.LocationTrackerActivity"

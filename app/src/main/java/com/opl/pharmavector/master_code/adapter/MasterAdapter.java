@@ -16,6 +16,7 @@ import android.widget.Filter;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.master_code.model.MasterModel;
+import com.opl.pharmavector.productOffer.ProductOfferList;
 import com.opl.pharmavector.promomat.model.Promo;
 
 import java.util.ArrayList;
@@ -31,17 +32,17 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     private ValueFilter valueFilter;
 
     public class ClubViewHolder extends RecyclerView.ViewHolder {
-        public TextView serial, mpocode, month, sample_name, pack_size, type, week1;
+        public TextView serialNo, terriCode, userRole, empCode, terriName, empName, depotName;
 
         public ClubViewHolder(View view) {
             super(view);
-            serial = view.findViewById(R.id.serial);
-            mpocode = view.findViewById(R.id.mpocode);
-            month = view.findViewById(R.id.month);
-            sample_name = view.findViewById(R.id.sample_name);
-            pack_size = view.findViewById(R.id.pack_size);
-            type = view.findViewById(R.id.type);
-            week1 = view.findViewById(R.id.week1);
+            serialNo = view.findViewById(R.id.serialNo);
+            terriCode = view.findViewById(R.id.terriCode);
+            userRole = view.findViewById(R.id.userRole);
+            empCode = view.findViewById(R.id.empCode);
+            terriName = view.findViewById(R.id.terriName);
+            empName = view.findViewById(R.id.empName);
+            depotName = view.findViewById(R.id.depotName);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,13 +96,19 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     @Override
     public void onBindViewHolder(ClubViewHolder holder, int position) {
         MasterCList company = filteredCompanyList.get(position);
-        holder.serial.setText(String.valueOf(company.getSl()));
-        holder.mpocode.setText(company.getMpoCode());
-        holder.month.setText(company.getFfRoll());
-        holder.sample_name.setText(company.getEmpno());
-        holder.pack_size.setText(company.getTerriName());
-        holder.type.setText(company.getEname());
-        holder.week1.setText(company.getDepotDesc());
+        holder.serialNo.setText(String.valueOf(company.getSl()));
+        holder.terriCode.setText(company.getMpoCode());
+        holder.userRole.setText(company.getFfDesc());
+        holder.empCode.setText(company.getEmpno());
+        holder.terriName.setText(company.getTerriName());
+        holder.empName.setText(company.getEname());
+        holder.depotName.setText(company.getDepotDesc());
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void searchMasterCode(List<MasterCList> mCodeList) {
+        filteredCompanyList = mCodeList;
+        notifyDataSetChanged();
     }
 
     @Override

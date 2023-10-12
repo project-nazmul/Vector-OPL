@@ -104,7 +104,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AssistantManagerDashboard extends Activity implements View.OnClickListener {
-    public String userName_1, userName, userName_2, user, global_admin_Code;
+    public String userName_1, designation, terriName, userName, userName_2, user, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
     public AutoCompleteTextView actv;
@@ -1400,6 +1400,8 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         Bundle b = getIntent().getExtras();
         assert b != null;
         userName = b.getString("UserName");
+        designation = b.getString("Designation");
+        terriName = b.getString("TerriName");
         UserName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
@@ -1416,11 +1418,18 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         globalZONECode = UserName_2;
         globalASMCode = userName;
         t4.setText(globalASMCode);
-        t5.setText(globalZONECode);
-        tvDesignation.setText(preferenceManager.getDesignation());
+        //t5.setText(globalZONECode);
+        //tvDesignation.setText(preferenceManager.getDesignation());
         lock_emp_check(globalempCode);
-
         versionname = findViewById(R.id.versionname);
+
+        if (designation != null && terriName != null) {
+            tvDesignation.setText(designation);
+            t5.setText(terriName);
+        } else {
+            tvDesignation.setText(preferenceManager.getDesignation());
+            t5.setText(globalZONECode);
+        }
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);

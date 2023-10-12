@@ -12,7 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
-import com.opl.pharmavector.offer.ProductOfferActivity;
+import com.opl.pharmavector.productOffer.ProductOfferActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;

@@ -10,6 +10,12 @@ public class MasterCList {
     @SerializedName("FF_ROLL")
     @Expose
     private String ffRoll;
+    @SerializedName("FF_DESC")
+    @Expose
+    private String ffDesc;
+    @SerializedName("FF_TYPE")
+    @Expose
+    private String ffType;
     @SerializedName("MPO_CODE")
     @Expose
     private String mpoCode;
@@ -25,6 +31,22 @@ public class MasterCList {
     @SerializedName("DEPOT_DESC")
     @Expose
     private String depotDesc;
+
+    public String getFfType() {
+        return ffType;
+    }
+
+    public void setFfType(String ffType) {
+        this.ffType = ffType;
+    }
+
+    public String getFfDesc() {
+        return ffDesc;
+    }
+
+    public void setFfDesc(String ffDesc) {
+        this.ffDesc = ffDesc;
+    }
 
     public Integer getSl() {
         return sl;
