@@ -184,6 +184,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     String ppm_name, ppm_code = "xxxxxx", ppm_prod_code, inst_type, brand_name, manufacturer;
     ArrayAdapter<String> doc_adapter;
     TabLayout tabLayout;
+    boolean isCameraImage = false;
     ArrayList<Uri> mImageUriList = new ArrayList<>();
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -1570,9 +1571,10 @@ public class PrescriptionEntry extends AppCompatActivity {
             encodedImage = getStringImage(decoded);
         }
 
-        if (!Objects.equals(img_make, "Make : null\n")) {
-            if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase())) {
-                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n")) {
+        if (!Objects.equals(img_make, "Make : null\n") || isCameraImage) {
+            if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase()) || isCameraImage) {
+                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n") || isCameraImage) {
+                    isCameraImage = false;
                     Log.e("img_datetime", img_datetime);
                     if ((img_datetime.trim().equals("null"))) {
                         Log.e("SecondValueNull-->", img_local_path.trim());
@@ -1770,9 +1772,10 @@ public class PrescriptionEntry extends AppCompatActivity {
             encodedImage = getStringImage(decoded);
         }
 
-        if (!Objects.equals(img_make, "Make : null\n")) {
-            if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase())) {
-                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n")) {
+        if (!Objects.equals(img_make, "Make : null\n") || isCameraImage) {
+            if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase()) || isCameraImage) {
+                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n") || isCameraImage) {
+                    isCameraImage = false;
                     stringRequest = new StringRequest(Request.Method.POST, UPLOAD_Gift_URL,
                             new Response.Listener<String>() {
                                 @Override
@@ -2371,6 +2374,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     @SuppressLint("Recycle")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == AppCompatActivity.RESULT_OK) {
+            isCameraImage = true;
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Bitmap bitmap2 = Bitmap.createScaledBitmap(photo, 600, 600, true);
             imageView.setImageBitmap(bitmap2);
