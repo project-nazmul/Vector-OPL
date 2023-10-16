@@ -71,13 +71,16 @@ public interface ApiInterface {
             @Field("model") String model,
             @Field("brand") String brand,
             @Field("user_code") String user_code,
-            @Field("user_loc") String user_loc
+            @Field("user_loc") String user_loc,
+            @Field("os_version") String os_version
     );
 
     @FormUrlEncoded
     @POST("vector_login/lock_emp_check.php")
     Call<Patient> lock_emp_check(
-            @Field("user_code") String user_code
+            @Field("user_code") String user_code,
+            @Field("emp_code") String emp_code,
+            @Field("os_version") String os_version
     );
 
     @FormUrlEncoded

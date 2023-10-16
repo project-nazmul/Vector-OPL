@@ -37,14 +37,12 @@ public class AddComment extends Activity implements OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addcomment);
         title = (EditText)findViewById(R.id.title);
         message = (EditText)findViewById(R.id.message);
         mSubmit = (Button)findViewById(R.id.submit);
         mSubmit.setOnClickListener(this);
-
     }
 
     @Override

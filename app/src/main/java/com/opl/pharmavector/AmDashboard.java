@@ -130,7 +130,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     private int count;
     PreferenceManager preferenceManager;
     private String log_status = "A";
-    public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type, build_model, build_brand,
+    public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type, build_model, build_brand, os_version,
             build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3, vector_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
@@ -2088,11 +2088,12 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         build_device = Build.DEVICE;
         build_brand = Build.BRAND;
         build_id = Build.ID;
+        os_version = String.valueOf(Build.VERSION.RELEASE);
     }
 
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add, os_version);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -2301,7 +2302,6 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         t4.setText(globalFMCode);
         //t5.setText(globalAreaCode);
         //tvDesignation.setText(preferenceManager.getDesignation());
-        lock_emp_check(globalempCode);
 
         if (designation != null && terriName != null) {
             tvDesignation.setText(designation);
@@ -2320,6 +2320,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }
+        lock_emp_check(globalempCode);
     }
 
     private void showBottomSheetDialog_MPODCR() {
@@ -3616,7 +3617,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code);
+        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override

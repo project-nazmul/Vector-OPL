@@ -131,7 +131,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public String success, mymessage, mysuccess, myexamid, myexamtime, myexamtimeleft;
     public String exam_flag;
     public static String globalmpocode, globalmpoflag, globalterritorycode, globalfftype, ff_type, build_model, build_brand,
-            build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3;
+            build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3, os_version;
     public static String track_lat, track_lang, track_add = "No Address";
     public static String vectorToken;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -516,7 +516,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
             t5.setText(globalterritorycode);
         }
         //tvDesignation.setText(preferenceManager.getDesignation());
-        lock_emp_check(globalempCode);
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             Log.d("Login", currentVersion);
@@ -527,6 +526,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }
+        lock_emp_check(globalempCode);
     }
 
     @SuppressLint("SetTextI18n")
@@ -1837,7 +1837,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, track_lat, track_lang, build_model, build_brand, globalmpocode, track_add);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, track_lat, track_lang, build_model, build_brand, globalmpocode, track_add, os_version);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -1915,6 +1915,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         build_device = Build.DEVICE;
         build_brand = Build.BRAND;
         build_id = Build.ID;
+        os_version = String.valueOf(Build.VERSION.RELEASE);
     }
 
     @SuppressLint({"MissingPermission", "HardwareIds"})
@@ -2098,7 +2099,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code);
+        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override

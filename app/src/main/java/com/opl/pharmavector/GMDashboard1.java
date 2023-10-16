@@ -128,7 +128,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     PreferenceManager preferenceManager;
     private int count;
-    public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode,
+    public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode, os_version,
             build_model, build_brand, build_id, build_device, build_version;
     Typeface fontFamily;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn,
@@ -322,11 +322,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         build_device = Build.DEVICE;
         build_brand = Build.BRAND;
         build_id = Build.ID;
+        os_version = String.valueOf(Build.VERSION.RELEASE);
     }
 
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add, os_version);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -588,7 +589,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         t4.setText(global_admin_Code);
         t5.setText(global_admin_terri);
         tvDesignation.setText(preferenceManager.getDesignation());
-        lock_emp_check(global_admin_Code);
 
         versionname = findViewById(R.id.versionname);
         try {
@@ -601,6 +601,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }
+        lock_emp_check(global_admin_Code);
     }
 
     private void dcrfollowup() {
@@ -1626,7 +1627,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code);
+        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -1635,6 +1636,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 assert response.body() != null;
                 String status = response.body().getTerritory_name();
                 Log.e("Check locked user-->", status);
+
                 if (status.equals("Y")) {
                     Toast.makeText(GMDashboard1.this, "You are locked...", Toast.LENGTH_LONG).show();
                     log_status = "N";

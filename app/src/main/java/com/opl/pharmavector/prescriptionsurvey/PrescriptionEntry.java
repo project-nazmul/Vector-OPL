@@ -1565,7 +1565,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
 
         String encodedImage;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isCameraImage) {
             encodedImage = getStringImageOS13();
         } else {
             encodedImage = getStringImage(decoded);
@@ -1573,9 +1573,9 @@ public class PrescriptionEntry extends AppCompatActivity {
 
         if (!Objects.equals(img_make, "Make : null\n") || isCameraImage) {
             if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase()) || isCameraImage) {
-                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n") || isCameraImage) {
                     isCameraImage = false;
                     Log.e("img_datetime", img_datetime);
+
                     if ((img_datetime.trim().equals("null"))) {
                         Log.e("SecondValueNull-->", img_local_path.trim());
                         img_datetime = img_local_path.trim();
@@ -1647,11 +1647,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                } else {
-                    refresh();
-                    loading.dismiss();
-                    imageCopyAlert("This image is captured by others Device. !!!");
-                }
             } else {
                 refresh();
                 loading.dismiss();
@@ -1746,27 +1741,11 @@ public class PrescriptionEntry extends AppCompatActivity {
     }
 
     private void uploadGiftImage() {
-        Log.e("uploadGiftImage==>", "uploadGiftImage-->1448");
-        Log.e("ppm_code", ppm_code);
-        Log.e("brand_names", ppm_prod_code);
-        Log.e("ppm_name", ppm_name);
-        Log.e("mpo_code", Dashboard.globalmpocode);
-        Log.e("tab_flag", Tab_Flag);
-        Log.e("gift_tab_flag", GIFT_Tab_Flag);
-        Log.e("brand_code", ppm_prod_code);
-        Log.e("doc_code", doc_code);
-        Log.e("dept_name", dept_name);
-        Log.e("img_make", Build.BRAND);
-        Log.e("img_model", Build.MODEL);
-        Log.e("img_len", img_len);
-        Log.e("img_width", img_width);
-        Log.e("img_datetime", img_datetime);
-
         final ProgressDialog loading = ProgressDialog
                 .show(this, "Uploading Prescription in Server...", "Please wait...", false, false);
 
         String encodedImage;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isCameraImage) {
             encodedImage = getStringImageOS13();
         } else {
             encodedImage = getStringImage(decoded);
@@ -1774,7 +1753,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
         if (!Objects.equals(img_make, "Make : null\n") || isCameraImage) {
             if (img_make.toUpperCase().contains(brand_name.toUpperCase()) || img_make.toUpperCase().contains(manufacturer.toUpperCase()) || isCameraImage) {
-                if (!Objects.equals(img_lat, "GPSLatitude : null\n") && !Objects.equals(img_long, "GPSLongitude : null\n") || isCameraImage) {
                     isCameraImage = false;
                     stringRequest = new StringRequest(Request.Method.POST, UPLOAD_Gift_URL,
                             new Response.Listener<String>() {
@@ -1843,11 +1821,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                } else {
-                    refresh();
-                    loading.dismiss();
-                    imageCopyAlert("This image is captured by others Device. !!!");
-                }
             } else {
                 refresh();
                 loading.dismiss();
@@ -1896,7 +1869,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             if (!Objects.equals(img_make_multi, "Make : null\n")) {
                 if (img_make_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
-                    if (!Objects.equals(img_lat_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_multi, "GPSLongitude : null\n")) {
                         stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
@@ -1953,10 +1925,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                    } else {
-                        imageCopyAlert("This image is captured by others Device. !!!");
-                        break;
-                    }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
                     break;
@@ -2004,7 +1972,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             if (!Objects.equals(img_make_multi, "Make : null\n")) {
                 if (img_make_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
-                    if (!Objects.equals(img_lat_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_multi, "GPSLongitude : null\n")) {
                         stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
@@ -2063,9 +2030,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                    } else {
-                        imageCopyAlert("This image is captured by others Device. !!!");
-                    }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
                 }
@@ -2122,7 +2086,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             if (!Objects.equals(img_make_multi, "Make : null\n")) {
                 if (img_make_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
-                    if (!Objects.equals(img_lat_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_multi, "GPSLongitude : null\n")) {
                         stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
@@ -2180,10 +2143,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                    } else {
-                        imageCopyAlert("This image is captured by others Device. !!!");
-                        break;
-                    }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
                     break;
@@ -2233,7 +2192,6 @@ public class PrescriptionEntry extends AppCompatActivity {
 
             if (!Objects.equals(img_make_gift_multi, "Make : null\n")) {
                 if (img_make_gift_multi.toUpperCase().contains(brand_name.toUpperCase()) || img_make_gift_multi.toUpperCase().contains(manufacturer.toUpperCase())) {
-                    if (!Objects.equals(img_lat_gift_multi, "GPSLatitude : null\n") && !Objects.equals(img_long_gift_multi, "GPSLongitude : null\n")) {
                         stringRequest = new StringRequest(Request.Method.POST, url,
                                 new Response.Listener<String>() {
                                     @Override
@@ -2292,9 +2250,6 @@ public class PrescriptionEntry extends AppCompatActivity {
                                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-                    } else {
-                        imageCopyAlert("This image is captured by others Device. !!!");
-                    }
                 } else {
                     imageCopyAlert("This image is captured by others Device. !!!");
                 }

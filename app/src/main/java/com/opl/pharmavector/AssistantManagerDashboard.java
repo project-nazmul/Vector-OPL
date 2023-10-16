@@ -138,7 +138,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     ArrayList<String> mpo_code_interna;
     PreferenceManager preferenceManager;
     private int count;
-    public static String globalempCode, globalempName, build_model, build_brand, build_id, build_device, build_version;
+    public static String globalempCode, globalempName, build_model, build_brand, build_id, build_device, build_version, os_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_doctor_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
@@ -1133,11 +1133,12 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         build_device = Build.DEVICE;
         build_brand = Build.BRAND;
         build_id = Build.ID;
+        os_version = String.valueOf(Build.VERSION.RELEASE);
     }
 
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userLogIn(globalempCode, userName, vector_version, track_lat, track_lang, build_model, build_brand, userName, track_add, os_version);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -1420,7 +1421,6 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         t4.setText(globalASMCode);
         //t5.setText(globalZONECode);
         //tvDesignation.setText(preferenceManager.getDesignation());
-        lock_emp_check(globalempCode);
         versionname = findViewById(R.id.versionname);
 
         if (designation != null && terriName != null) {
@@ -1440,6 +1440,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }
+        lock_emp_check(globalempCode);
     }
 
     private void dcrfollowup() {
@@ -2437,7 +2438,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code);
+        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -2446,6 +2447,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
                 assert response.body() != null;
                 String status = response.body().getTerritory_name();
                 Log.e("Check locked user-->", status);
+
                 if (status.equals("Y")) {
                     Toast.makeText(AssistantManagerDashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
                     preferenceManager.clearPreferences();

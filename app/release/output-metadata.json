@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 70301,
-      "versionName": "65.2.33",
-      "outputFile": "vector-opsonin-release-v65.2.33.apk"
+      "versionCode": 70501,
+      "versionName": "65.2.35",
+      "outputFile": "vector-opsonin-release-v65.2.35.apk"
     }
   ],
   "elementType": "File"
