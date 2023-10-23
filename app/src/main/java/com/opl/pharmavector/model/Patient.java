@@ -43,6 +43,8 @@ public class Patient {
     private int success;
     @SerializedName("message_1")
     private String message_1;
+    @SerializedName("message_2")
+    private String message_2;
     @SerializedName("message_3")
     private String message_3;
     @SerializedName("message_4")
@@ -89,9 +91,16 @@ public class Patient {
     public String oplbase;
     @SerializedName("oplshare")
     public String oplshare;
-
     @SerializedName("designation")
     public String designation;
+
+    public String getMessage_2() {
+        return message_2;
+    }
+
+    public void setMessage_2(String message_2) {
+        this.message_2 = message_2;
+    }
 
     public String getDesignation() {
         return designation;

@@ -131,7 +131,7 @@ public class PrescriptionEntry extends AppCompatActivity {
     Button buttonCapture;
     Button btn_multi;
     int PICK_IMAGE_REQUEST = 2;
-    int bitmap_size = 40; // range 1 - 100
+    int bitmap_size = 100; // range 1 - 100
     String tag_json_obj = "json_obj_req";
     ArrayList<String> imageList = new ArrayList<>();
     ArrayList<String> imagesEncodedList = new ArrayList<>();
@@ -1006,32 +1006,33 @@ public class PrescriptionEntry extends AppCompatActivity {
                 k++;
                 selected_brand = k;
 
-                if (selected_brand == 0) {
-                    imageView.setImageResource(0);
-                    gvGallery.setAdapter(null);
-                    imageView.setVisibility(View.GONE);
-                    gvGallery.setVisibility(View.GONE);
-                } else if (selected_brand == 1) {
-                    chipCountOne();
-                } else {
-                    chipCountMultiple();
-                }
+//                if (selected_brand == 0) {
+//                    imageView.setImageResource(0);
+//                    gvGallery.setAdapter(null);
+//                    imageView.setVisibility(View.GONE);
+//                    gvGallery.setVisibility(View.GONE);
+//                } else if (selected_brand == 1) {
+//                    chipCountOne();
+//                } else {
+//                    chipCountMultiple();
+//                }
             }
 
             @Override
             public void onChipRemoved(int pos, String txt) {
                 k--;
                 selected_brand = k;
-                if (selected_brand == 0) {
-                    imageView.setImageResource(0);
-                    gvGallery.setAdapter(null);
-                    imageView.setVisibility(View.GONE);
-                    gvGallery.setVisibility(View.GONE);
-                } else if (selected_brand == 1) {
-                    chipCountOne();
-                } else {
-                    chipCountMultiple();
-                }
+
+//                if (selected_brand == 0) {
+//                    imageView.setImageResource(0);
+//                    gvGallery.setAdapter(null);
+//                    imageView.setVisibility(View.GONE);
+//                    gvGallery.setVisibility(View.GONE);
+//                } else if (selected_brand == 1) {
+//                    chipCountOne();
+//                } else {
+//                    chipCountMultiple();
+//                }
             }
         });
     }

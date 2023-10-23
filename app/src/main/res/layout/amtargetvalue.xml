@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/page_background"
     android:orientation="vertical"
     android:padding="10dp"
     android:weightSum="100">
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
@@ -19,13 +18,12 @@
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
 
-
         <LinearLayout
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="5"
             android:gravity="center"
             android:orientation="horizontal"
@@ -94,84 +92,80 @@
             android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:id="@+id/slistLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="22">
+            <LinearLayout
+                android:id="@+id/slistLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="22">
 
-        <TextView
-            android:id="@+id/sserial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/serial"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/sserial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/serial"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/segment_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="start"
-            android:text="@string/code_of_mpo"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/colorAccentEditor"
-            />
+                <TextView
+                    android:id="@+id/segment_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="@string/code_of_mpo"
+                    android:textColor="@color/colorAccentEditor"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/sproduct_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="start"
-            android:text="Product\nname"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/blue" />
+                <TextView
+                    android:id="@+id/sproduct_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="Product\nname"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/sqnty1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Target\nvalue"
-            android:layout_weight="4"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_8sdp" />
+                <TextView
+                    android:id="@+id/sqnty1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Target\nvalue"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/ssellvelue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
+                <TextView
+                    android:id="@+id/ssellvelue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
 
-            android:text="Sale\nvalue"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/blue"
-             />
+                    android:text="Sale\nvalue"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/achiev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:textSize="@dimen/_8sdp"
-            android:text="Achievment"
-            android:textColor="@color/green1"
-             />
+                <TextView
+                    android:id="@+id/achiev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Achievment"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/growth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:textSize="@dimen/_8sdp"
-            android:text="Growth"
-            android:textColor="@color/blue"
-            />
+                <TextView
+                    android:id="@+id/growth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="Growth"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_8sdp" />
 
 
-    </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -182,11 +176,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="95.71"
-        android:listSelector="@drawable/active"
         android:clickable="true"
         android:divider="@android:color/transparent"
-        android:focusable="true" >
-    </ListView>
+        android:focusable="true"
+        android:listSelector="@drawable/active"></ListView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
@@ -200,46 +193,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/totalshow"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:weightSum="98" >
+            <LinearLayout
+                android:id="@+id/totalshow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:weightSum="98">
 
-        <TextView
-            android:id="@+id/heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:text=""
-            android:textStyle="bold"
-            android:textColor="#FFF" />
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#FFF"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/totalsellquantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="45"
-            android:gravity="end"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:textSize="11sp"
-            android:text="" />
+                <TextView
+                    android:id="@+id/totalsellquantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="45"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/colorAccent"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/totalsellvalue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="45"
-            android:gravity="end"
-            android:textColor="@color/blue"
-            android:textStyle="bold"
-            android:textSize="11sp"
-
-            android:text="" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/totalsellvalue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="45"
+                    android:gravity="end"
+                    android:text=""
+                    android:textColor="@color/blue"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -251,7 +243,6 @@
             android:id="@+id/backbt"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:textSize="25sp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/dcr_page_button"
@@ -261,6 +252,7 @@
             android:soundEffectsEnabled="true"
             android:text="&lt;"
             android:textColor="#FFF"
+            android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
 
 

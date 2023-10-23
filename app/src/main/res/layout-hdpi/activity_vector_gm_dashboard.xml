@@ -1355,21 +1355,18 @@
                             app:layout_constraintVertical_bias="0.862" />
 
                         <TextView
+                            android:layout_marginBottom="2dp"
                             android:id="@+id/tv_ff_prescriber"
                             android:layout_width="65dp"
-                            android:layout_height="31dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="5dp"
+                            android:layout_height="wrap_content"
                             android:fontFamily="@font/robotoregular"
-                            android:text="SPI Top\nPrescriber"
+                            android:text="SPI Top\nPrescriber\n(Generic)"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/img_btn_prescriber"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.68" />
+                            app:layout_constraintTop_toBottomOf="@+id/btn_ff_prescriber" />
 
                         <Button
                             android:id="@+id/btn_ff_prescriber"

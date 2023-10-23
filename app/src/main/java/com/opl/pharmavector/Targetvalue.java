@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -43,12 +44,12 @@ public class Targetvalue extends Activity implements OnClickListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
     Button submit, submitBtn;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
     Boolean result;
     EditText inputOne, inputtwo;
@@ -89,11 +90,9 @@ public class Targetvalue extends Activity implements OnClickListener {
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
@@ -103,10 +102,10 @@ public class Targetvalue extends Activity implements OnClickListener {
             }
         });
         submitBtn.setOnClickListener(new OnClickListener() {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
@@ -114,36 +113,26 @@ public class Targetvalue extends Activity implements OnClickListener {
                     String todate1 = todate.getText().toString();
 
                     if (fromdate1.isEmpty() || (fromdate1.equals("From Date")) || (fromdate1.equals("From Date is required"))) {
-
                         fromdate.setText("From Date is required");
                         fromdate.setTextColor(Color.RED);
                     } else if (todate1.isEmpty() || (todate1.equals("To Date")) || (todate1.equals("To Date is required"))) {
-
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
                     } else {
                         categoriesList.clear();
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
-
-
     }
 
     private void calenClickEvents() {
-
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -157,25 +146,19 @@ public class Targetvalue extends Activity implements OnClickListener {
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         fromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(Targetvalue.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -189,23 +172,19 @@ public class Targetvalue extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
 
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
-                new DatePickerDialog(Targetvalue.this, date_to, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                new DatePickerDialog(Targetvalue.this, date_to, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = findViewById(R.id.pListView);
         back_btn = findViewById(R.id.backbt);
@@ -237,22 +216,18 @@ public class Targetvalue extends Activity implements OnClickListener {
         myCalendar1 = Calendar.getInstance();
     }
 
-
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
-
         }
-
-
     }
 
     public void finishActivity(View v) {
         finish();
     }
-/*
-    class Spinner {
+
+   /* class Spinner {
         private String TotalQ;
         private String TotalV;
 
@@ -264,8 +239,8 @@ public class Targetvalue extends Activity implements OnClickListener {
             ArrayList<Float> growth = new ArrayList<>();
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue, prod_vat_2;
-            for (int i = 0; i < categoriesList.size(); i++) {
 
+            for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
@@ -274,19 +249,17 @@ public class Targetvalue extends Activity implements OnClickListener {
                 prod_vat_2 = Float.parseFloat(categoriesList.get(i).getPROD_VAT_2());
                 sellvalue = prod_rate;
                 String sellvalue1 = String.format("%.02f", sellvalue);
-                //	Float sellvalue2= Float.parseFloat(sellvalue1);
+                //Float sellvalue2= Float.parseFloat(sellvalue1);
                 value.add(sellvalue1);
-
                 achv.add(prod_vat);
                 growth.add(prod_vat_2);
             }
-
             int totalqty = 0;
             float totalvlu = 0F;
             float qnty = 0F;
+
             for (int i = 0; i < quanty.size(); i++) {
                 //totalqty += (quanty.get(i));
-
                 qnty += Float.parseFloat(quanty.get(i));
                 totalvlu += Float.parseFloat(value.get(i)); //(value.get(i));
             }
@@ -294,31 +267,23 @@ public class Targetvalue extends Activity implements OnClickListener {
             float Totalsellvalue1 = totalvlu;
             String total_value = String.format("%.02f", Totalsellvalue1);
             TotalV = String.valueOf(total_value);
-
             String sale_velue = TotalV;
             //String number = "100000000";
             double sale_velue1 = Double.parseDouble(sale_velue);
             DecimalFormat formatter = new DecimalFormat("#,##,###.00");
             String sale_velue2 = formatter.format(sale_velue1);
-
-
             String target_value = TotalQ;
             //String number = "100000000";
             double target_value2 = Double.parseDouble(target_value);
             DecimalFormat formatter2 = new DecimalFormat("#,##,###.00");
             String target_value3 = formatter2.format(target_value2);
-
-
             totqty.setText("Target value =" + target_value3);
             totval.setText("Sale value = " + sale_velue2);
-
-            AmTargetvalueProductShowAdapter adapter = new AmTargetvalueProductShowAdapter(Targetvalue.this, lables,
-                    quanty, value, achv, growth);
+            AmTargetvalueProductShowAdapter adapter = new AmTargetvalueProductShowAdapter(Targetvalue.this, lables, quanty, value, achv, growth);
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -329,12 +294,13 @@ public class Targetvalue extends Activity implements OnClickListener {
         public String getTotalV() {
             return TotalV;
         }
-    }
-*/
+    } */
+
     class Spinner {
         private String TotalQ;
         private String TotalV;
 
+        @SuppressLint("SetTextI18n")
         private void populateSpinner() {
             ArrayList<String> lables = new ArrayList<String>();
             ArrayList<Integer> quanty = new ArrayList<Integer>();
@@ -342,12 +308,11 @@ public class Targetvalue extends Activity implements OnClickListener {
             ArrayList<Float> achv = new ArrayList<Float>();
             ArrayList<Float> growth = new ArrayList<Float>();
             ArrayList<String> segment = new ArrayList<String>();
-
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue, achievment, ppm_code;
             String segment_code;
-            for (int i = 0; i < categoriesList.size(); i++) {
 
+            for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
@@ -358,32 +323,33 @@ public class Targetvalue extends Activity implements OnClickListener {
                 segment_code = categoriesList.get(i).getP_CODE();
                 Log.e("segment_Code", categoriesList.get(i).getP_CODE());
                 sellvalue = prod_rate;
-
-                String sellvalue1 = String.format("%.02f", sellvalue);
+                @SuppressLint("DefaultLocale") String sellvalue1 = String.format("%.02f", sellvalue);
                 Float sellvalue2 = Float.parseFloat(sellvalue1);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 growth.add(ppm_code);
                 segment.add(segment_code);
-
             }
-
             int totalqty = 0;
             float totalvlu = 0F;
+
             for (int i = 0; i < quanty.size(); i++) {
                 totalqty += (quanty.get(i));
                 totalvlu += (value.get(i));
             }
-            TotalQ = String.valueOf(totalqty);
             float Totalsellvalue1 = totalvlu;
-            String total_value = String.format("%.02f", Totalsellvalue1);
+            float Totalsellquant1 = Float.parseFloat(String.valueOf(totalqty));
+            @SuppressLint("DefaultLocale") String total_value = String.format("%.02f", Totalsellvalue1);
+            @SuppressLint("DefaultLocale") String total_quant = String.format("%.02f", Totalsellquant1);
+            TotalQ = String.valueOf(total_quant);
             TotalV = String.valueOf(total_value);
+            totqty.setText("Target value = " + TotalQ);
+            totval.setText("Sale value = " + TotalV);
             AmTargetquantityProductShowAdapter adapter = new AmTargetquantityProductShowAdapter(Targetvalue.this, lables, quanty, value, achv, growth,segment);
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -396,9 +362,7 @@ public class Targetvalue extends Activity implements OnClickListener {
         }
     }
 
-
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         String fromdate1 = fromdate.getText().toString();
         String todate1 = todate.getText().toString();
         Bundle b = getIntent().getExtras();
@@ -416,44 +380,38 @@ public class Targetvalue extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", userName));
             params.add(new BasicNameValuePair("to_date", todate1));
             params.add(new BasicNameValuePair("from_date", fromdate1));
-
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
-
             Log.e("josnload==>",json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            Category cat = new Category(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PPM_CODE"),
-                                    catObj.getString("P_CODE")
-                            );
-                            categoriesList.add(cat);
-                        }
-                    }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
 
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PPM_CODE"),
+                                catObj.getString("P_CODE")
+                        );
+                        categoriesList.add(cat);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
-
-                Toast.makeText(Targetvalue.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Targetvalue.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(Targetvalue.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -467,23 +425,21 @@ public class Targetvalue extends Activity implements OnClickListener {
             Targetvalue.Spinner sp = new Targetvalue.Spinner();
             sp.populateSpinner();
             popSpinner();
-
         }
     }
 
-    /*------------- list items on click event----------------*/
     @Override
     public void onClick(View v) {
+
     }
 
     protected void onPostExecute() {
+
     }
 
     private void view() {
         Intent i = new Intent(Targetvalue.this, com.opl.pharmavector.AmSalesReportDashboard.class);
         startActivity(i);
         finish();
-
     }
-
 }

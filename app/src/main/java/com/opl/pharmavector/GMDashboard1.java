@@ -601,7 +601,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         if (!currentVersion.isEmpty()) {
             versionname.setText(currentVersion);
         }
-        lock_emp_check(global_admin_Code);
+        lock_emp_check(globalempCode);
     }
 
     private void dcrfollowup() {
@@ -1619,15 +1619,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
 
     @Override
     public void onClick(View v) {
+
     }
 
     private void lock_emp_check(String emp_code) {
+        String vectorVersion = currentVersion.replace(".", "");
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
+        Call<Patient> call = apiInterface.lock_emp_check(globalempCode, vectorVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -1638,7 +1640,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 Log.e("Check locked user-->", status);
 
                 if (status.equals("Y")) {
-                    Toast.makeText(GMDashboard1.this, "You are locked...", Toast.LENGTH_LONG).show();
+                    String message = response.body().getMessage_2();
+                    //Toast.makeText(GMDashboard1.this, "You are locked...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(GMDashboard1.this, message, Toast.LENGTH_LONG).show();
                     log_status = "N";
                     preferenceManager.clearPreferences();
                     count = 0;

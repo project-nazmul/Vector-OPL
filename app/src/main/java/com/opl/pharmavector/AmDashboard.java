@@ -3612,12 +3612,13 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     }
 
     private void lock_emp_check(String emp_code) {
+        String vectorVersion = currentVersion.replace(".", "");
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Check locked user...");
         //progressDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.lock_emp_check(emp_code, globalempCode, currentVersion);
+        Call<Patient> call = apiInterface.lock_emp_check(globalempCode, vectorVersion);
 
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -3628,7 +3629,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                 Log.e("Check locked user-->", status);
 
                 if (status.equals("Y")) {
-                    Toast.makeText(AmDashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
+                    String message = response.body().getMessage_2();
+                    Toast.makeText(AmDashboard.this, message, Toast.LENGTH_LONG).show();
                     log_status = "N";
                     preferenceManager.clearPreferences();
                     count = 0;

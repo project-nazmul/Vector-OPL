@@ -25,6 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opl.pharmavector.util.KeyboardUtils;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -154,6 +156,8 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
+                KeyboardUtils.hideKeyboard(MPOBrandWiseProductSale.this);
+
                 if ((actv.getText().toString().trim().equals(""))) {
                     actv.setError("Select a Brand");
                 } else {
@@ -325,9 +329,12 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
             ArrayList<String> sale_value = new ArrayList<String>();
             ArrayList<String> target_value = new ArrayList<String>();
             ArrayList<String> growth_value = new ArrayList<String>();
+            ArrayList<String> ff_names = new ArrayList<String>();
+            ArrayList<String> mon_growth = new ArrayList<String>();
+            ArrayList<String> cum_growth = new ArrayList<String>();
             float achievment;
             String prod_rate, prod_vat, ppm_code, shift_code, growth_code;
-            String mpo, quantity;
+            String mpo, quantity, monGrowth, cumGrowth, ff_name;
 
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
@@ -340,16 +347,21 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
                 ppm_code = String.valueOf((categoriesList.get(i).getPPM_CODE()));
                 shift_code = String.valueOf((categoriesList.get(i).getP_CODE()));
                 growth_code = String.valueOf((categoriesList.get(i).getSHIFT_CODE()));
+                ff_name = String.valueOf(categoriesList.get(i).getFF_NAME());
+                monGrowth = String.valueOf(categoriesList.get(i).getMON_GROWTH());
+                cumGrowth = String.valueOf(categoriesList.get(i).getCUM_GROWTH());
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 mpo_code.add(mpo);
                 sale_value.add(ppm_code);
                 target_value.add(shift_code);
                 growth_value.add(growth_code);
+                ff_names.add(ff_name);
+                mon_growth.add(monGrowth);
+                cum_growth.add(cumGrowth);
             }
             BrandwiseProductShowAdapter adapter = new BrandwiseProductShowAdapter(MPOBrandWiseProductSale.this, lables, quanty, value, achv,
-                    mpo_code, sale_value, target_value, growth_value);
-
+                    mpo_code, sale_value, target_value, growth_value, ff_names, mon_growth, cum_growth);
             productListView.setAdapter(adapter);
         }
 
@@ -417,6 +429,7 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category cat = new Category(
@@ -428,7 +441,10 @@ public class MPOBrandWiseProductSale  extends Activity implements View.OnClickLi
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PPM_CODE"),
                                 catObj.getString("P_CODE"),
-                                catObj.getString("SHIFT_CODE")
+                                catObj.getString("SHIFT_CODE"),
+                                catObj.getString("FF_NAME"),
+                                catObj.getString("MON_GROWTH"),
+                                catObj.getString("CUM_GROWTH")
                         );
                         categoriesList.add(cat);
                     }

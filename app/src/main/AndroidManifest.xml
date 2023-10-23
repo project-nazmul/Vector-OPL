@@ -113,6 +113,9 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="landscape"
             android:name=".MPOBrandWiseProductSale"
             android:exported="false" />
         <activity
