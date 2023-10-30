@@ -36,6 +36,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".dcfpFollowup.DcfpDoctorListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity"
+            android:exported="false" />
         <activity
             android:name=".dcfpFollowup.MpoDcfpFollowActivity"
             android:exported="false" />
@@ -113,11 +121,11 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="landscape"
             android:name=".MPOBrandWiseProductSale"
-            android:exported="false" />
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AmGiftOrder"
             android:configChanges="orientation|keyboardHidden"
@@ -352,24 +360,24 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="landscape"
             android:name=".RMWiseProductSale"
-            android:label="@string/app_name" />
-        <activity
+            android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".FMwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".ProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".SegmentSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".order_online.ReadComments"
@@ -406,14 +414,14 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".ASMWiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".SMWiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".NoticeBoard"
@@ -436,10 +444,10 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".AMfollowMpoAchv"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RMfollowMpoAchv"
@@ -478,10 +486,10 @@
             android:label="Sale Matrix"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".ManagersSalesFollowup"
             android:label="Sale Matrix"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ViewbyTargetsale"
@@ -551,22 +559,22 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".ManagersSalesFollowup2"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".AMwiseProductSale2"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".AMfollowMpoAchv2"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" /> <!-- created by AORM plugin at 2015-04-05 14:13:25 -->
         <activity
             android:name=".Offlineordupdate"
@@ -615,33 +623,33 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".BrandwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".FMBrandwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".ASMBrandwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".SMBrandwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".AdminReportDashboard"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".RMBrandwiseProductSale"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ChemistGiftOrder"

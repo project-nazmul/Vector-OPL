@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/doc_degree"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0px"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Degree"
+            android:textColor="@color/bg_gradient_end"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/doc_spec"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Spec."
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/planned_eve"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Eve"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/visited_todDoc"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0px"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Tot_Doc"
+            android:textColor="@color/bg_gradient_end"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/visited_morn"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Morn"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/visited_eve"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="Eve"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/not_visited"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Not Visited"
+            android:textAlignment="gravity"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/visit_percentage"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Visit %"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

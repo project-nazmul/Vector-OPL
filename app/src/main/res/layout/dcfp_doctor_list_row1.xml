@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dcfp_border"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/doc_code"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:focusable="true"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:text="Doc Code"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_8sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <TextView
+            android:id="@+id/doc_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusable="true"
+            android:text="Doc Name"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_7sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <TextView
+            android:id="@+id/doc_degree"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusable="true"
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:text="Degree"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_7sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <TextView
+            android:id="@+id/doc_spec"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="Spec"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_8sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/doc_d1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_dot"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_dot"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_dot"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_dot"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:id="@+id/doc_d8"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d9"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d10"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d11"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d12"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d13"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d14"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:id="@+id/doc_d15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d16"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d17"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d18"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d19"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d20"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d21"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <TextView
+                android:id="@+id/doc_d22"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d23"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d24"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d25"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d26"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d27"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/doc_d28"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/icon_check"
+                android:focusable="true"
+                android:text=""
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

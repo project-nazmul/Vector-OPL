@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/arrow_back/baseline_arrow_back_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/check/baseline_check_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -30,7 +30,7 @@
                           <map>
                             <entry key="color" value="ffffff" />
                             <entry key="opacityPercent" value="72" />
-                            <entry key="outputName" value="back_arrow_new" />
+                            <entry key="outputName" value="icon_check" />
                             <entry key="sourceFile" value="E:\F Drive\Opsonin\SALEMATRIX" />
                           </map>
                         </option>

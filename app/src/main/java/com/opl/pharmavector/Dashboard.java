@@ -47,6 +47,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
@@ -585,7 +586,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpPreview = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         CardView cardview_dcfpEntry = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+        CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         Objects.requireNonNull(cardview_dcfpEntry).setVisibility(View.VISIBLE);
+        Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -632,6 +635,12 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
         Objects.requireNonNull(cardview_dcfpEntry).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, MPODcfpEntryActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, DcfpDoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
