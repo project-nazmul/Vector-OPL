@@ -7,7 +7,7 @@
     android:background="@drawable/page_background"
     android:orientation="vertical"
     android:paddingLeft="10dp"
-    android:paddingTop="10dp"
+    android:paddingTop="4dp"
     android:paddingRight="10dp">
 
     <LinearLayout
@@ -28,8 +28,8 @@
 
             <Button
                 android:id="@+id/backBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
@@ -105,14 +105,15 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/doc_code"
-                    android:layout_width="62dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="Doctor \nCode"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/_8sdp" />
+                    android:text="D. Code"
+                    android:textColor="@color/deeppurple"
+                    android:textSize="@dimen/_11sdp" />
 
                 <View
                     android:layout_width="1dp"
@@ -120,14 +121,15 @@
                     android:background="#424242" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/doc_name"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Doctor Name"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_8sdp" />
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_11sdp" />
 
                 <View
                     android:layout_width="1dp"
@@ -135,14 +137,15 @@
                     android:background="#424242" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/doc_degree"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Degree"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_8sdp" />
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="@dimen/_11sdp" />
 
                 <View
                     android:layout_width="1dp"
@@ -150,14 +153,15 @@
                     android:background="#424242" />
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/doc_spec"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Spec."
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_8sdp" />
+                    android:textColor="@color/colorAccentEditor"
+                    android:textSize="@dimen/_11sdp" />
 
                 <View
                     android:layout_width="1dp"
@@ -174,6 +178,8 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:padding="4dp"
+                            android:textStyle="bold"
                             android:id="@+id/tvFirstWeek"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -220,7 +226,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sun"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -237,7 +243,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Mon"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -255,7 +261,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Tue"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -273,7 +279,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Wed"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -291,7 +297,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Thu"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -309,7 +315,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Fri"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/bg_gradient_end"
                             android:textSize="@dimen/_7sdp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -330,12 +336,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:padding="4dp"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
                             android:text="2nd Week"
                             android:textAlignment="center"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -358,7 +366,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sat"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -375,7 +383,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sun"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -392,7 +400,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Mon"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -410,7 +418,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Tue"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -428,7 +436,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Wed"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -446,7 +454,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Thu"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -464,7 +472,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Fri"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/vergence"
                             android:textSize="@dimen/_7sdp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -484,12 +492,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:padding="4dp"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
                             android:text="3rd Week"
                             android:textAlignment="center"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -512,7 +522,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sat"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -529,7 +539,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sun"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -546,7 +556,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Mon"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -564,7 +574,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Tue"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -582,7 +592,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Wed"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -600,7 +610,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Thu"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -618,7 +628,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Fri"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/green1"
                             android:textSize="@dimen/_7sdp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -638,12 +648,14 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:padding="4dp"
+                            android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusable="true"
                             android:text="4th Week"
                             android:textAlignment="center"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_8sdp" />
                     </LinearLayout>
 
@@ -667,7 +679,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sat"
-                            android:textColor="@color/bg_gradient_end"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -684,7 +696,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Sun"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -701,7 +713,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Mon"
-                            android:textColor="@android:color/holo_red_dark"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -719,7 +731,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Tue"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -737,7 +749,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Wed"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -755,7 +767,7 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Thu"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
 
                         <View
@@ -773,10 +785,30 @@
                             android:gravity="center"
                             android:rotation="315"
                             android:text="Fri"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_7sdp" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Doctor Name"
+                    android:textColor="@color/colorAccentEditor"
+                    android:textSize="@dimen/_11sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

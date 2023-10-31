@@ -53,6 +53,7 @@ import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
@@ -414,15 +415,56 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void topPrescriberEvent() {
-        cardView_prescriber.setOnClickListener(v -> {
-            Intent i = new Intent(SalesManagerDashboard.this, TopPrescriberActivity.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", userName);
-            i.putExtra("new_version", new_version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "SM");
-            startActivity(i);
+        cardView_prescriber.setOnClickListener(pres -> {
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.dcfp_bottom_sheet_dialog);
+            CardView cardView_topPrescriber = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+            CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+            CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+            TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+            TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+            TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+            TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+            Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+            Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+            Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+            Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+            Objects.requireNonNull(button1).setText("14.1");
+            Objects.requireNonNull(button2).setText("14.2");
+            Objects.requireNonNull(button3).setText("14.3");
+            Objects.requireNonNull(textView4).setText("SPI Top Prescriber\n(Generic)");
+            Objects.requireNonNull(textView5).setText("SPI \nReport");
+            Objects.requireNonNull(textView6).setText("Doctor \nReach");
+            Objects.requireNonNull(changePassword).setText(R.string.spiReport);
+            ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+            Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+            Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+            bottomSheetDialog.show();
+
+            Objects.requireNonNull(cardView_topPrescriber).setOnClickListener(v -> {
+                Intent i = new Intent(SalesManagerDashboard.this, TopPrescriberActivity.class);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", userName);
+                i.putExtra("new_version", new_version);
+                i.putExtra("message_3", message_3);
+                i.putExtra("UserRole", "SM");
+                startActivity(i);
+            });
+            Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
+                Intent i = new Intent(SalesManagerDashboard.this, MRDPresReport.class);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", globalempCode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                i.putExtra("UserRole", "AD");
+                i.putExtra("report_flag", "SPI");
+                i.putExtra("asm_flag", "N");
+                i.putExtra("sm_flag", "Y");
+                i.putExtra("gm_flag", "N");
+                startActivity(i);
+            });
         });
     }
 

@@ -41,6 +41,7 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
         holder.doc_name.setText(dcfpDoctorModel.getDocName());
         holder.doc_degree.setText(dcfpDoctorModel.getQual());
         holder.doc_spec.setText(dcfpDoctorModel.getSpDesc());
+        holder.doc_name1.setText(dcfpDoctorModel.getDocName());
     }
 
     @Override
@@ -49,7 +50,7 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
     }
 
     public class DcfpDoctorViewHolder extends RecyclerView.ViewHolder {
-        public TextView doc_code, doc_name, doc_degree, doc_spec, planned_eve, visited_todDoc, visited_morn, visited_eve, not_visited, visit_percentage;
+        public TextView doc_code, doc_name, doc_degree, doc_spec, doc_name1, visited_todDoc, visited_morn, visited_eve, not_visited, visit_percentage;
 
         public DcfpDoctorViewHolder(View view) {
             super(view);
@@ -57,6 +58,7 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
             doc_name = view.findViewById(R.id.doc_name);
             doc_degree = view.findViewById(R.id.doc_degree);
             doc_spec = view.findViewById(R.id.doc_spec);
+            doc_name1 = view.findViewById(R.id.doc_name1);
         }
     }
 

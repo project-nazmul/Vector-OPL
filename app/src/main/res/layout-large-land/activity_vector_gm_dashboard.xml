@@ -1363,12 +1363,13 @@
                             app:layout_constraintVertical_bias="0.862" />
 
                         <TextView
+                            android:paddingStart="12dp"
                             android:layout_marginBottom="2dp"
                             android:id="@+id/tv_ff_prescriber"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/robotoregular"
-                            android:text="SPI Top\nPrescriber\n(Generic)"
+                            android:text="SPI"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"

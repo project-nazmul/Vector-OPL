@@ -328,6 +328,7 @@
     <string name="notification">Notification</string>
     <string name="rx_capture">Rx Capture</string>
     <string name="dailycallreport">Daily Call Report</string>
+    <string name="spiReport">SPI Report</string>
     <string name="mpo_product_order">Product Order</string>
 </resources>
 

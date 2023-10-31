@@ -50,6 +50,7 @@ import com.opl.pharmavector.exam.ExamResultFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
+import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
@@ -1502,23 +1503,16 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         mpo_pwd_chng.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
                 // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
@@ -1536,22 +1530,16 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
-
-
         bar_13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
@@ -1651,10 +1639,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
-
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(AmDashboard.this, AmDCCFollowup.class);
@@ -1665,48 +1650,37 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("rm_flag", "N");
                                 i.putExtra("asm_flag", "N");
                                 i.putExtra("sm_flag", "N");
-
                                 startActivity(i);
-
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 pDialog.dismiss();
                 backthred.start();
-
-
             }
         });
 
         report.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Bundle b = getIntent().getExtras();
                         String userName = b.getString("UserName");
                         String userName_1 = b.getString("UserName_1");
                         String userName_2 = b.getString("UserName_2");
+
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(AmDashboard.this, AmSalesReportDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1722,36 +1696,26 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
         bar_11.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Intent i = new Intent(AmDashboard.this, AmDashboard.class);
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1763,26 +1727,17 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
             }
         });
-
-
         dcr.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -1792,7 +1747,6 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 Log.w("Passed to Readco", userName + "---" + UserName_2);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1804,24 +1758,17 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
                 backthred.start();
-
-
             }
         });
         bar_3.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
@@ -1830,7 +1777,6 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName", userName);
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
-
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
@@ -1839,25 +1785,20 @@ public class AmDashboard extends Activity implements View.OnClickListener {
                                 i.putExtra("UserName_2", user);
                                 startActivity(i);
                             }
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 });
                 backthred.start();
-
             }
         });
-
         dcr_monitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
 
@@ -2109,15 +2050,58 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void topPrescriberEvent() {
-        cardView_prescriber.setOnClickListener(v -> {
-            Intent i = new Intent(AmDashboard.this, TopPrescriberActivity.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", userName);
-            i.putExtra("new_version", vector_version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "FM");
-            startActivity(i);
+        cardView_prescriber.setOnClickListener(pres -> {
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.dcfp_bottom_sheet_dialog);
+            CardView cardView_topPrescriber = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+            CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+            CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+            TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+            TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+            TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+            TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+            Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+            Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+            Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+            Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+            Objects.requireNonNull(button1).setText("16.1");
+            Objects.requireNonNull(button2).setText("16.2");
+            Objects.requireNonNull(button3).setText("16.3");
+            Objects.requireNonNull(textView4).setText("SPI Top Prescriber\n(Generic)");
+            Objects.requireNonNull(textView5).setText("SPI \nReport");
+            Objects.requireNonNull(textView6).setText("Doctor \nReach");
+            Objects.requireNonNull(changePassword).setText(R.string.spiReport);
+            ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+            Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+            Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+            bottomSheetDialog.show();
+
+            Objects.requireNonNull(cardView_topPrescriber).setOnClickListener(v -> {
+                Intent i = new Intent(AmDashboard.this, TopPrescriberActivity.class);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", userName);
+                i.putExtra("new_version", vector_version);
+                i.putExtra("message_3", message_3);
+                i.putExtra("UserRole", "FM");
+                startActivity(i);
+            });
+            Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
+                Intent i = new Intent(AmDashboard.this, MRDPresReport.class);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", globalempCode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                i.putExtra("UserRole", "AD");
+                i.putExtra("report_flag", "SPI");
+                i.putExtra("asm_flag", "N");
+                i.putExtra("sm_flag", "N");
+                i.putExtra("gm_flag", "N");
+                i.putExtra("rm_flag", "N");
+                i.putExtra("am_flag", "Y");
+                startActivity(i);
+            });
         });
     }
 

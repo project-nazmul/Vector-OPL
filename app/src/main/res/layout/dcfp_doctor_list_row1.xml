@@ -15,15 +15,15 @@
 
         <TextView
             android:id="@+id/doc_code"
-            android:layout_width="62dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAlignment="center"
             android:focusable="true"
             android:paddingTop="@dimen/_6sdp"
             android:paddingBottom="@dimen/_6sdp"
             android:text="Doc Code"
-            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            android:textColor="@color/deeppurple"
             android:textSize="@dimen/_8sdp" />
 
         <View
@@ -39,7 +39,7 @@
             android:focusable="true"
             android:text="Doc Name"
             android:textAlignment="center"
-            android:textColor="@color/blue"
+            android:textColor="@color/green1"
             android:textSize="@dimen/_7sdp" />
 
         <View
@@ -57,7 +57,7 @@
             android:paddingBottom="@dimen/_4sdp"
             android:text="Degree"
             android:textAlignment="center"
-            android:textColor="@color/blue"
+            android:textColor="@android:color/holo_red_dark"
             android:textSize="@dimen/_7sdp" />
 
         <View
@@ -72,7 +72,7 @@
             android:focusable="true"
             android:gravity="center"
             android:text="Spec"
-            android:textColor="@color/blue"
+            android:textColor="@color/colorAccentEditor"
             android:textSize="@dimen/_8sdp" />
 
         <View
@@ -87,7 +87,6 @@
             android:weightSum="7">
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -95,6 +94,7 @@
                 android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_dot"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -216,9 +216,9 @@
             <TextView
                 android:id="@+id/doc_d8"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -233,9 +233,9 @@
             <TextView
                 android:id="@+id/doc_d9"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -250,9 +250,9 @@
             <TextView
                 android:id="@+id/doc_d10"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -267,9 +267,9 @@
             <TextView
                 android:id="@+id/doc_d11"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -284,9 +284,9 @@
             <TextView
                 android:id="@+id/doc_d12"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -301,9 +301,9 @@
             <TextView
                 android:id="@+id/doc_d13"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -318,9 +318,9 @@
             <TextView
                 android:id="@+id/doc_d14"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:drawableEnd="@drawable/icon_check"
                 android:focusable="true"
                 android:text=""
@@ -581,7 +581,23 @@
         </LinearLayout>
 
         <View
-            android:layout_width="2dp"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#424242" />
+
+        <TextView
+            android:id="@+id/doc_name1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:focusable="true"
+            android:text="Doc Name"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_7sdp" />
+
+        <View
+            android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="#424242" />
     </LinearLayout>
