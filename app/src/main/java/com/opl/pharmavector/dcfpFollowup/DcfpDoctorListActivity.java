@@ -34,7 +34,8 @@ import retrofit2.Callback;
 public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAdapter1.DcfpClickListener1 {
     int scrollX = 0, scrollY = 0;
     private Context context;
-    private TextView firstWeek;
+    private TextView firstWeek, doc_d1, doc_d2, doc_d3, doc_d4, doc_d5, doc_d6, doc_d7, doc_d8, doc_d9, doc_d10, doc_d11, doc_d12, doc_d13, doc_d14, doc_d15, doc_d16, doc_d17,
+            doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28;
     HorizontalScrollView scrollView;
     Button doctorListBtn, backBtn;
     private RecyclerView dcfpListRecycler;
@@ -58,48 +59,13 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
                 finish();
             }
         });
-//        scrollView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                //final Button button3 = (Button) findViewById(R.id.button3);
-//                final LinearLayout firstWeek = findViewById(R.id.secondWeek);
-//                int scrollWidth = 0;
-//                final int count = ((LinearLayout) scrollView.getChildAt(0)).getChildCount();
-//
-//                for (int i = 0; i < count; i++) {
-//                    final View child = ((LinearLayout) scrollView.getChildAt(0)).getChildAt(i);
-//                    if (child != firstWeek) {
-//                        scrollWidth += child.getWidth();
-//                    } else {
-//                        break;
-//                    }
-//                }
-//                scrollView.scrollBy(700, 0);
-//                //scrollView.smoothScrollTo(200, 200);
-//            }
-//        });
-
-        //doctorRecycler.canScrollHorizontally(2);
-//        doctorRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, scrollX, scrollY);
-//                //scrollX += dx + 2;
-//                //headerScroll.scrollTo(scrollX, 0);
-//            }
-//
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//        });
+        doctorListBtn.setOnClickListener(v -> getDcfpDoctorListInfo());
     }
 
     private void initViews() {
         context = this;
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         preferenceManager = new PreferenceManager(this);
-        //count = preferenceManager.getTasbihCounter();
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
@@ -107,7 +73,6 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
         backBtn = findViewById(R.id.backBtn);
-        //firstWeek = findViewById(R.id.tvFirstWeek);
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060 ");
         doctorListBtn = findViewById(R.id.doctorListBtn);
@@ -115,11 +80,34 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
         autoDoctorFFList.setText(userName);
         scrollView = findViewById(R.id.scrollView);
-        dcfpDoctorAdapter2 = new DcfpDoctorListAdapter2(DcfpDoctorListActivity.this, dcfpDoctorLists);
-        dcfpDoctorAdapter1 = new DcfpDoctorListAdapter1(DcfpDoctorListActivity.this, dcfpDoctorLists, DcfpDoctorListActivity.this);
-        //scrollX = firstWeek.getLeft();
-        //scrollY = firstWeek.getTop();
-        //scrollView.scrollTo(5, 4);
+        doc_d1 = findViewById(R.id.doc_d1);
+        doc_d2 = findViewById(R.id.doc_d2);
+        doc_d3 = findViewById(R.id.doc_d3);
+        doc_d4 = findViewById(R.id.doc_d4);
+        doc_d5 = findViewById(R.id.doc_d5);
+        doc_d6 = findViewById(R.id.doc_d6);
+        doc_d7 = findViewById(R.id.doc_d7);
+        doc_d8 = findViewById(R.id.doc_d8);
+        doc_d9 = findViewById(R.id.doc_d9);
+        doc_d10 = findViewById(R.id.doc_d10);
+        doc_d11 = findViewById(R.id.doc_d11);
+        doc_d12 = findViewById(R.id.doc_d12);
+        doc_d13 = findViewById(R.id.doc_d13);
+        doc_d14 = findViewById(R.id.doc_d14);
+        doc_d15 = findViewById(R.id.doc_d15);
+        doc_d16 = findViewById(R.id.doc_d16);
+        doc_d17 = findViewById(R.id.doc_d17);
+        doc_d18 = findViewById(R.id.doc_d18);
+        doc_d19 = findViewById(R.id.doc_d19);
+        doc_d20 = findViewById(R.id.doc_d20);
+        doc_d21 = findViewById(R.id.doc_d21);
+        doc_d22 = findViewById(R.id.doc_d22);
+        doc_d23 = findViewById(R.id.doc_d23);
+        doc_d24 = findViewById(R.id.doc_d24);
+        doc_d25 = findViewById(R.id.doc_d25);
+        doc_d26 = findViewById(R.id.doc_d26);
+        doc_d27 = findViewById(R.id.doc_d27);
+        doc_d28 = findViewById(R.id.doc_d28);
     }
 
     public void getDcfpDoctorListInfo() {
@@ -136,7 +124,6 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(@NonNull Call<DcfpDoctorReportModel> call, @NonNull retrofit2.Response<DcfpDoctorReportModel> response) {
-                //List<DcfpDoctorReportList> dcfpDoctorLists = null;
                 if (response.body() != null) {
                     dcfpDoctorLists = response.body().getDcfpDoctorLists();
                 }
@@ -147,21 +134,126 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
                     dcfpDoctorAdapter1 = new DcfpDoctorListAdapter1(DcfpDoctorListActivity.this, dcfpDoctorLists, DcfpDoctorListActivity.this);
                     dcfpListRecycler.setLayoutManager(manager1);
                     dcfpListRecycler.setAdapter(dcfpDoctorAdapter1);
-                    dcfpDoctorAdapter1.notifyDataSetChanged();
 
-//                    LinearLayoutManager manager2 = new LinearLayoutManager(DcfpDoctorListActivity.this);
-//                    dcfpDoctorAdapter2 = new DcfpDoctorListAdapter2(DcfpDoctorListActivity.this, dcfpDoctorLists);
-//                    dcfpListRecycler.setLayoutManager(manager2);
-//                    dcfpListRecycler.setAdapter(dcfpDoctorAdapter2);
-                    //doctorRecycler.addItemDecoration(new DividerItemDecoration(DcfpDoctorListActivity.this, DividerItemDecoration.VERTICAL));
-//                    for (int i = 0; i < (doctorFFData != null ? doctorFFData.size() : 0); i++) {
-//                        doctorFFList.add(new DoctorFFList(
-//                                doctorFFData.get(i).getMpoCode(),
-//                                doctorFFData.get(i).getTerriName()));
-//                    }
+                    int d1_count = 0, d2_count = 0, d3_count = 0, d4_count = 0, d5_count = 0, d6_count = 0, d7_count = 0, d8_count = 0, d9_count = 0, d10_count = 0, d11_count = 0,
+                        d12_count = 0, d13_count = 0, d14_count = 0, d15_count = 0, d16_count = 0, d17_count = 0, d18_count = 0, d19_count = 0, d20_count = 0, d21_count = 0,
+                        d22_count = 0, d23_count = 0, d24_count = 0, d25_count = 0, d26_count = 0, d27_count = 0, d28_count = 0;
+                    for (int i=0; i<dcfpDoctorLists.size(); i++) {
+                        if (dcfpDoctorLists.get(i).getD1() != null) {
+                            d1_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD2() != null) {
+                            d2_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD3() != null) {
+                            d3_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD4() != null) {
+                            d4_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD5() != null) {
+                            d5_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD6() != null) {
+                            d6_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD7() != null) {
+                            d7_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD8() != null) {
+                            d8_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD9() != null) {
+                            d9_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD10() != null) {
+                            d10_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD11() != null) {
+                            d11_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD12() != null) {
+                            d12_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD13() != null) {
+                            d13_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD14() != null) {
+                            d14_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD15() != null) {
+                            d15_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD16() != null) {
+                            d16_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD17() != null) {
+                            d17_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD18() != null) {
+                            d18_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD19() != null) {
+                            d19_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD20() != null) {
+                            d20_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD21() != null) {
+                            d21_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD22() != null) {
+                            d22_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD23() != null) {
+                            d23_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD24() != null) {
+                            d24_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD25() != null) {
+                            d25_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD26() != null) {
+                            d26_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD27() != null) {
+                            d27_count++;
+                        }
+                        if (dcfpDoctorLists.get(i).getD28() != null) {
+                            d28_count++;
+                        }
+                    }
+                    doc_d1.setText(String.valueOf(d1_count));
+                    doc_d2.setText(String.valueOf(d2_count));
+                    doc_d3.setText(String.valueOf(d3_count));
+                    doc_d4.setText(String.valueOf(d4_count));
+                    doc_d5.setText(String.valueOf(d5_count));
+                    doc_d6.setText(String.valueOf(d6_count));
+                    doc_d7.setText(String.valueOf(d7_count));
+                    doc_d8.setText(String.valueOf(d8_count));
+                    doc_d9.setText(String.valueOf(d9_count));
+                    doc_d10.setText(String.valueOf(d10_count));
+                    doc_d11.setText(String.valueOf(d11_count));
+                    doc_d12.setText(String.valueOf(d12_count));
+                    doc_d13.setText(String.valueOf(d13_count));
+                    doc_d14.setText(String.valueOf(d14_count));
+                    doc_d15.setText(String.valueOf(d15_count));
+                    doc_d16.setText(String.valueOf(d16_count));
+                    doc_d17.setText(String.valueOf(d17_count));
+                    doc_d18.setText(String.valueOf(d18_count));
+                    doc_d19.setText(String.valueOf(d19_count));
+                    doc_d20.setText(String.valueOf(d20_count));
+                    doc_d21.setText(String.valueOf(d21_count));
+                    doc_d22.setText(String.valueOf(d22_count));
+                    doc_d23.setText(String.valueOf(d23_count));
+                    doc_d24.setText(String.valueOf(d24_count));
+                    doc_d25.setText(String.valueOf(d25_count));
+                    doc_d26.setText(String.valueOf(d26_count));
+                    doc_d27.setText(String.valueOf(d27_count));
+                    doc_d28.setText(String.valueOf(d28_count));
                     dcfpDoctorDialog.dismiss();
-                    //populateDoctorFFList();
-                    //Log.d("company List", companyDatalist.get(0).getComDesc());
+                    Log.d("d1_count", String.valueOf(d1_count));
                 } else {
                     dcfpDoctorDialog.dismiss();
                     Toast.makeText(DcfpDoctorListActivity.this, "No data Available !", Toast.LENGTH_LONG).show();
@@ -171,21 +263,18 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
             @Override
             public void onFailure(@NonNull Call<DcfpDoctorReportModel> call, @NonNull Throwable t) {
                 dcfpDoctorDialog.dismiss();
-                //dcfpDoctorListInfo();
             }
         });
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onDcfpClick1(int position, DcfpDoctorReportList model) {
+    public void onDcfpClick1(int position, DcfpDoctorReportList model, int d1_count) {
         scrollX = position;
-        //scrollView.scrollTo(0, position);
         dcfpListRecycler.post(new Runnable() {
             @Override
             public void run() {
                 dcfpListRecycler.scrollToPosition(position);
-                //Here adapter.getItemCount()== child count
             }
         });
         dcfpDoctorAdapter2.notifyDataSetChanged();
