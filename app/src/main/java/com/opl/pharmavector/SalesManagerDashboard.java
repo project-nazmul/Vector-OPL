@@ -48,6 +48,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -835,14 +836,18 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         bottomSheetDialog.setContentView(R.layout.dcr_bottom_sheet_dialog);
         CardView cardview_followup = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
+        Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button7 = bottomSheetDialog.findViewById(R.id.button7);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
+        Objects.requireNonNull(button7).setText("1.3");
         Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
         Objects.requireNonNull(textView5).setText("DCFP\nFollowup");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
@@ -869,6 +874,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             i.putExtra("UserName", globalSMCode);
             i.putExtra("UserName_2", userName_2);
             i.putExtra("UserName_3", globalSMCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, DcfpDoctorListActivity.class);
+            i.putExtra("UserName", globalSMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserRole", "SM");
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

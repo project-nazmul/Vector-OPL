@@ -9,10 +9,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -27,6 +32,7 @@ import com.opl.pharmavector.util.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,24 +48,63 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
     private DcfpDoctorListAdapter1 dcfpDoctorAdapter1;
     private DcfpDoctorListAdapter2 dcfpDoctorAdapter2;
     AutoCompleteTextView autoDoctorFFList;
-    public String userName, userName_2, new_version, message_3;
+    public String userName, userName_2, new_version, message_3, userRole, selectMpoCode;
     PreferenceManager preferenceManager;
+    private List<DcfpDoctorMpoList> dcfpDocMpoLists = new ArrayList<>();
     private List<DcfpDoctorReportList> dcfpDoctorLists = new ArrayList<>();
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dcfp_doctor_list);
 
         initViews();
-        getDcfpDoctorListInfo();
+
+        if (Objects.equals(userRole, "MPO")) {
+            getDcfpDoctorListInfo(userName);
+        } else {
+            getDcfpDoctorMpoList();
+        }
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        doctorListBtn.setOnClickListener(v -> getDcfpDoctorListInfo());
+        doctorListBtn.setOnClickListener(v -> {
+            if (Objects.equals(userRole, "MPO")) {
+                getDcfpDoctorListInfo(userName);
+            } else {
+                getDcfpDoctorListInfo(selectMpoCode);
+            }
+        });
+        autoDoctorFFList.setOnTouchListener((v, event) -> {
+            autoDoctorFFList.showDropDown();
+            return false;
+        });
+        autoDoctorFFList.setOnClickListener(v -> {});
+        autoDoctorFFList.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                autoDoctorFFList.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                autoDoctorFFList.setTextColor(Color.GREEN);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String mpoCode = s.toString();
+                    //autoDoctorFFList.setText(mpoCode);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void initViews() {
@@ -72,13 +117,17 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         userName_2 = b.getString("UserName_2");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
+        userRole = b.getString("UserRole");
         backBtn = findViewById(R.id.backBtn);
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060 ");
         doctorListBtn = findViewById(R.id.doctorListBtn);
         dcfpListRecycler = findViewById(R.id.recyclerDcfpList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
-        autoDoctorFFList.setText(userName);
+
+        if (Objects.equals(userRole, "MPO")) {
+            autoDoctorFFList.setText(userName);
+        }
         scrollView = findViewById(R.id.scrollView);
         doc_d1 = findViewById(R.id.doc_d1);
         doc_d2 = findViewById(R.id.doc_d2);
@@ -110,14 +159,36 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         doc_d28 = findViewById(R.id.doc_d28);
     }
 
-    public void getDcfpDoctorListInfo() {
+    private void populateDoctorFFList() {
+        List<String> mpoCode = new ArrayList<>();
+        for (int i = 0; i < dcfpDocMpoLists.size(); i++) {
+            mpoCode.add(dcfpDocMpoLists.get(i).getMpoCode());
+        }
+        String[] mpoCodeList = mpoCode.toArray(new String[0]);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, mpoCodeList);
+        autoDoctorFFList.setThreshold(1);
+        autoDoctorFFList.setAdapter(Adapter);
+        autoDoctorFFList.setTextColor(Color.BLUE);
+
+        autoDoctorFFList.setOnItemClickListener((parent, view, position, id) -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+            selectMpoCode = (String) parent.getItemAtPosition(position);
+
+            if (selectMpoCode != null) {
+                getDcfpDoctorListInfo(selectMpoCode);
+            }
+        });
+    }
+
+    public void getDcfpDoctorListInfo(String mpoCode) {
         ProgressDialog dcfpDoctorDialog = new ProgressDialog(DcfpDoctorListActivity.this);
         dcfpDoctorDialog.setMessage("DCFP Doctor List Loading...");
         dcfpDoctorDialog.setTitle("DCFP Doctor List Followup");
         dcfpDoctorDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DcfpDoctorReportModel> call = apiInterface.getDcfpDoctorList(userName);
+        Call<DcfpDoctorReportModel> call = apiInterface.getDcfpDoctorList(mpoCode);
         dcfpDoctorLists.clear();
 
         call.enqueue(new Callback<DcfpDoctorReportModel>() {
@@ -262,6 +333,42 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
 
             @Override
             public void onFailure(@NonNull Call<DcfpDoctorReportModel> call, @NonNull Throwable t) {
+                dcfpDoctorDialog.dismiss();
+            }
+        });
+    }
+
+    public void getDcfpDoctorMpoList() {
+        ProgressDialog dcfpDoctorDialog = new ProgressDialog(DcfpDoctorListActivity.this);
+        dcfpDoctorDialog.setMessage("DCFP MPO List Loading...");
+        dcfpDoctorDialog.setTitle("DCFP MPO List Followup");
+        dcfpDoctorDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcfpDoctorMpoModel> call = apiInterface.getDcfpDocMpoList(userName);
+        dcfpDocMpoLists.clear();
+
+        call.enqueue(new Callback<DcfpDoctorMpoModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<DcfpDoctorMpoModel> call, @NonNull retrofit2.Response<DcfpDoctorMpoModel> response) {
+                if (response.body() != null) {
+                    dcfpDocMpoLists = response.body().getDcfpDoctorMpoLists();
+                }
+                Log.d("dcfpMpo", dcfpDocMpoLists.toString());
+
+                if (response.isSuccessful()) {
+                    populateDoctorFFList();
+                    dcfpDoctorDialog.dismiss();
+                    //Log.d("d1_count", String.valueOf(d1_count));
+                } else {
+                    dcfpDoctorDialog.dismiss();
+                    Toast.makeText(DcfpDoctorListActivity.this, "No data Available !", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DcfpDoctorMpoModel> call, @NonNull Throwable t) {
                 dcfpDoctorDialog.dismiss();
             }
         });

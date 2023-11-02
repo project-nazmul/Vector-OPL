@@ -42,6 +42,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
@@ -1998,6 +1999,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+        CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
+        Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2005,10 +2008,12 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
+        Button button7 = bottomSheetDialog.findViewById(R.id.button7);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(button3).setText("1.3");
+        Objects.requireNonNull(button7).setText("1.4");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(textView6).setText("DCFP\nFollowup");
@@ -2034,6 +2039,13 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             Intent i = new Intent(RmDashboard.this, RMDcrReport.class);
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DcfpDoctorListActivity.class);
+            i.putExtra("UserName", globalRMCode);
+            i.putExtra("UserName_2", globalRegionalCode);
+            i.putExtra("UserRole", "RM");
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

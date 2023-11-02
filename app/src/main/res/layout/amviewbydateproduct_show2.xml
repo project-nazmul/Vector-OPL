@@ -45,7 +45,7 @@
                 android:singleLine="false"
                 android:text="Mpo"
                 android:textColor="#2CA631"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_9sdp" />
 
             <TextView
                 android:id="@+id/mpo_name"
@@ -60,7 +60,7 @@
                 android:singleLine="false"
                 android:text="Mpo"
                 android:textColor="#2F81A6"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_9sdp" />
 
             <TextView
                 android:id="@+id/product_name"

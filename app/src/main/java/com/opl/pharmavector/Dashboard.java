@@ -599,7 +599,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button btnDcfpEntry = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(button3).setText("1.3");
@@ -611,8 +610,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
-        //CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
-        //Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
@@ -643,6 +640,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             Intent i = new Intent(Dashboard.this, DcfpDoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("UserRole", "MPO");
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

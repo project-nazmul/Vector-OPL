@@ -4,6 +4,7 @@ import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
+import com.opl.pharmavector.dcfpFollowup.DcfpDoctorMpoModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorReportModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowMpoModel;
@@ -391,6 +392,11 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("dcfp/get_mpo_dcfp_summary.php")
     Call<DcfpDoctorReportModel> getDcfpDoctorList(@Field("id") String mpo_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("common/get_mpo_list.php")
+    Call<DcfpDoctorMpoModel> getDcfpDocMpoList(@Field("id") String mpo_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

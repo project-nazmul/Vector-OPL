@@ -41,6 +41,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
+import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
 import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
@@ -2373,6 +2374,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         CardView cardview_dcfp_mpo = bottomSheetDialog.findViewById(R.id.cardview_dcfp_mpo);
+        CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
+        Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfp_mpo).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
@@ -2416,6 +2419,13 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             Intent i = new Intent(AmDashboard.this, MpoDcfpFollowActivity.class);
             i.putExtra("UserName", globalFMCode);
             i.putExtra("UserName_2", globalAreaCode);
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, DcfpDoctorListActivity.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("UserRole", "FM");
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {
