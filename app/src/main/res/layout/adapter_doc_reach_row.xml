@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/_30sdp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/serial"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="Serial"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/mpocode"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:text="User\ncode"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/location"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:text="Base"
+        android:textColor="@color/colorAccentEditor"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/totalPres"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:text="OPL BASE"
+        android:textColor="@color/mdtp_accent_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/totalGen"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:text="Opl Share"
+        android:textColor="@color/vergence"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/totalProd"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Opsonin"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/docReach"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Square"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+</LinearLayout>

@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_show1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/acme"
+                android:gravity="center"
+                android:text="MRD/4P Prescription Summary"
+                android:textColor="@color/vector_logo_color"
+                android:visibility="visible" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:layout_marginEnd="8dp"
+                        android:drawablePadding="4dp"
+                        android:drawableLeft="@drawable/ic_today_1"
+                        android:id="@+id/monthSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textSize="@dimen/_8sdp"
+                        app:ms_hint="Select Month"
+                        app:ms_hint_color="@color/colorAccentEditor"
+                        app:ms_text_color="@color/colorAccentEditor" />
+
+                    <Button
+                        android:id="@+id/btn_search"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+
+                        android:background="@drawable/dcr_page_button"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:onClick="finishActivity"
+                        android:soundEffectsEnabled="true"
+                        android:text="show"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/_10sdp"
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+                    <Button
+                        android:id="@+id/backbt"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:background="@drawable/dcr_page_button"
+                        android:gravity="center"
+                        android:hapticFeedbackEnabled="true"
+                        android:onClick="finishActivity"
+                        android:soundEffectsEnabled="true"
+                        android:text="&lt;"
+                        android:textColor="#FFF"
+                        android:textSize="25sp"
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/selfcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:id="@+id/txt_self"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Your Data"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="#CDF4A0"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Location"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:text="Total Prescriber"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Doctor Reach (%)"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSelf"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_60sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+              </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/smcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Sales Manager"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="#CDF4A0"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Location"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:text="Total Prescriber"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Doctor Reach (%)"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNational"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+             </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/asmcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="ASM/DSM"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="#CDF4A0"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Location"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:text="Total Prescriber"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Doctor Reach (%)"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDivision"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+              </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/rmcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="@string/regional_manager"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp"
+                    tools:ignore="UnusedAttribute">
+                </TextView>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="#CDF4A0"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Location"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:text="Total Prescriber"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Doctor Reach (%)"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!---area manager-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fmcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Area Managers"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp"
+                    tools:ignore="UnusedAttribute">
+                </TextView>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="#CDF4A0"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:paddingEnd="@dimen/_16sdp"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Location"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:text="Total Prescriber"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Doctor Reach (%)"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--end area manager-->
+
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
+                android:id="@+id/mpocardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Territory"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp"
+                    tools:ignore="UnusedAttribute">
+                </TextView>
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@color/lightgray"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Base"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OPL\tBase"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OPL\tShare"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Opsonin"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Square"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Incepta"
+                            android:textColor="@color/green1"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Beximco"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Drugs"
+                            android:textColor="@android:color/holo_purple"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Healthcare"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Reneta"
+                            android:textColor="@android:color/holo_purple"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="SKF"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="ACME"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="ACI"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Aristo"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Popular"
+                            android:textAllCaps="true"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Radient"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OSL"
+                            android:textAllCaps="true"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Others"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:paddingTop="@dimen/_30sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
+                android:id="@+id/segmentcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_10sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Segment"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp"
+                    tools:ignore="UnusedAttribute">
+                </TextView>
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@color/lightgray"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Base"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OPL\tBase"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OPL\tShare"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Opsonin"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Square"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Incepta"
+                            android:textColor="@color/green1"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Beximco"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Drugs"
+                            android:textColor="@android:color/holo_purple"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Healthcare"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Reneta"
+                            android:textColor="@android:color/holo_purple"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="SKF"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="ACME"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="ACI"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Aristo"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Popular"
+                            android:textAllCaps="true"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Radient"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="OSL"
+                            android:textAllCaps="true"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Others"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSegment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:paddingTop="@dimen/_30sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.cardview.widget.CardView>
+            <!--
+             <LinearLayout
+
+        android:id="@+id/slistLayouttext3"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorAccentEditor"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/detail_head3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:text="@string/doctor_share_details"
+            android:textColor="@color/ef_white"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:typeface="normal"
+            tools:ignore="RtlSymmetry" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_width="0dp">
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:text="SKU"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/colorAccentEditor"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:text="Prescription"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/blue"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:text="Generic"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/green1"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:text="@string/mis_company"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/colorAccent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/slistLayout4"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        >
+
+        <ListView
+            android:id="@+id/pListView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:listSelector="@color/lightgray"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:focusable="true"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideInset"
+            android:clickable="true" >
+        </ListView>
+
+    </LinearLayout>
+            -->
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/doc_head_layout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorAccentEditor"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/acme"
+                    android:gravity="center"
+                    android:text="List of Doctors"
+                    android:textColor="@color/ef_white"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
+                android:id="@+id/doctorcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@color/lightgray"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Doctor Code"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Doctor Name"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Opl Share"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="No of\nProduct"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Base"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_30sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/doc_product_layout"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorAccentEditor"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/acme"
+                    android:gravity="center"
+                    android:text="Doctor wise Product"
+                    android:textColor="@color/ef_white"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    tools:ignore="RtlSymmetry" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
+                android:id="@+id/doctorproductcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <HorizontalScrollView
+                    android:id="@+id/headerScroll8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:background="@color/lightgray"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp">
+
+                        <TextView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Serial"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Doctor Name"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="SKU"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Generic"
+                            android:textColor="@color/colorAccentEditor"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Company"
+                            android:textColor="@color/mdtp_accent_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="@dimen/cell_width"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Prescription\nQnty"
+                            android:textColor="@color/vergence"
+                            android:textSize="@dimen/_8sdp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDocProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_30sdp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

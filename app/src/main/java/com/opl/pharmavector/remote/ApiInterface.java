@@ -10,6 +10,7 @@ import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowMpoModel;
 import com.opl.pharmavector.dcfpFollowup.DcrFollowupModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntryDoctorModel;
+import com.opl.pharmavector.dcfpFollowup.DoctorReachSelfModel;
 import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
@@ -685,12 +686,26 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("spi/doc_reach_details_followup.php")
+    Call<DoctorReachSelfModel> doc_reach_details_followup(
+            @Field("id") String mpo_code,
+            @Field("p_mon") String p_month
+    );
+
+    @FormUrlEncoded
     @POST("spi/self_followup.php")
     Call<List<Patient>> mrd_self_followup(
             @Field("mpo_code") String mpo_code,
             @Field("self_flag") String self_flag,
             @Field("summary_type") String summary_type,
             @Field("service_month") String service_month
+    );
+
+    @FormUrlEncoded
+    @POST("spi/doc_reach_self_followup.php")
+    Call<DoctorReachSelfModel> doc_reach_self_followup(
+            @Field("id") String mpo_code,
+            @Field("p_mon") String p_month
     );
 
     //mrd_doc_followup

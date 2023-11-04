@@ -36,14 +36,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
         <activity
-            android:screenOrientation="landscape"
+            android:name=".dcfpFollowup.DoctorReachActivity"
+            android:exported="false" />
+        <activity
             android:name=".dcfpFollowup.DcfpDoctorListActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false" />
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".dcfpFollowup.MpoDcfpFollowActivity"
             android:exported="false" />

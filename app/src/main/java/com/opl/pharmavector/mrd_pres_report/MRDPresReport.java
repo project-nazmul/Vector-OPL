@@ -76,7 +76,7 @@ import retrofit2.Response;
 public class MRDPresReport extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6,pDialogSelf,pDialogProd;
+    public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogProd;
     Button back_btn;
     public int success;
     public String message, ord_no;
@@ -96,11 +96,11 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     public String rm_flag = "N";
     public String fm_flag = "N";
     public String mpo_flag = "N";
-    public String self_flag,temp_mpo_code;
+    public String self_flag, temp_mpo_code;
     public static String docAdapterflag="N";
-    int scrollX0 = 0, scrollX = 0, scrollX2 = 0, scrollX3 = 0, scrollX4 = 0, scrollX5 = 0, scrollX6 = 0,scrollX7=0,scrollX8 = 0;
-    RecyclerView rvNational, rvDivision, rvRegion, rvArea, rvMpo, rvSegment, rvSelf,rvDoc,rvDocProduct;
-    HorizontalScrollView headerScroll0, headerScroll, headerScroll2, headerScroll3, headerScroll4, headerScroll5, headerScroll6,headerScroll7,headerScroll8;
+    int scrollX0 = 0, scrollX = 0, scrollX2 = 0, scrollX3 = 0, scrollX4 = 0, scrollX5 = 0, scrollX6 = 0, scrollX7 = 0, scrollX8 = 0;
+    RecyclerView rvNational, rvDivision, rvRegion, rvArea, rvMpo, rvSegment, rvSelf, rvDoc, rvDocProduct;
+    HorizontalScrollView headerScroll0, headerScroll, headerScroll2, headerScroll3, headerScroll4, headerScroll5, headerScroll6, headerScroll7, headerScroll8;
     MRDAdapter promoAdapter0, promoAdapter, promoAdapter2, promoAdapter3, promoAdapter4, promoAdapter5, promoAdapter6;
     MRDDocAdapter promoAdapter7, promoAdapter8;
     TextView txt_self;
@@ -118,7 +118,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     EditText ded;
     Button btn_search;
     String service_month;
-    CardView selfcardview, smcardview, asmcardview, rmcardview, amcardview, mpocardview, segmentcardview,doctorcardview,doctorproductcardview;
+    CardView selfcardview, smcardview, asmcardview, rmcardview, amcardview, mpocardview, segmentcardview, doctorcardview, doctorproductcardview;
 
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
@@ -2350,7 +2350,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
     private void showDatePicker(EditText textView) {
         Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+        @SuppressLint("SetTextI18n") DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
             textView.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
