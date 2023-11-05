@@ -506,7 +506,6 @@ public class Report extends Activity implements OnClickListener {
                 if (!NetInfo.isOnline(getBaseContext())) {
                     showSnack();
                 } else {
-                    //showSnack();
                     Intent i = new Intent(Report.this, MRDPresReport.class);
                     i.putExtra("userName", userName);
                     i.putExtra("UserName", userName);

@@ -106,9 +106,10 @@ public class DoctorReachActivity extends Activity {
 
         initViews();
         getDoctorReachMonth();
+
         if ("SPI".equals(report_flag)) {
             summary_type = "SPI";
-            user_show1.setText("SPI Report");
+            user_show1.setText("Doctor Reach Report");
             txt_self.setText("National");
 
             if (sm_flag.equals("Y")) {
@@ -212,8 +213,8 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = areaList.get(position).getFfCode();
                                     fm_code = user_code;
-                                    //prepareMpodata();
-                                    //setUpRV_MPO();
+                                    prepareMpodata();
+                                    setUpRV_MPO();
                                     //prepareDocList();
                                     //setUpRV_DoclIST();
                                 }
@@ -257,7 +258,8 @@ public class DoctorReachActivity extends Activity {
                                 }
                             }));
                         }
-                    } else if (sm_flag.equals("Y")) {
+                    }
+                    else if (sm_flag.equals("Y")) {
                         if (monthSpinner.getText().toString().equals("") || monthSpinner.getText().toString().equals(" ")) {
                             showSnack();
                         } else {
@@ -266,16 +268,16 @@ public class DoctorReachActivity extends Activity {
                             self_flag = "SM";
                             prepareSelfData();
                             setUpselfRV();
-                            //prepareASMdata();
-                            //setUpRV_Division();
+                            prepareASMdata();
+                            setUpRV_Division();
 
                             rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                 @Override
                                 public void onClick(View view, int position) {
                                     user_code = divisionList.get(position).getFfCode();
                                     Log.e("myASmcode-->", user_code);
-                                    //prepareRegiondata();
-                                    //setUpRV_Region();
+                                    prepareRegiondata();
+                                    setUpRV_Region();
                                 }
 
                                 @Override
@@ -288,8 +290,8 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = regionList.get(position).getFfCode();
                                     Log.e("myRmcode-->", user_code);
-                                    //prepareAreadata();
-                                    //setUpRV_Area();
+                                    prepareAreadata();
+                                    setUpRV_Area();
                                 }
 
                                 @Override
@@ -303,8 +305,8 @@ public class DoctorReachActivity extends Activity {
                                     user_code = areaList.get(position).getFfCode();
                                     fm_code = user_code;
                                     Log.e("myFMcode-->", user_code);
-                                    //prepareMpodata();
-                                    //setUpRV_MPO();
+                                    prepareMpodata();
+                                    setUpRV_MPO();
                                     //prepareDocList();
                                     //setUpRV_DoclIST();
                                 }
@@ -320,7 +322,6 @@ public class DoctorReachActivity extends Activity {
                                     user_code = mpoList.get(position).getFfCode();
                                     temp_mpo_code = mpoList.get(position).getFfCode();
                                     Log.e("Clickedmpo_Code-->", user_code);
-
                                     //prepareSegmentData();
                                     //setUpRV_Segment();
                                     //prepareDocList();
@@ -337,7 +338,6 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = docList.get(position).getFfCode();
                                     Log.e("doc_code-->", user_code);
-
                                     //prepareProdList();
                                     //setUpRV_ProdList();
                                 }
@@ -348,7 +348,8 @@ public class DoctorReachActivity extends Activity {
                                 }
                             }));
                         }
-                    } else if (asm_flag.equals("Y")) {
+                    }
+                    else if (asm_flag.equals("Y")) {
                         if (monthSpinner.getText().toString().equals("") || monthSpinner.getText().toString().equals(" ")) {
                             showSnack();
                         } else {
@@ -357,16 +358,16 @@ public class DoctorReachActivity extends Activity {
                             self_flag = "ASM";
                             prepareSelfData();
                             setUpselfRV();
-                            //prepareRegiondata();
-                            //setUpRV_Region();
+                            prepareRegiondata();
+                            setUpRV_Region();
 
                             rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                 @Override
                                 public void onClick(View view, int position) {
                                     user_code = regionList.get(position).getFfCode();
                                     Log.e("myRmcode-->", user_code);
-                                    //prepareAreadata();
-                                    //setUpRV_Area();
+                                    prepareAreadata();
+                                    setUpRV_Area();
                                 }
 
                                 @Override
@@ -380,8 +381,8 @@ public class DoctorReachActivity extends Activity {
                                     user_code = areaList.get(position).getFfCode();
                                     fm_code = user_code;
                                     Log.e("myFMcode-->", user_code);
-//                                        prepareMpodata();
-//                                        setUpRV_MPO();
+                                        prepareMpodata();
+                                        setUpRV_MPO();
 //                                        prepareDocList();
 //                                        setUpRV_DoclIST();
                                 }
@@ -425,18 +426,18 @@ public class DoctorReachActivity extends Activity {
                                 }
                             }));
                         }
-                    } else if (rm_flag.equals("Y")) {
+                    }
+                    else if (rm_flag.equals("Y")) {
                         if (monthSpinner.getText().toString().equals("") || monthSpinner.getText().toString().equals(" ")) {
                             showSnack();
                         } else {
                             service_month = monthSpinner.getText().toString();
                             user_code = RmDashboard.globalRMCode;
-
                             self_flag = "RM";
                             prepareSelfData();
                             setUpselfRV();
-                            //prepareAreadata();
-                            //setUpRV_Area();
+                            prepareAreadata();
+                            setUpRV_Area();
 
                             rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                 @Override
@@ -444,8 +445,8 @@ public class DoctorReachActivity extends Activity {
                                     user_code = areaList.get(position).getFfCode();
                                     fm_code = user_code;
                                     Log.e("myFMcode-->", user_code);
-//                                        prepareMpodata();
-//                                        setUpRV_MPO();
+                                        prepareMpodata();
+                                        setUpRV_MPO();
 //                                        prepareDocList();
 //                                        setUpRV_DoclIST();
                                 }
@@ -488,7 +489,8 @@ public class DoctorReachActivity extends Activity {
                             }));
                         }
 
-                    } else if (fm_flag.equals("Y")) {
+                    }
+                    else if (fm_flag.equals("Y")) {
                         if (monthSpinner.getText().toString().equals("") || monthSpinner.getText().toString().equals(" ")) {
                             showSnack();
                         } else {
@@ -497,10 +499,8 @@ public class DoctorReachActivity extends Activity {
                             self_flag = "AM";
                             prepareSelfData();
                             setUpselfRV();
-                            //prepareMpodata();
-                            //setUpRV_MPO();
-                            //prepareDocList();
-                            //setUpRV_DoclIST();
+                            prepareMpodata();
+                            setUpRV_MPO();
 
                             rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                 @Override
@@ -508,7 +508,6 @@ public class DoctorReachActivity extends Activity {
                                     user_code = mpoList.get(position).getFfCode();
                                     temp_mpo_code = mpoList.get(position).getFfCode();
                                     Log.e("mpo_Code-->", user_code);
-
                                     //prepareSegmentData();
                                     //setUpRV_Segment();
                                     //prepareDocList();
@@ -525,7 +524,6 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = docList.get(position).getFfCode();
                                     Log.e("doc_code-->", user_code);
-
                                     //prepareProdList();
                                     //setUpRV_ProdList();
                                 }
@@ -536,7 +534,8 @@ public class DoctorReachActivity extends Activity {
                                 }
                             }));
                         }
-                    } else if (mpo_flag.equals("Y")) {
+                    }
+                    else if (mpo_flag.equals("Y")) {
                         if (monthSpinner.getText().toString().equals("") || monthSpinner.getText().toString().equals(" ")) {
                             showSnack();
                         } else {
@@ -558,7 +557,6 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = docList.get(position).getFfCode();
                                     Log.e("doc_code-->", user_code);
-
                                     //prepareProdList();
                                     //setUpRV_ProdList();
                                 }
@@ -574,6 +572,7 @@ public class DoctorReachActivity extends Activity {
             });
         }
         onScrollEvents();
+        back_btn.setOnClickListener(v -> finish());
     }
 
     private void initViews() {
@@ -1073,5 +1072,48 @@ public class DoctorReachActivity extends Activity {
         rvArea.setLayoutManager(manager);
         rvArea.setAdapter(promoAdapter4);
         rvArea.addItemDecoration(new DividerItemDecoration(DoctorReachActivity.this, DividerItemDecoration.VERTICAL));
+    }
+
+    public void prepareMpodata() {
+        pDialog5 = new ProgressDialog(DoctorReachActivity.this);
+        pDialog5.setMessage("Territory Data Loading...");
+        pDialog5.setTitle("Please wait");
+        //pDialog5.show();
+        user_flag = "MPO";
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DoctorReachSelfModel> call = apiInterface.doc_reach_details_followup(user_code, month_name);
+        mpoList.clear();
+
+        call.enqueue(new Callback<DoctorReachSelfModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<DoctorReachSelfModel> call, retrofit2.Response<DoctorReachSelfModel> response) {
+                List<DoctorReachSelfList> giftitemCount = Objects.requireNonNull(response.body()).getDoctorSelfLists();
+
+                if (response.isSuccessful()) {
+                    mpoList.addAll(giftitemCount);
+                    promoAdapter5.notifyDataSetChanged();
+                    pDialog5.dismiss();
+                } else {
+                    pDialog5.dismiss();
+                    Toast.makeText(DoctorReachActivity.this, "No data Available !", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DoctorReachSelfModel> call, Throwable t) {
+                pDialog5.dismiss();
+            }
+        });
+    }
+
+    public void setUpRV_MPO() {
+        promoAdapter5 = new DoctorReachAdapter(DoctorReachActivity.this, mpoList);
+        FixedGridLayoutManager manager = new FixedGridLayoutManager();
+        manager.setTotalColumnCount(1);
+        rvMpo.setLayoutManager(manager);
+        rvMpo.setAdapter(promoAdapter5);
+        rvMpo.addItemDecoration(new DividerItemDecoration(DoctorReachActivity.this, DividerItemDecoration.VERTICAL));
     }
 }

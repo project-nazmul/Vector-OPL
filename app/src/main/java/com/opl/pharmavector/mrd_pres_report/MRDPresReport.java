@@ -1,16 +1,9 @@
 package com.opl.pharmavector.mrd_pres_report;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,49 +11,37 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.opl.pharmavector.ASMBrandwiseProductSale;
-import com.opl.pharmavector.AdminReportDashboard;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
 import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.GMDashboard1;
-import com.opl.pharmavector.Login;
-import com.opl.pharmavector.RMBrandwiseProductSale;
 import com.opl.pharmavector.RmDashboard;
-import com.opl.pharmavector.SMBrandwiseProductSale;
 import com.opl.pharmavector.SalesManagerDashboard;
+import com.opl.pharmavector.achieve.AchieveMonthList;
+import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.model.Patient;
 
 import com.opl.pharmavector.mrd_pres_report.adapter.MRDAdapter;
 import com.opl.pharmavector.mrd_pres_report.adapter.MRDDocAdapter;
-import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
@@ -79,7 +60,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogProd;
     Button back_btn;
     public int success;
-    public String message, ord_no;
+    public String message, ord_no, team_name, month_name = "";
     public TextView totqty, totval, mpo_code, fromdate, todate;
     public String userName_1, userName, active_string, act_desiredString, selected_service_no, selected_service_no_serial, summary_type;
     public String from_date, to_date;
@@ -126,7 +107,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         setContentView(R.layout.activity_mrd_pres_report);
 
         initViews();
-        calendarInit();
+        //calendarInit();
+        getSPIReportMonth();
 
         switch (report_flag) {
             case "SPI":
@@ -174,10 +156,12 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                     @Override
                     public void onClick(View v) {
                         if (gm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            //if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
+                                //service_month = ded.getText().toString();
                                 self_flag = "GM";
                                 user_code = GMDashboard1.globalAdmin;
 
@@ -278,10 +262,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (sm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = SalesManagerDashboard.globalSMCode;
                                 self_flag = "SM";
                                 prepareSelfData();
@@ -370,10 +354,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (asm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AssistantManagerDashboard.globalASMCode;
                                 self_flag = "ASM";
                                 prepareSelfData();
@@ -448,10 +432,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (rm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = RmDashboard.globalRMCode;
 
                                 self_flag = "RM";
@@ -512,10 +496,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
                         }
                         else if (fm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AmDashboard.globalFMCode;
                                 self_flag = "AM";
                                 prepareSelfData();
@@ -561,10 +545,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (mpo_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = Dashboard.globalmpocode;
                                 temp_mpo_code = user_code;
                                 self_flag = "MPO";
@@ -643,10 +627,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                     @Override
                     public void onClick(View v) {
                         if (gm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 self_flag = "GM";
                                 user_code = GMDashboard1.globalAdmin;
 
@@ -747,10 +731,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (sm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = SalesManagerDashboard.globalSMCode;
                                 self_flag = "SM";
                                 prepareSelfData();
@@ -838,10 +822,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (asm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AssistantManagerDashboard.globalASMCode;
                                 self_flag = "ASM";
                                 prepareSelfData();
@@ -915,10 +899,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (rm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = RmDashboard.globalRMCode;
                                 self_flag = "RM";
                                 prepareSelfData();
@@ -978,10 +962,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
                         }
                         else if (fm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AmDashboard.globalFMCode;
                                 self_flag = "AM";
                                 prepareSelfData();
@@ -1025,10 +1009,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (mpo_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = Dashboard.globalmpocode;
                                 temp_mpo_code = user_code;
                                 self_flag = "MPO";
@@ -1106,10 +1090,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                     @Override
                     public void onClick(View v) {
                         if (gm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 self_flag = "GM";
                                 user_code = GMDashboard1.globalAdmin;
 
@@ -1208,10 +1192,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (sm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = SalesManagerDashboard.globalSMCode;
                                 self_flag = "SM";
                                 prepareSelfData();
@@ -1298,10 +1282,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (asm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AssistantManagerDashboard.globalASMCode;
                                 self_flag = "ASM";
                                 prepareSelfData();
@@ -1375,10 +1359,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                             }
                         }
                         else if (rm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = RmDashboard.globalRMCode;
                                 self_flag = "RM";
                                 prepareSelfData();
@@ -1438,10 +1422,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
                         }
                         else if (fm_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = AmDashboard.globalFMCode;
                                 self_flag = "AM";
                                 prepareSelfData();
@@ -1486,10 +1470,10 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                         }
 
                         else if (mpo_flag.equals("Y")) {
-                            if (ded.getText().toString().equals("") || ded.getText().toString().equals(" ")) {
+                            if (month_name.equals("") || month_name.equals(" ")) {
                                 showSnack();
                             } else {
-                                service_month = ded.getText().toString();
+                                service_month = month_name;
                                 user_code = Dashboard.globalmpocode;
                                 temp_mpo_code = user_code;
                                 self_flag = "MPO";
@@ -2399,6 +2383,65 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         Intent i = new Intent(MRDPresReport.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
+    }
+
+    private void getSPIReportMonth() {
+        ProgressDialog pDialog = new ProgressDialog(MRDPresReport.this);
+        pDialog.setMessage("Loading Month ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<AchvMonthModel> call = apiInterface.getAchievementMonth();
+
+        call.enqueue(new Callback<AchvMonthModel>() {
+            @Override
+            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<AchieveMonthList> achvMonthList = null;
+
+                    if (response.body() != null) {
+                        achvMonthList = (response.body()).getAchvMonthList();
+                    }
+                    initMonthSpinner(Objects.requireNonNull(achvMonthList));
+                    Log.d("Month List -- : ", String.valueOf(achvMonthList));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void initMonthSpinner(List<AchieveMonthList> monthList) {
+        MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
+        ArrayList<String> monthNameList = new ArrayList<>();
+
+        if (monthList.size() > 0) {
+            for (AchieveMonthList monthName : monthList) {
+                monthNameList.add(monthName.getMnyrDesc());
+            }
+        }
+
+        monthSpinner.setItems(monthNameList);
+        monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                team_name = String.valueOf(item).trim();
+
+                for (int i = 0; i < monthList.size(); i++) {
+                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                        month_name = monthList.get(i).getMnyr();
+                    }
+                }
+                Log.d("month name", month_name);
+            }
+        });
     }
 }
 

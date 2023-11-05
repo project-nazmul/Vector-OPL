@@ -21,9 +21,20 @@ public class DcfpEntrySetUpList {
     @SerializedName("UPD_STAT")
     @Expose
     private String updStat;
+    @SerializedName("TP_DAY_DESC")
+    @Expose
+    private String dayDesc;
     public int checkedId = -1;
     public boolean isAnswered;
     public String shiftType;
+
+    public String getDayDesc() {
+        return dayDesc;
+    }
+
+    public void setDayDesc(String dayDesc) {
+        this.dayDesc = dayDesc;
+    }
 
     public String getTpType() {
         return tpType;
@@ -64,12 +75,13 @@ public class DcfpEntrySetUpList {
         this.tpType = tpType;
     }
 
-    public DcfpEntrySetUpList(String slno, String tpWeek, String tpDay, String tpType, String updStat) {
+    public DcfpEntrySetUpList(String slno, String tpWeek, String tpDay, String tpType, String updStat, String dayDesc) {
         this.slno = slno;
         this.tpWeek = tpWeek;
         this.tpDay = tpDay;
         this.tpType = tpType;
         this.updStat = updStat;
+        this.dayDesc = dayDesc;
     }
 
     public String getUpdStat() {

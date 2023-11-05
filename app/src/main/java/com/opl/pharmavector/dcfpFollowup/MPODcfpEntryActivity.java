@@ -360,7 +360,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                 dcfpSetUpData.get(i).getTpWeek(),
                                 dcfpSetUpData.get(i).getTpDay(),
                                 dcfpSetUpData.get(i).getTpType(),
-                                dcfpSetUpData.get(i).getUpdStat()));
+                                dcfpSetUpData.get(i).getUpdStat(),
+                                dcfpSetUpData.get(i).getDayDesc()));
                     }
                     setUpDialog.dismiss();
                     dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, dcfpSetUpList, MPODcfpEntryActivity.this);
@@ -407,7 +408,8 @@ public class MPODcfpEntryActivity extends Activity implements DcfpEntrySetUpAdap
                                 dcfpSetUpData.get(i).getTpWeek(),
                                 dcfpSetUpData.get(i).getTpDay(),
                                 dcfpSetUpData.get(i).getTpType(),
-                                dcfpSetUpData.get(i).getUpdStat()));
+                                dcfpSetUpData.get(i).getUpdStat(),
+                                dcfpSetUpData.get(i).getDayDesc()));
                     }
                     setUpDialog.dismiss();
                     dcfpEntrySetUpAdapter = new DcfpEntrySetUpAdapter(MPODcfpEntryActivity.this, emptyList, MPODcfpEntryActivity.this);

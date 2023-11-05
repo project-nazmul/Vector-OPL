@@ -55,23 +55,36 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/date"
+<!--                    <EditText-->
+<!--                        android:id="@+id/date"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="3"-->
+<!--                        android:background="@drawable/edittextstyle"-->
+<!--                        android:drawableStart="@drawable/ic_today_1"-->
+<!--                        android:focusable="true"-->
+<!--                        android:focusableInTouchMode="false"-->
+<!--                        android:hint="Select Month"-->
+<!--                        android:minLines="2"-->
+<!--                        android:paddingLeft="@dimen/_30sdp"-->
+<!--                        android:singleLine="false"-->
+<!--                        android:textColor="#23283a"-->
+<!--                        android:textColorHint="@android:color/black"-->
+<!--                        android:textSize="@dimen/_10sdp"-->
+<!--                        android:textStyle="bold" />-->
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:layout_marginEnd="8dp"
+                        android:drawablePadding="4dp"
+                        android:drawableLeft="@drawable/ic_today_1"
+                        android:id="@+id/monthSpinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:background="@drawable/edittextstyle"
-                        android:drawableStart="@drawable/ic_today_1"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="Select Month"
-                        android:minLines="2"
-                        android:paddingLeft="@dimen/_30sdp"
-                        android:singleLine="false"
-                        android:textColor="#23283a"
-                        android:textColorHint="@android:color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/_8sdp"
+                        app:ms_hint="Select Month"
+                        app:ms_hint_color="@color/colorAccentEditor"
+                        app:ms_text_color="@color/colorAccentEditor" />
 
                     <Button
                         android:id="@+id/btn_search"

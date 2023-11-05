@@ -134,8 +134,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public static String ff_type, password, globalempCode, globalempName, new_version, message_3, vector_version, globalmpocode, os_version,
             build_model, build_brand, build_id, build_device, build_version;
     Typeface fontFamily;
-    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn,
-            practiceCard7, practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact, cardview_ff_contact;
+    CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn, practiceCard7,
+            practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact,
+            cardview_ff_contact;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice,
             img_btn_notification, img_btn_rx, img_btn_pc, img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
@@ -469,6 +470,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 i.putExtra("asm_flag", "N");
                 i.putExtra("sm_flag", "N");
                 i.putExtra("gm_flag", "Y");
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "N");
                 startActivity(i);
             });
             Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {

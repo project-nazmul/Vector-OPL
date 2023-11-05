@@ -25,7 +25,8 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:gravity="center"
+        android:paddingStart="@dimen/_5sdp"
+        android:gravity="center_vertical"
         android:id="@+id/location"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"

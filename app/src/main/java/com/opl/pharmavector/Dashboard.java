@@ -48,6 +48,7 @@ import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
+import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
 import com.opl.pharmavector.dcfpFollowup.MPODcfpEntryActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceAck;
@@ -60,6 +61,7 @@ import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mpodcr.Dcr;
+import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.DocSupportReq;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
@@ -304,15 +306,64 @@ public class Dashboard extends Activity implements View.OnClickListener {
         //userLogIn();
     }
 
+    @SuppressLint("SetTextI18n")
     private void prescriberEvent() {
-        cardView_prescriber.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, TopPrescriberActivity.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", userName);
-            i.putExtra("new_version", version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "MPO");
-            startActivity(i);
+        cardView_prescriber.setOnClickListener(pres -> {
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.dcfp_bottom_sheet_dialog);
+            CardView cardView_topPrescriber = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+            Objects.requireNonNull(cardView_topPrescriber).setVisibility(View.GONE);
+            CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+            CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+            TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+            TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+            TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+            TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+            Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+            Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+            Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+            Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+            Objects.requireNonNull(button1).setText("16.1");
+            Objects.requireNonNull(button2).setText("16.1");
+            Objects.requireNonNull(button3).setText("16.2");
+            Objects.requireNonNull(textView4).setText("SPI Top Prescriber\n(Generic)");
+            Objects.requireNonNull(textView5).setText("SPI \nReport");
+            Objects.requireNonNull(textView6).setText("Doctor \nReach");
+            Objects.requireNonNull(changePassword).setText(R.string.spiReport);
+            ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+            Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+            Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+            bottomSheetDialog.show();
+
+            Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
+                Intent i = new Intent(Dashboard.this, MRDPresReport.class);
+                i.putExtra("userName", globalempName);
+                i.putExtra("UserName", globalempCode);
+                i.putExtra("report_flag", "SPI");
+                i.putExtra("asm_flag", "N");
+                i.putExtra("sm_flag", "N");
+                i.putExtra("gm_flag", "N");
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "Y");
+                startActivity(i);
+            });
+            Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+                Intent i = new Intent(Dashboard.this, DoctorReachActivity.class);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", globalempCode);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                i.putExtra("UserRole", "MPO");
+                i.putExtra("report_flag", "SPI");
+                i.putExtra("asm_flag", "N");
+                i.putExtra("sm_flag", "N");
+                i.putExtra("gm_flag", "N");
+                i.putExtra("rm_flag", "N");
+                i.putExtra("fm_flag", "N");
+                i.putExtra("mpo_flag", "Y");
+                startActivity(i);
+            });
         });
     }
 
@@ -478,7 +529,6 @@ public class Dashboard extends Activity implements View.OnClickListener {
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
-        cardView_prescriber.setVisibility(View.GONE);
         tvDesignation = findViewById(R.id.textView3);
 
         ff_type = null;

@@ -47,6 +47,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
         DcfpEntrySetUpList dcfpEntryModel = entrySetUpLists.get(position);
         holder.tp_week.setText(dcfpEntryModel.getTpWeek());
         holder.tp_day.setText(dcfpEntryModel.getTpDay());
+        holder.tp_desc.setText(dcfpEntryModel.getDayDesc());
         holder.setSelectedShift(dcfpEntryModel, position, holder);
 
 //        if (dcfpEntryModel.getUpdStat().equals("U") && !dcfpEntryModel.getTpType().equals("N")) {
@@ -123,7 +124,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
     }
 
     public class DcfpSetUpViewHolder extends RecyclerView.ViewHolder {
-        public TextView tp_week, tp_day, t_type;
+        public TextView tp_week, tp_day, t_type, tp_desc;
         public RadioGroup selectedShift;
         public RadioButton morningShift, eveningShift, noneShift;
 
@@ -131,6 +132,7 @@ public class DcfpEntrySetUpAdapter extends RecyclerView.Adapter<DcfpEntrySetUpAd
             super(view);
             tp_week = view.findViewById(R.id.tp_week);
             tp_day = view.findViewById(R.id.tp_day);
+            tp_desc = view.findViewById(R.id.tp_desc);
             selectedShift = view.findViewById(R.id.radioGroupShift);
             morningShift = view.findViewById(R.id.radioBtnMorning);
             eveningShift = view.findViewById(R.id.radioBtnEvening);

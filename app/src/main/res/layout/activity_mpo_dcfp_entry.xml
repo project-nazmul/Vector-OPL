@@ -96,7 +96,7 @@
             android:id="@+id/ff_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/_4sdp"
@@ -115,13 +115,13 @@
             android:id="@+id/ff_area"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:focusable="true"
             android:gravity="center"
             android:paddingTop="@dimen/_6sdp"
             android:paddingBottom="@dimen/_6sdp"
-            android:text="Day"
-            android:textColor="@color/blue"
+            android:text="Day Desc"
+            android:textColor="@color/green1"
             android:textSize="@dimen/_8sdp" />
 
         <View
