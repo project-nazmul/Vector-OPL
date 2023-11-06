@@ -31,6 +31,7 @@ import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,14 +42,14 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
     int scrollX = 0, scrollY = 0;
     private Context context;
     private TextView firstWeek, doc_d1, doc_d2, doc_d3, doc_d4, doc_d5, doc_d6, doc_d7, doc_d8, doc_d9, doc_d10, doc_d11, doc_d12, doc_d13, doc_d14, doc_d15, doc_d16, doc_d17,
-            doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28;
+            doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28, totalMrdDoc, totalDCFPDoc;
     HorizontalScrollView scrollView;
     Button doctorListBtn, backBtn;
     private RecyclerView dcfpListRecycler;
     private DcfpDoctorListAdapter1 dcfpDoctorAdapter1;
     private DcfpDoctorListAdapter2 dcfpDoctorAdapter2;
     AutoCompleteTextView autoDoctorFFList;
-    public String userName, userName_2, new_version, message_3, userRole, selectMpoCode;
+    public String userName, userName_2, new_version, message_3, userRole, selectMpoCode, splitMpoCode;
     PreferenceManager preferenceManager;
     private List<DcfpDoctorMpoList> dcfpDocMpoLists = new ArrayList<>();
     private List<DcfpDoctorReportList> dcfpDoctorLists = new ArrayList<>();
@@ -107,6 +108,7 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         context = this;
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
@@ -126,7 +128,7 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
 
         if (Objects.equals(userRole, "MPO")) {
-            autoDoctorFFList.setText(userName);
+            autoDoctorFFList.setText(userName + "  -  " + userName_2);
         }
         scrollView = findViewById(R.id.scrollView);
         doc_d1 = findViewById(R.id.doc_d1);
@@ -157,12 +159,14 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         doc_d26 = findViewById(R.id.doc_d26);
         doc_d27 = findViewById(R.id.doc_d27);
         doc_d28 = findViewById(R.id.doc_d28);
+        totalMrdDoc = findViewById(R.id.totalMrdDoc);
+        totalDCFPDoc = findViewById(R.id.totalDCFPDoc);
     }
 
     private void populateDoctorFFList() {
         List<String> mpoCode = new ArrayList<>();
         for (int i = 0; i < dcfpDocMpoLists.size(); i++) {
-            mpoCode.add(dcfpDocMpoLists.get(i).getMpoCode());
+            mpoCode.add(dcfpDocMpoLists.get(i).getMpoCode() + "  -  " + dcfpDocMpoLists.get(i).getTerriName());
         }
         String[] mpoCodeList = mpoCode.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, R.layout.spinner_text_view, mpoCodeList);
@@ -173,11 +177,11 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         autoDoctorFFList.setOnItemClickListener((parent, view, position, id) -> {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-            selectMpoCode = (String) parent.getItemAtPosition(position);
+            splitMpoCode = (String) parent.getItemAtPosition(position);
+            String[] splitCodeArray = splitMpoCode.split("-");
+            selectMpoCode = splitCodeArray[0].trim();
 
-            if (selectMpoCode != null) {
-                getDcfpDoctorListInfo(selectMpoCode);
-            }
+            getDcfpDoctorListInfo(selectMpoCode);
         });
     }
 
@@ -192,7 +196,7 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         dcfpDoctorLists.clear();
 
         call.enqueue(new Callback<DcfpDoctorReportModel>() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onResponse(@NonNull Call<DcfpDoctorReportModel> call, @NonNull retrofit2.Response<DcfpDoctorReportModel> response) {
                 if (response.body() != null) {
@@ -208,7 +212,7 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
 
                     int d1_count = 0, d2_count = 0, d3_count = 0, d4_count = 0, d5_count = 0, d6_count = 0, d7_count = 0, d8_count = 0, d9_count = 0, d10_count = 0, d11_count = 0,
                         d12_count = 0, d13_count = 0, d14_count = 0, d15_count = 0, d16_count = 0, d17_count = 0, d18_count = 0, d19_count = 0, d20_count = 0, d21_count = 0,
-                        d22_count = 0, d23_count = 0, d24_count = 0, d25_count = 0, d26_count = 0, d27_count = 0, d28_count = 0;
+                        d22_count = 0, d23_count = 0, d24_count = 0, d25_count = 0, d26_count = 0, d27_count = 0, d28_count = 0, dcfp_count = 0;
                     for (int i=0; i<dcfpDoctorLists.size(); i++) {
                         if (dcfpDoctorLists.get(i).getD1() != null) {
                             d1_count++;
@@ -294,6 +298,9 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
                         if (dcfpDoctorLists.get(i).getD28() != null) {
                             d28_count++;
                         }
+                        if (!Objects.equals(dcfpDoctorLists.get(i).getTotal(), "0")) {
+                            dcfp_count++;
+                        }
                     }
                     doc_d1.setText(String.valueOf(d1_count));
                     doc_d2.setText(String.valueOf(d2_count));
@@ -323,6 +330,8 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
                     doc_d26.setText(String.valueOf(d26_count));
                     doc_d27.setText(String.valueOf(d27_count));
                     doc_d28.setText(String.valueOf(d28_count));
+                    totalMrdDoc.setText("Total MRD Doc: " + dcfpDoctorLists.size());
+                    totalDCFPDoc.setText("Total DCFP Doc: " + dcfp_count);
                     dcfpDoctorDialog.dismiss();
                     Log.d("d1_count", String.valueOf(d1_count));
                 } else {

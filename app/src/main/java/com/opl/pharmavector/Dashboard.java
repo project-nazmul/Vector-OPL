@@ -689,7 +689,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DcfpDoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
-            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("UserName_2", terriName);
             i.putExtra("UserRole", "MPO");
             startActivity(i);
         });

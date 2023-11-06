@@ -60,7 +60,6 @@
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:paddingStart="10dp"
-            android:paddingLeft="10dp"
             android:textAlignment="center"
             android:textSize="@dimen/_8sdp" />
 
@@ -863,11 +862,25 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:layout_width="343dp"
+                    android:id="@+id/totalMrdDoc"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:focusable="true"
-                    android:text="Total"
+                    android:text="Total MRD Doc"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalDCFPDoc"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="true"
+                    android:text="Total DCFP Doc"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp"
