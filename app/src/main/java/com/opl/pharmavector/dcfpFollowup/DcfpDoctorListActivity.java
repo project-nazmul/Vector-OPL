@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,9 +32,14 @@ import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -41,17 +48,22 @@ import retrofit2.Callback;
 public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAdapter1.DcfpClickListener1 {
     int scrollX = 0, scrollY = 0;
     private Context context;
+    Calendar calendarDate, myCalendar;
+    SimpleDateFormat formatDate;
+    DatePickerDialog.OnDateSetListener datePicker;
     private TextView firstWeek, doc_d1, doc_d2, doc_d3, doc_d4, doc_d5, doc_d6, doc_d7, doc_d8, doc_d9, doc_d10, doc_d11, doc_d12, doc_d13, doc_d14, doc_d15, doc_d16, doc_d17,
-            doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28, totalMrdDoc, totalDCFPDoc;
+            doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28, totalMrdDoc, totalDCFPDoc, selectDate;
     HorizontalScrollView scrollView;
     Button doctorListBtn, backBtn;
+    public LinearLayoutManager manager1;
     private RecyclerView dcfpListRecycler;
     private DcfpDoctorListAdapter1 dcfpDoctorAdapter1;
     private DcfpDoctorListAdapter2 dcfpDoctorAdapter2;
     AutoCompleteTextView autoDoctorFFList;
-    public String userName, userName_2, new_version, message_3, userRole, selectMpoCode, splitMpoCode;
+    public String userName, userName_2, new_version, message_3, userRole, selectMpoCode, splitMpoCode, currentDate, selectTotDay;
     PreferenceManager preferenceManager;
     private List<DcfpDoctorMpoList> dcfpDocMpoLists = new ArrayList<>();
+    private List<DcfpDocTotDateList> dcfpTotDayLists = new ArrayList<>();
     private List<DcfpDoctorReportList> dcfpDoctorLists = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
@@ -61,9 +73,12 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         setContentView(R.layout.activity_dcfp_doctor_list);
 
         initViews();
+        calenderInit();
+        initRecyclerView();
 
         if (Objects.equals(userRole, "MPO")) {
             getDcfpDoctorListInfo(userName);
+            getDcfpSelectDayInfo(userName);
         } else {
             getDcfpDoctorMpoList();
         }
@@ -159,8 +174,52 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
         doc_d26 = findViewById(R.id.doc_d26);
         doc_d27 = findViewById(R.id.doc_d27);
         doc_d28 = findViewById(R.id.doc_d28);
+        selectDate = findViewById(R.id.selectDate);
         totalMrdDoc = findViewById(R.id.totalMrdDoc);
         totalDCFPDoc = findViewById(R.id.totalDCFPDoc);
+    }
+
+    private void initRecyclerView() {
+        manager1 = new LinearLayoutManager(DcfpDoctorListActivity.this);
+        dcfpDoctorAdapter1 = new DcfpDoctorListAdapter1(DcfpDoctorListActivity.this, dcfpDoctorLists, dcfpTotDayLists, DcfpDoctorListActivity.this);
+        dcfpListRecycler.setLayoutManager(manager1);
+        dcfpListRecycler.setAdapter(dcfpDoctorAdapter1);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private void calenderInit() {
+        calendarDate = Calendar.getInstance();
+        formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        currentDate = formatDate.format(calendarDate.getTime());
+        selectDate.setText(currentDate);
+        myCalendar = Calendar.getInstance();
+
+        datePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+            private void updateLabel() {
+                Log.d("updateLabel", "updateLabel called!");
+                String myFormat = "dd/MM/yyyy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                selectDate.setTextColor(Color.BLACK);
+                selectDate.setText("");
+                selectDate.setText(sdf.format(myCalendar.getTime()));
+
+                if (Objects.equals(userRole, "MPO")) {
+                    getDcfpSelectDayInfo(userName);
+                } else {
+                    getDcfpSelectDayInfo(selectMpoCode);
+                }
+            }
+        };
+        selectDate.setOnClickListener(v -> new DatePickerDialog(DcfpDoctorListActivity.this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     private void populateDoctorFFList() {
@@ -182,6 +241,7 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
             selectMpoCode = splitCodeArray[0].trim();
 
             getDcfpDoctorListInfo(selectMpoCode);
+            getDcfpSelectDayInfo(selectMpoCode);
         });
     }
 
@@ -199,20 +259,21 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
             @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onResponse(@NonNull Call<DcfpDoctorReportModel> call, @NonNull retrofit2.Response<DcfpDoctorReportModel> response) {
+                List<DcfpDoctorReportList> dcfpDoctorList = new ArrayList<>();
+
                 if (response.body() != null) {
-                    dcfpDoctorLists = response.body().getDcfpDoctorLists();
+                    dcfpDoctorList = response.body().getDcfpDoctorLists();
                 }
                 Log.d("dcfpData", dcfpDoctorLists.toString());
 
                 if (response.isSuccessful()) {
-                    LinearLayoutManager manager1 = new LinearLayoutManager(DcfpDoctorListActivity.this);
-                    dcfpDoctorAdapter1 = new DcfpDoctorListAdapter1(DcfpDoctorListActivity.this, dcfpDoctorLists, DcfpDoctorListActivity.this);
-                    dcfpListRecycler.setLayoutManager(manager1);
-                    dcfpListRecycler.setAdapter(dcfpDoctorAdapter1);
+                    dcfpDoctorLists.addAll(dcfpDoctorList);
+                    dcfpDoctorAdapter1.notifyDataSetChanged();
 
                     int d1_count = 0, d2_count = 0, d3_count = 0, d4_count = 0, d5_count = 0, d6_count = 0, d7_count = 0, d8_count = 0, d9_count = 0, d10_count = 0, d11_count = 0,
                         d12_count = 0, d13_count = 0, d14_count = 0, d15_count = 0, d16_count = 0, d17_count = 0, d18_count = 0, d19_count = 0, d20_count = 0, d21_count = 0,
                         d22_count = 0, d23_count = 0, d24_count = 0, d25_count = 0, d26_count = 0, d27_count = 0, d28_count = 0, dcfp_count = 0;
+
                     for (int i=0; i<dcfpDoctorLists.size(); i++) {
                         if (dcfpDoctorLists.get(i).getD1() != null) {
                             d1_count++;
@@ -342,6 +403,52 @@ public class DcfpDoctorListActivity extends Activity implements DcfpDoctorListAd
 
             @Override
             public void onFailure(@NonNull Call<DcfpDoctorReportModel> call, @NonNull Throwable t) {
+                dcfpDoctorDialog.dismiss();
+            }
+        });
+    }
+
+    public void getDcfpSelectDayInfo(String mpoCode) {
+        ProgressDialog dcfpDoctorDialog = new ProgressDialog(DcfpDoctorListActivity.this);
+        dcfpDoctorDialog.setMessage("DCFP Data Loading...");
+        dcfpDoctorDialog.setTitle("DCFP Data Followup");
+        dcfpDoctorDialog.show();
+
+        String totDate = selectDate.getText().toString().trim();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH);
+        LocalDate ld = LocalDate.parse(totDate, dtf);
+        String month_name = dtf2.format(ld);
+        String[] splitDate = totDate.split("/");
+        selectTotDay = splitDate[0] + "-" + month_name + "-" + splitDate[2];
+        Log.d("selectTotDay", selectTotDay);
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcfpDocTotDateModel> call = apiInterface.getDcfpSelectTotDay(mpoCode, selectTotDay);
+        dcfpTotDayLists.clear();
+
+        call.enqueue(new Callback<DcfpDocTotDateModel>() {
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+            @Override
+            public void onResponse(@NonNull Call<DcfpDocTotDateModel> call, @NonNull retrofit2.Response<DcfpDocTotDateModel> response) {
+                List<DcfpDocTotDateList> dcfpTotDayList = new ArrayList<>();
+
+                if (response.body() != null) {
+                    dcfpTotDayList = response.body().getDcfpTotDateLists();
+                }
+                Log.d("dcfpTot", dcfpTotDayLists.toString());
+
+                dcfpDoctorDialog.dismiss();
+                if (response.isSuccessful()) {
+                    dcfpTotDayLists.addAll(dcfpTotDayList);
+                    dcfpDoctorAdapter1.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(DcfpDoctorListActivity.this, "No data Available !", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DcfpDocTotDateModel> call, @NonNull Throwable t) {
                 dcfpDoctorDialog.dismiss();
             }
         });

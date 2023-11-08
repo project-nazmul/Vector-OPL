@@ -4,6 +4,7 @@ import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
+import com.opl.pharmavector.dcfpFollowup.DcfpDocTotDateModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorMpoModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorReportModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpEntrySetUpModel;
@@ -243,7 +244,8 @@ public interface ApiInterface {
     @POST("contact/getcontactinfo.php")
     Call<ArrayList<RecyclerData>> getcontactinfo(
             @Field("mpo_code") String mpo_code,
-            @Field("brand_code") String brand_code
+            @Field("brand_code") String brand_code,
+            @Field("search_by") String search_by
     );
 
     @FormUrlEncoded
@@ -393,6 +395,11 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("dcfp/get_mpo_dcfp_summary.php")
     Call<DcfpDoctorReportModel> getDcfpDoctorList(@Field("id") String mpo_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("dcfp/get_dcfp_tot_day.php")
+    Call<DcfpDocTotDateModel> getDcfpSelectTotDay(@Field("id") String mpo_code, @Field("p_date") String p_date);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
@@ -704,6 +711,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("spi/doc_reach_self_followup.php")
     Call<DoctorReachSelfModel> doc_reach_self_followup(
+            @Field("id") String mpo_code,
+            @Field("p_mon") String p_month
+    );
+
+    @FormUrlEncoded
+    @POST("spi/doc_reach_team_followup.php")
+    Call<DoctorReachSelfModel> doc_reach_team_followup(
             @Field("id") String mpo_code,
             @Field("p_mon") String p_month
     );

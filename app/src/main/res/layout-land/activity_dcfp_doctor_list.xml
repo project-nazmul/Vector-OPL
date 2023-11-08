@@ -63,6 +63,20 @@
             android:textAlignment="center"
             android:textSize="@dimen/_8sdp" />
 
+        <TextView
+            android:id="@+id/selectDate"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="10"
+            android:enabled="true"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:selectAllOnFocus="true"
+            android:text="Date"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"

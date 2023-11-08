@@ -157,7 +157,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="National"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -170,6 +170,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
@@ -199,6 +200,110 @@
                         android:id="@+id/rvSelf"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_60sdp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/teamcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="false">
+
+                <TextView
+                    android:id="@+id/txt_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="@dimen/_6sdp"
+                    android:fontFamily="@font/acme"
+                    android:text="Team"
+                    android:textColor="@color/vector_logo_color"
+                    android:textSize="@dimen/_7sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <HorizontalScrollView
+                        android:id="@+id/headerScroll10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:background="#FBDFB6"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_8sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:gravity="center_vertical"
+                                android:text="Serial"
+                                android:textColor="@color/vector_logo_color"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:paddingEnd="@dimen/_16sdp"
+                                android:text="Code"
+                                android:textColor="@color/vector_logo_color"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="National"
+                                android:textColor="@color/colorAccentEditor"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="Total Prescriber"
+                                android:textColor="@color/mdtp_accent_color"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:visibility="gone"
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="Total Generic\n(OPL_Team wise)\nPrescriber"
+                                android:textColor="@color/vergence"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="match_parent"
+                                android:gravity="start"
+                                android:text="Total Product\n(OPL_Team wise)\nPrescriber"
+                                android:textColor="@color/green"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/cell_width"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="Doctor Reach (%)"
+                                android:textColor="@color/vector_logo_color"
+                                android:textSize="@dimen/_8sdp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTeam"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150sdp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -233,7 +338,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:background="#CDF4A0"
+                            android:background="#BBF1F8"
                             android:orientation="horizontal"
                             android:padding="@dimen/_8sdp">
 
@@ -259,7 +364,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="Division"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -272,6 +377,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
@@ -301,7 +407,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvNational"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"/>
+                        android:layout_height="@dimen/_80sdp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -336,7 +442,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:background="#CDF4A0"
+                            android:background="#B9FBBB"
                             android:orientation="horizontal"
                             android:padding="@dimen/_8sdp">
 
@@ -362,7 +468,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="Zone"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -375,6 +481,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
@@ -403,7 +510,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvDivision"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_150sdp"/>
+                        android:layout_height="@dimen/_100sdp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -439,7 +546,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:background="#CDF4A0"
+                            android:background="#FBC3BF"
                             android:orientation="horizontal"
                             android:padding="@dimen/_8sdp">
 
@@ -465,7 +572,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="Region"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -478,6 +585,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
@@ -527,7 +635,7 @@
                     android:text="Area Managers"
                     android:textColor="@color/vector_logo_color"
                     android:textSize="@dimen/_7sdp"
-                    tools:ignore="UnusedAttribute"></TextView>
+                    tools:ignore="UnusedAttribute"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -543,7 +651,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/_2sdp"
-                            android:background="#CDF4A0"
+                            android:background="#E2D1FF"
                             android:orientation="horizontal"
                             android:padding="@dimen/_8sdp">
 
@@ -569,7 +677,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="Area"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -582,6 +690,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
@@ -673,7 +782,7 @@
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical"
-                                android:text="Location"
+                                android:text="Territory"
                                 android:textColor="@color/colorAccentEditor"
                                 android:textSize="@dimen/_8sdp" />
 
@@ -686,6 +795,7 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <TextView
+                                android:visibility="gone"
                                 android:layout_width="@dimen/cell_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"

@@ -39,13 +39,8 @@ public class DoctorReachAdapter extends RecyclerView.Adapter<DoctorReachAdapter.
 
     @Override
     public DoctorReachViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        if (viewType == TYPE_ROW) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_doc_reach_row, viewGroup, false);
-            return new DoctorReachViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_doc_reach_row, viewGroup, false);
-            return new DoctorReachViewHolder(view);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_doc_reach_row, viewGroup, false);
+        return new DoctorReachViewHolder(view);
     }
 
     @Override

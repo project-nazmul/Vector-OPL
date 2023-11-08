@@ -1,21 +1,26 @@
 package com.opl.pharmavector.dcfpFollowup;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.opl.pharmavector.R;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListAdapter1.DcfpDoctorViewHolder> {
     int d1_count = 0;
     private Context context;
     public DcfpClickListener1 dcfpClickListener;
+    public List<DcfpDocTotDateList> dcfpTotDayLists;
     public List<DcfpDoctorReportList> dcfpDoctorLists;
 
     public DcfpDoctorListAdapter1(Context context, List<DcfpDoctorReportList> dcfpDoctorList) {
@@ -23,9 +28,10 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
         this.dcfpDoctorLists = dcfpDoctorList;
     }
 
-    public DcfpDoctorListAdapter1(Context context, List<DcfpDoctorReportList> dcfpDoctorList, DcfpClickListener1 dcfpClickListener) {
+    public DcfpDoctorListAdapter1(Context context, List<DcfpDoctorReportList> dcfpDoctorList, List<DcfpDocTotDateList> dcfpTotDayList, DcfpClickListener1 dcfpClickListener) {
         this.context = context;
         this.dcfpDoctorLists = dcfpDoctorList;
+        this.dcfpTotDayLists = dcfpTotDayList;
         this.dcfpClickListener = dcfpClickListener;
     }
 
@@ -241,6 +247,98 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
             holder.doc_d28.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_dot, 0, 0, 0);
             holder.doc_d28.setPadding(14, 0, 0, 0);
         }
+
+        refreshTextViewBg(holder);
+        if (dcfpTotDayLists.size() > 0) {
+            if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "1")) {
+                holder.doc_d1.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "2")) {
+                holder.doc_d2.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "3")) {
+                holder.doc_d3.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "4")) {
+                holder.doc_d4.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "5")) {
+                holder.doc_d5.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "6")) {
+                holder.doc_d6.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "7")) {
+                holder.doc_d7.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "8")) {
+                holder.doc_d8.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "9")) {
+                holder.doc_d9.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "10")) {
+                holder.doc_d10.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "11")) {
+                holder.doc_d11.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "12")) {
+                holder.doc_d12.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "13")) {
+                holder.doc_d13.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "14")) {
+                holder.doc_d14.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "15")) {
+                holder.doc_d15.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "16")) {
+                holder.doc_d16.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "17")) {
+                holder.doc_d17.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "18")) {
+                holder.doc_d18.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "19")) {
+                holder.doc_d19.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "20")) {
+                holder.doc_d20.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "21")) {
+                holder.doc_d21.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "22")) {
+                holder.doc_d22.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "23")) {
+                holder.doc_d23.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "24")) {
+                holder.doc_d24.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "25")) {
+                holder.doc_d25.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "26")) {
+                holder.doc_d26.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "27")) {
+                holder.doc_d27.setBackgroundResource(R.color.yello);
+            } else if (Objects.equals(dcfpTotDayLists.get(0).getTotDay(), "28")) {
+                holder.doc_d28.setBackgroundResource(R.color.yello);
+            }
+        }
+    }
+
+    private void refreshTextViewBg(DcfpDoctorViewHolder holder) {
+        holder.doc_d1.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d2.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d3.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d4.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d5.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d6.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d7.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d8.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d9.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d10.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d11.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d12.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d13.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d14.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d15.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d16.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d17.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d18.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d19.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d20.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d21.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d22.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d23.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d24.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d25.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d26.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d27.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
+        holder.doc_d28.setBackgroundColor(Color.parseColor("#FFDDDDDD"));
     }
 
     @Override
@@ -256,6 +354,7 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
     public class DcfpDoctorViewHolder extends RecyclerView.ViewHolder {
         public TextView doc_code, doc_name, doc_degree, doc_spec, doc_name1, doc_d1, doc_d2, doc_d3, doc_d4, doc_d5, doc_d6, doc_d7, doc_d8, doc_d9, doc_d10, doc_d11, doc_d12,
                 doc_d13, doc_d14, doc_d15, doc_d16, doc_d17, doc_d18, doc_d19, doc_d20, doc_d21, doc_d22, doc_d23, doc_d24, doc_d25, doc_d26, doc_d27, doc_d28, total;
+        LinearLayout layout_summary;
 
         public DcfpDoctorViewHolder(View view) {
             super(view);
@@ -293,6 +392,7 @@ public class DcfpDoctorListAdapter1 extends RecyclerView.Adapter<DcfpDoctorListA
             doc_d27 = view.findViewById(R.id.doc_d27);
             doc_d28 = view.findViewById(R.id.doc_d28);
             total = view.findViewById(R.id.total);
+            layout_summary = view.findViewById(R.id.layout_summary);
         }
     }
 

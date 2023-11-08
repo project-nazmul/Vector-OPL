@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/layout_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dcfp_border"
@@ -87,12 +88,14 @@
             android:weightSum="7">
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -103,12 +106,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -119,12 +124,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -135,12 +142,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -151,12 +160,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -167,12 +178,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -183,12 +196,14 @@
                 android:background="#424242" />
 
             <TextView
-                android:gravity="center"
                 android:id="@+id/doc_d7"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -209,9 +224,11 @@
                 android:id="@+id/doc_d8"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -225,9 +242,11 @@
                 android:id="@+id/doc_d9"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -241,9 +260,11 @@
                 android:id="@+id/doc_d10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -257,9 +278,11 @@
                 android:id="@+id/doc_d11"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -273,9 +296,11 @@
                 android:id="@+id/doc_d12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -289,9 +314,11 @@
                 android:id="@+id/doc_d13"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -305,9 +332,11 @@
                 android:id="@+id/doc_d14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -328,9 +357,11 @@
                 android:id="@+id/doc_d15"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -344,9 +375,11 @@
                 android:id="@+id/doc_d16"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -360,9 +393,11 @@
                 android:id="@+id/doc_d17"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -376,9 +411,11 @@
                 android:id="@+id/doc_d18"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -392,9 +429,11 @@
                 android:id="@+id/doc_d19"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -408,9 +447,11 @@
                 android:id="@+id/doc_d20"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -424,9 +465,11 @@
                 android:id="@+id/doc_d21"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -447,9 +490,11 @@
                 android:id="@+id/doc_d22"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -463,9 +508,11 @@
                 android:id="@+id/doc_d23"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -479,9 +526,11 @@
                 android:id="@+id/doc_d24"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -495,9 +544,11 @@
                 android:id="@+id/doc_d25"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -511,9 +562,11 @@
                 android:id="@+id/doc_d26"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -527,9 +580,11 @@
                 android:id="@+id/doc_d27"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -543,9 +598,11 @@
                 android:id="@+id/doc_d28"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
                 android:layout_weight="1"
                 android:focusable="true"
+                android:gravity="center"
                 android:text=""
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_8sdp" />
@@ -557,7 +614,6 @@
             android:background="#424242" />
 
         <TextView
-            android:textStyle="bold"
             android:id="@+id/total"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
@@ -566,7 +622,8 @@
             android:text="Total"
             android:textAlignment="center"
             android:textColor="@color/gallan"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="1dp"

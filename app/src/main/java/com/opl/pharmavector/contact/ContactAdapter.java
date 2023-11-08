@@ -1,5 +1,6 @@
 package com.opl.pharmavector.contact;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,23 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
+import com.opl.pharmavector.master_code.model.MasterCList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
-    private ArrayList<RecyclerData> DataArrayList;
+    private List<RecyclerData> DataArrayList;
     Context C;
     String pmdImageUrl, profileImage;
     ContactCallback contactCallback;
 
-    public ContactAdapter(Context c, ArrayList<RecyclerData> recyclerDataArrayList, String pmdImageUrl) {
+    public ContactAdapter(Context c, List<RecyclerData> recyclerDataArrayList, String pmdImageUrl) {
         this.C = c;
         this.DataArrayList = recyclerDataArrayList;
         this.pmdImageUrl = pmdImageUrl;
     }
 
-    public ContactAdapter(Context c, ArrayList<RecyclerData> recyclerDataArrayList, String pmdImageUrl, ContactCallback contactCallback) {
+    public ContactAdapter(Context c, List<RecyclerData> recyclerDataArrayList, String pmdImageUrl, ContactCallback contactCallback) {
         this.C = c;
         this.DataArrayList = recyclerDataArrayList;
         this.pmdImageUrl = pmdImageUrl;
@@ -84,6 +87,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             lottiePhoneCall = (LottieAnimationView) itemView.findViewById(R.id.lottiePhoneCall);
             lottiePhoneSms = (LottieAnimationView) itemView.findViewById(R.id.lottiePhoneSms);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void searchPmdContactList(List<RecyclerData> mCodeList) {
+        DataArrayList = mCodeList;
+        notifyDataSetChanged();
     }
 
     public interface ContactCallback {

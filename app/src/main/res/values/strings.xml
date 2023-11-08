@@ -324,6 +324,7 @@
     <string name="service_number">Service Number</string>
     <string name="regional_manager">Regional Manager</string>
     <string name="search_for_usercode">Search for UserCode</string>
+    <string name="search_pmd_contact">Search (Code,Name,Phone,Designation)</string>
     <string name="select_month">Select Month</string>
     <string name="notification">Notification</string>
     <string name="rx_capture">Rx Capture</string>

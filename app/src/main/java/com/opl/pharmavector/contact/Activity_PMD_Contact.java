@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -17,16 +18,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +38,8 @@ import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.ServiceHandler;
+import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.prescriptionsurvey.PrescroptionImageSearch;
-import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.squareup.picasso.Picasso;
@@ -47,7 +50,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,13 +68,16 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
     ProgressBar progressBar;
     private TextView fromdate, todate;
     private Button fab, btn_back;
-    private AutoCompleteTextView actv;
+    private EditText edtSearchEmployee;
+    private AutoCompleteTextView autoBrandName;
     private ArrayList<Customer> brandlist;
     private Spinner spin_brand;
+    RadioGroup radioGroupSearch;
+    RadioButton radioBtnBrand, radioBtnEmployee;
     private LinearLayout imageLayout;
     private String brand_url = BASE_URL + "prescription_survey/get_brand.php";
     public String pmdImageUrl = ApiClient.BASE_URL + "vector_ff_image/pmd/";
-    String product_name, product_code, p_brand_code, mpo_code, selected_number, selected_person, profile_image, userName, userName_2, new_version, message_3;
+    String product_name, product_code, p_brand_code, mpo_code, selected_number, selected_person, profile_image, userName, userName_2, new_version, message_3, searchByValue = "Brand";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -78,13 +86,19 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         setContentView(R.layout.activity_pmd_contact);
 
         initViews();
+        initContRecycler();
+        searchByPmdContact();
         progressBar.setVisibility(View.GONE);
         hideKeyBoard();
         new GetBrand().execute();
 
         fab.setOnClickListener(view -> {
-            recyclerView.setAdapter(null);
-            getContact();
+            //recyclerView.setAdapter(null);
+            if (Objects.equals(searchByValue, "Brand")) {
+                getContact("B");
+            } else {
+                getContact("E");
+            }
         });
 
 //        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
@@ -102,19 +116,18 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
 //
 //            }
 //        }));
-
         btn_back.setOnClickListener(view -> finish());
-        actv.setFocusableInTouchMode(true);
-        actv.setFocusable(true);
-        actv.requestFocus();
-        actv.setOnClickListener(v -> {
-            if (!actv.getText().toString().equals("")) {}
+        autoBrandName.setFocusableInTouchMode(true);
+        autoBrandName.setFocusable(true);
+        autoBrandName.requestFocus();
+        autoBrandName.setOnClickListener(v -> {
+            if (!autoBrandName.getText().toString().equals("")) {}
         });
-        actv.setOnTouchListener((v, event) -> {
-            actv.showDropDown();
+        autoBrandName.setOnTouchListener((v, event) -> {
+            autoBrandName.showDropDown();
             return false;
         });
-        actv.addTextChangedListener(new TextWatcher() {
+        autoBrandName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
@@ -128,7 +141,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
                     String[] first_split = inputorder.split("//");
                     product_name = first_split[0].trim();
                     product_code = first_split[1].trim();
-                    actv.setText(product_name);
+                    autoBrandName.setText(product_name);
                     hideKeyBoard();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -137,6 +150,72 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
 
             private void length() {}
         });
+    }
+
+    private void initContRecycler() {
+        recyclerViewAdapter = new ContactAdapter(Activity_PMD_Contact.this, recyclerDataArrayList, pmdImageUrl, Activity_PMD_Contact.this);
+        LinearLayoutManager manager = new LinearLayoutManager(Activity_PMD_Contact.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private void searchByPmdContact() {
+        radioGroupSearch.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        RadioButton radioButton = (RadioButton)group.findViewById(checkedId);
+                        searchByValue = radioButton.getText().toString();
+
+                        if (searchByValue.equals("Brand")) {
+                            recyclerViewAdapter.searchPmdContactList(Collections.emptyList());
+                            autoBrandName.setVisibility(View.VISIBLE);
+                            edtSearchEmployee.setVisibility(View.GONE);
+                        } else {
+                            autoBrandName.setVisibility(View.GONE);
+                            edtSearchEmployee.setVisibility(View.VISIBLE);
+                            getContact("E");
+                        }
+                        Log.d("radioButton", radioButton.getText().toString());
+                    }
+                });
+        edtSearchEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(edtSearchEmployee, InputMethodManager.SHOW_IMPLICIT);
+                edtSearchEmployee.setFocusable(true);
+                edtSearchEmployee.setFocusableInTouchMode(true);
+                edtSearchEmployee.setClickable(true);
+                edtSearchEmployee.setText("");
+            }
+        });
+        edtSearchEmployee.addTextChangedListener(new TextWatcher() {
+            @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchEmployeeFilter(s.toString().trim());
+            }
+        });
+    }
+
+    void searchEmployeeFilter(String query) {
+        List<RecyclerData> employeeCodeList = new ArrayList<>();
+
+        for (RecyclerData codeList: recyclerDataArrayList) {
+            if (codeList.getCol3().toUpperCase().contains(query.toUpperCase()) || codeList.getCol4().toLowerCase().contains(query.toLowerCase()) ||
+                    codeList.getCol7().toUpperCase().contains(query.toUpperCase()) || codeList.getCol5().toUpperCase().contains(query.toUpperCase()) ||
+                    codeList.getCol2().toUpperCase().contains(query.toUpperCase()) || codeList.getCol6().toUpperCase().contains(query.toUpperCase())) {
+                employeeCodeList.add(codeList);
+            }
+        }
+        recyclerViewAdapter.searchPmdContactList(employeeCodeList);
     }
 
     @SuppressLint("SetTextI18n")
@@ -152,8 +231,12 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         btn_back = findViewById(R.id.back);
         btn_back.setTypeface(fontFamily);
         btn_back.setText("\uf08b");
-        actv = findViewById(R.id.autoCompleteTextView1);
+        autoBrandName = findViewById(R.id.autoCompleteTextView1);
         spin_brand = findViewById(R.id.spin_brand);
+        radioGroupSearch = findViewById(R.id.radioGroup);
+        radioBtnBrand = findViewById(R.id.radioBtnBrand);
+        radioBtnEmployee = findViewById(R.id.radioBtnEmployee);
+        edtSearchEmployee = findViewById(R.id.edtSearchEmployee);
 
         recyclerDataArrayList = new ArrayList<>();
         brandlist = new ArrayList<>();
@@ -207,6 +290,7 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -236,31 +320,33 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
         //Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         spin_brand.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
 
-    private void getContact() {
-        p_brand_code = actv.getText().toString().trim();
+    private void getContact(String searchByValue) {
+        p_brand_code = autoBrandName.getText().toString().trim();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ArrayList<RecyclerData>> call = apiInterface.getcontactinfo("mpo_code", product_code);
-        Log.d("Brand Code---->", product_code);
+        Call<ArrayList<RecyclerData>> call = apiInterface.getcontactinfo("mpo_code", product_code, searchByValue);
+        recyclerDataArrayList.clear();
+        //Log.d("Brand Code---->", product_code);
 
         call.enqueue(new Callback<ArrayList<RecyclerData>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<ArrayList<RecyclerData>> call, Response<ArrayList<RecyclerData>> response) {
+                List<RecyclerData> pmdContactList = new ArrayList<>();
+
                 if (response.isSuccessful()) {
-                    recyclerDataArrayList = response.body();
-                    Log.e("DATA-- : ", String.valueOf(recyclerDataArrayList));
-                    for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        recyclerViewAdapter = new ContactAdapter(Activity_PMD_Contact.this, recyclerDataArrayList, pmdImageUrl, Activity_PMD_Contact.this);
-                        LinearLayoutManager manager = new LinearLayoutManager(Activity_PMD_Contact.this, LinearLayoutManager.VERTICAL, false);
-                        recyclerView.setLayoutManager(manager);
-                        recyclerView.setAdapter(recyclerViewAdapter);
+                    pmdContactList = response.body();
+                    if (pmdContactList != null) {
+                        recyclerDataArrayList.addAll(pmdContactList);
                     }
+                    recyclerViewAdapter.searchPmdContactList(recyclerDataArrayList);
+                    Log.e("DATA-- : ", String.valueOf(recyclerDataArrayList));
                 }
             }
 

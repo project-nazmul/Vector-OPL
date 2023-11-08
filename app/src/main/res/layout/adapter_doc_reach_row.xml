@@ -44,6 +44,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
+        android:visibility="gone"
         android:gravity="center"
         android:id="@+id/totalGen"
         android:layout_width="@dimen/cell_width"

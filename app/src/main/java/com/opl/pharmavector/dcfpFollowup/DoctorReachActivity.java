@@ -54,7 +54,7 @@ public class DoctorReachActivity extends Activity {
     String team_name, month_name;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogProd;
+    public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogTeam, pDialogProd;
     Button back_btn;
     public int success;
     public String message, ord_no;
@@ -76,13 +76,14 @@ public class DoctorReachActivity extends Activity {
     public String mpo_flag = "N";
     public String self_flag, temp_mpo_code;
     public static String docAdapterflag="N";
-    int scrollX0 = 0, scrollX = 0, scrollX2 = 0, scrollX3 = 0, scrollX4 = 0, scrollX5 = 0, scrollX6 = 0, scrollX7 = 0, scrollX8 = 0;
-    RecyclerView rvNational, rvDivision, rvRegion, rvArea, rvMpo, rvSegment, rvSelf, rvDoc, rvDocProduct;
-    HorizontalScrollView headerScroll0, headerScroll, headerScroll2, headerScroll3, headerScroll4, headerScroll5, headerScroll6, headerScroll7, headerScroll8;
-    DoctorReachAdapter promoAdapter0, promoAdapter, promoAdapter2, promoAdapter3, promoAdapter4, promoAdapter5, promoAdapter6;
+    int scrollX0 = 0, scrollX = 0, scrollX2 = 0, scrollX3 = 0, scrollX4 = 0, scrollX5 = 0, scrollX6 = 0, scrollX7 = 0, scrollX8 = 0, scrollX10 = 0;
+    RecyclerView rvNational, rvDivision, rvRegion, rvArea, rvMpo, rvSegment, rvSelf, rvDoc, rvDocProduct, rvTeam;
+    HorizontalScrollView headerScroll0, headerScroll, headerScroll2, headerScroll3, headerScroll4, headerScroll5, headerScroll6, headerScroll7, headerScroll8, headerScroll10;
+    DoctorReachAdapter promoAdapter0, promoAdapter, promoAdapter2, promoAdapter3, promoAdapter4, promoAdapter5, promoAdapter6, promoAdapter10;
     MRDDocAdapter promoAdapter7, promoAdapter8;
     TextView txt_self;
     List<DoctorReachSelfList> selfList = new ArrayList<>();
+    List<DoctorReachSelfList> teamList = new ArrayList<>();
     List<DoctorReachSelfList> promoList = new ArrayList<>();
     List<DoctorReachSelfList> divisionList = new ArrayList<>();
     List<DoctorReachSelfList> regionList = new ArrayList<>();
@@ -96,7 +97,7 @@ public class DoctorReachActivity extends Activity {
     MaterialSpinner monthSpinner;
     Button btn_search;
     String service_month;
-    CardView selfcardview, smcardview, asmcardview, rmcardview, amcardview, mpocardview, segmentcardview, doctorcardview, doctorproductcardview;
+    CardView selfcardview, smcardview, asmcardview, rmcardview, amcardview, mpocardview, segmentcardview, doctorcardview, doctorproductcardview, teamcardview;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -115,6 +116,7 @@ public class DoctorReachActivity extends Activity {
             if (sm_flag.equals("Y")) {
                 txt_self.setText("Division");
                 smcardview.setVisibility(View.GONE);
+                teamcardview.setVisibility(View.GONE);
                 user_code = SalesManagerDashboard.globalSMCode;
                 self_flag = "SM";
             }
@@ -122,6 +124,7 @@ public class DoctorReachActivity extends Activity {
                 txt_self.setText("Zone");
                 smcardview.setVisibility(View.GONE);
                 asmcardview.setVisibility(View.GONE);
+                teamcardview.setVisibility(View.GONE);
                 user_code = AssistantManagerDashboard.globalASMCode;
                 self_flag = "ASM";
             }
@@ -130,6 +133,7 @@ public class DoctorReachActivity extends Activity {
                 smcardview.setVisibility(View.GONE);
                 asmcardview.setVisibility(View.GONE);
                 rmcardview.setVisibility(View.GONE);
+                teamcardview.setVisibility(View.GONE);
                 user_code = RmDashboard.globalRMCode;
                 self_flag = "ASM";
             }
@@ -139,6 +143,7 @@ public class DoctorReachActivity extends Activity {
                 asmcardview.setVisibility(View.GONE);
                 rmcardview.setVisibility(View.GONE);
                 amcardview.setVisibility(View.GONE);
+                teamcardview.setVisibility(View.GONE);
                 user_code = AmDashboard.globalFMCode;
                 self_flag = "AM";
             }
@@ -149,6 +154,7 @@ public class DoctorReachActivity extends Activity {
                 rmcardview.setVisibility(View.GONE);
                 amcardview.setVisibility(View.GONE);
                 mpocardview.setVisibility(View.GONE);
+                teamcardview.setVisibility(View.GONE);
                 user_code = Dashboard.globalmpocode;
                 self_flag = "MPO";
             }
@@ -162,9 +168,10 @@ public class DoctorReachActivity extends Activity {
                             service_month = monthSpinner.getText().toString();
                             self_flag = "GM";
                             user_code = GMDashboard1.globalAdmin;
-
                             prepareSelfData();
                             setUpselfRV();
+                            prepareTeamData();
+                            setUpTeamRV();
                             prepareSMdata();
                             setUpRecyclerView();
 
@@ -230,7 +237,6 @@ public class DoctorReachActivity extends Activity {
                                     user_code = mpoList.get(position).getFfCode();
                                     Log.e("mpo_Code-->", user_code);
                                     temp_mpo_code = mpoList.get(position).getFfCode();
-
                                     //prepareSegmentData();
                                     //setUpRV_Segment();
                                     //prepareDocList();
@@ -247,7 +253,6 @@ public class DoctorReachActivity extends Activity {
                                 public void onClick(View view, int position) {
                                     user_code = docList.get(position).getFfCode();
                                     Log.e("doc_code-->", user_code);
-
                                     //prepareProdList();
                                     //setUpRV_ProdList();
                                 }
@@ -398,7 +403,6 @@ public class DoctorReachActivity extends Activity {
                                     user_code = mpoList.get(position).getFfCode();
                                     Log.e("mpo_Code-->", user_code);
                                     temp_mpo_code = mpoList.get(position).getFfCode();
-
 //                                        prepareSegmentData();
 //                                        setUpRV_Segment();
 //                                        prepareDocList();
@@ -579,6 +583,7 @@ public class DoctorReachActivity extends Activity {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         txt_self = findViewById(R.id.txt_self);
         rvSelf = findViewById(R.id.rvSelf);
+        rvTeam = findViewById(R.id.rvTeam);
         rvNational = findViewById(R.id.rvNational);
         rvDivision = findViewById(R.id.rvDivision);
         rvRegion = findViewById(R.id.rvRegion);
@@ -587,7 +592,6 @@ public class DoctorReachActivity extends Activity {
         rvSegment = findViewById(R.id.rvSegment);
         rvDoc = findViewById(R.id.rvDoc);
         rvDocProduct = findViewById(R.id.rvDocProduct);
-
         headerScroll = findViewById(R.id.headerScroll);
         headerScroll2 = findViewById(R.id.headerScroll2);
         headerScroll3 = findViewById(R.id.headerScroll3);
@@ -597,13 +601,14 @@ public class DoctorReachActivity extends Activity {
         headerScroll0 = findViewById(R.id.headerScroll0);
         headerScroll7 = findViewById(R.id.headerScroll7);
         headerScroll8 = findViewById(R.id.headerScroll8);
+        headerScroll10 = findViewById(R.id.headerScroll10);
 
         user_show1 = findViewById(R.id.user_show1);
         back_btn = findViewById(R.id.backbt);
         btn_search = findViewById(R.id.btn_search);
         monthSpinner = findViewById(R.id.monthSpinner);
-
         selfcardview = findViewById(R.id.selfcardview);
+        teamcardview = findViewById(R.id.teamcardview);
         smcardview = findViewById(R.id.smcardview);
         asmcardview = findViewById(R.id.asmcardview);
         rmcardview = findViewById(R.id.rmcardview);
@@ -823,6 +828,20 @@ public class DoctorReachActivity extends Activity {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
+        rvTeam.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                scrollX10 += dx;
+                headerScroll10.scrollTo(scrollX10, 0);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
     }
 
     public void setUpselfRV() {
@@ -832,6 +851,15 @@ public class DoctorReachActivity extends Activity {
         rvSelf.setLayoutManager(manager);
         rvSelf.setAdapter(promoAdapter0);
         rvSelf.addItemDecoration(new DividerItemDecoration(DoctorReachActivity.this, DividerItemDecoration.VERTICAL));
+    }
+
+    public void setUpTeamRV() {
+        promoAdapter10 = new DoctorReachAdapter(DoctorReachActivity.this, teamList);
+        FixedGridLayoutManager manager = new FixedGridLayoutManager();
+        manager.setTotalColumnCount(1);
+        rvTeam.setLayoutManager(manager);
+        rvTeam.setAdapter(promoAdapter10);
+        rvTeam.addItemDecoration(new DividerItemDecoration(DoctorReachActivity.this, DividerItemDecoration.VERTICAL));
     }
 
     public void prepareSelfData() {
@@ -878,6 +906,39 @@ public class DoctorReachActivity extends Activity {
             @Override
             public void onFailure(Call<DoctorReachSelfModel> call, Throwable t) {
                 pDialogSelf.dismiss();
+            }
+        });
+    }
+
+    public void prepareTeamData() {
+        pDialogTeam = new ProgressDialog(DoctorReachActivity.this);
+        pDialogTeam.setMessage("Loading...");
+        pDialogTeam.setTitle("Please wait");
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Log.e("selfData-------->", user_code + "\n" + self_flag + "\n" + summary_type + "\n" + service_month);
+        Call<DoctorReachSelfModel> call = apiInterface.doc_reach_team_followup(user_code, month_name);
+        teamList.clear();
+
+        call.enqueue(new Callback<DoctorReachSelfModel>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(Call<DoctorReachSelfModel> call, retrofit2.Response<DoctorReachSelfModel> response) {
+                List<DoctorReachSelfList> giftitemCount = Objects.requireNonNull(response.body()).getDoctorSelfLists();
+
+                if (response.isSuccessful()) {
+                    teamList.addAll(giftitemCount);
+                    promoAdapter10.notifyDataSetChanged();
+                    pDialogTeam.dismiss();
+                } else {
+                    pDialogTeam.dismiss();
+                    Toast.makeText(DoctorReachActivity.this, "No data Available !", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DoctorReachSelfModel> call, Throwable t) {
+                pDialogTeam.dismiss();
             }
         });
     }
