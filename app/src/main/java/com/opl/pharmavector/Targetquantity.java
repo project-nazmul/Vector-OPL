@@ -49,9 +49,7 @@ public class Targetquantity extends Activity implements OnClickListener {
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
     public static ArrayList<String> PPM_CODE;
-
     private String URL_PRODUCT_VIEW = BASE_URL+"mposalesreports/report1.php";
-
     Button back_btn;
     LinearLayout ln;
     Calendar c_todate, c_fromdate;

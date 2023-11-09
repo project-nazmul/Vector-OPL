@@ -1720,7 +1720,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         practiceCard5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // new FetchExamFlag().execute();
+                //new FetchExamFlag().execute();
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {

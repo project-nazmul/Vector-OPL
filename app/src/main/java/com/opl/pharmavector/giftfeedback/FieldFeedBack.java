@@ -1,9 +1,8 @@
 package com.opl.pharmavector.giftfeedback;
 
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +19,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +48,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -74,6 +76,7 @@ import com.github.tutorialsandroid.appxupdater.enums.UpdateFrom;
 import com.github.tutorialsandroid.appxupdater.objects.Update;
 import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.kosalgeek.android.photoutil.ImageBase64;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
 import com.opl.pharmavector.Changepassword;
@@ -103,9 +106,7 @@ import com.opl.pharmavector.util.ResetPasswordDialog;
 import es.dmoral.toasty.Toasty;
 import pub.devrel.easypermissions.EasyPermissions;
 
-
 public class FieldFeedBack extends AppCompatActivity {
-
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     String tag_json_obj = "json_obj_req";
@@ -125,22 +126,21 @@ public class FieldFeedBack extends AppCompatActivity {
     int success;
     public static String UPLOAD_URL = "http://opsonin.com.bd/vector_opl_v1/vector_feedback/insert_feedback.php";
     public String message;
+    ArrayList<Uri> imageUriList = new ArrayList<>();
 
     @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_feedback);
+
         initViews();
         permissionEvent();
         initUserHintSpinner();
         btnEvents();
-
     }
 
     private void initViews() {
-
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         ed_title = findViewById(R.id.ed_title);
         ed_feedback_detail = findViewById(R.id.ed_feedback_detail);
@@ -161,16 +161,12 @@ public class FieldFeedBack extends AppCompatActivity {
         mspinner2 = findViewById(R.id.mspinner2);
         imageView = findViewById(R.id.imageView);
         btn_feedback = findViewById(R.id.btn_feedback);
-
         ed_setName.setText(Build.MODEL);
         ed_setName.setClickable(false);
         ed_setName.setEnabled(false);
-
-
     }
 
     private void initUserHintSpinner() {
-
         MaterialSpinner mspinner = findViewById(R.id.mspinner);
         switch (user_detail) {
             case "MPO":
@@ -191,7 +187,6 @@ public class FieldFeedBack extends AppCompatActivity {
             case "FM":
                 mspinner.setItems("DCR","Personal Expenses", "Followup","Sales Report", "PC conference", "Doctor Service","Mrc Exam","Prescription Capture");
                 break;
-
         }
 
         mspinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -202,7 +197,6 @@ public class FieldFeedBack extends AppCompatActivity {
                 sbView.setBackgroundColor(ContextCompat.getColor(FieldFeedBack.this, R.color.colorAccentEditor));
                 snackbar.show();
                 topic_master = String.valueOf(item);
-
 
                 switch (user_detail) {
                     case "MPO":
@@ -227,8 +221,6 @@ public class FieldFeedBack extends AppCompatActivity {
                         } else if (topic_master.trim().equals("Promo Material Followup")) {
                             mspinner2.setItems("Sample", "PPM", "Gift");
                         }
-
-
                         break;
                     case "FM":
                         if (topic_master.trim().equals("DCR")) {
@@ -273,13 +265,10 @@ public class FieldFeedBack extends AppCompatActivity {
                         }
                         break;
                 }
-
-
             }
         });
 
         mspinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar snackbar = Snackbar.make(view, "Topic subtype: " + item, Snackbar.LENGTH_LONG)
                         .setAction("Action", null);
@@ -287,32 +276,32 @@ public class FieldFeedBack extends AppCompatActivity {
                 sbView.setBackgroundColor(ContextCompat.getColor(FieldFeedBack.this, R.color.colorAccentEditor));
                 snackbar.show();
                 topic_detail = String.valueOf(item);
-
             }
         });
-
     }
 
     private void btnEvents() {
-
         buttonChoose.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
-                if(ed_title.getText().toString().equals(null) || ed_title.getText().toString().equals("")){
+                if (ed_title.getText().toString() == null || ed_title.getText().toString().equals("")) {
                     message= "Write down Feedback Title";
                     showSnack();
-                }else if (ed_feedback_detail.getText().toString().equals(null) || ed_feedback_detail.getText().toString().equals("")){
+                } else if (ed_feedback_detail.getText().toString() == null || ed_feedback_detail.getText().toString().equals("")) {
                     message= "Write down Feedback Description";
                     showSnack();
-                }else if (ed_setName.getText().toString().equals(null) || ed_setName.getText().toString().equals("")){
+                } else if (ed_setName.getText().toString().equals(null) || ed_setName.getText().toString().equals("")) {
                     message= "Write down Your Mobile set name and Model";
                     showSnack();
-                }
-
-
-                else {
-                    initSingleUpload();
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        //mImageUriList.clear();
+                        //imagesEncodedList.clear();
+                        initSingleUploadOS13();
+                    } else {
+                        initSingleUpload();
+                    }
                 }
             }
         });
@@ -324,7 +313,7 @@ public class FieldFeedBack extends AppCompatActivity {
                 if (imageView.getDrawable() == null){
                     message= "Select your issues Screenshot";
                     showSnack();
-                }else{
+                } else {
                     uploadImage();
                 }
             }
@@ -333,11 +322,9 @@ public class FieldFeedBack extends AppCompatActivity {
         btn_back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
@@ -348,11 +335,9 @@ public class FieldFeedBack extends AppCompatActivity {
         btn_feedback.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Intent i = new Intent(FieldFeedBack.this, FieldFeedbackMaster.class);
                         i.putExtra("user_code", user_code);
                         Log.e("passed-->",user_code);
@@ -362,12 +347,18 @@ public class FieldFeedBack extends AppCompatActivity {
                 backthred.start();
             }
         });
-
     }
 
     private void uploadImage() {
-        final ProgressDialog loading = ProgressDialog
-                .show(this, "Sending Your Feedback ...", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Sending Your Feedback ...", "Please wait...", false, false);
+        String encodedImage;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            encodedImage = getStringImageOS13();
+        } else {
+            encodedImage = getStringImage(decoded);
+        }
+        Log.d("encodedImage", encodedImage);
+
         stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL, response -> {
             try {
                 JSONObject jObj = new JSONObject(response);
@@ -375,18 +366,16 @@ public class FieldFeedBack extends AppCompatActivity {
                 String email = jObj.getString("message");
                 success = jObj.getInt(TAG_SUCCESS);
                 Log.e("success", String.valueOf(success));
+
                 if (success == 1) {
                     Toast.makeText(FieldFeedBack.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                    new AlertDialog.Builder(FieldFeedBack.this).setTitle("Succesful")
+                    new AlertDialog.Builder(FieldFeedBack.this).setTitle("Successful")
                             .setMessage("Your Feedback is submitted")
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
+                                public void onClick(DialogInterface dialog, int which) {}
                             }).show();
-
                     refresh();
-
                 } else {
                     Toast.makeText(FieldFeedBack.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                     Log.e("error_message==>", jObj.getString(TAG_MESSAGE));
@@ -395,28 +384,25 @@ public class FieldFeedBack extends AppCompatActivity {
                 e.printStackTrace();
             }
             loading.dismiss();
-
         },
                 error -> {
                     loading.dismiss();
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                         Toast.makeText(FieldFeedBack.this, FieldFeedBack.this.getString(R.string.error_network_timeout), Toast.LENGTH_LONG).show();
                     } else if (error instanceof AuthFailureError) {
-                        //TODO
+
                     } else if (error instanceof ServerError) {
-                        //TODO
+
                     } else if (error instanceof NetworkError) {
 
-                        //TODO
                     } else if (error instanceof ParseError) {
-                        //TODO
-                    }
 
+                    }
                 }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("image", getStringImage(decoded));
+                params.put("image", encodedImage);
                 params.put("ff_code", user_code);
                 params.put("topic_master",topic_master);
                 params.put("topic_detail", topic_detail);
@@ -429,59 +415,59 @@ public class FieldFeedBack extends AppCompatActivity {
                 return params;
             }
         };
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 90000,
                 0, 0));
         AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
     }
 
-    private void initSingleUpload(){
+    public String getStringImageOS13() {
+        Bitmap bitmapImage = null;
+        try {
+            bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUriList.get(0));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ImageBase64.encode(bitmapImage);
+    }
+
+    private void initSingleUpload() {
         imageView.setVisibility(View.VISIBLE);
         showFileChooserSingle();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    private void initSingleUploadOS13() {
+        imageView.setVisibility(View.VISIBLE);
+        showFileChooserSingleOS13();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
-        if (requestCode == MY_CAMERA_PERMISSION_CODE)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-            else
-            {
+            } else {
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
         }
-
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-
     private void permissionEvent() {
+        ActivityCompat.requestPermissions(FieldFeedBack.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
 
-        ActivityCompat.requestPermissions(FieldFeedBack.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
-
-        if (ContextCompat
-                .checkSelfPermission(FieldFeedBack.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(FieldFeedBack.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ContextCompat.checkSelfPermission(FieldFeedBack.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(FieldFeedBack.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
             } else {
-                ActivityCompat.requestPermissions(FieldFeedBack.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
+                ActivityCompat.requestPermissions(FieldFeedBack.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 3);
             }
         }
-
     }
 
     private void showFileChooserSingle() {
@@ -491,6 +477,13 @@ public class FieldFeedBack extends AppCompatActivity {
                 .start();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    private void showFileChooserSingleOS13() {
+        int imageSelectLimit = 1;
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        intent.putExtra(MediaStore.ACTION_PICK_IMAGES, imageSelectLimit);
+        startActivityForResult(intent, 102);
+    }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
@@ -499,19 +492,32 @@ public class FieldFeedBack extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (data != null) {
+                int count = data.getClipData().getItemCount();
+
+               if (count == 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    Uri imageUri = data.getClipData().getItemAt(0).getUri();
+                    imageUriList.add(imageUri);
+                    imageView.setImageURI(imageUri);
+                }
+            }
+        } else {
             if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
                 List<Image> images = ImagePicker.getImages(data);
                 ArrayList<Uri> mArrayUri = new ArrayList<>();
-                for (Image image : images) {
+
+                for (Image image: images) {
                     mArrayUri.add(Uri.parse(image.getPath()));
                     imagesEncodedList.add(image.getPath());
                 }
-                    imageView.setVisibility(View.VISIBLE);
-                    setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 1024));
-                    img_local_path = mArrayUri.get(0).getPath();
-                    //Log.e("imglocalpath=>",img_local_path);
-                    ExifInterface exif = null;
+                imageView.setVisibility(View.VISIBLE);
+                setToImageView(ImageUtil.getDecodedBitmap(mArrayUri.get(0).getPath(), 1024));
+                img_local_path = mArrayUri.get(0).getPath();
+                ExifInterface exif = null;
             }
+        }
             super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -523,26 +529,20 @@ public class FieldFeedBack extends AppCompatActivity {
     }
 
     private void showSnack() {
-
         new Thread()
         {
             public void run()
             {
-               FieldFeedBack.this.runOnUiThread(new Runnable()
-                {
-                    public void run()
-                    {
-
+               FieldFeedBack.this.runOnUiThread(new Runnable() {
+                    public void run() {
                         Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
                     }
                 });
             }
         }.start();
-
     }
 
     public String getStringImage(Bitmap bmp) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -550,16 +550,12 @@ public class FieldFeedBack extends AppCompatActivity {
         return encodedImage;
     }
 
-
     private void refresh() {
         ed_title.getText().clear();
         ed_feedback_detail.getText().clear();
         ed_setName.getText().clear();
         imageView.setImageResource(0);
     }
-
-
-
 }
 
 

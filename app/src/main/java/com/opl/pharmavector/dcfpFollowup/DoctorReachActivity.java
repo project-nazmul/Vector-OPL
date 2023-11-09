@@ -880,21 +880,6 @@ public class DoctorReachActivity extends Activity {
 
                 if (response.isSuccessful()) {
                     selfList.addAll(giftitemCount);
-//                    for (int i = 0; i < giftitemCount.size(); i++) {
-//                        selfList.add(new Promo(giftitemCount.get(i).getSerial(),
-//                                        giftitemCount.get(i).getMpocode(),
-//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-//                                        giftitemCount.get(i).getTotal(),
-//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-//                                )
-//                        );
-//                    }
                     promoAdapter0.notifyDataSetChanged();
                     pDialogSelf.dismiss();
                 } else {

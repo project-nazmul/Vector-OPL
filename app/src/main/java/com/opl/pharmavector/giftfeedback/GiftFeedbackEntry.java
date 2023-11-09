@@ -57,7 +57,6 @@ import android.app.DatePickerDialog;
 import org.jetbrains.annotations.NotNull;
 
 public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClickListener {
-
     public String userName_1, userName, userName_2;
     public AutoCompleteTextView actv;
     private DatabaseHandler db;
@@ -83,9 +82,9 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
     public static String proposed_date1, proposed_date2;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctorgift_feedback);
+
         initViews();
         calenderClickevent();
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -103,12 +102,12 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                     getGiftItem();
                 }
             }
+
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
         gift_item_tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -135,7 +134,6 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 rating6 = String.valueOf((rb_q6.getRating()));
                 postFeedbacktData("insert");
             }
-
         });
         btn_back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -146,8 +144,7 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         });
     }
 
-
-    @SuppressLint("CutPasteId")
+    @SuppressLint({"CutPasteId", "SimpleDateFormat", "SetTextI18n"})
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         btn_back = findViewById(R.id.btn_back);
@@ -163,14 +160,12 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         question_mark.setVisibility(View.GONE);
         layout_feedback_question=  findViewById(R.id.layout_feedback_question);
         layout_feedback_question.setVisibility(View.GONE);
-
         rb_q1 =  findViewById(R.id.ratingBar1);
         rb_q2 =  findViewById(R.id.ratingBar2);
         rb_q3 =  findViewById(R.id.ratingBar3);
         rb_q4 =  findViewById(R.id.ratingBar4);
         rb_q5 =  findViewById(R.id.ratingBar5);
         rb_q6=  findViewById(R.id.ratingBar6);
-
         tv_q1 =  findViewById(R.id.tv1);
         tv_q2 =  findViewById(R.id.tv2);
         tv_q3 =  findViewById(R.id.tv3);
@@ -188,7 +183,7 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         ed_date.setClickable(true);
         ed_date.setInputType(InputType.TYPE_NULL);
         viewPager=findViewById(R.id.frameLayout);
-        user_show.setText(new StringBuilder().append(Dashboard.globalmpocode).append(" [ ").append(Dashboard.globalterritorycode).append(" ] ").toString());
+        user_show.setText(Dashboard.globalmpocode + " [ " + Dashboard.globalterritorycode + " ] ");
     }
 
     private void calenderClickevent() {
@@ -207,12 +202,12 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                         month_val= String.valueOf(month_int);
                         proposed_date1= "01" + "/" + (month) + "/" + year;
                         proposed_date2 = "31" + "/" + (month) + "/" + year;
+
                         if(month_val== String.valueOf(1)){
                             month_name_val="January";
                         }  else if(month_val== String.valueOf(2)){
                             month_name_val="Feb";
-                        }
-                        else if(month_val== String.valueOf(3)){
+                        } else if(month_val== String.valueOf(3)){
                             month_name_val="March";
                         } else if(month_val== String.valueOf(4)){
                             month_name_val="April";
@@ -224,15 +219,13 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                             month_name_val="July";
                         } else if(month_val== String.valueOf(8)){
                             month_name_val="August";
-                        }
-                        else if(month_val== String.valueOf(9)){
+                        } else if(month_val== String.valueOf(9)){
                             month_name_val="September";
                         } else if(month_val== String.valueOf(10)){
                             month_name_val="October";
                         } else if(month_val== String.valueOf(11)){
                             month_name_val="November";
-                        }
-                        else if(month_val== String.valueOf(12)){
+                        } else if(month_val== String.valueOf(12)){
                             month_name_val="December";
                         }
                         layout_feedback_question.setVisibility(View.GONE);
@@ -243,13 +236,9 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                     }
                 });
                 pickerDialog.show(getSupportFragmentManager(), "MonthYearPickerDialog");
-
-
             }
         });
     }
-
-
 
     public void getDoctorDegree() {
         ProgressDialog pDialog;
@@ -260,8 +249,8 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getGiftType(Dashboard.globalmpocode,proposed_date1);
+
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NotNull Call<List<Patient>> call, @NotNull retrofit2.Response<List<Patient>> response) {
                 List<Patient> patientdetail = response.body();
@@ -270,15 +259,17 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 if (response.code() == 200) {
                     pDialog.dismiss();
                     Log.e("patientdetail==>", String.valueOf(patientdetail.size()));
+
                     for (int i = 0; i < patientdetail.size(); i++) {
                         tab.addTab(tab.newTab().setText(patientdetail.get(i).getFirst_name()));
                     }
                     layout_feedback_question.setVisibility(View.GONE);
                     getItemCount();
-                }else{
+                } else {
                     pDialog.dismiss();
                 }
             }
+
             @Override
             public void onFailure(@NotNull Call<List<Patient>> call, @NotNull Throwable t) {
                 pDialog.dismiss();
@@ -298,6 +289,7 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getItemCount(Dashboard.globalmpocode,proposed_date1);
+
         call.enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(@NotNull Call<List<Patient>> call, @NotNull retrofit2.Response<List<Patient>> response) {
@@ -308,24 +300,23 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 if (response.code() == 200) {
                     pDialog.dismiss();
                     Log.e("patientdetail==>", String.valueOf(giftitemCount.size()));
+
                     if (giftitemCount.size()==0){
                         layout_feedback_question.setVisibility(View.GONE);
                         Toast.makeText(GiftFeedbackEntry.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
                         question_mark.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         for (int i = 0; i < giftitemCount.size(); i++) {
                             count_brand_gift.addTab(count_brand_gift.newTab().setText(giftitemCount.get(i).getFirst_name()));
                         }
                         layout_feedback_question.setVisibility(View.VISIBLE);
                         question_mark.setVisibility(View.VISIBLE);
                     }
-                }
-                else{
+                } else {
                     pDialog.dismiss();
                 }
-
             }
+
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
@@ -334,9 +325,8 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 tab.removeAllTabs();
                 gift_item_tab.removeAllTabs();
                 count_brand_gift.removeAllTabs();
-               // getDoctorDegree();
-               // getItemCount();
-
+                //getDoctorDegree();
+                //getItemCount();
             }
         });
     }
@@ -351,21 +341,23 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<List<Patient>> call = apiInterface.getGiftItem(Dashboard.globalmpocode,gift_type_name,gift_type_code,proposed_date1);
+
         call.enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftdetails = response.body();
                 Log.e("getGiftItem=>","response==>"+ String.valueOf(response));
                 assert giftdetails != null;
+
                 if (response.code()== 200) {
                     Log.e("getGiftItem=>","size==>"+ String.valueOf(giftdetails.size()));
+
                     if (giftdetails.size()==0){
                         pDialog.dismiss();
                         layout_feedback_question.setVisibility(View.GONE);
                         Toast.makeText(GiftFeedbackEntry.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
                         question_mark.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         for (int i = 0; i < giftdetails.size(); i++) {
                             gift_item_tab.addTab(gift_item_tab.newTab().setText(giftdetails.get(i).getFirst_name()));
                         }
@@ -374,14 +366,12 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                         pDialog.dismiss();
                         question_mark.setVisibility(View.VISIBLE);
                     }
-                }
-                else{
+                } else {
                     pDialog.dismiss();
                     Toast.makeText(GiftFeedbackEntry.this, "Server error! Please try moments later", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
+
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
                 pDialog.dismiss();
@@ -390,8 +380,8 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 //tab.removeAllTabs();
                 //gift_item_tab.removeAllTabs();
                 //count_brand_gift.removeAllTabs();
-             //   getDoctorDegree();
-               // getItemCount();
+                //getDoctorDegree();
+                //getItemCount();
             }
         });
     }
@@ -405,8 +395,7 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         tv_q6.setText("6. Rate on the spot acceptance of the Gift.");
     }
 
-
-    private void resetratingbar(){
+    private void resetratingbar() {
         rb_q1.setRating(0F);
         rb_q2.setRating(0F);
         rb_q3.setRating(0F);
@@ -416,13 +405,13 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
     }
 
     private void postFeedbacktData(final String key) {
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.insertFeedback(key,rating1,rating2,rating3,rating4,rating5,rating6,
                 gift_type_name,gift_item_name,Dashboard.globalmpocode,proposed_date1.trim() );
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -439,7 +428,6 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                     gift_item_tab.removeAllTabs();
                     count_brand_gift.removeAllTabs();
                     getDoctorDegree();
-
                 } else {
                     Toast.makeText(GiftFeedbackEntry.this, "Network Error, Please try later", Toast.LENGTH_SHORT).show();
                     finish();
@@ -452,7 +440,6 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
                 Toast.makeText(GiftFeedbackEntry.this, t.getMessage().toString(), Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     String formatMonthYear(String str) {
@@ -466,15 +453,14 @@ public class GiftFeedbackEntry extends AppCompatActivity implements View.OnClick
         }
         return sdf.format(date);
     }
+
     @Override
     public void onBackPressed() {
         finish();
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 }
 
 

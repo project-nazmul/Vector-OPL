@@ -70,6 +70,7 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
+
         <LinearLayout
             android:id="@+id/date"
             android:layout_width="match_parent"
@@ -91,7 +92,7 @@
                 android:ems="10"
                 android:enabled="true"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:selectAllOnFocus="true"
                 android:text="Start Date"
                 android:textSize="15sp"

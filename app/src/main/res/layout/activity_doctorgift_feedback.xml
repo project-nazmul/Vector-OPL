@@ -96,7 +96,6 @@
                     android:spinnerMode="dialog"
                     android:visibility="gone"
                     tools:ignore="UnusedAttribute" />
-
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
@@ -131,7 +130,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/ef_white" />
 
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/gift_item_tab"
                 android:layout_width="match_parent"
@@ -144,7 +142,6 @@
                 app:tabIndicatorHeight="2dp"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/green" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,10 +160,7 @@
                 android:textAlignment="center"
                 android:textSize="@dimen/_8sdp"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </LinearLayout>
-
-
 
             <LinearLayout
                 android:id="@+id/layout_feedback_question"
@@ -288,7 +282,6 @@
                     android:progressTint="@color/colorAccentEditor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
             </LinearLayout>
             <!--
             <RatingBar
@@ -367,7 +360,6 @@
                         android:visibility="gone"
                         tools:ignore="HardcodedText,UnusedAttribute" />
 
-
                     <Button
                         android:id="@+id/logout"
                         android:layout_width="50dp"
@@ -384,8 +376,6 @@
                         android:textStyle="bold"
                         android:visibility="gone"
                         tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
-
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -394,13 +384,9 @@
                     android:paddingTop="@dimen/_12sdp"
                     android:paddingBottom="@dimen/_12sdp"
                     android:visibility="gone">
-
-
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-
-
     </ScrollView>
 
     <Spinner

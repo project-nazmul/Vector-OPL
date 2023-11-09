@@ -1,6 +1,5 @@
 package com.opl.pharmavector.giftfeedback.adapter;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +31,8 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import com.opl.pharmavector.giftfeedback.FieldFeedbackMaster;
 import com.opl.pharmavector.R;
 
-
 @SuppressLint("ViewHolder")
 public class FeedbackAdapter extends BaseAdapter implements Filterable {
-
     Context mContext;
     ArrayList<String> p_names;
     ArrayList<String> sl;
@@ -51,11 +49,11 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
     public static TextView edit_qnty;
     ArrayList<String> Data_Openingstock = new ArrayList<String>();
     static HashMap<Integer, String> p_quanty;
-    // OnClickListener callBack;
+    //OnClickListener callBack;
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     private String productname = null;
-    // public static Integer total_quantity=0;
+    //public static Integer total_quantity=0;
     private ArrayList<String> arraylist;
     private boolean InputState;
     private String[] valueList;
@@ -64,9 +62,7 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
     private ValueFilter valueFilter;
     Toast toast;
 
-    public FeedbackAdapter(Activity activity,
-                              ArrayList<HashMap<String, String>> list, String productname,
-                              boolean state) {
+    public FeedbackAdapter(Activity activity, ArrayList<HashMap<String, String>> list, String productname, boolean state) {
         super();
         inflater = LayoutInflater.from(mContext);
         this.activity = activity;
@@ -91,7 +87,6 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
     static Set<Integer> set2 = new HashSet<Integer>();
     public static ArrayList<String> editTxtID = new ArrayList<String>();
 
-
     public FeedbackAdapter(Context con, ArrayList<String> sl, ArrayList<String> p_name,  ArrayList<String> value7, ArrayList<String> value8) {
         this.p_names = p_name;
         this.mStringList = p_name;
@@ -104,10 +99,8 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         mProductSerialList = new HashSet<Integer>();
     }
 
-
     public FeedbackAdapter(Context con, ArrayList<String> sl,ArrayList<String> p_name, ArrayList<String> PROD_REQ,
-                           ArrayList<String> PROD_RATE, ArrayList<String> PROD_VAT,
-                           ArrayList<String> value7,ArrayList<String> value8) {
+                           ArrayList<String> PROD_RATE, ArrayList<String> PROD_VAT, ArrayList<String> value7,ArrayList<String> value8) {
         this.p_names = p_name;
         this.mStringList = p_name;
         this.PROD_REQ = PROD_REQ;
@@ -122,22 +115,20 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         mProductSerialList = new HashSet<Integer>();
     }
 
-
     @Override
     public int getCount() {
-
         return mStringList.size();
     }
+
     // Get the data item associated with the specified position in the data set.
     @Override
     public Object getItem(int position) {
-
         //return mStringList.get(position);
         return sl.get(position);
     }
+
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -172,13 +163,10 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
     @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         final ViewHolder holder;
-
         rowView = convertView;
 
         if (rowView == null) {
-
             convertView = inflater.inflate(R.layout.adapter_vector_feedback, null);
             holder = new ViewHolder();
             holder.serial =  convertView.findViewById(R.id.serial);
@@ -189,34 +177,26 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
             holder.feedback_title =  convertView.findViewById(R.id.feedback_title);
             holder.feedback_details =  convertView.findViewById(R.id.feedback_details);
             holder.admin =  convertView.findViewById(R.id.admin);
-
+            holder.imageView =  convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         holder.p_name.setText(mStringList.get(position));
         Log.e("p_name-->",mStringList.get(position));
         final int poss = Integer.parseInt(sl.get(position));
         holder.pos = position;
-
-
         int srl = FieldFeedbackMaster.nameSerialPair.get(holder.p_name.getText().toString());
         holder.serial.setText(String.valueOf(srl));
         holder.quantity.setTag(srl);
-
         holder.topic.setText(String.format("Module name:\t%s", PROD_REQ.get(position)));
         holder.feedback_title.setText(String.format("Feedback name:\t%s", PROD_RATE.get(position)));
         holder.feedback_details.setText(String.format("Feedback Details:\t%s", PROD_VAT.get(position)));
         holder.admin.setText(String.format("Admin Response: \t%s",value8.get(position)));
-
         holder.ppm_error.setText(value7.get(position));
         holder.quantity.setText(value8.get(position));
         return convertView;
     }
-
-
-
 
     private class ViewHolder {
         TextView serial;
@@ -228,41 +208,28 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         TextView feedback_title;
         TextView feedback_details;
         TextView admin;
+        ImageView imageView;
     }
-
-
-
-
-
 
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
+
         if (charText.length() == 0) {
         } else {
-            for (String wp : arraylist) {
-            }
+            for (String wp : arraylist) {}
         }
         notifyDataSetChanged();
     }
 
-
-
-
-
     @Override
     public Filter getFilter() {
-        // TODO Auto-generated method stub
         if (valueFilter == null) {
             valueFilter = new ValueFilter();
         }
         return valueFilter;
     }
 
-
-
-
     private class ValueFilter extends Filter {
-
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             int myNum = 0;
@@ -271,11 +238,13 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
                 myNum = Integer.parseInt(constraint.toString());
                 if (myNum> 0) {
                     ArrayList<String> filterList = new ArrayList<String>();
+
                     for (int i = 0; i < p_names.size(); i++) {
                         String productName = p_names.get(i).toLowerCase();
                         myNum=1;
                         String Quantity = p_quanty.get(Integer.parseInt(sl.get(i)));
                         int current_qnty=Integer.parseInt(Quantity);
+
                         if(current_qnty>=myNum){
                             mProductSerialList.add(Integer.parseInt(sl.get(i)));
                             filterList.add(p_names.get(i));
@@ -284,15 +253,14 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
                     results.count = filterList.size();
                     results.values = filterList;
                     return results;
-
                 } else {
                     results.count = p_names.size();
                     results.values = p_names;
                     return results;
                 }
-
             } catch(NumberFormatException nfe) {
                 ArrayList<String> filterList = new ArrayList<String>();
+
                 try {
                     if (constraint.length() > 2) {
                         for (int i = 0; i < p_names.size(); i++) {
@@ -320,22 +288,16 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         }
 
         private String contains(CharSequence constraint) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
-
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             mStringList = (ArrayList<String>) results.values;
             notifyDataSetChanged();
-
         }
-
     }
-
 }
 
 
