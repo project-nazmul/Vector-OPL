@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -12,6 +13,7 @@ import java.util.Set;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -160,7 +162,7 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         return PROD_REQ.get(position);
     }
 
-    @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
+    @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor", "SetTextI18n"})
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -189,12 +191,18 @@ public class FeedbackAdapter extends BaseAdapter implements Filterable {
         int srl = FieldFeedbackMaster.nameSerialPair.get(holder.p_name.getText().toString());
         holder.serial.setText(String.valueOf(srl));
         holder.quantity.setTag(srl);
-        holder.topic.setText(String.format("Module name:\t%s", PROD_REQ.get(position)));
-        holder.feedback_title.setText(String.format("Feedback name:\t%s", PROD_RATE.get(position)));
-        holder.feedback_details.setText(String.format("Feedback Details:\t%s", PROD_VAT.get(position)));
+        holder.topic.setText("Subject: " + PROD_REQ.get(position) + " " + mStringList.get(position));
+        holder.feedback_title.setText(String.format("Problem:\t%s", PROD_RATE.get(position)));
+        holder.feedback_details.setText(String.format("Description:\t%s", PROD_VAT.get(position)));
         holder.admin.setText(String.format("Admin Response: \t%s",value8.get(position)));
         holder.ppm_error.setText(value7.get(position));
         holder.quantity.setText(value8.get(position));
+
+        if (Objects.equals(value8.get(position), "Solved")) {
+            holder.quantity.setTextColor(Color.parseColor("#FF008000"));
+        } else {
+            holder.quantity.setTextColor(Color.parseColor("#FFF44336"));
+        }
         return convertView;
     }
 

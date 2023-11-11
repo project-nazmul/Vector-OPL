@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,8 +13,6 @@ import android.widget.ListView;
 
 import com.opl.pharmavector.Category;
 
-import com.opl.pharmavector.NoticeBoard;
-import com.opl.pharmavector.NoticeBoardAdapter;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.giftfeedback.adapter.FeedbackAdapter;
@@ -29,13 +26,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class FieldFeedbackMaster extends Activity implements OnClickListener {
     Button backBtn;
     ListView pListView;
     Typeface fontFamily;
     ProgressDialog pDialog;
-    String usercode;
+    String userCode, userRole;
     static ArrayList<Category> categoriesList;
     ArrayList<String> lables;
     ArrayList<Integer> quanty;
@@ -49,7 +47,8 @@ public class FieldFeedbackMaster extends Activity implements OnClickListener {
     public static HashMap<String, Integer> nameSerialPair;
     FeedbackAdapter adapter;
     HashMap<Integer, String> mapQuantity;
-    final String campaign_credit = "http://opsonin.com.bd/vector_opl_v1/vector_feedback/get_feedback_master.php";
+    final String mpoFeedbackUrl = "http://opsonin.com.bd/vector_opl_v1/vector_feedback/get_feedback_master.php";
+    final String adminFeedbackUrl = "http://opsonin.com.bd/vector_opl_v1/vector_feedback/get_feedback_all.php";
 
     @SuppressLint("DefaultLocale")
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,8 @@ public class FieldFeedbackMaster extends Activity implements OnClickListener {
         backBtn.setText("\uf060 ");
         pListView= findViewById(R.id.pListView);
         Bundle b = getIntent().getExtras();
-        usercode = b.getString("user_code");
+        userCode = b.getString("user_code");
+        userRole = b.getString("user_role");
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
         mapQuantity = new HashMap<Integer, String>();
@@ -129,9 +129,15 @@ public class FieldFeedbackMaster extends Activity implements OnClickListener {
         @Override
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("usercode", usercode));
+            params.add(new BasicNameValuePair("usercode", userCode));
             ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.POST, params);
+
+            String json;
+            if (Objects.equals(userRole, "AD")) {
+                json = jsonParser.makeServiceCall(adminFeedbackUrl, ServiceHandler.POST, params);
+            } else {
+                json = jsonParser.makeServiceCall(mpoFeedbackUrl, ServiceHandler.POST, params);
+            }
 
             if (json != null) {
                 try {
@@ -143,7 +149,7 @@ public class FieldFeedbackMaster extends Activity implements OnClickListener {
                         Category cat = new Category(
                                 catObj.getString("sl"),
                                 catObj.getString("id"), //topicname
-                                catObj.getString("name"),//topicdetails
+                                catObj.getString("name"), //topicdetails
                                 catObj.getInt("quantity"),
                                 catObj.getString("PROD_RATE"),//feedback title
                                 catObj.getString("PROD_VAT"),//feedback details

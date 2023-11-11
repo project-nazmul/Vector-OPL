@@ -48,6 +48,7 @@ import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
+import com.opl.pharmavector.giftfeedback.FieldFeedbackMaster;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -100,7 +101,6 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import com.opl.pharmavector.util.VectorUtils;
 
 public class GMDashboard1 extends Activity implements View.OnClickListener { // Activity -> (AppCompatActivity) replaced by me
     public String userName_1, userName, userName_2, UserName_2, user, sm_code, gm_code, global_admin_Code, global_admin_name, global_admin_terri;
@@ -244,7 +244,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                     })
                     .show();
         });
-        btn_vector_feedback.setOnClickListener(v -> FeedbackshowSnack());
+        btn_vector_feedback.setOnClickListener(v -> {
+            //FeedbackShowSnack();
+            Intent i = new Intent(GMDashboard1.this, FieldFeedbackMaster.class);
+            i.putExtra("user_code", globalmpocode);
+            i.putExtra("user_role", "AD");
+            //Log.d("passed", globalmpocode);
+            startActivity(i);
+        });
         autoLogout();
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -1614,7 +1621,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         }.start();
     }
 
-    private void FeedbackshowSnack() {
+    private void FeedbackShowSnack() {
         new Thread() {
             public void run() {
                 GMDashboard1.this.runOnUiThread(new Runnable() {

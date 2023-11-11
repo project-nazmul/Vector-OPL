@@ -10,7 +10,6 @@
     android:padding="10dp"
     android:weightSum="100">
 
-
 <!--
     <LinearLayout
         android:id="@+id/date"

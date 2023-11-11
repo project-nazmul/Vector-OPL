@@ -340,6 +340,7 @@ public class FieldFeedBack extends AppCompatActivity {
                     public void run() {
                         Intent i = new Intent(FieldFeedBack.this, FieldFeedbackMaster.class);
                         i.putExtra("user_code", user_code);
+                        i.putExtra("user_role", "MPO");
                         Log.e("passed-->",user_code);
                         startActivity(i);
                     }
