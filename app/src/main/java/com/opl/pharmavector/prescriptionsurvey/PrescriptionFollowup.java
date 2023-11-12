@@ -178,7 +178,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         });
     }
 
-    private void initViews(){
+    private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = findViewById(R.id.pListView);
         back_btn = findViewById(R.id.backbt);
@@ -211,11 +211,13 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         PPM_CODE = new ArrayList<String>();
         layout2 = findViewById(R.id.layout2);
         cardview4 = findViewById(R.id.cardview4);
+
         if (manager_detail.equals("MPO")){
             layout2.setVisibility(View.GONE);
-        }else{
+        } else {
             layout2.setVisibility(View.VISIBLE);
-        }spin_doc = findViewById(R.id.spin_doc);
+        }
+        spin_doc = findViewById(R.id.spin_doc);
         spin_brand = findViewById(R.id.spin_brand);
         spin_rm = findViewById(R.id.spin_rm);
         actv_mpo = findViewById(R.id.autoCompleteTextView1);
@@ -554,7 +556,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
     }
 
     public void postSubTotal() {
-        if (actv_brand_name.getText().toString().equals("")){
+        if (actv_brand_name.getText().toString().equals("")) {
             brand_code ="xx";
         }
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -595,7 +597,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         });
     }
     public void postPrescriptionCount() {
-        if (actv_brand_name.getText().toString().equals("")){
+        if (actv_brand_name.getText().toString().equals("")) {
             brand_code ="xx";
         }
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -865,7 +867,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         spin_brand.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         actv_brand_name.setThreshold(2);
         actv_brand_name.setAdapter(Adapter);
@@ -887,10 +889,12 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_BRAND, ServiceHandler.POST, params);
             Log.e("myBrandList==>",json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -914,13 +918,9 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {}
 
-    }
-
-    protected void onPostExecute() {
-
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(PrescriptionFollowup.this, com.opl.pharmavector.Report.class);

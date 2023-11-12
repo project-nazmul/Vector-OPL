@@ -62,6 +62,7 @@ import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
+import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
@@ -1434,7 +1435,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_rx_capture);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(button1).setText("8.1");
         Objects.requireNonNull(button2).setText("8.1");
         Objects.requireNonNull(button3).setText("8.2");
@@ -1442,10 +1443,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Objects.requireNonNull(textView4).setText("RX\nEntry");
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
-        Objects.requireNonNull(textView7).setText("RX\nSummary B");
+        Objects.requireNonNull(textView7).setText("RX\nSummary(MIS)");
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
-        cardview4.setVisibility(View.GONE);
+        //Objects.requireNonNull(cardview4).setVisibility(View.GONE);
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1476,7 +1477,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GMDashboard1.this, PrescriptionFollowup2.class);
+                //Intent i = new Intent(GMDashboard1.this, PrescriptionFollowup2.class);
+                Intent i = new Intent(GMDashboard1.this, RxSummaryMISActivity.class);
                 i.putExtra("manager_code", GMDashboard1.globalAdmin);
                 i.putExtra("manager_detail", "AD");
                 startActivity(i);

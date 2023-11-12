@@ -22,6 +22,7 @@ import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
+import com.opl.pharmavector.prescriptionsurvey.RxSumMISSelfModel;
 import com.opl.pharmavector.productOffer.ProductOfferModel;
 import com.opl.pharmavector.personalExpense.model.MotorCycleModel;
 import com.opl.pharmavector.pmdVector.model.BrandModel;
@@ -366,6 +367,22 @@ public interface ApiInterface {
 
     @GET("achv_and_earn/get_mon.php")
     Call<AchvMonthModel> getAchievementMonth();
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("prescription_survey/mis/rx_summary_self_followup.php")
+    Call<RxSumMISSelfModel> getRxSumMISSelfList(@Field("id") String id,
+                                                @Field("brand_code") String brand_code,
+                                                @Field("f_date") String f_date,
+                                                @Field("t_date") String t_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("prescription_survey/mis/rx_summary_details_followup.php")
+    Call<RxSumMISSelfModel> getRxSumMISDetailList(@Field("id") String id,
+                                                @Field("brand_code") String brand_code,
+                                                @Field("f_date") String f_date,
+                                                @Field("t_date") String t_date);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

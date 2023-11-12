@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8sdp"
+        android:weightSum="11">
+
+        <TextView
+            android:id="@+id/misCode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_weight="0.8"
+            android:gravity="center_vertical"
+            android:text="Code"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misFFName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="FF Name"
+            android:textColor="@color/vergence"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misOPDRx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="center"
+            android:text="OPD"
+            android:textColor="@color/colorAccentEditor"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misIPDRx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="center"
+            android:text="IPD"
+            android:textColor="@color/mdtp_accent_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misRegular"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Regular"
+            android:textColor="@color/vergence"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misServiced"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="Serviced"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misLoyality"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Loyality"
+            android:textColor="@color/vergence"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misGift"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Gift"
+            android:textColor="@color/vector_logo_color"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misGeneration"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Generation"
+            android:textColor="@color/green1"
+            android:textSize="@dimen/_8sdp" />
+
+        <TextView
+            android:id="@+id/misTotal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="center|end"
+            android:text="Total"
+            android:textColor="#F63B00"
+            android:textSize="@dimen/_8sdp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
