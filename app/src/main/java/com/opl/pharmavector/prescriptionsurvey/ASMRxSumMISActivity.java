@@ -2,7 +2,6 @@ package com.opl.pharmavector.prescriptionsurvey;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -48,16 +48,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter.RxSummaryMisListener {
+public class ASMRxSumMISActivity extends Activity implements RxSummaryMISAdapter.RxSummaryMisListener {
     Calendar c_todate, c_fromdate;
     CardView cardViewSelf, cardViewDetail;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, manager_code, manager_detail, data_checker, toDate, fromDate, ffCode;
+    String current_todate, current_fromdate, manager_code, manager_detail, data_checker, toDate, fromDate, ffCode, brandName, brandCode, userRole;
     String actv_brand_code_split, brand_code = "xx", brand_name, json, f_date, t_date, from_date, to_date;
     TextView fromdate, todate, txt_self, txt_detail;
     Button submitBtn, backBtn;
@@ -81,7 +82,10 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
         initCalender();
         autoCompleteEvents();
         new GetBrandList().execute();
+        getRxSumMisSelfLists();
+        getRxSumMisDetailLists();
         submitBtn.setOnClickListener(v -> {
+                    getRxSumMisSelfLists();
                     getRxSumMisDetailLists();
                 }
         );
@@ -100,11 +104,10 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         txt_self = findViewById(R.id.txt_self);
-        txt_self.setText("National");
+        txt_self.setText("Self");
         txt_detail = findViewById(R.id.txt_detail);
-        txt_detail.setText("Division");
+        txt_detail.setText("Zone");
         cardViewSelf = findViewById(R.id.cardViewSelf);
-        cardViewSelf.setVisibility(View.GONE);
         recyclerRxSumMis = findViewById(R.id.recyclerRxSumMis);
         recyclerRxSumDetail = findViewById(R.id.recyclerRxSumDetail);
         departmentlist = new ArrayList<Customer>();
@@ -113,8 +116,22 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
         Bundle b = getIntent().getExtras();
         assert b != null;
         toDate = b.getString("toDate");
-        ffCode = b.getString("ff_code");
+        ffCode = b.getString("ffCode");
         fromDate = b.getString("fromDate");
+        brandName = b.getString("brandName");
+        brandCode = b.getString("brandCode");
+        userRole = b.getString("ffType");
+
+        if (Objects.equals(userRole, "ASM")) {
+            cardViewSelf.setVisibility(View.VISIBLE);
+        } else {
+            cardViewSelf.setVisibility(View.GONE);
+        }
+
+        if (brandName != null || ffCode != null) {
+            actv_brand_name.setText(brandName);
+            brand_code = brandCode;
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -175,14 +192,14 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
         fromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ASMRxSumMisActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                new DatePickerDialog(ASMRxSumMISActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         todate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ASMRxSumMisActivity.this, date_to, myCalendar
+                new DatePickerDialog(ASMRxSumMISActivity.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -226,7 +243,7 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
                         brand_name = first_split[0].trim();
                         brand_code = first_split[1].trim();
                         actv_brand_name.setText(brand_name);
-                        KeyboardUtils.hideKeyboard(ASMRxSumMisActivity.this);
+                        KeyboardUtils.hideKeyboard(ASMRxSumMISActivity.this);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -308,12 +325,12 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
         t_date = monNumToNameFormat(to_date);
         Log.d("selectTotDay", f_date + t_date);
 
-        ProgressDialog pDialog = new ProgressDialog(ASMRxSumMisActivity.this);
+        ProgressDialog pDialog = new ProgressDialog(ASMRxSumMISActivity.this);
         pDialog.setMessage("Loading Rx Summary ...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<RxSumMISSelfModel> call = apiInterface.getRxSumMISDetailList(manager_code, brand_code, f_date, t_date);
+        Call<RxSumMISSelfModel> call = apiInterface.getRxSumMISDetailList(ffCode, brand_code, f_date, t_date);
         rxSumMISDetailLists.clear();
 
         call.enqueue(new Callback<RxSumMISSelfModel>() {
@@ -327,11 +344,56 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
                         rxSumMISSelfList = (response.body()).getRxSumMISSelfLists();
                         rxSumMISDetailLists.addAll(rxSumMISSelfList);
                     }
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ASMRxSumMisActivity.this);
-                    rxSumMISDetailAdapter = new RxSummaryMISAdapter(ASMRxSumMisActivity.this, rxSumMISDetailLists, ASMRxSumMisActivity.this, data_checker);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ASMRxSumMISActivity.this);
+                    rxSumMISDetailAdapter = new RxSummaryMISAdapter(ASMRxSumMISActivity.this, rxSumMISDetailLists, ASMRxSumMISActivity.this, data_checker);
                     recyclerRxSumDetail.setLayoutManager(linearLayoutManager);
                     recyclerRxSumDetail.setAdapter(rxSumMISDetailAdapter);
-                    recyclerRxSumDetail.addItemDecoration(new DividerItemDecoration(ASMRxSumMisActivity.this, DividerItemDecoration.VERTICAL));
+                    recyclerRxSumDetail.addItemDecoration(new DividerItemDecoration(ASMRxSumMISActivity.this, DividerItemDecoration.VERTICAL));
+                    Log.d("Rx Mis: ", String.valueOf(rxSumMISSelfLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RxSumMISSelfModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getRxSumMisSelfLists() {
+        data_checker = "S";
+        from_date = fromdate.getText().toString();
+        to_date = todate.getText().toString();
+        f_date = monNumToNameFormat(from_date);
+        t_date = monNumToNameFormat(to_date);
+        Log.d("selectTotDay", f_date + t_date);
+
+        ProgressDialog pDialog = new ProgressDialog(ASMRxSumMISActivity.this);
+        pDialog.setMessage("Loading Rx Summary ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<RxSumMISSelfModel> call = apiInterface.getRxSumMISSelfList(ffCode, brand_code, f_date, t_date);
+        rxSumMISSelfLists.clear();
+
+        call.enqueue(new Callback<RxSumMISSelfModel>() {
+            @Override
+            public void onResponse(Call<RxSumMISSelfModel> call, Response<RxSumMISSelfModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<RxSumMISSelfList> rxSumMISSelfList = null;
+
+                    if (response.body() != null) {
+                        rxSumMISSelfList = (response.body()).getRxSumMISSelfLists();
+                        rxSumMISSelfLists.addAll(rxSumMISSelfList);
+                    }
+                    linearLayoutManager = new LinearLayoutManager(ASMRxSumMISActivity.this);
+                    rxSumMISSelfAdapter = new RxSummaryMISAdapter(ASMRxSumMISActivity.this, rxSumMISSelfLists, ASMRxSumMISActivity.this, data_checker);
+                    recyclerRxSumMis.setLayoutManager(linearLayoutManager);
+                    recyclerRxSumMis.setAdapter(rxSumMISSelfAdapter);
+                    //recyclerRxSumMis.addItemDecoration(new DividerItemDecoration(RxSummaryMISActivity.this, DividerItemDecoration.VERTICAL));
                     Log.d("Rx Mis: ", String.valueOf(rxSumMISSelfLists));
                 }
             }
@@ -347,6 +409,12 @@ public class ASMRxSumMisActivity extends Activity implements RxSummaryMISAdapter
 
     @Override
     public void onRxMisClick(int position, RxSumMISSelfList rxModel) {
-
+        Intent intent = new Intent(ASMRxSumMISActivity.this, RMRxSumMISActivity.class);
+        intent.putExtra("brandCode", brand_code);
+        intent.putExtra("ffCode", rxModel.getFfCode());
+        intent.putExtra("toDate", todate.getText().toString());
+        intent.putExtra("fromDate", fromdate.getText().toString());
+        intent.putExtra("brandName", actv_brand_name.getText().toString());
+        startActivity(intent);
     }
 }

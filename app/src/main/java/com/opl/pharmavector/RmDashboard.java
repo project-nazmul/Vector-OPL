@@ -60,8 +60,10 @@ import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.RMPCPermission;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
+import com.opl.pharmavector.prescriptionsurvey.AMRxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
+import com.opl.pharmavector.prescriptionsurvey.RMRxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
@@ -108,6 +110,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     private DatabaseHandler db;
     private String TAG = Offlinereport.class.getSimpleName();
     private Button logout;
+    private String log_status = "A";
     public TextView user_show1, user_show2, versionname;
     private SessionManager session;
     private String submit_url = BASE_URL + "notification/save_vector_notification_token_data_test.php";
@@ -1419,7 +1422,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                 track_lat = parselat;
                 track_lang = parselang;
                 getAddress(fetchedlat, fetchedlang);
-                //userLog(log_status);
+                userLog(log_status);
             }
         };
     }
@@ -1441,6 +1444,27 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void userLog(final String key) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        //Log.d("tokenApi->", vectorToken);
+
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                assert response.body() != null;
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+                Log.d("mpoLocationUpdate->", message + "===>" + vectorToken);
+            }
+
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+                Log.d("tokenError", "error called! " + t);
+            }
+        });
     }
 
     public void getDeviceDetails() {
@@ -2730,10 +2754,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("RX\nEntry");
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
-        Objects.requireNonNull(textView7).setText("RX\nSummary B");
+        Objects.requireNonNull(textView7).setText("RX\nSummary(MIS)");
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
-        Objects.requireNonNull(cardview4).setVisibility(View.GONE);
+        //Objects.requireNonNull(cardview4).setVisibility(View.GONE);
 
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -2764,9 +2788,10 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RmDashboard.this, PrescriptionFollowup2.class);
-                i.putExtra("manager_code", globalRMCode);
-                i.putExtra("manager_detail", "RM");
+                //Intent i = new Intent(RmDashboard.this, PrescriptionFollowup2.class);
+                Intent i = new Intent(RmDashboard.this, RMRxSumMISActivity.class);
+                i.putExtra("ffCode", globalRMCode);
+                i.putExtra("ffType", "RM");
                 startActivity(i);
             }
         });

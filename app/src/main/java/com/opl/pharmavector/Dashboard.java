@@ -71,9 +71,11 @@ import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
+import com.opl.pharmavector.prescriptionsurvey.MPORxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
+import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
@@ -1126,9 +1128,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("RX\nEntry");
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
-        Objects.requireNonNull(textView7).setText("RX\nSummary B");
+        Objects.requireNonNull(textView7).setText("RX\nSummary(MIS)");
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
-        Objects.requireNonNull(cardview4).setVisibility(View.GONE);
+        //Objects.requireNonNull(cardview4).setVisibility(View.GONE);
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(cardview1).setOnClickListener(v -> {
@@ -1152,10 +1154,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
             //bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview4).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PrescriptionFollowup2.class);
-            i.putExtra("manager_code", Dashboard.globalmpocode);
-            i.putExtra("manager_detail", Dashboard.globalterritorycode);
-            i.putExtra("manager_flag", "MPO");
+            //Intent i = new Intent(Dashboard.this, PrescriptionFollowup2.class);
+            Intent i = new Intent(Dashboard.this, MPORxSumMISActivity.class);
+            i.putExtra("ffCode", GMDashboard1.globalAdmin);
+            i.putExtra("ffType", "MPO");
             startActivity(i);
         });
         bottomSheetDialog2.show();

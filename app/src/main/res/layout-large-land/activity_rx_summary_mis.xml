@@ -246,7 +246,7 @@
                     android:layout_weight="0.9"
                     android:gravity="center|end"
                     android:text="Total RX"
-                    android:textColor="@color/vector_logo_color"
+                    android:textColor="#F63B00"
                     android:textSize="@dimen/_8sdp" />
             </LinearLayout>
 

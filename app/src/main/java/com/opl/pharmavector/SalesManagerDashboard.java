@@ -64,9 +64,11 @@ import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
+import com.opl.pharmavector.prescriptionsurvey.ASMRxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionDashboard;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
+import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
@@ -115,6 +117,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
     public AutoCompleteTextView actv;
     private ListView lv, lv2;
     private ProgressDialog pDialog;
+    private String log_status = "A";
     private DatabaseHandler db;
     private static String url = BASE_URL_RM+"get_products.php";
     private String URL_CUSOTMER = BASE_URL_RM+"get_customer.php";
@@ -291,7 +294,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                 track_lat = parselat;
                 track_lang = parselang;
                 getAddress(fetchedlat, fetchedlang);
-                //userLog(log_status);
+                userLog(log_status);
             }
         };
     }
@@ -302,10 +305,11 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             Address obj = addresses.get(0);
             track_add = obj.getAddressLine(0);
+            tvLocationName.setText(track_add);
             //track_add = track_add + "\n" + obj.getCountryName();
             //track_add = track_add + "\n" + obj.getCountryCode();
-            tvLocationName.setText(track_add);
             //userLog(log_status);
+
             if (isAddressSubmit) {
                 userLogIn(track_add);
                 isAddressSubmit = false;
@@ -313,6 +317,27 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void userLog(final String key) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        //Log.d("tokenApi->", vectorToken);
+
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                assert response.body() != null;
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+                Log.d("mpoLocationUpdate->", message + "===>" + vectorToken);
+            }
+
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+                Log.d("tokenError", "error called! " + t);
+            }
+        });
     }
 
     public void getDeviceDetails() {
@@ -1422,8 +1447,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         Button btn_1 = bottomSheetDialog2.findViewById(R.id.btn_1);
 
         ImageView imageView3 = bottomSheetDialog2.findViewById(R.id.imageView3);
-        imageView3.setBackgroundResource(R.drawable.ic_rx_capture);
-
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(button1).setText("8.1");
         Objects.requireNonNull(button2).setText("8.1");
         Objects.requireNonNull(button3).setText("8.2");
@@ -1431,10 +1455,10 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         Objects.requireNonNull(textView4).setText("RX\nEntry");
         Objects.requireNonNull(textView5).setText("RX\nSearch");
         Objects.requireNonNull(textView6).setText("RX\nSummary");
-        Objects.requireNonNull(textView7).setText("RX\nSummary B");
+        Objects.requireNonNull(textView7).setText("RX\nSummary(MIS)");
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
         Objects.requireNonNull(cardview1).setVisibility(View.GONE);
-        Objects.requireNonNull(cardview4).setVisibility(View.GONE);
+        //Objects.requireNonNull(cardview4).setVisibility(View.GONE);
         Objects.requireNonNull(btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1456,7 +1480,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SalesManagerDashboard.this, PrescriptionFollowup.class);
-                i.putExtra("manager_code",globalSMCode);
+                i.putExtra("manager_code", globalSMCode);
                 i.putExtra("manager_detail", "SM");
                 startActivity(i);
                 //bottomSheetDialog2.dismiss();
@@ -1465,8 +1489,9 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         Objects.requireNonNull(cardview4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SalesManagerDashboard.this, PrescriptionFollowup2.class);
-                i.putExtra("manager_code",globalSMCode);
+                //Intent i = new Intent(SalesManagerDashboard.this, PrescriptionFollowup2.class);
+                Intent i = new Intent(SalesManagerDashboard.this, RxSummaryMISActivity.class);
+                i.putExtra("manager_code", globalSMCode);
                 i.putExtra("manager_detail", "SM");
                 startActivity(i);
             }
