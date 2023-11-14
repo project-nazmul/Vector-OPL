@@ -219,6 +219,7 @@ public class RxSummaryMISActivity extends Activity implements RxSummaryMISAdapte
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("-")) {
                         actv_brand_code_split = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");

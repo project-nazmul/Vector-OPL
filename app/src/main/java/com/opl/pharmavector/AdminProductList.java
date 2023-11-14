@@ -116,24 +116,24 @@ public class AdminProductList extends Activity implements OnClickListener {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setTypeface(fontFamily);
-        submit.setText("\uf1d8"); // &#xf1d8
+        submit.setText("\uf1d8"); //&#xf1d8
         submit.setVisibility(View.GONE);
         productListView = (ListView) findViewById(R.id.pListView);
         productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
-        TextView showorders=(TextView)findViewById(R.id.showorders);
+        TextView showorders = (TextView)findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
-        showorders.setText("\uf055");//&#xf055
+        showorders.setText("\uf055"); //&#xf055
         Button back_btn = (Button) findViewById(R.id.backBtn);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         calc = (Button) findViewById(R.id.calc);
         calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); // &#xf01e &#xf1ec
+        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
         calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search = (TextView) findViewById(R.id.search);
         search.setTypeface(fontFamily);
-        search.setText("\uf056"); // &#xf002 , &#xf010
+        search.setText("\uf056"); //&#xf002, &#xf010
         TextView mic=(TextView)findViewById(R.id.mic);
         mic.setTypeface(fontFamily);
         mic.setText("\uf130");

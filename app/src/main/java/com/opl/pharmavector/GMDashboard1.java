@@ -138,12 +138,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn, practiceCard7,
             practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact,
             cardview_ff_contact;
-    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice,
-            img_btn_notification, img_btn_rx, img_btn_pc, img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
+    ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_notification, img_btn_rx, img_btn_pc,
+            img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
             tv_notification, tv_rx, tv_pc, tv_salereports, tv_msd, tv_salesfollowup, tv_mastercode, tv_pmd_contact, tv_doctor_list;
-    Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_notification, btn_rx, btn_pc, btn_salereports, btn_msd, btn_salesfollowup, btn_vector_feedback,
-            btn_mastercode, btn_pmd_contact, btn_doctor_list;
+    Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_notification, btn_rx, btn_pc, btn_salereports, btn_msd, btn_salesfollowup,
+            btn_vector_feedback, btn_mastercode, btn_pmd_contact, btn_doctor_list;
     LocationManager locationManager;
     BroadcastReceiver updateUIReciver;
     double fetchedlang, fetchedlat;

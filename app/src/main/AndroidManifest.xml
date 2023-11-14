@@ -37,6 +37,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".liveDepot.LiveDepotStockActivity"
+            android:exported="false" />
+        <activity
             android:name=".prescriptionsurvey.MPORxSumMISActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false"

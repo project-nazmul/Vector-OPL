@@ -64,6 +64,9 @@ public class Promo {
     @SerializedName("oplshare")
     public String oplshare;
 
+    @SerializedName("phy_spec")
+    public String phySpec;
+
     public Promo(String serial, String code, String month, String sample_name, String pack_size, String type, String week1, String week2, String week3, String week4, String total, String aci) {
         this.serial = serial;
         this.code = code;
@@ -121,7 +124,7 @@ public class Promo {
 
     public Promo(String serial, String code, String month, String sample_name, String pack_size, String type,
                  String week1, String week2, String week3, String week4, String total,
-                 String aci,String ari,String pop,String rad,String osl,String base, String oplbase, String oplshare)
+                 String aci, String ari, String pop, String rad, String osl, String base, String oplbase, String oplshare, String phySpec)
     {
         this.serial = serial;
         this.code = code;
@@ -142,140 +145,114 @@ public class Promo {
         this.base = base;
         this.oplbase = oplbase;
         this.oplshare = oplshare;
-
+        this.phySpec = phySpec;
     }
 
-
-
-
-
-
-
-
+    public String getPhySpec() {
+        return phySpec;
+    }
+    public void setPhySpec(String phySpec) {
+        this.phySpec = phySpec;
+    }
     public String getSerial() {
         return serial;
     }
     public void setSerial(String serial) {
         this.serial = serial;
     }
-
     public String getCode() {
         return code;
     }
     public void setCode(String code) {
         this.code = code;
     }
-
-
-
     public String getMonth() {
         return month;
     }
     public void setMonth(String month) {
         this.month = month;
     }
-
-
     public String getSample_name() {
         return sample_name;
     }
     public void setSample_name(String sample_name) {
         this.sample_name = sample_name;
     }
-
     public String getWeek3() {
         return week3;
     }
     public void setWeek3(String week3) {
         this.week3 = week3;
     }
-
     public String getWeek2() {
         return week2;
     }
     public void setWeek2(String week2) {
         this.week2 = week2;
     }
-
-
     public String getWeek1() {
         return week1;
     }
     public void setWeek1(String week1) {
         this.week1 = week1;
     }
-
     public String getType() {
         return type;
     }
     public void setType(String type) {
         this.type = type;
     }
-
-
     public String getAci() {
         return aci;
     }
     public void setAci(String aci) {
         this.aci = aci;
     }
-
     public String getAristo() {
         return ari;
     }
     public void setAristo(String ari) {
         this.ari = ari;
     }
-
     public String getPopular() {
         return pop;
     }
     public void setPopular(String pop) {
         this.pop = pop;
     }
-
     public String getRadient() {
         return rad;
     }
     public void setRadient(String rad) {
         this.rad = rad;
     }
-
-
     public String getOsl() {
         return osl;
     }
     public void setOsl(String osl) {
         this.osl = osl;
     }
-
-
     public String getBase() {
         return base;
     }
     public void setBase(String base) {
         this.base = base;
     }
-
-
     public String getOplBase() {
         return oplbase;
     }
     public void setOplBase(String oplbase) {
         this.oplbase = oplbase;
     }
-
     public String getOplShare() {
         return oplshare;
     }
     public void setOplShare(String oplshare) {
         this.oplshare = oplshare;
     }
-
     public String getTotal() {
         return total;
     }
-
     public void setTotal(String total) {
         this.total = total;
     }

@@ -59,7 +59,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogProd;
     Button back_btn;
-    public int success;
+    public int success, recyclerNo;
     public String message, ord_no, team_name, month_name = "";
     public TextView totqty, totval, mpo_code, fromdate, todate;
     public String userName_1, userName, active_string, act_desiredString, selected_service_no, selected_service_no_serial, summary_type;
@@ -249,7 +249,6 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                     public void onClick(View view, int position) {
                                         user_code = docList.get(position).getCode();
                                         Log.e("doc_code-->", user_code);
-
                                         prepareProdList();
                                         setUpRV_ProdList();
                                     }
@@ -1656,7 +1655,6 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
         });
 
-
         rvDoc.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -1722,7 +1720,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -1776,11 +1774,11 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getAci(),
+                                        giftitemCount.get(i).getAristo(), giftitemCount.get(i).getPopular(),
+                                        giftitemCount.get(i).getRadient(), giftitemCount.get(i).getOsl(),
+                                        giftitemCount.get(i).getBase(), giftitemCount.get(i).getOplBase(),
+                                        giftitemCount.get(i).getOplShare(), giftitemCount.get(i).getPhySpec()
                                 )
                         );
                     }
@@ -1821,7 +1819,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -1868,7 +1866,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -1916,7 +1914,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -1963,7 +1961,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -2013,7 +2011,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                             giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                             giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                             giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                            giftitemCount.get(i).getTotal(),
+                                            giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                             giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                             giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                             giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -2063,7 +2061,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -2105,14 +2103,14 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                 List<Patient> giftitemCount = response.body();
                 if (response.isSuccessful()) {
                     assert giftitemCount != null;
+
                     for (int i = 0; i < giftitemCount.size(); i++) {
-                        segmentList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
+                        segmentList.add(new Promo(giftitemCount.get(i).getSerial(), giftitemCount.get(i).getMpocode(),
                                         giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
                                         giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
                                         giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
                                         giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(),
+                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
                                         giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
                                         giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
                                         giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
@@ -2123,7 +2121,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                     promoAdapter6.notifyDataSetChanged();
                     pDialog6.dismiss();
                 } else {
-                    Toast.makeText(MRDPresReport.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MRDPresReport.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -2198,7 +2196,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     }
 
     public void setUpRV_DoclIST() {
-        promoAdapter7 = new MRDDocAdapter(MRDPresReport.this, docList);
+        promoAdapter7 = new MRDDocAdapter(MRDPresReport.this, docList, 1);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvDoc.setLayoutManager(manager);
@@ -2207,7 +2205,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     }
 
     public void setUpRV_ProdList() {
-        promoAdapter8 = new MRDDocAdapter(MRDPresReport.this, docProductList);
+        promoAdapter8 = new MRDDocAdapter(MRDPresReport.this, docProductList, 0);
         FixedGridLayoutManager manager = new FixedGridLayoutManager();
         manager.setTotalColumnCount(1);
         rvDocProduct.setLayoutManager(manager);

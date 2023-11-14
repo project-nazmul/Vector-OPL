@@ -15,6 +15,8 @@ import com.opl.pharmavector.dcfpFollowup.DoctorReachSelfModel;
 import com.opl.pharmavector.dcfpFollowup.MpoDcfpFollowModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorModel;
+import com.opl.pharmavector.liveDepot.LiveDepotStockModel;
+import com.opl.pharmavector.liveDepot.LiveStokeDepotModel;
 import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
@@ -375,6 +377,16 @@ public interface ApiInterface {
                                                 @Field("brand_code") String brand_code,
                                                 @Field("f_date") String f_date,
                                                 @Field("t_date") String t_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("depot_reports/get_depots.php")
+    Call<LiveStokeDepotModel> getLiveStockDepotList(@Field("id") String id);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("depot_reports/stock_view.php")
+    Call<LiveDepotStockModel> getLiveDepotStockList(@Field("depot_code") String depot_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

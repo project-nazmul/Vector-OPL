@@ -1900,6 +1900,7 @@
                             android:text="Serial"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
+
                         <TextView
                             android:layout_width="@dimen/cell_width"
                             android:layout_height="wrap_content"
@@ -1915,6 +1916,15 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:gravity="start"
                             android:text="Doctor Name"
+                            android:textColor="@color/vector_logo_color"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:gravity="start"
+                            android:text="Doctor Spec"
                             android:textColor="@color/vector_logo_color"
                             android:textSize="@dimen/_8sdp" />
 

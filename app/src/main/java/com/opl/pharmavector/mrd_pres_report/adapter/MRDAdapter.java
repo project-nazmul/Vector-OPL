@@ -42,13 +42,8 @@ public class MRDAdapter extends RecyclerView.Adapter<MRDAdapter.ClubViewHolder> 
 
     @Override
     public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        if (viewType == TYPE_ROW) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
-            return new ClubViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
-            return new ClubViewHolder(view);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
+        return new ClubViewHolder(view);
     }
 
     @Override

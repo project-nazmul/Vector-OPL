@@ -1,10 +1,5 @@
 package com.opl.pharmavector;
 
-/**
- * Created by onik on 3/19/2018.
- */
-
-
 public class test {
     //private variables
     String _SL;
@@ -13,14 +8,8 @@ public class test {
     String _PRODUCT_NAME;
     String _PRODUCT_RATE;
     String _PRODUCT_VAT;
-    // Empty constructor
-    public test(){
 
-    }
-    // constructor
-
-
-
+    public test() {}
 
     public test(String SL,String PRODUCT_CODE, String PRODUCT_QUANTITY, String PRODUCT_NAME, String PRODUCT_RATE,String PRODUCT_VAT){
         this._SL = SL;
@@ -30,7 +19,6 @@ public class test {
         this._PRODUCT_RATE = PRODUCT_RATE;
         this._PRODUCT_VAT = PRODUCT_VAT;
     }
-
 
     public void setproductsl(String SL){
         this._SL = SL;
@@ -48,22 +36,13 @@ public class test {
     public void setproductvat(String PRODUCT_VAT){
         this._PRODUCT_VAT = PRODUCT_VAT;
     }
-
-
-
-
-
-
-
-
-    public String getproductsl(){ return this._SL;}
-    public String getproductcode(){ return this._PRODUCT_CODE;}
-    public String getproductquant(){ return this._PRODUCT_QUANTITY;}
+    public String getproductsl() { return this._SL; }
+    public String getproductcode() { return this._PRODUCT_CODE; }
+    public String getproductquant() { return this._PRODUCT_QUANTITY;}
     public String getproductname(){
         return this._PRODUCT_NAME;
     }
-    public String getproductrate(){return this._PRODUCT_RATE;}
-    public String getproductvat(){return this._PRODUCT_VAT;}
-
+    public String getproductrate() { return this._PRODUCT_RATE; }
+    public String getproductvat() { return this._PRODUCT_VAT; }
 }
 

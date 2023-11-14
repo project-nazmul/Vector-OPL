@@ -123,7 +123,6 @@ public class ImageLoadActivity extends AppCompatActivity {
     }
 
     private void buttonEvent() {
-
         //recyclerAdapter.clear();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,28 +131,24 @@ public class ImageLoadActivity extends AppCompatActivity {
                  //setUpAdapter();
                  load_rx();
                 //recyclerView.setAdapter(adapter);
-
             }
         });
-
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
-
                 backthred.start();
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void initView() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         fab = findViewById(R.id.fab);
@@ -168,7 +163,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         mpo_actv = findViewById(R.id.mpo_actv);
         recyclerDataArrayList = new ArrayList<>();
 
-
         Bundle b = getIntent().getExtras();
         assert b != null;
         manager_code = b.getString("manager_code");
@@ -178,24 +172,23 @@ public class ImageLoadActivity extends AppCompatActivity {
         user_show1.setText( manager_code + " [ "+ manager_detail+" ] "  );
         customerlist = new ArrayList<Customer>();
         mpoList = new ArrayList<>();
-
         product_code = "xx";
         mpo_code="xx";
         recyclerView =  findViewById(R.id.recycler_view);
         context = this;
         movies = new ArrayList<>();
         adapter = new MoviesAdapter(this, movies);
+
         if (manager_flag.equals("MPO")){
             mpo_actv.setVisibility(View.GONE);
-        }else{
+        } else {
             mpo_actv.setVisibility(View.VISIBLE);
             new GetList().execute();
         }
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
     private void brandSelectEvent() {
-
         actv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +202,6 @@ public class ImageLoadActivity extends AppCompatActivity {
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -242,26 +234,16 @@ public class ImageLoadActivity extends AppCompatActivity {
                         Log.e("product_code==>",product_code);
                         actv.setText(product_name);
                         hideKeyBoard();
-
-
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             private void length() {
-                // TODO Auto-generated method stub
 
             }
-
-
         });
-
-
 
         mpo_actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -473,20 +455,16 @@ public class ImageLoadActivity extends AppCompatActivity {
         });
     }
 
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("manager_code", manager_code));
             params.add(new BasicNameValuePair("manager_detail", manager_detail));
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
@@ -494,23 +472,18 @@ public class ImageLoadActivity extends AppCompatActivity {
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -519,16 +492,13 @@ public class ImageLoadActivity extends AppCompatActivity {
             super.onPostExecute(result);
             populateSpinner();
         }
-
     }
-
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-
         // Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
@@ -539,11 +509,9 @@ public class ImageLoadActivity extends AppCompatActivity {
         actv.setTextColor(Color.parseColor("#006199"));
     }
 
-
-
-
     private void populateSpinnerRM() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < mpoList.size(); i++) {
             lables.add(mpoList.get(i).getName());
         }
@@ -572,10 +540,12 @@ public class ImageLoadActivity extends AppCompatActivity {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_LIST, ServiceHandler.POST, params);
             mpoList.clear();
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -587,7 +557,6 @@ public class ImageLoadActivity extends AppCompatActivity {
             } else {
 
             }
-
             return null;
         }
 
@@ -596,7 +565,6 @@ public class ImageLoadActivity extends AppCompatActivity {
             super.onPostExecute(result);
             populateSpinnerRM();
         }
-
     }
 
     private void hideKeyBoard(){
@@ -608,22 +576,22 @@ public class ImageLoadActivity extends AppCompatActivity {
     private void load_rx() {
         Call<ArrayList<rx_model>> call = api.getLoad_Rx(0,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code,manager_code,mpo_code);
-        Log.e("Authentication", "Retrived Data ");
+        Log.e("Authentication", "Retried Data ");
         call.enqueue(new Callback<ArrayList<rx_model>>() {
             @Override
             public void onResponse(Call<ArrayList<rx_model>> call, Response<ArrayList<rx_model>> response) {
-
                 if (response.isSuccessful()) {
                     recyclerDataArrayList = response.body();
+
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
-                        recyclerViewAdapter = new RX_RecycleViewAdapter(ImageLoadActivity.this,recyclerDataArrayList);
+                        recyclerViewAdapter = new RX_RecycleViewAdapter(ImageLoadActivity.this, recyclerDataArrayList);
                         LinearLayoutManager manager = new LinearLayoutManager(ImageLoadActivity.this, LinearLayoutManager.VERTICAL, true);
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
                 }
-
             }
+
             @Override
             public void onFailure(Call<ArrayList<rx_model>> call, Throwable t) {
                 Log.e("Authentication", "Failed to Retrived Data For-- "+ t);

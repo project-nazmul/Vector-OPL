@@ -93,6 +93,16 @@ public class Patient {
     public String oplshare;
     @SerializedName("designation")
     public String designation;
+    @SerializedName("phy_spec")
+    public String phySpec;
+
+    public String getPhySpec() {
+        return phySpec;
+    }
+
+    public void setPhySpec(String phySpec) {
+        this.phySpec = phySpec;
+    }
 
     public String getMessage_2() {
         return message_2;

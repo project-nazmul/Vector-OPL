@@ -156,12 +156,13 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 Log.i("Selected Item in list", arg0.toString());
                 String rm_code = (String) productListView.getAdapter().getItem(arg2);
                 Log.i("Field Force Code------>", rm_code);
-                String first_split[] = rm_code.split("/");
+                String[] first_split = rm_code.split("/");
                 String brand_split = first_split[0].trim();
                 String  passed_mpo = first_split[1].trim();
-                String second_split[] = brand_split.split("-");
+                String[] second_split = brand_split.split("-");
                 String passed_brandname = second_split[0].trim();
                 String  passed_brandcode = second_split[1].trim();
+
                 Intent i = new Intent(PrescriptionFollowup.this, ImageLoadParam.class);
                 i.putExtra("passed_mpo", passed_mpo);
                 i.putExtra("passed_brandcode", passed_brandcode);
@@ -185,7 +186,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         view_btn = findViewById(R.id.view);
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
-        submitBtn.setText("\uf1d8"); // &#xf1d8
+        submitBtn.setText("\uf1d8"); //&#xf1d8
         prescription_head = findViewById(R.id.tot_pres);
         prescription_head2 = findViewById(R.id.tot_pres_brand);
         sub_tot_opd = findViewById(R.id.sub_tot_opd);
@@ -199,7 +200,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
         customerlist = new ArrayList<Customer>();
@@ -271,7 +272,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                     actv_brand_name.setText("");
                     customerlist.clear();
                     categoriesList.clear();
-
                     new GetCategories().execute();
                     postPrescriptionCount();
                     postSubTotal();
@@ -340,6 +340,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -368,7 +369,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             }
 
             private void updateLabel() {
-                // String myFormat = "dd/MM/yyyy";
+                //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 todate.setTextColor(Color.BLACK);
@@ -398,7 +399,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         actv_brand_name.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_brand_name.showDropDown();
                 return false;
             }
@@ -425,6 +426,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("-")) {
                         actv_brand_code_split = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
@@ -432,8 +434,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                         brand_code = first_split[1].trim();
                         actv_brand_name.setText(brand_name);
                         KeyboardUtils.hideKeyboard(PrescriptionFollowup.this);
-                    } else {
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -448,7 +448,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         actv_rm.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_rm.showDropDown();
                 return false;
             }
@@ -475,6 +475,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("-")) {
                         actv_rm_code_split = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
@@ -483,8 +484,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                         actv_rm.setText(rm_code);
                         passed_manager_code=rm_code;
                         KeyboardUtils.hideKeyboard(PrescriptionFollowup.this);
-                    } else {
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -512,6 +511,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         });
 
         submitBtn.setOnClickListener(new OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
@@ -563,11 +563,11 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
         Call<List<Patient>> call = apiInterface.pres_sub_total(passed_manager_code,brand_code,fromdate.getText().toString(), todate.getText().toString(),pres_type);
         call.enqueue(new Callback<List<Patient>>() {
             @SuppressLint("SetTextI18n")
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
                 assert giftitemCount != null;
+
                 if (response.isSuccessful()) {
                     if (giftitemCount.size() == 0) {
                         Toast.makeText(PrescriptionFollowup.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
@@ -590,8 +590,8 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-                // pDialog.dismiss();
-                // Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
+                //pDialog.dismiss();
+                //Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
                 postSubTotal();
             }
         });
@@ -609,6 +609,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
                 assert giftitemCount != null;
+
                 if (response.isSuccessful()) {
                     if (giftitemCount.size() == 0) {
                         Toast.makeText(PrescriptionFollowup.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
@@ -625,8 +626,8 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-               // pDialog.dismiss();
-               // Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
+               //pDialog.dismiss();
+               //Toast.makeText(PrescriptionFollowup.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
                 postPrescriptionCount();
             }
         });
@@ -644,7 +645,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> growth = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
-
             ArrayList<String> r_target = new ArrayList<String>();
             ArrayList<String> sg_target = new ArrayList<String>();
             ArrayList<String> bl_target = new ArrayList<String>();
@@ -655,7 +655,6 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             String prod_vat;
             String sellvalue, mpocode;
             String ppm_code;
-
             String rtarget,sgtarget,bltarget,totaltarget;
 
             for (int i = 0; i < categoriesList.size(); i++) {
@@ -665,13 +664,10 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 prod_rate = (categoriesList.get(i).getPROD_RATE());
                 prod_vat = (categoriesList.get(i).getPROD_VAT());
                 mpocode = (categoriesList.get(i).getPPM_CODE());
-
                 rtarget = (categoriesList.get(i).getP_CODE());
                 sgtarget = (categoriesList.get(i).getSHIFT_CODE());
-
                 bltarget = (categoriesList.get(i).getPACK_CODE());
                 totaltarget = (categoriesList.get(i).getTOTAL_CODE());
-
                 brand_name.add(brandname);
                 quanty.add(quantity);
                 value.add(prod_rate);
@@ -686,14 +682,12 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
             RXShowAdapter adapter = new RXShowAdapter(PrescriptionFollowup.this, brand_name, quanty, value, achv, growth, mpo_code, r_target,sg_target,bl_target,total_target);
             productListView.setAdapter(adapter);
         }
-
         private float round(float x, int i) {
             return 0;
         }
         public String getTotalQ() {
             return TotalQ;
         }
-
         public String getTotalV() {
             return TotalV;
         }
@@ -741,6 +735,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
                     int cat_length = categories.length();
+
                     if (cat_length == 0) {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
@@ -748,7 +743,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                                 Toast.makeText(PrescriptionFollowup.this, "No data available on this search", Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }else{
+                    } else {
                         for (int i = 0; i < categories.length(); i++) {
                             JSONObject catObj = (JSONObject) categories.get(i);
                             com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
@@ -756,18 +751,18 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                                     catObj.getString("id"), //brand_name
                                     catObj.getString("name"), //regular
                                     catObj.getInt("quantity"), //special
-                                    catObj.getString("PROD_RATE"),//brand_loyalty
-                                    catObj.getString("PROD_VAT"),//total
-                                    catObj.getString("PPM_CODE"),  //mpoCode
-                                    catObj.getString("P_CODE"),  //RX_TARGET
-                                    catObj.getString("SHIFT_CODE"),  //SG_TARGET
+                                    catObj.getString("PROD_RATE"), //brand_loyalty
+                                    catObj.getString("PROD_VAT"), //total
+                                    catObj.getString("PPM_CODE"), //mpoCode
+                                    catObj.getString("P_CODE"), //RX_TARGET
+                                    catObj.getString("SHIFT_CODE"), //SG_TARGET
                                     catObj.getString("PACK_CODE"), //BL_TARGET
                                     catObj.getString("TOTAL_CODE") //TOTAL_TARGET
                             );
                             categoriesList.add(cat);
                         }
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
@@ -784,12 +779,10 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 if((pDialog != null) && pDialog.isShowing()) {
                     pDialog.dismiss();
                 }
-            }
-            catch(Exception e){
+            } catch(Exception e) {
                 e.printStackTrace();
             }
-            finally
-            {
+            finally {
                 pDialog.dismiss();
             }
             Spinner sp = new Spinner();
@@ -839,6 +832,7 @@ public class PrescriptionFollowup extends Activity implements OnClickListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingBottom="@dimen/_6sdp"
+            android:weightSum="8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/serial"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/serial"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/product_code"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pcode"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2.5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/pn"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/pack_size"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pack\nsize"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/tp_vat"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="TP"
+                android:textColor="@color/ef_colorPrimaryDark"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:textColor="#000000"
+                android:id="@+id/stock_quantity"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:text="Qnty"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:singleLine="false"
+                android:textSize="@dimen/_8sdp" />
+
+            <TextView
+                android:id="@+id/stock_value"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:gravity="end"
+                android:text="Value"
+                android:inputType="number"
+                android:textColor="@color/green1"
+                android:textColorHint="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

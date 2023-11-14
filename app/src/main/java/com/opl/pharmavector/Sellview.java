@@ -6,6 +6,7 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import com.nativecss.NativeCSS;
 import com.opl.pharmavector.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -43,17 +45,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Sellview extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     ListView productListView;
     Button submit;
-    // private EditText current_qnty;
+    //private EditText current_qnty;
     EditText qnty;
-
     EditText inputOne, inputtwo;
     public int success;
     public String message, ord_no;
@@ -65,36 +65,29 @@ public class Sellview extends Activity implements OnClickListener {
     List<NameValuePair> params;
     public String CurrenOrder;
     public AutoCompleteTextView actv;
-
     public static ArrayList<String> p_ids;
     public static ArrayList<Integer> p_quanty;
-
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
-
     private ArrayList<String> array_sort = new ArrayList<String>();
     private String URL_PRODUCT_VIEW = BASE_URL + "get_products_view.php";
 
-
+    @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sellview);
-        Typeface fontFamily = Typeface.createFromAsset(getAssets(),
-                "fonts/fontawesome.ttf");
+
+        Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = (ListView) findViewById(R.id.pListView);
         ordspin = (android.widget.Spinner) findViewById(R.id.orderno);
         actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         Button back_btn = (Button) findViewById(R.id.backbt);
         //Button view_btn = (Button) findViewById(R.id.view);
-
-
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
-
+        back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty = (TextView) findViewById(R.id.totalsellquantity);
         totval = (TextView) findViewById(R.id.totalsellvalue);
-
         totqty.setText("Quantity");
         totval.setText("Sellvalue");
         int listsize = productListView.getChildCount();
@@ -102,75 +95,48 @@ public class Sellview extends Activity implements OnClickListener {
 
         p_ids = new ArrayList<String>();
         p_quanty = new ArrayList<Integer>();
-
         PROD_RATE = new ArrayList<String>();
-
         categoriesList = new ArrayList<Category>();
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
         Toast.makeText(Sellview.this, userName, Toast.LENGTH_LONG).show();
 
         new GetCategories().execute();
-
-        /*-------------Spinner--------------------------*/
         ordspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view,
-                                       int i, long l) {
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 CurrenOrder = ordspin.getSelectedItem().toString();
-                // new GetCategories().execute();
-                Toast.makeText(Sellview.this,
-                        "The Current Order Number is:" + CurrenOrder,
-                        Toast.LENGTH_LONG).show();
-                // Your code here
+                //new GetCategories().execute();
+                Toast.makeText(Sellview.this, "The Current Order Number is:" + CurrenOrder, Toast.LENGTH_LONG).show();
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
-        /*--------------------------------------------*/
-        actv.setOnClickListener(new OnClickListener() {
 
+        actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 CurrenOrder = actv.getText().toString();
-                Toast.makeText(Sellview.this,
-                        "The Current Order Number is:" + CurrenOrder,
-                        Toast.LENGTH_LONG).show();
-
-
+                Toast.makeText(Sellview.this, "The Current Order Number is:" + CurrenOrder, Toast.LENGTH_LONG).show();
                 System.out.println("CurrenOrder " + CurrenOrder);
-
             }
         });
         actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-
-                //----------------have to work----------------------------
                 String inputorder = s.toString();
-
                 System.out.println("inputorder " + inputorder);
-
 
                 int inputsize = inputorder.length();
                 if (!inputorder.toString().trim().isEmpty() && inputsize > 11) {
@@ -182,26 +148,17 @@ public class Sellview extends Activity implements OnClickListener {
                 } else if (!inputorder.toString().trim().isEmpty()
                         && inputsize < 10) {
                     categoriesList.clear();
-
                 } else {
                     ArrayList<String> lables = new ArrayList<String>();
                     ArrayList<Integer> quanty = new ArrayList<Integer>();
                     ArrayList<Float> value = new ArrayList<Float>();
 
-                    ProductShowAdapter blank_adapter = new ProductShowAdapter(
-                            Sellview.this, lables, quanty, value);
+                    ProductShowAdapter blank_adapter = new ProductShowAdapter(Sellview.this, lables, quanty, value);
                     new GetCategories().execute();
                     productListView.setAdapter(blank_adapter);
-
                 }
-
             }
-
-
-            //--------------------------
         });
-
-        /*------------------------------------------------------*/
 
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
@@ -209,21 +166,14 @@ public class Sellview extends Activity implements OnClickListener {
 
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
-
                         try {
-
                             finishActivity(v);
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
 
@@ -233,67 +183,41 @@ public class Sellview extends Activity implements OnClickListener {
                     css = new URL("http://10.0.2.2:8000/styles.css");
                     NativeCSS.styleWithCSS("style.css", css, Never);
                 } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
             }
         });
 
-        /*-----------------forward to report----------*/
-
-			/*
-
+	/*
 		view_btn.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Thread mysells = new Thread(new Runnable() {
 					Bundle b = getIntent().getExtras();
 					String userName = b.getString("UserName");
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
 						Intent i = new Intent(Sellview.this, Report.class);
 						System.out.println("userName " );
 						Log.d("Changepassword","Login");
-
-
 						i.putExtra("UserName", userName);
 						i.putExtra("UserName_1", userName);
 						i.putExtra("new_version", userName);
 						startActivity(i);
-
 					}
 				});
 				mysells.start();
-
 			}
 		});
 		*/
 
-
-
-
-
-        /*-----------------forward to report-----end------------------*/
-
-
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onClick(View v) {}
         });
-
     }
 
-    /*-------------- Extra Menus--------------*/
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menus, menu);
         return true;
@@ -319,23 +243,18 @@ public class Sellview extends Activity implements OnClickListener {
         }
     }
 
-    /*------------Extra menus end-------------------*/
-
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
-
-        // txtCategory.setText("");
 
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
         }
-
         description = Utils.removeDuplicatesFromList(description);
         ArrayAdapter<String> dataAdapterDes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, description);
-        // ordspin.setAdapter(dataAdapterDes);
-        String[] customer = description.toArray(new String[description.size()]);
+        //ordspin.setAdapter(dataAdapterDes);
+        String[] customer = description.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, customer);
-        System.out.println("customer " + customer);
+        System.out.println("customer " + Arrays.toString(customer));
         actv.setThreshold(2);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
@@ -345,29 +264,26 @@ public class Sellview extends Activity implements OnClickListener {
         finish();
     }
 
-    /**
-     * Adding spinner data
-     */
     class Spinner {
         private String TotalQ;
         private String TotalV;
 
         private void populateSpinner() {
-
             ArrayList<String> lables = new ArrayList<String>();
             ArrayList<Integer> quanty = new ArrayList<Integer>();
             ArrayList<Float> value = new ArrayList<Float>();
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
+
             for (int i = 0; i < categoriesList.size(); i++) {
                 lables.add(categoriesList.get(i).getName());
                 p_ids.add(categoriesList.get(i).getId());
-                //	Log.i("OPSONIN", " P_ID " + categoriesList.get(i).getId());
+                //Log.i("OPSONIN", " P_ID " + categoriesList.get(i).getId());
                 quanty.add(categoriesList.get(i).getQuantity());
                 quantity = categoriesList.get(i).getQuantity();
                 prod_rate = Float.parseFloat(categoriesList.get(i).getPROD_RATE());
                 sellvalue = quantity * prod_rate;
-                String sellvalue1 = String.format("%.02f", sellvalue);
+                @SuppressLint("DefaultLocale") String sellvalue1 = String.format("%.02f", sellvalue);
                 Float sellvalue2 = Float.parseFloat(sellvalue1);
                 value.add(sellvalue2);
             }
@@ -378,42 +294,30 @@ public class Sellview extends Activity implements OnClickListener {
             for (int i = 0; i < quanty.size(); i++) {
                 totalqty += (quanty.get(i));
                 totalvlu += (value.get(i));
-
             }
-
             TotalQ = String.valueOf(totalqty);
             float Totalsellvalue1 = totalvlu;
-            String total_value = String.format("%.02f", Totalsellvalue1);
-
+            @SuppressLint("DefaultLocale") String total_value = String.format("%.02f", Totalsellvalue1);
             TotalV = String.valueOf(total_value);
             System.err.println("The Total sell Quantity/Value" + TotalQ + "/" + TotalV);
             ProductShowAdapter adapter = new ProductShowAdapter(Sellview.this, lables, quanty, value);
             productListView.setAdapter(adapter);
-
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
         public String getTotalQ() {
-            // System.out.println("TotalQ\t"+TotalQ);
             return TotalQ;
         }
 
         public String getTotalV() {
-            // System.out.println("TotalV\t"+TotalV);
             return TotalV;
         }
-
     }
 
-    /**
-     * Async task to get all food categories
-     */
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
 
@@ -425,54 +329,44 @@ public class Sellview extends Activity implements OnClickListener {
             pDialog.setMessage("fatching MySells, Please Wait..");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
             String id = userName;
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
-            //	Log.w("OrderNumbres", "" + CurrenOrder);
+            //Log.w("OrderNumbers", "" + CurrentOrder);
             params.add(new BasicNameValuePair("ord_no", CurrenOrder));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, ServiceHandler.POST, params);
-
             Log.e("Response: ", "> " + json);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj
-                                .getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            Category cat = new Category(
+                    JSONArray categories = jsonObj.getJSONArray("categories");
 
-                                    catObj.getString("sl"), catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getInt("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"));
-                            categoriesList.add(cat);
-                        }
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category cat = new Category(
+                                catObj.getString("sl"), catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getInt("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"));
+                        categoriesList.add(cat);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(Sellview.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
                 Toast.makeText(Sellview.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
-
             return null;
         }
 
@@ -486,29 +380,17 @@ public class Sellview extends Activity implements OnClickListener {
             popSpinner();
             totqty.setText(sp.getTotalQ());
             totval.setText(sp.getTotalV());
-
         }
-
     }
-
-    /*------------- list items on click event----------------*/
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {}
 
-
-    }
-
-    protected void onPostExecute() {
-
-    }
-
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(Sellview.this, Report.class);
         startActivity(i);
         finish();
-
     }
-
 }

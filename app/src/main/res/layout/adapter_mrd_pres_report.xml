@@ -66,6 +66,16 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
+        android:id="@+id/spec"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Spec"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
         android:id="@+id/sample_name"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"

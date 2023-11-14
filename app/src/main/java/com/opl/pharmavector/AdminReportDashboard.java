@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.productOffer.ProductOfferActivity;
 
@@ -52,7 +53,8 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     private SessionManager session;
     Bundle b;
     Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
-    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription, cardLocationTracker, cardProductOffer;
+    CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription,
+            cardLocationTracker, cardProductOffer, cardLiveDepotStock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,13 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
 //            i.putExtra("userRole", "AD");
 //            startActivity(i);
 //        });
+        cardLiveDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(AdminReportDashboard.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "AD");
+            startActivity(i);
+        });
         cardProductOffer.setOnClickListener(v -> {
             Intent i = new Intent(AdminReportDashboard.this, ProductOfferActivity.class);
             i.putExtra("userName", userName);
@@ -298,6 +307,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         cardMrdPrescription = findViewById(R.id.cardMrdPrescription);
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription = findViewById(R.id.cardMspPrescription);
+        cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
         //cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardProductOffer = findViewById(R.id.cardProductOffer);
         logout.setTypeface(fontFamily);
