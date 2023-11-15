@@ -5,182 +5,253 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="100"
     tools:context=".liveDepot.LiveDepotStockActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardHeading"
+    <LinearLayout
+        android:layout_weight="94"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
+        android:layout_height="0dp"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layout1"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="5"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoDepotList"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="0sp"
+                    android:layout_marginRight="0sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_weight="2"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Depot"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_10sdp" />
+
+                <Button
+                    android:id="@+id/submitBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/submit_btton_selector"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="show"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+
+                <Button
+                    android:id="@+id/backbt"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:background="@drawable/dcr_page_button"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="&lt;"
+                    android:textColor="#FFF"
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/p_search"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/_4sdp">
+            android:hint="Search By"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12sdp">
 
-            <AutoCompleteTextView
-                android:id="@+id/autoDepotList"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="0sp"
-                android:layout_marginRight="0sp"
-                android:layout_marginBottom="0sp"
-                android:layout_weight="2"
-                android:background="@android:drawable/editbox_background"
-                android:drawableStart="@drawable/ic_medicine"
-                android:ems="0"
-                android:hint="Select Brand"
-                android:imeOptions="flagNoExtractUi"
-                android:maxLines="1"
-                android:paddingStart="10dp"
-                android:textAlignment="center"
-                android:textSize="@dimen/_10sdp" />
+            <requestFocus />
+        </EditText>
 
-            <Button
-                android:id="@+id/submitBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:background="@drawable/submit_btton_selector"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:soundEffectsEnabled="true"
-                android:text="show"
-                android:textColor="#FFF"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText,UnusedAttribute" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            app:cardBackgroundColor="#F3ECEC"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
 
-            <Button
-                android:layout_marginStart="@dimen/_2sdp"
-                android:id="@+id/backbt"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/dcr_page_button"
-                android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:soundEffectsEnabled="true"
-                android:text="&lt;"
-                android:textColor="#FFF"
-                android:textSize="25sp"
-                tools:ignore="HardcodedText,UnusedAttribute" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:id="@+id/polistLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_2sdp"
+                android:weightSum="8">
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginLeft="@dimen/_2sdp"
-        android:layout_marginRight="@dimen/_2sdp"
-        app:cardBackgroundColor="#F3ECEC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="4dp"
-        android:paddingBottom="@dimen/_4sdp"
-        app:cardUseCompatPadding="true">
+                <TextView
+                    android:id="@+id/hserial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Sl\nNo"
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Product\nCode"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Product\nName"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Pack\nSize"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="TP+VAT\n(TK.)"
+                    android:textColor="@color/ef_colorPrimaryDark"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Stock\nQnty"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Stock\nValue"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDepotStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
-        android:padding="@dimen/_2sdp"
-        android:id="@+id/polistLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="8">
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/hserial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Sl\nNo"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/darkblue" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="@dimen/_8sdp"
-            android:text="Product\nCode"
-            android:textColor="@color/green1" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:textStyle="bold"
-            android:textSize="@dimen/_8sdp"
-            android:text="Product\nName"
-            android:textColor="@color/colorAccent" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/_8sdp"
-            android:text="Pack\nSize"
-            android:textColor="@color/green1" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TP+VAT\n(TK.)"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/ef_colorPrimaryDark" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="@dimen/_8sdp"
-            android:text="Stock\nQnty"
-            android:textColor="#000000" />
-
-        <TextView
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="Stock\nValue"
-            android:textStyle="bold"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/green1" />
-    </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDepotStock"
+        android:layout_weight="6"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            app:cardBackgroundColor="#F3ECEC"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Total Stock Value :"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/totalStockValue"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:paddingEnd="@dimen/_4sdp"
+                    android:text="0.0"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

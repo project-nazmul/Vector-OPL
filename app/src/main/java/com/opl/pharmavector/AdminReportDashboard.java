@@ -90,6 +90,9 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             i.putExtra("userName", userName);
             i.putExtra("userCode", UserName_2);
             i.putExtra("userRole", "AD");
+            i.putExtra("gm_flag", gm_flag);
+            i.putExtra("asm_flag", asm_flag);
+            i.putExtra("sm_flag", sm_flag);
             startActivity(i);
         });
         cardProductOffer.setOnClickListener(v -> {
@@ -322,7 +325,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         new_version = b.getString("new_version");
         backbt = (Button) findViewById(R.id.backbt);
         backbt.setTypeface(fontFamily);
-        backbt.setText("\uf060 "); // &#xf060
+        backbt.setText("\uf060 "); //&#xf060
         db = new DatabaseHandler(this);
     }
 

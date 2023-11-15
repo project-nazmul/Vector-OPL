@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.report.LocationTrackerActivity;
 import com.opl.pharmavector.rxdcc.DccRxCamp;
@@ -55,7 +56,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
     Button targetquantity_btn, targetvalue_btn, brand_wise_sale, achivement_btn, mpo_wise_product_sale_btn,
             mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,back_btn,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,13 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
             public void onClick(final View v) {
                 logoutUser();
             }
+        });
+        cardLiveDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(RmSalesReportDashboard.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", RmDashboard.globalRMCode);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "RM");
+            startActivity(i);
         });
         cardLocationTracker.setOnClickListener(v -> {
             Intent i = new Intent(RmSalesReportDashboard.this, LocationTrackerActivity.class);
@@ -369,6 +377,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
                     String userName = b.getString("UserName");
                     String UserName_1 = b.getString("userName_1");
                     String UserName_2 = b.getString("userName_2");
+
                     @Override
                     public void run() {
                         Intent i = new Intent(RmSalesReportDashboard.this, GroupwiseProductOrderSummary2.class);
@@ -407,7 +416,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
         cardMspPrescription= findViewById(R.id.cardMspPrescription);
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
         cardLocationTracker = findViewById(R.id.cardLocationTracker);
-
+        cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
         //mpo_wise_product_sale_btn.setText("4. Product wise Sales Follow-up");
         //mpo_achv_followup.setText("6. Target, Sale, Achievement \nand Growth of Area Manager");
         back_btn = findViewById(R.id.backbt);

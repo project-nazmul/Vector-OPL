@@ -136,9 +136,12 @@ public class Login extends AppCompatActivity implements OnClickListener {
         statusBarHide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
-        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
 
-        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
+        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+        // Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
+        //mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
+        appUpdateInfoTask.addOnSuccessListener(result -> {
             if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 try {
                     mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this, RC_APP_UPDATE);

@@ -1,5 +1,6 @@
 package com.opl.pharmavector.liveDepot;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.prescriptionsurvey.RxSumMISSelfList;
 
 import java.util.List;
 
 public class LiveDepotStockAdapter extends RecyclerView.Adapter<LiveDepotStockAdapter.LiveDepotViewHolder> {
     public List<LiveDepotStockList> depotStockLists;
-    public List<RxSumMISSelfList> filteredCompanyList;
 
     public LiveDepotStockAdapter(List<LiveDepotStockList> depotStockList) {
         this.depotStockLists = depotStockList;
@@ -56,5 +57,11 @@ public class LiveDepotStockAdapter extends RecyclerView.Adapter<LiveDepotStockAd
             stock_quantity = view.findViewById(R.id.stock_quantity);
             stock_value = view.findViewById(R.id.stock_value);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void searchDepotProduct(List<LiveDepotStockList> stockLists) {
+        depotStockLists = stockLists;
+        notifyDataSetChanged();
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.report.LocationTrackerActivity;
 
@@ -52,13 +53,20 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
     Button mpo_wise_product_sale_btn, brand_wise_sale_btn, targetquantity_btn, targetvalue_btn, achivement_btn,
             back_btn, mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amsalesreportdashboard);
 
         initViews();
+        cardLiveDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(AmSalesReportDashboard.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", AmDashboard.globalFMCode);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "FM");
+            startActivity(i);
+        });
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -410,6 +418,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
         cardMspPrescription =  findViewById(R.id.cardMspPrescription);
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
         cardLocationTracker = findViewById(R.id.cardLocationTracker);
+        cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
         cardDccCampaign.setVisibility(View.GONE);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060

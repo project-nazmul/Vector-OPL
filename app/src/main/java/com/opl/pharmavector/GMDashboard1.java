@@ -1219,7 +1219,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         showSnack();
                     } else {
                         Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                        i.putExtra("UserName", globalAdmin);
+                        //i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName", global_admin_Code);
                         i.putExtra("UserName_2", globalAdminDtl);
                         i.putExtra("asm_code", globalAdmin);
                         i.putExtra("asm_flag", "N");
@@ -1233,7 +1234,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             });
             backthred.start();
         });
-
         tv_salereports.setOnClickListener(v -> {
             Thread backthred = new Thread(() -> {
                 try {
@@ -1241,7 +1241,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         showSnack();
                     } else {
                         Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName", global_admin_Code);
                         i.putExtra("UserName_2", globalAdminDtl);
                         i.putExtra("asm_code", globalAdmin);
                         i.putExtra("asm_flag", "N");
@@ -1255,7 +1255,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             });
             backthred.start();
         });
-
         img_btn_salereports.setOnClickListener(v -> {
             Thread backthred = new Thread(() -> {
                 try {
@@ -1263,7 +1262,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         showSnack();
                     } else {
                         Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName", global_admin_Code);
                         i.putExtra("UserName_2", globalAdminDtl);
                         i.putExtra("asm_code", globalAdmin);
                         i.putExtra("asm_flag", "N");
@@ -1277,7 +1276,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             });
             backthred.start();
         });
-
         btn_salereports.setOnClickListener(v -> {
             Thread backthred = new Thread(() -> {
                 try {
@@ -1285,7 +1283,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         showSnack();
                     } else {
                         Intent i = new Intent(GMDashboard1.this, AdminReportDashboard.class);
-                        i.putExtra("UserName", globalAdmin);
+                        i.putExtra("UserName", global_admin_Code);
                         i.putExtra("UserName_2", globalAdminDtl);
                         i.putExtra("asm_code", globalAdmin);
                         i.putExtra("asm_flag", "N");

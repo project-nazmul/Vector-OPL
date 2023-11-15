@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -17,9 +18,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opl.pharmavector.Customer;
@@ -27,6 +31,7 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.master_code.adapter.MasterAdapter;
+import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.prescriptionsurvey.RxSumMISSelfList;
 import com.opl.pharmavector.prescriptionsurvey.RxSumMISSelfModel;
 import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
@@ -42,6 +47,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +59,9 @@ import retrofit2.Response;
 
 public class LiveDepotStockActivity extends Activity {
     Button submitBtn, backBtn;
+    private EditText searchView;
     RecyclerView recyclerDepotStock;
+    private TextView totalStockValue;
     AutoCompleteTextView autoDepotList;
     private LiveDepotStockAdapter depotStockAdapter;
     private ArrayList<LiveStockDepotList> stockDepotLists;
@@ -64,12 +74,55 @@ public class LiveDepotStockActivity extends Activity {
         setContentView(R.layout.activity_live_depot_stock);
 
         initViews();
+        searchViewEvent();
         autoCompleteEvent();
         setUpRecyclerView();
         getLiveStockDepotLists();
         submitBtn.setOnClickListener(v -> {
             getLiveDepotStockLists();
+            KeyboardUtils.hideKeyboard(LiveDepotStockActivity.this);
+            searchView.getText().clear();
         });
+    }
+
+    private void searchViewEvent() {
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
+                searchView.setFocusable(true);
+                searchView.setFocusableInTouchMode(true);
+                searchView.setClickable(true);
+                searchView.setText("");
+            }
+        });
+        searchView.addTextChangedListener(new TextWatcher() {
+            @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                depotProductFilter(s.toString().trim());
+            }
+        });
+    }
+
+    void depotProductFilter(String query) {
+        List<LiveDepotStockList> depotStockList = new ArrayList<>();
+
+        for (LiveDepotStockList stockList: depotStockLists) {
+            if (stockList.getSl().toString().toUpperCase().contains(query.toUpperCase()) || stockList.getPCode().toUpperCase().contains(query.toUpperCase()) ||
+                    stockList.getPDesc().toUpperCase().contains(query.toUpperCase()) || stockList.getStockValue().toUpperCase().contains(query.toUpperCase()) ||
+                    stockList.getCommMrp().toUpperCase().contains(query.toUpperCase()) || stockList.getStockQnty().toUpperCase().contains(query.toUpperCase())) {
+                depotStockList.add(stockList);
+            }
+        }
+        depotStockAdapter.searchDepotProduct(depotStockList);
     }
 
     private void initViews() {
@@ -80,7 +133,10 @@ public class LiveDepotStockActivity extends Activity {
         backBtn = findViewById(R.id.backbt);
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060 ");
+        searchView = findViewById(R.id.p_search);
+        searchView.setVisibility(View.GONE);
         autoDepotList = findViewById(R.id.autoDepotList);
+        totalStockValue = findViewById(R.id.totalStockValue);
         recyclerDepotStock = findViewById(R.id.recyclerDepotStock);
 
         stockDepotLists = new ArrayList<>();
@@ -97,7 +153,6 @@ public class LiveDepotStockActivity extends Activity {
         LinearLayoutManager manager = new LinearLayoutManager(LiveDepotStockActivity.this);
         recyclerDepotStock.setLayoutManager(manager);
         recyclerDepotStock.setAdapter(depotStockAdapter);
-        //recyclerDepotStock.addItemDecoration(new DividerItemDecoration(LiveDepotStockActivity.this, DividerItemDecoration.VERTICAL));
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -137,7 +192,6 @@ public class LiveDepotStockActivity extends Activity {
                         String[] first_split = inputOrder.split("-");
                         depot_name = first_split[1].trim();
                         depot_code = first_split[0].trim();
-                        //autoDepotList.setText(depot_name);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -200,10 +254,10 @@ public class LiveDepotStockActivity extends Activity {
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<LiveDepotStockModel> call = apiInterface.getLiveDepotStockList(depot_code);
-        stockDepotLists.clear();
+        depotStockLists.clear();
 
         call.enqueue(new Callback<LiveDepotStockModel>() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "DefaultLocale"})
             @Override
             public void onResponse(Call<LiveDepotStockModel> call, Response<LiveDepotStockModel> response) {
                 if (response.isSuccessful()) {
@@ -215,8 +269,19 @@ public class LiveDepotStockActivity extends Activity {
                         depotStockLists.addAll(liveStokeList);
                         depotStockAdapter.notifyDataSetChanged();
                     }
-                    populateDepotSpinner();
-                    Log.d("LiveDepot: ", String.valueOf(stockDepotLists));
+                    if (depotStockLists.size() > 0) {
+                        searchView.setVisibility(View.VISIBLE);
+                    }
+                    float stockValue = 0.0F;
+                    for (int i=0; i<depotStockLists.size(); i++) {
+                       if (depotStockLists.get(i).getStockValue() != null) {
+                           stockValue += Float.parseFloat(depotStockLists.get(i).getStockValue());
+                       }
+                    }
+                    DecimalFormat formatter = new DecimalFormat("#,##,###.00");
+                    String formatStockVal = formatter.format(stockValue);
+                    totalStockValue.setText(formatStockVal);
+                    Log.d("LiveDepot: ", String.valueOf(formatStockVal));
                 }
             }
 
