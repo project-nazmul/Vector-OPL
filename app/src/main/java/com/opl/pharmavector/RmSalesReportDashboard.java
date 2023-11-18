@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.report.LocationTrackerActivity;
@@ -56,7 +57,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
     Button targetquantity_btn, targetvalue_btn, brand_wise_sale, achivement_btn, mpo_wise_product_sale_btn,
             mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,back_btn,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock, cardAdsDepotStock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,13 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
             public void onClick(final View v) {
                 logoutUser();
             }
+        });
+        cardAdsDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(RmSalesReportDashboard.this, ADSStockInfoActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "RM");
+            startActivity(i);
         });
         cardLiveDepotStock.setOnClickListener(v -> {
             Intent i = new Intent(RmSalesReportDashboard.this, LiveDepotStockActivity.class);
@@ -417,6 +425,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
         cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
+        cardAdsDepotStock = findViewById(R.id.cardAdsDepotStock);
         //mpo_wise_product_sale_btn.setText("4. Product wise Sales Follow-up");
         //mpo_achv_followup.setText("6. Target, Sale, Achievement \nand Growth of Area Manager");
         back_btn = findViewById(R.id.backbt);

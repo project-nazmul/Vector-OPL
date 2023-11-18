@@ -1,288 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_marginTop="@dimen/_2sdp"
+        android:id="@+id/p_search"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_gravity="center"
+        android:background="@android:drawable/editbox_background"
+        android:ems="5"
+        android:focusable="true"
+        android:gravity="center"
+        android:hint="Search By"
+        android:imeOptions="flagNoExtractUi"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_12sdp">
+        <requestFocus />
+    </EditText>
 
     <LinearLayout
-        android:weightSum="12"
-        android:background="@drawable/dcr_border"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
         android:id="@+id/layoutHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/ff_code"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:focusable="true"
-            android:text="Product"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_8sdp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#424242"/>
-
-        <TextView
-            android:id="@+id/ff_area"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:focusable="true"
-            android:text="Pack\nSize"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_8sdp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#424242"/>
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <LinearLayout
+            android:background="@drawable/dcr_border"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <LinearLayout
+                android:weightSum="12"
+                android:background="@drawable/dcr_border"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_24sdp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:text="Target"
-                    android:textAlignment="center"
-                    android:textColor="@color/bg_gradient_end"
-                    android:textSize="@dimen/_8sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#424242"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
-
-                <TextView
+                    android:layout_weight="2"
+                    android:textStyle="bold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Eve"
-                    android:textAlignment="center"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_8sdp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:focusable="true"
-                    android:text="Planned to Visit"
-                    android:textAlignment="center"
-                    android:textColor="@color/bg_gradient_end"
-                    android:textSize="@dimen/_8sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#424242"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/planned_todDoc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginStart="0px"
-                    android:layout_weight="1"
-                    android:focusable="true"
-                    android:text="Tot_Doc"
-                    android:textColor="@color/bg_gradient_end"
-                    android:textSize="@dimen/_8sdp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#424242"/>
-
-                <TextView
-                    android:id="@+id/planned_morn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Morn"
-                    android:textAlignment="center"
+                    android:text="Product"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#424242"/>
+                    android:background="#424242" />
 
                 <TextView
-                    android:id="@+id/planned_eve"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
                     android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:clickable="true"
-                    android:text="Eve"
-                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="Pack\nSize"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Free\nStock"
+                    android:textColor="@color/gallan"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Depot\nStock"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="CS\nStock"
+                    android:textColor="@color/deeppurple"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Transit"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="FGS"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="Current\nTarget"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="Cur Mon\nSale"
+                    android:textColor="@color/orangered"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:id="@+id/prevMonth1"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="Sale 2"
+                    android:textColor="@color/base"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:id="@+id/prevMonth2"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="Sale 3"
+                    android:textColor="@color/deeppurple"
+                    android:textSize="@dimen/_8sdp" />
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerAdsStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#424242"/>
-
         <LinearLayout
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="@drawable/dcr_border"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
+                android:weightSum="6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_24sdp"
+                android:background="@drawable/dcr_border"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:text="Visited"
-                    android:textAlignment="center"
-                    android:textColor="@color/bg_gradient_end"
-                    android:textSize="@dimen/_8sdp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#424242"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="3">
-
-                <TextView
-                    android:id="@+id/visited_todDoc"
+                    android:layout_weight="1.5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:gravity="center"
-                    android:layout_marginStart="0px"
-                    android:layout_weight="1"
+                    android:text="Depot"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="0.9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:focusable="true"
-                    android:text="Tot_Doc"
-                    android:textColor="@color/bg_gradient_end"
+                    android:gravity="center"
+                    android:text="Stock"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#424242"/>
+                    android:background="#424242" />
 
                 <TextView
-                    android:id="@+id/visited_morn"
+                    android:layout_weight="0.9"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Morn"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="CS\nTrans"
+                    android:textColor="@color/green1"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#424242"/>
+                    android:background="#424242" />
 
                 <TextView
-                    android:id="@+id/visited_eve"
+                    android:layout_weight="0.9"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:text="Eve"
-                    android:textAlignment="center"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Depot\nTrans"
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="0.9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Total"
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#424242" />
+
+                <TextView
+                    android:layout_weight="0.9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Sale"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_8sdp" />
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerAdsDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#424242"/>
-
-        <TextView
-            android:id="@+id/not_visited"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:text="Not Visited"
-            android:textAlignment="gravity"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/_8sdp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#424242"/>
-
-        <TextView
-            android:id="@+id/visit_percentage"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:text="Visit %"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_8sdp" />
     </LinearLayout>
 </LinearLayout>

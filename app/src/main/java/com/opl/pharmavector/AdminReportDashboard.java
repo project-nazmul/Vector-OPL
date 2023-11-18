@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.productOffer.ProductOfferActivity;
@@ -54,7 +55,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     Bundle b;
     Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
     CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription,
-            cardLocationTracker, cardProductOffer, cardLiveDepotStock;
+            cardLocationTracker, cardProductOffer, cardLiveDepotStock, cardAdsDepotStock;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,16 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
 //            i.putExtra("userRole", "AD");
 //            startActivity(i);
 //        });
+        cardAdsDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(AdminReportDashboard.this, ADSStockInfoActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", UserName_2);
+            i.putExtra("userRole", "AD");
+            i.putExtra("gm_flag", gm_flag);
+            i.putExtra("asm_flag", asm_flag);
+            i.putExtra("sm_flag", sm_flag);
+            startActivity(i);
+        });
         cardLiveDepotStock.setOnClickListener(v -> {
             Intent i = new Intent(AdminReportDashboard.this, LiveDepotStockActivity.class);
             i.putExtra("userName", userName);
@@ -102,7 +113,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             i.putExtra("userRole", "AD");
             startActivity(i);
         });
-
         cardProductSale.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 if (asm_flag.equals("Y")) {
@@ -127,7 +137,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         cardGroupProduct.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 if (asm_flag.equals("Y")) {
@@ -155,7 +164,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         cardBrandSale.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 if (asm_flag.equals("Y")) {
@@ -180,7 +188,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         cardOpsoProduct.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 Intent i = new Intent(AdminReportDashboard.this, AdminProductList.class);
@@ -191,7 +198,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         cardMrdPrescription.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
@@ -208,7 +214,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         card4pPrescription.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
@@ -225,7 +230,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         cardMspPrescription.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
                 Intent i = new Intent(AdminReportDashboard.this, MRDPresReport.class);
@@ -242,7 +246,6 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
             });
             mysells.start();
         });
-
         session = new SessionManager(getApplicationContext());
         backbt.setOnClickListener(v -> {
             Thread backthred = new Thread(() -> {
@@ -311,11 +314,11 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription = findViewById(R.id.cardMspPrescription);
         cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
+        cardAdsDepotStock = findViewById(R.id.cardAdsDepotStock);
         //cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardProductOffer = findViewById(R.id.cardProductOffer);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");
-
         b = getIntent().getExtras();
         userName = b.getString("UserName");
         UserName_2 = b.getString("UserName_2");

@@ -38,7 +38,11 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".liveDepot.ADSStockInfoActivity"
-            android:exported="false" />
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".liveDepot.LiveDepotStockActivity"
             android:exported="false" />

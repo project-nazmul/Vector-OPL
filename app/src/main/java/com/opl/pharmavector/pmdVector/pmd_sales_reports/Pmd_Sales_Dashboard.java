@@ -26,6 +26,7 @@ import com.opl.pharmavector.Report;
 import com.opl.pharmavector.SMBrandwiseProductSale;
 import com.opl.pharmavector.SMWiseProductSale;
 import com.opl.pharmavector.SessionManager;
+import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.util.NetInfo;
 
@@ -35,7 +36,7 @@ public class Pmd_Sales_Dashboard extends Activity {
     private SessionManager session;
     Button back_btn;
     String userName,userName_1,userName_2,message_3;
-    CardView cardview1,cardview2,cardview3,cardview4,cardview5,cardview6,admin_product_list;
+    CardView cardview1,cardview2,cardview3,cardview4,cardview5,cardview6,admin_product_list,cardAdsDepotStock;
     ImageView img1,img2,img3,img4,img5,img6;
     TextView txt_vw1,txt_vw2,txt_vw3,txt_vw4,txt_vw5,txt_vw6;
 
@@ -45,6 +46,13 @@ public class Pmd_Sales_Dashboard extends Activity {
         setContentView(R.layout.pmd_sales_dashboard);
 
         initViews();
+        cardAdsDepotStock.setOnClickListener(v -> {
+            Intent i = new Intent(Pmd_Sales_Dashboard.this, ADSStockInfoActivity.class);
+            i.putExtra("userName", DashBoardPMD.pmd_code);
+            i.putExtra("userCode", DashBoardPMD.pmd_code);
+            i.putExtra("userRole", "PMD");
+            startActivity(i);
+        });
         cardview1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +146,7 @@ public class Pmd_Sales_Dashboard extends Activity {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),	"fonts/fontawesome.ttf");
         back_btn =  findViewById(R.id.btn_back);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
 
         cardview1 = findViewById(R.id.cardview1);
         txt_vw1      = findViewById(R.id.txt_vw1);
@@ -164,6 +172,7 @@ public class Pmd_Sales_Dashboard extends Activity {
         txt_vw6      = findViewById(R.id.txt_vw6);
         img6        = findViewById(R.id.img6);
         admin_product_list =  findViewById(R.id.admin_product_list);
+        cardAdsDepotStock =  findViewById(R.id.cardAdsDepotStock);
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
