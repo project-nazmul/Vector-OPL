@@ -43,6 +43,10 @@ import com.opl.pharmavector.prescriber.TopPrescriberModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
 import com.opl.pharmavector.report.LocationReportModel;
+import com.opl.pharmavector.tourPlan.TourClassModel;
+import com.opl.pharmavector.tourPlan.TourModeModel;
+import com.opl.pharmavector.tourPlan.TourMorningModel;
+import com.opl.pharmavector.tourPlan.TourNatureModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -384,6 +388,31 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("depot_reports/get_depots.php")
     Call<LiveStokeDepotModel> getLiveStockDepotList(@Field("id") String id);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_nature.php")
+    Call<TourNatureModel> getDailyTourNatureList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_mode.php")
+    Call<TourModeModel> getDailyTourModeList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_class.php")
+    Call<TourClassModel> getDailyTourClassList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_location_from.php")
+    Call<TourMorningModel> getDailyTourMorningList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_location_to.php")
+    Call<TourMorningModel> getDailyTourEveningList(@Field("id") String user_code, @Field("location_from") String location_from);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

@@ -20,7 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
     public final int TYPE_MOVIE = 0;
     public final int TYPE_LOAD = 1;
     static Context context;
@@ -28,9 +27,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
 
-
     public MoviesAdapter(Context context, List<MovieModel> movies) {
-
         this.context = context;
         this.movies = movies;
     }
@@ -38,6 +35,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
+
         if (viewType == TYPE_MOVIE) {
             return new MovieHolder(inflater.inflate(R.layout.row_movie, parent, false));
         } else {
@@ -47,7 +45,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
         if (position >= getItemCount() - 1 && isMoreDataAvailable && !isLoading && loadMoreListener != null) {
             isLoading = true;
             loadMoreListener.onLoadMore();
@@ -73,10 +70,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return movies.size();
     }
 
-
     class MovieHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
-        TextView tvRating,tvbrandcount;
+        TextView tvRating, tvbrandcount;
         PhotoView mPicture;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] imageBytes = baos.toByteArray();
@@ -88,15 +84,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tvbrandcount = itemView.findViewById(R.id.tvbrandcount);
             mPicture = itemView.findViewById(R.id.mPicture);
         }
-        void bindData(MovieModel movieModel) {
 
+        void bindData(MovieModel movieModel) {
             tvTitle.setText(movieModel.title);
             tvRating.setText( movieModel.rating);
             tvbrandcount.setText("No of Brand:\t " + movieModel.brandcount);
-
             String doctor_image = (movieModel.picture);
             doctor_image = doctor_image.replaceAll(" ", "");
-            
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.skipMemoryCache(true);
             requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
@@ -105,8 +99,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .load(doctor_image)
                     .apply(requestOptions)
                     .into(mPicture);
-
-
         }
     }
 
@@ -120,7 +112,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         isMoreDataAvailable = moreDataAvailable;
     }
 
-
     public void notifyDataChanged() {
         notifyDataSetChanged();
         isLoading = false;
@@ -129,7 +120,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void loadDestroy() {
         isLoading = false;
     }
-
 
     interface OnLoadMoreListener {
         void onLoadMore();

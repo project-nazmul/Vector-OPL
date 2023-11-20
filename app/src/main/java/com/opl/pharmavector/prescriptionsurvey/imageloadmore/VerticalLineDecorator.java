@@ -7,11 +7,8 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
 public class VerticalLineDecorator extends RecyclerView.ItemDecoration {
-
-    /*
-    private int space=0;
+    /* private int space = 0;
 
     public VerticalLineDecorator(int space) {
         this.space = space;
@@ -19,35 +16,29 @@ public class VerticalLineDecorator extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
-        if(parent.getChildAdapterPosition(view) == 0)
+        if (parent.getChildAdapterPosition(view) == 0)
             outRect.top = space;
-
         outRect.bottom = space;
-    }
-    */
+    } */
 
     private Drawable mDivider;
     public VerticalLineDecorator(Drawable divider) {
         mDivider = divider;
     }
+
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
         int dividerLeft = parent.getPaddingLeft();
         int dividerRight = parent.getWidth() - parent.getPaddingRight();
-
         int childCount = parent.getChildCount();
+
         for (int i = 0; i < childCount-1; i++) {
             View child = parent.getChildAt(i);
-
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-
             int dividerTop = child.getBottom() + params.bottomMargin;
             int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
-
             mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
             mDivider.draw(canvas);
         }
     }
-
 }

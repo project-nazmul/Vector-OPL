@@ -1,4 +1,5 @@
 package com.opl.pharmavector.prescriptionsurvey;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,20 +31,19 @@ import java.util.List;
 import com.opl.pharmavector.R;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implements Filterable {
-
     List<Patient> pets, petsFilter;
     private Context context;
     private RecyclerViewClickListener mListener;
     CustomFilter filter;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     byte[] imageBytes = baos.toByteArray();
+
     public Adapter(List<Patient> pets, Context context, RecyclerViewClickListener listener) {
         this.pets = pets;
         this.petsFilter = pets;
         this.context = context;
         this.mListener = listener;
     }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,14 +54,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-
         holder.mName.setText("Survey Date :\t" + pets.get(position).getFirst_name().trim());
         holder.doc_qualification.setText("MPO Code :\t" + pets.get(position).getLast_name());
         holder.doc_designation.setText(pets.get(position).getPhone_number());
         holder.doc_institute.setText("Number of Brands :\t" + pets.get(position).getEmail());
         holder.doc_fees.setText(String.format("%s\t  %s", context.getString(R.string.rate), pets.get(position).getFees()));
         holder.doc_schedule.setText(pets.get(position).getSchedule());
-
         holder.doc_id.setText(pets.get(position).getDoctorCode());
         holder.schedule_id.setText(pets.get(position).getScheduleID());
 
@@ -69,14 +67,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
         requestOptions.skipMemoryCache(false);
         requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
         String doctor_image = pets.get(position).getPicture();
-
         //Log.e("imagedecode==>",doctor_image);
         //doctor_image = doctor_image.replaceAll(" ", "");
         imageBytes = Base64.decode(doctor_image, Base64.DEFAULT);
         Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         holder.mPicture.setImageBitmap(decodedImage);
-
-
     }
 
     @Override
@@ -88,19 +83,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     public Filter getFilter() {
         if (filter == null) {
             filter = new CustomFilter((ArrayList<Patient>) petsFilter, this);
-
         }
         return filter;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private RecyclerViewClickListener mListener;
         private PhotoView mPicture;
         private ImageView mLove;
         private TextView mName, mType, mDate, doc_qualification, doc_designation, doc_institute, doc_fees, doc_id, doc_schedule, schedule_id;
-
-
         private LinearLayout mRowContainer;
 
         public MyViewHolder(View itemView, RecyclerViewClickListener listener) {
@@ -127,7 +118,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
                 case R.id.row_container:
                     mListener.onRowClick(mRowContainer, getAdapterPosition());
                     break;
-
                 case R.id.love:
                     mListener.onLoveClick(mLove, getAdapterPosition());
                     break;
@@ -139,8 +129,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
 
     public interface RecyclerViewClickListener {
         void onRowClick(View view, int position);
-
         void onLoveClick(View view, int position);
     }
-
 }

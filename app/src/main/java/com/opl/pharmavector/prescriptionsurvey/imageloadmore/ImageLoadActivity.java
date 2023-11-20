@@ -68,20 +68,19 @@ public class ImageLoadActivity extends AppCompatActivity {
     ApiInterface api;
     String TAG = "ImageLoadActivity - ";
     Context context;
-    private TextView fromdate,todate,user_show1;
+    private TextView fromdate, todate, user_show1;
     private Button fab,btn_back;
     private AutoCompleteTextView actv,mpo_actv ;
     private ArrayList<Customer> customerlist;
     private ArrayList<Customer> mpoList;
-
     private Spinner cust,mpo;
 
-    private String product_name,product_code,user_code,actv_mpo_actv_split,mpo_code,emp_name;
-    Calendar c_todate,c_fromdate;
-    SimpleDateFormat dftodate,dffromdate;
-    public Calendar myCalendar,myCalendar1;
-    public DatePickerDialog.OnDateSetListener date_form,date_to;
-    public String manager_code,manager_detail,manager_flag;
+    private String product_name, product_code, user_code, actv_mpo_actv_split, mpo_code, emp_name;
+    Calendar c_todate, c_fromdate;
+    SimpleDateFormat dftodate, dffromdate;
+    public Calendar myCalendar, myCalendar1;
+    public DatePickerDialog.OnDateSetListener date_form, date_to;
+    public String manager_code, manager_detail, manager_flag;
     private String URL_LIST = BASE_URL+"prescription_survey/get_mpoList.php";
     private String URL_CUSOTMER = BASE_URL+"prescription_survey/get_brand.php";
     private ArrayList<rx_model> recyclerDataArrayList;
@@ -111,7 +110,6 @@ public class ImageLoadActivity extends AppCompatActivity {
                         loadMore(index);
                     }
                 });
-
             }
         });
         recyclerView.setHasFixedSize(true);
@@ -203,32 +201,26 @@ public class ImageLoadActivity extends AppCompatActivity {
         });
         actv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv.setTextColor(Color.parseColor("#006199"));
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv.setTextColor(Color.parseColor("#006199"));
-
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("//") != -1)
-                    {
+
+                    if (inputorder.contains("//")) {
                         String cust_type = inputorder.substring(inputorder.indexOf("//") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf("//") + 0);
                         String cust_type_initial = inputorder.substring(inputorder.indexOf("//") + 0);
-                        String first_split[] = inputorder.split("//");
+                        String[] first_split = inputorder.split("//");
                         product_name = first_split[0].trim();
                         product_code = first_split[1].trim();
                         Log.e("product_code==>",product_code);
@@ -240,44 +232,34 @@ public class ImageLoadActivity extends AppCompatActivity {
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
 
         mpo_actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 mpo_actv.showDropDown();
                 return false;
             }
         });
         mpo_actv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         mpo_actv.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mpo_actv.setTextColor(Color.parseColor("#006199"));
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 mpo_actv.setTextColor(Color.parseColor("#006199"));
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
@@ -288,28 +270,18 @@ public class ImageLoadActivity extends AppCompatActivity {
                         emp_name  = first_split[1].trim();
                         mpo_actv.setText(mpo_code);
                         KeyboardUtils.hideKeyboard(ImageLoadActivity.this);
-
-                    } else {
-
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
     }
 
     @SuppressLint("SimpleDateFormat")
     private void caclenderEvent() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
@@ -318,16 +290,11 @@ public class ImageLoadActivity extends AppCompatActivity {
         dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_todate);
-
-
         myCalendar = Calendar.getInstance();
-
 
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -341,11 +308,8 @@ public class ImageLoadActivity extends AppCompatActivity {
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
-
         fromdate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(ImageLoadActivity.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -356,9 +320,7 @@ public class ImageLoadActivity extends AppCompatActivity {
 
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -372,30 +334,26 @@ public class ImageLoadActivity extends AppCompatActivity {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
         todate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(ImageLoadActivity.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
     }
 
     private void load(int index){
         Log.e("LoadImage------------->",product_code+manager_code+mpo_code+index);
-
         ProgressDialog ppDialog = new ProgressDialog(  ImageLoadActivity.this);
         ppDialog.setMessage("Loading Products ...");
         ppDialog.setCancelable(true);
         ppDialog.show();
         Call<List<MovieModel>> call = api.getMovies(index,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code,manager_code,mpo_code);
+
         call.enqueue(new Callback<List<MovieModel>>() {
             @Override
             public void onResponse(Call<List<MovieModel>> call, Response<List<MovieModel>> response) {
@@ -404,7 +362,6 @@ public class ImageLoadActivity extends AppCompatActivity {
                     assert response.body() != null;
                     Log.e("ttt========", String.valueOf(response.body()));
                     //movies.addAll(response.body());
-
                     //adapter.notifyDataChanged();
                 }
             }
@@ -416,24 +373,23 @@ public class ImageLoadActivity extends AppCompatActivity {
         });
     }
 
-    private void loadMore(int index){
-
+    private void loadMore(int index) {
         movies.add(new MovieModel("load"));
         adapter.notifyItemInserted(movies.size()-1);
-
         Call<List<MovieModel>> call = api.getMovies(index,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code, manager_code,mpo_code);
+
         call.enqueue(new Callback<List<MovieModel>>() {
             @Override
             public void onResponse(Call<List<MovieModel>> call, Response<List<MovieModel>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     //remove loading view
                     movies.remove(movies.size()-1);
                     List<MovieModel> result = response.body();
-                    if(result.size()>0){
+                    if (result.size() > 0) {
                         //add loaded data
                         movies.addAll(result);
-                    }else{//result size 0 means there is no more data available at server
+                    } else { //result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
                         //telling adapter to stop calling load more as no more server data available
                         Toast.makeText(context,"No More Data Available",Toast.LENGTH_LONG).show();
@@ -441,7 +397,7 @@ public class ImageLoadActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataChanged();
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status
-                }else{
+                } else {
                     adapter.loadDestroy();
                     loadMore(index+2);
                 }
@@ -499,7 +455,7 @@ public class ImageLoadActivity extends AppCompatActivity {
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
-        // Creating adapter for spinner
+        //Creating adapter for spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
@@ -523,7 +479,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         mpo_actv.setAdapter(Adapter);
         mpo_actv.setTextColor(Color.parseColor("#006199"));
     }
-
 
     class GetList extends AsyncTask<Void, Void, Void> {
         @Override
@@ -554,8 +509,6 @@ public class ImageLoadActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
-
             }
             return null;
         }
@@ -572,7 +525,6 @@ public class ImageLoadActivity extends AppCompatActivity {
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
-   //===========================================
     private void load_rx() {
         Call<ArrayList<rx_model>> call = api.getLoad_Rx(0,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code,manager_code,mpo_code);
@@ -600,5 +552,4 @@ public class ImageLoadActivity extends AppCompatActivity {
             }
         });
     }
-    //=========================================
 }

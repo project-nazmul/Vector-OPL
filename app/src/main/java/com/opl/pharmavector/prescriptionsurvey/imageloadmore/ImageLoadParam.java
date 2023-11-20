@@ -1,8 +1,5 @@
 package com.opl.pharmavector.prescriptionsurvey.imageloadmore;
 
-//ImageLoadParam 
-
-
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.annotation.SuppressLint;
@@ -78,20 +75,20 @@ public class ImageLoadParam extends AppCompatActivity {
     ApiInterface api;
     String TAG = "ImageLoadParam - ";
     Context context;
-    private TextView fromdate,todate,user_show1;
+    private TextView fromdate, todate, user_show1;
     private Button fab,btn_back;
-    private AutoCompleteTextView actv,mpo_actv ;
+    private AutoCompleteTextView actv, mpo_actv ;
     private ArrayList<Customer> customerlist;
     private ArrayList<Customer> mpoList;
 
-    private Spinner cust,mpo;
+    private Spinner cust, mpo;
 
-    private String product_name,product_code,user_code,actv_mpo_actv_split,mpo_code,emp_name;
-    Calendar c_todate,c_fromdate;
-    SimpleDateFormat dftodate,dffromdate;
-    public Calendar myCalendar,myCalendar1;
-    public DatePickerDialog.OnDateSetListener date_form,date_to;
-    public String manager_code,manager_detail,manager_flag;
+    private String product_name, product_code, user_code, actv_mpo_actv_split, mpo_code, emp_name;
+    Calendar c_todate, c_fromdate;
+    SimpleDateFormat dftodate, dffromdate;
+    public Calendar myCalendar, myCalendar1;
+    public DatePickerDialog.OnDateSetListener date_form, date_to;
+    public String manager_code, manager_detail, manager_flag;
     private String URL_LIST = BASE_URL+"prescription_survey/get_mpoList.php";
     private String URL_CUSOTMER = BASE_URL+"prescription_survey/get_brand.php";
 
@@ -117,7 +114,6 @@ public class ImageLoadParam extends AppCompatActivity {
                         loadMore(index);
                     }
                 });
-
             }
         });
         recyclerView.setHasFixedSize(true);
@@ -127,26 +123,23 @@ public class ImageLoadParam extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         api = ApiClient.getApiClient().create(ApiInterface.class);
     }
-    private void buttonEvent() {
 
+    private void buttonEvent() {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
-
                 backthred.start();
             }
         });
     }
-    private void initView() {
 
+    private void initView() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         fab = findViewById(R.id.fab);
         btn_back = findViewById(R.id.back);
@@ -190,17 +183,16 @@ public class ImageLoadParam extends AppCompatActivity {
         api = ApiClient.getApiClient().create(ApiInterface.class);
         //setUpAdapter();
         //load(0);
-
     }
+
     private void load(int index){
-
-
         ProgressDialog ppDialog = new ProgressDialog(  ImageLoadParam.this);
         ppDialog.setMessage("Loading Products ...");
         ppDialog.setCancelable(true);
         ppDialog.show();
         Call<List<MovieModel>> call = api.loadmpoimage(index,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code,pres_type,mpo_code,report_type,pres_sub_type);
+
         call.enqueue(new Callback<List<MovieModel>>() {
             @Override
             public void onResponse(Call<List<MovieModel>> call, Response<List<MovieModel>> response) {
@@ -218,13 +210,13 @@ public class ImageLoadParam extends AppCompatActivity {
             }
         });
     }
-    private void loadMore(int index){
 
+    private void loadMore(int index){
         movies.add(new MovieModel("load"));
         adapter.notifyItemInserted(movies.size()-1);
-
         Call<List<MovieModel>> call = api.loadmpoimage(index,fromdate.getText().toString().trim(),
                 todate.getText().toString().trim(),product_code, pres_type,mpo_code,report_type,pres_sub_type);
+
         call.enqueue(new Callback<List<MovieModel>>() {
             @Override
             public void onResponse(Call<List<MovieModel>> call, Response<List<MovieModel>> response) {
@@ -232,18 +224,19 @@ public class ImageLoadParam extends AppCompatActivity {
                     //remove loading view
                     movies.remove(movies.size()-1);
                     List<MovieModel> result = response.body();
-                    if(result.size()>0){
+
+                    if (result.size() > 0) {
                         //add loaded data
                         movies.addAll(result);
-                    }else{//result size 0 means there is no more data available at server
+                    } else {//result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
                         //telling adapter to stop calling load more as no more server data available
-                        Toast.makeText(context,"No More Data Available",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"No More Data Available", Toast.LENGTH_LONG).show();
                         adapter.loadDestroy();
                     }
                     adapter.notifyDataChanged();
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status
-                }else{
+                } else {
                     adapter.loadDestroy();
                     loadMore(index+2);
                 }
@@ -256,21 +249,22 @@ public class ImageLoadParam extends AppCompatActivity {
             }
         });
     }
+
     private void hideKeyBoard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(PrescroptionImageSearch.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
-    //===========================================
     private void load_rx() {
         //Log.e("Retrived--->", from_date+"--"+to_date+"--"+product_code+"--"+"manager_code"+"--"+mpo_code);
         Call<ArrayList<rx_model>> call = api.getLoad_Rx(0,from_date,to_date,product_code,mpo_code,mpo_code);
+
         call.enqueue(new Callback<ArrayList<rx_model>>() {
             @Override
             public void onResponse(Call<ArrayList<rx_model>> call, Response<ArrayList<rx_model>> response) {
-
                 if (response.isSuccessful()) {
                     recyclerDataArrayList = response.body();
+
                     for (int i = 0; i < recyclerDataArrayList.size(); i++) {
                         recyclerViewAdapter = new RX_RecycleViewAdapter(ImageLoadParam.this,recyclerDataArrayList);
                         LinearLayoutManager manager = new LinearLayoutManager(ImageLoadParam.this, LinearLayoutManager.VERTICAL, true);
@@ -278,15 +272,14 @@ public class ImageLoadParam extends AppCompatActivity {
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
                 }
-
             }
+
             @Override
             public void onFailure(Call<ArrayList<rx_model>> call, Throwable t) {
-                Log.e("Authentication", "Failed to Retrived Data For-- "+ t);
-                Toast toast =Toast.makeText(getBaseContext(),"Failed to Retrived Data ",Toast.LENGTH_SHORT);
+                Log.e("Authentication", "Failed to Retried Data For -- "+ t);
+                Toast toast =Toast.makeText(getBaseContext(),"Failed to Retried Data!",Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
     }
-    //=========================================
 }

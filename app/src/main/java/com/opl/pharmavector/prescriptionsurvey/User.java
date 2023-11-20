@@ -2,14 +2,9 @@ package com.opl.pharmavector.prescriptionsurvey;
 
 import com.bumptech.glide.util.Util;
 
-/**
- * Model class.
- */
 public class User {
     private String name;
     private String lastName;
-
-
 
     public User(String name, String lastName) {
         this.name = name;
@@ -34,6 +29,6 @@ public class User {
 
     @Override
     public String toString() {
-        return  name  ;
+        return  name;
     }
 }

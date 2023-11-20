@@ -1,6 +1,4 @@
 package com.opl.pharmavector.prescriptionsurvey;
-//rx_search_row
-
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.CustomViewHolder> {
-
     private List<UserModel> imageModelsList;
     private Context mContext;
     private Activity act;
@@ -52,30 +49,22 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, final int position) {
-
         final UserModel get = imageModelsList.get(position);
-
         holder.name.setText(get.getName());
         final String image = get.getImage();
 
         RequestOptions options = new RequestOptions();
-        Glide
-                .with(this.mContext)
+        Glide.with(this.mContext)
                 .load(image)
                 .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(10)))
                 .into(holder.image);
-
         holder.name.setText(get.getName());
-
     }
-
 
     @Override
     public int getItemCount() {
-
         return (null != imageModelsList ? imageModelsList.size() : 0);
     }
-
 
     @Override
     public long getItemId(int position) {
@@ -88,7 +77,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.Custom
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
-
         ImageView image;
         TextView name;
 

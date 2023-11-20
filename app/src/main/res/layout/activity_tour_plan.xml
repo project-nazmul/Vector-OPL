@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_8sdp"
+    tools:context=".tourPlan.TourPlanActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="Tour Plan Entry"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@color/darkblue"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:ems="8"
+        android:enabled="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:selectAllOnFocus="true"
+        android:text="Start Time"
+        android:textSize="@dimen/_10sdp"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:ems="8"
+        android:enabled="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:selectAllOnFocus="true"
+        android:text="End Time"
+        android:textSize="@dimen/_10sdp"
+        tools:ignore="RtlSymmetry" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/tourNature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Tour Nature"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/tourMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Tour Mode"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/tourClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Tour Class"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/tourMorning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Location (Mor)"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/tourEvening"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Location (Eve)"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
+
+    <TextView
+        android:id="@+id/tourRemark"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/_4sdp"
+        android:background="@android:drawable/editbox_background"
+        android:ems="8"
+        android:enabled="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:inputType="textMultiLine"
+        android:paddingStart="10dp"
+        android:selectAllOnFocus="true"
+        android:text="Remarks"
+        android:textSize="@dimen/_10sdp"
+        tools:ignore="RtlSymmetry" />
+</LinearLayout>

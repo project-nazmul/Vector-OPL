@@ -67,6 +67,7 @@ import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
+import com.opl.pharmavector.tourPlan.TourPlanActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -137,7 +138,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     Typeface fontFamily;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn, practiceCard7,
             practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact,
-            cardview_ff_contact;
+            cardview_ff_contact, cardView_tourPlan, cardView_productStock;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_notification, img_btn_rx, img_btn_pc,
             img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
@@ -211,8 +212,10 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         prescriptionentry();
         pmdContact();
         doctorListInfo();
+        productStockEvent();
         topPrescriberEvent();
         achievementEarnEvent();
+        monthlyTourPlanEvent();
 
         PackageManager pm = getApplicationContext().getPackageManager();
         String pkgName = getApplicationContext().getPackageName();
@@ -258,7 +261,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
             checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this, R.style.Theme_Design_BottomSheetDialog);
             builder.setTitle("App Require Location").setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running")
                     .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
@@ -285,7 +287,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             Intent logoutIntent = new Intent(GMDashboard1.this, Login.class);
                             startActivity(logoutIntent);
                             finish();
-
                         }
                     })
                     .show();
@@ -428,6 +429,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         } else {
             return PendingIntent.getBroadcast(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
+    }
+
+    private void monthlyTourPlanEvent() {
+        cardView_tourPlan.setOnClickListener(v -> showBottomSheetDialog_Tour());
+    }
+
+    private void productStockEvent() {
+        cardView_productStock.setOnClickListener(v -> showBottomSheetDialog_ProdStock());
     }
 
     @SuppressLint("SetTextI18n")
@@ -611,6 +620,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         img_btn_msd = findViewById(R.id.img_btn_msd);
         tv_msd = findViewById(R.id.tv_msd);
         cardview_msd = findViewById(R.id.cardview_msd);
+        cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
+        cardView_productStock = findViewById(R.id.cardView_productStock);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
         img_btn_mastercode = findViewById(R.id.img_btn_mastercode);
@@ -674,6 +685,149 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             versionname.setText(currentVersion);
         }
         lock_emp_check(globalempCode);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showBottomSheetDialog_Tour() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        CardView cardView_tourPlan = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
+        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("16.1");
+        Objects.requireNonNull(button2).setText("16.2");
+        Objects.requireNonNull(button3).setText("16.3");
+        Objects.requireNonNull(textView4).setText("Tour\nPlan Entry");
+        Objects.requireNonNull(textView5).setText("SPI \nReport");
+        Objects.requireNonNull(textView6).setText("Doctor \nReach");
+        Objects.requireNonNull(changePassword).setText("Monthly Tour Plan");
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.show();
+
+        Objects.requireNonNull(cardView_tourPlan).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, TourPlanActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, MRDPresReport.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DoctorReachActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showBottomSheetDialog_ProdStock() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("17.1");
+        Objects.requireNonNull(button2).setText("17.2");
+        Objects.requireNonNull(button3).setText("17.3");
+        Objects.requireNonNull(textView4).setText("ADS - Available\nDepot Stock");
+        Objects.requireNonNull(textView5).setText("Daily\nLive Stock");
+        Objects.requireNonNull(textView6).setText("Doctor \nReach");
+        Objects.requireNonNull(changePassword).setText("Product Stock");
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.show();
+
+        Objects.requireNonNull(cardView_adsStock).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, TourPlanActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_dailyStock).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, MRDPresReport.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DoctorReachActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
     }
 
     private void dcrfollowup() {
