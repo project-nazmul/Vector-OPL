@@ -327,7 +327,6 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
-
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
@@ -356,22 +355,20 @@ public class SMWiseProductSale extends Activity implements OnClickListener, Adap
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-            String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("id", userName));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DCR, ServiceHandler.POST, params);
 
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -133,7 +133,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Transit"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/green1"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
@@ -149,7 +149,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="FGS"
-                    android:textColor="@color/green1"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
@@ -165,7 +165,7 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="Current\nTarget"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/green1"
                     android:textSize="@dimen/_8sdp" />
 
                 <View
@@ -322,7 +322,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Sale"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/gallan"
                     android:textSize="@dimen/_8sdp" />
             </LinearLayout>
 

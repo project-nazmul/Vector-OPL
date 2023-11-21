@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/_4sdp">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoProductList"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0sp"
+                android:layout_marginRight="0sp"
+                android:layout_marginBottom="0sp"
+                android:layout_weight="2"
+                android:background="@android:drawable/editbox_background"
+                android:drawableStart="@drawable/ic_medicine"
+                android:ems="0"
+                android:hint="Select Product"
+                android:imeOptions="flagNoExtractUi"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:textAlignment="center"
+                android:textSize="@dimen/_10sdp" />
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="show"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="&lt;"
+                android:textColor="#FFF"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:visibility="gone"
+        android:paddingEnd="@dimen/_32sdp"
+        android:paddingStart="@dimen/_32sdp"
+        android:background="@drawable/dcr_border"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:gravity="center_horizontal"
+        android:padding="4dp"
+        android:text="Segment 1"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+        android:textColor="@color/darkblue"
+        android:textSize="@dimen/_8sdp"
+        android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_16sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pack_size"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:background="@drawable/dcr_border"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:text="Pack Size: "
+                android:textColor="@color/gallan"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/product_code"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:background="@drawable/dcr_border"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Prod Code: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        android:background="@drawable/dcr_border"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"
+            android:background="@drawable/dcr_border"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Free Stock"
+                android:textColor="@color/gallan"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Depot Stock"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="CS Stock"
+                android:textColor="@color/deeppurple"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="BSL Transit"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="FGS"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="1dp"
+            android:id="@+id/recyclerAdsFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/dcr_border"
+        android:paddingEnd="@dimen/_32sdp"
+        android:paddingStart="@dimen/_32sdp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:gravity="center_horizontal"
+        android:padding="4dp"
+        android:text="Segment 2"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+        android:textColor="@color/darkblue"
+        android:textSize="@dimen/_8sdp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/dcr_border"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"
+            android:background="@drawable/dcr_border"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Current\nTarget"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Cur Mon\nSale"
+                android:textColor="@color/orangered"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/prevMonth1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Sale 1"
+                android:textColor="@color/base"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/prevMonth2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Sale 2"
+                android:textColor="@color/deeppurple"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/prevMonth3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Sale 3"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:id="@+id/averageSale"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="Avg 3 Mon"
+                android:textColor="@color/gallan"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="1dp"
+            android:id="@+id/recyclerAdsSecond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/dcr_border"
+        android:paddingEnd="@dimen/_32sdp"
+        android:paddingStart="@dimen/_32sdp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:gravity="center_horizontal"
+        android:padding="4dp"
+        android:text="Segment 3"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+        android:textColor="@color/darkblue"
+        android:textSize="@dimen/_8sdp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/dcr_border"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_24sdp"
+            android:background="@drawable/dcr_border"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Depot"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Stock"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="CS\nTrans"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Depot\nTrans"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Total"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#424242" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Sale"
+                android:textColor="@color/gallan"
+                android:textSize="@dimen/_8sdp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="1dp"
+            android:id="@+id/recyclerAdsDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_24sdp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="#F8ECEC"
+            app:cardCornerRadius="0dp"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="6">
+
+                <TextView
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Total"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/totalStock"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/totalCsTrans"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/totalDepotTrans"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/darkblue"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/totalValue"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/green1"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/totalSale"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/gallan"
+                    android:textSize="@dimen/_8sdp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

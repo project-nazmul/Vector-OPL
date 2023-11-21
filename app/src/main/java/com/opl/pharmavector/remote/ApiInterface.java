@@ -426,8 +426,18 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("ads/ads_product_stock_pmd.php")
+    Call<AdsStockInfoModel> getAdsStockPMDLists(@Field("id") String user_code, @Field("p_code") String p_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("get_product_followup.php")
+    Call<AdsStockInfoModel> getAdsStockProductList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("ads/ads_product_depot_stock_detail.php")
-    Call<AdsStockDetailModel> getAdsStockDetailLists(@Field("p_code") String p_code);
+    Call<AdsStockDetailModel> getAdsStockDetailLists(@Field("id") String user_code, @Field("p_code") String p_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

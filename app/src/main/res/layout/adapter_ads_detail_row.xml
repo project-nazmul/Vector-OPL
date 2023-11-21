@@ -82,7 +82,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="Sale"
-                android:textColor="@color/blue"
+                android:textColor="@color/gallan"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

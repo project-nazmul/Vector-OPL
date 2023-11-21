@@ -92,7 +92,7 @@ public class ADSStockInfoActivity extends Activity implements AdsStockInfoAdapte
     }
 
     public void setUpRecyclerView() {
-        adsStockAdapter = new AdsStockInfoAdapter(adsStocksLists, ADSStockInfoActivity.this);
+        adsStockAdapter = new AdsStockInfoAdapter(adsStocksLists, ADSStockInfoActivity.this, 0, 0);
         LinearLayoutManager manager = new LinearLayoutManager(ADSStockInfoActivity.this);
         recyclerAdsStock.setLayoutManager(manager);
         recyclerAdsStock.setAdapter(adsStockAdapter);
@@ -186,7 +186,7 @@ public class ADSStockInfoActivity extends Activity implements AdsStockInfoAdapte
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AdsStockDetailModel> call = apiInterface.getAdsStockDetailLists(p_code);
+        Call<AdsStockDetailModel> call = apiInterface.getAdsStockDetailLists(userCode, p_code);
         adsStockDetailLists.clear();
 
         call.enqueue(new Callback<AdsStockDetailModel>() {

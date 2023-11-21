@@ -49,6 +49,7 @@ import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedbackMaster;
+import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -765,8 +766,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
         CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
-        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
-        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        CardView cardView_adsPmd = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_adsPmd).setVisibility(View.GONE);
         TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -778,9 +779,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         Objects.requireNonNull(button1).setText("17.1");
         Objects.requireNonNull(button2).setText("17.2");
         Objects.requireNonNull(button3).setText("17.3");
-        Objects.requireNonNull(textView4).setText("ADS - Available\nDepot Stock");
+        Objects.requireNonNull(textView4).setText("ADS - PMD");
         Objects.requireNonNull(textView5).setText("Daily\nLive Stock");
-        Objects.requireNonNull(textView6).setText("Doctor \nReach");
+        Objects.requireNonNull(textView6).setText("ADS - Available\nDepot Stock");
         Objects.requireNonNull(changePassword).setText("Product Stock");
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -788,12 +789,19 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         bottomSheetDialog.show();
 
         Objects.requireNonNull(cardView_adsStock).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, TourPlanActivity.class);
+            Intent i = new Intent(GMDashboard1.this, ADSStockPMDActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", globalempCode);
             i.putExtra("new_version", Login.version);
             i.putExtra("message_3", message_3);
             i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
             startActivity(i);
         });
         Objects.requireNonNull(cardView_dailyStock).setOnClickListener(v -> {
@@ -812,8 +820,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("mpo_flag", "N");
             startActivity(i);
         });
-        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, DoctorReachActivity.class);
+        Objects.requireNonNull(cardView_adsPmd).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, ADSStockPMDActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", globalempCode);
             i.putExtra("new_version", Login.version);

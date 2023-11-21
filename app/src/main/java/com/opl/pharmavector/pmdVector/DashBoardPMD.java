@@ -61,7 +61,11 @@ import com.opl.pharmavector.NoticeBoard;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
+import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
+import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.pmdVector.pmdRX.ImageLoadActivity;
 import com.opl.pharmavector.pmdVector.pmdRX.PMDRXSummary;
@@ -74,6 +78,7 @@ import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
 import com.opl.pharmavector.service.MyLocationService;
+import com.opl.pharmavector.tourPlan.TourPlanActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -97,7 +102,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
-    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn;
+    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock;
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
     TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
@@ -143,6 +148,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         FF_Contact_Event();
         Sales_4p_Event();
         achieveEarnEvent();
+        productStockEvent();
         instance = this;
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -462,6 +468,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         tv_ff_contact = findViewById(R.id.tv_ff_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
+        cardView_productStock = findViewById(R.id.cardView_productStock);
 
         b = getIntent().getExtras();
         assert b != null;
@@ -492,6 +499,57 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         });
     }
 
+    private void productStockEvent() {
+        //cardView_productStock.setOnClickListener(v -> showBottomSheetDialog_ProdStock());
+        cardView_productStock.setOnClickListener(v -> {
+            Intent i = new Intent(DashBoardPMD.this, ADSStockPMDActivity.class);
+            i.putExtra("UserName", pmd_name);
+            i.putExtra("UserCode", pmd_code);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("UserRole", "PMD");
+            startActivity(i);
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showBottomSheetDialog_ProdStock() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        Objects.requireNonNull(cardView_dailyStock).setVisibility(View.GONE);
+        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("7.1");
+        Objects.requireNonNull(button2).setText("17.2");
+        Objects.requireNonNull(button3).setText("17.3");
+        Objects.requireNonNull(textView4).setText("ADS - Available\nDepot Stock");
+        Objects.requireNonNull(textView5).setText("Daily\nLive Stock");
+        Objects.requireNonNull(textView6).setText("Doctor \nReach");
+        Objects.requireNonNull(changePassword).setText("Product Stock");
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.show();
+
+        Objects.requireNonNull(cardView_adsStock).setOnClickListener(v -> {
+            Intent i = new Intent(DashBoardPMD.this, ADSStockPMDActivity.class);
+            i.putExtra("UserName", pmd_name);
+            i.putExtra("UserCode", pmd_code);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("UserRole", "PMD");
+            startActivity(i);
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_RX() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -500,7 +558,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         CardView cardview_rx_summary_A = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
-
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
         Objects.requireNonNull(changepassword).setText("Prescription Capture");
@@ -624,6 +681,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, String.valueOf(fetchedlat), String.valueOf(fetchedlang),
                 build_model, build_brand, pmd_loccode, track_add);
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -705,7 +763,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         updateLocation();
         super.onPause();
-
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(pmd_loccode);
         preferenceManager.setpassword(pmd_locpass);
@@ -744,8 +801,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Check Internet connection", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Check Internet connection", Toast.LENGTH_LONG).show();
                             } else {
                                 Intent i = new Intent(DashBoardPMD.this, Pmd_Sales_Dashboard.class);
                                 i.putExtra("UserName", pmd_name);
@@ -768,7 +824,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                     public void run() {
                         try {
                             if (!NetInfo.isOnline(getBaseContext())) {
-
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
                                 Toast.makeText(getApplicationContext(), "Check Internet connection", Toast.LENGTH_LONG).show();
