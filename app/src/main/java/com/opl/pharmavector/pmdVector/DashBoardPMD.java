@@ -61,6 +61,7 @@ import com.opl.pharmavector.NoticeBoard;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
 import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
@@ -102,7 +103,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
     public ImageView imageView2;
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
-    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock;
+    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock, cardview_pmd_contact;
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
     TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
@@ -143,6 +144,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         firebaseEvent();
         getDevicedetails();
         rxEvent();
+        pmdContact();
         notificationEvent();
         sales_reports();
         FF_Contact_Event();
@@ -204,6 +206,18 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         });
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
+    }
+
+    private void pmdContact() {
+        cardview_pmd_contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(DashBoardPMD.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", pmd_name);
+                i.putExtra("UserName_2", pmd_code);
+                startActivity(i);
+            }
+        });
     }
 
     private void rxEvent() {
@@ -468,6 +482,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         tv_ff_contact = findViewById(R.id.tv_ff_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
+        cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardView_productStock = findViewById(R.id.cardView_productStock);
 
         b = getIntent().getExtras();

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
 
@@ -17,283 +17,266 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/serial_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_weight="0.5"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/serial"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="REGION"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:id="@+id/qnty_31"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="NO OF DOC CALL"
+                android:textAlignment="gravity"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:id="@+id/value_doctor"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="DOC CALL LAST DAY"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:id="@+id/value_51"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="NO CHEM"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:id="@+id/value_41"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra1"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/serial_1"
-            android:layout_gravity="start"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.5"
-            android:text="@string/serial"
-            android:clickable="false"
-            android:focusable="false"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/colorAccent" />
+            <TextView
+                android:id="@+id/value_61"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra3"
+                android:textAlignment="gravity"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:layout_gravity="start"
-            android:textAlignment="gravity"
-            android:text="REGION"
-            android:textSize="@dimen/_8sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:textColor="@color/blue"
-            android:clickable="false"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            />
+            <TextView
+                android:paddingStart="@dimen/_3sdp"
+                android:id="@+id/value_71"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/qnty_31"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:textSize="@dimen/_8sdp"
-            android:layout_marginStart="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="NO OF DOC CALL"
-            android:descendantFocusability="blocksDescendants"
-            android:textColor="@color/green1"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:focusable="false"
-            android:layout_marginLeft="0dp" />
+            <TextView
+                android:paddingStart="@dimen/_4sdp"
+                android:id="@+id/value_81"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="SAMPLE ALLOCATE"
+                android:textAlignment="gravity"
+                android:textColor="@color/orangered"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/value_doctor"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="DOC CALL LAST DAY"
-            android:textSize="@dimen/_8sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:textColor="@android:color/holo_red_dark"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:focusable="false" />
+            <TextView
+                android:paddingStart="@dimen/_3sdp"
+                android:id="@+id/value_91"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="SAMPLE GIVEN"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:paddingStart="@dimen/_3sdp"
+                android:id="@+id/value_101"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/value_51"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="NO CHEM"
-            android:textSize="@dimen/_8sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:textColor="@color/blue"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:focusable="false" />
+            <TextView
+                android:paddingStart="@dimen/_3sdp"
+                android:id="@+id/value_111"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_8sdp" />
 
+            <TextView
+                android:paddingStart="@dimen/_5sdp"
+                android:id="@+id/value_121"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@color/deeppurple"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/value_41"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:textAlignment="gravity"
-            android:layout_marginTop="0dp"
-            android:layout_gravity="center"
-            android:text="extra1"
-            android:textSize="@dimen/_8sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:textColor="@android:color/holo_red_dark"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:focusable="false" />
+            <TextView
+                android:paddingStart="@dimen/_5sdp"
+                android:id="@+id/value_131"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/_8sdp" />
 
-        <TextView
-            android:id="@+id/value_61"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra3"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/blue"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:descendantFocusability="blocksDescendants"
-            android:focusable="false" />
-        <TextView
-            android:id="@+id/value_71"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra2"
-            android:textSize="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:textColor="@android:color/holo_red_dark"
-            android:focusable="false" />
-
-
-        <TextView
-            android:id="@+id/value_81"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="SAMPLE ALLOCATE"
-            android:textSize="@dimen/_8sdp"
-            android:textColor="@color/orangered"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:focusable="false" />
-
-
-        <TextView
-            android:id="@+id/value_91"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="SAMPLE GIVEN"
-            android:textSize="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:textColor="@android:color/holo_blue_dark"
-            android:focusable="false" />
-
-
-
-        <TextView
-            android:id="@+id/value_101"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra2"
-            android:textSize="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:textColor="@color/colorAccent"
-            android:focusable="false" />
-
-
-
-        <TextView
-            android:id="@+id/value_111"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra2"
-            android:textSize="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:textColor="@android:color/holo_blue_dark"
-            android:focusable="false" />
-
-
-
-        <TextView
-            android:id="@+id/value_121"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra2"
-            android:textSize="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:textColor="@color/deeppurple"
-            android:focusable="false" />
-
-
-        <TextView
-            android:id="@+id/value_131"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_gravity="start"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:focusable="false"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:text="extra2"
-            android:textAlignment="gravity"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/_8sdp" />
-
-        <TextView
-            android:id="@+id/value_14"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:descendantFocusability="blocksDescendants"
-            android:layout_marginTop="0dp"
-            android:textAlignment="gravity"
-            android:layout_gravity="start"
-            android:text="extra2"
-            android:textSize="@dimen/_8sdp"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp"
-            android:visibility="gone"
-            android:textColor="@color/green1"
-            android:focusable="false" />
-
-
-    </LinearLayout>
-
-
+            <TextView
+                android:id="@+id/value_14"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="start"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:clickable="false"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="extra2"
+                android:textAlignment="gravity"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_8sdp"
+                android:visibility="gone" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
-
 </LinearLayout>
 

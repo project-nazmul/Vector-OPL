@@ -50,6 +50,7 @@ import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedbackMaster;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -790,7 +791,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
 
         Objects.requireNonNull(cardView_adsStock).setOnClickListener(v -> {
             Intent i = new Intent(GMDashboard1.this, ADSStockPMDActivity.class);
-            i.putExtra("UserName", globalempName);
+            i.putExtra("UserName", global_admin_Code);
             i.putExtra("UserCode", globalempCode);
             i.putExtra("new_version", Login.version);
             i.putExtra("message_3", message_3);
@@ -805,19 +806,13 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             startActivity(i);
         });
         Objects.requireNonNull(cardView_dailyStock).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, MRDPresReport.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", globalempCode);
-            i.putExtra("new_version", Login.version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "AD");
-            i.putExtra("report_flag", "SPI");
+            Intent i = new Intent(GMDashboard1.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", global_admin_Code);
+            i.putExtra("userCode", globalempCode);
+            i.putExtra("userRole", "AD");
+            i.putExtra("gm_flag", "Y");
             i.putExtra("asm_flag", "N");
             i.putExtra("sm_flag", "N");
-            i.putExtra("gm_flag", "Y");
-            i.putExtra("rm_flag", "N");
-            i.putExtra("fm_flag", "N");
-            i.putExtra("mpo_flag", "N");
             startActivity(i);
         });
         Objects.requireNonNull(cardView_adsPmd).setOnClickListener(v -> {

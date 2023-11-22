@@ -116,7 +116,6 @@
                 android:weightSum="8">
 
                 <TextView
-                    android:id="@+id/hserial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -142,24 +141,25 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:gravity="center"
                     android:paddingTop="@dimen/_4sdp"
                     android:paddingBottom="@dimen/_4sdp"
-                    android:text="Product\nName"
+                    android:text="Product Name"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:paddingEnd="@dimen/_8sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|end"
                     android:paddingTop="@dimen/_4sdp"
                     android:paddingBottom="@dimen/_4sdp"
-                    android:text="Pack\nSize"
+                    android:text="Pack\nSize "
                     android:textColor="@color/green1"
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold" />
@@ -189,6 +189,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:paddingEnd="@dimen/_2sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

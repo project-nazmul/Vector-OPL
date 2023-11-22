@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.lang.Runnable;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,7 +67,8 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     String current_todate, current_fromdate, toDate, fromDate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
-    TextView tvfromdate, tvtodate, title;
+    TextView tvfromdate, tvtodate, title, doc_call_total, doc_call_last_Day, chem_call_total, chem_call_last_Day, no_of_order, last_day_order,
+            sample_allocate, sample_given, ppm_allocate, ppm_given, gift_allocate, gift_given;
     public String userName_1, userName, UserName_2, active_string, act_desiredString, rm_code, user, am_code, sm_flag, sm_code, admin_flag;
     public String from_date, to_date;
     JSONParser jsonParser;
@@ -120,6 +122,18 @@ public class FMfollowupreport extends Activity implements OnClickListener {
         PROD_RATE = new ArrayList<String>();
         categoriesList = new ArrayList<Category3>();
         categoriesList2 = new ArrayList<Category6>();
+        doc_call_total = findViewById(R.id.doc_call_total);
+        doc_call_last_Day = findViewById(R.id.doc_call_last_Day);
+        chem_call_total = findViewById(R.id.chem_call_total);
+        chem_call_last_Day = findViewById(R.id.chem_call_last_Day);
+        no_of_order = findViewById(R.id.no_of_order);
+        last_day_order = findViewById(R.id.last_day_order);
+        sample_allocate = findViewById(R.id.sample_allocate);
+        sample_given = findViewById(R.id.sample_given);
+        ppm_allocate = findViewById(R.id.ppm_allocate);
+        ppm_given = findViewById(R.id.ppm_given);
+        gift_allocate = findViewById(R.id.gift_allocate);
+        gift_given = findViewById(R.id.gift_given);
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
@@ -260,7 +274,6 @@ public class FMfollowupreport extends Activity implements OnClickListener {
     class Spinner {
         private String TotalQ;
         private String TotalV;
-
         private void populateSpinner() {
             ArrayList<String> sl = new ArrayList<String>();
             ArrayList<String> lables = new ArrayList<String>();
@@ -274,20 +287,15 @@ public class FMfollowupreport extends Activity implements OnClickListener {
             ArrayList<String> value9 = new ArrayList<String>();
             ArrayList<String> value10 = new ArrayList<String>();
             ArrayList<String> value11 = new ArrayList<String>();
-
-
             ArrayList<String> value12 = new ArrayList<String>();
             ArrayList<String> value13 = new ArrayList<String>();
             ArrayList<String> value14 = new ArrayList<String>();
             ArrayList<String> value15 = new ArrayList<String>();
             ArrayList<String> value16 = new ArrayList<String>();
-
-
             ArrayList<String> value17 = new ArrayList<String>();
             ArrayList<String> value18 = new ArrayList<String>();
             ArrayList<String> value19 = new ArrayList<String>();
             ArrayList<String> value20 = new ArrayList<String>();
-
 
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
@@ -295,93 +303,52 @@ public class FMfollowupreport extends Activity implements OnClickListener {
                     prod_vat_14, prod_vat_15,
                     sellvalue_2, sellvalue_3;
 
-
             for (int i = 0; i < categoriesList2.size(); i++) {
                 Log.i("OPSONIN", " P_ID " + categoriesList2.get(i).getId());
                 Log.i("OPSONIN--", " P_ID " + categoriesList2.get(i).getsl());
 
                 sl.add(categoriesList2.get(i).getsl());
-
                 lables.add(categoriesList2.get(i).getName());
-
                 p_ids.add(categoriesList2.get(i).getId());
-
                 quanty.add(categoriesList2.get(i).getQuantity());
-
-
                 prod_rate_1 = categoriesList2.get(i).getPROD_RATE();
                 value.add(prod_rate_1);
-
-
                 prod_vat_1 = categoriesList2.get(i).getPROD_VAT();
                 value4.add(prod_vat_1);
-
-
                 prod_vat_2 = categoriesList2.get(i).getPROD_VAT_2();
                 value5.add(prod_vat_2);
-
-
                 prod_vat_3 = categoriesList2.get(i).getPROD_VAT_3();
                 value6.add(prod_vat_3);
-
-
                 prod_vat_4 = categoriesList2.get(i).getPROD_VAT_4();
                 value7.add(prod_vat_4);
-
-
                 prod_vat_5 = categoriesList2.get(i).getPROD_VAT_5();
                 value8.add(prod_vat_5);
-
-
                 prod_vat_6 = categoriesList2.get(i).getPROD_VAT_6();
                 value9.add(prod_vat_6);
-
-
                 prod_vat_7 = categoriesList2.get(i).getPROD_VAT_7();
                 value10.add(prod_vat_7);
-
-
                 prod_vat_8 = categoriesList2.get(i).getPROD_VAT_8();
                 value11.add(prod_vat_8);
-
-
                 prod_vat_9 = categoriesList2.get(i).getPROD_VAT_9();
                 value12.add(prod_vat_9);
-
-
                 prod_vat_10 = categoriesList2.get(i).getPROD_VAT_10();
                 value13.add(prod_vat_10);
                 Log.w("FOLLOWUPvalue14", prod_vat_10);
-
-
                 prod_vat_11 = categoriesList2.get(i).getPROD_VAT_11();
                 value14.add(prod_vat_11);
-
                 Log.w("FOLLOWUPvalue15", prod_vat_11);
-
                 prod_vat_12 = categoriesList2.get(i).getPROD_VAT_12();
                 value15.add(prod_vat_12);
                 Log.w("FOLLOWUPvalue16", prod_vat_12);
-
-
                 prod_vat_13 = categoriesList2.get(i).getPROD_VAT_13();
                 value16.add(prod_vat_13);
                 Log.w("FOLLOWUPvalue17", prod_vat_13);
-
-
             }
-
-            //  MpoDailyMonitorShowAdapter adapter = new MpoDailyMonitorShowAdapter(FMfollowupreport.this,sl,lables, quanty, value,value4,value5,value6,value7);
-
-            // RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,  sl,lables, quanty, value,value4,value5,value6,value7);
-
-            //  RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11);
-
-
-            //  RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
-            //       value14,value15);
-
-
+            //MpoDailyMonitorShowAdapter adapter = new MpoDailyMonitorShowAdapter(FMfollowupreport.this,sl,lables,quanty,value,value4,value5,value6,value7);
+            //RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,sl,lables,quanty,value,value4,value5,value6,value7);
+            //RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,sl,lables,quanty,value,value4,value5,value6,value7,value8,value9,value10,value11);
+            //RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this,sl,lables,quanty,value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
+            //value14,value15);
             RmDcrFollowupAdapter adapter = new RmDcrFollowupAdapter(FMfollowupreport.this, sl, lables, quanty, value, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13,
                     value14, value15, value16, value17);
             productListView.setAdapter(adapter);
@@ -430,6 +397,7 @@ public class FMfollowupreport extends Activity implements OnClickListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
 
@@ -439,7 +407,6 @@ public class FMfollowupreport extends Activity implements OnClickListener {
                                 catObj.getString("name"),
                                 catObj.getString("quantity"),
                                 catObj.getString("PROD_RATE"),
-
                                 catObj.getString("PROD_VAT"),
                                 catObj.getString("PROD_VAT_2"),
                                 catObj.getString("PROD_VAT_3"),
@@ -455,13 +422,44 @@ public class FMfollowupreport extends Activity implements OnClickListener {
                                 catObj.getString("PROD_VAT_13")
                         );
                         categoriesList2.add(cat3);
+
+                        int noOfDocCall = 0, docCallLastDay = 0, noOfChemCall = 0, chemCallLastDay = 0, noOfOrder = 0, lastDayOrder = 0, sampleAllocate = 0, sampleGiven = 0,
+                        ppmAllocate = 0, ppmGiven = 0, giftAllocate = 0, giftGiven = 0;
+
+                        for (int j=0; j<categoriesList2.size(); j++) {
+                            noOfDocCall += Integer.parseInt(categoriesList2.get(j).getQuantity());
+                            docCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_RATE());
+                            noOfChemCall += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_2());
+                            chemCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_VAT());
+                            noOfOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_3());
+                            lastDayOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_4());
+                            sampleAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_5());
+                            sampleGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_6());
+                            ppmAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_7());
+                            ppmGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_8());
+                            giftAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_9());
+                            giftGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_10());
+                        }
+                        DecimalFormat formatter = new DecimalFormat("#,##,###");
+                        doc_call_total.setText(String.valueOf(formatter.format(noOfDocCall)));
+                        doc_call_last_Day.setText(String.valueOf(formatter.format(docCallLastDay)));
+                        chem_call_total.setText(String.valueOf(formatter.format(noOfChemCall)));
+                        chem_call_last_Day.setText(String.valueOf(formatter.format(chemCallLastDay)));
+                        no_of_order.setText(String.valueOf(formatter.format(noOfOrder)));
+                        last_day_order.setText(String.valueOf(formatter.format(lastDayOrder)));
+                        sample_allocate.setText(String.valueOf(formatter.format(sampleAllocate)));
+                        sample_given.setText(String.valueOf(formatter.format(sampleGiven)));
+                        ppm_allocate.setText(String.valueOf(formatter.format(ppmAllocate)));
+                        ppm_given.setText(String.valueOf(formatter.format(ppmGiven)));
+                        gift_allocate.setText(String.valueOf(formatter.format(giftAllocate)));
+                        gift_given.setText(String.valueOf(formatter.format(giftGiven)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-                Toast.makeText(FMfollowupreport.this, "Nothing To Disply", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FMfollowupreport.this, "Nothing To Display", Toast.LENGTH_SHORT).show();
                 Toast.makeText(FMfollowupreport.this, "Please make a order first !", Toast.LENGTH_LONG).show();
             }
             return null;
@@ -475,25 +473,17 @@ public class FMfollowupreport extends Activity implements OnClickListener {
             FMfollowupreport.Spinner sp = new FMfollowupreport.Spinner();
             sp.populateSpinner();
             popSpinner();
-
-
         }
     }
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(FMfollowupreport.this, Report.class);
         startActivity(i);
         finish();
-
     }
-
 }

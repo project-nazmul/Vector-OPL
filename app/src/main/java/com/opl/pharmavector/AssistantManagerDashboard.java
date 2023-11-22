@@ -53,6 +53,8 @@ import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
 import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
+import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
@@ -1280,10 +1282,10 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-        Objects.requireNonNull(button1).setText("17.1");
-        Objects.requireNonNull(button2).setText("17.2");
-        Objects.requireNonNull(button3).setText("17.3");
-        Objects.requireNonNull(textView4).setText("ADS - Available\nDepot Stock");
+        Objects.requireNonNull(button1).setText("16.1");
+        Objects.requireNonNull(button2).setText("16.2");
+        Objects.requireNonNull(button3).setText("16.3");
+        Objects.requireNonNull(textView4).setText("ADS - PMD");
         Objects.requireNonNull(textView5).setText("Daily\nLive Stock");
         Objects.requireNonNull(textView6).setText("Doctor \nReach");
         Objects.requireNonNull(changePassword).setText("Product Stock");
@@ -1293,25 +1295,22 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         bottomSheetDialog.show();
 
         Objects.requireNonNull(cardView_adsStock).setOnClickListener(v -> {
-            Intent i = new Intent(AssistantManagerDashboard.this, TourPlanActivity.class);
+            Intent i = new Intent(AssistantManagerDashboard.this, ADSStockPMDActivity.class);
             i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", globalempCode);
+            i.putExtra("UserCode", globalASMCode);
             i.putExtra("new_version", Login.version);
             i.putExtra("message_3", message_3);
             i.putExtra("UserRole", "ASM");
             startActivity(i);
         });
         Objects.requireNonNull(cardView_dailyStock).setOnClickListener(v -> {
-            Intent i = new Intent(AssistantManagerDashboard.this, MRDPresReport.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", globalempCode);
-            i.putExtra("new_version", Login.version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "ASM");
-            i.putExtra("report_flag", "SPI");
-            i.putExtra("asm_flag", "N");
+            Intent i = new Intent(AssistantManagerDashboard.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", globalASMCode);
+            i.putExtra("userCode", globalempCode);
+            i.putExtra("userRole", "ASM");
+            i.putExtra("asm_flag", "Y");
             i.putExtra("sm_flag", "N");
-            i.putExtra("gm_flag", "Y");
+            i.putExtra("gm_flag", "N");
             i.putExtra("rm_flag", "N");
             i.putExtra("fm_flag", "N");
             i.putExtra("mpo_flag", "N");

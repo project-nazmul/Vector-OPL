@@ -50,6 +50,7 @@ import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.exam.ExamResultFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
+import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -138,7 +139,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
     public static String globalFMCode, globalmpoflag, globalAreaCode, globalfftype, ff_type, build_model, build_brand, os_version,
             build_manufac, build_id, build_device, build_version, password, globalempCode, globalempName, new_version, message_3, vector_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber, cardview_achv_earn,
-            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact,
+            cardview_doctor_list, cardView_productStock;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
@@ -1917,6 +1919,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         pmdContact();
         doctorListInfo();
         achieveEarnEvent();
+        productStockEvent();
         topPrescriberEvent();
         //autoLogout();
 
@@ -2143,6 +2146,22 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         });
     }
 
+    private void productStockEvent() {
+        cardView_productStock.setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, LiveDepotStockActivity.class);
+            i.putExtra("userName", globalFMCode);
+            i.putExtra("userCode", globalempCode);
+            i.putExtra("userRole", "RM");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "N");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "Y");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+    }
+
     private void achieveEarnEvent() {
         cardview_achv_earn.setOnClickListener(v -> {
             Intent i = new Intent(AmDashboard.this, AchieveEarnActivity.class);
@@ -2292,6 +2311,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
+        cardView_productStock = findViewById(R.id.cardView_productStock);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);

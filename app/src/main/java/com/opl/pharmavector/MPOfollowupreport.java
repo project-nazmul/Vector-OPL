@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.lang.Runnable;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,7 +59,8 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
     public String message, ord_no;
     TextView date2, ded, fromdate, todate;
     int textlength = 0;
-    public TextView totqty, totval, rname;
+    public TextView totqty, totval, rname, doc_call_total, doc_call_last_Day, chem_call_total, chem_call_last_Day, no_of_order, last_day_order,
+            sample_allocate, sample_given, ppm_allocate, ppm_given, gift_allocate, gift_given;
     //public android.widget.Spinner ordspin;
     public String userName_1, userName, active_string, act_desiredString, rm_code, am_code, mpo_code, user, sm_flag, sm_code, admin_flag;
     public String from_date,to_date;
@@ -130,6 +132,18 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
         dateextendlist = new ArrayList<>();
         mpodonedcr = new ArrayList<>();
         mporeqdcr = new ArrayList<>();
+        doc_call_total = findViewById(R.id.doc_call_total);
+        doc_call_last_Day = findViewById(R.id.doc_call_last_Day);
+        chem_call_total = findViewById(R.id.chem_call_total);
+        chem_call_last_Day = findViewById(R.id.chem_call_last_Day);
+        no_of_order = findViewById(R.id.no_of_order);
+        last_day_order = findViewById(R.id.last_day_order);
+        sample_allocate = findViewById(R.id.sample_allocate);
+        sample_given = findViewById(R.id.sample_given);
+        ppm_allocate = findViewById(R.id.ppm_allocate);
+        ppm_given = findViewById(R.id.ppm_given);
+        gift_allocate = findViewById(R.id.gift_allocate);
+        gift_given = findViewById(R.id.gift_given);
 
         submitBtn.setOnClickListener(v -> {
             new GetCategories().execute();
@@ -381,9 +395,11 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
 
             if (json != null) {
                 categoriesList2.clear();
+
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category6 cat3 = new Category6(
@@ -407,6 +423,37 @@ public class MPOfollowupreport extends Activity implements OnClickListener {
                                 catObj.getString("PROD_VAT_13")
                         );
                         categoriesList2.add(cat3);
+
+                        int noOfDocCall = 0, docCallLastDay = 0, noOfChemCall = 0, chemCallLastDay = 0, noOfOrder = 0, lastDayOrder = 0, sampleAllocate = 0, sampleGiven = 0,
+                                ppmAllocate = 0, ppmGiven = 0, giftAllocate = 0, giftGiven = 0;
+
+                        for (int j=0; j<categoriesList2.size(); j++) {
+                            noOfDocCall += Integer.parseInt(categoriesList2.get(j).getQuantity());
+                            docCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_RATE());
+                            noOfChemCall += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_2());
+                            chemCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_VAT());
+                            noOfOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_3());
+                            lastDayOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_4());
+                            sampleAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_5());
+                            sampleGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_6());
+                            ppmAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_7());
+                            ppmGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_8());
+                            giftAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_9());
+                            giftGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_10());
+                        }
+                        DecimalFormat formatter = new DecimalFormat("#,##,###");
+                        doc_call_total.setText(String.valueOf(formatter.format(noOfDocCall)));
+                        doc_call_last_Day.setText(String.valueOf(formatter.format(docCallLastDay)));
+                        chem_call_total.setText(String.valueOf(formatter.format(noOfChemCall)));
+                        chem_call_last_Day.setText(String.valueOf(formatter.format(chemCallLastDay)));
+                        no_of_order.setText(String.valueOf(formatter.format(noOfOrder)));
+                        last_day_order.setText(String.valueOf(formatter.format(lastDayOrder)));
+                        sample_allocate.setText(String.valueOf(formatter.format(sampleAllocate)));
+                        sample_given.setText(String.valueOf(formatter.format(sampleGiven)));
+                        ppm_allocate.setText(String.valueOf(formatter.format(ppmAllocate)));
+                        ppm_given.setText(String.valueOf(formatter.format(ppmGiven)));
+                        gift_allocate.setText(String.valueOf(formatter.format(giftAllocate)));
+                        gift_given.setText(String.valueOf(formatter.format(giftGiven)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

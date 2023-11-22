@@ -83,6 +83,7 @@ public class LiveDepotStockActivity extends Activity {
             KeyboardUtils.hideKeyboard(LiveDepotStockActivity.this);
             searchView.getText().clear();
         });
+        backBtn.setOnClickListener(v -> finish());
     }
 
     private void searchViewEvent() {

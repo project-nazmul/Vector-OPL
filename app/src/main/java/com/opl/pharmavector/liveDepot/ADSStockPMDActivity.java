@@ -27,6 +27,7 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+import com.opl.pharmavector.util.KeyboardUtils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -70,6 +71,8 @@ public class ADSStockPMDActivity extends Activity implements AdsStockInfoAdapter
         setUpRecyclerDetail();
         new loadADSStockProduct().execute();
         submitBtn.setOnClickListener(v -> {
+            KeyboardUtils.hideKeyboard(ADSStockPMDActivity.this);
+
             if (product_code != null) {
                 getAdsStockFirstLists();
                 getAdsStockSecondLists();
@@ -78,6 +81,7 @@ public class ADSStockPMDActivity extends Activity implements AdsStockInfoAdapter
                 @SuppressLint("ShowToast") Toast toast = Toast.makeText(getBaseContext(), "Please select product first!", Toast.LENGTH_SHORT);
             }
         });
+        backBtn.setOnClickListener(v -> finish());
     }
 
     @SuppressLint("ClickableViewAccessibility")

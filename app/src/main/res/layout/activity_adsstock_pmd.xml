@@ -100,11 +100,12 @@
         android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="-4dp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_16sdp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:gravity="center"
@@ -143,7 +144,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="Prod Code: "
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/green1"
                 android:textSize="@dimen/_8sdp"
                 android:textStyle="bold" />
             </LinearLayout>
@@ -529,7 +530,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="#F8ECEC"
+            app:cardBackgroundColor="#EAA9A9"
             app:cardCornerRadius="0dp"
             app:cardUseCompatPadding="false">
 
@@ -548,7 +549,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="Total"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
@@ -560,7 +561,7 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
@@ -576,6 +577,7 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
+                    android:paddingEnd="@dimen/_2sdp"
                     android:textStyle="bold"
                     android:id="@+id/totalDepotTrans"
                     android:layout_width="0dp"
@@ -588,6 +590,7 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
+                    android:paddingEnd="@dimen/_2sdp"
                     android:textStyle="bold"
                     android:id="@+id/totalValue"
                     android:layout_width="0dp"
@@ -600,6 +603,7 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
+                    android:paddingEnd="@dimen/_2sdp"
                     android:textStyle="bold"
                     android:id="@+id/totalSale"
                     android:layout_width="0dp"

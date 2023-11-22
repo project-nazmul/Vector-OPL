@@ -103,6 +103,7 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
+                android:paddingEnd="@dimen/_2sdp"
                 android:id="@+id/stock_value"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -110,7 +111,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
-                android:gravity="end"
+                android:gravity="end|center"
                 android:text="Value"
                 android:inputType="number"
                 android:textColor="@color/green1"
