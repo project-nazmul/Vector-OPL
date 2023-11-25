@@ -1472,7 +1472,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#A9B6F8"
+                    app:cardBackgroundColor="#CBD2F6"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"
@@ -1534,7 +1534,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/linearLayout_tourPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1554,7 +1553,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    app:cardBackgroundColor="#B297F2"
+                    app:cardBackgroundColor="#D6C7FB"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="0dp"
                     app:cardPreventCornerOverlap="false"

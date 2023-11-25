@@ -35,10 +35,10 @@ import es.dmoral.toasty.Toasty;
 public class Pmd_Sales_Dashboard extends Activity {
     private SessionManager session;
     Button back_btn;
-    String userName,userName_1,userName_2,message_3;
-    CardView cardview1,cardview2,cardview3,cardview4,cardview5,cardview6,admin_product_list,cardAdsDepotStock;
-    ImageView img1,img2,img3,img4,img5,img6;
-    TextView txt_vw1,txt_vw2,txt_vw3,txt_vw4,txt_vw5,txt_vw6;
+    String userName, userName_1, userName_2, message_3;
+    CardView cardview1, cardview2, cardview3, cardview4, cardview5, cardview6, admin_product_list, cardAdsDepotStock;
+    ImageView img1, img2, img3, img4, img5, img6;
+    TextView txt_vw1, txt_vw2, txt_vw3, txt_vw4, txt_vw5, txt_vw6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

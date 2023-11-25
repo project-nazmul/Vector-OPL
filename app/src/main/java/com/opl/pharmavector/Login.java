@@ -1,17 +1,9 @@
 package com.opl.pharmavector;
 
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import android.Manifest;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -21,7 +13,6 @@ import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,17 +22,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
 import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
@@ -49,28 +39,21 @@ import com.github.tutorialsandroid.appxupdater.enums.AppUpdaterError;
 import com.github.tutorialsandroid.appxupdater.enums.Display;
 import com.github.tutorialsandroid.appxupdater.enums.UpdateFrom;
 import com.github.tutorialsandroid.appxupdater.objects.Update;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.opl.pharmavector.app.Config;
-import com.opl.pharmavector.login_dashboard.MPODashboard;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.msd_doc_support.DashboardMSD;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.NetInfo;
@@ -137,8 +120,19 @@ public class Login extends AppCompatActivity implements OnClickListener {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
 
+        ActivityResultLauncher<IntentSenderRequest> activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Log.d("appUpdate", result.toString());
+                        if (result.getResultCode() != RESULT_OK) {
+                            Log.d("appUpdate", result.toString());
+                        }
+                    }
+                });
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
-        // Returns an intent object that you use to check for an update.
+        //Returns an intent object that you use to check for an update.
         Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
         //mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
         appUpdateInfoTask.addOnSuccessListener(result -> {
@@ -146,8 +140,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 try {
                     mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this, RC_APP_UPDATE);
                 } catch (IntentSender.SendIntentException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
+                //mAppUpdateManager.startUpdateFlowForResult(result, activityResultLauncher, AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build());
+                //activityResultLauncher.launch(result.);
+                Log.d("appUpdate", "update called!");
             }
         });
         firebaseEvent();
@@ -166,9 +163,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     }
 
                     @Override
-                    public void onFailed(AppUpdaterError error) {
-
-                    }
+                    public void onFailed(AppUpdaterError error) {}
                 });
         appUpdaterUtils.start();
         appUpdater = new AppUpdater(this);
@@ -825,7 +820,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private void firebaseEvent() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, instanceIdResult -> {
             vectorToken = instanceIdResult.getToken();
-            Log.e("LoginvectorToken-->", vectorToken);
+            Log.e("LoginVectorToken-->", vectorToken);
         });
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(task -> {

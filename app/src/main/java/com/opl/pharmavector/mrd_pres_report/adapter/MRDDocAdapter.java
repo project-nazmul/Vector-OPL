@@ -1,6 +1,5 @@
 package com.opl.pharmavector.mrd_pres_report.adapter;
 
-
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ public class MRDDocAdapter extends RecyclerView.Adapter<MRDDocAdapter.ClubViewHo
 
     @Override
     public ClubViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_pres_report, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_mrd_doc_report, viewGroup, false);
         return new ClubViewHolder(view);
     }
 
@@ -103,7 +102,6 @@ public class MRDDocAdapter extends RecyclerView.Adapter<MRDDocAdapter.ClubViewHo
             pop = view.findViewById(R.id.pop);
             rad = view.findViewById(R.id.rad);
             osl = view.findViewById(R.id.osl);
-            oth = view.findViewById(R.id.oth);
             base = view.findViewById(R.id.base);
             oplbase = view.findViewById(R.id.oplbase);
             oplshare = view.findViewById(R.id.oplshare);

@@ -56,7 +56,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/month"
+        android:id="@+id/opsonin"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -66,17 +66,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/spec"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:gravity="center"
-        android:text="Spec"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/_8sdp" />
-
-    <TextView
-        android:id="@+id/sample_name"
+        android:id="@+id/square"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -86,7 +76,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/pack_size"
+        android:id="@+id/incepta"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -96,7 +86,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/beximco"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -106,7 +96,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/week1"
+        android:id="@+id/drugs"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -116,7 +106,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/week2"
+        android:id="@+id/healthcare"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -126,7 +116,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/week3"
+        android:id="@+id/reneta"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -136,7 +126,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/week4"
+        android:id="@+id/sKF"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -146,7 +136,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/total"
+        android:id="@+id/acme"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -166,7 +156,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/ari"
+        android:id="@+id/aristopharma"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -176,7 +166,7 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/pop"
+        android:id="@+id/popular"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
@@ -186,12 +176,12 @@
         android:textSize="@dimen/_8sdp" />
 
     <TextView
-        android:id="@+id/rad"
+        android:id="@+id/radient"
         android:layout_width="@dimen/cell_width"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/_5sdp"
         android:gravity="center"
-        android:text="Rdient"
+        android:text="Radient"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="@dimen/_8sdp" />
 
@@ -204,15 +194,4 @@
         android:text="OSL"
         android:textColor="@color/vector_logo_color"
         android:textSize="@dimen/_8sdp" />
-
-    <TextView
-        android:id="@+id/oth"
-        android:layout_width="@dimen/cell_width"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:gravity="center"
-        android:text="OTH"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="@dimen/_8sdp"
-        android:visibility="gone" />
 </LinearLayout>

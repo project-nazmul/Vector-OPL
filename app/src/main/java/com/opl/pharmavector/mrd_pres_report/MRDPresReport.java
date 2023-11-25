@@ -85,13 +85,13 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
     MRDAdapter promoAdapter0, promoAdapter, promoAdapter2, promoAdapter3, promoAdapter4, promoAdapter5, promoAdapter6;
     MRDDocAdapter promoAdapter7, promoAdapter8;
     TextView txt_self;
-    List<Promo> selfList = new ArrayList<>();
-    List<Promo> promoList = new ArrayList<>();
-    List<Promo> divisionList = new ArrayList<>();
-    List<Promo> regionList = new ArrayList<>();
-    List<Promo> areaList = new ArrayList<>();
-    List<Promo> mpoList = new ArrayList<>();
-    List<Promo> segmentList = new ArrayList<>();
+    List<SPIReportList> selfList = new ArrayList<>();
+    List<SPIReportList> promoList = new ArrayList<>();
+    List<SPIReportList> divisionList = new ArrayList<>();
+    List<SPIReportList> regionList = new ArrayList<>();
+    List<SPIReportList> areaList = new ArrayList<>();
+    List<SPIReportList> mpoList = new ArrayList<>();
+    List<SPIReportList> segmentList = new ArrayList<>();
     List<Promo> docList = new ArrayList<>();
     List<Promo> docProductList = new ArrayList<>();
     Calendar myCalendar;
@@ -173,7 +173,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvNational.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvNational, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = promoList.get(position).getCode();
+                                        user_code = promoList.get(position).getUserCode();
                                         prepareASMdata();
                                         setUpRV_Division();
                                     }
@@ -186,7 +186,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -200,7 +200,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         prepareAreadata();
                                         setUpRV_Area();
                                     }
@@ -213,7 +213,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         prepareMpodata();
                                         setUpRV_MPO();
@@ -229,9 +229,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
 
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -275,7 +275,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -289,7 +289,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -303,7 +303,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -320,8 +320,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("Clickedmpo_Code-->", user_code);
 
                                         prepareSegmentData();
@@ -367,7 +367,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -381,7 +381,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -398,9 +398,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
 
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -446,7 +446,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -463,8 +463,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -511,8 +511,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
 
                                         prepareSegmentData();
@@ -641,7 +641,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvNational.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvNational, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = promoList.get(position).getCode();
+                                        user_code = promoList.get(position).getUserCode();
                                         prepareASMdata();
                                         setUpRV_Division();
                                     }
@@ -654,7 +654,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -668,7 +668,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         prepareAreadata();
                                         setUpRV_Area();
                                     }
@@ -681,7 +681,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         prepareMpodata();
                                         setUpRV_MPO();
@@ -697,9 +697,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
 
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -744,7 +744,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -758,7 +758,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -772,7 +772,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -789,8 +789,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
 
                                         prepareSegmentData();
@@ -835,7 +835,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -849,7 +849,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -866,9 +866,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         prepareSegmentData();
                                         setUpRV_Segment();
                                         prepareDocList();
@@ -912,7 +912,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -929,8 +929,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -977,8 +977,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -1104,7 +1104,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvNational.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvNational, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = promoList.get(position).getCode();
+                                        user_code = promoList.get(position).getUserCode();
                                         prepareASMdata();
                                         setUpRV_Division();
                                     }
@@ -1117,7 +1117,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -1131,7 +1131,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         prepareAreadata();
                                         setUpRV_Area();
                                     }
@@ -1144,7 +1144,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         prepareMpodata();
                                         setUpRV_MPO();
@@ -1160,9 +1160,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         prepareSegmentData();
                                         setUpRV_Segment();
                                         prepareDocList();
@@ -1205,7 +1205,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvDivision.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvDivision, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = divisionList.get(position).getCode();
+                                        user_code = divisionList.get(position).getUserCode();
                                         Log.e("myASmcode-->", user_code);
                                         prepareRegiondata();
                                         setUpRV_Region();
@@ -1219,7 +1219,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -1233,7 +1233,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -1250,8 +1250,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -1295,7 +1295,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvRegion.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvRegion, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = regionList.get(position).getCode();
+                                        user_code = regionList.get(position).getUserCode();
                                         Log.e("myRmcode-->", user_code);
                                         prepareAreadata();
                                         setUpRV_Area();
@@ -1309,7 +1309,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -1326,9 +1326,9 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         prepareSegmentData();
                                         setUpRV_Segment();
                                         prepareDocList();
@@ -1372,7 +1372,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvArea.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvArea, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = areaList.get(position).getCode();
+                                        user_code = areaList.get(position).getUserCode();
                                         fm_code = user_code;
                                         Log.e("myFMcode-->", user_code);
                                         prepareMpodata();
@@ -1389,8 +1389,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -1437,8 +1437,8 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                                 rvMpo.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvMpo, new RecyclerTouchListener.ClickListener() {
                                     @Override
                                     public void onClick(View view, int position) {
-                                        user_code = mpoList.get(position).getCode();
-                                        temp_mpo_code = mpoList.get(position).getCode();
+                                        user_code = mpoList.get(position).getUserCode();
+                                        temp_mpo_code = mpoList.get(position).getUserCode();
                                         Log.e("mpo_Code-->", user_code);
                                         prepareSegmentData();
                                         setUpRV_Segment();
@@ -1802,31 +1802,35 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Log.e("selfData-------->", user_code + "\n" + self_flag + "\n" + summary_type + "\n" + service_month);
-        Call<List<Patient>> call = apiInterface.mrd_self_followup(user_code, self_flag, summary_type, service_month);
+        Call<SPIReportModel> call = apiInterface.mrd_self_followup(user_code, self_flag, summary_type, service_month);
         selfList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<SPIReportModel> call, retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = new ArrayList<>();
+                if (response.body() != null) {
+                    giftitemCount = response.body().getSpiReportLists();
+                }
                 //Log.d("selfPrintR-->", String.valueOf(Objects.requireNonNull(giftitemCount).size()));
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        selfList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+                    selfList.addAll(giftitemCount);
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        selfList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                        giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter0.notifyDataSetChanged();
                     pDialogSelf.dismiss();
                 } else {
@@ -1836,7 +1840,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialogSelf.dismiss();
             }
         });
@@ -1850,40 +1854,42 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         user_flag = "SM";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month, summary_type);
         promoList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<SPIReportModel> call, retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
+
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        promoList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+                    promoList.addAll(giftitemCount);
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        promoList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                        giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter.notifyDataSetChanged();
                     pDialog.dismiss();
                 } else {
                     pDialog.dismiss();
-                    Toast.makeText(MRDPresReport.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MRDPresReport.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog.dismiss();
                 //prepareSMdata();
             }
@@ -1898,30 +1904,32 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         user_flag = "ASM";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
         divisionList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<SPIReportModel> call, retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
+
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        divisionList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+                    divisionList.addAll(giftitemCount);
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        divisionList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                        giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter2.notifyDataSetChanged();
                     pDialog2.dismiss();
                 } else {
@@ -1931,7 +1939,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog2.dismiss();
             }
         });
@@ -1945,30 +1953,32 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         user_flag = "RM";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
         regionList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<SPIReportModel> call, retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
+
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        regionList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+                    regionList.addAll(giftitemCount);
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        regionList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                        giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter3.notifyDataSetChanged();
                     pDialog3.dismiss();
                 } else {
@@ -1978,7 +1988,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog3.dismiss();
             }
         });
@@ -1992,46 +2002,47 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         user_flag = "AM";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month, summary_type);
         areaList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<List<Patient>> call, @NonNull retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(@NonNull Call<SPIReportModel> call, @NonNull retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
                 Log.e("printFMDATA-->", String.valueOf(giftitemCount.size()));
 
                 if (response.isSuccessful()) {
                     if (giftitemCount.size() > 0) {
-                        for (int i = 0; i < giftitemCount.size(); i++) {
-                            areaList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                            giftitemCount.get(i).getMpocode(),
-                                            giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                            giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                            giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                            giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                            giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                            giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                            giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                            giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                            giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                    )
-                            );
-                        }
+                        areaList.addAll(giftitemCount);
+//                        for (int i = 0; i < giftitemCount.size(); i++) {
+//                            areaList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                            giftitemCount.get(i).getMpocode(),
+//                                            giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                            giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                            giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                            giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                            giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                            giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                            giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                            giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                            giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                    )
+//                            );
+//                        }
                         promoAdapter4.notifyDataSetChanged();
                         pDialog4.dismiss();
                     } else {
-                        Log.e("No Data", "No data Available");
+                        Log.e("No Data", "No data Available!");
                     }
                 } else {
                     pDialog4.dismiss();
-                    Toast.makeText(MRDPresReport.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MRDPresReport.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog4.dismiss();
             }
         });
@@ -2045,40 +2056,42 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         user_flag = "MPO";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month, summary_type);
         mpoList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(Call<SPIReportModel> call, retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
+
                 if (response.isSuccessful()) {
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        mpoList.add(new Promo(giftitemCount.get(i).getSerial(),
-                                        giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+                    mpoList.addAll(giftitemCount);
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        mpoList.add(new Promo(giftitemCount.get(i).getSerial(),
+//                                        giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter5.notifyDataSetChanged();
                     pDialog5.dismiss();
                 } else {
                     pDialog5.dismiss();
-                    Toast.makeText(MRDPresReport.this, "No data Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MRDPresReport.this, "No data Available!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog5.dismiss();
             }
         });
@@ -2093,31 +2106,33 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Log.e("valueforSegment-->", user_flag + "\t" + user_code);
-        Call<List<Patient>> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month,summary_type);
+        Call<SPIReportModel> call = apiInterface.mrd_sm_followup(user_code, user_flag, service_month, summary_type);
         segmentList.clear();
 
-        call.enqueue(new Callback<List<Patient>>() {
+        call.enqueue(new Callback<SPIReportModel>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onResponse(@NonNull Call<List<Patient>> call, @NonNull retrofit2.Response<List<Patient>> response) {
-                List<Patient> giftitemCount = response.body();
+            public void onResponse(@NonNull Call<SPIReportModel> call, @NonNull retrofit2.Response<SPIReportModel> response) {
+                List<SPIReportList> giftitemCount = Objects.requireNonNull(response.body()).getSpiReportLists();
+
                 if (response.isSuccessful()) {
                     assert giftitemCount != null;
+                    segmentList.addAll(giftitemCount);
 
-                    for (int i = 0; i < giftitemCount.size(); i++) {
-                        segmentList.add(new Promo(giftitemCount.get(i).getSerial(), giftitemCount.get(i).getMpocode(),
-                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
-                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
-                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
-                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
-                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
-                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
-                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
-                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
-                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
-                                )
-                        );
-                    }
+//                    for (int i = 0; i < giftitemCount.size(); i++) {
+//                        segmentList.add(new Promo(giftitemCount.get(i).getSerial(), giftitemCount.get(i).getMpocode(),
+//                                        giftitemCount.get(i).getMonth(), giftitemCount.get(i).getPacksize(),
+//                                        giftitemCount.get(i).getSamplename(), giftitemCount.get(i).getType(),
+//                                        giftitemCount.get(i).getWeek1(), giftitemCount.get(i).getWeek2(),
+//                                        giftitemCount.get(i).getWeek3(), giftitemCount.get(i).getWeek4(),
+//                                        giftitemCount.get(i).getTotal(), giftitemCount.get(i).getPhySpec(),
+//                                        giftitemCount.get(i).getAci(), giftitemCount.get(i).getAristo(),
+//                                        giftitemCount.get(i).getPopular(), giftitemCount.get(i).getRadient(),
+//                                        giftitemCount.get(i).getOsl(), giftitemCount.get(i).getBase(),
+//                                        giftitemCount.get(i).getOplBase(), giftitemCount.get(i).getOplShare()
+//                                )
+//                        );
+//                    }
                     promoAdapter6.notifyDataSetChanged();
                     pDialog6.dismiss();
                 } else {
@@ -2126,7 +2141,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
+            public void onFailure(Call<SPIReportModel> call, Throwable t) {
                 pDialog6.dismiss();
             }
         });
@@ -2239,7 +2254,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             @Override
             public void onFailure(Call<Patient> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(MRDPresReport.this, t.getMessage().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MRDPresReport.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -352,15 +352,9 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
                 value20.add(prod_vat_17);
                 Log.w("mpocode-conference",prod_vat_17);
 
-
             }
-
-
             GroupwiseProductListAdapter2 adapter = new GroupwiseProductListAdapter2(GroupwiseProductOrderSummary2.this,  sl,lables, quanty, value,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,
                     value14,value15,value16,value17,value18,value19,value20);
-
-
-
             productListView.setAdapter(adapter);
         }
 
@@ -408,6 +402,7 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
                     JSONObject jsonObj = new JSONObject(json);
                     if (jsonObj != null) {
                         JSONArray categories = jsonObj.getJSONArray("categories");
+
                         for (int i = 0; i < categories.length(); i++) {
                             JSONObject catObj = (JSONObject) categories.get(i);
                             com.opl.pharmavector.Category6 cat3 = new com.opl.pharmavector.Category6(

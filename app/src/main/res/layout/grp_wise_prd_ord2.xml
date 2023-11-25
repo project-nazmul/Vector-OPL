@@ -34,10 +34,7 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textColor="@android:color/holo_blue_dark"
             android:visibility="gone">
-
-
         </EditText>
-
 
         <TextView
             android:id="@+id/todate"
@@ -54,9 +51,7 @@
             android:padding="@dimen/_5sdp"
             android:layout_margin="@dimen/_5sdp"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-            android:textColor="@android:color/holo_blue_dark"
-            />
-
+            android:textColor="@android:color/holo_blue_dark" />
 
         <Button
             android:id="@+id/submitBtn"
@@ -75,7 +70,6 @@
             android:layout_margin="@dimen/_5sdp"
             tools:ignore="HardcodedText,UnusedAttribute" />
 
-
         <TextView
             android:layout_width="200dp"
             android:layout_height="44dp"
@@ -91,7 +85,6 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold"
             android:visibility="gone" />
-
 
         <TextView
             android:id="@+id/mic"
@@ -136,6 +129,7 @@
             android:visibility="gone"
             tools:ignore="HardcodedText,UnusedAttribute" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/slistLayout1"
         android:layout_width="fill_parent"
@@ -395,7 +389,6 @@
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="@dimen/_10sdp" />
 
-
             <TextView
                 android:id="@+id/value_91"
                 android:layout_width="0dp"
@@ -408,7 +401,6 @@
                 android:text="Order\nvalue"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_10sdp" />
-
 
             <TextView
                 android:id="@+id/value_101"
@@ -428,7 +420,6 @@
                 android:textSize="@dimen/_8sdp"
                 android:visibility="gone" />
 
-
             <TextView
                 android:id="@+id/value_111"
                 android:layout_width="0dp"
@@ -447,7 +438,6 @@
                 android:textSize="@dimen/_8sdp"
                 android:visibility="gone" />
 
-
             <TextView
                 android:id="@+id/value_adj"
                 android:layout_width="0dp"
@@ -465,7 +455,6 @@
                 android:textSize="@dimen/_8sdp"
                 android:visibility="gone" />
 
-
             <TextView
                 android:id="@+id/value_doctor"
                 android:layout_width="0dp"
@@ -482,7 +471,6 @@
                 android:textSize="@dimen/_8sdp"
                 android:visibility="gone" />
 
-
             <TextView
                 android:id="@+id/value_121"
                 android:layout_width="0dp"
@@ -498,13 +486,8 @@
                 android:textColor="#D500F9"
                 android:textSize="@dimen/_8sdp"
                 android:visibility="gone" />
-
-
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
-
 
     <ListView
         android:id="@+id/pListView"
@@ -517,7 +500,6 @@
         android:focusable="true"
         android:listSelector="@drawable/active">
     </ListView>
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -540,8 +522,5 @@
             android:textColor="#FFF"
             android:textSize="25sp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

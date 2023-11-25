@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/_30sdp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/serial"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:text="Serial"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/mpocode"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:text="User\ncode"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/base"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin"
+        android:text="Base"
+        android:textColor="@color/colorAccentEditor"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/oplbase"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="OPL BASE"
+        android:textColor="@color/mdtp_accent_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/oplshare"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:text="Opl Share"
+        android:textColor="@color/vergence"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Opsonin"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/spec"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Spec"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/sample_name"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Square"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/pack_size"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Incepta"
+        android:textColor="@color/green1"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Beximco"
+        android:textColor="@color/colorAccentEditor"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week1"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Drugs"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week2"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Healthcare"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week3"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Reneta"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/week4"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="SKF"
+        android:textColor="@color/mdtp_accent_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Acme"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/aci"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="ACI"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/ari"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Aristo"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/pop"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Popular"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/rad"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Rdient"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/osl"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="OSL"
+        android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:id="@+id/oth"
+        android:layout_width="@dimen/cell_width"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="OTH"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="@dimen/_8sdp"
+        android:visibility="gone" />
+</LinearLayout>

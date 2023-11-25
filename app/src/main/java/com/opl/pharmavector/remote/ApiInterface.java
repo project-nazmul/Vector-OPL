@@ -23,6 +23,8 @@ import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.mpodcr.DcfpStatusModel;
+import com.opl.pharmavector.mrd_pres_report.SPIReportList;
+import com.opl.pharmavector.mrd_pres_report.SPIReportModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDSubmitModel;
@@ -764,8 +766,9 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("spi/sm_followup.php")
-    Call<List<Patient>> mrd_sm_followup(
+    //@POST("spi/sm_followup.php")
+    @POST("spi/spi_ff_followup.php")
+    Call<SPIReportModel> mrd_sm_followup(
             @Field("mpo_code") String mpo_code,
             @Field("user_flag") String user_flag,
             @Field("service_month") String service_month,
@@ -780,8 +783,9 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("spi/self_followup.php")
-    Call<List<Patient>> mrd_self_followup(
+    //@POST("spi/self_followup.php")
+    @POST("spi/spi_ff_self_followup.php")
+    Call<SPIReportModel> mrd_self_followup(
             @Field("mpo_code") String mpo_code,
             @Field("self_flag") String self_flag,
             @Field("summary_type") String summary_type,

@@ -90,7 +90,6 @@
                         android:id="@+id/btn_search"
                         android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
-
                         android:background="@drawable/dcr_page_button"
                         android:gravity="center"
                         android:hapticFeedbackEnabled="true"
