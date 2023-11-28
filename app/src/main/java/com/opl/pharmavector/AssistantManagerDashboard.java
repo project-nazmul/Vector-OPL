@@ -334,6 +334,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
                     })
                     .show();
         }
+        userLogIn(track_add);
         /*
         prescription_entry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1121,7 +1122,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
 
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add, globalempCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {
@@ -1152,7 +1153,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             //userLog(log_status);
 
             if (isAddressSubmit) {
-                userLogIn(track_add);
+                //userLogIn(track_add);
                 isAddressSubmit = false;
             }
         } catch (IOException e) {
@@ -1181,9 +1182,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             }
 
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
     }
 

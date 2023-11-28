@@ -1,4 +1,5 @@
 package com.opl.pharmavector.pcconference;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -37,7 +38,6 @@ import org.json.JSONObject;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 import static com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser3.selectedCategories3;
 import static com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser4.selectedCategories4;
-
 
 public class PcApproval extends AppCompatActivity {
     Context context;
@@ -79,16 +79,13 @@ public class PcApproval extends AppCompatActivity {
 
         initViews();
         checkAdmin();
-
         new asyncTask_getCategories().execute();
         logback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             /*
                             if (approval_user_role.trim().equals("A")) {
@@ -132,19 +129,14 @@ public class PcApproval extends AppCompatActivity {
                                 i.putExtra("emp_name", GMDashboard1.globalempName);
                                 //startActivity(i);
                             }
-
                             */
                             finish();
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
@@ -153,66 +145,55 @@ public class PcApproval extends AppCompatActivity {
                 categoriesCsv = FavouriteCategoriesJsonParser4.selectedCategories4.toString();
                 categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
                 Bundle b = getIntent().getExtras();
+                categoriesCsv.length();
 
-                if (categoriesCsv.length() < 0) {
-                    Toast.makeText(context, "Please Select Conference to approve ", Toast.LENGTH_SHORT).show();
-                } else {
-                    Thread server = new Thread(new Runnable() {
+                Thread server = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONParser jsonParser = new JSONParser();
+                        Bundle b = getIntent().getExtras();
+                        final String userName = b.getString("UserName");
+                        final String UserName_2 = b.getString("UserName_2");
+                        List<NameValuePair> params = new ArrayList<NameValuePair>();
+                        params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
+                        params.add(new BasicNameValuePair("UserName", UserName));
+                        Log.e("categoriesCsv", categoriesCsv);
+                        Log.e("UserName", UserName);
+                        Log.e("categoriesCsv", categoriesCsv);
+                        JSONObject json = jsonParser.makeHttpRequest(pc_approval_submit, "POST", params);
 
-                        @Override
-                        public void run() {
-                            JSONParser jsonParser = new JSONParser();
-                            Bundle b = getIntent().getExtras();
-                            final String userName = b.getString("UserName");
-                            final String UserName_2 = b.getString("UserName_2");
-
-                            List<NameValuePair> params = new ArrayList<NameValuePair>();
-                            params.add(new BasicNameValuePair("categoriesCsv", categoriesCsv));
-                            params.add(new BasicNameValuePair("UserName", UserName));
-                            Log.e("categoriesCsv", categoriesCsv);
-                            Log.e("UserName", UserName);
-                            Log.e("categoriesCsv", categoriesCsv);
-                            JSONObject json = jsonParser.makeHttpRequest(pc_approval_submit, "POST", params);
-
-                            try {
-                                success = json.getInt(TAG_SUCCESS);
-                                message = json.getString(TAG_MESSAGE);
-                                Log.w("please wait TRY ...." + message, json.toString());
-                            } catch (JSONException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                                Log.w("Please wait ...." + message, json.toString());
-                            }
-
-
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            String pc_sl_no = message;
-
-                            Log.w("successmessage", "UserName" + MPO_CODE + "UserName_2" + pc_sl_no);
-                            Intent sameint = new Intent(PcApproval.this, PcApproval.class);
-                            sameint.putExtra("UserName", UserName);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            sameint.putExtra("Ord_NO", message);
-                            sameint.putExtra("userName", UserName);
-                            startActivity(sameint);
-                            Log.w("Passed in DCR TO DCR", "UserName" + UserName + "message" + message);
-
-                            selectedCategories4.clear();
-
+                        try {
+                            success = json.getInt(TAG_SUCCESS);
+                            message = json.getString(TAG_MESSAGE);
+                            Log.w("please wait TRY ...." + message, json.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.w("Please wait ...." + message, json.toString());
                         }
-                    });
-                    server.start();
-                }
+                        Intent in = getIntent();
+                        Intent inten = getIntent();
+                        Bundle bundle = in.getExtras();
+                        inten.getExtras();
+                        String MPO_CODE = bundle.getString("MPO_CODE");
+                        String pc_sl_no = message;
+                        Log.w("successmessage", "UserName" + MPO_CODE + "UserName_2" + pc_sl_no);
+                        Intent sameint = new Intent(PcApproval.this, PcApproval.class);
+                        sameint.putExtra("UserName", UserName);
+                        sameint.putExtra("UserName_2", UserName_2);
+                        sameint.putExtra("Ord_NO", message);
+                        sameint.putExtra("userName", UserName);
+                        startActivity(sameint);
+                        Log.w("Passed in DCR TO DCR", "UserName" + UserName + "message" + message);
+                        selectedCategories4.clear();
+                    }
+                });
+                server.start();
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                dialog.setTitle( "ALert" )
+                dialog.setTitle( "Alert" )
                     .setIcon(R.drawable.ic_launcher)
                     .setMessage("Are you want to Cancel This PC?")
                     .setNegativeButton("Back", (dialoginterface, i) -> dialoginterface.cancel())
@@ -221,6 +202,7 @@ public class PcApproval extends AppCompatActivity {
                     categoriesCsv = categoriesCsv.substring(1, categoriesCsv.length() - 1);
                     Bundle b = getIntent().getExtras();
                         categoriesCsv.length();
+
                         Thread server = new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -259,7 +241,6 @@ public class PcApproval extends AppCompatActivity {
                                 sameint.putExtra("userName", UserName);
                                 startActivity(sameint);
                                 Log.w("Passed in DCR TO DCR", "UserName" + UserName + "message" + message);
-
                                 selectedCategories4.clear();
                             }
                         });
@@ -310,7 +291,7 @@ public class PcApproval extends AppCompatActivity {
                 }
                 break;
             case 2:
-                approval_user_role = "R"; ///REGIONAL
+                approval_user_role = "R"; // REGIONAL
                 break;
             case 3:
                 approval_user_role = "ASM"; // ASM/DSM
@@ -325,8 +306,7 @@ public class PcApproval extends AppCompatActivity {
                 if (UserName.length() == 7) {
                     approval_user_role = "GM";
                 } else {
-                    approval_user_role = "M"; ///MPO
-
+                    approval_user_role = "M"; //MPO
                 }
                 break;
         }
@@ -344,11 +324,13 @@ public class PcApproval extends AppCompatActivity {
             categoryJsonParser = new FavouriteCategoriesJsonParser4();
             super.onPreExecute();
         }
+
         @Override
         protected Void doInBackground(Void... params) {
             array_list = categoryJsonParser.getParsedCategories();
             return null;
         }
+
         @Override
         protected void onPostExecute(Void s) {
             ListView mListViewBooks = (ListView) findViewById(R.id.category_listView);
@@ -357,10 +339,7 @@ public class PcApproval extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismiss();
         }
-
     }
-
-
 }
 
 

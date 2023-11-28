@@ -152,7 +152,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         initViews();
         new GetDcrDateOffline().execute();
         findViewById(R.id.show_multiple_dialog).setOnClickListener(view -> mDialogMultipleChoice.show(s_time));
-
         new GeTShift().execute();
         new GeTDateExtend().execute();
         new GetEmp().execute();
@@ -291,18 +290,15 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
                         String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
-
                         String[] first_split = inputorder.split(":");
                         String split1 = first_split[0].trim();
                         String market_code = first_split[1].trim();
                         Log.e("split1", split1);
                         marketcode.setText(market_code);
-
                         String[] second_split = split1.split("//");
                         String split2 = second_split[0].trim();
                         String doc_code = second_split[1].trim();
                         doccode.setText(doc_code); //doctorcode
-
                         String[] third_split = split2.split("-");
                         String doc_name = third_split[0].trim();
                         String mpocodedoc = third_split[1].trim();
@@ -314,13 +310,11 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 }
             }
 
-            private void length() {
-            }
+            private void length() {}
         });
         actv4.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -333,6 +327,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
@@ -352,6 +347,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         cashcredit.setAdapter(dataAdapter);
                         credit = findViewById(R.id.credit);
                         List list_credit = new ArrayList();
+
                         for (int j = 1; j < arr1.length; j++) {
                             list_credit.add(arr1[j].trim());
                         }
@@ -374,10 +370,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         String mar[] = mar_name.split(":");
                         String mar_name1 = mar[0].trim();
 
-                        actv4.setText(doc_name);   ///doctorname
+                        actv4.setText(doc_name);  //doctorname
                         doccode.setText(doc_code1); //doctorcode
                         marketcode.setText(mar_name1); //marketname
-
                         cust_type = arr1[0];
 
                         if (cust_type.equals("CASH")) {
@@ -389,32 +384,23 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                             View cashcredit_view = findViewById(R.id.cashcredit);
                             credit_view.setVisibility(View.GONE);
                             cashcredit_view.setVisibility(View.GONE);
-                            // cashcredit_view.setVisibility(View.VISIBLE);
+                            //cashcredit_view.setVisibility(View.VISIBLE);
                             Log.e("cashcredit_view: ", "> " + cashcredit_view);
-
-
                             findViewById(R.id.show_multiple_dialog).setFocusableInTouchMode(true);
                             findViewById(R.id.show_multiple_dialog).setFocusable(true);
                             findViewById(R.id.show_multiple_dialog).setFocusableInTouchMode(true);
                             findViewById(R.id.show_multiple_dialog).requestFocus();
-
-
                             spinner.setFocusable(true);
                             spinner.setFocusableInTouchMode(true);
                             spinner.requestFocus();
-
-
                         } else {
-
                             findViewById(R.id.show_multiple_dialog).setFocusableInTouchMode(true);
                             findViewById(R.id.show_multiple_dialog).setFocusable(true);
                             findViewById(R.id.show_multiple_dialog).setFocusableInTouchMode(true);
                             findViewById(R.id.show_multiple_dialog).requestFocus();
-
                             spinner.setFocusable(true);
                             spinner.setFocusableInTouchMode(true);
                             spinner.requestFocus();
-
                             credit = findViewById(R.id.credit);
                             cashcredit = findViewById(R.id.cashcredit);
                             View credit_view = findViewById(R.id.credit);
@@ -424,236 +410,154 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                             credit_view.setVisibility(View.GONE);
                             cash_party = 0;
                             credit_party = 1;
-
                         }
-
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                    }  //ded.setText("Select Date");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
         actv2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //actv.setTextColor(Color.BLACK);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-                    //actv.setError("");
-                    final String inputorder = s.toString();
-                    int total_string = inputorder.length();
-                    if (inputorder.indexOf(":") != -1) {
-                        String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
-                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
-
-
-                        String arr[] = cust_type_with_note.split(":");
-                        cust_type_with_note = arr[1].trim();
-                        String arr1[] = cust_type_with_note.split("///");
-
-
-                        cashcredit = findViewById(R.id.cashcredit);
-
-                        List list = new ArrayList();
-                        for (int i = 1; i < arr1.length; i++) {
-                            list.add(arr1[i].trim());
-                        }
-
-
-                        ArrayAdapter dataAdapter = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
-                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        cashcredit.setAdapter(dataAdapter);
-
-
-                        credit = findViewById(R.id.credit);
-                        List list_credit = new ArrayList();
-                        for (int j = 1; j < arr1.length; j++) {
-                            list_credit.add(arr1[j].trim());
-                        }
-                        ArrayAdapter dataAdapter_credit = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
-                        dataAdapter_credit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        credit.setAdapter(dataAdapter);
-
-
-                        int cust_type_with_note_length = cust_type_with_note.length();
-                        String cust_address = s.toString();
-                        String customer_address = cust_address.substring(0, total_string - cust_type_with_note_length);
-
-                        String doc[] = customer_address.split("//");
-                        String emp_name = doc[0].trim();
-                        String emp_code = doc[1].trim();
-
-                        String market[] = emp_code.split("-");
-                        String emp_code1 = market[0].trim();
-                        String mar_name = market[1].trim();
-
-                        String mar[] = mar_name.split(":");
-                        String mar_name1 = mar[0].trim();
-                        actv2.setText(emp_name);   ///doctorname
-
-
-                        visitorcode.setText(emp_code1);
-
-
-                        Log.e("emp code: ", "> " + emp_code1);
-
-                        cust_type = arr1[0];
-
-                        if (cust_type.equals("CASH")) {
-                            cash_party = 1;
-                            credit_party = 0;
-                            credit = findViewById(R.id.credit);
-                            cashcredit = findViewById(R.id.cashcredit);
-                            View credit_view = findViewById(R.id.credit);
-                            View cashcredit_view = findViewById(R.id.cashcredit);
-                            credit_view.setVisibility(View.GONE);
-                            cashcredit_view.setVisibility(View.GONE);
-                            // cashcredit_view.setVisibility(View.VISIBLE);
-                            Log.e("cashcredit_view: ", "> " + cashcredit_view);
-
-
-                            s_time.setFocusable(true);
-                            s_time.setFocusableInTouchMode(true);
-                            s_time.requestFocus();
-
-                        } else {
-
-                            credit = findViewById(R.id.credit);
-                            cashcredit = findViewById(R.id.cashcredit);
-                            View credit_view = findViewById(R.id.credit);
-                            View cashcredit_view = findViewById(R.id.cashcredit);
-                            cashcredit_view.setVisibility(View.GONE);
-                            credit_view.setVisibility(View.VISIBLE);
-                            credit_view.setVisibility(View.GONE);
-                            cash_party = 0;
-                            credit_party = 1;
-
-                            s_time.setFocusable(true);
-                            s_time.setFocusableInTouchMode(true);
-                            s_time.requestFocus();
-
-                        }
-
-                    } else {
-                        //ded.setText("Select Date");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-        });
-        actv3.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
-                //actv.setTextColor(Color.BLACK);
-            }
-
-            @Override
-            public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
-                try {
-
                     //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
                     if (inputorder.contains(":")) {
-
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
-
-
-                        String arr[] = cust_type_with_note.split(":");
+                        String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
-
-                        String chemist_first_index = arr[0].trim();
-
                         String arr1[] = cust_type_with_note.split("///");
+                        cashcredit = findViewById(R.id.cashcredit);
+                        List list = new ArrayList();
 
-                        Log.w("Selected date", "> " + cust_type + chemist_first_index + cust_type_with_note);
+                        for (int i = 1; i < arr1.length; i++) {
+                            list.add(arr1[i].trim());
+                        }
+                        ArrayAdapter dataAdapter = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
+                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        cashcredit.setAdapter(dataAdapter);
+                        credit = findViewById(R.id.credit);
+                        List list_credit = new ArrayList();
 
-
+                        for (int j = 1; j < arr1.length; j++) {
+                            list_credit.add(arr1[j].trim());
+                        }
+                        ArrayAdapter dataAdapter_credit = new ArrayAdapter(AmDcr.this, android.R.layout.simple_spinner_item, list);
+                        dataAdapter_credit.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        credit.setAdapter(dataAdapter);
                         int cust_type_with_note_length = cust_type_with_note.length();
                         String cust_address = s.toString();
                         String customer_address = cust_address.substring(0, total_string - cust_type_with_note_length);
-
-                        String doc[] = customer_address.split("//");
-                        String doc_name = doc[0].trim();
-                        String doc_code = doc[1].trim();
-
-                        String market[] = doc_code.split("-");
-                        String doc_code1 = market[0].trim();
+                        String[] doc = customer_address.split("//");
+                        String emp_name = doc[0].trim();
+                        String emp_code = doc[1].trim();
+                        String[] market = emp_code.split("-");
+                        String emp_code1 = market[0].trim();
                         String mar_name = market[1].trim();
-
-                        String mar[] = mar_name.split(":");
+                        String[] mar = mar_name.split(":");
                         String mar_name1 = mar[0].trim();
-
-
-                        actv3.setText(doc_name);   ///doctorname
-                        doccode.setText(doc_code1); //doctorcode
-                        marketcode.setText(mar_name1); //marketname
-                        CHEM_FLAG = "Y";
-
+                        actv2.setText(emp_name); //doctorname
+                        visitorcode.setText(emp_code1);
+                        Log.e("emp code: ", "> " + emp_code1);
                         cust_type = arr1[0];
 
-                        actv2.setFocusable(true);
-                        actv2.setFocusableInTouchMode(true);
-                        actv2.requestFocus();
-
-
-                    } else {
-                        //ded.setText("Select Date");
-                    }
+                        if (cust_type.equals("CASH")) {
+                            cash_party = 1;
+                            credit_party = 0;
+                            credit = findViewById(R.id.credit);
+                            cashcredit = findViewById(R.id.cashcredit);
+                            View credit_view = findViewById(R.id.credit);
+                            View cashcredit_view = findViewById(R.id.cashcredit);
+                            credit_view.setVisibility(View.GONE);
+                            cashcredit_view.setVisibility(View.GONE);
+                            //cashcredit_view.setVisibility(View.VISIBLE);
+                            Log.e("cashcredit_view: ", "> " + cashcredit_view);
+                            s_time.setFocusable(true);
+                            s_time.setFocusableInTouchMode(true);
+                            s_time.requestFocus();
+                        } else {
+                            credit = findViewById(R.id.credit);
+                            cashcredit = findViewById(R.id.cashcredit);
+                            View credit_view = findViewById(R.id.credit);
+                            View cashcredit_view = findViewById(R.id.cashcredit);
+                            cashcredit_view.setVisibility(View.GONE);
+                            credit_view.setVisibility(View.VISIBLE);
+                            credit_view.setVisibility(View.GONE);
+                            cash_party = 0;
+                            credit_party = 1;
+                            s_time.setFocusable(true);
+                            s_time.setFocusableInTouchMode(true);
+                            s_time.requestFocus();
+                        }
+                    }  //ded.setText("Select Date");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+            private void length() {}
+        });
+        actv3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-            private void length() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //actv.setTextColor(Color.BLACK);
             }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    //actv.setError("");
+                    final String inputorder = s.toString();
+                    int total_string = inputorder.length();
+
+                    if (inputorder.contains(":")) {
+                        String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
+                        String cust_type_with_note = inputorder.substring(inputorder.indexOf(":") + 0);
+                        String[] arr = cust_type_with_note.split(":");
+                        cust_type_with_note = arr[1].trim();
+                        String chemist_first_index = arr[0].trim();
+                        String[] arr1 = cust_type_with_note.split("///");
+                        Log.w("Selected date", "> " + cust_type + chemist_first_index + cust_type_with_note);
+                        int cust_type_with_note_length = cust_type_with_note.length();
+                        String cust_address = s.toString();
+                        String customer_address = cust_address.substring(0, total_string - cust_type_with_note_length);
+                        String[] doc = customer_address.split("//");
+                        String doc_name = doc[0].trim();
+                        String doc_code = doc[1].trim();
+                        String[] market = doc_code.split("-");
+                        String doc_code1 = market[0].trim();
+                        String mar_name = market[1].trim();
+                        String[] mar = mar_name.split(":");
+                        String mar_name1 = mar[0].trim();
+                        actv3.setText(doc_name); //doctorname
+                        doccode.setText(doc_code1); //doctorcode
+                        marketcode.setText(mar_name1); //marketname
+                        CHEM_FLAG = "Y";
+                        cust_type = arr1[0];
+                        actv2.setFocusable(true);
+                        actv2.setFocusableInTouchMode(true);
+                        actv2.requestFocus();
+                    }  //ded.setText("Select Date");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            private void length() {}
         });
         remarks.setOnClickListener(new OnClickListener() {
             @Override
@@ -710,7 +614,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 }
             }
         }
-
         final Calendar cal = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("dd/MM/yyyy ");
         String date_str = df.format(cal.getTime());
@@ -768,53 +671,40 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     chemordoc.setEnabled(true);
                     chemordoc.setClickable(true);
                     v_location.setVisibility(View.GONE);
-
                     no_of_rx.setVisibility(View.GONE);
                     no_of_prod.setVisibility(View.GONE);
                     prod_of_opsonin.setVisibility(View.GONE);
-
                     rx_page.setClickable(true);
                     rx_page.setPressed(true);
                     rx_page.setEnabled(true);
-
                     spinner.setVisibility(View.VISIBLE);
                     s_time.setVisibility(View.VISIBLE);
                     e_time.setVisibility(View.VISIBLE);
-
 
                     if (db.checkOrdNo()) {
                         location.setVisibility(View.GONE);
                         shift_spinner.setFocusable(true);
                         shift_spinner.setFocusableInTouchMode(true);
                         shift_spinner.requestFocus();
-
                     } else {
-
                         location.setVisibility(View.VISIBLE);
                         location.setFocusable(true);
                         location.setFocusableInTouchMode(true);
                         location.requestFocus();
-
                     }
                     actv.setEnabled(true);
                     error_dt.setText("");
                     actv.setVisibility(View.VISIBLE);
                     actv3.setVisibility(View.VISIBLE);
-
                 } else if (dcr_code.equals("Journey") || dcr_code.equals("Conference") || dcr_code.equals("Training") || dcr_code.equals("Others") || dcr_code.equals("Meeting")
                         || dcr_code.equals("Holiday") || dcr_code.equals("Leave")) {
-
-
                     if (db.checkOrdNo()) {
-
                         location.setVisibility(View.GONE);
                         shift_spinner.setFocusable(true);
                         shift_spinner.setFocusableInTouchMode(true);
                         shift_spinner.requestFocus();
-
                     } else {
                         location.setVisibility(View.VISIBLE);
-
                         location.setFocusable(true);
                         location.setFocusableInTouchMode(true);
                         location.requestFocus();
@@ -861,31 +751,25 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     yes_no.setVisibility(View.GONE);
                     actv.setVisibility(view.GONE);
                     actv3.setVisibility(view.GONE);
-
                     v_location.setVisibility(View.VISIBLE);
                     no_of_rx.setVisibility(View.VISIBLE);
                     no_of_prod.setVisibility(View.VISIBLE);
                     prod_of_opsonin.setVisibility(View.VISIBLE);
-
                     spinner.setVisibility(View.GONE);
                     s_time.setVisibility(View.GONE);
                     e_time.setVisibility(View.GONE);
-
                     dcr_submit.setEnabled(false);
                     dcr_submit.setPressed(false);
                     dcr_submit.setClickable(false);
-
                     rx_page.setClickable(true);
                     rx_page.setPressed(true);
                     rx_page.setEnabled(true);
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
-
         location.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 location_code = location.getSelectedItem().toString();
@@ -898,51 +782,31 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     no_of_rx.setFocusable(true);
                     no_of_rx.setFocusableInTouchMode(true);
                     no_of_rx.requestFocus();
-
-                } else {
-
-
                 }
-
-
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
-
                 return;
             }
         });
-
-
         v_location.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 v_location_code = v_location.getSelectedItem().toString();
-
                 v_loc_code = v_location_code.substring(0, 1).toString();
-
                 Log.e("vloccode", "> " + v_loc_code);
                 vcheckloccode = String.valueOf(v_loc_code);
                 Log.e("vcheckloccode", "> " + vcheckloccode);
-
                 no_of_rx.setFocusable(true);
                 no_of_rx.setFocusableInTouchMode(true);
                 no_of_rx.requestFocus();
-
-
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
-
                 return;
             }
         });
-
-
         s_time.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -953,25 +817,17 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         s_time.setText(selectedHour + ":" + selectedMinute);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, true); //Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
-
-
                 e_time.setFocusable(true);
                 e_time.setFocusableInTouchMode(true);
                 e_time.requestFocus();
-
-
             }
         });
-
-
         e_time.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -981,27 +837,21 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         e_time.setText(selectedHour + ":" + selectedMinute);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, true); //Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
-
-                //  location.setFocusable(true);
-                //  location.setFocusableInTouchMode(true);
-                //  location.requestFocus();
+                //location.setFocusable(true);
+                //location.setFocusableInTouchMode(true);
+                //location.requestFocus();
                 Log.w(" am_pm_check ", "> " + s_time.getText().toString());
-
                 String check_shift = s_time.getText().toString();
-
-                String arr[] = check_shift.split(":");
+                String[] arr = check_shift.split(":");
                 String day_shift = arr[0].trim();
                 int shift_check = Integer.parseInt(day_shift);
                 Log.w("day_shift", "> " + day_shift);
-
-
             }
         });
         session = new SessionManager(getApplicationContext());
-
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 shift_status = shift_spinner.getSelectedItem().toString();
@@ -1036,7 +886,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     actv3.setVisibility(View.GONE);
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(AmDcr.this, "Please Select Shift !!", Toast.LENGTH_LONG).show();
                 return;
@@ -1048,7 +897,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     public void onItemSelected(
                             AdapterView<?> parent, View view, int position, long id) {
                     }
-
                     public void onNothingSelected(AdapterView<?> parent) {
                         s_time.setFocusableInTouchMode(true);
                         s_time.setFocusable(true);
@@ -1056,7 +904,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         s_time.requestFocus();
                     }
                 });
-
         chemordoc.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
@@ -1092,12 +939,10 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     chemist_ppm.setClickable(true);
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
-
         yes_no.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 yes_no_val = yes_no.getSelectedItem().toString();
@@ -1130,17 +975,14 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     Log.v("value", "> " + yes_no.getSelectedItem().toString());
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
-
         back.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> finish());
             mysells.start();
         });
-
         logout.setOnClickListener(v -> {
             Thread server = new Thread(() -> {
                 JSONParser jsonParser = new JSONParser();
@@ -1151,7 +993,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             server.start();
             logoutUser();
         });
-
         chemist_ppm.setOnClickListener(v -> {
             Bundle f = getIntent().getExtras();
             userName = f.getString("UserName");
@@ -1159,44 +1000,34 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             String str = ded.getText().toString();
             String date_1 = str.replaceAll("[^\\d.-]", "");
             final String ord_no = userName + "-" + date_1;
-
             Calendar c = Calendar.getInstance();
             int cYear = c.get(Calendar.YEAR);
             int cMonth = c.get(Calendar.MONTH) + 1;
             int cDay = c.get(Calendar.DAY_OF_MONTH);
             int gyear = myCalendar.get(Calendar.YEAR);
-
             //int max_date=cDay+2;
             int gmonth = myCalendar.get(Calendar.MONTH) + 1;
             if (gyear > cYear) {
                 gmonth = myCalendar.get(Calendar.MONTH) + 13;
             }
-
             int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
             int gmonth_day = gmonth * 30;
             int totalday_given = gmonth_day + gday;
-
             int cmonth_day = cMonth * 30;
             int totalday_valid1 = cmonth_day + cDay;
             int totalday_valid = totalday_valid1 + 0;
-
             int totalday_valid2 = cmonth_day + cDay - 7;
             int total_back_day = Integer.parseInt(date_ext.getText().toString());
-
             int rcYear = c.get(Calendar.YEAR);
             int rcMonth = c.get(Calendar.MONTH) + 1;
             int rcDay = c.get(Calendar.DAY_OF_MONTH);
-
             int rcYear_day = rcYear * 365;
             int rcMonth_day = rcMonth * 30;
             int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-
             int total_valid_back_day = rctotal_day_today - total_back_day;
-
             int rgyear = myCalendar.get(Calendar.YEAR);
             int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
             int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
             int rgyear_day = rgyear * 365;
             int rgmonth_day = rgmonth * 30;
             int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
@@ -1215,12 +1046,12 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
                 error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
             }
-
             final Spinner nameSpinner = findViewById(R.id.customer);
             final String selected_cust = actv.getText().toString();
             Bundle b13 = getIntent().getExtras();
             final String userName = b13.getString("UserName");
             String UserName_1 = b13.getString("UserName_1");
+
             Thread next = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -1269,8 +1100,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 int cMonth = c.get(Calendar.MONTH) + 1;
                 int cDay = c.get(Calendar.DAY_OF_MONTH);
                 int gyear = myCalendar.get(Calendar.YEAR);
-
-                // int max_date=cDay+2;
+                //int max_date=cDay+2;
                 int gmonth = myCalendar.get(Calendar.MONTH) + 1;
                 if (gyear > cYear) {
                     gmonth = myCalendar.get(Calendar.MONTH) + 13;
@@ -1282,43 +1112,29 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 int totalday_valid1 = cmonth_day + cDay;
                 int totalday_valid = totalday_valid1 + 0;
                 int totalday_valid2 = cmonth_day + cDay - 7;
-                //------------------------rez
                 int total_back_day = Integer.parseInt(date_ext.getText().toString());
                 int rcYear = c.get(Calendar.YEAR);
                 int rcMonth = c.get(Calendar.MONTH) + 1;
                 int rcDay = c.get(Calendar.DAY_OF_MONTH);
-
                 int rcYear_day = rcYear * 365;
                 int rcMonth_day = rcMonth * 30;
                 int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-
                 int total_valid_back_day = rctotal_day_today - total_back_day;
-
-
                 int rgyear = myCalendar.get(Calendar.YEAR);
                 int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
                 int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
-
                 int rgyear_day = rgyear * 365;
                 int rgmonth_day = rgmonth * 30;
                 int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
 
-
                 if ((dcr_code.equals("Regular"))) {
-
                     error_dt.setTextColor(Color.RED);
                     error_dt.setText("Select DCR Type 'RX' .Click on Dcr Type to select 'RX' ");
-
                 } else if (dcr_code.equals("Journey") || dcr_code.equals("Conference") || dcr_code.equals("Training") || dcr_code.equals("Others") || dcr_code.equals("Meeting")
                         || dcr_code.equals("Holiday") || dcr_code.equals("Leave")) {
-
                     error_dt.setTextColor(Color.RED);
                     error_dt.setText("Select DCR Type 'RX' .Click on Dcr Type to select 'RX' ");
-
-
                 } else if (no_of_rx.getText().toString().trim().equals("") || (no_of_rx.getText().toString().trim().equals("No Of Rx"))) {
-
                     no_of_rx.setTextSize(14);
                     no_of_rx.setText("Please Select No of Rx");
                     no_of_rx.setTextColor(Color.RED);
@@ -1328,31 +1144,21 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     no_of_prod.setTextSize(14);
                     no_of_prod.setText("Please Select No of Products");
                     no_of_prod.setTextColor(Color.RED);
-
                 } else if (prod_of_opsonin.getText().toString().trim().equals("") || (prod_of_opsonin.getText().toString().trim().equals("No Of Opsonin Products") ||
-
                         (prod_of_opsonin.getText().toString().trim().equals("Please Select No of Opsonin Products")
                         ))) {
-
                     prod_of_opsonin.setTextSize(14);
                     prod_of_opsonin.setText("Please Select No of Opsonin Products");
                     prod_of_opsonin.setTextColor(Color.RED);
-
                 } else if (rgtotal_day_given > rctotal_day_today) {
-
                     error_dt.setText("Delivery Date  is not greater than current date!");
-
                 } else if (rgtotal_day_given < total_valid_back_day) {
-
-
                     ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
                     error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
                 } else {
                     final Spinner nameSpinner = findViewById(R.id.customer);
                     final String selected_cust = actv.getText().toString();
-
-
-                    // final String select_party1 = select_party.toString();
+                    //final String select_party1 = select_party.toString();
                     Bundle b = getIntent().getExtras();
                     final String userName = b.getString("UserName");
                     String UserName_1 = b.getString("UserName_1");
@@ -1360,7 +1166,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                     Thread next = new Thread(new Runnable() {
                         @Override
                         public void run() {
-
                             Intent in = new Intent(AmDcr.this, AmRxCompany.class);
                             Bundle extras = new Bundle();
                             String str = ded.getText().toString();
@@ -1397,7 +1202,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 }
             }
         });
-
         dcr_submit.setOnClickListener(v -> {
             Bundle b1 = getIntent().getExtras();
             userName = b1.getString("UserName");
@@ -1411,7 +1215,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             int cMonth = c.get(Calendar.MONTH) + 1;
             int cDay = c.get(Calendar.DAY_OF_MONTH);
             int gyear = myCalendar.get(Calendar.YEAR);
-
             //int max_date=cDay+2;
             int gmonth = myCalendar.get(Calendar.MONTH) + 1;
             if (gyear > cYear) {
@@ -1420,22 +1223,15 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
             int gmonth_day = gmonth * 30;
             int totalday_given = gmonth_day + gday;
-
             int cmonth_day = cMonth * 30;
             int totalday_valid1 = cmonth_day + cDay;
             int totalday_valid = totalday_valid1;
-
             int myNum = Integer.parseInt(date_ext.getText().toString());
-
             int totalday_valid2 = cmonth_day + cDay - myNum;
-
-            //------------------------rez
             int total_back_day = Integer.parseInt(date_ext.getText().toString());
-
             int rcYear = c.get(Calendar.YEAR);
             int rcMonth = c.get(Calendar.MONTH) + 1;
             int rcDay = c.get(Calendar.DAY_OF_MONTH);
-
             int rcYear_day = rcYear * 365;
             int rcMonth_day = rcMonth * 30;
             int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
@@ -1447,7 +1243,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             int rgmonth_day = rgmonth * 30;
             int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
 
-            //-----------------------
             if (vacantStatus == 1) {
                 if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
                     ded.setTextSize(14);
@@ -1589,34 +1384,24 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
             int cYear = c.get(Calendar.YEAR);
             int cMonth = c.get(Calendar.MONTH) + 1;
             int cDay = c.get(Calendar.DAY_OF_MONTH);
-
             int gyear = myCalendar.get(Calendar.YEAR);
-
             //int max_date=cDay+2;
             int gmonth = myCalendar.get(Calendar.MONTH) + 1;
             if (gyear > cYear) {
                 gmonth = myCalendar.get(Calendar.MONTH) + 13;
             }
-
             int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-
             int gmonth_day = gmonth * 30;
             int totalday_given = gmonth_day + gday;
-
-
             int cmonth_day = cMonth * 30;
             int totalday_valid1 = cmonth_day + cDay;
             int totalday_valid = totalday_valid1;
-
             int myNum = Integer.parseInt(date_ext.getText().toString());
-
             int totalday_valid2 = cmonth_day + cDay - myNum;
             int total_back_day = Integer.parseInt(date_ext.getText().toString());
-
             int rcYear = c.get(Calendar.YEAR);
             int rcMonth = c.get(Calendar.MONTH) + 1;
             int rcDay = c.get(Calendar.DAY_OF_MONTH);
-
             int rcYear_day = rcYear * 365;
             int rcMonth_day = rcMonth * 30;
             int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
@@ -1648,11 +1433,9 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                 vacantMpo.setError("Mpo not Assigned !)");
                 vacantMpo.setText("Select Vacant Territory");
                 vacantMpo.setTextColor(Color.RED);
-            }
-            else {
+            } else {
                 final Spinner nameSpinner = findViewById(R.id.customer);
                 final String selected_cust = actv.getText().toString();
-
                 com_ana_val = comp_ana.getText().toString();
                 Bundle b12 = getIntent().getExtras();
                 final String userName = b12.getString("UserName");
@@ -1666,7 +1449,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         String str = ded.getText().toString();
                         String date_1 = str.replaceAll("[^\\d.-]", "");
                         final String generated_ord_no = vacantMpoCode + "-" + date_1;
-
                         extras.putString("MPO_CODE", vacantMpoCode);
                         extras.putString("CUST_CODE", vacantMpoCode);
                         extras.putString("AM_PM", shift_spinner.getSelectedItem().toString());
@@ -1685,7 +1467,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
                         extras.putString("COMPETITOR_ANALYSIS", com_ana_val);
                         extras.putString("VISIT_WITH", "AM as MPO");
                         //extras.putString("VISIT_WITH", spinner.getSelectedItem().toString());
-
                         Bundle b12 = getIntent().getExtras();
                         String userName = b12.getString("UserName");
                         String UserName_1 = b12.getString("UserName_1");
@@ -1740,7 +1521,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         today = new Date();
         remarks = findViewById(R.id.remarks);
         comp_ana = findViewById(R.id.comp_ana);
-
         s_time = findViewById(R.id.starttime);
         e_time = findViewById(R.id.endtime);
         ordno = findViewById(R.id.ordno);
@@ -1749,7 +1529,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         note = findViewById(R.id.note);
         mainlayout = findViewById(R.id.successmsg);
         dcrdatelist = new ArrayList<>();
-
         dcr_spinner = findViewById(R.id.dcrtype);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1766,8 +1545,8 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         visitor.setOnItemSelectedListener(this);
         shift_spinner = findViewById(R.id.shift_spinner);
         shift_spinner.setPrompt("Select Shift");
-        //shift_spinner.setSelected(false);  //must
-        //shift_spinner.setSelection(0, true);  //must
+        //shift_spinner.setSelected(false); //must
+        //shift_spinner.setSelection(0, true); //must
         shift_spinner.setOnItemSelectedListener(this);
         mDialogMultipleChoice = new DialogMultipleChoice(this);
         cashcredit = findViewById(R.id.cashcredit);
@@ -1775,14 +1554,12 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         cashcredit.setVisibility(View.GONE);
         credit.setVisibility(View.GONE);
         back = findViewById(R.id.back);
-
         back.setTypeface(fontFamily);
         back.setText("\uf060"); //&#xf060
         rx_page = findViewById(R.id.rx_page);
         doccode = findViewById(R.id.doccode);
         visitorcode = findViewById(R.id.visitorcode);
         marketcode = findViewById(R.id.marketcode);
-
         location = findViewById(R.id.location);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1790,7 +1567,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         location.setAdapter(adapter1);
         location.setOnItemSelectedListener(this);
         location.setVisibility(View.VISIBLE);
-
         v_location = findViewById(R.id.v_location);
         ArrayAdapter<CharSequence> adapter_v_location = ArrayAdapter.createFromResource(this, R.array.rx_location, android.R.layout.simple_spinner_item);
         adapter_v_location.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1798,7 +1574,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         v_location.setAdapter(adapter_v_location);
         v_location.setOnItemSelectedListener(this);
         v_location.setVisibility(View.VISIBLE);
-
         ampmspin = findViewById(R.id.ampm);
         ArrayAdapter<CharSequence> ampm_adapter = ArrayAdapter.createFromResource(this, R.array.am_pm, android.R.layout.simple_spinner_item);
         ampm_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1811,14 +1586,12 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         chemordoc.setPrompt("Visit to ");
         chemordoc.setAdapter(adapter_chem_doc);
         chemordoc.setOnItemSelectedListener(this);
-
         yes_no = findViewById(R.id.yes_no);
         ArrayAdapter<CharSequence> adapter0 = ArrayAdapter.createFromResource(this, R.array.yes_no_am, android.R.layout.simple_spinner_item);
         adapter0.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yes_no.setPrompt("Visited with PM? ");
         yes_no.setAdapter(adapter0);
         yes_no.setOnItemSelectedListener(this);
-
         customerlist = new ArrayList<>();
         cust.setOnItemSelectedListener(this);
         visitorlist = new ArrayList<>();
@@ -1829,7 +1602,6 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
         shiftlist = new ArrayList<>();
         shift_spinner.setOnItemSelectedListener(this);
         shift_spinner.setOnItemSelectedListener(this);
-
         doccode.setCursorVisible(false);
         doccode.setPressed(false);
         doccode.setClickable(false);
@@ -1851,6 +1623,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
+
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
         }
@@ -2335,8 +2108,7 @@ public class AmDcr extends Activity implements OnItemSelectedListener {
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
+    public void onNothingSelected(AdapterView<?> arg0) {}
 
     private void logoutUser() {
         session.setLogin(false);

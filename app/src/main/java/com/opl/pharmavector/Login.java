@@ -4,15 +4,19 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.util.Objects;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +29,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.IntentSenderRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
@@ -44,9 +44,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.appupdate.AppUpdateOptions;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -101,6 +101,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
     AppUpdateManager mAppUpdateManager;
     private static final int RC_APP_UPDATE = 123;
     private InstallStateUpdatedListener installStateUpdatedListener;
+    public static final String googlePlayVectorLink = "market://details?id=com.opl.pharmavector";
+    public static final String alternativeVectorLink = "https://play.google.com/store/apps/details?id=com.opl.pharmavector";
 
     @SuppressLint("ShowToast")
     @Override
@@ -120,34 +122,98 @@ public class Login extends AppCompatActivity implements OnClickListener {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initViews();
 
-        ActivityResultLauncher<IntentSenderRequest> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartIntentSenderForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        Log.d("appUpdate", result.toString());
-                        if (result.getResultCode() != RESULT_OK) {
-                            Log.d("appUpdate", result.toString());
-                        }
-                    }
-                });
-        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+        //AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(Login.this);
+        mAppUpdateManager = AppUpdateManagerFactory.create(Login.this);
         //Returns an intent object that you use to check for an update.
         Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
         //mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
         appUpdateInfoTask.addOnSuccessListener(result -> {
             if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                try {
-                    mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this, RC_APP_UPDATE);
-                } catch (IntentSender.SendIntentException e) {
-                    throw new RuntimeException(e);
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                builder.setTitle("Update available").setMessage("Check out the latest version of Vector?")
+                        .setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googlePlayVectorLink)));
+                                } catch (android.content.ActivityNotFoundException exception) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(alternativeVectorLink)));
+                                }
+                            }
+                        })
+                        .setNegativeButton("Maybe later", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                //makeUpdateDialog(mContext).show();
+//                try {
+//                    mAppUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, Login.this, RC_APP_UPDATE);
+//                    Log.d("appUpdate", "update called!");
+//                } catch (IntentSender.SendIntentException e) {
+//                    Log.d("appUpdate", e.toString());
+//                    throw new RuntimeException(e);
+//                }
                 //mAppUpdateManager.startUpdateFlowForResult(result, activityResultLauncher, AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build());
                 //activityResultLauncher.launch(result.);
-                Log.d("appUpdate", "update called!");
             }
         });
+        mAppUpdateManager.registerListener(listener);
         firebaseEvent();
+    }
+
+    InstallStateUpdatedListener listener = state -> {
+        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+            // After the update is downloaded, show a notification
+            // and request user confirmation to restart the app.
+            popupSnackbarForCompleteUpdate();
+        }
+    };
+
+    // Displays the snackbar notification and call to action.
+    private void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", view -> mAppUpdateManager.completeUpdate());
+        snackbar.setActionTextColor(
+                getResources().getColor(android.R.color.holo_red_dark));
+        snackbar.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == RC_APP_UPDATE) {
+                Log.d("appUpdate", "Update flow failed! Result code: " + resultCode + " :: " + data);
+            }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // When status updates are no longer needed, unregister the listener.
+        mAppUpdateManager.unregisterListener(listener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
+        NotificationUtils.clearNotifications(getApplicationContext());
+
+        mAppUpdateManager.getAppUpdateInfo()
+                .addOnSuccessListener(appUpdateInfo -> {
+                    // If the update is downloaded but not installed,
+                    // notify the user to complete the update.
+                    if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                        popupSnackbarForCompleteUpdate();
+                    }
+                });
     }
 
     private void initAppUpdate() {
@@ -550,8 +616,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 globalempCode = response.body().getLast_name();
                 designation = response.body().getDesignation();
 
-                if (!Objects.equals(vectorToken, "xxxx")) {
-                    userLog("", message);
+                if (!Objects.equals(vectorToken, "xxxx") && globalempCode != null) {
+                    userLog("", message, globalempCode);
                 }
 
                 if (success == 2) {
@@ -843,9 +909,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
         };
     }
 
-    private void userLog(final String key, String employeeCode) {
+    private void userLog(final String key, String employeeCode, String empCode) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, "", "", build_model, build_brand, employeeCode, "");
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, "", "", build_model, build_brand, employeeCode, "", empCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {
@@ -889,14 +955,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
             homeScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(homeScreenIntent);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
-        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
     @Override

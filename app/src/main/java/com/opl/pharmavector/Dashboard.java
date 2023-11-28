@@ -305,6 +305,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         firebaseEvent();
         autoLogout();
         TeamLogo();
+        userLogIn(track_add);
         //userLogIn();
     }
 
@@ -1875,7 +1876,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add, globalempCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {
@@ -1897,6 +1898,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private void userLogIn(String loc_name) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userLogIn(globalempCode, globalmpocode, vector_version, track_lat, track_lang, build_model, build_brand, globalmpocode, track_add, os_version);
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -1906,9 +1908,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
     }
 
@@ -1960,7 +1960,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
             tvLocationName.setText(track_add);
             //userLog(log_status);
             if (isAddressSubmit) {
-                userLogIn(track_add);
+                //userLogIn(track_add);
                 isAddressSubmit = false;
             }
         } catch (IOException e) {

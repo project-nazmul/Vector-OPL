@@ -1,6 +1,5 @@
 package com.opl.pharmavector;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -45,7 +44,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-
 public class EditOffline extends Activity implements AdapterView.OnItemSelectedListener {
     private Button logout;
     private Spinner spinner1, spinner2, cashcredit, cashcredit_test, credit, onik;
@@ -54,7 +52,7 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
     public Button next, back;
     SharedPreferences.Editor editor;
     public EditText osi, op, od, dateResult, ref;
-    // private ListView cust;
+    //private ListView cust;
     private ArrayList<Customer> customerlist;
     private Spinner cust;
     ProgressDialog pDialog;
@@ -68,27 +66,24 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
     private DatabaseHandler db;
     public String CUST_CODE1, pay_mode;
 
-    @SuppressLint("CutPasteId")
-
+    @SuppressLint({"CutPasteId", "ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editoffline);
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         logout = (Button) findViewById(R.id.logout);
+
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b"); //&#xf08b
         user_show = (TextView) findViewById(R.id.user_show);
         Button vieworders = (Button) findViewById(R.id.view);
         Button updateorders = (Button) findViewById(R.id.update);
         vieworders.setTypeface(fontFamily);
-
         vieworders.setText("\uf060 ");
-
         next = (Button) findViewById(R.id.next);
         next.setTypeface(fontFamily);
-        next.setText("\uf061");  //&#xf061
-
+        next.setText("\uf061"); //&#xf061
         final TextView error_dt = (TextView) findViewById(R.id.errordt);
         final TextView error_payment = (TextView) findViewById(R.id.errorpayment);
         op = (EditText) findViewById(R.id.orderpage);
@@ -115,7 +110,6 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
         actv.setAdapter(new ArrayAdapter<String>(EditOffline.this, R.layout.onik, listname));
         actv.setThreshold(1);
 
-
         actv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -123,48 +117,32 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 return false;
             }
         });
-
-
         actv.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
-
-//-------------------------------
         actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-                // TODO Auto-generated method stub
-
-            }
-
+            @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (total_string > 0) {
-                        String split1[] = inputorder.split("///");
+                        String[] split1 = inputorder.split("///");
                         pay_mode = split1[1];
                         String result2 = split1[0];
-                        String split2[] = result2.split("#");
+                        String[] split2 = result2.split("#");
                         String asubstring = split2[1];
                         String ord_cust = split2[0];
-                        String split3[] = ord_cust.split("//");
+                        String[] split3 = ord_cust.split("//");
                         String CUST_CODE = split3[1];
                         String ord = split3[0];
                         CUST_CODE1 = CUST_CODE;
@@ -172,14 +150,12 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                         ded.setText(asubstring);
                         cash_credt.setText(pay_mode);
                         hideKeyBoard();
-
                     } else {
                         ded.setText("Select Date");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             private void hideKeyBoard() {
@@ -187,32 +163,20 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
             }
 
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
-
+            private void length() {}
         });
 
         final TextView myTextView = (TextView) findViewById(R.id.user_show);
         Bundle b = getIntent().getExtras();
         String UserName = b.getString("UserName");
         String UserName_1 = b.getString("userName_1");
-
-
         ArrayList<String> userName_2 = db.getterritoryname();
         myTextView.setText(userName_2 + "(" + UserName + ")");
 
-
         final Calendar myCalendar = Calendar.getInstance();
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -224,30 +188,21 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 ded.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
-
         ded.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(EditOffline.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
         vieworders.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Thread mysells = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         Bundle b = getIntent().getExtras();
                         String UserName = b.getString("UserName");
                         Intent i = new Intent(EditOffline.this, Offlinereport.class);
@@ -257,13 +212,9 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                     }
                 });
                 mysells.start();
-
             }
         });
-
-
         session = new SessionManager(getApplicationContext());
-
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Thread server = new Thread(new Runnable() {
@@ -273,21 +224,14 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
                         params.add(new BasicNameValuePair("logout", "logout"));
                         JSONObject json = jsonParser.makeHttpRequest(Login.LOGIN_URL, "POST", params);
-
                     }
                 });
-
                 server.start();
                 logoutUser();
             }
         });
-
-        /*---------------Next Button Event click------------------*/
         next.setOnClickListener(new View.OnClickListener() {
-
-
             public void onClick(final View v) {
-
                 Calendar c = Calendar.getInstance();
                 int cYear = c.get(Calendar.YEAR);
                 int cMonth = c.get(Calendar.MONTH) + 1;
@@ -303,18 +247,12 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 int cmonth_day = cMonth * 30;
                 int totalday_valid1 = cmonth_day + cDay;
                 int totalday_valid = totalday_valid1 + 6;
-
-                if (
-                        (ded.getText().toString().trim().equals(""))
+                if ((ded.getText().toString().trim().equals(""))
                                 || (ded.getText().toString().trim().equals("Delivery Date"))
                                 || (actv.getText().toString().trim().equals(""))
-                                || (actv.getText().toString().trim().equals("Input Order (eg. dh..)"))
-
-                ) {
-
+                                || (actv.getText().toString().trim().equals("Input Order (eg. dh..)"))) {
                     ded.setError("Delivery Date  is required!");
                     actv.setError("Order number is  not Assigned !");
-
                 } else if (totalday_given > totalday_valid) {
                     ded.setError("Delivery Date  is not more than 6 days");
                     error_dt.setText("Delivery Date  is not more than next 6 days! ");
@@ -327,6 +265,7 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                     Bundle b = getIntent().getExtras();
                     String userName = b.getString("UserName");
                     String UserName_1 = b.getString("UserName_1");
+
                     Thread next = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -351,7 +290,6 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 }
             }
         });
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -372,11 +310,8 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 finish();
             default:
                 return super.onOptionsItemSelected(item);
-
-
         }
     }
-
 
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
@@ -394,7 +329,6 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
     }
 
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -402,42 +336,34 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
             pDialog.setMessage("Loading Orders..");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-
             String id = userName;
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -448,29 +374,21 @@ public class EditOffline extends Activity implements AdapterView.OnItemSelectedL
                 pDialog.dismiss();
             populateSpinner();
         }
-
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-    }
+    public void onNothingSelected(AdapterView<?> arg0) {}
 
     private void logoutUser() {
         session.setLogin(false);
-        // session.removeAttribute();
+        //session.removeAttribute();
         session.invalidate();
         Intent intent = new Intent(EditOffline.this, Login.class);
         startActivity(intent);
         finishActivity(BIND_ABOVE_CLIENT);
         finish();
-
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-        // TODO Auto-generated method stub
-
-    }
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 }

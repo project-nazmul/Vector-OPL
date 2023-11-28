@@ -38,11 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 public class AmDcrReport extends Activity implements OnClickListener {
     private static Activity parent;
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<com.opl.pharmavector.Category3> categoriesList;
     public ProgressDialog pDialog;
     ListView productListView;
@@ -69,12 +70,9 @@ public class AmDcrReport extends Activity implements OnClickListener {
     public static ArrayList<String> PROD_VAT_3;
     public static ArrayList<String> PROD_VAT_4;
     private ArrayList<String> array_sort = new ArrayList<String>();
-
     private final String URL_PRODUCT_VIEW =BASE_URL+"area_manager_api/amdcr/DcrReportVal.php";
 
-
     protected void onCreate(Bundle savedInstanceState) {
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amdcrreport);
         
@@ -83,12 +81,11 @@ public class AmDcrReport extends Activity implements OnClickListener {
         Button back_btn =  findViewById(R.id.backbt);
         Button view_btn =  findViewById(R.id.view);
         Button submitBtn =  findViewById(R.id.submitBtn);
-
         Button submitBtn_2 =  findViewById(R.id.submitBtn_2);
         fromdate =  findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         final LinearLayout ln = (LinearLayout) findViewById(R.id.totalshow);
         totqty =  findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
@@ -98,36 +95,26 @@ public class AmDcrReport extends Activity implements OnClickListener {
         PROD_RATE = new ArrayList<String>();
         categoriesList = new ArrayList<com.opl.pharmavector.Category3>();
 
-
         Bundle b = getIntent().getExtras();
         String userName = b.getString("UserName");
-        
-        
         Calendar c_todate = Calendar .getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
         todate.setText(current_todate);
-
-
         Calendar c_fromdate = Calendar .getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dffromdate = new SimpleDateFormat("01/MM/yyyy");
         String current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
-
-
-        
         final Calendar myCalendar = Calendar.getInstance();
+
         final DatePickerDialog.OnDateSetListener date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
-
             private void updateLabel() {
                 //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
@@ -136,33 +123,23 @@ public class AmDcrReport extends Activity implements OnClickListener {
                 fromdate.setText("");
                 fromdate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
-
         fromdate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AmDcrReport.this, date_form, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-
-
         final Calendar myCalendar1 = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
-
             private void updateLabel() {
                 //String myFormat = "dd/MM/yyyy";
                 String myFormat = "dd/MM/yyyy";
@@ -171,29 +148,21 @@ public class AmDcrReport extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
-
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(AmDcrReport.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        
         back_btn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Intent i = new Intent(AmDcrReport.this,  AmDashboard.class);
                             i.putExtra("UserName", AmDashboard.globalFMCode);
@@ -214,14 +183,11 @@ public class AmDcrReport extends Activity implements OnClickListener {
                 backthred.start();
             }
         });
-
-
-
         submitBtn_2.setOnClickListener(new OnClickListener() {
-
-
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
+
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
@@ -231,47 +197,33 @@ public class AmDcrReport extends Activity implements OnClickListener {
                         //fromdate.setError( "From Date is required!" );
                         fromdate.setText("From Date is required");
                         fromdate.setTextColor(Color.RED);
-                    }
-                    else if (todate1.isEmpty()||(todate1.equals("To Date"))||(todate1.equals("To Date is required"))) {
+                    } else if (todate1.isEmpty()||(todate1.equals("To Date"))||(todate1.equals("To Date is required"))) {
                         //todate.setError( "To Date is required!" );
-
                         todate.setText("To Date is required");
                         todate.setTextColor(Color.RED);
-
-                    }
-                    else {
+                    } else {
                         System.out.println("after text change elsfromdate1eeeeeeeee"+fromdate1);
                         System.out.println("elsetodate1 "+todate1);
-
                         categoriesList.clear();
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onClick(View v) {}
         });
-
     }
-
-
 
     private void popSpinner() {
         List<String> description = new ArrayList<String>();
+
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
         }
-
     }
 
     public void finishActivity(View v) {
@@ -281,6 +233,7 @@ public class AmDcrReport extends Activity implements OnClickListener {
     class Spinner {
         private String TotalQ;
         private String TotalV;
+
         private void populateSpinner() {
             ArrayList<String> sl = new ArrayList<String>();
             ArrayList<String> lables = new ArrayList<String>();
@@ -290,10 +243,10 @@ public class AmDcrReport extends Activity implements OnClickListener {
             ArrayList<String> value5 = new ArrayList<String>();
             ArrayList<String> value6 = new ArrayList<String>();
             ArrayList<String> value7 = new ArrayList<String>();
-
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
             String prod_rate_1, prod_vat_1,prod_vat_2,prod_vat_3,prod_vat_4, sellvalue_2,sellvalue_3;
+
             for (int i = 0; i < categoriesList.size(); i++) {
                 sl.add(categoriesList.get(i).getsl());
                 lables.add(categoriesList.get(i).getName());
@@ -302,29 +255,19 @@ public class AmDcrReport extends Activity implements OnClickListener {
                 prod_rate_1 = categoriesList.get(i).getPROD_RATE();
                 sellvalue_2 = prod_rate_1;
                 value.add(sellvalue_2);
-
                 prod_vat_1= categoriesList.get(i).getPROD_VAT();
                 value4.add(prod_vat_1);
-
-
                 prod_vat_2= categoriesList.get(i).getPROD_VAT_2();
                 value5.add(prod_vat_2);
-
-
                 prod_vat_3= categoriesList.get(i).getPROD_VAT_3();
                 value6.add(prod_vat_3);
-
                 prod_vat_4= categoriesList.get(i).getPROD_VAT_4();
                 value7.add(prod_vat_4);
-
-
             }
             RMDcrreportvalueProductShowAdapter adapter = new RMDcrreportvalueProductShowAdapter(AmDcrReport.this,sl,lables, quanty, value,value4,value5,value6,value7);
             productListView.setAdapter(adapter);
         }
-
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
         public String getTotalQ() {
@@ -334,8 +277,8 @@ public class AmDcrReport extends Activity implements OnClickListener {
             return TotalV;
         }
     }
-    private class GetCategories extends AsyncTask<Void, Void, Void> {
 
+    private class GetCategories extends AsyncTask<Void, Void, Void> {
         String fromdate1=fromdate.getText().toString();
         String todate1=todate.getText().toString();
         Bundle b = getIntent().getExtras();
@@ -353,6 +296,7 @@ public class AmDcrReport extends Activity implements OnClickListener {
             pDialog.setCancelable(false);
             pDialog.show();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
@@ -366,31 +310,29 @@ public class AmDcrReport extends Activity implements OnClickListener {
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW,ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            com.opl.pharmavector.Category3 cat3 = new com.opl.pharmavector.Category3(
-                                    catObj.getString("sl"),
-                                    catObj.getString("id"),
-                                    catObj.getString("name"),
-                                    catObj.getString("quantity"),
-                                    catObj.getString("PROD_RATE"),
-                                    catObj.getString("PROD_VAT"),
-                                    catObj.getString("PROD_VAT_2"),
-                                    catObj.getString("PROD_VAT_3"),
-                                    catObj.getString("PROD_VAT_4"));
-                            categoriesList.add(cat3);
-                        }
-                    }
+                    JSONArray categories = jsonObj.getJSONArray("categories");
 
+                    for (int i = 0; i < categories.length(); i++) {
+                        JSONObject catObj = (JSONObject) categories.get(i);
+                        Category3 cat3 = new Category3(
+                                catObj.getString("sl"),
+                                catObj.getString("id"),
+                                catObj.getString("name"),
+                                catObj.getString("quantity"),
+                                catObj.getString("PROD_RATE"),
+                                catObj.getString("PROD_VAT"),
+                                catObj.getString("PROD_VAT_2"),
+                                catObj.getString("PROD_VAT_3"),
+                                catObj.getString("PROD_VAT_4"));
+                        categoriesList.add(cat3);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
                 Toast.makeText(AmDcrReport.this, "Nothing To Disply",Toast.LENGTH_SHORT).show();
@@ -398,6 +340,7 @@ public class AmDcrReport extends Activity implements OnClickListener {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -406,23 +349,17 @@ public class AmDcrReport extends Activity implements OnClickListener {
             AmDcrReport.Spinner sp = new AmDcrReport.Spinner();
             sp.populateSpinner();
             popSpinner();
-
         }
     }
 
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
-
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(AmDcrReport.this, Report.class);
         startActivity(i);
         finish();
-
     }
-
 }

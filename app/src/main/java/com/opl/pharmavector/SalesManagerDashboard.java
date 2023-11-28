@@ -285,6 +285,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
                     })
                     .show();
         }
+        userLogIn(track_add);
     }
 
     private void initBroadcastReceiver() {
@@ -316,7 +317,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             //userLog(log_status);
 
             if (isAddressSubmit) {
-                userLogIn(track_add);
+                //userLogIn(track_add);
                 isAddressSubmit = false;
             }
         } catch (IOException e) {
@@ -326,7 +327,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
 
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add, globalempCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {

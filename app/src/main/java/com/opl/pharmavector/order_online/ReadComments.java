@@ -119,8 +119,8 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
     public SimpleDateFormat timeFormat;
     protected Handler handler;
     public static String CustomerCode;
-    TextView error_dt,error_payment,target,achiv,inv,ordno,succ_msg,myTextView;
-    Button vieworders,updateorders;
+    TextView error_dt, error_payment, target, achiv, inv, ordno, succ_msg, myTextView;
+    Button vieworders, updateorders;
     LinearLayout mainlayout;
     Spinner ampmspin;
     AutoCompleteTextView actv;
@@ -141,17 +141,12 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view,
-                                  int year,
-                                  int monthOfYear,
-                                  int dayOfMonth) {
-
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
-
             private void updateLabel() {
                 String myFormat = "dd/MM/yyyy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
@@ -159,7 +154,6 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                 ded.setText(sdf.format(myCalendar.getTime()));
             }
         };
-
         ded.setOnClickListener(new OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -227,7 +221,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                     @Override
                     public void run() {
                         try {
-/*                          Intent i = new Intent(ReadComments.this, Dashboard.class);
+                        /*  Intent i = new Intent(ReadComments.this, Dashboard.class);
                             i.putExtra("UserName", userName);
                             i.putExtra("new_version", userName);
                             i.putExtra("UserName_1", UserName_2);
@@ -237,7 +231,7 @@ public class ReadComments extends Activity implements OnItemSelectedListener {
                             i.putExtra("userName_1", UserName_2);
                             i.putExtra("userName_2", UserName_2);
                             i.putExtra("ff_type", Dashboard.ff_type);
-                            startActivity(i);                */
+                            startActivity(i); */
                             finish();
                         } catch (Exception e) {
                             e.printStackTrace();

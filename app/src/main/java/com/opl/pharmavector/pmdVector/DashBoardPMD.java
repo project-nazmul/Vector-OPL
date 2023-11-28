@@ -646,7 +646,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
             track_add = track_add + "\n" + obj.getCountryName();
             track_add = track_add + "\n" + obj.getCountryCode();
             Log.e("address-->", track_add);
-            userLog(log_status);
+            //userLog(log_status);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -695,7 +695,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, String.valueOf(fetchedlat), String.valueOf(fetchedlang),
-                build_model, build_brand, pmd_loccode, track_add);
+                build_model, build_brand, pmd_loccode, track_add, "");
 
         call.enqueue(new Callback<Patient>() {
             @Override

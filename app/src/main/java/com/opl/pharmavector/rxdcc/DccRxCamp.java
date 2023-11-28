@@ -72,9 +72,7 @@ import me.srodrigo.androidhintspinner.HintSpinner;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
 public class DccRxCamp extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     private ArrayList<com.opl.pharmavector.Category> categoriesList;
@@ -120,19 +118,15 @@ public class DccRxCamp extends Activity implements OnClickListener {
     String fieldforce_val = "Territory";
     String Prescription_val = "All";
     String pres_type = "xx";
-
     private final String URL_PRODUCT_VIEW = BASE_URL + "rx_dcc_camp/generation/master_data.php";
     private final String URL_LIST = BASE_URL + "rx_dcc_camp/generation/get_List.php";
     private final String URL_BRAND = BASE_URL + "rx_dcc_camp/generation/get_brandList.php";
     private final String URL_DETAIL_VIEW3 = BASE_URL + "rx_dcc_camp/generation/rx_dcc_brand_detail.php";
-
-
     private HintSpinner<User> userHintSpinner;
     private List<User> users;
     String passed_manager_code, q_brandcode, q_custcode;
 
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dcc_rx_camp);
 
@@ -151,28 +145,22 @@ public class DccRxCamp extends Activity implements OnClickListener {
         new GetBrandList().execute();
         btnClickEvent();
 
-
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-
                 String brand_code = (String) productListView.getAdapter().getItem(arg2);
                 Log.e("selectedBrand-->", brand_code);
                 String[] first_split = brand_code.split("-");
                 q_brandcode = first_split[0].trim();
                 q_custcode = first_split[1].trim();
                 Log.e("SendforDetails-->", q_brandcode + "\n" + q_custcode);
-
                 categoriesList3.clear();
                 new populateBrandDetails().execute();
                 //postBrandDetails();
             }
-
         });
     }
 
     private void initViews() {
-
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         productListView = findViewById(R.id.pListView);
         pListView3 = findViewById(R.id.pListView3);
@@ -180,12 +168,12 @@ public class DccRxCamp extends Activity implements OnClickListener {
         view_btn = findViewById(R.id.view);
         submitBtn = findViewById(R.id.submitBtn);
         submitBtn.setTypeface(fontFamily);
-        submitBtn.setText("\uf1d8"); // &#xf1d8
+        submitBtn.setText("\uf1d8"); //&#xf1d8
         prescription_head = findViewById(R.id.prescription_head);
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         totqty = findViewById(R.id.totalsellquantity);
         totval = findViewById(R.id.totalsellvalue);
         customerlist = new ArrayList<Customer>();
@@ -203,7 +191,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
         } else {
             layout2.setVisibility(View.VISIBLE);
         }
-
         spin_doc = findViewById(R.id.spin_doc);
         spin_brand = findViewById(R.id.spin_brand);
         spin_rm = findViewById(R.id.spin_rm);
@@ -220,28 +207,21 @@ public class DccRxCamp extends Activity implements OnClickListener {
             cardview4.setVisibility(View.GONE);
             initTypeHintSpinner();
         }
-
         categoriesList3 = new ArrayList<Category3>();
-
     }
 
     private void initUserHintSpinner() {
-
         MaterialSpinner mspinner = findViewById(R.id.mspinner);
         switch (manager_detail) {
-
             case "AD":
                 mspinner.setItems("National", "Division", "Zone", "Region", "Area", "Territory");
                 break;
-
             case "SM":
                 mspinner.setItems("Zone", "Region", "Area", "Territory");
                 break;
-
             case "ASM":
                 mspinner.setItems("Region", "Area", "Territory");
                 break;
-
             case "RM":
                 mspinner.setItems("Area", "Territory");
                 break;
@@ -251,19 +231,15 @@ public class DccRxCamp extends Activity implements OnClickListener {
         }
 
         mspinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar snackbar = Snackbar.make(view, "Field Type: " + item, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null);
+                Snackbar snackbar = Snackbar.make(view, "Field Type: " + item, Snackbar.LENGTH_LONG).setAction("Action", null);
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(DccRxCamp.this, R.color.colorAccentEditor));
                 snackbar.show();
-
-
                 fieldforce_val = String.valueOf(item);
-                if (fieldforce_val.trim().equals("Own")) {
 
+                if (fieldforce_val.trim().equals("Own")) {
                     passed_manager_code = RmDashboard.globalRMCode;
                     Log.e("SelectedRm-->", passed_manager_code);
                     brand_code = "xx";
@@ -280,27 +256,21 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 }
             }
         });
-
-
     }
 
     private void initTypeHintSpinner() {
-
         MaterialSpinner mspinner2 = findViewById(R.id.mspinner2);
         mspinner2.setItems("All", "Active", "Non-Active");
 
-
         mspinner2.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar snackbar = Snackbar.make(view, "Select Status: " + item, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null);
+                Snackbar snackbar = Snackbar.make(view, "Select Status: " + item, Snackbar.LENGTH_LONG).setAction("Action", null);
                 View sbView = snackbar.getView();
                 sbView.setBackgroundColor(ContextCompat.getColor(DccRxCamp.this, R.color.colorAccentEditor));
                 snackbar.show();
-
                 Prescription_val = String.valueOf(item);
+
                 if (Prescription_val.trim().equals("All")) {
                     pres_type = "xx";
                 } else if (Prescription_val.trim().equals("Active")) {
@@ -310,22 +280,15 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 }
             }
         });
-
-
     }
-
 
     private void paraMeterCheck() {
-
         new GetList().execute();
         new GetBrandList().execute();
-
     }
-
 
     @SuppressLint("SimpleDateFormat")
     private void initCalender() {
-
         c_todate = Calendar.getInstance();
         dftodate = new SimpleDateFormat("dd/MM/yyyy");
         current_todate = dftodate.format(c_todate.getTime());
@@ -335,11 +298,10 @@ public class DccRxCamp extends Activity implements OnClickListener {
         current_fromdate = dffromdate.format(c_fromdate.getTime());
         fromdate.setText(current_fromdate);
         myCalendar = Calendar.getInstance();
+
         date_form = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -357,9 +319,7 @@ public class DccRxCamp extends Activity implements OnClickListener {
         myCalendar1 = Calendar.getInstance();
         date_to = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -374,7 +334,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 todate.setText("");
                 todate.setText(sdf.format(myCalendar.getTime()));
             }
-
         };
         fromdate.setOnClickListener(new OnClickListener() {
             @Override
@@ -384,10 +343,8 @@ public class DccRxCamp extends Activity implements OnClickListener {
             }
         });
         todate.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(DccRxCamp.this, date_to, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
@@ -395,164 +352,113 @@ public class DccRxCamp extends Activity implements OnClickListener {
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void autoCompleteEvents() {
-
-
         actv_brand_name.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_brand_name.showDropDown();
                 return false;
             }
         });
         actv_brand_name.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_brand_name.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv_brand_name.setTextColor(Color.RED);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv_brand_name.setTextColor(Color.GREEN);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
-                    if (inputorder.indexOf("//") != -1) {
+
+                    if (inputorder.contains("//")) {
                         actv_brand_code_split = inputorder.substring(inputorder.indexOf("//") + 1);
                         String[] first_split = inputorder.split("//");
                         brand_name = first_split[0].trim();
                         brand_code = first_split[1].trim();
                         actv_brand_name.setText(brand_name);
                         KeyboardUtils.hideKeyboard(DccRxCamp.this);
-
                         Log.e("custDtl==>", brand_code + brand_name);
-
-                    } else {
-
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
-
-
         actv_rm.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // hideKeyBoard();
+                //hideKeyBoard();
                 actv_rm.showDropDown();
                 return false;
             }
         });
         actv_rm.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-            }
+            public void onClick(View v) {}
         });
         actv_rm.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                // TODO Auto-generated method stub
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 actv_rm.setTextColor(Color.BLUE);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 actv_rm.setTextColor(Color.BLUE);
             }
 
             @Override
             public void afterTextChanged(final Editable s) {
-                // TODO Auto-generated method stub
                 try {
-
-
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains("-")) {
                         actv_rm_code_split = inputorder.substring(inputorder.indexOf("-") + 1);
                         String[] first_split = inputorder.split("-");
                         rm_code = first_split[0].trim();
                         rm_name = first_split[1].trim();
-
                         actv_rm.setText(rm_code);
                         passed_manager_code = rm_code;
-
                         KeyboardUtils.hideKeyboard(DccRxCamp.this);
                         categoriesList3.clear();
-
-                    } else {
-
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-            private void length() {
-                // TODO Auto-generated method stub
-
-            }
-
+            private void length() {}
         });
-
-
     }
 
     private void btnClickEvent() {
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         finish();
                     }
                 });
-
                 backthred.start();
-
-
             }
         });
         submitBtn.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(final View v) {
                 try {
@@ -573,11 +479,9 @@ public class DccRxCamp extends Activity implements OnClickListener {
                         if (actv_brand_name.getText().toString() == null || actv_brand_name.getText().toString().equals("")) {
                             brand_code = "xx";
                         }
-
                         categoriesList.clear();
                         new GetCategories().execute();
                         postPrescriptionCount();
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -590,7 +494,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
         List<String> description = new ArrayList<String>();
         for (int i = 0; i < categoriesList.size(); i++) {
             description.add(categoriesList.get(i).getId());
-
         }
     }
 
@@ -599,22 +502,20 @@ public class DccRxCamp extends Activity implements OnClickListener {
     }
 
     public void postPrescriptionCount() {
-
         if (actv_brand_name.getText().toString().equals("")) {
             brand_code = "xx";
         }
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
         Call<List<Patient>> call = apiInterface.rx_dcc_doc_count(passed_manager_code, brand_code, fromdate.getText().toString(),
                 todate.getText().toString(), pres_type, DashBoardPMD.pmd_loccode);
 
-
         call.enqueue(new Callback<List<Patient>>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<List<Patient>> call, retrofit2.Response<List<Patient>> response) {
                 List<Patient> giftitemCount = response.body();
                 assert giftitemCount != null;
+
                 if (response.isSuccessful()) {
                     if (giftitemCount.size() == 0) {
                         Toast.makeText(DccRxCamp.this, "Gift item is not available", Toast.LENGTH_SHORT).show();
@@ -626,18 +527,16 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 } else {
                     Toast.makeText(DccRxCamp.this, "Server error! Please try moments later", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-                // pDialog.dismiss();
-                //  Toast.makeText(RXSummary.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
+                //pDialog.dismiss();
+                //Toast.makeText(RXSummary.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
                 postPrescriptionCount();
             }
         });
     }
-
 
     class Spinner {
         private String TotalQ;
@@ -651,20 +550,15 @@ public class DccRxCamp extends Activity implements OnClickListener {
             ArrayList<String> achv = new ArrayList<String>();
             ArrayList<String> growth = new ArrayList<String>();
             ArrayList<String> mpo_code = new ArrayList<String>();
-
-
             ArrayList<String> r_target = new ArrayList<String>();
             ArrayList<String> sg_target = new ArrayList<String>();
             ArrayList<String> bl_target = new ArrayList<String>();
             ArrayList<String> total_target = new ArrayList<String>();
-
-
             int quantity = 0;
             String prod_rate, brandname;
             String prod_vat;
             String sellvalue, mpocode;
             String ppm_code;
-
             String rtarget, sgtarget, bltarget, totaltarget;
 
             for (int i = 0; i < categoriesList.size(); i++) {
@@ -674,35 +568,26 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 prod_rate = (categoriesList.get(i).getPROD_RATE());
                 prod_vat = (categoriesList.get(i).getPROD_VAT());
                 mpocode = (categoriesList.get(i).getPPM_CODE());
-
                 rtarget = (categoriesList.get(i).getP_CODE());
                 sgtarget = (categoriesList.get(i).getSHIFT_CODE());
-
                 bltarget = (categoriesList.get(i).getPACK_CODE());
                 totaltarget = (categoriesList.get(i).getTOTAL_CODE());
-
                 brand_name.add(brandname);
                 quanty.add(quantity);
                 value.add(prod_rate);
                 achv.add(prod_vat);
                 growth.add(ppm_code);
                 mpo_code.add(mpocode);
-
                 r_target.add(rtarget);
                 sg_target.add(sgtarget);
                 bl_target.add(bltarget);
                 total_target.add(totaltarget);
-
             }
-
-            DccRxAdapter adapter = new DccRxAdapter(DccRxCamp.this, brand_name, quanty, value, achv, growth, mpo_code,
-                    r_target, sg_target, bl_target, total_target);
-
+            DccRxAdapter adapter = new DccRxAdapter(DccRxCamp.this, brand_name, quanty, value, achv, growth, mpo_code, r_target, sg_target, bl_target, total_target);
             productListView.setAdapter(adapter);
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -716,7 +601,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
     }
 
     private class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -729,8 +613,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
-
             Log.e("GetCategories ->", "passed_manager_code==> " + passed_manager_code + "===>" + brand_code);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", passed_manager_code));
@@ -739,46 +621,41 @@ public class DccRxCamp extends Activity implements OnClickListener {
             com.opl.pharmavector.ServiceHandler jsonParser = new com.opl.pharmavector.ServiceHandler();
             json = jsonParser.makeServiceCall(URL_PRODUCT_VIEW, com.opl.pharmavector.ServiceHandler.POST, params);
 
-
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj.getJSONArray("categories");
-                        int cat_length = categories.length();
-                        if (cat_length == 0) {
-                            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(DccRxCamp.this, "No data available on this search", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
-                            for (int i = 0; i < categories.length(); i++) {
-                                JSONObject catObj = (JSONObject) categories.get(i);
-                                com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
-                                        catObj.getString("sl"),
-                                        catObj.getString("id"), //brand_name
-                                        catObj.getString("name"), //regular
-                                        catObj.getInt("quantity"), //special
-                                        catObj.getString("PROD_RATE"),//brand_loyalty
-                                        catObj.getString("PROD_VAT"),//total
-                                        catObj.getString("PPM_CODE"),  //mpocode
-                                        catObj.getString("P_CODE"),  //RX_TARGET
-                                        catObj.getString("SHIFT_CODE"),  //SG_TARGET
-                                        catObj.getString("PACK_CODE"), //BL_TARGET
-                                        catObj.getString("TOTAL_CODE") //TOTAL_TARGET
+                    JSONArray categories = jsonObj.getJSONArray("categories");
+                    int cat_length = categories.length();
 
-                                );
-                                categoriesList.add(cat);
+                    if (cat_length == 0) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DccRxCamp.this, "No data available on this search!", Toast.LENGTH_SHORT).show();
                             }
+                        });
+                    } else {
+                        for (int i = 0; i < categories.length(); i++) {
+                            JSONObject catObj = (JSONObject) categories.get(i);
+                            com.opl.pharmavector.Category cat = new com.opl.pharmavector.Category(
+                                    catObj.getString("sl"),
+                                    catObj.getString("id"), //brand_name
+                                    catObj.getString("name"), //regular
+                                    catObj.getInt("quantity"), //special
+                                    catObj.getString("PROD_RATE"), //brand_loyalty
+                                    catObj.getString("PROD_VAT"), //total
+                                    catObj.getString("PPM_CODE"), //mpoCode
+                                    catObj.getString("P_CODE"),  //RX_TARGET
+                                    catObj.getString("SHIFT_CODE"), //SG_TARGET
+                                    catObj.getString("PACK_CODE"), //BL_TARGET
+                                    catObj.getString("TOTAL_CODE") //TOTAL_TARGET
+                            );
+                            categoriesList.add(cat);
                         }
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Toast.makeText(DccRxCamp.this, "No data available on this search", Toast.LENGTH_SHORT).show();
             }
@@ -804,10 +681,8 @@ public class DccRxCamp extends Activity implements OnClickListener {
             sp.populateSpinner();
             popSpinner();
             postPrescriptionCount();
-
         }
     }
-
 
     private void populateSpinnerRM() {
         List<String> lables = new ArrayList<String>();
@@ -823,7 +698,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
         actv_rm.setTextColor(Color.BLUE);
     }
 
-
     class GetList extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -837,33 +711,29 @@ public class DccRxCamp extends Activity implements OnClickListener {
             params.add(new BasicNameValuePair("function", fieldforce_val.trim()));
             params.add(new BasicNameValuePair("manager_code", passed_manager_code));
             params.add(new BasicNameValuePair("manager_detail", manager_detail));
-
             Log.e("function==>", fieldforce_val.trim());
             Log.e("spinnerLoadParam==>", passed_manager_code);
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_LIST, ServiceHandler.POST, params);
             customerlist.clear();
             Log.e("getList==>", json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
-                    }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
 
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -872,11 +742,9 @@ public class DccRxCamp extends Activity implements OnClickListener {
             super.onPostExecute(result);
             populateSpinnerRM();
         }
-
     }
 
     private void populatebrandSpinner() {
-
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < departmentlist.size(); i++) {
             lables.add(departmentlist.get(i).getName());
@@ -888,7 +756,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
         actv_brand_name.setThreshold(2);
         actv_brand_name.setAdapter(Adapter);
         actv_brand_name.setTextColor(Color.BLUE);
-
     }
 
     class GetBrandList extends AsyncTask<Void, Void, Void> {
@@ -901,7 +768,6 @@ public class DccRxCamp extends Activity implements OnClickListener {
         @Override
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-
             params.add(new BasicNameValuePair("manager_code", passed_manager_code));
             ServiceHandler jsonParser = new ServiceHandler();
             json = jsonParser.makeServiceCall(URL_BRAND, ServiceHandler.POST, params);
@@ -917,15 +783,12 @@ public class DccRxCamp extends Activity implements OnClickListener {
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
                         departmentlist.add(custo);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
-
             return null;
         }
 
@@ -934,14 +797,10 @@ public class DccRxCamp extends Activity implements OnClickListener {
             super.onPostExecute(result);
             populatebrandSpinner();
         }
-
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private class populateBrandDetails extends AsyncTask<Void, Void, Void> {
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -954,18 +813,18 @@ public class DccRxCamp extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("cust_code", q_custcode));
             params.add(new BasicNameValuePair("brand_code", q_brandcode));
-
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DETAIL_VIEW3, ServiceHandler.POST, params);
             Log.e("Response: ", "> " + json);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category3 cat3 = new Category3(
@@ -980,14 +839,11 @@ public class DccRxCamp extends Activity implements OnClickListener {
                                 catObj.getString("PROD_VAT_4"));
                         categoriesList3.add(cat3);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
-
             }
             return null;
         }
@@ -997,15 +853,11 @@ public class DccRxCamp extends Activity implements OnClickListener {
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-
             Spinner3 sp3 = new Spinner3();
-
             sp3.populateSpinner3();
             popSpinner3();
-
         }
     }
-
 
     class Spinner3 {
         private String TotalQ;
@@ -1023,6 +875,7 @@ public class DccRxCamp extends Activity implements OnClickListener {
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
             String prod_rate_1, prod_vat_1, prod_vat_2, prod_vat_3, prod_vat_4, sellvalue_2, sellvalue_3;
+
             for (int i = 0; i < categoriesList3.size(); i++) {
                 sl.add(categoriesList3.get(i).getsl());
                 lables.add(categoriesList3.get(i).getName());
@@ -1038,19 +891,14 @@ public class DccRxCamp extends Activity implements OnClickListener {
                 value5.add(prod_vat_2);
                 prod_vat_3 = categoriesList3.get(i).getPROD_VAT_3();
                 value6.add(prod_vat_3);
-
                 prod_vat_4 = categoriesList3.get(i).getPROD_VAT_4();
                 value7.add(prod_vat_4);
-
             }
-
             ChemistGiftCampaignAdapter adapter2 = new ChemistGiftCampaignAdapter(DccRxCamp.this, sl, lables, quanty, value, value4, value5, value6, value7);
             pListView3.setAdapter(adapter2);
-
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
 
@@ -1067,25 +915,19 @@ public class DccRxCamp extends Activity implements OnClickListener {
         List<String> description3 = new ArrayList<String>();
         for (int i = 0; i < categoriesList3.size(); i++) {
             description3.add(categoriesList3.get(i).getId());
-
         }
     }
 
-
     @Override
-    public void onClick(View v) {
-    }
+    public void onClick(View v) {}
 
-    protected void onPostExecute() {
-    }
+    protected void onPostExecute() {}
 
     private void view() {
         Intent i = new Intent(DccRxCamp.this, com.opl.pharmavector.Report.class);
         startActivity(i);
         finish();
-
     }
-
 }
 
 

@@ -16,10 +16,11 @@ public class ApiClient {
     private static final String BASE_URL = "http://opsonin.com.bd/vector_opl_v1/";
     private static Retrofit retrofit;
 
-    public static Retrofit getApiClient(){
+    public static Retrofit getApiClient() {
         Gson gson = new GsonBuilder().setLenient().create();
         OkHttpClient client = new OkHttpClient();
-        if (retrofit==null){
+
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)

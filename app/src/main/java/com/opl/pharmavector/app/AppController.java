@@ -12,11 +12,9 @@ import com.opl.pharmavector.volley.LruBitmapCache;
 
 public class AppController extends Application {
     public static final String TAG = AppController.class.getSimpleName();
-
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     LruBitmapCache mLruBitmapCache;
-
     private static AppController mInstance;
 
     @Override

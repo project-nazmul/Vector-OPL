@@ -484,9 +484,9 @@ public class MPODashboard extends Activity implements View.OnClickListener {
     }
 
     private void userLog(final String key) {
-
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key,vector_version,vectorToken,MPODashboard.track_lat,MPODashboard.track_lang,build_model,build_brand,MPODashboard.globalmpocode,Dashboard.track_add);
+        Call<Patient> call = apiInterface.userData(key,vector_version,vectorToken,MPODashboard.track_lat,MPODashboard.track_lang,build_model,build_brand,MPODashboard.globalmpocode,Dashboard.track_add,"");
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -494,17 +494,14 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                 int success           = response.body().getSuccess();
                 String message        = response.body().getMassage();
                 Log.e("mpoLocationUpdate->",message+"===>"+Dashboard.track_lat+"-----"+Dashboard.track_lang);
-
             }
+
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
     }
 
     private void initBroadcastReceiver() {
-
         Log.e("initBroadCast-->","initBroadcastReceiver");
         updateUIReciver = new BroadcastReceiver() {
             @Override
@@ -530,7 +527,6 @@ public class MPODashboard extends Activity implements View.OnClickListener {
     }
 
     private void buildLocationRequest() {
-
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(100);
@@ -549,9 +545,7 @@ public class MPODashboard extends Activity implements View.OnClickListener {
             track_add = track_add + "\n" + obj.getCountryCode();
             //userLog(log_status);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-
         }
     }
 
@@ -571,7 +565,6 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                 Log.e("vectorToken-->",vectorToken);
             }
         });
-
         FirebaseMessaging.getInstance().subscribeToTopic("vector")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -583,11 +576,10 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                         Log.d(TAG, msg);
                     }
                 });
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                // checking for type intent filter
+                //checking for type intent filter
                 if (intent.getAction().equals(com.opl.pharmavector.app.Config.REGISTRATION_COMPLETE)) {
                     FirebaseMessaging.getInstance().subscribeToTopic(com.opl.pharmavector.app.Config.TOPIC_GLOBAL);
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
@@ -620,12 +612,9 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                 });
             }
         }.start();
-
     }
 
-
     private void showBottomSheetDialog() {
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -633,14 +622,11 @@ public class MPODashboard extends Activity implements View.OnClickListener {
         Button changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
-
         textView4.setText("Order\nOnline");
         textView5.setText("Order\nOffline");
         changepassword.setText("Product Order");
-
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         cardview_rx_summary_B.setVisibility(View.GONE);
-
 
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -653,7 +639,6 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -665,21 +650,16 @@ public class MPODashboard extends Activity implements View.OnClickListener {
                 bottomSheetDialog.dismiss();
             }
         });
-
-
         bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                // Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
             }
         });
-
         bottomSheetDialog.show();
     }
 
     private void showBottomSheetDialog_DCR() {
-
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
@@ -687,7 +667,6 @@ public class MPODashboard extends Activity implements View.OnClickListener {
         Button changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
-
         textView4.setText("Dcr\nOnline");
         textView5.setText("Dcr\nReport");
         changepassword.setText("Daily Call Report");

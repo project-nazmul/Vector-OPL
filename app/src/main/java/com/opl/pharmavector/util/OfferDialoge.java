@@ -92,7 +92,6 @@ public class OfferDialoge extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         productListView = (ListView) view.findViewById(R.id.pListView);
         remove =   (ImageButton) view.findViewById(R.id.remove);
-
         //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_multiple_choice, mList);
         new GetCategories().execute();
         remove.setOnClickListener(v -> {

@@ -1,5 +1,6 @@
 package com.opl.pharmavector.mrd_pres_report.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -121,7 +122,7 @@ public class MRDDocAdapter extends RecyclerView.Adapter<MRDDocAdapter.ClubViewHo
                     List<Promo> filteredList = new ArrayList<>();
 
                     for (Promo company : companyList) {
-                        if (company.serial.toLowerCase().contains(charString.toLowerCase()) ) {
+                        if (company.serial.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(company);
                         }
                     }
@@ -132,6 +133,7 @@ public class MRDDocAdapter extends RecyclerView.Adapter<MRDDocAdapter.ClubViewHo
                 return filterResults;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 filteredCompanyList = (ArrayList<Promo>) filterResults.values;

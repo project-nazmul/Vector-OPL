@@ -18,6 +18,7 @@ import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -31,7 +32,13 @@ import android.widget.Button;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.karumi.dexter.Dexter;
@@ -160,12 +167,15 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
+    public static final String googlePlayVectorLink = "market://details?id=com.opl.pharmavector";
+    public static final String alternativeVectorLink = "https://play.google.com/store/apps/details?id=com.opl.pharmavector";
 
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector_gm_dashboard);
 
+        isUpdateAvailable();
         VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
         CardView cardView = findViewById(R.id.cardView2);
@@ -293,6 +303,37 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                     })
                     .show();
         }
+        userLogIn(track_add);
+    }
+
+    private void isUpdateAvailable() {
+        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+        //Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
+        //mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
+        appUpdateInfoTask.addOnSuccessListener(result -> {
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this);
+                builder.setTitle("Update available").setMessage("Check out the latest version of Vector?")
+                        .setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googlePlayVectorLink)));
+                                } catch (android.content.ActivityNotFoundException exception) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(alternativeVectorLink)));
+                                }
+                            }
+                        })
+                        .setNegativeButton("Maybe later", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     private void initBroadcastReceiver() {
@@ -307,7 +348,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 track_lat = parselat;
                 track_lang = parselang;
                 getAddress(fetchedlat, fetchedlang);
-                //userLog(log_status);
+                userLog(log_status);
             }
         };
     }
@@ -323,7 +364,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             tvLocationName.setText(track_add);
             //userLog(log_status);
             if (isAddressSubmit) {
-                userLogIn(track_add);
+                //userLogIn(track_add);
                 isAddressSubmit = false;
             }
         } catch (IOException e) {
@@ -338,6 +379,27 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         build_brand = Build.BRAND;
         build_id = Build.ID;
         os_version = String.valueOf(Build.VERSION.RELEASE);
+    }
+
+    private void userLog(final String key) {
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add, globalempCode);
+        //Log.d("tokenApi->", vectorToken);
+
+        call.enqueue(new Callback<Patient>() {
+            @Override
+            public void onResponse(Call<Patient> call, Response<Patient> response) {
+                assert response.body() != null;
+                int success = response.body().getSuccess();
+                String message = response.body().getMassage();
+                Log.d("mpoLocationUpdate->", message + "===>" + vectorToken);
+            }
+
+            @Override
+            public void onFailure(Call<Patient> call, Throwable t) {
+                Log.d("tokenError", "error called! " + t);
+            }
+        });
     }
 
     private void userLogIn(String loc_name) {

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public final class SharedPreferencesHelper {
-
 	private static final String PREFS_FILE_NAME = "salematrix";
 	private static final String max = "max";
 
@@ -21,5 +20,4 @@ public final class SharedPreferencesHelper {
 		editor.putInt(SharedPreferencesHelper.max, max);
 		editor.commit();
 	}
-
 }

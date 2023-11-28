@@ -1,6 +1,8 @@
 package com.opl.pharmavector.pcconference;
+
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -59,7 +61,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class PcConferenceEdit extends Activity implements AdapterView.OnItemSelectedListener {
-
     private Toolbar toolbar;
     private EditText mpo_name, territory_name, mpo_code, venue_charge, food, miscell, miscell_bdt, impact, fd_bdt;
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
@@ -99,13 +100,8 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
     public String get_ext_dt, date_flag, check_flag, get_ext_dt2, get_pc_conference_setup_data, get_ext_dt3;
     public String conf_type_val;
     public String budget_limit, person_limit, total_conference;
-
-
     private final String URL_CUSOTMER = BASE_URL+"pcconference/pc_conf_edit/pc_mkt_restructure_vw.php";
     private final String URL_PC_PRODUCT = BASE_URL+"pcconference/pc_conf_edit/pc_productlist.php";
-
-
-
     private final String pc_conference_range_permission = BASE_URL+"pcconference/pc_conf_edit/pc_conference_range_permission.php";
     private final String pc_conference_date_check = BASE_URL+"pcconference/pc_conf_edit/pc_conference_date_check.php";
     private final String pc_conference_check_flag = BASE_URL+"pcconference/pc_conf_edit/pc_conference_check_flag.php";
@@ -113,9 +109,6 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
     private final String pc_conference_get_data_edit2 = BASE_URL+"pcconference/pc_conf_edit/pc_conference_get_data_edit2.php";
     private final String pc_conference_get_data_edit3 = BASE_URL+"pcconference/pc_conf_edit/pc_conference_get_data_edit3.php";
     private final String pc_conference_submit = BASE_URL+"pcconference/pc_conf_edit/pc_conference_submit_data_edit.php";
-
-
-
     TextView error_dt, succ_msg, ordno;
     Button back, logback;
     LinearLayout mainlayout;
@@ -124,9 +117,9 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
     Typeface fontFamily;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_conference_proposal_edit);
         initViews();
@@ -142,9 +135,7 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -158,54 +149,34 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                 proposed_conference_date = ded.getText().toString().trim();
                 new GeTPcConferenceDate().execute();
                 new GeTPcConferenceFlag().execute();
-
-
             }
-
         };
         ded.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(PcConferenceEdit.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 hideKeyboard(v);
-
-
             }
         });
         cust.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
-
-
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String text = cust.getSelectedItem().toString();
                 String[] second_split = text.split("-");
                 m_name = second_split[0];
                 market_code = second_split[1];
                 actv.setText(m_name);
-
-
             }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing, just another required interface callback
-            }
-
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
         logback.setOnClickListener(new View.OnClickListener() {
             Bundle b = getIntent().getExtras();
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Intent i = new Intent(PcConferenceEdit.this, PCDashboard.class);
                             i.putExtra("UserName", userName);
@@ -217,30 +188,23 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                             i.putExtra("userName_1", UserName_2);
                             i.putExtra("userName_2", UserName_2);
                             i.putExtra("user_flag", user_flag);
-
-
                             startActivity(i);
                             //finish();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             Bundle b = getIntent().getExtras();
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             Intent i = new Intent(PcConferenceEdit.this, PCDashboard.class);
                             i.putExtra("UserName", userName);
@@ -252,21 +216,17 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                             i.putExtra("userName_1", UserName_2);
                             i.putExtra("userName_2", UserName_2);
                             i.putExtra("user_flag", user_flag);
-
                             startActivity(i);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
-
                 backthred.start();
-
             }
         });
         btnSignUp.setOnClickListener(new View.OnClickListener() {
-
+            @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 Calendar c = Calendar.getInstance();
                 int cYear = c.get(Calendar.YEAR);
@@ -274,34 +234,28 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                 int cDay = c.get(Calendar.DAY_OF_MONTH);
                 int gyear = myCalendar.get(Calendar.YEAR);
                 int gmonth = myCalendar.get(Calendar.MONTH) + 1;
+
                 if (gyear > cYear) {
                     gmonth = myCalendar.get(Calendar.MONTH) + 13;
-
                 }
-
                 int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
                 int gmonth_day = gmonth * 30;
                 int totalday_given = gmonth_day + gday;
                 int cmonth_day = cMonth * 30;
                 int totalday_valid1 = cmonth_day + cDay;
                 int totalday_valid = totalday_valid1 + 6;
-
                 error_dt.setText(" ");
-
                 Bundle b = getIntent().getExtras();
                 userName = b.getString("UserName");
-
 
                 if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Delivery Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
                     ded.setTextSize(14);
                     ded.setText("Please Select date");
                     error_dt.setText("Please Select date");
-
                 } else if (totalday_given < totalday_valid1) {
                     ded.setError("Back date can not be proposed for  PC Conference");
                     error_dt.setText("Back date can not be proposed for  PC Conference ");
                     error_dt.setTextColor(Color.RED);
-
                 } else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().isEmpty())) {
                     actv.setError("Market not Assigned");
                     error_dt.setText("Market is not Properly selected");
@@ -315,18 +269,15 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                     pc_rmp.setError("Doctor Participant  limit is exceed");
                     error_dt.setText("Doctor Participant  is not more than " + person_limit);
                 } else if (food.getText().toString().trim().equals("") || food.getText().toString().trim().equals(0)) {
-
                     food.setError("Enter Food cost");
                     error_dt.setText("Food cost is not given");
                 } else if (conf_type_val.equals("R") && (Integer.parseInt(food.getText().toString().trim()) > Integer.parseInt(budget_limit))) {
                     food.setError("Food cost limit is exceed");
                     error_dt.setText("Food cost is not more than BDT. " + budget_limit + " Tk ");
-
                 } else if ((impact.getText().toString().trim().equals("")) || (impact.getText().toString().isEmpty())) {
                     impact.setError("Please Describe Impact of the Conference");
                     error_dt.setText("Conference impact is not described");
                 } else {
-
                     if (venue_charge.getText().toString().trim().equals("")) {
                         v_charge = "0";
                     } else {
@@ -365,12 +316,12 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                             params.add(new BasicNameValuePair("pc_conference_serial", pc_conference_serial));
                             params.add(new BasicNameValuePair("user_flag", user_flag));
                             Log.e("marketcode-->",market_code);
+
                             JSONObject json = jsonParser.makeHttpRequest(pc_conference_submit, "POST", params);
                             try {
                                 success = json.getInt(TAG_SUCCESS);
                                 message = json.getString(TAG_MESSAGE);
                             } catch (JSONException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
                             Intent in = getIntent();
@@ -389,246 +340,141 @@ public class PcConferenceEdit extends Activity implements AdapterView.OnItemSele
                     });
                     next.start();
                 }
-
-
             }
         });
-
-
     }
 
-
-
     private void foodvalCalc() {
-
         food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {
-
-                }
-
-
+                if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {}
             }
         });
         food.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-
                 if (hasFocus) {
-
-                    if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {
-
-                    }
-
-
+                    if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {}
                 }
             }
         });
         food.addTextChangedListener(new TextWatcher() {
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
-                if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {
-
-                } else if (food.getText().toString().trim().equals("") || food.getText().toString().trim().equals(" ")) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (total_participent.getText().toString().trim().equals("") || total_participent.getText().toString().trim().equals(0)) {}
+                else if (food.getText().toString().trim().equals("") || food.getText().toString().trim().equals(" ")) {
                     food.setText("0");
                     food.setSelection(food.getText().length());
                     fd_bdt.setText("0");
                 } else {
-
                     int a = Integer.parseInt(total_participent.getText().toString().trim());
                     int b = Integer.parseInt(food.getText().toString().trim());
-
                     food_allowance = String.valueOf(a * b);
                     fd_bdt.setText(food_allowance);
-
                 }
-
-
             }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
-
     }
 
     private void participantCalc() {
         pc_rmp.addTextChangedListener(new TextWatcher() {
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (pc_rmp.getText().toString().trim().equals("")) {
-
                     if (doc_chemist.getText().toString().trim().equals("")) {
                         doc_val = 0;
                     } else {
                         doc_val = Integer.parseInt(doc_chemist.getText().toString().trim());
-
                     }
-
                     if (in_house.getText().toString().trim().equals("")) {
                         inhouse_val = 0;
-
                     } else {
-
                         inhouse_val = Integer.parseInt(in_house.getText().toString().trim());
-
                     }
-
                     if (food.getText().toString().trim().equals("")) {
                         food_val = 0;
-
                     } else {
-
                         food_val = Integer.parseInt(food.getText().toString().trim());
-
                     }
-
                     pc_rmp_val = 0;
                     result_participant = pc_rmp_val + doc_val + inhouse_val;
                     String total2 = Double.toString(result_participant);
                     total_participent.setText(String.valueOf(result_participant));
 
-
                     int food_val_temp = result_participant * food_val;
                     food_allowance = String.valueOf(food_val_temp);
                     fd_bdt.setText(String.valueOf(food_val_temp));
-
-
                 } else {
-
                     if (doc_chemist.getText().toString().trim().equals("")) {
-
                         doc_val = 0;
                     } else {
                         doc_val = Integer.parseInt(doc_chemist.getText().toString().trim());
-
                     }
-
-
                     if (in_house.getText().toString().trim().equals("")) {
                         inhouse_val = 0;
-
                     } else {
-
                         inhouse_val = Integer.parseInt(in_house.getText().toString().trim());
-
                     }
-
                     pc_rmp_val = Integer.parseInt(pc_rmp.getText().toString().trim());
                     double result = pc_rmp_val + doc_val + inhouse_val;
                     String total2 = Double.toString(result);
                     total_participent.setText(total2);
+
                     if (food.getText().toString().trim().equals("")) {
                         food_val = 0;
-
                     } else {
-
                         food_val = Integer.parseInt(food.getText().toString().trim());
-
                     }
                     int food_val_temp = result_participant * food_val;
                     fd_bdt.setText(String.valueOf(food_val_temp));
-
                     food_allowance = String.valueOf(food_val_temp);
-
-
                 }
-
-
             }
 
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             public void afterTextChanged(Editable s) {
-
-
                 if (pc_rmp.getText().toString().trim().equals("")) {
                     if (doc_chemist.getText().toString().trim().equals("")) {
-
                         doc_val = 0;
                     } else {
-
-
                         doc_val = Integer.parseInt(doc_chemist.getText().toString().trim());
-
                     }
-
-
                     if (in_house.getText().toString().trim().equals("")) {
                         inhouse_val = 0;
-
                     } else {
-
                         inhouse_val = Integer.parseInt(in_house.getText().toString().trim());
-
                     }
-
-
                     pc_rmp_val = 0;
                     result_participant = pc_rmp_val + doc_val + inhouse_val;
                     String total2 = Double.toString(result_participant);
-
-
                     total_participent.setText(String.valueOf(result_participant));
-
 
                     if (food.getText().toString().trim().equals("")) {
                         food_val = 0;
-
                     } else {
-
                         food_val = Integer.parseInt(food.getText().toString().trim());
-
                     }
                     int food_val_temp = result_participant * food_val;
                     fd_bdt.setText(String.valueOf(food_val_temp));
                     food_allowance = String.valueOf(food_val_temp);
-
                 } else {
-
                     if (doc_chemist.getText().toString().trim().equals("")) {
-
                         doc_val = 0;
                     } else {
                         doc_val = Integer.parseInt(doc_chemist.getText().toString().trim());
-
                     }
-
-
                     if (in_house.getText().toString().trim().equals("")) {
                         inhouse_val = 0;
-
                     } else {
-
                         inhouse_val = Integer.parseInt(in_house.getText().toString().trim());
-
                     }
-
-
                     pc_rmp_val = Integer.parseInt(pc_rmp.getText().toString().trim());
                     int result = pc_rmp_val + doc_val + inhouse_val;
                     String total2 = Integer.toString(result);
-
                     total_participent.setText(total2);
-
 
                     if (food.getText().toString().trim().equals("")) {
                         food_val = 0;

@@ -1,6 +1,5 @@
 package com.opl.pharmavector.util;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,18 +27,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-
 public class SubmitNewPassActivity extends AppCompatActivity {
     private SmsVerifyCatcher smsVerifyCatcher;
     private ApiInterface apiInterface;
-    public String sms_otp,confirm_password,phone_number,otpSLnumber,ffrole;
+    public String sms_otp, confirm_password, phone_number, otpSLnumber, ffrole;
     public PinView pinView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_new_password);
         pinView = findViewById(R.id.pin_view);
+
         EditText new_password = findViewById(R.id.new_password);
         EditText confirm_new_password = findViewById(R.id.confirm_new_password);
         final Button btnVerify = (Button) findViewById(R.id.resetButton);
@@ -51,8 +50,8 @@ public class SubmitNewPassActivity extends AppCompatActivity {
         smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
             @Override
             public void onSmsCatch(String message) {
-                String code = parseCode(message);//Parse verification code
-                pinView.setText(code);//set code in edit text
+                String code = parseCode(message); //parse verification code
+                pinView.setText(code); //set code in edit text
                 sms_otp=pinView.getText().toString();
                 confirm_password=confirm_new_password.getText().toString();
             }
@@ -66,19 +65,16 @@ public class SubmitNewPassActivity extends AppCompatActivity {
                 postOTPData();
             }
         });
-
     }
 
-
     private void postOTPData() {
-
         Log.e("passedvalues==>",sms_otp+"--"+otpSLnumber+"---"+ffrole+"---"+phone_number+"---"+confirm_password);
-
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Password Updating...");
         progressDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.setnewpassword(sms_otp,otpSLnumber,ffrole,phone_number,confirm_password);
+        Call<Patient> call = apiInterface.setnewpassword(sms_otp, otpSLnumber, ffrole, phone_number, confirm_password);
+
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
@@ -87,13 +83,12 @@ public class SubmitNewPassActivity extends AppCompatActivity {
                 String message = response.body().getMassage();
                 Log.e("responseValue==>",value);
                 Log.e("responseMessage==>",message);
+
                 if (value.equals("1")) {
                     progressDialog.dismiss();
-
                     Snackbar.make(getWindow().getDecorView().getRootView(),message, Snackbar.LENGTH_LONG)
-                            .setAction("Your Password is updated Succesfully," +
-                                    "Please Login using your Phonenumber and New Password", null).show();
-
+                            .setAction("Your Password is updated Successfully," +
+                                    "Please Login using your Phone Number and New Password", null).show();
                     Timer timer = new Timer();
                     timer.schedule(new TimerTask() {
                         @Override
@@ -102,20 +97,13 @@ public class SubmitNewPassActivity extends AppCompatActivity {
                             startActivity(createAccountIntent);
                         }
                     }, 2 * 1000);
-
-                } else {
-
                 }
             }
 
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
-
     }
-
 
     private String parseCode(String message) {
         Pattern p = Pattern.compile("\\b\\d{4}\\b");
@@ -139,15 +127,13 @@ public class SubmitNewPassActivity extends AppCompatActivity {
         smsVerifyCatcher.onStop();
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void callNextScreenFromOTP(View view) {
-    }
+    public void callNextScreenFromOTP(View view) {}
 }
 
 

@@ -1381,6 +1381,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
                         .show();
             }
         }
+        userLogIn(track_add);
     }
 
     private void updateLocation() {
@@ -1443,7 +1444,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             tvLocationName.setText(track_add);
             //userLog(log_status);
             if (isAddressSubmit) {
-                userLogIn(track_add);
+                //userLogIn(track_add);
                 isAddressSubmit = false;
             }
         } catch (IOException e) {
@@ -1453,7 +1454,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
 
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, track_lat, track_lang, build_model, build_brand, userName, track_add, globalempCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {
