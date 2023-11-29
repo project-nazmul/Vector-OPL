@@ -60,6 +60,8 @@ import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
 import com.opl.pharmavector.util.ResetPasswordDialog;
+import com.opl.pharmavector.util.VectorUtils;
+
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,8 +103,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
     AppUpdateManager mAppUpdateManager;
     private static final int RC_APP_UPDATE = 123;
     private InstallStateUpdatedListener installStateUpdatedListener;
-    public static final String googlePlayVectorLink = "market://details?id=com.opl.pharmavector";
-    public static final String alternativeVectorLink = "https://play.google.com/store/apps/details?id=com.opl.pharmavector";
 
     @SuppressLint("ShowToast")
     @Override
@@ -135,9 +135,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googlePlayVectorLink)));
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.googlePlayLink)));
                                 } catch (android.content.ActivityNotFoundException exception) {
-                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(alternativeVectorLink)));
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.googlePlayLink)));
                                 }
                             }
                         })

@@ -167,8 +167,6 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     private String log_status = "A";
     final int NOTIFICATION_PERMISSION_CODE = 101;
-    public static final String googlePlayVectorLink = "market://details?id=com.opl.pharmavector";
-    public static final String alternativeVectorLink = "https://play.google.com/store/apps/details?id=com.opl.pharmavector";
 
     @SuppressLint("CutPasteId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -308,9 +306,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
 
     private void isUpdateAvailable() {
         AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
-        //Returns an intent object that you use to check for an update.
         Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
-        //mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(result -> {
+
         appUpdateInfoTask.addOnSuccessListener(result -> {
             if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GMDashboard1.this);
@@ -319,9 +316,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(googlePlayVectorLink)));
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.googlePlayLink)));
                                 } catch (android.content.ActivityNotFoundException exception) {
-                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(alternativeVectorLink)));
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.alternativeLink)));
                                 }
                             }
                         })

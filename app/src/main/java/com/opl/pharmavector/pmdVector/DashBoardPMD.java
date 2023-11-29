@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -44,6 +45,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -75,6 +81,7 @@ import com.opl.pharmavector.pmdVector.pmd_sales_reports.Pmd_Sales_Dashboard;
 import com.opl.pharmavector.pmdVector.sales_4p.Activity_4p_Sales;
 import com.opl.pharmavector.pmdVector.utils.PMDNotification;
 
+import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
@@ -135,6 +142,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboardpmd);
 
+        isUpdateAvailable();
         VectorUtils.screenShotProtect(this);
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -297,67 +305,84 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     }
 
     private void Sales_4p_Event() {
-        btn_4p_sales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-
-                            } else {
-                                Intent i = new Intent(DashBoardPMD.this, Activity_4p_Sales.class);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                backthred.start();
-            }
-        });
-        img_btn_4p_sales.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
-
-                            } else {
-                                Intent i = new Intent(DashBoardPMD.this, Activity_4p_Sales.class);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                backthred.start();
-            }
-        });
         cardview_4p_sales.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (!NetInfo.isOnline(getBaseContext())) {
+            public void onClick(final View view) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DashBoardPMD.this);
+                bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
+                CardView cardView_topPrescriber = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+                CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+                CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
+                CardView cardView_spiGeneric = bottomSheetDialog.findViewById(R.id.cardview_commitment_followup);
+                Objects.requireNonNull(cardView_spiGeneric).setVisibility(View.VISIBLE);
+                TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+                TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+                TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+                TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+                TextView textView7 = bottomSheetDialog.findViewById(R.id.tv_commitment_followup);
+                TextView button1 = bottomSheetDialog.findViewById(R.id.button1);
+                TextView button2 = bottomSheetDialog.findViewById(R.id.button2);
+                TextView button3 = bottomSheetDialog.findViewById(R.id.button3);
+                TextView button4 = bottomSheetDialog.findViewById(R.id.btn_commitment_followup);
+                Objects.requireNonNull(button1).setText("4.1");
+                Objects.requireNonNull(button2).setText("4.2");
+                Objects.requireNonNull(button3).setText("4.3");
+                Objects.requireNonNull(button4).setText("4.4");
+                Objects.requireNonNull(textView4).setText("SPI Top Prescriber\n(Generic)");
+                Objects.requireNonNull(textView5).setText("SPI \nReport");
+                Objects.requireNonNull(textView6).setText("Doctor \nReach");
+                Objects.requireNonNull(textView7).setText("SPI \nGeneric");
+                ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+                Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_rx_capture);
+                Objects.requireNonNull(changePassword).setText("SPI Report");
 
-                            } else {
-                                Intent i = new Intent(DashBoardPMD.this, Activity_4p_Sales.class);
-                                startActivity(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                Objects.requireNonNull(cardView_topPrescriber).setOnClickListener(v -> {
+                    Intent i = new Intent(DashBoardPMD.this, TopPrescriberActivity.class);
+                    i.putExtra("UserName", pmd_name);
+                    i.putExtra("UserCode", pmd_code);
+                    i.putExtra("UserRole", "PMD");
+                    startActivity(i);
+                });
+                Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
+                    Intent i = new Intent(DashBoardPMD.this, MRDPresReport.class);
+                    i.putExtra("UserName", pmd_name);
+                    i.putExtra("UserCode", pmd_code);
+                    i.putExtra("UserRole", "PMD");
+                    i.putExtra("report_flag", "SPI");
+                    i.putExtra("asm_flag", "N");
+                    i.putExtra("sm_flag", "N");
+                    i.putExtra("gm_flag", "Y");
+                    i.putExtra("rm_flag", "N");
+                    i.putExtra("fm_flag", "N");
+                    i.putExtra("mpo_flag", "N");
+                    startActivity(i);
+                });
+                Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+                    Intent i = new Intent(DashBoardPMD.this, DoctorReachActivity.class);
+                    i.putExtra("UserName", pmd_name);
+                    i.putExtra("UserCode", pmd_code);
+                    i.putExtra("UserRole", "PMD");
+                    i.putExtra("report_flag", "SPI");
+                    i.putExtra("asm_flag", "N");
+                    i.putExtra("sm_flag", "N");
+                    i.putExtra("gm_flag", "Y");
+                    i.putExtra("rm_flag", "N");
+                    i.putExtra("fm_flag", "N");
+                    i.putExtra("mpo_flag", "N");
+                    startActivity(i);
+                });
+                Objects.requireNonNull(cardView_spiGeneric).setOnClickListener(v -> {
+                    Intent i = new Intent(DashBoardPMD.this, Activity_4p_Sales.class);
+                    startActivity(i);
+                });
+                bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //Toast.makeText(getApplicationContext(), "bottomSheetDialog is Dismissed ", Toast.LENGTH_LONG).show();
                     }
                 });
-                backthred.start();
+                bottomSheetDialog.show();
             }
         });
     }
@@ -690,6 +715,35 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 }
             }
         };
+    }
+
+    private void isUpdateAvailable() {
+        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = mAppUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(result -> {
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this);
+                builder.setTitle("Update available").setMessage("Check out the latest version of Vector?")
+                        .setPositiveButton("Update now", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.googlePlayLink)));
+                                } catch (android.content.ActivityNotFoundException exception) {
+                                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(VectorUtils.alternativeLink)));
+                                }
+                            }
+                        })
+                        .setNegativeButton("Maybe later", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     private void userLog(final String key) {

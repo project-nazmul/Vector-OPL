@@ -46,13 +46,13 @@ public class Pmd_Sales_Dashboard extends Activity {
         setContentView(R.layout.pmd_sales_dashboard);
 
         initViews();
-        cardAdsDepotStock.setOnClickListener(v -> {
-            Intent i = new Intent(Pmd_Sales_Dashboard.this, ADSStockInfoActivity.class);
-            i.putExtra("userName", DashBoardPMD.pmd_code);
-            i.putExtra("userCode", DashBoardPMD.pmd_code);
-            i.putExtra("userRole", "PMD");
-            startActivity(i);
-        });
+//        cardAdsDepotStock.setOnClickListener(v -> {
+//            Intent i = new Intent(Pmd_Sales_Dashboard.this, ADSStockInfoActivity.class);
+//            i.putExtra("userName", DashBoardPMD.pmd_code);
+//            i.putExtra("userCode", DashBoardPMD.pmd_code);
+//            i.putExtra("userRole", "PMD");
+//            startActivity(i);
+//        });
         cardview1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +172,7 @@ public class Pmd_Sales_Dashboard extends Activity {
         txt_vw6      = findViewById(R.id.txt_vw6);
         img6        = findViewById(R.id.img6);
         admin_product_list =  findViewById(R.id.admin_product_list);
-        cardAdsDepotStock =  findViewById(R.id.cardAdsDepotStock);
+        //cardAdsDepotStock =  findViewById(R.id.cardAdsDepotStock);
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
