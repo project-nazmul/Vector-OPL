@@ -12,6 +12,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -62,7 +63,7 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
     public String impact,TOTAL_BUDGET;
     public String product_list;
     public String user_flag;
-    public static String UserName,date_param;
+    public static String UserName, date_param;
     EditText conference_date;
     public String get_ext_dt,date_flag,check_flag;
     SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
@@ -85,6 +86,8 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         Button button2 =  findViewById(R.id.selectCategoryButton2);
         Button logback =  findViewById(R.id.logback);
         Button show =  findViewById(R.id.show);
+        TextView checkboxFlag = findViewById(R.id.checkboxFlag);
+        checkboxFlag.setVisibility(View.GONE);
         show.setTypeface(fontFamily);
         show.setText("\uf1d8");
         logback.setTypeface(fontFamily);
@@ -240,7 +243,7 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void s) {
             mListViewBooks = (ListView) findViewById(R.id.category_listView);
-            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list);
+            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list, 1);
             mListViewBooks.setAdapter(CategoryAdapter7);
             super.onPostExecute(s);
             dialog.dismiss();
@@ -272,7 +275,7 @@ public class ManagerDoctorServiceFollowup extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void s) {
             ListView mListViewBooks = findViewById(R.id.category_listView);
-            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list);
+            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list, 1);
             mListViewBooks.setAdapter(CategoryAdapter7);
             super.onPostExecute(s);
             dialog2.dismiss();

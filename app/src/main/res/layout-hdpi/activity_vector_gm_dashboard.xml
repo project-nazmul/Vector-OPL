@@ -354,7 +354,6 @@
                     android:layout_height="75dp"
                     android:layout_margin="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"

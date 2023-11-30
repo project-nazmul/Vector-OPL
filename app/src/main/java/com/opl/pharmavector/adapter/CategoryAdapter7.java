@@ -15,11 +15,13 @@ import com.opl.pharmavector.serverCalls.FavouriteCategoriesJsonParser7;
 import java.util.List;
 
 public class CategoryAdapter7 extends ArrayAdapter<Category5> {
+    private int flag = 0;
     private final List<Category5> list;
 
-    public CategoryAdapter7(Context context, int resource, List<Category5> list) {
+    public CategoryAdapter7(Context context, int resource, List<Category5> list, int flag) {
         super(context, resource, list);
         this.list = list;
+        this.flag = flag;
     }
 
     @Override
@@ -49,7 +51,6 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
 
         if (convertView == null) {
             LayoutInflater inflator = LayoutInflater.from(getContext());
-
             //convertView = inflater.inflate(R.layout.row_category_6, null);
             convertView = inflator.inflate(R.layout.row_category_doc_service_approval, null);
             viewHolder = new ViewHolder();
@@ -68,7 +69,9 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
             viewHolder.categoryName9 = (TextView) convertView.findViewById(R.id.row_categoryname_textview9);
             viewHolder.categoryName10 = (TextView) convertView.findViewById(R.id.row_categoryname_textview10);
             viewHolder.categoryCheckBox = (CheckBox) convertView.findViewById(R.id.row_category_checkbox);
-
+            if (flag == 1) {
+              viewHolder.categoryCheckBox.setVisibility(View.GONE);
+            }
             viewHolder.categoryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -285,6 +285,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         session = new SessionManager(getApplicationContext());
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
+        Log.e("loginCount----->", String.valueOf(count));
 
         if (count == 1) {
             tempLogin = preferenceManager.getusername();

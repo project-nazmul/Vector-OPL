@@ -8,9 +8,7 @@
     android:padding="10dp"
     android:weightSum="100">
 
-
     <LinearLayout
-
         android:id="@+id/searchbar"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -19,8 +17,8 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:visibility="gone"
-        android:weightSum="20"
-        >
+        android:weightSum="20">
+
         <EditText
             android:id="@+id/p_search"
             android:layout_width="200dp"
@@ -32,22 +30,9 @@
             android:inputType="textNoSuggestions"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:textColor="@android:color/holo_blue_dark">
-
             <requestFocus />
         </EditText>
-
-
-
-
-
-
-
-
-
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -83,7 +68,6 @@
             android:textStyle="bold" />
 
         <Button
-
             android:id="@+id/logback"
             android:layout_width="50sp"
             android:layout_height="wrap_content"
@@ -96,13 +80,8 @@
             android:soundEffectsEnabled="true"
             android:text="&lt;"
             android:textColor="#FFF"
-            android:textSize="25sp"
-
-            />
-
+            android:textSize="25sp" />
     </LinearLayout>
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/i3"
@@ -124,20 +103,14 @@
             android:textColor="#009688"
             android:textSize="@dimen/_10sdp"
             android:visibility="gone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            />
-
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="80">
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
@@ -153,8 +126,6 @@
                 android:background="@android:color/transparent"
                 android:layout_height="match_parent">
 
-
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,7 +137,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Request\nDate"
@@ -176,10 +146,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -190,9 +157,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textStyle="bold" />
 
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doctor\nAddress"
@@ -202,10 +167,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
@@ -217,7 +179,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
@@ -229,7 +190,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
@@ -240,10 +200,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sales Approve\nDate"
@@ -253,9 +210,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Payment\nDate"
@@ -265,12 +220,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
-
-
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mpo\nCode"
@@ -280,9 +230,7 @@
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MPO\nAcknowledge"
@@ -291,13 +239,8 @@
                     android:layout_weight="2"
                     android:textSize="@dimen/_8sdp"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
 
         <ListView
             android:id="@+id/category_listView"
@@ -307,12 +250,12 @@
             android:divider="@android:color/transparent"
             android:layout_weight="80"/>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/selectCategoryButton2"
                 android:layout_gravity="center"
@@ -330,10 +273,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:visibility="gone"
-
-                />
-
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/selectCategoryButton"
@@ -348,17 +288,10 @@
                 android:textColor="@android:color/white"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="false"
                 android:layout_weight="0.5"
                 android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                />
-
-
-
+                android:layout_marginRight="25dp" />
         </LinearLayout>
-
-
         <!--
                 <Button
                     android:id="@+id/selectCategoryButton"
@@ -392,7 +325,5 @@
                     />
 
         -->
-
     </LinearLayout>
-
 </LinearLayout>

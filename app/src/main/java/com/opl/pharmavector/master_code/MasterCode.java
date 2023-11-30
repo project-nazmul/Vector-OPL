@@ -34,6 +34,7 @@ import com.opl.pharmavector.master_code.adapter.MasterAdapter;
 import com.opl.pharmavector.master_code.adapter.PromoAdapter;
 import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.master_code.model.MasterModel;
+import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.productOffer.ProductOfferList;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
@@ -267,9 +268,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
                 break;
@@ -303,9 +302,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
                 break;
@@ -338,9 +335,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
                 break;
@@ -373,9 +368,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
                 break;
@@ -408,9 +401,40 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .show();
+                break;
+            }
+            case "PMD": {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MasterCode.this, R.style.Theme_Design_BottomSheetDialog);
+                builder.setTitle("Master Code Access").setMessage("You are going to login into Sales Manager screen. Press Confirm to proceed")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                Thread server = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent i = new Intent(MasterCode.this, DashBoardPMD.class);
+                                        i.putExtra("executive_code", user_code);
+                                        i.putExtra("Designation", user_designation);
+                                        i.putExtra("UserName_1", message_1);
+                                        i.putExtra("UserName_2", message_2);
+                                        i.putExtra("new_version", "new_version");
+                                        i.putExtra("message_3", user_role);
+                                        i.putExtra("TerriName", user_terriName);
+                                        i.putExtra("executive_code", emp_code);
+                                        i.putExtra("executive_name", emp_name);
+                                        i.putExtra("ff_type", ff_type);
+                                        startActivity(i);
+                                    }
+                                });
+                                server.start();
                             }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {}
                         })
                         .show();
                 break;

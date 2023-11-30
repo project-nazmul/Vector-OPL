@@ -100,7 +100,6 @@ public class Activity_PMD_Contact extends Activity implements ContactAdapter.Con
                 getContact("E");
             }
         });
-
 //        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
 //            @Override
 //            public void onClick(View view, int position) {

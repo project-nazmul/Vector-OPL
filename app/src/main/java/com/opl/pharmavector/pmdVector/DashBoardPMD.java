@@ -107,12 +107,12 @@ import retrofit2.Response;
 public class DashBoardPMD extends Activity implements View.OnClickListener {
     TextView executive_name, executive_code, executive_loc, executive_designation;
     Bundle b;
-    public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code;
+    public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code, currentVersion;
     public ImageView imageView2;
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
     CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock, cardview_pmd_contact;
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
-    TextView tv_sales_reports, tv_ff_contact, tv_4p_sales;
+    TextView tv_sales_reports, tv_ff_contact, tv_4p_sales, versionName;
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
     public static String profile_image;
     PreferenceManager preferenceManager;
@@ -124,7 +124,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private String log_status = "P", designation;
+    String log_status = "P", designation, terriName;
     double fetchedlang, fetchedlat;
     Context context;
     private DatabaseHandler db;
@@ -162,8 +162,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         instance = this;
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
+                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
             builder.setTitle("App Require Location");
             builder.setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running");
@@ -189,7 +188,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
             });
             builder.show();
         }
-
         logout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(DashBoardPMD.this, R.style.Theme_Design_BottomSheetDialog);
             builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
@@ -200,7 +198,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                                 log_status = "N";
                                 preferenceManager.clearPreferences();
                                 count = 0;
-                                // unregisterReceiver(updateUIReciver);
+                                //unregisterReceiver(updateUIReceiver);
                                 Intent logoutIntent = new Intent(DashBoardPMD.this, Login.class);
                                 startActivity(logoutIntent);
                                 finish();
@@ -483,6 +481,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         executive_designation = findViewById(R.id.textView3);
         imageView2 = findViewById(R.id.imageView2);
         logout = findViewById(R.id.logout);
+        versionName = findViewById(R.id.versionName);
         btn_dashboard_1 = findViewById(R.id.btn_dashboard_1);
         btn_dashboard_2 = findViewById(R.id.btn_dashboard_2);
 
@@ -515,17 +514,36 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         pmd_code = b.getString("executive_code");
         pmd_name = b.getString("executive_name");
         pmd_loc = b.getString("executive_loc");
+        designation = b.getString("Designation");
+        terriName = b.getString("TerriName");
         pmd_loccode = b.getString("executive_loccode");
         pmd_locpass = b.getString("executive_locpass");
         pmd_type = b.getString("executive_type");
         executive_code.setText(pmd_code);
         executive_name.setText(pmd_name);
-        executive_loc.setText(pmd_loc);
-        designation = preferenceManager.getDesignation();
-        executive_designation.setText(designation);
+        //executive_loc.setText(pmd_loc);
+        //executive_designation.setText(designation);
         profile_image = base_url + pmd_code + "." + "jpg";
         vector_version = getString(R.string.vector_version);
         Picasso.get().load(profile_image).into(imageView2);
+
+        if (designation != null && terriName != null) {
+            executive_loc.setText(terriName);
+            executive_designation.setText(designation);
+        } else {
+            executive_loc.setText(pmd_loc);
+            executive_designation.setText(preferenceManager.getDesignation());
+        }
+        try {
+            currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            Log.d("Login", currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Log.d("Login", e.toString());
+        }
+        if (!currentVersion.isEmpty()) {
+            versionName.setText(currentVersion);
+        }
     }
 
     private void achieveEarnEvent() {
@@ -814,7 +832,6 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
-
         NotificationUtils.clearNotifications(getApplicationContext());
         preferenceManager.setTasbihCounter(count);
         preferenceManager.setusername(pmd_loccode);
@@ -839,6 +856,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         preferenceManager.setuserdtl(pmd_name);
         preferenceManager.setfftype(pmd_type);
         preferenceManager.setexecutive_name(pmd_loc);
+        Log.e("onPause----->", String.valueOf(count));
     }
 
     @Override
@@ -966,5 +984,9 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
                 backthred.start();
             }
         });
+    }
+
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

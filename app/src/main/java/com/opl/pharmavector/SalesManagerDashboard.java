@@ -30,7 +30,6 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -2307,7 +2306,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onPause----->", global_admin_Code);
+        Log.e("onPause----->", String.valueOf(count));
     }
 
     @Override
@@ -2325,7 +2324,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         preferenceManager.setexecutive_name(globalempName);
         preferenceManager.setemp_code(globalempCode);
         preferenceManager.setAdmin_Code(global_admin_Code);
-        Log.e("onDestroy----->", global_admin_Code);
+        Log.e("onDestroy----->", String.valueOf(count));
         //updateLocation();
     }
 

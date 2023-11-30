@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddComment extends Activity implements OnClickListener{
-
     private EditText title, message;
     private Button  mSubmit;
     private ProgressDialog pDialog;
@@ -51,7 +50,6 @@ public class AddComment extends Activity implements OnClickListener{
     }
 
     class PostComment extends AsyncTask<String, String, String> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -64,17 +62,15 @@ public class AddComment extends Activity implements OnClickListener{
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-            // Check for success tag
+            //Check for success tag
             int success;
             @SuppressLint("WrongThread") String post_title = title.getText().toString();
             @SuppressLint("WrongThread") String post_message = message.getText().toString();
-
             //We need to change this:
             String post_username = "temp";
 
             try {
-                // Building Parameters
+                //Building Parameters
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("username", post_username));
                 params.add(new BasicNameValuePair("title", post_title));
@@ -82,12 +78,13 @@ public class AddComment extends Activity implements OnClickListener{
                 //Posting user data to script
                 JSONObject json = jsonParser.makeHttpRequest(
                         POST_COMMENT_URL, "POST", params);
-                // json success element
+                //json success element
                 success = json.getInt(TAG_SUCCESS);
+
                 if (success == 1) {
                     finish();
                     return json.getString(TAG_MESSAGE);
-                }else{
+                } else {
                     return json.getString(TAG_MESSAGE);
 
                 }
@@ -102,10 +99,6 @@ public class AddComment extends Activity implements OnClickListener{
             if (file_url != null){
                 Toast.makeText(AddComment.this, file_url, Toast.LENGTH_LONG).show();
             }
-
         }
-
     }
-
-
 }

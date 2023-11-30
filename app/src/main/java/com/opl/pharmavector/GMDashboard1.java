@@ -722,7 +722,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         global_admin_terri = preferenceManager.getAdmin_Terri();
         Log.d("UserCode", global_admin_Code + "-----------" + global_admin_name + "-----------" + global_admin_terri);
 
-        //user_show1.setText(globalempName);
+        //user_show1.setText(globalEmpName);
         user_show1.setText(global_admin_name);
         profile_image = base_url + global_admin_Code + "." + "jpg";
         Picasso.get().load(profile_image).into(imageView2);

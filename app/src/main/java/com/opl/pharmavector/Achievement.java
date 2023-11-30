@@ -194,7 +194,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
     @SuppressLint("ClickableViewAccessibility")
     private void customerInit() {
         actv.setOnClickListener(v -> {
-            if (actv.getText().toString() != "") {
+            if (!actv.getText().toString().equals("")) {
                 String selectedcustomer = actv.getText().toString();
                 cust.setTag(selectedcustomer);
             }
@@ -208,9 +208,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
         });
         actv.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -271,6 +269,7 @@ public class Achievement extends Activity implements OnItemSelectedListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));

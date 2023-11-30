@@ -55,20 +55,20 @@ public class AdminProductList extends Activity implements OnClickListener {
     public static final String TAG_invoice = "invoice";
     public static final String TAG_target = "target";
     public static final String TAG_achivement = "achivement";
-    public String userName_1,userName;
+    public String userName_1, userName;
     static ArrayList<Category> categoriesList;
     ProgressDialog pDialog;
     static ListView productListView;
     public String get_ext_dt3;
-    public String brand_name,product_flag1;
-    public int brand_quant,product_min,product_flag=0;
+    public String brand_name, product_flag1;
+    public int brand_quant, product_min, product_flag = 0;
     public String onik;
     Button submit;
     //private EditText current_qnty;
     public static EditText qnty, searchview;
     EditText inputOne, inputtwo;
     public int success,success_1,ordsl;
-    public String message, ord_no,invoice,target,achivement,searchString,message_1,message_2;
+    public String message, ord_no, invoice, target, achivement, searchString, message_1, message_2;
     int textlength = 0;
     ProductListProductListAdapter adapter;
     JSONParser jsonParser;
@@ -93,7 +93,7 @@ public class AdminProductList extends Activity implements OnClickListener {
     HashMap<Integer, String> mapQuantity;
     static HashMap<String, Integer> nameSerialPair;
     ArrayList<String> sl;
-    /*- Initializing*/
+    /*-Initializing*/
     String last_quantity = "1";
     int last_position = 1;
     String quantity = "1";
@@ -149,9 +149,7 @@ public class AdminProductList extends Activity implements OnClickListener {
                     searchview.setFocusable(true);
                     searchview.setFocusableInTouchMode(true);
                     searchview.requestFocus();
-                } catch (Exception e) {
-
-                }
+                } catch (Exception ignored) {}
             }
         });
         totalsellquantity = (TextView) findViewById(R.id.totalsellquantity);
@@ -184,7 +182,6 @@ public class AdminProductList extends Activity implements OnClickListener {
                 getActionBar().hide();
                 promptSpeechInput();
             }
-
             private void promptSpeechInput() {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -201,7 +198,6 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
             }
         });
-
         back_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,14 +206,12 @@ public class AdminProductList extends Activity implements OnClickListener {
                 finish();
             }
         });
-
         showorders.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchString="1";
                 adapter.getFilter().filter(searchString);
             }});
-
         searchview.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +224,6 @@ public class AdminProductList extends Activity implements OnClickListener {
                 searchview.setText("");
             }
         });
-
         searchview.addTextChangedListener(new TextWatcher() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -238,7 +231,8 @@ public class AdminProductList extends Activity implements OnClickListener {
                 ArrayList<String> resList = new ArrayList<String>();
                 ArrayList<Integer> resList2 = new ArrayList<Integer>();
                 String searchString = s.toString().toLowerCase();
-                if(searchString!=null && adapter!=null){
+
+                if (searchString!=null && adapter!=null) {
                     adapter.getFilter().filter(searchString);
                 }
                 //adapter.getFilter().filter(s);
@@ -252,6 +246,7 @@ public class AdminProductList extends Activity implements OnClickListener {
                 String text = searchview.getText().toString().toLowerCase(Locale.getDefault());
             }
         });
+
         new GetCategories().execute();
         TextView clickme = (TextView) findViewById(R.id.clickme);
 
@@ -332,7 +327,7 @@ public class AdminProductList extends Activity implements OnClickListener {
         ArrayList<String> value8 = new ArrayList<String>();
         int quantity = 0;
         float prod_rate, prod_vat, sellvalue;
-        String prod_rate_1, prod_vat_1,prod_vat_2,prod_vat_3,prod_vat_4,prod_vat_5, sellvalue_2,sellvalue_3;
+        String prod_rate_1, prod_vat_1, prod_vat_2, prod_vat_3, prod_vat_4, prod_vat_5, sellvalue_2, sellvalue_3;
 
         for (int i = 0; i < categoriesList.size(); i++) {
             lables.add(categoriesList.get(i).getName());
@@ -377,23 +372,21 @@ public class AdminProductList extends Activity implements OnClickListener {
                 if (json != null) {
                     try {
                         JSONObject jsonObj = new JSONObject(json);
-                        if (jsonObj != null) {
-                            JSONArray categories = jsonObj.getJSONArray("categories");
-                            for (int i = 0; i < categories.length(); i++) {
-                                JSONObject catObj = (JSONObject) categories.get(i);
-                                Category cat = new Category(
-                                        catObj.getString("sl"),
-                                        catObj.getString("id"),
-                                        catObj.getString("name"),
-                                        catObj.getInt("quantity"),
-                                        catObj.getString("PROD_RATE"),
-                                        catObj.getString("PROD_VAT"),
-                                        catObj.getString("PPM_CODE"),
-                                        catObj.getString("P_CODE"),
-                                        catObj.getString("SHIFT_CODE")
-                                        );
-                                categoriesList.add(cat);
-                            }
+                        JSONArray categories = jsonObj.getJSONArray("categories");
+                        for (int i = 0; i < categories.length(); i++) {
+                            JSONObject catObj = (JSONObject) categories.get(i);
+                            Category cat = new Category(
+                                    catObj.getString("sl"),
+                                    catObj.getString("id"),
+                                    catObj.getString("name"),
+                                    catObj.getInt("quantity"),
+                                    catObj.getString("PROD_RATE"),
+                                    catObj.getString("PROD_VAT"),
+                                    catObj.getString("PPM_CODE"),
+                                    catObj.getString("P_CODE"),
+                                    catObj.getString("SHIFT_CODE")
+                                    );
+                            categoriesList.add(cat);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
