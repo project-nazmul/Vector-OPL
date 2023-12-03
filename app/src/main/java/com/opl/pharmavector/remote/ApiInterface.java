@@ -261,20 +261,20 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("4p/get_from_month.php")
+    @POST("spi/get_from_month.php")
     Call<FromDateModel> getPrescriberFromDate(
             @Field("id") String id
     );
 
     @FormUrlEncoded
-    @POST("4p/get_to_month.php")
+    @POST("spi/get_to_month.php")
     Call<FromDateModel> getPrescriberToDate(
             @Field("id") String id,
             @Field("f_date") String f_date
     );
 
     @FormUrlEncoded
-    @POST("4p/get_List.php")
+    @POST("spi/get_List.php")
     Call<FieldForceModel> getFieldForceCode(
             @Field("function") String function,
             @Field("manager_code") String manager_code,
@@ -304,7 +304,7 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("4p/get_generic.php")
+    @POST("spi/get_generic.php")
     Call<GenericTypeModel> getGenericTypeList(
             @Field("id") String id,
             @Field("f_date") String f_date,
@@ -312,7 +312,7 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("4p/get_top_prescriber.php")
+    @POST("spi/get_top_prescriber.php")
     Call<TopPrescriberModel> getPrescriberDetailList(
             @Field("id") String id,
             @Field("f_date") String f_date,
@@ -375,6 +375,9 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_team_new.php")
     Call<FFTeamModel> getPmdAchieveTeamList(@Field("id") String userId);
+
+    @GET("spi/get_from_month.php")
+    Call<FromDateModel> getSpiReportMonth();
 
     @GET("achv_and_earn/get_mon.php")
     Call<AchvMonthModel> getAchievementMonth();

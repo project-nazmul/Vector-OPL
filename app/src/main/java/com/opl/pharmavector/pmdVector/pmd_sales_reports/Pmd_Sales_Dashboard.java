@@ -28,6 +28,7 @@ import com.opl.pharmavector.SMWiseProductSale;
 import com.opl.pharmavector.SessionManager;
 import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
+import com.opl.pharmavector.productOffer.ProductOfferActivity;
 import com.opl.pharmavector.util.NetInfo;
 
 import es.dmoral.toasty.Toasty;
@@ -36,7 +37,7 @@ public class Pmd_Sales_Dashboard extends Activity {
     private SessionManager session;
     Button back_btn;
     String userName, userName_1, userName_2, message_3;
-    CardView cardview1, cardview2, cardview3, cardview4, cardview5, cardview6, admin_product_list, cardAdsDepotStock;
+    CardView cardview1, cardview2, cardview3, cardview4, cardview5, admin_product_list, cardAdsDepotStock;
     ImageView img1, img2, img3, img4, img5, img6;
     TextView txt_vw1, txt_vw2, txt_vw3, txt_vw4, txt_vw5, txt_vw6;
 
@@ -106,19 +107,6 @@ public class Pmd_Sales_Dashboard extends Activity {
                 mysells.start();
             }
         });
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            Bundle b = getIntent().getExtras();
-            @Override
-            public void onClick(final View v) {
-                Thread backthred = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                });
-                backthred.start();
-            }
-        });
         admin_product_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,13 +128,20 @@ public class Pmd_Sales_Dashboard extends Activity {
                 mysells.start();
             }
         });
+        cardview5.setOnClickListener(v -> {
+            Intent i = new Intent(Pmd_Sales_Dashboard.this, ProductOfferActivity.class);
+            i.putExtra("userName", userName);
+            i.putExtra("userCode", userName_2);
+            i.putExtra("userRole", "PMD");
+            startActivity(i);
+        });
     }
 
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(),	"fonts/fontawesome.ttf");
-        back_btn =  findViewById(R.id.btn_back);
-        back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 "); //&#xf060
+//        back_btn =  findViewById(R.id.btn_back);
+//        back_btn.setTypeface(fontFamily);
+//        back_btn.setText("\uf060 ");
 
         cardview1 = findViewById(R.id.cardview1);
         txt_vw1      = findViewById(R.id.txt_vw1);
@@ -167,12 +162,7 @@ public class Pmd_Sales_Dashboard extends Activity {
         cardview5 = findViewById(R.id.cardview5);
         txt_vw5      = findViewById(R.id.txt_vw5);
         img5        = findViewById(R.id.img5);
-
-        cardview6 = findViewById(R.id.cardview6);
-        txt_vw6      = findViewById(R.id.txt_vw6);
-        img6        = findViewById(R.id.img6);
         admin_product_list =  findViewById(R.id.admin_product_list);
-        //cardAdsDepotStock =  findViewById(R.id.cardAdsDepotStock);
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");

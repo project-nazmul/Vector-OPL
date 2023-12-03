@@ -42,6 +42,8 @@ import com.opl.pharmavector.model.Patient;
 
 import com.opl.pharmavector.mrd_pres_report.adapter.MRDAdapter;
 import com.opl.pharmavector.mrd_pres_report.adapter.MRDDocAdapter;
+import com.opl.pharmavector.prescriber.FromDateList;
+import com.opl.pharmavector.prescriber.FromDateModel;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
@@ -2404,17 +2406,17 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchvMonthModel> call = apiInterface.getAchievementMonth();
+        Call<FromDateModel> call = apiInterface.getSpiReportMonth();
 
-        call.enqueue(new Callback<AchvMonthModel>() {
+        call.enqueue(new Callback<FromDateModel>() {
             @Override
-            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+            public void onResponse(Call<FromDateModel> call, Response<FromDateModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<AchieveMonthList> achvMonthList = null;
+                    List<FromDateList> achvMonthList = null;
 
                     if (response.body() != null) {
-                        achvMonthList = (response.body()).getAchvMonthList();
+                        achvMonthList = (response.body()).getFromDateLists();
                     }
                     initMonthSpinner(Objects.requireNonNull(achvMonthList));
                     Log.d("Month List -- : ", String.valueOf(achvMonthList));
@@ -2422,7 +2424,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
             }
 
             @Override
-            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+            public void onFailure(Call<FromDateModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -2431,13 +2433,13 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
         });
     }
 
-    private void initMonthSpinner(List<AchieveMonthList> monthList) {
+    private void initMonthSpinner(List<FromDateList> monthList) {
         MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayList<String> monthNameList = new ArrayList<>();
 
         if (monthList.size() > 0) {
-            for (AchieveMonthList monthName : monthList) {
-                monthNameList.add(monthName.getMnyrDesc());
+            for (FromDateList monthName : monthList) {
+                monthNameList.add(monthName.getMon());
             }
         }
 
@@ -2448,7 +2450,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                 team_name = String.valueOf(item).trim();
 
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                    if (monthList.get(i).getMnyr().contains(team_name)) {
                         month_name = monthList.get(i).getMnyr();
                     }
                 }
