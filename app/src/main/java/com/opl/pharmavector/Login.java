@@ -160,17 +160,15 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 //activityResultLauncher.launch(result.);
             }
         });
-        mAppUpdateManager.registerListener(listener);
+        //mAppUpdateManager.registerListener(listener);
         firebaseEvent();
     }
 
-    InstallStateUpdatedListener listener = state -> {
-        if (state.installStatus() == InstallStatus.DOWNLOADED) {
-            // After the update is downloaded, show a notification
-            // and request user confirmation to restart the app.
-            popupSnackbarForCompleteUpdate();
-        }
-    };
+//    InstallStateUpdatedListener listener = state -> {
+//        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+//            popupSnackbarForCompleteUpdate();
+//        }
+//    };
 
     // Displays the snackbar notification and call to action.
     private void popupSnackbarForCompleteUpdate() {
@@ -194,26 +192,22 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        // When status updates are no longer needed, unregister the listener.
-        mAppUpdateManager.unregisterListener(listener);
+        //mAppUpdateManager.unregisterListener(listener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.REGISTRATION_COMPLETE));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(Config.PUSH_NOTIFICATION));
         NotificationUtils.clearNotifications(getApplicationContext());
 
-        mAppUpdateManager.getAppUpdateInfo()
-                .addOnSuccessListener(appUpdateInfo -> {
-                    // If the update is downloaded but not installed,
-                    // notify the user to complete the update.
-                    if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                        popupSnackbarForCompleteUpdate();
-                    }
-                });
+//        mAppUpdateManager.getAppUpdateInfo()
+//                .addOnSuccessListener(appUpdateInfo -> {
+//                    if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+//                        popupSnackbarForCompleteUpdate();
+//                    }
+//                });
     }
 
     private void initAppUpdate() {
@@ -463,7 +457,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
             preferenceManager.setemp_code(tmpEmpCode);
             preferenceManager.setDesignation(tempDesignation);
             startActivity(i);
-        } else if (count == 6) {
+        }
+        else if (count == 6) {
             tempLogin = preferenceManager.getusername();
             tempPassword = preferenceManager.getpassword();
             tempRole = preferenceManager.getuserrole();

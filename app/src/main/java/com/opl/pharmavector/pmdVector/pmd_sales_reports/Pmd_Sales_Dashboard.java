@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -36,7 +37,7 @@ import es.dmoral.toasty.Toasty;
 public class Pmd_Sales_Dashboard extends Activity {
     private SessionManager session;
     Button back_btn;
-    String userName, userName_1, userName_2, message_3;
+    String userName, userName_1, userName_2, message_3, userCode;
     CardView cardview1, cardview2, cardview3, cardview4, cardview5, admin_product_list, cardAdsDepotStock;
     ImageView img1, img2, img3, img4, img5, img6;
     TextView txt_vw1, txt_vw2, txt_vw3, txt_vw4, txt_vw5, txt_vw6;
@@ -115,8 +116,7 @@ public class Pmd_Sales_Dashboard extends Activity {
                     public void run() {
                         if (!NetInfo.isOnline(getBaseContext())) {
                             showSnack();
-                        }
-                        else {
+                        } else {
                             Intent i = new Intent(Pmd_Sales_Dashboard.this, AdminProductList.class);
                             i.putExtra("userName", userName);
                             i.putExtra("UserName", userName);
@@ -131,9 +131,10 @@ public class Pmd_Sales_Dashboard extends Activity {
         cardview5.setOnClickListener(v -> {
             Intent i = new Intent(Pmd_Sales_Dashboard.this, ProductOfferActivity.class);
             i.putExtra("userName", userName);
-            i.putExtra("userCode", userName_2);
+            i.putExtra("userCode", userCode);
             i.putExtra("userRole", "PMD");
             startActivity(i);
+            Log.d("offerPmd", userName + "::" + userCode);
         });
     }
 
@@ -144,11 +145,11 @@ public class Pmd_Sales_Dashboard extends Activity {
 //        back_btn.setText("\uf060 ");
 
         cardview1 = findViewById(R.id.cardview1);
-        txt_vw1      = findViewById(R.id.txt_vw1);
+        txt_vw1     = findViewById(R.id.txt_vw1);
         img1        = findViewById(R.id.img1);
 
         cardview2 = findViewById(R.id.cardview2);
-        txt_vw2      = findViewById(R.id.txt_vw2);
+        txt_vw2     = findViewById(R.id.txt_vw2);
         img2        = findViewById(R.id.img2);
 
         cardview3 = findViewById(R.id.cardview3);
@@ -166,6 +167,7 @@ public class Pmd_Sales_Dashboard extends Activity {
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
+        userCode = b.getString("UserCode");
         userName_1 = b.getString("userName_1");
         userName_2 = b.getString("UserName_2");
         message_3 = b.getString("message_3");

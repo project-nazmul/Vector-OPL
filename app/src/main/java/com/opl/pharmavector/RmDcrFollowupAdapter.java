@@ -109,8 +109,8 @@ public class RmDcrFollowupAdapter extends BaseAdapter {
     }
 
     RmDcrFollowupAdapter(Context con, ArrayList<String> sl, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor,
-                         ArrayList<String> value_4, ArrayList<String> value_5, ArrayList<String> value_6,ArrayList<String> value_7
-            ,ArrayList<String> value_8,ArrayList<String> value_9,ArrayList<String> value_10,ArrayList<String> value_11,
+                         ArrayList<String> value_4, ArrayList<String> value_5, ArrayList<String> value_6,ArrayList<String> value_7,
+                         ArrayList<String> value_8,ArrayList<String> value_9,ArrayList<String> value_10,ArrayList<String> value_11,
                          ArrayList<String> value_12,ArrayList<String> value_13,ArrayList<String> value_14,ArrayList<String> value_15,
                          ArrayList<String> value_16,ArrayList<String> value_17) {
         this.sl = sl;

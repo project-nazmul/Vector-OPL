@@ -5,6 +5,7 @@ import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import java.lang.Runnable;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +70,8 @@ public class GMDashboard extends Activity implements OnClickListener {
     public String userName_1, userName, UserName_2, active_string, act_desiredString, user, sm_flag, sm_code;
     public String from_date, to_date;
     JSONParser jsonParser;
+    TextView doc_call_total, doc_call_last_Day, chem_call_total, chem_call_last_Day, no_of_order, last_day_order,
+            sample_allocate, sample_given, ppm_allocate, ppm_given, gift_allocate, gift_given;
     List<NameValuePair> params;
     public static ArrayList<String> sl;
     public static ArrayList<String> p_ids;
@@ -109,6 +112,18 @@ public class GMDashboard extends Activity implements OnClickListener {
         submitBtn =  findViewById(R.id.submitBtn);
         tvfromdate = (TextView) findViewById(R.id.fromdate);
         tvtodate = (TextView) findViewById(R.id.todate);
+        doc_call_total = findViewById(R.id.doc_call_total);
+        doc_call_last_Day = findViewById(R.id.doc_call_last_Day);
+        chem_call_total = findViewById(R.id.chem_call_total);
+        chem_call_last_Day = findViewById(R.id.chem_call_last_Day);
+        no_of_order = findViewById(R.id.no_of_order);
+        last_day_order = findViewById(R.id.last_day_order);
+        sample_allocate = findViewById(R.id.sample_allocate);
+        sample_given = findViewById(R.id.sample_given);
+        ppm_allocate = findViewById(R.id.ppm_allocate);
+        ppm_given = findViewById(R.id.ppm_given);
+        gift_allocate = findViewById(R.id.gift_allocate);
+        gift_given = findViewById(R.id.gift_given);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 ");
         p_ids = new ArrayList<String>();
@@ -265,16 +280,15 @@ public class GMDashboard extends Activity implements OnClickListener {
             ArrayList<String> value14 = new ArrayList<String>();
             ArrayList<String> value15 = new ArrayList<String>();
             ArrayList<String> value16 = new ArrayList<String>();
-
             ArrayList<String> value17 = new ArrayList<String>();
             ArrayList<String> value18 = new ArrayList<String>();
             ArrayList<String> value19 = new ArrayList<String>();
             ArrayList<String> value20 = new ArrayList<String>();
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
-            String prod_rate_1, prod_vat_1, prod_vat_2, prod_vat_3, prod_vat_4, prod_vat_5, prod_vat_6, prod_vat_7, prod_vat_8, prod_vat_9, prod_vat_10, prod_vat_11, prod_vat_12, prod_vat_13,
-                    prod_vat_14, prod_vat_15,
-                    sellvalue_2, sellvalue_3;
+            String prod_rate_1, prod_vat_1, prod_vat_2, prod_vat_3, prod_vat_4, prod_vat_5, prod_vat_6, prod_vat_7, prod_vat_8,
+                    prod_vat_9, prod_vat_10, prod_vat_11, prod_vat_12, prod_vat_13, prod_vat_14, prod_vat_15, sellvalue_2, sellvalue_3;
+
             for (int i = 0; i < categoriesList2.size(); i++) {
                 sl.add(categoriesList2.get(i).getsl());
                 lables.add(categoriesList2.get(i).getName());
@@ -359,6 +373,7 @@ public class GMDashboard extends Activity implements OnClickListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category6 cat3 = new Category6(
@@ -382,6 +397,37 @@ public class GMDashboard extends Activity implements OnClickListener {
                                 catObj.getString("PROD_VAT_13")
                         );
                         categoriesList2.add(cat3);
+
+                        int noOfDocCall = 0, docCallLastDay = 0, noOfChemCall = 0, chemCallLastDay = 0, noOfOrder = 0, lastDayOrder = 0, sampleAllocate = 0, sampleGiven = 0,
+                                ppmAllocate = 0, ppmGiven = 0, giftAllocate = 0, giftGiven = 0;
+
+                        for (int j=0; j<categoriesList2.size(); j++) {
+                            noOfDocCall += Integer.parseInt(categoriesList2.get(j).getQuantity());
+                            docCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_RATE());
+                            noOfChemCall += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_2());
+                            chemCallLastDay += Integer.parseInt(categoriesList2.get(j).getPROD_VAT());
+                            noOfOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_3());
+                            lastDayOrder += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_4());
+                            sampleAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_5());
+                            sampleGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_6());
+                            ppmAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_7());
+                            ppmGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_8());
+                            giftAllocate += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_9());
+                            giftGiven += Integer.parseInt(categoriesList2.get(j).getPROD_VAT_10());
+                        }
+                        DecimalFormat formatter = new DecimalFormat("#,##,###");
+                        doc_call_total.setText(String.valueOf(formatter.format(noOfDocCall)));
+                        doc_call_last_Day.setText(String.valueOf(formatter.format(docCallLastDay)));
+                        chem_call_total.setText(String.valueOf(formatter.format(noOfChemCall)));
+                        chem_call_last_Day.setText(String.valueOf(formatter.format(chemCallLastDay)));
+                        no_of_order.setText(String.valueOf(formatter.format(noOfOrder)));
+                        last_day_order.setText(String.valueOf(formatter.format(lastDayOrder)));
+                        sample_allocate.setText(String.valueOf(formatter.format(sampleAllocate)));
+                        sample_given.setText(String.valueOf(formatter.format(sampleGiven)));
+                        ppm_allocate.setText(String.valueOf(formatter.format(ppmAllocate)));
+                        ppm_given.setText(String.valueOf(formatter.format(ppmGiven)));
+                        gift_allocate.setText(String.valueOf(formatter.format(giftAllocate)));
+                        gift_given.setText(String.valueOf(formatter.format(giftGiven)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -856,7 +856,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         preferenceManager.setuserdtl(pmd_name);
         preferenceManager.setfftype(pmd_type);
         preferenceManager.setexecutive_name(pmd_loc);
-        Log.e("onPause----->", String.valueOf(count));
+        Log.e("onPause----->", String.valueOf(count) + "::" + preferenceManager.getTasbihCounter());
     }
 
     @Override

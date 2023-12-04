@@ -28,6 +28,7 @@ import retrofit2.Response;
 
 public class ProductOfferActivity extends Activity {
     EditText productSearch;
+    String userCode, userRole;
     RecyclerView recyclerProductOffer;
     private ProductOfferAdapter productOfferAdapter;
     private List<ProductOfferList> productOfferList = new ArrayList<>();
@@ -38,9 +39,8 @@ public class ProductOfferActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_offer);
 
-        productSearch = findViewById(R.id.productSearch);
-        recyclerProductOffer = findViewById(R.id.recyclerProductOffer);
-        initProductOfferAdapter();
+        initViews();
+        initProductAdapter();
         getProductOfferList();
 
         productSearch.addTextChangedListener(new TextWatcher() {
@@ -61,7 +61,17 @@ public class ProductOfferActivity extends Activity {
         });
     }
 
-    private void initProductOfferAdapter() {
+    private void initViews() {
+        productSearch = findViewById(R.id.productSearch);
+        recyclerProductOffer = findViewById(R.id.recyclerProductOffer);
+
+        Bundle bundle = getIntent().getExtras();
+        userCode = bundle.getString("userCode");
+        userRole = bundle.getString("userRole");
+        Log.d("offer", userCode);
+    }
+
+    private void initProductAdapter() {
         productOfferAdapter = new ProductOfferAdapter(ProductOfferActivity.this, productOfferList);
         LinearLayoutManager manager = new LinearLayoutManager(ProductOfferActivity.this);
         recyclerProductOffer.setLayoutManager(manager);
@@ -87,7 +97,13 @@ public class ProductOfferActivity extends Activity {
         productOfferDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ProductOfferModel> call = apiInterface.getProductOfferList("");
+        Call<ProductOfferModel> call;
+        if (Objects.equals(userRole, "PMD")) {
+            call = apiInterface.getPMDProductOfferList(userCode);
+        } else {
+            call = apiInterface.getProductOfferList(userCode);
+        }
+        //Call<ProductOfferModel> call = apiInterface.getProductOfferList(userCode);
         productOfferList.clear();
         Log.d("productOffer", productOfferList.toString());
 

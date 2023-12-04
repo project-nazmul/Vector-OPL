@@ -6,21 +6,16 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
  
 public class SessionManager {
-    // LogCat tag
+    //LogCat tag
     private static String TAG = SessionManager.class.getSimpleName();
- 
-    // Shared Preferences
+    //Shared Preferences
     SharedPreferences pref;
- 
     Editor editor;
     Context _context;
- 
-    // Shared pref mode
+    //Shared pref mode
     int PRIVATE_MODE = 0;
- 
-    // Shared preferences file name
+    //Shared preferences file name
     private static final String PREF_NAME = "login";
-     
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
  
     public SessionManager(Context context) {
@@ -30,23 +25,15 @@ public class SessionManager {
     }
  
     public void setLogin(boolean isLoggedIn) {
- 
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
- 
-        // commit changes
+        //commit changes
         editor.commit();
- 
         Log.d(TAG, "User login session modified!");
     }
      
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
-    
-  
 
-	public void invalidate() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void invalidate() {}
 }

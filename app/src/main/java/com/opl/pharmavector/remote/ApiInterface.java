@@ -292,7 +292,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("opsonin_product_offer_new.php")
     Call<ProductOfferModel> getProductOfferList(
-            @Field("CUST_CODE") String cust_code
+            @Field("id") String user_code
+    );
+
+    @FormUrlEncoded
+    @POST("opsonin_product_offer_pmd.php")
+    Call<ProductOfferModel> getPMDProductOfferList(
+            @Field("id") String user_code
     );
 
     @FormUrlEncoded
