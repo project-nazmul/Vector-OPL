@@ -23,12 +23,14 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -47,6 +49,8 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
+import com.opl.pharmavector.achieve.AchieveMonthList;
+import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
@@ -79,6 +83,7 @@ import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.tourPlan.TourPlanActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
+import com.opl.pharmavector.util.PopUpUrlModel;
 import com.opl.pharmavector.util.PreferenceManager;
 import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
@@ -188,6 +193,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         count = preferenceManager.getTasbihCounter();
         statusBarHide();
         initViews();
+        getPopUpFlagCheck();
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
 
@@ -1954,6 +1960,62 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             @Override
             public void onFailure(@NonNull Call<Patient> call, @NonNull Throwable t) {
                 //progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void getPopUpFlagCheck() {
+        ProgressDialog pDialog = new ProgressDialog(GMDashboard1.this);
+        pDialog.setMessage("Loading Month ...");
+        pDialog.setCancelable(true);
+        //pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<PopUpUrlModel> call = apiInterface.getPopUpFlagCheck(global_admin_Code);
+
+        call.enqueue(new Callback<PopUpUrlModel>() {
+            @Override
+            public void onResponse(Call<PopUpUrlModel> call, Response<PopUpUrlModel> response) {
+                if (response.isSuccessful()) {
+                    //pDialog.dismiss();
+                    String popUpFlag = "";
+                    PopUpUrlModel popUpUrlModel;
+
+                    if (response.body() != null) {
+                        popUpFlag = response.body().getFlag();
+
+                        if (Objects.equals(popUpFlag, "Y")) {
+                            popUpUrlModel = response.body();
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GMDashboard1.this);
+                            LayoutInflater inflater = getLayoutInflater();
+                            View dialogView = inflater.inflate(R.layout.daily_alert_dialog, null);
+                            dialogBuilder.setView(dialogView);
+                            TextView dialogTitle = (TextView) dialogView.findViewById(R.id.dialogTitle);
+                            ImageView dialogImage = (ImageView) dialogView.findViewById(R.id.dialogImage);
+                            TextView dialogMessage = (TextView) dialogView.findViewById(R.id.dialogMessage);
+                            dialogTitle.setText(popUpUrlModel.getTitle());
+                            dialogMessage.setText(popUpUrlModel.getMessage());
+                            Picasso.get().load(popUpUrlModel.getImageUrl()).into(dialogImage);
+                            //Glide.with(getApplicationContext()).load(popUpUrlModel.getImageUrl()).into(dialogImage);
+                            AlertDialog alertDialog = dialogBuilder.create();
+                            dialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                   dialog.dismiss();
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+                    Log.d("popUpFlag : ", String.valueOf(popUpFlag));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PopUpUrlModel> call, Throwable t) {
+                //pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }

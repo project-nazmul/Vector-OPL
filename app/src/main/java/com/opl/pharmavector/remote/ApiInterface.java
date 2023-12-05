@@ -49,6 +49,7 @@ import com.opl.pharmavector.tourPlan.TourClassModel;
 import com.opl.pharmavector.tourPlan.TourModeModel;
 import com.opl.pharmavector.tourPlan.TourMorningModel;
 import com.opl.pharmavector.tourPlan.TourNatureModel;
+import com.opl.pharmavector.util.PopUpUrlModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -387,6 +388,11 @@ public interface ApiInterface {
 
     @GET("achv_and_earn/get_mon.php")
     Call<AchvMonthModel> getAchievementMonth();
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("promotion/promotion_check.php")
+    Call<PopUpUrlModel> getPopUpFlagCheck(@Field("id") String user_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

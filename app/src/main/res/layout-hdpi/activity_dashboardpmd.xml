@@ -170,6 +170,7 @@
                         app:layout_constraintStart_toStartOf="@+id/textView4">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_btn_rx"
                             android:layout_width="42dp"
                             android:layout_height="40dp"
@@ -201,6 +202,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_dashboard_1"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -240,6 +242,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView5">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_btn_notice"
                             android:layout_width="42dp"
                             android:layout_height="40dp"
@@ -271,6 +274,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_dashboard_2"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -322,6 +326,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_sales_reports">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_btn_sales_reports"
                             android:layout_width="42dp"
                             android:layout_height="40dp"
@@ -392,6 +397,7 @@
                         app:layout_constraintTop_toTopOf="@+id/textView7">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_btn_4p_sales"
                             android:layout_width="42dp"
                             android:layout_height="40dp"
@@ -470,6 +476,7 @@
                         android:layout_height="match_parent">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_btn_ff_contact"
                             android:layout_width="42dp"
                             android:layout_height="40dp"
@@ -500,6 +507,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_ff_contact"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
@@ -688,6 +696,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_pmd_contact">
 
                         <ImageButton
+                            android:clickable="false"
                             android:id="@+id/img_pmd_contact"
                             android:layout_width="44dp"
                             android:layout_height="40dp"
@@ -719,6 +728,7 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
+                            android:clickable="false"
                             android:id="@+id/btn_pmd_contact"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
