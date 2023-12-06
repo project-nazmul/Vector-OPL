@@ -1989,6 +1989,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             LayoutInflater inflater = getLayoutInflater();
                             View dialogView = inflater.inflate(R.layout.daily_alert_dialog, null);
                             dialogBuilder.setView(dialogView);
+                            Button dialogButton = (Button) dialogView.findViewById(R.id.dialogButton);
                             TextView dialogTitle = (TextView) dialogView.findViewById(R.id.dialogTitle);
                             ImageView dialogImage = (ImageView) dialogView.findViewById(R.id.dialogImage);
                             TextView dialogMessage = (TextView) dialogView.findViewById(R.id.dialogMessage);
@@ -1997,12 +1998,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             Picasso.get().load(popUpUrlModel.getImageUrl()).into(dialogImage);
                             //Glide.with(getApplicationContext()).load(popUpUrlModel.getImageUrl()).into(dialogImage);
                             AlertDialog alertDialog = dialogBuilder.create();
-                            dialogBuilder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                   dialog.dismiss();
-                                }
-                            });
+                            dialogButton.setOnClickListener(v -> alertDialog.dismiss());
                             alertDialog.show();
                         }
                     }
@@ -2015,7 +2011,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 //pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
-                toast.show();
+                //toast.show();
             }
         });
     }
