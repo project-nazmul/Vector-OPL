@@ -386,8 +386,9 @@ public interface ApiInterface {
     @GET("spi/get_from_month.php")
     Call<FromDateModel> getSpiReportMonth();
 
-    @GET("achv_and_earn/get_mon.php")
-    Call<AchvMonthModel> getAchievementMonth();
+    //@GET("achv_and_earn/get_mon.php")
+    @GET("spi/get_from_month.php")
+    Call<FromDateModel> getAchievementMonth();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
@@ -796,6 +797,14 @@ public interface ApiInterface {
     Call<DoctorReachSelfModel> doc_reach_details_followup(
             @Field("id") String mpo_code,
             @Field("p_mon") String p_month
+    );
+
+    @FormUrlEncoded
+    @POST("spi/doc_reach_details_followup.php")
+    Call<DoctorReachSelfModel> doc_reach_details_sm_follow(
+            @Field("id") String mpo_code,
+            @Field("p_mon") String p_month,
+            @Field("ff_type") String ff_type
     );
 
     @FormUrlEncoded

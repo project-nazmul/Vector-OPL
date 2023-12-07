@@ -37,6 +37,8 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.pmdVector.model.FFTeamList;
 import com.opl.pharmavector.pmdVector.model.FFTeamModel;
+import com.opl.pharmavector.prescriber.FromDateList;
+import com.opl.pharmavector.prescriber.FromDateModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.KeyboardUtils;
@@ -300,17 +302,17 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchvMonthModel> call = apiInterface.getAchievementMonth();
+        Call<FromDateModel> call = apiInterface.getAchievementMonth();
 
-        call.enqueue(new Callback<AchvMonthModel>() {
+        call.enqueue(new Callback<FromDateModel>() {
             @Override
-            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+            public void onResponse(Call<FromDateModel> call, Response<FromDateModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<AchieveMonthList> achvMonthList = null;
+                    List<FromDateList> achvMonthList = null;
 
                     if (response.body() != null) {
-                        achvMonthList = (response.body()).getAchvMonthList();
+                        achvMonthList = (response.body()).getFromDateLists();
                     }
                     if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
                         initMonthSpinner(Objects.requireNonNull(achvMonthList));
@@ -322,7 +324,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+            public void onFailure(Call<FromDateModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -359,12 +361,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void initMonthSpinner(List<AchieveMonthList> monthList) {
+    private void initMonthSpinner(List<FromDateList> monthList) {
         MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayList<String> monthNameList = new ArrayList<>();
+
         if (monthList.size() > 0) {
-            for (AchieveMonthList monthName : monthList) {
-                monthNameList.add(monthName.getMnyrDesc());
+            for (FromDateList monthName : monthList) {
+                monthNameList.add(monthName.getMon());
             }
         }
         monthSpinner.setItems(monthNameList);
@@ -374,7 +377,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 team_name = String.valueOf(item).trim();
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                    if (monthList.get(i).getMon().contains(team_name)) {
                         month_name = monthList.get(i).getMnyr();
                     }
                 }
@@ -383,13 +386,13 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void initMpoMonthSpinner(List<AchieveMonthList> monthList) {
+    private void initMpoMonthSpinner(List<FromDateList> monthList) {
         MaterialSpinner mpoSpinner = findViewById(R.id.mpoMonthSpinner);
         ArrayList<String> monthNameList = new ArrayList<>();
 
         if (monthList.size() > 0) {
-            for (AchieveMonthList monthName : monthList) {
-                monthNameList.add(monthName.getMnyrDesc());
+            for (FromDateList monthName : monthList) {
+                monthNameList.add(monthName.getMon());
             }
         }
         mpoSpinner.setItems(monthNameList);
@@ -399,7 +402,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 team_name = String.valueOf(item).trim();
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                    if (monthList.get(i).getMon().contains(team_name)) {
                         month_name = monthList.get(i).getMnyr();
                     }
                 }

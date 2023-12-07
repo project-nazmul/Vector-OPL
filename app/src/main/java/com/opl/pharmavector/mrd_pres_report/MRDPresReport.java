@@ -2450,7 +2450,7 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                 team_name = String.valueOf(item).trim();
 
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyr().contains(team_name)) {
+                    if (monthList.get(i).getMon().contains(team_name)) {
                         month_name = monthList.get(i).getMnyr();
                     }
                 }

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,15 +26,10 @@ import com.opl.pharmavector.GMDashboard1;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RmDashboard;
 import com.opl.pharmavector.SalesManagerDashboard;
-import com.opl.pharmavector.achieve.AchieveEarnActivity;
-import com.opl.pharmavector.achieve.AchieveMonthList;
-import com.opl.pharmavector.achieve.AchvMonthModel;
-import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
-import com.opl.pharmavector.mrd_pres_report.adapter.MRDAdapter;
 import com.opl.pharmavector.mrd_pres_report.adapter.MRDDocAdapter;
+import com.opl.pharmavector.prescriber.FromDateList;
+import com.opl.pharmavector.prescriber.FromDateModel;
 import com.opl.pharmavector.promomat.adapter.RecyclerTouchListener;
-import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
@@ -57,9 +51,9 @@ public class DoctorReachActivity extends Activity {
     public ProgressDialog pDialog, pDialog2, pDialog3, pDialog4, pDialog5, pDialog6, pDialogSelf, pDialogTeam, pDialogProd;
     Button back_btn;
     public int success;
-    public String message, ord_no;
+    public String message, ord_no, ff_type;
     public TextView totqty, totval, mpo_code, fromdate, todate;
-    public String userName_1, userName, active_string, act_desiredString, selected_service_no, selected_service_no_serial, summary_type;
+    public String userName_1, userName, userCode, active_string, act_desiredString, selected_service_no, selected_service_no_serial, summary_type;
     public String from_date, to_date;
     TextView user_show1;
     public String p_code;
@@ -167,14 +161,28 @@ public class DoctorReachActivity extends Activity {
                         } else {
                             service_month = monthSpinner.getText().toString();
                             self_flag = "GM";
-                            user_code = GMDashboard1.globalAdmin;
+                            user_code = userCode;
                             prepareSelfData();
                             setUpselfRV();
                             prepareTeamData();
                             setUpTeamRV();
-                            prepareSMdata();
-                            setUpRecyclerView();
+                            //prepareSMdata();
+                            //setUpRecyclerView();
 
+                            rvTeam.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvTeam, new RecyclerTouchListener.ClickListener() {
+                                @Override
+                                public void onClick(View view, int position) {
+                                    user_code = userCode;
+                                    ff_type = teamList.get(position).getFfCode();
+                                    prepareSMdata(user_code, ff_type);
+                                    setUpRecyclerView();
+                                }
+
+                                @Override
+                                public void onLongClick(View view, int position) {
+
+                                }
+                            }));
                             rvNational.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), rvNational, new RecyclerTouchListener.ClickListener() {
                                 @Override
                                 public void onClick(View view, int position) {
@@ -622,6 +630,7 @@ public class DoctorReachActivity extends Activity {
         back_btn.setText("\uf060 ");
         Bundle b = getIntent().getExtras();
         userName = b.getString("userName");
+        userCode = b.getString("UserCode");
         report_flag = b.getString("report_flag");
         gm_flag = b.getString("gm_flag");
         asm_flag = b.getString("asm_flag");
@@ -631,13 +640,38 @@ public class DoctorReachActivity extends Activity {
         mpo_flag = b.getString("mpo_flag");
     }
 
-    private void initMonthSpinner(List<AchieveMonthList> monthList) {
+//    private void initMonthSpinner(List<FromDateModel> monthList) {
+//        MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
+//        ArrayList<String> monthNameList = new ArrayList<>();
+//
+//        if (monthList.size() > 0) {
+//            for (FromDateList monthName : monthList) {
+//                monthNameList.add(monthName.getMnyrDesc());
+//            }
+//        }
+//
+//        monthSpinner.setItems(monthNameList);
+//        monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//            @Override
+//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+//                team_name = String.valueOf(item).trim();
+//
+//                for (int i = 0; i < monthList.size(); i++) {
+//                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+//                        month_name = monthList.get(i).getMnyr();
+//                    }
+//                }
+//                Log.d("month name", month_name);
+//            }
+//        });
+//    }
+    private void initMonthSpinner(List<FromDateList> monthList) {
         MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         ArrayList<String> monthNameList = new ArrayList<>();
 
         if (monthList.size() > 0) {
-            for (AchieveMonthList monthName : monthList) {
-                monthNameList.add(monthName.getMnyrDesc());
+            for (FromDateList monthName : monthList) {
+                monthNameList.add(monthName.getMon());
             }
         }
 
@@ -648,7 +682,7 @@ public class DoctorReachActivity extends Activity {
                 team_name = String.valueOf(item).trim();
 
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+                    if (monthList.get(i).getMon().contains(team_name)) {
                         month_name = monthList.get(i).getMnyr();
                     }
                 }
@@ -663,17 +697,17 @@ public class DoctorReachActivity extends Activity {
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchvMonthModel> call = apiInterface.getAchievementMonth();
+        Call<FromDateModel> call = apiInterface.getAchievementMonth();
 
-        call.enqueue(new Callback<AchvMonthModel>() {
+        call.enqueue(new Callback<FromDateModel>() {
             @Override
-            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+            public void onResponse(Call<FromDateModel> call, Response<FromDateModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<AchieveMonthList> achvMonthList = null;
+                    List<FromDateList> achvMonthList = null;
 
                     if (response.body() != null) {
-                        achvMonthList = (response.body()).getAchvMonthList();
+                        achvMonthList = (response.body()).getFromDateLists();
                     }
                     initMonthSpinner(Objects.requireNonNull(achvMonthList));
                     Log.d("Month List -- : ", String.valueOf(achvMonthList));
@@ -681,7 +715,7 @@ public class DoctorReachActivity extends Activity {
             }
 
             @Override
-            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+            public void onFailure(Call<FromDateModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -928,7 +962,7 @@ public class DoctorReachActivity extends Activity {
         });
     }
 
-    public void prepareSMdata() {
+    public void prepareSMdata(String user_code, String ff_type) {
         pDialog = new ProgressDialog(DoctorReachActivity.this);
         pDialog.setMessage("Division Data Loading...");
         pDialog.setTitle("Please wait");
@@ -936,7 +970,7 @@ public class DoctorReachActivity extends Activity {
         user_flag = "SM";
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DoctorReachSelfModel> call = apiInterface.doc_reach_details_followup(user_code, month_name);
+        Call<DoctorReachSelfModel> call = apiInterface.doc_reach_details_sm_follow(user_code, month_name, ff_type);
         promoList.clear();
 
         call.enqueue(new Callback<DoctorReachSelfModel>() {

@@ -193,7 +193,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         count = preferenceManager.getTasbihCounter();
         statusBarHide();
         initViews();
-        getPopUpFlagCheck();
+        //getPopUpFlagCheck();
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
 
@@ -260,8 +260,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                         server.start();
                         //logoutUser();
                     })
-                    .setNegativeButton("No", (dialog, which) -> {
-                    })
+                    .setNegativeButton("No", (dialog, which) -> {})
                     .show();
         });
         btn_vector_feedback.setOnClickListener(v -> {
@@ -333,8 +332,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
-                        })
-                        .show();
+                        }).show();
             }
         });
     }
@@ -417,9 +415,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             }
 
             @Override
-            public void onFailure(Call<Patient> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Patient> call, Throwable t) {}
         });
     }
 
@@ -452,17 +448,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                                             startActivity(logoutIntent);
                                             finish();
                                         }
-                                    })
-                                    .show();
+                                    }).show();
                         } else {
                             updateLocation();
                         }
                     }
 
                     @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-
-                    }
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {}
                 }).check();
     }
 

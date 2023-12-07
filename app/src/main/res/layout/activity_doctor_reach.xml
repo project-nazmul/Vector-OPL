@@ -401,7 +401,6 @@
                                 android:textColor="@color/vector_logo_color"
                                 android:textSize="@dimen/_8sdp" />
                         </LinearLayout>
-
                     </HorizontalScrollView>
 
                     <androidx.recyclerview.widget.RecyclerView
