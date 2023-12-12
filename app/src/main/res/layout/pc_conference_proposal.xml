@@ -151,7 +151,6 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/userinput"
             android:layout_width="match_parent"
@@ -161,7 +160,6 @@
             android:layout_marginRight="20dp"
             android:orientation="vertical"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/i3"
@@ -186,19 +184,17 @@
                     android:textSize="@dimen/_10sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
             <AutoCompleteTextView
+                android:paddingStart="@dimen/_4sdp"
                 android:id="@+id/autoCompleteTextView1"
                 android:layout_width="fill_parent"
                 android:layout_height="42dp"
                 android:layout_alignParentLeft="true"
-                android:background="@android:drawable/editbox_background"
-                android:clickable="false"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:background="@drawable/spinner_shape"
+                android:clickable="true"
                 android:ems="5"
-                android:focusable="false"
+                android:focusable="true"
                 android:hint="Market name (click arrow to change market)"
                 android:inputType="textPhonetic"
                 android:textColor="#23283a"

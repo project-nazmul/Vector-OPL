@@ -122,14 +122,8 @@
                 android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -149,7 +143,6 @@
             android:layout_height="75dp"
             android:layout_margin="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -157,16 +150,13 @@
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-
-            >
+            app:cardUseCompatPadding="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView4"
                 app:layout_constraintStart_toStartOf="@+id/textView4">
-
 
                 <TextView
                     android:id="@+id/textView4"

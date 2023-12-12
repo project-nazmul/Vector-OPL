@@ -193,7 +193,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         count = preferenceManager.getTasbihCounter();
         statusBarHide();
         initViews();
-        //getPopUpFlagCheck();
+        getPopUpFlagCheck();
         initBroadcastReceiver();
         registerReceiver(updateUIReciver, new IntentFilter(MyLocationService.ACTION_PROCESS_UPDATE));
 
@@ -681,7 +681,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         tv_msd = findViewById(R.id.tv_msd);
         cardview_msd = findViewById(R.id.cardview_msd);
         cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
-        cardView_tourPlan.setVisibility(View.GONE);
+        cardView_tourPlan.setVisibility(View.VISIBLE);
         cardView_productStock = findViewById(R.id.cardView_productStock);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);

@@ -29,11 +29,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ spi doctor reach done!">
-      <change afterPath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.46.apk" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ achv earn month change!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dcr.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dcr.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/multi_option_bottom_sheet_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/multi_option_bottom_sheet_dialog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/pc_conference_proposal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/pc_conference_proposal.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -442,13 +444,6 @@
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
     </task>
-    <task id="LOCAL-00101" summary="+ achievement &amp; earn design loading!">
-      <created>1693828895438</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1693828895439</updated>
-    </task>
     <task id="LOCAL-00102" summary="+ achievement &amp; earn design loading II!">
       <created>1693914757891</created>
       <option name="number" value="00102" />
@@ -785,7 +780,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701949570952</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="+ achv earn month change!">
+      <created>1702295624041</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1702295624041</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -801,7 +803,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ Dcfp Doctor done!" />
     <MESSAGE value="+ Dcfp Doctor added AM, RM, ASM, SM and GM!" />
     <MESSAGE value="+ Doctor Reach Done (Without MPO)!" />
     <MESSAGE value="+ Doctor Reach Done (With MPO)!" />
@@ -826,7 +827,8 @@
     <MESSAGE value="+ popUp checker!" />
     <MESSAGE value="+ popUp checker design done!" />
     <MESSAGE value="+ spi doctor reach done!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ spi doctor reach done!" />
+    <MESSAGE value="+ achv earn month change!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ achv earn month change!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2259,32 +2261,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>507</line>
+          <line>508</line>
           <option name="timeStamp" value="1108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>484</line>
+          <line>485</line>
           <option name="timeStamp" value="1109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>485</line>
+          <line>486</line>
           <option name="timeStamp" value="1110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>486</line>
+          <line>487</line>
           <option name="timeStamp" value="1111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>490</line>
+          <line>491</line>
           <option name="timeStamp" value="1112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
-          <line>511</line>
+          <line>512</line>
           <option name="timeStamp" value="1113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3303,51 +3305,6 @@
           <option name="timeStamp" value="1558" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>229</line>
-          <option name="timeStamp" value="1569" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>230</line>
-          <option name="timeStamp" value="1570" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>231</line>
-          <option name="timeStamp" value="1571" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>232</line>
-          <option name="timeStamp" value="1572" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>233</line>
-          <option name="timeStamp" value="1573" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>234</line>
-          <option name="timeStamp" value="1574" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>236</line>
-          <option name="timeStamp" value="1575" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>235</line>
-          <option name="timeStamp" value="1576" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/master_code/MasterCode.java</url>
-          <line>237</line>
-          <option name="timeStamp" value="1577" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
           <line>2004</line>
           <option name="timeStamp" value="1596" />
@@ -3406,6 +3363,36 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/dcfpFollowup/DoctorReachActivity.java</url>
           <line>905</line>
           <option name="timeStamp" value="1618" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
+          <line>1193</line>
+          <option name="timeStamp" value="1619" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
+          <line>1198</line>
+          <option name="timeStamp" value="1620" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
+          <line>1217</line>
+          <option name="timeStamp" value="1621" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
+          <line>327</line>
+          <option name="timeStamp" value="1622" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pcconference/PcProposal.java</url>
+          <line>321</line>
+          <option name="timeStamp" value="1623" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
+          <line>1965</line>
+          <option name="timeStamp" value="1624" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

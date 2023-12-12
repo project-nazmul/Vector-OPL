@@ -50,9 +50,11 @@ import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.MultiSelectionSpinner2;
 import com.opl.pharmavector.PCDashboard;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.pcconference.PcProposalDoc;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
+import com.opl.pharmavector.util.KeyboardUtils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -128,6 +130,7 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         setContentView(R.layout.pc_conference_proposal);
 
         initViews();
+        marketEvents();
         new GetMarket().execute();
         new GeTPcConferenceSetupData().execute();
         calendarInit();
@@ -317,9 +320,7 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         });
 
         cust.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int pos, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String text = cust.getSelectedItem().toString();
                 String[] second_split = text.split("-");
                 m_name = second_split[0];
@@ -942,43 +943,33 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                     }
 
                     if (pc_rmp.getText().toString().trim().equals("")) {
-
                         pc_rmp_val = 0;
                     } else {
                         pc_rmp_val = Integer.parseInt(pc_rmp.getText().toString().trim());
-
                     }
                     inhouse_val = Integer.parseInt(in_house.getText().toString().trim());
                     int result = pc_rmp_val + doc_val + inhouse_val;
                     String total2 = Integer.toString(result);
                     total_participent.setText(total2);
 
-
                     if (food.getText().toString().trim().equals("")) {
                         food_val = 0;
-
                     } else {
-
                         food_val = Integer.parseInt(food.getText().toString().trim());
-
                     }
                     int food_val_temp = result * food_val;
                     food_allowance = String.valueOf(food_val_temp);
                     fd_bdt.setText(String.valueOf(food_val_temp));
-
                 }
             }
         });
-
     }
 
     private void calendarInit() {
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -992,7 +983,7 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                 proposed_conference_date = ded.getText().toString().trim();
                 int selectedId = radioSexGroup.getCheckedRadioButtonId();
                 radioSexButton = (RadioButton) findViewById(selectedId);
-                // Toast.makeText(PcProposal.this, radioSexButton.getText(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PcProposal.this, radioSexButton.getText(), Toast.LENGTH_SHORT).show();
 
                 final String conf_type = String.valueOf(radioSexButton.getText());
                 conf_type_val = conf_type.substring(0, 1);
@@ -1028,12 +1019,9 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         fd_bdt =  findViewById(R.id.fd_bdt);
         miscell =  findViewById(R.id.miscell);
         miscell.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-        miscell.setFilters(new InputFilter[]{
-                new InputFilter() {
+        miscell.setFilters(new InputFilter[] { new InputFilter() {
                     @Override
-                    public CharSequence filter(CharSequence cs, int start,
-                                               int end, Spanned spanned, int dStart, int dEnd) {
-                        // TODO Auto-generated method stub
+                    public CharSequence filter(CharSequence cs, int start, int end, Spanned spanned, int dStart, int dEnd) {
                         if (cs.equals("")) { // for backspace
                             return cs;
                         }
@@ -1044,12 +1032,9 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                     }
                 }
         });
-
         miscell_bdt =  findViewById(R.id.miscell_bdt);
         impact =  findViewById(R.id.impact);
-        impact.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_FLAG_MULTI_LINE |
-                InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        impact.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         pc_rmp =  findViewById(R.id.pc_rmp);
         doc_chemist =  findViewById(R.id.doc_chemist);
         in_house =  findViewById(R.id.in_house);
@@ -1059,8 +1044,9 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         market_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         spinner =  findViewById(R.id.input1);
         spinner.setVisibility(View.GONE);
-        total_participent =  findViewById(R.id.total_participent);
-        cust =  findViewById(R.id.customer);
+        total_participent = findViewById(R.id.total_participent);
+        cust = findViewById(R.id.customer);
+        cust.setVisibility(View.GONE);
         customerlist = new ArrayList<Customer>();
         brandlist = new ArrayList<Customer>();
         dateextendlist = new ArrayList<Customer>();
@@ -1068,7 +1054,7 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         checkflag = new ArrayList<Customer>();
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         cust.setOnItemSelectedListener(this);
-        radioSexGroup =  findViewById(R.id.radioSex);
+        radioSexGroup = findViewById(R.id.radioSex);
         radioSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -1076,11 +1062,8 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                 radioSexButton =  findViewById(selectedId);
                 final String conf_type = String.valueOf(radioSexButton.getText());
                 conf_type_val = conf_type.substring(0, 1);
-
             }
         });
-
-
         mainlayout =  findViewById(R.id.successmsg);
         succ_msg =  findViewById(R.id.succ_msg);
         ordno =  findViewById(R.id.ordno);
@@ -1090,17 +1073,17 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         v_charge = "0";
         miscell_bdt_val = "0";
         miscell_val = "0";
-        actv =  findViewById(R.id.autoCompleteTextView1);
+        actv = findViewById(R.id.autoCompleteTextView1);
         final Bundle[] b = {getIntent().getExtras()};
         userName = b[0].getString("UserName");
         UserName_2 = b[0].getString("UserName_2");
         new_version = b[0].getString("new_version");
         ordernumber = b[0].getString("Ord_NO");
         user_show.setText(userName + " " + UserName_2 + " ");
+
         if (ordernumber == null) {
             mainlayout.setVisibility(LinearLayout.GONE);
         } else {
-
             succ_msg.setTextSize(12);
             succ_msg.setText("Submitted.");
             succ_msg.setTextColor(Color.BLACK);
@@ -1108,18 +1091,13 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
             ordno.setTextSize(12);
             ordno.setTextColor(Color.BLACK);
         }
-
         back.setTypeface(fontFamily);
         back.setText("\uf060 ");
         logback.setTypeface(fontFamily);
         logback.setText("\uf08b");
         btnSignUp.setTypeface(fontFamily);
         btnSignUp.setText("\uf061");
-
     }
-
-
-
 
     private void populateSpinner2() {
         List<String> list2 = new ArrayList<String>();
@@ -1128,20 +1106,73 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         }
         spinner.setItems(list2);
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void marketEvents() {
+        actv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                actv.showDropDown();
+                return false;
+            }
+        });
+        actv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        actv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                actv.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                actv.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    final String text = s.toString();
+
+                    if (text.contains("-")) {
+                        String[] second_split = text.split("-");
+                        m_name = second_split[0];
+                        market_code = second_split[1];
+                        actv.setText(m_name);
+                        Log.e("MarketCode-->",market_code);
+                        Log.e("MarketName-->",m_name);
+                        //KeyboardUtils.hideKeyboard(PcProposal.this);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private void length() {
+
+            }
+        });
+    }
+
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
             lables.add(customerlist.get(i).getName());
-
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[lables.size()]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+        //AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+        actv.setVisibility(View.VISIBLE);
         actv.setAdapter(Adapter);
         actv.setTextColor(Color.BLUE);
     }
+
     class GetMarket extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -1150,7 +1181,6 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
             pDialog.setMessage("Loading Market name..");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
@@ -1162,24 +1192,20 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            customerlist.add(custo);
-                        }
-                    }
+                    JSONArray customer = jsonObj.getJSONArray("customer");
 
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        customerlist.add(custo);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-            } else {
-
             }
             return null;
         }
