@@ -60,6 +60,7 @@ import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcrEntryActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
@@ -2149,28 +2150,32 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_DCR() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.pmd_rx_bottom_sheet_dialog);
+        bottomSheetDialog.setContentView(R.layout.dcr_rm_bottom_sheet_dialog);
         CardView cardview_onlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_offlineorder = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
-        Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
+        CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
+        TextView textView8 = bottomSheetDialog.findViewById(R.id.textView8);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button button7 = bottomSheetDialog.findViewById(R.id.button7);
+        Button button8 = bottomSheetDialog.findViewById(R.id.button8);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");
         Objects.requireNonNull(button3).setText("1.3");
         Objects.requireNonNull(button7).setText("1.4");
+        Objects.requireNonNull(button8).setText("1.5");
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(textView6).setText("DCFP\nFollowup");
+        Objects.requireNonNull(textView8).setText("Dcr\nEntry");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -2197,6 +2202,13 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
             Intent i = new Intent(RmDashboard.this, DcfpDoctorListActivity.class);
+            i.putExtra("UserName", globalRMCode);
+            i.putExtra("UserName_2", globalRegionalCode);
+            i.putExtra("UserRole", "RM");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcrEntry).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DcrEntryActivity.class);
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
             i.putExtra("UserRole", "RM");

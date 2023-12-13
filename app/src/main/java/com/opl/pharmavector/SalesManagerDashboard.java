@@ -62,6 +62,7 @@ import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcrEntryActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
@@ -999,23 +1000,28 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
 
     private void showBottomSheetDialog_DCR() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.dcr_bottom_sheet_dialog);
+        bottomSheetDialog.setContentView(R.layout.dcr_asm_bottom_sheet_dialog);
         CardView cardview_followup = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
+        CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView8 = bottomSheetDialog.findViewById(R.id.textView8);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button7 = bottomSheetDialog.findViewById(R.id.button7);
+        Button button8 = bottomSheetDialog.findViewById(R.id.button8);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-        Objects.requireNonNull(button1).setText("1.1");
-        Objects.requireNonNull(button2).setText("1.2");
-        Objects.requireNonNull(button7).setText("1.3");
+        Objects.requireNonNull(button1).setText("1.2");
+        Objects.requireNonNull(button2).setText("1.3");
+        Objects.requireNonNull(button7).setText("1.4");
+        Objects.requireNonNull(button8).setText("1.1");
         Objects.requireNonNull(textView4).setText("Dcr\nFollowup");
         Objects.requireNonNull(textView5).setText("DCFP\nFollowup");
+        Objects.requireNonNull(textView8).setText("Dcr\nEntry");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
@@ -1044,6 +1050,13 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
             Intent i = new Intent(SalesManagerDashboard.this, DcfpDoctorListActivity.class);
+            i.putExtra("UserName", globalSMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserRole", "SM");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcrEntry).setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, DcrEntryActivity.class);
             i.putExtra("UserName", globalSMCode);
             i.putExtra("UserName_2", userName_2);
             i.putExtra("UserRole", "SM");
