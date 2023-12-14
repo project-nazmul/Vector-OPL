@@ -32,7 +32,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
     private ValueFilter valueFilter;
 
     public class ClubViewHolder extends RecyclerView.ViewHolder {
-        public TextView serialNo, terriCode, userRole, empCode, terriName, empName, depotName;
+        public TextView serialNo, terriCode, userRole, empCode, terriName, empName, depotName, password;
 
         public ClubViewHolder(View view) {
             super(view);
@@ -43,6 +43,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
             terriName = view.findViewById(R.id.terriName);
             empName = view.findViewById(R.id.empName);
             depotName = view.findViewById(R.id.depotName);
+            password = view.findViewById(R.id.password);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,6 +104,7 @@ public class MasterAdapter extends RecyclerView.Adapter<MasterAdapter.ClubViewHo
         holder.terriName.setText(company.getTerriName());
         holder.empName.setText(company.getEname());
         holder.depotName.setText(company.getDepotDesc());
+        holder.password.setText(company.getPassword());
     }
 
     @SuppressLint("NotifyDataSetChanged")

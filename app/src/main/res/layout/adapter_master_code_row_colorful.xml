@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/ef_white"
     android:orientation="horizontal"
-    android:padding="@dimen/_8sdp"
-    android:layout_height="wrap_content">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/serialNo"
         android:layout_width="28dp"
         android:layout_height="match_parent"
-        android:textAlignment="textStart"
         android:text="Serial No"
+        android:textAlignment="textStart"
         android:textColor="@color/quiz"
         android:textSize="@dimen/_8sdp" />
 
@@ -19,8 +19,8 @@
         android:id="@+id/terriCode"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:textAlignment="center"
         android:text="Terri Code"
+        android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/_8sdp" />
 
@@ -28,8 +28,8 @@
         android:id="@+id/empName"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:textAlignment="center"
         android:text="Emp Name"
+        android:textAlignment="center"
         android:textColor="#2196F3"
         android:textSize="@dimen/_8sdp" />
 
@@ -37,8 +37,8 @@
         android:id="@+id/terriName"
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:textAlignment="center"
         android:text="Terri Name"
+        android:textAlignment="center"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="@dimen/_8sdp" />
 
@@ -46,8 +46,8 @@
         android:id="@+id/userRole"
         android:layout_width="148dp"
         android:layout_height="match_parent"
-        android:textAlignment="center"
         android:text="User Role"
+        android:textAlignment="center"
         android:textColor="@color/green1"
         android:textSize="@dimen/_8sdp" />
 
@@ -55,8 +55,8 @@
         android:id="@+id/empCode"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:textAlignment="center"
         android:text="Emp Code"
+        android:textAlignment="center"
         android:textColor="@color/vergence"
         android:textSize="@dimen/_8sdp" />
 
@@ -64,8 +64,20 @@
         android:id="@+id/depotName"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:textAlignment="textEnd"
+        android:layout_marginStart="@dimen/_12sdp"
         android:text="Depo Name"
+        android:textAlignment="center"
         android:textColor="@color/vector_logo_color"
+        android:textSize="@dimen/_8sdp" />
+
+    <TextView
+        android:paddingEnd="@dimen/_4sdp"
+        android:id="@+id/password"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:text="Password"
+        android:textAlignment="textEnd"
+        android:textColor="@color/green1"
         android:textSize="@dimen/_8sdp" />
 </LinearLayout>

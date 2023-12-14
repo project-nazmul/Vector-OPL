@@ -31,6 +31,17 @@ public class MasterCList {
     @SerializedName("DEPOT_DESC")
     @Expose
     private String depotDesc;
+    @SerializedName("PASSWORD")
+    @Expose
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getFfType() {
         return ffType;

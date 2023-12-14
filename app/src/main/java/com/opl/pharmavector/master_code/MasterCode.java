@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -119,7 +120,10 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
 
             @Override
             public void afterTextChanged(Editable s) {
-                masterCodeFilter(s.toString().trim());
+                Log.d("searchVal", s.toString());
+                if (!s.toString().isEmpty()) {
+                    masterCodeFilter(s.toString().trim());
+                }
             }
         });
     }
@@ -127,11 +131,13 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
     void masterCodeFilter(String query) {
         List<MasterCList> masterCodeList = new ArrayList<>();
 
-        for (MasterCList codeList: masterList) {
-            if (codeList.getMpoCode().toUpperCase().contains(query.toUpperCase()) || codeList.getFfRoll().toLowerCase().contains(query.toLowerCase()) ||
-                 codeList.getEmpno().toUpperCase().contains(query.toUpperCase()) || codeList.getTerriName().toUpperCase().contains(query.toUpperCase()) ||
-                  codeList.getEname().toUpperCase().contains(query.toUpperCase()) || codeList.getDepotDesc().toUpperCase().contains(query.toUpperCase())) {
-                masterCodeList.add(codeList);
+        for (MasterCList codeList : masterList) {
+            if (codeList.getEname() != null) {
+                if (codeList.getMpoCode().toUpperCase().contains(query.toUpperCase()) || codeList.getFfRoll().toLowerCase().contains(query.toLowerCase()) ||
+                        codeList.getEmpno().toUpperCase().contains(query.toUpperCase()) || codeList.getTerriName().toUpperCase().contains(query.toUpperCase()) ||
+                        codeList.getEname().toUpperCase().contains(query.toUpperCase()) || codeList.getDepotDesc().toUpperCase().contains(query.toUpperCase())) {
+                    masterCodeList.add(codeList);
+                }
             }
         }
         masterAdapter.searchMasterCode(masterCodeList);
