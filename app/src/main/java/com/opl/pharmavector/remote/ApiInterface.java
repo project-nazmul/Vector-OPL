@@ -24,6 +24,9 @@ import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.mpodcr.DcfpStatusModel;
+import com.opl.pharmavector.mpodcr.entry.DcrLocationModel;
+import com.opl.pharmavector.mpodcr.entry.DcrNatureList;
+import com.opl.pharmavector.mpodcr.entry.DcrNatureModel;
 import com.opl.pharmavector.mrd_pres_report.SPIReportList;
 import com.opl.pharmavector.mrd_pres_report.SPIReportModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
@@ -372,6 +375,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("mpodcr/get_dcfp_flag.php")
     Call<DcfpStatusModel> getDcfpStatusFlag( @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("tour_plan_observation/get_tour_nature.php")
+    Call<DcrNatureModel> getDcrTourNature(@Field("id") String id, @Field("p_date") String p_date);
+
+    @FormUrlEncoded
+    @POST("tour_plan_observation/get_location.php")
+    Call<DcrLocationModel> getDcrTourLocation(@Field("id") String id, @Field("p_date") String p_date, @Field("p_shift") String p_shift);
 
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();

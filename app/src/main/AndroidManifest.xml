@@ -671,7 +671,7 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mpodcr.DcrEntryActivity"
+            android:name=".mpodcr.entry.DcrEntryActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan" />
         <activity

@@ -2442,7 +2442,6 @@ public class MRDPresReport extends Activity implements OnClickListener, AdapterV
                 monthNameList.add(monthName.getMon());
             }
         }
-
         monthSpinner.setItems(monthNameList);
         monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override

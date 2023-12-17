@@ -1,4 +1,4 @@
-package com.opl.pharmavector.mpodcr;
+package com.opl.pharmavector.mpodcr.entry;
 
 import static android.content.ContentValues.TAG;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
@@ -45,6 +45,9 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.SessionManager;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.DcfpStatusData;
+import com.opl.pharmavector.mpodcr.DcfpStatusModel;
+import com.opl.pharmavector.mpodcr.GiftOrder;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.stirng;
@@ -58,6 +61,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -102,7 +107,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     public stirng pay_credit1;
     public String location_code;
     public String loc_code;
-    private Spinner cust, visitor, chemist, shift_spinner, dcr_date_extend;
+    private Spinner cust, visitor, chemist, shift_spinner, terri_spinner, dcr_date_extend;
     ProgressDialog pDialog, pDialog2;
     TextView  ded, note, s_time, e_time, remarks, comp_ana,user_show;
     public int success;
@@ -111,10 +116,12 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     ArrayList<HashMap<String, String>> dcrdaterange;
     public String shift_status = "AM";
     public String get_ext_dt;
-    public  String doc_code,doc_name;
-    private final String URL_CUSOTMER = BASE_URL+"mpodcr/get_doctor_gps.php";
+    public String doc_code,doc_name;
+    //private final String URL_CUSOTMER = BASE_URL+"mpodcr/get_doctor_gps.php";
+    private final String URL_CUSOTMER = BASE_URL+"tour_plan_observation/get_doctor.php";
     private final String URL_EMP = BASE_URL+"mpodcr/getemp.php";
-    private final String URL_CHEMIST = BASE_URL+"mpodcr/get_onlychemist.php";
+    //private final String URL_CHEMIST = BASE_URL+"mpodcr/get_onlychemist.php";
+    private final String URL_CHEMIST = BASE_URL+"tour_plan_observation/get_chemist.php";
     private final String URL_DCCCHEMIST = BASE_URL+"mpodcr/get_dccchemist.php";
     private final String submit_url = BASE_URL+"mpodcr/dcrsubmit_1.php";
     private final String get_dcr_date = BASE_URL+"mpodcr/get_dcr.php";
@@ -135,8 +142,10 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     private TextView myTextView, newversion;
     private Calendar cal, myCalendar;
     DateFormat df;
-    String date_str;
+    String date_str, p_date, p_shift, ff_code;
     int dcfpStatusFlag = 0;
+    List<DcrLocationList> locationLists = new ArrayList<>();
+    List<DcrNatureList> natureLists = new ArrayList<>();
     private DatePickerDialog.OnDateSetListener date;
     public double mpo_current_lang,mpo_current_lat;
 
@@ -144,7 +153,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dcr);
+        setContentView(R.layout.admin_dcr_entry);
 
         initViews();
         new GetDcrDateOffline().execute();
@@ -157,7 +166,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         btnVisibleInit();
         new GeTShift().execute();
         new GeTDateExtend().execute();
-        new GetEmp().execute();
+        //new GetEmp().execute();
 
         dat_val_ext = date_ext.getText().toString().trim();
         multiSpinnerinitViews();
@@ -169,7 +178,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
             }
         });
         comp_ana.setOnClickListener(v -> {
-            if (actv2.getText().toString() != "") {
+            if (!actv2.getText().toString().equals("")) {
                 final String comp_anavalue = comp_ana.getText().toString();
             }
         });
@@ -246,25 +255,25 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        location.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                location_code = location.getSelectedItem().toString();
-                loc_code = location_code.substring(0, 1);
-                final String check = String.valueOf(loc_code);
-
-                if (loc_code.equals("S")) {
-                    location.setFocusable(true);
-                    location.setFocusableInTouchMode(true);
-                    location.requestFocus();
-                } else {
-                    shift_spinner.setFocusable(true);
-                    shift_spinner.setFocusableInTouchMode(true);
-                    shift_spinner.requestFocus();
-                }
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
+//        location.setOnItemSelectedListener(new OnItemSelectedListener() {
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                location_code = location.getSelectedItem().toString();
+//                loc_code = location_code.substring(0, 1);
+//                final String check = String.valueOf(loc_code);
+//
+//                if (loc_code.equals("S")) {
+//                    location.setFocusable(true);
+//                    location.setFocusableInTouchMode(true);
+//                    location.requestFocus();
+//                } else {
+//                    shift_spinner.setFocusable(true);
+//                    shift_spinner.setFocusableInTouchMode(true);
+//                    shift_spinner.requestFocus();
+//                }
+//            }
+//
+//            public void onNothingSelected(AdapterView<?> adapterView) {}
+//        });
 
         s_time.setOnClickListener(v -> {
             Calendar mcurrentTime = Calendar.getInstance();
@@ -297,10 +306,15 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
 
         session = new SessionManager(getApplicationContext());
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 shift_status = shift_spinner.getSelectedItem().toString();
+                Log.d("shift1", shift_status);
 
-                if (dcr_code.equals("Regular")){
+                if (shift_status != null && p_date != null) {
+                    getDcrTourLocation(shift_status);
+                }
+
+                if (dcr_code.equals("Regular")) {
                     if (shift_spinner.getSelectedItem().toString().equals("AM") || shift_spinner.getSelectedItem().toString().equals("PM")) {
                         yes_no.setVisibility(View.GONE);
                         actv.setEnabled(true);
@@ -313,7 +327,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                         chemordoc.setFocusable(true);
                     }
                 } else if (dcr_code.equals("Journey") || dcr_code.equals("Conference") || dcr_code.equals("Training") || dcr_code.equals("Others") || dcr_code.equals("Meeting")
-                        || dcr_code.equals("Holiday") || dcr_code.equals("Leave")){
+                        || dcr_code.equals("Holiday") || dcr_code.equals("Leave")) {
                     chemordoc.setVisibility(View.GONE);
                     yes_no.setVisibility(View.GONE);
                     dcr_submit.setPressed(true);
@@ -349,7 +363,8 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         chemordoc.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
-                    new GetCategories().execute();
+                    //new GetCategories().execute();
+                    getDcrTourLocation(shift_status);
                     chemist_ppm.setVisibility(View.GONE);
                     next.setVisibility(View.VISIBLE);
                     next.setEnabled(true);
@@ -366,7 +381,8 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                     chemist_ppm.setPressed(false);
                     chemist_ppm.setClickable(false);
                 } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
-                    new GetChemist().execute();
+                    //new GetChemist().execute();
+                    getDcrTourLocation(shift_status);
                     yes_no.setVisibility(View.GONE);
                     actv.setVisibility(View.GONE);
                     actv3.setVisibility(View.VISIBLE);
@@ -807,7 +823,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         cal = Calendar.getInstance();
         df = new SimpleDateFormat("dd/MM/yyyy ");
         date_str = df.format(cal.getTime());
-        ded.setText(date_str);
+        //ded.setText(date_str);
         myCalendar = Calendar.getInstance();
 
         date = new DatePickerDialog.OnDateSetListener() {
@@ -825,6 +841,14 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                 ded.setTextColor(Color.BLACK);
                 ded.setText(sdf.format(myCalendar.getTime()));
                 postDcrCheck();
+                getDcrTourNature();
+                actv.setText("");
+                actv3.setText("");
+                chemistlist.clear();
+                customerlist.clear();
+                if (shift_status != null && p_date != null) {
+                    getDcrTourLocation(shift_status);
+                }
             }
         };
         ded.setOnClickListener(v -> {
@@ -1152,8 +1176,8 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         dcr_spinner.setFocusableInTouchMode(true);
         dcr_spinner.requestFocus();
         dcr_spinner.setOnItemSelectedListener(this);
-        chemordoc =  findViewById(R.id.chemordoc);
-        ArrayAdapter<CharSequence> adapter_chem_doc = ArrayAdapter.createFromResource(this, R.array.cord, android.R.layout.simple_spinner_item);
+        chemordoc = findViewById(R.id.chemordoc);
+        ArrayAdapter<CharSequence> adapter_chem_doc = ArrayAdapter.createFromResource(this, R.array.visit_type, android.R.layout.simple_spinner_item);
         adapter_chem_doc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         chemordoc.setPrompt("Visit to ");
         chemordoc.setAdapter(adapter_chem_doc);
@@ -1163,18 +1187,19 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         visitor.setOnItemSelectedListener(this);
         shiftlist = new ArrayList<Customer>();
         shift_spinner = findViewById(R.id.shift_spinner);
+        terri_spinner = findViewById(R.id.terri_spinner);
         ArrayAdapter<CharSequence> adapter_shift_spinner = ArrayAdapter.createFromResource(this, R.array.shift, android.R.layout.simple_spinner_item);
         adapter_shift_spinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shift_spinner.setPrompt("Select Shift");
         shift_spinner.setAdapter(adapter_shift_spinner);
         shift_spinner.setOnItemSelectedListener(this);
         location = findViewById(R.id.location);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        location.setPrompt("Select Location");
-        location.setAdapter(adapter1);
-        location.setOnItemSelectedListener(this);
-        location.setVisibility(View.VISIBLE);
+//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
+//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        location.setPrompt("Select Location");
+//        location.setAdapter(adapter1);
+//        location.setOnItemSelectedListener(this);
+//        location.setVisibility(View.VISIBLE);
         ampmspin =  findViewById(R.id.ampm);
         ArrayAdapter<CharSequence> ampm_adapter = ArrayAdapter.createFromResource(this, R.array.am_pm, android.R.layout.simple_spinner_item);
         yes_no = findViewById(R.id.ppm_type);
@@ -1229,12 +1254,12 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < customerlist.size(); i++) {
-            lables.add(customerlist.get(i).getName());
+            lables.add(customerlist.get(i).getName() + " - " + customerlist.get(i).getCode());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
-        // ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
+        String[] customer = lables.toArray(new String[0]);
+        //ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setThreshold(2);
@@ -1270,11 +1295,11 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     private void populateSpinner3() {
         List<String> lables = new ArrayList<String>();
         for (int i = 0; i < chemistlist.size(); i++) {
-            lables.add(chemistlist.get(i).getName());
+            lables.add(chemistlist.get(i).getName() + " - " + chemistlist.get(i).getCode());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         chemist.setAdapter(spinnerAdapter);
-        String[] customer = lables.toArray(new String[lables.size()]);
+        String[] customer = lables.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv3 = findViewById(R.id.autoCompleteTextView3);
         actv3.setThreshold(2);
@@ -1283,7 +1308,6 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
     }
 
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -1296,15 +1320,11 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(Void... arg0) {
-            Bundle b = getIntent().getExtras();
-            String userName = b.getString("UserName");
-
-            String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("mpo_lat",Dashboard.track_lat));
-            params.add(new BasicNameValuePair("mpo_lang",Dashboard.track_lang));
-            params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
+            params.add(new BasicNameValuePair("id", ff_code));
+//            params.add(new BasicNameValuePair("mpo_lat",Dashboard.track_lat));
+//            params.add(new BasicNameValuePair("mpo_lang",Dashboard.track_lang));
+//            params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             Log.e("json-->",json);
@@ -1313,10 +1333,11 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    JSONArray customer = jsonObj.getJSONArray("customer");
+                    JSONArray customer = jsonObj.getJSONArray("doctor");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
-                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        Customer custo = new Customer(catObj.getString("DOC_CODE"), catObj.getString("DOC_NAME"));
                         customerlist.add(custo);
                     }
                 } catch (JSONException e) {
@@ -1351,10 +1372,9 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-            String id = userName;
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("id", userName));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_EMP, ServiceHandler.POST, params);
 
@@ -1362,6 +1382,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -1461,14 +1482,13 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
             if (json != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray customer = jsonObj.getJSONArray("customer");
-                        for (int i = 0; i < customer.length(); i++) {
-                            JSONObject catObj = (JSONObject) customer.get(i);
+                    JSONArray customer = jsonObj.getJSONArray("customer");
 
-                            Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
-                            shiftlist.add(custo);
-                        }
+                    for (int i = 0; i < customer.length(); i++) {
+                        JSONObject catObj = (JSONObject) customer.get(i);
+
+                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        shiftlist.add(custo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1501,11 +1521,9 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
-            String userName = b.getString("UserName");
-            String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
+            params.add(new BasicNameValuePair("id", ff_code));
+            //params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CHEMIST, ServiceHandler.POST, params);
 
@@ -1513,9 +1531,10 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
-                        Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
+                        Customer custo = new Customer(catObj.getString("CUST_CODE"), catObj.getString("CUST_NAME"));
                         chemistlist.add(custo);
                     }
                 } catch (JSONException e) {
@@ -1562,6 +1581,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));
@@ -1581,7 +1601,7 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            populateSpinner3();
+            //populateSpinner3();
         }
     }
 
@@ -1689,6 +1709,120 @@ public class DcrEntryActivity extends Activity implements OnItemSelectedListener
 
             @Override
             public void onFailure(Call<DcfpStatusModel> call, Throwable t) {
+                ppDialog.dismiss();
+                Log.e("Data load problem--->", "Failed to Retrieved Data For-- "+ t);
+                Toast toast = Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private String monNumToNameFormat(String date) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH);
+        LocalDate ld = LocalDate.parse(date, dtf);
+        String month_name = dtf2.format(ld);
+        String[] splitDate = date.split("/");
+        return splitDate[0] + "-" + month_name + "-" + splitDate[2];
+    }
+
+    private void getDcrTourNature() {
+        p_date = monNumToNameFormat(ded.getText().toString());
+        ProgressDialog ppDialog = new ProgressDialog(  DcrEntryActivity.this);
+        ppDialog.setMessage("Loading Data ...");
+        ppDialog.setCancelable(true);
+        ppDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcrNatureModel> call = apiInterface.getDcrTourNature(mpo_code, p_date);
+        natureLists.clear();
+
+        call.enqueue(new Callback<DcrNatureModel>() {
+            @Override
+            public void onResponse(Call<DcrNatureModel> call, Response<DcrNatureModel> response) {
+                if (response.isSuccessful()) {
+                    ppDialog.dismiss();
+                    ArrayAdapter<String> adapter1;
+                    List<String> natureName = new ArrayList<String>();
+                    //List<DcrNatureList> natureLists = Objects.requireNonNull(response.body()).getDcrNatureLists();
+                    natureLists = Objects.requireNonNull(response.body()).getDcrNatureLists();
+                    adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, natureName);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    if (natureLists.size() > 0) {
+                        for (int i = 0; i < natureLists.size(); i++) {
+                            natureName.add(natureLists.get(i).getTnDesc());
+                        }
+//                        adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, natureName);
+//                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        location.setPrompt("Select Location");
+                        location.setAdapter(adapter1);
+                        location.setSelection(0);
+                    }
+                    adapter1.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DcrNatureModel> call, Throwable t) {
+                ppDialog.dismiss();
+                Log.e("Data load problem--->", "Failed to Retrieved Data For-- "+ t);
+                Toast toast = Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getDcrTourLocation(String shift_status) {
+        p_shift = String.valueOf(shift_status.charAt(0));
+        ProgressDialog ppDialog = new ProgressDialog(  DcrEntryActivity.this);
+        ppDialog.setMessage("Loading Data ...");
+        ppDialog.setCancelable(true);
+        ppDialog.show();
+        Log.d("p_shift", p_shift);
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<DcrLocationModel> call = apiInterface.getDcrTourLocation(mpo_code, p_date, p_shift);
+        locationLists.clear();
+
+        call.enqueue(new Callback<DcrLocationModel>() {
+            @Override
+            public void onResponse(Call<DcrLocationModel> call, Response<DcrLocationModel> response) {
+                if (response.isSuccessful()) {
+                    ppDialog.dismiss();
+                    ArrayAdapter<String> adapter1;
+                    List<String> locationName = new ArrayList<String>();
+                    locationLists = Objects.requireNonNull(response.body()).getDcrLocationLists();
+                    //List<DcrLocationList> locationLists = Objects.requireNonNull(response.body()).getDcrLocationLists();
+                    adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, locationName);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    if (locationLists.size() > 0) {
+                        ff_code = locationLists.get(0).getFfCode();
+
+                        for (int i = 0; i < locationLists.size(); i++) {
+                            locationName.add(locationLists.get(i).getFfCode() + " - " + locationLists.get(0).getFfName());
+                        }
+//                        adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, locationName);
+//                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        terri_spinner.setPrompt("Select Territory");
+                        terri_spinner.setAdapter(adapter1);
+                        terri_spinner.setSelection(0);
+                    } else {
+                        ff_code = "";
+                        terri_spinner.setAdapter(null);
+                        adapter1.notifyDataSetChanged();
+                    }
+                    if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
+                        new GetCategories().execute();
+                    } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
+                        new GetChemist().execute();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DcrLocationModel> call, Throwable t) {
                 ppDialog.dismiss();
                 Log.e("Data load problem--->", "Failed to Retrieved Data For-- "+ t);
                 Toast toast = Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);

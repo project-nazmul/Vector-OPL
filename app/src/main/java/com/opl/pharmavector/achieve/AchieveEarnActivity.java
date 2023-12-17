@@ -345,7 +345,6 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             }
         }
         teamSpinner.setItems(teamNameList);
-
         teamSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -603,9 +602,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
         autoCompleteTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-            }
+            public void onClick(View v) {}
         });
         autoCompleteTextView2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -711,7 +708,5 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 }

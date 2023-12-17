@@ -63,12 +63,14 @@
         <item>Region</item>
         <item>Zone</item>
     </string-array>
-
     <string-array name="am_pm">
         <item>AM</item>
         <item>PM</item>
     </string-array>
-
+    <string-array name="visit_type">
+        <item>Doctor</item>
+        <item>Chemist</item>
+    </string-array>
     <string-array name="cord">
         <item>Doctor</item>
         <item>Chemist</item>
