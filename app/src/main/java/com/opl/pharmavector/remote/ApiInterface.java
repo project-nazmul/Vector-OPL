@@ -27,6 +27,7 @@ import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.mpodcr.entry.DcrLocationModel;
 import com.opl.pharmavector.mpodcr.entry.DcrNatureList;
 import com.opl.pharmavector.mpodcr.entry.DcrNatureModel;
+import com.opl.pharmavector.mpodcr.entry.DcrSubmitModel;
 import com.opl.pharmavector.mrd_pres_report.SPIReportList;
 import com.opl.pharmavector.mrd_pres_report.SPIReportModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
@@ -383,6 +384,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("tour_plan_observation/get_location.php")
     Call<DcrLocationModel> getDcrTourLocation(@Field("id") String id, @Field("p_date") String p_date, @Field("p_shift") String p_shift);
+
+    @FormUrlEncoded
+    @POST("tour_plan_observation/submit_observation.php")
+    Call<DcrSubmitModel> dcrTourPlanSubmit(@Field("id") String id, @Field("emp_code") String emp_code, @Field("visited_mpo_code") String mpo_code,
+                                           @Field("visit_date") String visit_date, @Field("tour_nature") String tour_nature, @Field("doc_code") String doc_code,
+                                           @Field("dcr_type") String dcr_type, @Field("start_time") String start_time, @Field("end_time") String end_time,
+                                           @Field("shift") String shift, @Field("competitor_analysis") String competitor_analysis, @Field("observation") String observation,
+                                           @Field("visit_with") String visit_with, @Field("doc_chem_flag") String doc_chem_flag);
 
     @GET("get_team.php")
     Call<FFTeamModel> getFFTeamList();

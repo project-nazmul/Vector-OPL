@@ -1726,6 +1726,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             Intent i = new Intent(AssistantManagerDashboard.this, DcrEntryActivity.class);
             i.putExtra("UserName", globalASMCode);
             i.putExtra("UserName_2", globalZONECode);
+            i.putExtra("EmployeeCode", globalempCode);
             i.putExtra("UserRole", "ASM");
             startActivity(i);
         });

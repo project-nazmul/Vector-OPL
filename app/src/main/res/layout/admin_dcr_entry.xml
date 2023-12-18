@@ -343,6 +343,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/p_t"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -469,7 +470,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:selectAllOnFocus="true"
                     android:text="Work Start Time"
                     android:textSize="@dimen/_10sdp"
@@ -484,6 +485,7 @@
                 android:weightSum="98">
 
                 <TextView
+                    android:textSize="@dimen/_10sdp"
                     android:id="@+id/endtime"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -493,10 +495,9 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:selectAllOnFocus="true"
-                    android:text=" EndTime"
-                    android:visibility="gone"
+                    android:text="Work End Time"
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
 
@@ -530,7 +531,7 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:inputType="textMultiLine"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:selectAllOnFocus="true"
                     android:text="Competitors activity analysis "
                     android:textSize="@dimen/_10sdp"
@@ -555,9 +556,9 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:inputType="textMultiLine"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:selectAllOnFocus="true"
-                    android:text="Remarks"
+                    android:text="Observation"
                     android:textSize="@dimen/_10sdp"
                     tools:ignore="RtlSymmetry" />
             </LinearLayout>
@@ -851,7 +852,7 @@
                     android:id="@+id/next"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
