@@ -29,13 +29,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ dcr entry for admin!">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrSubmitModel.java" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ dcr entry done I!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AssistantManagerDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AssistantManagerDashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/admin_dcr_entry.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/admin_dcr_entry.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -445,13 +441,6 @@
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
     </task>
-    <task id="LOCAL-00106" summary="+ sales Follow-up update!&#10;+ version update!">
-      <created>1694521196723</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1694521196723</updated>
-    </task>
     <task id="LOCAL-00107" summary="+ mpo dcfp follow-up(Only for AM)!&#10;+ version update!">
       <created>1694607823126</created>
       <option name="number" value="00107" />
@@ -788,7 +777,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702814552886</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="+ dcr entry done I!">
+      <created>1702900503503</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1702900503504</updated>
+    </task>
+    <option name="localTasksCounter" value="156" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -804,7 +800,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ PMD Contact Employee List Added!" />
     <MESSAGE value="+ Vector Feedback Update!" />
     <MESSAGE value="+ Vector Feedback done!" />
     <MESSAGE value="+ rX summary(MIS) added!" />
@@ -829,7 +824,8 @@
     <MESSAGE value="+ dcr entry create!" />
     <MESSAGE value="+ master code update!" />
     <MESSAGE value="+ dcr entry for admin!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ dcr entry for admin!" />
+    <MESSAGE value="+ dcr entry done I!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ dcr entry done I!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -3396,11 +3392,6 @@
           <option name="timeStamp" value="1624" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
-          <line>1782</line>
-          <option name="timeStamp" value="1626" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AssistantManagerDashboard.java</url>
           <line>1601</line>
           <option name="timeStamp" value="1632" />
@@ -3422,18 +3413,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
-          <line>767</line>
+          <line>482</line>
           <option name="timeStamp" value="1636" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
-          <line>768</line>
+          <line>483</line>
           <option name="timeStamp" value="1637" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
-          <line>769</line>
+          <line>484</line>
           <option name="timeStamp" value="1638" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
+          <line>489</line>
+          <option name="timeStamp" value="1639" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
+          <line>496</line>
+          <option name="timeStamp" value="1640" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
+          <line>497</line>
+          <option name="timeStamp" value="1641" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/mpodcr/entry/DcrEntryActivity.java</url>
+          <line>414</line>
+          <option name="timeStamp" value="1642" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

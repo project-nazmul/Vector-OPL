@@ -733,102 +733,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
-            <!--
-                        <RelativeLayout
-                            android:id="@+id/buttons"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginBottom="10dp">
 
-                            <Button
-                                android:id="@+id/offline"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignParentRight="true"
-                                android:background="@drawable/dcr_page_button"
-                                android:gravity="center"
-                                android:hapticFeedbackEnabled="true"
-                                android:paddingTop="0px"
-                                android:soundEffectsEnabled="true"
-                                android:text="Save"
-                                android:textColor="@android:color/white"
-                                android:textSize="25sp"
-                                android:visibility="visible"
-                                tools:ignore="HardcodedText,UnusedAttribute" />
-
-                            <Button
-                                android:id="@+id/back"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:background="@drawable/dcr_page_button"
-                                android:text=""
-                                android:textColor="@android:color/white"
-                                android:textSize="25sp"
-                                android:visibility="visible"
-                                />
-
-
-
-                            <Button
-                                android:id="@+id/next"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignParentTop="true"
-                                android:layout_centerHorizontal="true"
-                                android:background="@drawable/dcr_page_button"
-                                android:gravity="center"
-                                android:hapticFeedbackEnabled="true"
-                                android:paddingTop="0px"
-                                android:soundEffectsEnabled="true"
-                                android:text="Doctors\nPM"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/_20sdp"
-                                android:visibility="visible"
-                                android:layout_marginLeft="5dp"
-                                tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
-                            <Button
-                                android:id="@+id/chemist_ppm"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignTop="@+id/next"
-                                android:layout_alignBottom="@+id/next"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="0dp"
-                                android:layout_marginBottom="0dp"
-                                android:background="@drawable/dcr_page_button"
-                                android:gravity="center"
-                                android:hapticFeedbackEnabled="true"
-                                android:soundEffectsEnabled="true"
-                                android:text="Chemists\nPM"
-                                android:textColor="@color/white"
-                                android:textSize="25sp"
-                                android:textStyle="bold"
-                                tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
-                            <Button
-                                android:id="@+id/achivbtn"
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginRight="20dp"
-                                android:layout_toLeftOf="@+id/next"
-                                android:background="@drawable/white_button_selector"
-                                android:gravity="center"
-                                android:hapticFeedbackEnabled="true"
-                                android:soundEffectsEnabled="true"
-                                android:text="Achi"
-                                android:textAllCaps="true"
-                                android:textColor="@android:color/holo_orange_dark"
-                                android:textSize="25sp"
-                                android:visibility="gone"
-                                tools:ignore="HardcodedText,UnusedAttribute" />
-
-                        </RelativeLayout>
-            -->
             <RelativeLayout
                 android:id="@+id/buttons"
                 android:layout_width="match_parent"
@@ -866,41 +771,6 @@
                     android:textStyle="bold"
                     android:visibility="visible"
                     tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
-                <Button
-                    android:id="@+id/chemist_ppm"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:background="@drawable/dcr_page_button"
-                    android:gravity="center"
-                    android:hapticFeedbackEnabled="true"
-                    android:soundEffectsEnabled="true"
-                    android:text="Chemists\nPM"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:ignore="DuplicateIds,HardcodedText,UnusedAttribute" />
-
-                <Button
-                    android:id="@+id/offline"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/dcr_page_button"
-                    android:gravity="center"
-                    android:hapticFeedbackEnabled="true"
-                    android:paddingTop="0px"
-                    android:soundEffectsEnabled="true"
-                    android:text="Save"
-                    android:textColor="@android:color/white"
-                    android:textSize="25sp"
-                    android:visibility="gone"
-                    tools:ignore="HardcodedText,UnusedAttribute" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

@@ -110,25 +110,23 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
     public String loc_code;
     private Spinner cust, visitor, chemist, shift_spinner, terri_spinner, dcr_date_extend;
     ProgressDialog pDialog, pDialog2;
-    TextView ded, note, s_time, e_time, remarks, comp_ana,user_show;
+    TextView ded, note, s_time, e_time, remarks, comp_ana, user_show;
     public int success;
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party;
     ArrayList<HashMap<String, String>> dcrdatelist;
     ArrayList<HashMap<String, String>> dcrdaterange;
     public String shift_status = "AM";
     public String get_ext_dt;
-    public String doc_code,doc_name;
-    //private final String URL_CUSOTMER = BASE_URL+"mpodcr/get_doctor_gps.php";
-    private final String URL_CUSOTMER = BASE_URL+"tour_plan_observation/get_doctor.php";
-    private final String URL_EMP = BASE_URL+"mpodcr/getemp.php";
-    //private final String URL_CHEMIST = BASE_URL+"mpodcr/get_onlychemist.php";
-    private final String URL_CHEMIST = BASE_URL+"tour_plan_observation/get_chemist.php";
-    private final String URL_DCCCHEMIST = BASE_URL+"mpodcr/get_dccchemist.php";
-    private final String submit_url = BASE_URL+"mpodcr/dcrsubmit_1.php";
-    private final String get_dcr_date = BASE_URL+"mpodcr/get_dcr.php";
-    private final String URL_SHIFT = BASE_URL+"mpodcr/getshift.php";
-    private final String date_range_permission = BASE_URL+"mpodcr/date_range_permission.php";
-    private final String check_dcr_status = BASE_URL+"mpodcr/check_dcr_status.php";
+    public String doc_code, doc_name;
+    private final String URL_CUSOTMER = BASE_URL + "tour_plan_observation/get_doctor.php";
+    private final String URL_EMP = BASE_URL + "mpodcr/getemp.php";
+    private final String URL_CHEMIST = BASE_URL + "tour_plan_observation/get_chemist.php";
+    private final String URL_DCCCHEMIST = BASE_URL + "mpodcr/get_dccchemist.php";
+    private final String submit_url = BASE_URL + "mpodcr/dcrsubmit_1.php";
+    private final String get_dcr_date = BASE_URL + "mpodcr/get_dcr.php";
+    private final String URL_SHIFT = BASE_URL + "mpodcr/getshift.php";
+    private final String date_range_permission = BASE_URL + "mpodcr/date_range_permission.php";
+    private final String check_dcr_status = BASE_URL + "mpodcr/check_dcr_status.php";
     Typeface fontFamily;
     TextView error_dt, error_payment, ordno, succ_msg, tvDcfpStatus;
     Date today;
@@ -147,8 +145,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
     int dcfpStatusFlag = 0;
     List<DcrLocationList> locationLists = new ArrayList<>();
     List<DcrNatureList> natureLists = new ArrayList<>();
-    //private DatePickerDialog.OnDateSetListener date;
-    public double mpo_current_lang,mpo_current_lat;
+    public double mpo_current_lang, mpo_current_lat;
 
     @SuppressLint({"CutPasteId", "SetTextI18n"})
     @Override
@@ -167,7 +164,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         btnVisibleInit();
         new GeTShift().execute();
         new GeTDateExtend().execute();
-        //new GetEmp().execute();
 
         dat_val_ext = date_ext.getText().toString().trim();
         multiSpinnerinitViews();
@@ -203,7 +199,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 actv.setFocusable(false);
 
                 if (dcr_code.equals("Regular")) {
-                    dcr_submit.setVisibility(View.GONE);
                     next.setVisibility(View.VISIBLE);
                     next.setClickable(true);
                     next.setPressed(true);
@@ -241,10 +236,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     }
                     chemordoc.setVisibility(View.GONE);
                     yes_no.setVisibility(View.GONE);
-                    dcr_submit.setVisibility(View.VISIBLE);
-                    dcr_submit.setPressed(true);
-                    dcr_submit.setClickable(true);
-                    dcr_submit.setEnabled(true);
                     next.setClickable(false);
                     next.setPressed(false);
                     error_dt.setText("");
@@ -255,26 +246,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
 
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-
-//        location.setOnItemSelectedListener(new OnItemSelectedListener() {
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                location_code = location.getSelectedItem().toString();
-//                loc_code = location_code.substring(0, 1);
-//                final String check = String.valueOf(loc_code);
-//
-//                if (loc_code.equals("S")) {
-//                    location.setFocusable(true);
-//                    location.setFocusableInTouchMode(true);
-//                    location.requestFocus();
-//                } else {
-//                    shift_spinner.setFocusable(true);
-//                    shift_spinner.setFocusableInTouchMode(true);
-//                    shift_spinner.requestFocus();
-//                }
-//            }
-//
-//            public void onNothingSelected(AdapterView<?> adapterView) {}
-//        });
 
         s_time.setOnClickListener(v -> {
             Calendar mcurrentTime = Calendar.getInstance();
@@ -299,12 +270,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             mTimePicker = new TimePickerDialog(DcrEntryActivity.this, (timePicker, selectedHour, selectedMinute) -> e_time.setText(selectedHour + ":" + selectedMinute), hour, minute, true); //Yes 24 hour time
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
-//            String check_shift = s_time.getText().toString();
-//            String[] arr = check_shift.split(":");
-//            String day_shift = arr[0].trim();
-//            int shift_check = Integer.parseInt(day_shift);
         });
-
         session = new SessionManager(getApplicationContext());
         shift_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -331,9 +297,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                         || dcr_code.equals("Holiday") || dcr_code.equals("Leave")) {
                     chemordoc.setVisibility(View.GONE);
                     yes_no.setVisibility(View.GONE);
-                    dcr_submit.setPressed(true);
-                    dcr_submit.setClickable(true);
-                    dcr_submit.setEnabled(true);
                     next.setClickable(false);
                     next.setPressed(false);
                     error_dt.setText("");
@@ -349,9 +312,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
 
         spinner.setOnItemSelectedListener(
                 new OnItemSelectedListener() {
-                    public void onItemSelected(
-                            AdapterView<?> parent, View view, int position, long id) {
-                    }
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
 
                     public void onNothingSelected(AdapterView<?> parent) {
                         s_time.setFocusableInTouchMode(true);
@@ -364,9 +325,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         chemordoc.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
-                    //new GetCategories().execute();
                     getDcrTourLocation(shift_status);
-                    chemist_ppm.setVisibility(View.GONE);
                     next.setVisibility(View.VISIBLE);
                     next.setEnabled(true);
                     next.setPressed(true);
@@ -377,12 +336,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     yes_no.requestFocus();
                     actv.setVisibility(View.VISIBLE);
                     actv3.setVisibility(View.GONE);
-                    dcr_submit.setVisibility(View.INVISIBLE);
-                    chemist_ppm.setEnabled(false);
-                    chemist_ppm.setPressed(false);
-                    chemist_ppm.setClickable(false);
                 } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
-                    //new GetChemist().execute();
                     getDcrTourLocation(shift_status);
                     yes_no.setVisibility(View.GONE);
                     actv.setVisibility(View.GONE);
@@ -391,14 +345,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     actv3.setFocusableInTouchMode(true);
                     actv3.requestFocus();
                     actv3.setText("");
-                    dcr_submit.setVisibility(View.VISIBLE);
-                    chemist_ppm.setEnabled(true);
-                    chemist_ppm.setPressed(true);
-                    chemist_ppm.setClickable(true);
-                    chemist_ppm.setVisibility(View.GONE);
-                    chemist_ppm.setEnabled(false);
-                    chemist_ppm.setPressed(false);
-                    chemist_ppm.setClickable(false);
                     next.setVisibility(View.GONE);
                     next.setEnabled(false);
                     next.setPressed(false);
@@ -412,14 +358,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     actv3.setFocusableInTouchMode(true);
                     actv3.requestFocus();
                     actv3.setText("");
-                    chemist_ppm.setVisibility(View.VISIBLE);
-                    chemist_ppm.setEnabled(true);
-                    chemist_ppm.setPressed(true);
-                    chemist_ppm.setClickable(true);
-                    dcr_submit.setVisibility(View.INVISIBLE);
-                    chemist_ppm.setEnabled(false);
-                    chemist_ppm.setPressed(false);
-                    chemist_ppm.setClickable(false);
                 }
             }
 
@@ -430,8 +368,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 yes_no_val = yes_no.getSelectedItem().toString();
                 if (yes_no.getSelectedItem().toString().equals("Yes")) {
-                    dcr_submit.setPressed(false);
-                    dcr_submit.setClickable(false);
                     next.setVisibility(View.VISIBLE);
                     next.setEnabled(true);
                     next.setPressed(true);
@@ -442,9 +378,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     actv.setFocusable(true);
                     actv.setFocusableInTouchMode(true);
                     actv.requestFocus();
-                }
-                else if (yes_no.getSelectedItem().toString().equals("No")) {
-                    dcr_submit.setVisibility(View.VISIBLE);
+                } else if (yes_no.getSelectedItem().toString().equals("No")) {
                     back.setEnabled(true);
                     back.setPressed(true);
                     back.setClickable(true);
@@ -452,9 +386,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     next.setClickable(false);
                     next.setPressed(false);
                     next.setEnabled(false);
-                    dcr_submit.setEnabled(true);
-                    dcr_submit.setPressed(true);
-                    dcr_submit.setClickable(true);
                     actv.setEnabled(true);
                     actv.setPressed(true);
                     actv.setClickable(true);
@@ -471,15 +402,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             Thread mysells = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // toast.show();
-                    /*
-                    Intent i = new Intent(Dcr.this, Dashboard.class);
-                    String user = myTextView.getText().toString();
-                    i.putExtra("UserName", userName);
-                    i.putExtra("UserName_2", UserName_2);
-                    i.putExtra("ff_type", Dashboard.ff_type);
-                    startActivity(i);
-                    */
                     logoutUser();
                 }
             });
@@ -487,206 +409,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         });
 
         logout.setOnClickListener(v -> {
-            //finish();
-            //server.start();
             logoutUser();
-        });
-
-        chemist_ppm.setOnClickListener(v -> {
-            Bundle f = getIntent().getExtras();
-            userName = f.getString("UserName");
-            String str = ded.getText().toString();
-            String date_1 = str.replaceAll("[^\\d.-]", "");
-            final String ord_no = userName + "-" + date_1;
-
-            Calendar c = Calendar.getInstance();
-            int cYear = c.get(Calendar.YEAR);
-            int cMonth = c.get(Calendar.MONTH) + 1;
-            int cDay = c.get(Calendar.DAY_OF_MONTH);
-            int gyear = myCalendar.get(Calendar.YEAR);
-            //int max_date=cDay+2;
-
-            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-            if (gyear > cYear) {
-                gmonth = myCalendar.get(Calendar.MONTH) + 13;
-            }
-            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-            int gmonth_day = gmonth * 30;
-            int totalday_given = gmonth_day + gday;
-            int cmonth_day = cMonth * 30;
-            int totalday_valid1 = cmonth_day + cDay;
-            int totalday_valid = totalday_valid1 + 0;
-            int totalday_valid2 = cmonth_day + cDay - 7;
-            int total_back_day = Integer.parseInt(get_ext_dt);
-            int rcYear = c.get(Calendar.YEAR);
-            int rcMonth = c.get(Calendar.MONTH) + 1;
-            int rcDay = c.get(Calendar.DAY_OF_MONTH);
-            int rcYear_day = rcYear * 365;
-            int rcMonth_day = rcMonth * 30;
-            int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-            int total_valid_back_day = rctotal_day_today - total_back_day;
-            int rgyear = myCalendar.get(Calendar.YEAR);
-            int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
-            int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-            int rgyear_day = rgyear * 365;
-            int rgmonth_day = rgmonth * 30;
-            int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
-
-            if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-                ded.setTextSize(14);
-                ded.setText("Please Select date");
-                ded.setTextColor(Color.RED);
-            } else if ((actv.getText().toString().trim().equals("")) || (actv.getText().toString().trim().equals("Input Customer (eg. dh..)"))) {
-                actv.setError("Doctor  not Assigned !");
-                actv.setText("Please insert  Doctor Name ");
-                actv.setTextColor(Color.RED);
-            }
-//            else if (rgtotal_day_given > rctotal_day_today) {
-//                error_dt.setText("Delivery Date  is not greater than current date!");
-//            }
-//            else if (rgtotal_day_given < total_valid_back_day) {
-//                ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
-//                error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
-//            }
-            final Spinner nameSpinner =  findViewById(R.id.customer);
-            final String selected_cust = actv.getText().toString();
-            Bundle b = getIntent().getExtras();
-            final String userName = b.getString("UserName");
-            String UserName_1 = b.getString("UserName_1");
-
-            Thread next = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Intent in = new Intent(DcrEntryActivity.this, ChemistGiftOrder.class);
-                    Bundle extras = new Bundle();
-                    String str = ded.getText().toString();
-                    String date_1 = str.replaceAll("[^\\d.-]", "");
-                    final String generated_ord_no = userName + "-" + date_1;
-                    extras.putString("MPO_CODE", userName);
-                    extras.putString("CUST_CODE", userName);
-                    extras.putString("AM_PM", shift_spinner.getSelectedItem().toString());
-                    extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
-                    extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
-                    extras.putString("ord_no", generated_ord_no);
-                    extras.putString("doc_code", doc_code);
-                    extras.putString("end_time", e_time.getText().toString());
-                    extras.putString("start_time", s_time.getText().toString());
-                    extras.putString("Type", dt_code);
-                    extras.putString("location code", loc_code);
-                    extras.putString("VISITOR_CODE", visitorcode.getText().toString());
-                    extras.putString("VISIT_DATE", ded.getText().toString());
-                    Bundle b = getIntent().getExtras();
-                    String userName = b.getString("UserName");
-                    String UserName_1 = b.getString("UserName_1");
-                    extras.putString("MPO_CODE", userName);
-                    extras.putString("UserName_1", UserName_1);
-                    in.putExtras(extras);
-                    startActivity(in);
-                }
-            });
-            next.start();
-        });
-
-        dcr_submit.setOnClickListener(v -> {
-            Bundle b = getIntent().getExtras();
-            userName = b.getString("UserName");
-            String str = ded.getText().toString();
-            String date_1 = str.replaceAll("[^\\d.-]", "");
-            final String ord_no = userName + "-" + date_1;
-            Calendar c = Calendar.getInstance();
-            int cYear = c.get(Calendar.YEAR);
-            int cMonth = c.get(Calendar.MONTH) + 1;
-            int cDay = c.get(Calendar.DAY_OF_MONTH);
-            int gyear = myCalendar.get(Calendar.YEAR);
-            //int max_date=cDay+2;
-            int gmonth = myCalendar.get(Calendar.MONTH) + 1;
-            if (gyear > cYear) {
-                gmonth = myCalendar.get(Calendar.MONTH) + 13;
-            }
-            int gday = myCalendar.get(Calendar.DAY_OF_MONTH);
-            int gmonth_day = gmonth * 30;
-            int totalday_given = gmonth_day + gday;
-            int cmonth_day = cMonth * 30;
-            int totalday_valid1 = cmonth_day + cDay;
-            int totalday_valid = totalday_valid1;
-            int myNum = Integer.parseInt(get_ext_dt);
-            int totalday_valid2 = cmonth_day + cDay - myNum;
-            int total_back_day = Integer.parseInt(get_ext_dt);
-            int rcYear = c.get(Calendar.YEAR);
-            int rcMonth = c.get(Calendar.MONTH) + 1;
-            int rcDay = c.get(Calendar.DAY_OF_MONTH);
-            int rcYear_day = rcYear * 365;
-            int rcMonth_day = rcMonth * 30;
-            int rctotal_day_today = rcYear_day + rcMonth_day + rcDay;
-            int total_valid_back_day = rctotal_day_today - total_back_day;
-            int rgyear = myCalendar.get(Calendar.YEAR);
-            int rgmonth = myCalendar.get(Calendar.MONTH) + 1;
-            int rgday = myCalendar.get(Calendar.DAY_OF_MONTH);
-            int rgyear_day = rgyear * 365;
-            int rgmonth_day = rgmonth * 30;
-            int rgtotal_day_given = rgyear_day + rgmonth_day + rgday;
-
-            if ((ded.getText().toString().trim().equals("")) || (ded.getText().toString().trim().equals("Reference Date")) || (ded.getText().toString().trim().equals("Please Select date"))) {
-                ded.setTextSize(14);
-                ded.setText("Please Select date");
-                ded.setTextColor(Color.RED);
-            } else if (rgtotal_day_given > rctotal_day_today) {
-                error_dt.setText("Delivery Date  is not greater than current date!");
-            } else if (rgtotal_day_given < total_valid_back_day) {
-                ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
-                error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
-            } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
-                error_dt.setText("Select DCR Type");
-                dcr_spinner.setPrompt("Select DCR Type");
-            } else if (dcr_spinner.getSelectedItem().toString().equals("Select Dcr Type ")) {
-                error_dt.setText("Select DCR Type");
-                dcr_spinner.setPrompt("Select DCR Type");
-            } else {
-                Thread server = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONParser jsonParser = new JSONParser();
-                        List<NameValuePair> params = new ArrayList<NameValuePair>();
-                        params.add(new BasicNameValuePair("ORD_NO", ord_no));
-                        params.add(new BasicNameValuePair("MPO_CODE", userName));
-                        params.add(new BasicNameValuePair("VISITOR_CODE", visitorcode.getText().toString()));
-                        params.add(new BasicNameValuePair("TOUR_NATURE", loc_code));
-                        params.add(new BasicNameValuePair("VISIT_DATE", ded.getText().toString()));
-                        params.add(new BasicNameValuePair("DCR_TYPE", dt_code));
-                        params.add(new BasicNameValuePair("AM_PM", shift_spinner.getSelectedItem().toString()));
-                        params.add(new BasicNameValuePair("DATE", ded.getText().toString()));
-                        params.add(new BasicNameValuePair("DOC_CODE", doc_code));
-                        params.add(new BasicNameValuePair("Start_Time", s_time.getText().toString()));
-                        params.add(new BasicNameValuePair("End_Time", e_time.getText().toString()));
-                        params.add(new BasicNameValuePair("REMARKS", remarks.getText().toString()));
-                        params.add(new BasicNameValuePair("COMPETITOR_ANALYSIS", comp_ana.getText().toString()));
-                        params.add(new BasicNameValuePair("SHIFT", shift_status));
-                        params.add(new BasicNameValuePair("VISIT_WITH", spinner.getSelectedItem().toString()));
-                        params.add(new BasicNameValuePair("yes_no_val", yes_no_val));
-                        JSONObject json = jsonParser.makeHttpRequest(submit_url, "POST", params);
-
-                        try {
-                            success = json.getInt(TAG_SUCCESS);
-                            message = json.getString(TAG_MESSAGE);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Intent in = getIntent();
-                        Intent inten = getIntent();
-                        Bundle bundle = in.getExtras();
-                        inten.getExtras();
-                        String MPO_CODE = bundle.getString("MPO_CODE");
-                        userName = bundle.getString("UserName");
-                        UserName_2 = bundle.getString("UserName_2");
-                        Intent sameint = new Intent(DcrEntryActivity.this, DcrEntryActivity.class);
-                        sameint.putExtra("Ord_NO", ord_no);
-                        sameint.putExtra("UserName", userName);
-                        sameint.putExtra("UserName_2", UserName_2);
-                        startActivity(sameint);
-                    }
-                });
-                server.start();
-            }
         });
 
         next.setOnClickListener(v -> {
@@ -735,89 +458,48 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 actv.setError("Doctor  not Assigned !");
                 actv.setText("Please insert  Doctor Name ");
                 actv.setTextColor(Color.RED);
-            } else if (rgtotal_day_given > rctotal_day_today) {
-                error_dt.setText("Delivery Date  is not greater than current date!");
-            } else if (rgtotal_day_given < total_valid_back_day) {
-                ded.setError("Delivery Date  is not less " + total_back_day + "  than days from current date");
-                error_dt.setText("Delivery Date  is not less " + total_back_day + " than  days from current date");
             } else if ((comp_ana.getText().toString().equals("Competitors activity analysis"))) {
                 comp_ana.getText().toString().equals("");
                 com_ana_val = "";
             } else {
-                final Spinner nameSpinner =  findViewById(R.id.customer);
+                final Spinner nameSpinner = findViewById(R.id.customer);
                 final String selected_cust = actv.getText().toString();
                 com_ana_val = comp_ana.getText().toString();
                 Bundle b = getIntent().getExtras();
                 final String userName = b.getString("UserName");
                 String UserName_1 = b.getString("UserName_1");
 
-                Thread next = new Thread(new Runnable() {
+                if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
+                    doc_chem_flag = "D";
+                } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
+                    doc_chem_flag = "C";
+                }
+                ProgressDialog ppDialog = new ProgressDialog(DcrEntryActivity.this);
+                ppDialog.setMessage("Submit Data ...");
+                ppDialog.setCancelable(true);
+                ppDialog.show();
+
+                ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+                Call<DcrSubmitModel> call = apiInterface.dcrTourPlanSubmit(mpo_code, emp_code, ff_code, p_date, loc_code, doc_code, dt_code, s_time.getText().toString(),
+                        e_time.getText().toString(), shift_spinner.getSelectedItem().toString(), com_ana_val, remarks.getText().toString(),
+                        spinner.getSelectedItem().toString(), doc_chem_flag);
+                call.enqueue(new Callback<DcrSubmitModel>() {
                     @Override
-                    public void run() {
-                        if (chemordoc.getSelectedItem().toString().equals("Doctor")) {
-                            doc_chem_flag = "D";
-                        } else if (chemordoc.getSelectedItem().toString().equals("Chemist")) {
-                            doc_chem_flag = "C";
+                    public void onResponse(Call<DcrSubmitModel> call, Response<DcrSubmitModel> response) {
+                        ppDialog.dismiss();
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getBaseContext(), Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        ProgressDialog ppDialog = new ProgressDialog(  DcrEntryActivity.this);
-                        ppDialog.setMessage("Submit Data ...");
-                        ppDialog.setCancelable(true);
-                        ppDialog.show();
+                    }
 
-                        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-                        Call<DcrSubmitModel> call = apiInterface.dcrTourPlanSubmit(mpo_code, emp_code, ff_code, p_date, loc_code, doc_code, dt_code, s_time.getText().toString(),
-                                e_time.getText().toString(), shift_spinner.getSelectedItem().toString(), com_ana_val, remarks.getText().toString(),
-                                spinner.getSelectedItem().toString(), doc_chem_flag);
-                        call.enqueue(new Callback<DcrSubmitModel>() {
-                            @Override
-                            public void onResponse(Call<DcrSubmitModel> call, Response<DcrSubmitModel> response) {
-                                if (response.isSuccessful()) {
-                                    ppDialog.dismiss();
-                                    Toast.makeText(getBaseContext(), Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<DcrSubmitModel> call, Throwable t) {
-                                ppDialog.dismiss();
-                                Log.e("Data load problem--->", "Failed to Retrieved Data For-- "+ t);
-                                Toast toast = Toast.makeText(getBaseContext(),"Failed to Retrieved Data",Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                        });
-
-                        //Intent in = new Intent(Dcr.this, ProductOrder.class);
-//                        Intent in = new Intent(DcrEntryActivity.this, GiftOrder.class);
-//                        Bundle extras = new Bundle();
-//                        String str = ded.getText().toString();
-//                        String date_1 = str.replaceAll("[^\\d.-]", "");
-//                        final String generated_ord_no = userName + "-" + date_1;
-//                        extras.putString("MPO_CODE", userName);
-//                        extras.putString("CUST_CODE", userName);
-//                        extras.putString("AM_PM", shift_spinner.getSelectedItem().toString());
-//                        extras.putString("ORDER_DELEVERY_DATE", ded.getText().toString());
-//                        extras.putString("ORDER_REFERANCE_NO", ref.getText().toString());
-//                        extras.putString("ord_no", generated_ord_no);
-//                        extras.putString("doc_code", doc_code);
-//                        extras.putString("end_time", e_time.getText().toString());
-//                        extras.putString("start_time", s_time.getText().toString());
-//                        extras.putString("Type", dt_code);
-//                        extras.putString("location code", loc_code);
-//                        extras.putString("VISITOR_CODE", visitorcode.getText().toString());
-//                        extras.putString("VISIT_DATE", ded.getText().toString());
-//                        extras.putString("REMARKS", remarks.getText().toString());
-//                        extras.putString("COMPETITOR_ANALYSIS", com_ana_val);
-//                        extras.putString("VISIT_WITH", spinner.getSelectedItem().toString());
-//                        Bundle b = getIntent().getExtras();
-//                        String userName = b.getString("UserName");
-//                        String UserName_1 = b.getString("UserName_1");
-//                        extras.putString("MPO_CODE", userName);
-//                        extras.putString("UserName_1", UserName_1);
-//                        in.putExtras(extras);
-//                        startActivity(in);
+                    @Override
+                    public void onFailure(Call<DcrSubmitModel> call, Throwable t) {
+                        ppDialog.dismiss();
+                        Log.e("Data load problem--->", "Failed to Retrieved Data For-- " + t);
+                        Toast toast = Toast.makeText(getBaseContext(), "Failed to Retrieved Data", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
-                next.start();
             }
         });
     }
@@ -847,18 +529,11 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             }
 
             @Override
-            public void onFailure(Call<List<Patient>> call, Throwable t) {
-                //pDialog.dismiss();
-                //Toast.makeText(PrescriptionFollowup2.this, "Processing Prescription Count", Toast.LENGTH_SHORT).show();
-            }
+            public void onFailure(Call<List<Patient>> call, Throwable t) {}
         });
     }
 
     private void initCalender() {
-//        cal = Calendar.getInstance();
-//        df = new SimpleDateFormat("dd/MM/yyyy");
-//        date_str = df.format(cal.getTime());
-        //ded.setText(date_str);
         myCalendar = Calendar.getInstance();
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -893,7 +568,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 tvDcfpStatus.setVisibility(View.GONE);
                 new DatePickerDialog(DcrEntryActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-            //location.setVisibility(View.VISIBLE);
         });
     }
 
@@ -914,9 +588,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //actv.setTextColor(Color.BLACK);
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
@@ -953,9 +625,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //actv.setTextColor(Color.BLACK);
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @SuppressLint("CutPasteId")
             @Override
@@ -963,12 +633,13 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 try {
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
+
                     if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
-                        String arr[] = cust_type_with_note.split(":");
+                        String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
-                        String arr1[] = cust_type_with_note.split("///");
+                        String[] arr1 = cust_type_with_note.split("///");
                         cashcredit = findViewById(R.id.cashcredit);
 
                         List list = new ArrayList();
@@ -999,7 +670,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                         String mar_name = market[1].trim();
                         String mar[] = mar_name.split(":");
                         String mar_name1 = mar[0].trim();
-                        actv2.setText(emp_name); //doctorname
+                        actv2.setText(emp_name);
                         visitorcode.setText(emp_code1);
                         cust_type = arr1[0];
 
@@ -1029,7 +700,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                             s_time.setFocusableInTouchMode(true);
                             s_time.requestFocus();
                         }
-                    }  //ded.setText("Select Date");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1050,43 +721,40 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //actv.setTextColor(Color.BLACK);
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void afterTextChanged(final Editable s) {
                 try {
-                    //actv.setError("");
                     final String inputorder = s.toString();
                     int total_string = inputorder.length();
 
                     if (inputorder.contains(":")) {
                         String cust_type = inputorder.substring(inputorder.indexOf(":") + 1);
                         String cust_type_with_note = inputorder.substring(inputorder.indexOf(":"));
-                        String arr[] = cust_type_with_note.split(":");
+                        String[] arr = cust_type_with_note.split(":");
                         cust_type_with_note = arr[1].trim();
                         String chemist_first_index = arr[0].trim();
-                        String arr1[] = cust_type_with_note.split("///");
+                        String[] arr1 = cust_type_with_note.split("///");
                         int cust_type_with_note_length = cust_type_with_note.length();
                         String cust_address = s.toString();
                         String customer_address = cust_address.substring(0, total_string - cust_type_with_note_length);
-                        String doc[] = customer_address.split("//");
+                        String[] doc = customer_address.split("//");
                         String doc_name = doc[0].trim();
                         String doc_code = doc[1].trim();
-                        String market[] = doc_code.split("-");
+                        String[] market = doc_code.split("-");
                         String doc_code1 = market[0].trim();
                         String mar_name = market[1].trim();
-                        String mar[] = mar_name.split(":");
+                        String[] mar = mar_name.split(":");
                         String mar_name1 = mar[0].trim();
-                        actv3.setText(doc_name); //doctorname
-                        doccode.setText(doc_code1); //doctorcode
-                        marketcode.setText(mar_name1); //marketname
+                        actv3.setText(doc_name);
+                        doccode.setText(doc_code1);
+                        marketcode.setText(mar_name1);
                         cust_type = arr1[0];
                         actv2.setFocusable(true);
                         actv2.setFocusableInTouchMode(true);
                         actv2.requestFocus();
-                    }  //ded.setText("Select Date");
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1115,21 +783,15 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         logout = findViewById(R.id.logout);
         logout.setTypeface(fontFamily);
-        logout.setText("\uf08b"); //&#xf08b
+        logout.setText("\uf08b");
         user_show = findViewById(R.id.user_show);
         tvDcfpStatus = findViewById(R.id.dcfpStatusFlag);
         newversion = findViewById(R.id.newversion);
         setTitle("DCR Entry");
         next = findViewById(R.id.next);
-        dcr_submit = findViewById(R.id.offline);
-        chemist_ppm = findViewById(R.id.chemist_ppm);
         next.setTypeface(fontFamily);
-        next.setText("\uf061");
-        chemist_ppm.setTypeface(fontFamily);
-        chemist_ppm.setText("\uf061");
-        dcr_submit.setTypeface(fontFamily);
-        dcr_submit.setText("\uf1d8");
-        back =  findViewById(R.id.back);
+        next.setText("\uf1d8");
+        back = findViewById(R.id.back);
         back.setTypeface(fontFamily);
         back.setText("\uf060 ");
         db = new DatabaseHandler(this);
@@ -1164,8 +826,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         newversion_text = b.getString("new_version");
         newversion.setText("DCR Entry");
         mpo_code = b.getString("UserName");
-        //Log.d("data1", b.getString("UserName"));
-        //Log.d("data2", b.getString("UserName_2"));
 
         if (b.isEmpty()) {
             String userName = "";
@@ -1179,7 +839,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             if (ordernumber == null) {
                 mainlayout.setVisibility(LinearLayout.GONE);
             } else {
-                //myTextView.setText(userName);
                 UserName_3 = b.getString("UserName_2");
                 if (UserName_3.equals("DCR Submitted")) {
                     ordno.setText(ordernumber);
@@ -1190,7 +849,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 succ_msg.setText("Submitted");
 
                 String[] mpo = ordernumber.split("-");
-                //myTextView.setText(mpo[0])
                 if (UserName_2.equals("DCR Submitted")) {
                     myTextView.setText(mpo[0]);
                     myTextView.setTextSize(12);
@@ -1230,12 +888,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         shift_spinner.setAdapter(adapter_shift_spinner);
         shift_spinner.setOnItemSelectedListener(this);
         location = findViewById(R.id.location);
-//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.location, android.R.layout.simple_spinner_item);
-//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        location.setPrompt("Select Location");
-//        location.setAdapter(adapter1);
-//        location.setOnItemSelectedListener(this);
-//        location.setVisibility(View.VISIBLE);
         ampmspin =  findViewById(R.id.ampm);
         ArrayAdapter<CharSequence> ampm_adapter = ArrayAdapter.createFromResource(this, R.array.am_pm, android.R.layout.simple_spinner_item);
         yes_no = findViewById(R.id.ppm_type);
@@ -1274,10 +926,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         next.setClickable(false);
         next.setPressed(false);
         next.setEnabled(false);
-        dcr_submit.setEnabled(false);
-        chemist_ppm.setVisibility(View.GONE);
-        dcr_submit.setClickable(false);
-        dcr_submit.setPressed(false);
         customerlist = new ArrayList<Customer>();
         cust.setOnItemSelectedListener(this);
         visitorlist = new ArrayList<Customer>();
@@ -1295,7 +943,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, lables);
         cust.setAdapter(spinnerAdapter);
         String[] customer = lables.toArray(new String[0]);
-        //ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, customer);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
         AutoCompleteTextView actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
         actv.setThreshold(2);
@@ -1358,9 +1005,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", ff_code));
-//            params.add(new BasicNameValuePair("mpo_lat",Dashboard.track_lat));
-//            params.add(new BasicNameValuePair("mpo_lang",Dashboard.track_lang));
-//            params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             Log.e("json-->",json);
@@ -1449,8 +1093,8 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             pDialog.setTitle("MPO Base and Share");
             pDialog.setMessage("Loading Please Wait..");
             pDialog.setCancelable(true);
-            //pDialog.show();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             final JSONParser jsonParser = new JSONParser();
@@ -1463,13 +1107,16 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     JSONObject json = jsonParser.makeHttpRequest(date_range_permission, "POST", params);
                     try {
                         success = json.getInt("success");
+
                         if (success == 1) {
                             get_ext_dt = json.getString("date_range");
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     Log.e("daterange===>", String.valueOf(get_ext_dt));
                                     int myNum = Integer.parseInt(get_ext_dt);
+
                                     if (myNum > 0) {
                                         ded.setEnabled(true);
                                     } else {
@@ -1484,17 +1131,12 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     }
                 }
             });
-            //pDialog.dismiss();
-            //pDialog.cancel();
             server.start();
             return null;
         }
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            //mpo_base.setText(base);
-            //mpo_share.setText(unit_share);
-            //pDialog.dismiss();
         }
     }
 
@@ -1512,7 +1154,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
             ServiceHandler jsonParser = new ServiceHandler();
-            //String json=jsonParser.makeServiceCall(URL_CUSOTMER, ServiceHandler.POST, params);
             String json = jsonParser.makeServiceCall(URL_SHIFT, ServiceHandler.POST, params);
 
             if (json != null) {
@@ -1559,7 +1200,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             Bundle b = getIntent().getExtras();
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", ff_code));
-            //params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_CHEMIST, ServiceHandler.POST, params);
 
@@ -1606,9 +1246,8 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
-            String id = userName;
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("id", userName));
             params.add(new BasicNameValuePair("shift", shift_spinner.getSelectedItem().toString()));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(URL_DCCCHEMIST, ServiceHandler.POST, params);
@@ -1637,7 +1276,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             super.onPostExecute(result);
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            //populateSpinner3();
         }
     }
 
@@ -1661,6 +1299,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     JSONObject jsonObj = new JSONObject(jsonStr2);
                     JSONArray customers = jsonObj.getJSONArray("customer");
                     db.deleteDcrdata();
+
                     for (int i = 0; i < customers.length(); i++) {
                         JSONObject c = customers.getJSONObject(i);
                         String cust_id = c.getString("id");
@@ -1678,9 +1317,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 } catch (final JSONException e) {
                     runOnUiThread(new Runnable() {
                         @Override
-                        public void run() {
-                            //Toast.makeText(getApplicationContext(), "Customer Updated" + e.getMessage() , Toast.LENGTH_LONG).show();
-                        }
+                        public void run() {}
                     });
                 }
             } else {
@@ -1705,10 +1342,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
     public void onNothingSelected(AdapterView<?> arg0) {}
 
     private void logoutUser() {
-        //session.removeAttribute();
-        //Intent intent = new Intent(Dcr.this, Login.class);
-        //startActivity(intent);
-        //finishActivity(BIND_ABOVE_CLIENT);
         finish();
     }
 
@@ -1723,7 +1356,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         Call<DcfpStatusModel> call = apiInterface.getDcfpStatusFlag(mpo_code);
-        //Log.d("ff_type", autoCompleteTextView2.getText().toString().trim());
 
         call.enqueue(new Callback<DcfpStatusModel>() {
             @Override
@@ -1731,14 +1363,11 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                 if (response.isSuccessful()) {
                     ppDialog.dismiss();
                     List<DcfpStatusData> data = Objects.requireNonNull(response.body()).getCustomer();
+
                     if (Objects.equals(data.get(0).getStatus(), "Y")) {
                         dcfpStatusFlag = 1;
-                        //ded.setEnabled(false);
-                        //ded.setClickable(false);
                     } else {
                         dcfpStatusFlag = 0;
-                        //ded.setEnabled(true);
-                        //ded.setClickable(true);
                     }
                 }
             }
@@ -1780,7 +1409,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     ppDialog.dismiss();
                     ArrayAdapter<String> adapter1;
                     List<String> natureName = new ArrayList<String>();
-                    //List<DcrNatureList> natureLists = Objects.requireNonNull(response.body()).getDcrNatureLists();
                     natureLists = Objects.requireNonNull(response.body()).getDcrNatureLists();
                     adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, natureName);
                     adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1789,8 +1417,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                         for (int i = 0; i < natureLists.size(); i++) {
                             natureName.add(natureLists.get(i).getTnDesc());
                         }
-//                        adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, natureName);
-//                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         location.setPrompt("Select Location");
                         location.setAdapter(adapter1);
                         location.setSelection(0);
@@ -1830,7 +1456,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                     ArrayAdapter<String> adapter1;
                     List<String> locationName = new ArrayList<String>();
                     locationLists = Objects.requireNonNull(response.body()).getDcrLocationLists();
-                    //List<DcrLocationList> locationLists = Objects.requireNonNull(response.body()).getDcrLocationLists();
                     adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, locationName);
                     adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -1840,8 +1465,6 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
                         for (int i = 0; i < locationLists.size(); i++) {
                             locationName.add(locationLists.get(i).getFfCode() + " - " + locationLists.get(0).getFfName());
                         }
-//                        adapter1 = new ArrayAdapter<String>(DcrEntryActivity.this, android.R.layout.simple_spinner_item, locationName);
-//                        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         terri_spinner.setPrompt("Select Territory");
                         terri_spinner.setAdapter(adapter1);
                         terri_spinner.setSelection(0);
