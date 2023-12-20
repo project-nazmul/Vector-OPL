@@ -1,8 +1,6 @@
  package com.opl.pharmavector.exam;
 
-
 public class QuizWrapper {
-
     private int id;
     private String question;
     private String answers;

@@ -74,7 +74,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
     final String mpofetch_exam_flag = BASE_URL_EXAM+"mpo_fetch_exam_flag.json";
     final String amfetch_exam_flag =  BASE_URL_EXAM+"am_fetch_exam_flag.php";
     final String rmfetch_exam_flag =  BASE_URL_EXAM+"rm_fetch_exam_flag.php";
-
     public String message;
     public String success, mymessage, mysuccess;
     public String exam_flag;
@@ -96,7 +95,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                 start_exam.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    // TODO Auto-generated method stub
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -723,7 +721,6 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
                 }
             });
             backthred.start();
-
         }
     }
 
@@ -743,9 +740,7 @@ public class ExamDashboard extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
+    public void onClick(View v) {}
 }
 
 

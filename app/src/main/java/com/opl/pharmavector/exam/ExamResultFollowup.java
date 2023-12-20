@@ -194,8 +194,7 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
             int quantity = 0;
             float prod_rate, prod_vat, sellvalue;
             String prod_rate_1, prod_vat_1,prod_vat_2,prod_vat_3,prod_vat_4,prod_vat_5,prod_vat_6,prod_vat_7,prod_vat_8,prod_vat_9,prod_vat_10,prod_vat_11,prod_vat_12,prod_vat_13,
-                    prod_vat_14,prod_vat_15,
-                    sellvalue_2,sellvalue_3;
+                    prod_vat_14,prod_vat_15,sellvalue_2,sellvalue_3;
 
             for (int i = 0; i < categoriesList2.size(); i++) {
                 sl.add(categoriesList2.get(i).getsl());
@@ -235,8 +234,8 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
                 value16.add(prod_vat_13);
                 Log.w("FOLLOWUPvalue17",prod_vat_13);
             }
-            ExamResultAdapter adapter = new ExamResultAdapter(ExamResultFollowup.this,  sl,lables, quanty, value,value4,value5,
-                    value6,value7,value8,value9,value10,value11,value12,value13, value14,value15,value16,value17);
+            ExamResultAdapter adapter = new ExamResultAdapter(ExamResultFollowup.this,sl,lables,quanty,value,value4,value5,
+                    value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17);
             productListView.setAdapter(adapter);
         }
 
@@ -277,6 +276,7 @@ public class ExamResultFollowup extends Activity implements OnClickListener {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray categories = jsonObj.getJSONArray("categories");
+
                     for (int i = 0; i < categories.length(); i++) {
                         JSONObject catObj = (JSONObject) categories.get(i);
                         Category6 cat3 = new Category6(

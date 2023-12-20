@@ -100,6 +100,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.quiz_activity_new);
         initViews();
@@ -107,7 +108,6 @@ public class QuizActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         AsyncJsonObject asyncObject = new AsyncJsonObject();
         asyncObject.execute("");
-
 
         mycountdown_timer = ((Integer.parseInt(myexamtimeleft)) * 60000);
         thank_you_note.setVisibility(View.INVISIBLE);
@@ -121,8 +121,9 @@ public class QuizActivity extends AppCompatActivity {
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60);
                 textView.setText(text);
                 counter++;
-
             }
+
+            @SuppressLint("SetTextI18n")
             public void onFinish() {
                 thank_you_note.setVisibility(View.VISIBLE);
                 thank_you_note.setText("Thank you for Your Participation.\n Please Check Correct Answers.");
@@ -134,7 +135,6 @@ public class QuizActivity extends AppCompatActivity {
                 home_button.setVisibility(View.VISIBLE);
                 answer_review_button.setVisibility(View.VISIBLE);
                 //new GetCategories().execute();
-
             }
         }.start();
 
@@ -147,14 +147,12 @@ public class QuizActivity extends AppCompatActivity {
                 i.putExtra("new_version", new_version);
                 i.putExtra("message_3", message_3);
                 startActivity(i);
-
             }
         });
 
         answer_review_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                         new GetCategories().execute();
                          //postPrescriptionCount();
                         Intent i = new Intent(QuizActivity.this, ExamAnswerBoard.class);
@@ -164,16 +162,11 @@ public class QuizActivity extends AppCompatActivity {
                         i.putExtra("message_3", message_3);
                         i.putExtra("myexamid", myexamid);
                         startActivity(i);
-
             }
         });
 
-
-
-
-
-
         nextButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 int radioSelected = radioGroup.getCheckedRadioButtonId();
@@ -182,17 +175,18 @@ public class QuizActivity extends AppCompatActivity {
                 if ((currentQuizQuestion + 2) == quizCount) {
                     nextButton.setText("End Exam");
                 }
+
                 if (userSelection == correctAnswerForQuestion) {
                     currentQuizQuestion++;
                     scorecount++;
                     previousButton.setText((currentQuizQuestion + 1) + "/" + quizCount);
+
                     if (currentQuizQuestion >= quizCount) {
                         thank_you_note.setVisibility(View.VISIBLE);
                         alertmessage.setVisibility(View.GONE);
                         thank_you_note.setText("Thank you for Your Participation\n Please wait for Your Score and Answer Sheet.\nDon't Close this screen.");
                         exam_layout.setVisibility(View.GONE);
                         pbar.setVisibility(View.GONE);
-
                     } else {
                         uncheckedRadioButton();
                         firstQuestion = parsedObject.get(currentQuizQuestion);
@@ -206,16 +200,14 @@ public class QuizActivity extends AppCompatActivity {
                 } else {
                     currentQuizQuestion++;
                     previousButton.setText((currentQuizQuestion + 1) + "/" + quizCount);
-                    if (currentQuizQuestion == quizCount) {
-                    }
+                    if (currentQuizQuestion == quizCount) {}
                     if (currentQuizQuestion >= quizCount) {
                         thank_you_note.setVisibility(View.VISIBLE);
                         alertmessage.setVisibility(View.GONE);
                         thank_you_note.setText("Thank you for Your Participation\n Please wait for Answer Sheet.");
                         exam_layout.setVisibility(View.GONE);
                         pbar.setVisibility(View.GONE);
-
-                    }else{
+                    } else {
                         uncheckedRadioButton();
                         firstQuestion = parsedObject.get(currentQuizQuestion);
                         quizQuestion.setText(firstQuestion.getQuestion());
@@ -228,11 +220,9 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void initViews() {
-
         exam_layout = (RelativeLayout) findViewById(R.id.exam_layout);
         time_score_layout = (RelativeLayout) findViewById(R.id.time_score_layout);
         pbar = (RelativeLayout) findViewById(R.id.pbar);
@@ -262,12 +252,11 @@ public class QuizActivity extends AppCompatActivity {
         myexamtime = b.getString("myexamtime");
         myexamtimeleft = b.getString("myexamtime");
         user_flag = b.getString("user_flag");
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        //Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_quiz, menu);
         return true;
     }
@@ -298,23 +287,22 @@ public class QuizActivity extends AppCompatActivity {
                 HttpResponse response = httpClient.execute(httpPost);
                 jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
             } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return jsonResult;
         }
+
         @Override
         protected void onPreExecute() {
-            // TODO Auto-generated method stub
             super.onPreExecute();
         }
+
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             parsedObject = returnParsedJsonObject(result);
             quizCount = parsedObject.size();
             firstQuestion = parsedObject.get(0);
@@ -326,6 +314,7 @@ public class QuizActivity extends AppCompatActivity {
             optionThree.setText(possibleAnswers[2]);
             optionFour.setText(possibleAnswers[3]);
         }
+
         private StringBuilder inputStreamToString(InputStream is) {
             String rLine = "";
             StringBuilder answer = new StringBuilder();
@@ -336,23 +325,18 @@ public class QuizActivity extends AppCompatActivity {
                     answer.append(rLine);
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return answer;
         }
     }
 
-
-
-
     class GetCategories extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             Bundle b = getIntent().getExtras();
@@ -363,11 +347,11 @@ public class QuizActivity extends AppCompatActivity {
             params.add(new BasicNameValuePair("exam_score", String.valueOf(scorecount)));
             ServiceHandler jsonParser = new ServiceHandler();
             String json = jsonParser.makeServiceCall(submit_my_score, ServiceHandler.POST, params);
+
             if (json != null) {
                 try {
                     Log.e("scorejson-->", json);
-                } finally {
-                }
+                } finally {}
             } else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
@@ -377,7 +361,6 @@ public class QuizActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
         }
-
     }
 
 /*
@@ -403,20 +386,24 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 */
+
     private List<QuizWrapper> returnParsedJsonObject(String result) {
         List<QuizWrapper> jsonObject = new ArrayList<QuizWrapper>();
         JSONObject resultObject = null;
         JSONArray jsonArray = null;
         QuizWrapper newItemObject = null;
+
         try {
             resultObject = new JSONObject(result);
             jsonArray = resultObject.optJSONArray("quiz_questions");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         if (jsonArray != null) {
             for (int i = 0; i < jsonArray.length() - 1; i++) {
                 JSONObject jsonChildNode = null;
+
                 try {
                     jsonChildNode = jsonArray.getJSONObject(i);
                     int id = jsonChildNode.getInt("id");
@@ -431,11 +418,9 @@ public class QuizActivity extends AppCompatActivity {
             }
         }
         return jsonObject;
-
     }
 
     private int getSelectedAnswer(int radioSelected) {
-
         int answerSelected = 0;
         if (radioSelected == R.id.radio0) {
             answerSelected = 1;
@@ -457,10 +442,5 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-
-    }
-
-
-
+    public void onBackPressed() {}
 }

@@ -2172,7 +2172,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(textView4).setText("Dcr\nOnline");
         Objects.requireNonNull(textView5).setText("Dcr\nReport");
         Objects.requireNonNull(textView6).setText("DCFP\nFollowup");
-        Objects.requireNonNull(textView8).setText("Dcr\nEntry");
+        Objects.requireNonNull(textView8).setText("Dcr\nEntry (New)");
         Objects.requireNonNull(changepassword).setText(R.string.dailycallreport);
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);

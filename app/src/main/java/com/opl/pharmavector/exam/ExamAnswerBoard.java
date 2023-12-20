@@ -1,4 +1,3 @@
- //ExamAnswerBoard
  package com.opl.pharmavector.exam;
 
  import java.util.ArrayList;
@@ -45,9 +44,7 @@
  import com.opl.pharmavector.R;
  import com.opl.pharmavector.ServiceHandler;
 
-
  public class ExamAnswerBoard extends Activity  {
-
      public static final String TAG_SUCCESS = "success";
      public static final String TAG_SUCCESS1 = "success_1";
      public static final String TAG_MESSAGE = "message";
@@ -58,22 +55,17 @@
      public static final String TAG_target = "target";
      public static final String TAG_achivement = "achivement";
      public String userName_1,userName;
-     // array list for spinner adapter
+     //array list for spinner adapter
      static ArrayList<Category> categoriesList;
      ProgressDialog pDialog;
      static ListView productListView;
-
      public String get_ext_dt3;
-
      public String brand_name,product_flag1;
      public int brand_quant,product_min,product_flag=0;
-
      public String onik;
-
-
      public String new_version,UserName_2,message_3;
      Button submit;
-     // private EditText current_qnty;
+     //private EditText current_qnty;
      public static EditText qnty, searchview;
      EditText inputOne, inputtwo;
      public int success,success_1,ordsl;
@@ -98,7 +90,7 @@
      HashMap<Integer, String> mapQuantity;
      static HashMap<String, Integer> nameSerialPair;
      ArrayList<String> sl;
-     /*- Initializing*/
+     /*- Initializing */
      String last_quantity = "1";
      int last_position = 1;
      String quantity = "1";
@@ -106,36 +98,29 @@
      Toast toast1,toast2;
      ArrayList<Category> arraylist = new ArrayList<Category>();
      private final int REQ_CODE_SPEECH_INPUT = 100;
-
      private String campaign_credit = "http://opsonin.com.bd:83/vectorexam/exam_answer.json";
-
      private ArrayList<com.opl.pharmavector.AmCustomer> mporeqdcr;
      private ArrayList<com.opl.pharmavector.AmCustomer> brand_info;
-
-
 
      @SuppressLint("DefaultLocale")
      protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
          getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
          setContentView(R.layout.exam_result_board);
          Typeface fontFamily = Typeface.createFromAsset(getAssets(),"fonts/fontawesome.ttf");
-
-
          productListView = (ListView) findViewById(R.id.pListView);
          productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
          Button back_btn = (Button) findViewById(R.id.backBtn);
          back_btn.setTypeface(fontFamily);
-         back_btn.setText("\uf060 ");// &#xf060
+         back_btn.setText("\uf060 ");
          Bundle b = getIntent().getExtras();
-
-            userName = b.getString("UserName");
-            UserName_2 = b.getString("UserName_2");
-            new_version = b.getString("new_version");
-            message_3 = b.getString("message_3");
-            myexamid = b.getString("myexamid");
+         userName = b.getString("UserName");
+         UserName_2 = b.getString("UserName_2");
+         new_version = b.getString("new_version");
+         message_3 = b.getString("message_3");
+         myexamid = b.getString("myexamid");
 
          new GetCategories().execute();
          ExamBoardAdapter.qnty = null;
@@ -152,20 +137,14 @@
          categoriesList = new ArrayList<Category>();
 
          back_btn.setOnClickListener(new OnClickListener() {
-
              @Override
              public void onClick(View v) {
-                 // TODO Auto-generated method stub
                  Inflater inf = new Inflater();
                  inf.end();
                  finish();
-
-
              }
          });
-
      }
-
 
      @Override
      protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -174,9 +153,7 @@
          switch (requestCode) {
              case REQ_CODE_SPEECH_INPUT: {
                  if (resultCode == RESULT_OK && null != data) {
-
-                     ArrayList<String> result = data
-                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                      searchview.setText(result.get(0));
                  }
                  break;
@@ -190,14 +167,11 @@
 
      @Override
      protected void onResume() {
-         // TODO Auto-generated method stub
-         // System.out.println("EditTxtID " + NoticeBoardAdapter.editTxtID.size());
+         //System.out.println("EditTxtID " + NoticeBoardAdapter.editTxtID.size());
          super.onResume();
-
      }
 
      private void populateSpinner() {
-
          lables = new ArrayList<String>();
          quanty = new ArrayList<Integer>();
          sl = new ArrayList<String>();
@@ -217,15 +191,10 @@
              mapQuantity.put(o, String.valueOf(categoriesList.get(i).getQuantity()));
          }
          adapter = new ExamBoardAdapter(ExamAnswerBoard.this, sl, lables, mapQuantity,PPM_CODE,P_CODE);
-
-
          productListView.setAdapter(adapter);
-
      }
 
-
      private class GetCategories extends AsyncTask<Void, Void, Void> {
-
          @Override
          protected void onPreExecute() {
              super.onPreExecute();
@@ -234,45 +203,38 @@
              pDialog.setMessage("Answers are Loading ... ... ");
              pDialog.setCancelable(false);
              pDialog.show();
-
          }
 
          @Override
          protected Void doInBackground(Void... arg0) {
-
              List<NameValuePair> params = new ArrayList<NameValuePair>();
              params.add(new BasicNameValuePair("MPO_CODE", userName));
              params.add(new BasicNameValuePair("CUST_CODE", userName));
              params.add(new BasicNameValuePair("myexamid", myexamid));
              ServiceHandler jsonParser = new ServiceHandler();
              String json = jsonParser.makeServiceCall(campaign_credit,ServiceHandler.GET,params);
+
              if (json != null) {
                  try {
                      JSONObject jsonObj = new JSONObject(json);
-                     if (jsonObj != null) {
-                         JSONArray categories = jsonObj.getJSONArray("categories");
-                         for (int i = 0; i < categories.length(); i++) {
-                             JSONObject catObj = (JSONObject) categories.get(i);
-                             Category cat = new Category(catObj.getString("sl"),
-                                     catObj.getString("id"),
-                                     catObj.getString("name"),
-                                     catObj.getInt("quantity"),
-                                     catObj.getString("PROD_RATE"),
-                                     catObj.getString("PROD_VAT"),
-                                     catObj.getString("PPM_CODE"),
-                                     catObj.getString("P_CODE"));
-                             categoriesList.add(cat);
-                         }
-                     }
+                     JSONArray categories = jsonObj.getJSONArray("categories");
 
+                     for (int i = 0; i < categories.length(); i++) {
+                         JSONObject catObj = (JSONObject) categories.get(i);
+                         Category cat = new Category(catObj.getString("sl"),
+                                 catObj.getString("id"),
+                                 catObj.getString("name"),
+                                 catObj.getInt("quantity"),
+                                 catObj.getString("PROD_RATE"),
+                                 catObj.getString("PROD_VAT"),
+                                 catObj.getString("PPM_CODE"),
+                                 catObj.getString("P_CODE"));
+                         categoriesList.add(cat);
+                     }
                  } catch (JSONException e) {
                      e.printStackTrace();
                  }
-
-             } else {
-
              }
-
              return null;
          }
 
@@ -283,13 +245,9 @@
                  pDialog.dismiss();
              populateSpinner();
          }
-
      }
 
-     protected void onPostExecute() {
-
-     }
-
+     protected void onPostExecute() {}
  }
 
 

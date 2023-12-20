@@ -1,6 +1,5 @@
 package com.opl.pharmavector.exam;
 
-
 import com.opl.pharmavector.model.Patient;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 
@@ -18,8 +17,5 @@ public interface ExamApiInterface {
             @Field("mpo_code") String mpo_code,
             @Field("brand_code") String brand_code,
             @Field("from_date") String from_date
-
     );
-
-
 }
