@@ -52,6 +52,8 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
+import com.opl.pharmavector.achieve.AchieveMonthList;
+import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
@@ -66,6 +68,9 @@ import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpoMenu.MPOMenuAdapter;
+import com.opl.pharmavector.mpoMenu.MPOMenuList;
+import com.opl.pharmavector.mpoMenu.MPOMenuModel;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mpodcr.Dcr;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -97,6 +102,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -107,6 +113,8 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -123,7 +131,7 @@ import com.opl.pharmavector.util.PreferenceManager;
 import com.opl.pharmavector.util.VectorUtils;
 import com.squareup.picasso.Picasso;
 
-public class Dashboard extends Activity implements View.OnClickListener {
+public class Dashboard extends Activity implements View.OnClickListener, MPOMenuAdapter.MenuItemCallback {
     public String userName_1, userName, designation, terriName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -180,6 +188,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     LocationManager locationManager;
     private static final int PHONE_NUMBER_CODE = 101;
+    public RecyclerView recyclerMpoMenu;
 
     public static Dashboard getInstance() {
         return instance;
@@ -188,8 +197,10 @@ public class Dashboard extends Activity implements View.OnClickListener {
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vector_mpo_dashboard);
+        //setContentView(R.layout.activity_vector_mpo_dashboard);
+        setContentView(R.layout.activity_mpo_dashboard);
 
+        getMpoDashMenuList(); // --- New DashBoard ---
         isUpdateAvailable();
         VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
@@ -483,6 +494,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
 
     @SuppressLint("CutPasteId")
     private void initViews() {
+        recyclerMpoMenu = findViewById(R.id.recyclerMpoMenu);
         logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4 = findViewById(R.id.t4);
@@ -2224,5 +2236,54 @@ public class Dashboard extends Activity implements View.OnClickListener {
                 //progressDialog.dismiss();
             }
         });
+    }
+
+    private void getMpoDashMenuList() {
+        ProgressDialog pDialog = new ProgressDialog(Dashboard.this);
+        pDialog.setMessage("Loading Menu ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<MPOMenuModel> call = apiInterface.getMpoDashMenuList(userName, globalempCode, "MPO");
+
+        call.enqueue(new Callback<MPOMenuModel>() {
+            @Override
+            public void onResponse(Call<MPOMenuModel> call, Response<MPOMenuModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<MPOMenuList> tempMenuList = null;
+                    ArrayList<MPOMenuList> mpoMenuList = new ArrayList<>();
+
+                    if (response.body() != null) {
+                        tempMenuList = (response.body()).getMpoMenuLists();
+                        mpoMenuList.addAll(tempMenuList);
+                    }
+                    MPOMenuAdapter mpoMenuAdapter = new MPOMenuAdapter(Dashboard.this, mpoMenuList, Dashboard.this);
+                    GridLayoutManager layoutManager = new GridLayoutManager(Dashboard.this,3);
+                    recyclerMpoMenu.setLayoutManager(layoutManager);
+                    recyclerMpoMenu.setAdapter(mpoMenuAdapter);
+
+//                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
+//                        initMonthSpinner(Objects.requireNonNull(achvMonthList));
+//                    } else {
+//                        initMpoMonthSpinner(Objects.requireNonNull(achvMonthList));
+//                    }
+                    Log.d("Month List -- : ", String.valueOf(mpoMenuList));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MPOMenuModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    @Override
+    public void onMenuItemList(MPOMenuModel mpoMenuModel) {
+
     }
 }

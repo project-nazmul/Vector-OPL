@@ -22,6 +22,7 @@ import com.opl.pharmavector.liveDepot.LiveDepotStockModel;
 import com.opl.pharmavector.liveDepot.LiveStokeDepotModel;
 import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpoMenu.MPOMenuModel;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.mpodcr.entry.DcrLocationModel;
@@ -375,7 +376,15 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("mpodcr/get_dcfp_flag.php")
-    Call<DcfpStatusModel> getDcfpStatusFlag( @Field("id") String id);
+    Call<DcfpStatusModel> getDcfpStatusFlag(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("menu/get_menu_refresh.php")
+    Call<DcfpStatusModel> getMpoRefreshMenu(@Field("user_code") String user_code, @Field("emp_code") String emp_code, @Field("ff_role") String ff_role);
+
+    @FormUrlEncoded
+    @POST("menu/get_menu.php")
+    Call<MPOMenuModel> getMpoDashMenuList(@Field("user_code") String user_code, @Field("emp_code") String emp_code, @Field("ff_role") String ff_role);
 
     @FormUrlEncoded
     @POST("tour_plan_observation/get_tour_nature.php")

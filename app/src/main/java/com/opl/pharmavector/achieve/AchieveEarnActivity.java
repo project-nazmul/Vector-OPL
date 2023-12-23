@@ -634,9 +634,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                 }
             }
 
-            private void length() {
-
-            }
+            private void length() {}
         });
     }
 
