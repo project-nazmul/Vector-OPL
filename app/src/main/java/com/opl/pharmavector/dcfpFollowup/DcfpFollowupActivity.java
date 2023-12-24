@@ -28,23 +28,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter.ItemClickListener, DcfpFollowupAdapter.DcfpClickListener {
-    TextView tvfromdate, tvtodate;
+    TextView tvfromdate, tvtodate, planned_todDoc, visited_todDoc, title, p_detail_totDoc, v_detail_totDoc;
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, userName, userName_2, userName_3, new_version, message_3;
+    String current_todate, current_fromdate, userName, userName_2, userName_3, new_version, message_3, userRole;
     Calendar myCalendar, myCalendar1;
     private RecyclerView dcrFollowupRecycler, dcfpFollowupRecycler;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     private DcrFollowupAdapter dcrFollowupAdapter;
     private DcfpFollowupAdapter dcfpFollowupAdapter;
-    private ArrayList<DcrFollowupModel> dcrFollowupList = new ArrayList<>();
-    private ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
+    ArrayList<DcrFollowupModel> dcrFollowupList = new ArrayList<>();
+    ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,23 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
 
         initViews();
         calenderInit();
-        dcrSelfFollowupInfo();
 
-        submitBtn.setOnClickListener(v -> dcrSelfFollowupInfo());
+        if (userRole.equals("D")) { // D -> "DCFP"
+            dcrSelfFollowupInfo();
+        } else if (userRole.equals("T")) { // T -> "TOUR"
+            tourSelfFollowupInfo();
+        }
+        submitBtn.setOnClickListener(v -> {
+            if (userRole.equals("D")) {
+                dcrSelfFollowupInfo();
+            } else if (userRole.equals("T")) {
+                tourSelfFollowupInfo();
+            }
+        });
         backBtn.setOnClickListener(v -> finish());
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
@@ -66,6 +78,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         userName_3 = b.getString("UserName_3");
         new_version = b.getString("new_version");
         message_3 = b.getString("message_3");
+        userRole = b.getString("UserRole");
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         backBtn = findViewById(R.id.backbt);
         dcrFollowupRecycler = findViewById(R.id.recyclerDcrFollowup);
@@ -73,6 +86,25 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         submitBtn = findViewById(R.id.submitBtn);
         tvfromdate = findViewById(R.id.fromdate);
         tvtodate = findViewById(R.id.todate);
+        title = findViewById(R.id.title);
+        planned_todDoc = findViewById(R.id.planned_todDoc);
+        visited_todDoc = findViewById(R.id.visited_todDoc);
+        p_detail_totDoc = findViewById(R.id.p_detail_totDoc);
+        v_detail_totDoc = findViewById(R.id.v_detail_totDoc);
+
+        if (Objects.equals(userRole, "D")) {
+            title.setText("Dcfp Followup");
+            planned_todDoc.setText("Tot_Doc");
+            visited_todDoc.setText("Tot_Doc");
+            p_detail_totDoc.setText("Tot_Doc");
+            v_detail_totDoc.setText("Tot_Doc");
+        } else if (Objects.equals(userRole, "T")) {
+            title.setText("Tour Followup");
+            planned_todDoc.setText("Tot_Terri");
+            visited_todDoc.setText("Tot_Terri");
+            p_detail_totDoc.setText("Tot_Terri");
+            v_detail_totDoc.setText("Tot_Terri");
+        }
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060");
     }
@@ -152,7 +184,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
 
                 if (response.isSuccessful()) {
                     dcrFollowDialog.dismiss();
-                    dcrFollowupAdapter = new DcrFollowupAdapter(DcfpFollowupActivity.this, dcrFollowupList, DcfpFollowupActivity.this);
+                    dcrFollowupAdapter = new DcrFollowupAdapter(DcfpFollowupActivity.this, dcrFollowupList, DcfpFollowupActivity.this, userRole);
                     LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
                     dcrFollowupRecycler.setLayoutManager(manager);
                     dcrFollowupRecycler.setAdapter(dcrFollowupAdapter);
@@ -167,6 +199,44 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
             public void onFailure(@NonNull Call<List<DcrFollowupModel>> call, @NonNull Throwable t) {
                 dcrFollowDialog.dismiss();
                 dcrSelfFollowupInfo();
+            }
+        });
+    }
+
+    public void tourSelfFollowupInfo() {
+        ProgressDialog dcrFollowDialog = new ProgressDialog(DcfpFollowupActivity.this);
+        dcrFollowDialog.setMessage("Tour Followup Loading...");
+        dcrFollowDialog.setTitle("Tour Followup");
+        dcrFollowDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<DcrFollowupModel>> call = apiInterface.getTourSelfFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        dcrFollowupList.clear();
+
+        call.enqueue(new Callback<List<DcrFollowupModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DcrFollowupModel>> call, @NonNull retrofit2.Response<List<DcrFollowupModel>> response) {
+                if (response.body() != null) {
+                    dcrFollowupList.addAll(response.body());
+                }
+
+                if (response.isSuccessful()) {
+                    dcrFollowDialog.dismiss();
+                    dcrFollowupAdapter = new DcrFollowupAdapter(DcfpFollowupActivity.this, dcrFollowupList, DcfpFollowupActivity.this, userRole);
+                    LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
+                    dcrFollowupRecycler.setLayoutManager(manager);
+                    dcrFollowupRecycler.setAdapter(dcrFollowupAdapter);
+                    dcrFollowupRecycler.addItemDecoration(new DividerItemDecoration(DcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                } else {
+                    dcrFollowDialog.dismiss();
+                    Toast.makeText(DcfpFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DcrFollowupModel>> call, @NonNull Throwable t) {
+                dcrFollowDialog.dismiss();
+                tourSelfFollowupInfo();
             }
         });
     }
@@ -191,7 +261,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
 
                 if (dcfpFollowupList.size() > 0) {
                     dcfpFollowDialog.dismiss();
-                    dcfpFollowupAdapter = new DcfpFollowupAdapter(DcfpFollowupActivity.this, dcfpFollowupList, DcfpFollowupActivity.this);
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(DcfpFollowupActivity.this, dcfpFollowupList, DcfpFollowupActivity.this, userRole);
                     LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
@@ -210,9 +280,52 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         });
     }
 
+    public void tourDetailFollowupInfo() {
+        ProgressDialog dcfpFollowDialog = new ProgressDialog(DcfpFollowupActivity.this);
+        dcfpFollowDialog.setMessage("Tour Followup Loading...");
+        dcfpFollowDialog.setTitle("Tour Followup");
+        dcfpFollowDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<DcrFollowupModel>> call = apiInterface.getTourDetailFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        dcfpFollowupList.clear();
+
+        call.enqueue(new Callback<List<DcrFollowupModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DcrFollowupModel>> call, @NonNull retrofit2.Response<List<DcrFollowupModel>> response) {
+                if (response.body() != null) {
+                    dcfpFollowupList.addAll(response.body());
+                    Log.d("tag", dcfpFollowupList.toString());
+                }
+
+                if (dcfpFollowupList.size() > 0) {
+                    dcfpFollowDialog.dismiss();
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(DcfpFollowupActivity.this, dcfpFollowupList, DcfpFollowupActivity.this, userRole);
+                    LinearLayoutManager manager = new LinearLayoutManager(DcfpFollowupActivity.this);
+                    dcfpFollowupRecycler.setLayoutManager(manager);
+                    dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
+                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(DcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                } else {
+                    dcfpFollowDialog.dismiss();
+                    Toast.makeText(DcfpFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DcrFollowupModel>> call, @NonNull Throwable t) {
+                dcfpFollowDialog.dismiss();
+                tourDetailFollowupInfo();
+            }
+        });
+    }
+
     @Override
     public void onClick(int position, DcrFollowupModel model) {
-        dcrDcfpFollowupInfo();
+        if (Objects.equals(userRole, "D")) {
+            dcrDcfpFollowupInfo();
+        } else if (Objects.equals(userRole, "T")) {
+            tourDetailFollowupInfo();
+        }
     }
 
     @Override
@@ -221,6 +334,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());
+        intent.putExtra("userRole", userRole);
         startActivity(intent);
     }
 }

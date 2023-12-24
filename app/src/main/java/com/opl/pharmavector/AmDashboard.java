@@ -2508,6 +2508,7 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalFMCode);
             i.putExtra("UserName_2", globalAreaCode);
             i.putExtra("UserName_3", globalFMCode);
+            i.putExtra("UserRole", "D"); // D -> DCFP
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfp_mpo).setOnClickListener(v -> {

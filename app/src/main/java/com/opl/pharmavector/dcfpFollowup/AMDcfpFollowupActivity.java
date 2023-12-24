@@ -25,20 +25,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class AMDcfpFollowupActivity extends Activity implements DcfpFollowupAdapter.DcfpClickListener {
-    TextView tvfromdate, tvtodate;
+    TextView tvfromdate, tvtodate, title, planned_todDoc, visited_todDoc;
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, ff_code, toDate, fromDate;
+    String current_todate, current_fromdate, ff_code, toDate, fromDate, userRole;
     Calendar myCalendar, myCalendar1;
     private RecyclerView dcfpFollowupRecycler;
     DatePickerDialog.OnDateSetListener date_form, date_to;
     private DcfpFollowupAdapter dcfpFollowupAdapter;
-    private ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
+    public ArrayList<DcrFollowupModel> dcfpFollowupList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +50,50 @@ public class AMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         initViews();
         calenderInit();
         if (!ff_code.isEmpty()) {
-            dcrDcfpFollowupInfo();
+            if (Objects.equals(userRole, "D")) {
+                dcrDcfpFollowupInfo();
+            } else if (Objects.equals(userRole, "T")) {
+                tourDetailFollowupInfo();
+            }
         }
         backBtn.setOnClickListener(v -> finish());
-        submitBtn.setOnClickListener(v -> dcrDcfpFollowupInfo());
+        submitBtn.setOnClickListener(v -> {
+            if (Objects.equals(userRole, "D")) {
+                dcrDcfpFollowupInfo();
+            } else if (Objects.equals(userRole, "T")) {
+                tourDetailFollowupInfo();
+            }
+        });
     }
 
+    @SuppressLint("SetTextI18n")
     private void initViews() {
         Bundle b = getIntent().getExtras();
         toDate = b.getString("toDate");
         ff_code = b.getString("ff_code");
         fromDate = b.getString("fromDate");
+        userRole = b.getString("userRole");
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         backBtn = findViewById(R.id.backbt);
         dcfpFollowupRecycler = findViewById(R.id.recyclerDcfpFollowup);
         submitBtn = findViewById(R.id.submitBtn);
         tvfromdate = findViewById(R.id.fromdate);
         tvtodate = findViewById(R.id.todate);
+        title = findViewById(R.id.title);
+        planned_todDoc = findViewById(R.id.planned_todDoc);
+        visited_todDoc = findViewById(R.id.visited_todDoc);
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060");
+
+        if (Objects.equals(userRole, "D")) {
+            title.setText("Dcfp Followup");
+            planned_todDoc.setText("Tot_Doc");
+            visited_todDoc.setText("Tot_Doc");
+        } else if (Objects.equals(userRole, "T")) {
+            title.setText("Tour Followup");
+            planned_todDoc.setText("Tot_Terri");
+            visited_todDoc.setText("Tot_Terri");
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -153,7 +180,7 @@ public class AMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
 
                 if (dcfpFollowupList.size() > 0) {
                     dcfpFollowDialog.dismiss();
-                    dcfpFollowupAdapter = new DcfpFollowupAdapter(AMDcfpFollowupActivity.this, dcfpFollowupList, AMDcfpFollowupActivity.this);
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(AMDcfpFollowupActivity.this, dcfpFollowupList, AMDcfpFollowupActivity.this, userRole);
                     LinearLayoutManager manager = new LinearLayoutManager(AMDcfpFollowupActivity.this);
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
@@ -172,12 +199,52 @@ public class AMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         });
     }
 
+    public void tourDetailFollowupInfo() {
+        ProgressDialog dcfpFollowDialog = new ProgressDialog(AMDcfpFollowupActivity.this);
+        dcfpFollowDialog.setMessage("Tour Followup Loading...");
+        dcfpFollowDialog.setTitle("Tour Followup");
+        dcfpFollowDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<DcrFollowupModel>> call = apiInterface.getTourDetailFollowup(ff_code, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        dcfpFollowupList.clear();
+
+        call.enqueue(new Callback<List<DcrFollowupModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DcrFollowupModel>> call, @NonNull retrofit2.Response<List<DcrFollowupModel>> response) {
+                if (response.body() != null) {
+                    dcfpFollowupList.addAll(response.body());
+                    Log.d("tag", dcfpFollowupList.toString());
+                }
+
+                if (dcfpFollowupList.size() > 0) {
+                    dcfpFollowDialog.dismiss();
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(AMDcfpFollowupActivity.this, dcfpFollowupList, AMDcfpFollowupActivity.this, userRole);
+                    LinearLayoutManager manager = new LinearLayoutManager(AMDcfpFollowupActivity.this);
+                    dcfpFollowupRecycler.setLayoutManager(manager);
+                    dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
+                    dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(AMDcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
+                } else {
+                    dcfpFollowDialog.dismiss();
+                    Toast.makeText(AMDcfpFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DcrFollowupModel>> call, @NonNull Throwable t) {
+                dcfpFollowDialog.dismiss();
+                tourDetailFollowupInfo();
+            }
+        });
+    }
+
     @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
         Intent intent = new Intent(AMDcfpFollowupActivity.this, RMDcfpFollowupActivity.class);
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());
+        intent.putExtra("userRole", userRole);
         startActivity(intent);
     }
 }

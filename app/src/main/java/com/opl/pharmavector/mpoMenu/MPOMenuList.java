@@ -22,6 +22,17 @@ public class MPOMenuList {
     @SerializedName("EVENT_NAME")
     @Expose
     private Object eventName;
+    @SerializedName("BACKGROUND_COLOR")
+    @Expose
+    private String backgroundColor;
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
 
     public Integer getSlno() {
         return slno;

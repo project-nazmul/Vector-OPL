@@ -8,16 +8,19 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.R;
 import java.util.List;
+import java.util.Objects;
 
 public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapter.DcfpFollowupViewHolder> {
     public List<DcrFollowupModel> dcrFollowupList;
-    private Context context;
+    public Context context;
+    public String userRole;
     public DcfpClickListener dcfpClickListener;
 
-    public DcfpFollowupAdapter(Context context, List<DcrFollowupModel> dcrFollowupList, DcfpClickListener dcfpClickListener) {
+    public DcfpFollowupAdapter(Context context, List<DcrFollowupModel> dcrFollowupList, DcfpClickListener dcfpClickListener, String userRole) {
         this.context = context;
         this.dcrFollowupList = dcrFollowupList;
         this.dcfpClickListener = dcfpClickListener;
+        this.userRole = userRole;
     }
 
     @Override
@@ -31,15 +34,20 @@ public class DcfpFollowupAdapter  extends RecyclerView.Adapter<DcfpFollowupAdapt
         DcrFollowupModel dcrFollowupModel = dcrFollowupList.get(position);
         holder.ff_code.setText(dcrFollowupModel.getFfCode());
         holder.ff_area.setText(dcrFollowupModel.getFfName());
-        holder.planned_todDoc.setText(dcrFollowupModel.getPlanTotDoc());
         holder.planned_morn.setText(dcrFollowupModel.getPlanMor());
         holder.planned_eve.setText(dcrFollowupModel.getPlanEve());
-        holder.visited_todDoc.setText(dcrFollowupModel.getVisitedTotDoc());
         holder.visited_morn.setText(dcrFollowupModel.getVisitedMor());
         holder.visited_eve.setText(dcrFollowupModel.getVisitedEve());
         holder.not_visited.setText(dcrFollowupModel.getNotVisited());
         holder.visit_percentage.setText(dcrFollowupModel.getVisitPercent());
 
+        if (Objects.equals(userRole, "D")) {
+            holder.planned_todDoc.setText(dcrFollowupModel.getPlanTotDoc());
+            holder.visited_todDoc.setText(dcrFollowupModel.getVisitedTotDoc());
+        } else if (Objects.equals(userRole, "T")) {
+            holder.planned_todDoc.setText(dcrFollowupModel.getTotTerritory());
+            holder.visited_todDoc.setText(dcrFollowupModel.getTotVisited());
+        }
         holder.itemView.setOnClickListener(view -> {
             dcfpClickListener.onDcfpClick(position, dcrFollowupModel);
         });

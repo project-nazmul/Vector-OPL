@@ -1675,6 +1675,8 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
@@ -1713,6 +1715,15 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             i.putExtra("UserName", globalASMCode);
             i.putExtra("UserName_2", globalZONECode);
             i.putExtra("UserName_3", globalASMCode);
+            i.putExtra("UserRole", "D"); // D -> DCFP
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalASMCode);
+            i.putExtra("UserName_2", globalZONECode);
+            i.putExtra("UserName_3", globalASMCode);
+            i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {

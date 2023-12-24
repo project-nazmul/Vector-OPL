@@ -563,6 +563,16 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan_observation/tour_self_followup.php")
+    Call<List<DcrFollowupModel>> getTourSelfFollowup(@Field("id") String id, @Field("t_date") String t_date, @Field("f_date") String f_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan_observation/tour_followup.php")
+    Call<List<DcrFollowupModel>> getTourDetailFollowup(@Field("id") String id, @Field("t_date") String t_date, @Field("f_date") String f_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_mrd_doctor.php")
     Call<DoctorModel> getDoctorDetailsList(@Field("ff_code") String ff_code);
 

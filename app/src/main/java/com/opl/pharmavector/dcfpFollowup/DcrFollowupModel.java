@@ -34,6 +34,28 @@ public class DcrFollowupModel {
     @SerializedName("VISIT_PERCENT")
     @Expose
     private String visitPercent;
+    @SerializedName("TOT_TERRI")
+    @Expose
+    private String totTerritory;
+    @SerializedName("TOT_VISITED")
+    @Expose
+    private String totVisited;
+
+    public String getTotTerritory() {
+        return totTerritory;
+    }
+
+    public void setTotTerritory(String totTerritory) {
+        this.totTerritory = totTerritory;
+    }
+
+    public String getTotVisited() {
+        return totVisited;
+    }
+
+    public void setTotVisited(String totVisited) {
+        this.totVisited = totVisited;
+    }
 
     public String getFfCode() {
         return ffCode;

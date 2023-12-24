@@ -1002,6 +1002,8 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
@@ -1043,6 +1045,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             i.putExtra("UserName", globalSMCode);
             i.putExtra("UserName_2", userName_2);
             i.putExtra("UserName_3", globalSMCode);
+            i.putExtra("UserRole", "D"); // D -> DCFP
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
@@ -1057,6 +1060,14 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             i.putExtra("UserName", globalSMCode);
             i.putExtra("UserName_2", userName_2);
             i.putExtra("UserRole", "SM");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(SalesManagerDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalSMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalSMCode);
+            i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

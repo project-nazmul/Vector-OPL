@@ -361,6 +361,7 @@
             android:background="#424242"/>
 
         <TextView
+            android:id="@+id/p_detail_todDoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -406,6 +407,7 @@
                 android:weightSum="3">
 
                 <TextView
+                    android:id="@+id/p_detail_totDoc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -487,6 +489,7 @@
                 android:weightSum="3">
 
                 <TextView
+                    android:id="@+id/v_detail_totDoc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"

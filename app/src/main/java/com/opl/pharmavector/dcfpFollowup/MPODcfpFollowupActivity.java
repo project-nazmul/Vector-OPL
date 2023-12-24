@@ -152,7 +152,7 @@ public class MPODcfpFollowupActivity extends Activity implements DcfpFollowupAda
 
                 if (dcfpFollowupList.size() > 0) {
                     dcfpFollowDialog.dismiss();
-                    dcfpFollowupAdapter = new DcfpFollowupAdapter(MPODcfpFollowupActivity.this, dcfpFollowupList, MPODcfpFollowupActivity.this);
+                    dcfpFollowupAdapter = new DcfpFollowupAdapter(MPODcfpFollowupActivity.this, dcfpFollowupList, MPODcfpFollowupActivity.this, "D");
                     LinearLayoutManager manager = new LinearLayoutManager(MPODcfpFollowupActivity.this);
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);

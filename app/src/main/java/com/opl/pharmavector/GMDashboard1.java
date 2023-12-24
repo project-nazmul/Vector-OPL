@@ -929,6 +929,8 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         CardView cardview_followup = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
@@ -968,6 +970,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", userName_2);
             i.putExtra("UserName_3", globalAdmin);
+            i.putExtra("UserRole", "D"); // D -> DCFP
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
@@ -975,6 +978,14 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalAdmin);
+            i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

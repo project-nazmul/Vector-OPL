@@ -2153,6 +2153,8 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_rx_summary_B = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_B);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2189,6 +2191,15 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalRMCode);
             i.putExtra("UserName_2", globalRegionalCode);
             i.putExtra("UserName_3", globalRMCode);
+            i.putExtra("UserRole", "D"); // D -> DCFP
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalRMCode);
+            i.putExtra("UserName_2", globalRegionalCode);
+            i.putExtra("UserName_3", globalRMCode);
+            i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {

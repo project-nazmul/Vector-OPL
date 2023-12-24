@@ -34,49 +34,61 @@
                 app:layout_constraintEnd_toStartOf="@+id/tv_dcr"
                 app:layout_constraintStart_toStartOf="@+id/tv_dcr">
 
-                <ImageButton
+                <ImageView
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:clickable="false"
                     android:id="@+id/img_menu"
                     android:layout_width="42dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="8dp"
                     android:background="@drawable/ic_dcr"
-                    android:padding="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_menu"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.862" />
-
-                <TextView
-                    android:id="@+id/tv_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:fontFamily="@font/robotoregular"
-                    android:text="DCR"
-                    android:textColor="@android:color/black"
-                    android:textSize="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/img_menu"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.68" />
-
-                <Button
-                    android:id="@+id/btn_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:background="@drawable/top_button_shape"
-                    android:gravity="start"
-                    android:paddingStart="10dp"
-                    android:text="1"
-                    android:textColor="@android:color/black"
-                    android:textSize="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/btn_menu"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#D2D2F6"
+                    app:cardCornerRadius="70dp"
+                    app:cardElevation="10dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    app:layout_constraintEnd_toStartOf="@id/img_menu"
+                    app:layout_constraintBottom_toTopOf="@id/btn_menu"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:padding="@dimen/_4sdp"
+                    android:id="@+id/tv_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotoregular"
+                    android:text="1"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="12sp" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:clickable="false"
+                    android:id="@+id/btn_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@drawable/top_button_shape"
+                    android:gravity="center"
+                    android:text="DCR"
+                    android:textColor="@android:color/black"
+                    android:textSize="8sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
