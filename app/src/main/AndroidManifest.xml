@@ -662,6 +662,11 @@
             android:theme="@style/EditorTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
+            android:name=".DashboardOld"
+            android:label="@string/app_name"
+            android:theme="@style/EditorTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+        <activity
             android:name=".login_dashboard.MPODashboard"
             android:label="@string/app_name"
             android:theme="@style/EditorTheme.NoActionBar"

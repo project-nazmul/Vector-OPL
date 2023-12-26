@@ -59,12 +59,12 @@ public class MPOMenuAdapter extends RecyclerView.Adapter<MPOMenuAdapter.MPOMenuV
         //profileImage = pmdImageUrl+achieveModel.getEmpCode()+"."+"jpg" ;
         Picasso.get().load(mpoMenuList.getMenuLogo()).into(holder.img_menu);
 
-//        holder.card_menu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                contactCallback.onContactPhoneCall(achieveModel);
-//            }
-//        });
+        holder.card_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mpoMenuModel.onMenuItemList(mpoMenuList);
+            }
+        });
     }
 
     @Override
@@ -89,6 +89,6 @@ public class MPOMenuAdapter extends RecyclerView.Adapter<MPOMenuAdapter.MPOMenuV
     }
 
     public interface MenuItemCallback {
-        void onMenuItemList(MPOMenuModel mpoMenuModel);
+        void onMenuItemList(MPOMenuList mpoMenuModel);
     }
 }

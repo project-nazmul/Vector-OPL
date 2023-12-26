@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +32,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
 import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
@@ -52,8 +65,6 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
-import com.opl.pharmavector.achieve.AchieveMonthList;
-import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
@@ -82,41 +93,26 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
-import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.MPORxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
-import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.util.NotificationUtils;
+import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import android.app.ProgressDialog;
-import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -126,12 +122,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.opl.pharmavector.util.NotificationUtils;
-import com.opl.pharmavector.util.PreferenceManager;
-import com.opl.pharmavector.util.VectorUtils;
-import com.squareup.picasso.Picasso;
-
-public class Dashboard extends Activity implements View.OnClickListener, MPOMenuAdapter.MenuItemCallback {
+public class DashboardOld extends Activity implements View.OnClickListener {
     public String userName_1, userName, designation, terriName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -161,7 +152,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     AppUpdaterUtils appUpdaterUtils;
     AppUpdater appUpdater;
     public static String version, phoneNumber;
-    static Dashboard instance;
+    static DashboardOld instance;
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
     ArrayList<HashMap<String, String>> customerlist;
@@ -181,26 +172,24 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback, tv_notification, tv_rx, tv_personalexpense,
             tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports,
-            btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list, btn_old_dash;
+            btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
     public TextView t4, t5, tvDesignation;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     LocationManager locationManager;
     private static final int PHONE_NUMBER_CODE = 101;
-    public RecyclerView recyclerMpoMenu;
 
-    public static Dashboard getInstance() {
+    public static DashboardOld getInstance() {
         return instance;
     }
 
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_vector_mpo_dashboard);
-        setContentView(R.layout.activity_mpo_dashboard);
+        setContentView(R.layout.activity_vector_mpo_dashboard);
+        //setContentView(R.layout.activity_mpo_dashboard);
 
-        getMpoDashMenuList(); // --- New DashBoard ---
         isUpdateAvailable();
         VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
@@ -250,7 +239,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardOld.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("Exit !").setMessage("Are you sure you want to exit Vector?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
@@ -262,7 +251,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                                         preferenceManager.clearPreferences();
                                         count = 0;
                                         //unregisterReceiver(updateUIReciver);
-                                        Intent logoutIntent = new Intent(Dashboard.this, Login.class);
+                                        Intent logoutIntent = new Intent(DashboardOld.this, Login.class);
                                         startActivity(logoutIntent);
                                         finish();
                                     }
@@ -284,7 +273,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED /*||
                 checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED*/) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardOld.this, R.style.Theme_Design_BottomSheetDialog);
                 builder.setTitle("App Require Location").setMessage("This app collects location data to enable Doctor Chamber Location Feature even when app is running")
                         .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                             @Override
@@ -293,9 +282,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                                     @Override
                                     public void run() {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                            dexterPermission(Dashboard.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                            dexterPermission(DashboardOld.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
                                         } else {
-                                            dexterPermission(Dashboard.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
+                                            dexterPermission(DashboardOld.this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
                                         }
                                     }
                                 });
@@ -307,7 +296,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             public void onClick(DialogInterface dialog, int which) {
                                 preferenceManager.clearPreferences();
                                 count = 0;
-                                Intent logoutIntent = new Intent(Dashboard.this, Login.class);
+                                Intent logoutIntent = new Intent(DashboardOld.this, Login.class);
                                 startActivity(logoutIntent);
                                 finish();
 
@@ -333,7 +322,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
         appUpdateInfoTask.addOnSuccessListener(result -> {
             if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(DashboardOld.this);
                 builder.setTitle("Update available").setMessage("Check out the latest version of Vector?")
                         .setPositiveButton("Update now", new DialogInterface.OnClickListener() {
                             @Override
@@ -385,7 +374,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             bottomSheetDialog.show();
 
             Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
-                Intent i = new Intent(Dashboard.this, MRDPresReport.class);
+                Intent i = new Intent(DashboardOld.this, MRDPresReport.class);
                 i.putExtra("userName", globalempName);
                 i.putExtra("UserName", globalempCode);
                 i.putExtra("report_flag", "SPI");
@@ -398,7 +387,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                 startActivity(i);
             });
             Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
-                Intent i = new Intent(Dashboard.this, DoctorReachActivity.class);
+                Intent i = new Intent(DashboardOld.this, DoctorReachActivity.class);
                 i.putExtra("UserName", globalempName);
                 i.putExtra("UserCode", globalempCode);
                 i.putExtra("new_version", Login.version);
@@ -444,7 +433,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             bottomSheetDialog.show();
 
             Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
-                Intent i = new Intent(Dashboard.this, MRDPresReport.class);
+                Intent i = new Intent(DashboardOld.this, MRDPresReport.class);
                 i.putExtra("userName", globalempName);
                 i.putExtra("UserName", globalempCode);
                 i.putExtra("report_flag", "SPI");
@@ -457,7 +446,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                 startActivity(i);
             });
             Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
-                Intent i = new Intent(Dashboard.this, DoctorReachActivity.class);
+                Intent i = new Intent(DashboardOld.this, DoctorReachActivity.class);
                 i.putExtra("UserName", globalempName);
                 i.putExtra("UserCode", globalempCode);
                 i.putExtra("new_version", Login.version);
@@ -476,7 +465,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     private void achieveEarnEventNew() {
-        Intent i = new Intent(Dashboard.this, AchieveEarnActivity.class);
+        Intent i = new Intent(DashboardOld.this, AchieveEarnActivity.class);
         i.putExtra("UserName", globalempName);
         i.putExtra("UserCode", userName);
         i.putExtra("new_version", version);
@@ -487,7 +476,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     private void achieveEarnEvent() {
         cardview_achv_earn.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, AchieveEarnActivity.class);
+            Intent i = new Intent(DashboardOld.this, AchieveEarnActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", userName);
             i.putExtra("new_version", version);
@@ -540,7 +529,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             log_status = "N";
             preferenceManager.clearPreferences();
             count = 0;
-            Intent logoutIntent = new Intent(Dashboard.this, Login.class);
+            Intent logoutIntent = new Intent(DashboardOld.this, Login.class);
             startActivity(logoutIntent);
             finish();
         }
@@ -561,7 +550,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     @SuppressLint("CutPasteId")
     private void initViews() {
-        recyclerMpoMenu = findViewById(R.id.recyclerMpoMenu);
         logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4 = findViewById(R.id.t4);
@@ -645,7 +633,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         img_doctor_list = findViewById(R.id.img_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
-        btn_old_dash = findViewById(R.id.btn_old_dash);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
@@ -698,21 +685,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             versionname.setText(currentVersion);
         }
         lock_emp_check(globalempCode);
-        btn_old_dash.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DashboardOld.class);
-            i.putExtra("UserName", userName);
-            i.putExtra("Designation", designation);
-            i.putExtra("TerriName", terriName);
-            i.putExtra("UserName_2", UserName_2);
-            i.putExtra("new_version", new_version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("password", password);
-            i.putExtra("ff_type", ff_type);
-            i.putExtra("vector_version", vector_version);
-            i.putExtra("emp_code", globalempCode);
-            i.putExtra("emp_name", globalempName);
-            startActivity(i);
-        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -739,7 +711,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_rx_summary_B).setVisibility(View.GONE);
 
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, ReadComments.class);
+            Intent i = new Intent(DashboardOld.this, ReadComments.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
@@ -749,7 +721,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Offlinereport.class);
+            Intent i = new Intent(DashboardOld.this, Offlinereport.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
@@ -798,31 +770,31 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Dcr.class);
+            Intent i = new Intent(DashboardOld.this, Dcr.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DcrReport.class);
+            Intent i = new Intent(DashboardOld.this, DcrReport.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpPreview).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DcfpActivity.class);
+            Intent i = new Intent(DashboardOld.this, DcfpActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpEntry).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, MPODcfpEntryActivity.class);
+            Intent i = new Intent(DashboardOld.this, MPODcfpEntryActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
         });
         Objects.requireNonNull(cardview_dcfpDocList).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DcfpDoctorListActivity.class);
+            Intent i = new Intent(DashboardOld.this, DcfpDoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", terriName);
             i.putExtra("UserRole", "MPO");
@@ -868,7 +840,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             public void onClick(View v) {
                 ArrayList<String> UserName_2 = db.getterritoryname();
                 String user = UserName_2.toString();
-                Intent i = new Intent(Dashboard.this, PersonalExpenses.class);
+                Intent i = new Intent(DashboardOld.this, PersonalExpenses.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 startActivity(i);
@@ -878,7 +850,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, ReportPersonalExpenses.class);
+                Intent i = new Intent(DashboardOld.this, ReportPersonalExpenses.class);
                 i.putExtra("UserName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 startActivity(i);
@@ -926,9 +898,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, MPODCCFollowupgift.class);
-                i.putExtra("UserName", Dashboard.globalmpocode);
-                i.putExtra("UserName_2", Dashboard.globalterritorycode);
+                Intent i = new Intent(DashboardOld.this, MPODCCFollowupgift.class);
+                i.putExtra("UserName", DashboardOld.globalmpocode);
+                i.putExtra("UserName_2", DashboardOld.globalterritorycode);
                 startActivity(i);
                 //bottomSheetDialog.dismiss();
             }
@@ -936,10 +908,10 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, MPODccStock.class);
-                i.putExtra("UserName", Dashboard.globalmpocode);
-                i.putExtra("UserName_2", Dashboard.globalterritorycode);
-                i.putExtra("mpo_code", Dashboard.globalmpocode);
+                Intent i = new Intent(DashboardOld.this, MPODccStock.class);
+                i.putExtra("UserName", DashboardOld.globalmpocode);
+                i.putExtra("UserName_2", DashboardOld.globalterritorycode);
+                i.putExtra("mpo_code", DashboardOld.globalmpocode);
                 startActivity(i);
                 //bottomSheetDialog.dismiss();
             }
@@ -990,41 +962,41 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         Objects.requireNonNull(changepassword).setText("MSD");
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DocSupportReq.class);
-            i.putExtra("user_code", Dashboard.globalmpocode);
-            i.putExtra("user_name", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, DocSupportReq.class);
+            i.putExtra("user_code", DashboardOld.globalmpocode);
+            i.putExtra("user_name", DashboardOld.globalterritorycode);
             i.putExtra("user_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DocSupportFollowup.class);
-            i.putExtra("user_code", Dashboard.globalmpocode);
-            i.putExtra("user_name", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, DocSupportFollowup.class);
+            i.putExtra("user_code", DashboardOld.globalmpocode);
+            i.putExtra("user_name", DashboardOld.globalterritorycode);
             i.putExtra("user_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, MSDProgramFollowup.class);
-            i.putExtra("user_code", Dashboard.globalmpocode);
-            i.putExtra("user_name", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, MSDProgramFollowup.class);
+            i.putExtra("user_code", DashboardOld.globalmpocode);
+            i.putExtra("user_name", DashboardOld.globalterritorycode);
             i.putExtra("user_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_rx_summary_C).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, MSDProgramApproval.class);
-            i.putExtra("user_code", Dashboard.globalmpocode);
-            i.putExtra("user_name", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, MSDProgramApproval.class);
+            i.putExtra("user_code", DashboardOld.globalmpocode);
+            i.putExtra("user_name", DashboardOld.globalterritorycode);
             i.putExtra("user_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog.dismiss();
         });
         Objects.requireNonNull(cardview_rx_summary_E).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, MSDCommitmentFollowup.class);
-            i.putExtra("user_code", Dashboard.globalmpocode);
-            i.putExtra("user_name", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, MSDCommitmentFollowup.class);
+            i.putExtra("user_code", DashboardOld.globalmpocode);
+            i.putExtra("user_name", DashboardOld.globalterritorycode);
             i.putExtra("user_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog.dismiss();
@@ -1070,7 +1042,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_onlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PromoMaterialFollowup.class);
+                Intent i = new Intent(DashboardOld.this, PromoMaterialFollowup.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("user_flag", "MPO");
@@ -1083,7 +1055,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_offlineorder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PromoMaterialFollowup.class);
+                Intent i = new Intent(DashboardOld.this, PromoMaterialFollowup.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("user_flag", "MPO");
@@ -1096,7 +1068,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(cardview_rx_summary_B).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, PromoMaterialFollowup.class);
+                Intent i = new Intent(DashboardOld.this, PromoMaterialFollowup.class);
                 i.putExtra("userName", globalmpocode);
                 i.putExtra("UserName_2", globalterritorycode);
                 i.putExtra("user_flag", "MPO");
@@ -1126,7 +1098,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(cardview1).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorServiceFollowup.class);
+            Intent i = new Intent(DashboardOld.this, DoctorServiceFollowup.class);
             i.putExtra("userName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
@@ -1135,7 +1107,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             //bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview2).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorServiceAck.class);
+            Intent i = new Intent(DashboardOld.this, DoctorServiceAck.class);
             i.putExtra("userName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
@@ -1144,7 +1116,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview3).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorServiceTrackMonthly.class);
+            Intent i = new Intent(DashboardOld.this, DoctorServiceTrackMonthly.class);
             i.putExtra("userName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", new_version);
@@ -1154,7 +1126,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         });
         Objects.requireNonNull(cardview4).setOnClickListener(v -> {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                Intent i = new Intent(Dashboard.this, DoctorChamberLocate.class);
+                Intent i = new Intent(DashboardOld.this, DoctorChamberLocate.class);
                 startActivity(i);
             } else {
                 showGPSDisabledAlertToUser();
@@ -1202,14 +1174,14 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(changepassword).setText("PC Conference");
         Objects.requireNonNull(cardview1).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PcProposal.class);
+            Intent i = new Intent(DashboardOld.this, PcProposal.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             startActivity(i);
             //bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview2).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PcConferenceFollowup.class);
+            Intent i = new Intent(DashboardOld.this, PcConferenceFollowup.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("user_flag", "M");
@@ -1218,7 +1190,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         });
         Objects.requireNonNull(cardview3).setOnClickListener(v -> {});
         Objects.requireNonNull(cardview4).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PCBillFollowup.class);
+            Intent i = new Intent(DashboardOld.this, PCBillFollowup.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("UserName_2", globalterritorycode);
@@ -1267,28 +1239,28 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog2.dismiss());
         Objects.requireNonNull(cardview1).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PrescriptionEntry.class);
+            Intent i = new Intent(DashboardOld.this, PrescriptionEntry.class);
             startActivity(i);
             //bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview2).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, ImageLoadActivity.class);
-            i.putExtra("manager_code", Dashboard.globalmpocode);
-            i.putExtra("manager_detail", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, ImageLoadActivity.class);
+            i.putExtra("manager_code", DashboardOld.globalmpocode);
+            i.putExtra("manager_detail", DashboardOld.globalterritorycode);
             i.putExtra("manager_flag", "MPO");
             startActivity(i);
         });
         Objects.requireNonNull(cardview3).setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, PrescriptionFollowup.class);
-            i.putExtra("manager_code", Dashboard.globalmpocode);
-            i.putExtra("manager_detail", Dashboard.globalterritorycode);
+            Intent i = new Intent(DashboardOld.this, PrescriptionFollowup.class);
+            i.putExtra("manager_code", DashboardOld.globalmpocode);
+            i.putExtra("manager_detail", DashboardOld.globalterritorycode);
             i.putExtra("manager_flag", "MPO");
             startActivity(i);
             //bottomSheetDialog2.dismiss();
         });
         Objects.requireNonNull(cardview4).setOnClickListener(v -> {
             //Intent i = new Intent(Dashboard.this, PrescriptionFollowup2.class);
-            Intent i = new Intent(Dashboard.this, MPORxSumMISActivity.class);
+            Intent i = new Intent(DashboardOld.this, MPORxSumMISActivity.class);
             i.putExtra("ffCode", GMDashboard1.globalAdmin);
             i.putExtra("ffType", "MPO");
             startActivity(i);
@@ -1350,7 +1322,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent intent = new Intent(Dashboard.this, GiftFeedbackEntry.class);
+                                Intent intent = new Intent(DashboardOld.this, GiftFeedbackEntry.class);
                                 intent.putExtra("UserName", globalmpocode);
                                 intent.putExtra("UserName_2", globalterritorycode);
                                 intent.putExtra("new_version", new_version);
@@ -1377,7 +1349,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent intent = new Intent(Dashboard.this, GiftFeedbackEntry.class);
+                                Intent intent = new Intent(DashboardOld.this, GiftFeedbackEntry.class);
                                 intent.putExtra("UserName", globalmpocode);
                                 intent.putExtra("UserName_2", globalterritorycode);
                                 intent.putExtra("new_version", new_version);
@@ -1404,7 +1376,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent intent = new Intent(Dashboard.this, GiftFeedbackEntry.class);
+                                Intent intent = new Intent(DashboardOld.this, GiftFeedbackEntry.class);
                                 intent.putExtra("UserName", globalmpocode);
                                 intent.putExtra("UserName_2", globalterritorycode);
                                 intent.putExtra("new_version", new_version);
@@ -1431,7 +1403,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent intent = new Intent(Dashboard.this, GiftFeedbackEntry.class);
+                                Intent intent = new Intent(DashboardOld.this, GiftFeedbackEntry.class);
                                 intent.putExtra("UserName", globalmpocode);
                                 intent.putExtra("UserName_2", globalterritorycode);
                                 intent.putExtra("new_version", new_version);
@@ -1458,7 +1430,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                     } else {
                         ArrayList<String> UserName_2 = db.getterritoryname();
                         String user = UserName_2.toString();
-                        Intent intent = new Intent(Dashboard.this, GiftFeedbackEntry.class);
+                        Intent intent = new Intent(DashboardOld.this, GiftFeedbackEntry.class);
                         intent.putExtra("UserName", globalmpocode);
                         intent.putExtra("UserName_2", globalterritorycode);
                         intent.putExtra("new_version", new_version);
@@ -1484,7 +1456,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             ShortcutBadger.applyCount(getBaseContext(), 0);
                             ArrayList<String> UserName_2 = db.getterritoryname();
                             String user = UserName_2.toString();
-                            Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                            Intent i = new Intent(DashboardOld.this, NoticeBoard.class);
                             i.putExtra("UserName", globalmpocode);
                             i.putExtra("UserName_2", globalterritorycode);
                             i.putExtra("new_version", globalterritorycode);
@@ -1510,7 +1482,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             ShortcutBadger.applyCount(getBaseContext(), 0);
                             ArrayList<String> UserName_2 = db.getterritoryname();
                             String user = UserName_2.toString();
-                            Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                            Intent i = new Intent(DashboardOld.this, NoticeBoard.class);
                             i.putExtra("UserName", globalmpocode);
                             i.putExtra("UserName_2", globalterritorycode);
                             i.putExtra("new_version", globalterritorycode);
@@ -1533,7 +1505,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                         } else {
                             ArrayList<String> UserName_2 = db.getterritoryname();
                             String user = UserName_2.toString();
-                            Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                            Intent i = new Intent(DashboardOld.this, NoticeBoard.class);
                             i.putExtra("UserName", globalmpocode);
                             i.putExtra("UserName_2", globalterritorycode);
                             startActivity(i);
@@ -1557,7 +1529,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                                Intent i = new Intent(DashboardOld.this, NoticeBoard.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 i.putExtra("new_version", globalterritorycode);
@@ -1583,7 +1555,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, NoticeBoard.class);
+                                Intent i = new Intent(DashboardOld.this, NoticeBoard.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 startActivity(i);
@@ -1697,7 +1669,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                     } else {
                         ArrayList<String> UserName_2 = db.getterritoryname();
                         String user = UserName_2.toString();
-                        Intent i = new Intent(Dashboard.this, Report.class);
+                        Intent i = new Intent(DashboardOld.this, Report.class);
                         i.putExtra("UserName", globalmpocode);
                         i.putExtra("UserName_2", globalterritorycode);
                         i.putExtra("new_version", Login.version);
@@ -1720,7 +1692,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                     } else {
                         ArrayList<String> UserName_2 = db.getterritoryname();
                         String user = UserName_2.toString();
-                        Intent i = new Intent(Dashboard.this, Report.class);
+                        Intent i = new Intent(DashboardOld.this, Report.class);
                         i.putExtra("UserName", globalmpocode);
                         i.putExtra("UserName_2", globalterritorycode);
                         i.putExtra("new_version", Login.version);
@@ -1745,7 +1717,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, Report.class);
+                                Intent i = new Intent(DashboardOld.this, Report.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 i.putExtra("new_version", Login.version);
@@ -1772,7 +1744,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, Report.class);
+                                Intent i = new Intent(DashboardOld.this, Report.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 i.putExtra("new_version", Login.version);
@@ -1799,7 +1771,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, Report.class);
+                                Intent i = new Intent(DashboardOld.this, Report.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 i.putExtra("new_version", Login.version);
@@ -1824,7 +1796,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     private void pmdContactNew() {
-        Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+        Intent i = new Intent(DashboardOld.this, Activity_PMD_Contact.class);
         i.putExtra("UserName", globalmpocode);
         i.putExtra("UserName_2", globalterritorycode);
         i.putExtra("new_version", Login.version);
@@ -1834,7 +1806,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     private void pmdContact() {
         cardview_pmd_contact.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+            Intent i = new Intent(DashboardOld.this, Activity_PMD_Contact.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1842,7 +1814,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         img_pmd_contact.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+            Intent i = new Intent(DashboardOld.this, Activity_PMD_Contact.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1850,7 +1822,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         btn_pmd_contact.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+            Intent i = new Intent(DashboardOld.this, Activity_PMD_Contact.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1858,7 +1830,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         tv_pmd_contact.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, Activity_PMD_Contact.class);
+            Intent i = new Intent(DashboardOld.this, Activity_PMD_Contact.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1868,7 +1840,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     private void doctorListInfoNew() {
-        Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+        Intent i = new Intent(DashboardOld.this, DoctorListActivity.class);
         i.putExtra("UserName", globalmpocode);
         i.putExtra("UserName_2", globalterritorycode);
         i.putExtra("new_version", Login.version);
@@ -1878,7 +1850,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     private void doctorListInfo() {
         cardview_doctor_list.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+            Intent i = new Intent(DashboardOld.this, DoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1886,7 +1858,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         img_doctor_list.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+            Intent i = new Intent(DashboardOld.this, DoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1894,7 +1866,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         btn_doctor_list.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+            Intent i = new Intent(DashboardOld.this, DoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1902,7 +1874,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             startActivity(i);
         });
         tv_doctor_list.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+            Intent i = new Intent(DashboardOld.this, DoctorListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
@@ -1924,7 +1896,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             } else {
                                 ArrayList<String> UserName_2 = db.getterritoryname();
                                 String user = UserName_2.toString();
-                                Intent i = new Intent(Dashboard.this, FieldFeedBack.class);
+                                Intent i = new Intent(DashboardOld.this, FieldFeedBack.class);
                                 i.putExtra("UserName", globalmpocode);
                                 i.putExtra("UserName_2", globalterritorycode);
                                 i.putExtra("new_version", new_version);
@@ -1949,9 +1921,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                     if (!NetInfo.isOnline(getBaseContext())) {
                         showSnack();
                     } else {
-                        Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
-                        i.putExtra("mpo_code", Dashboard.globalmpocode);
-                        i.putExtra("territory_name", Dashboard.globalterritorycode);
+                        Intent i = new Intent(DashboardOld.this, ExamResultFollowup.class);
+                        i.putExtra("mpo_code", DashboardOld.globalmpocode);
+                        i.putExtra("territory_name", DashboardOld.globalterritorycode);
                         i.putExtra("user_flag", new_version);
                         i.putExtra("message_3", message_3);
                         i.putExtra("user_flag", "M");
@@ -1977,9 +1949,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-                                Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
-                                i.putExtra("mpo_code", Dashboard.globalmpocode);
-                                i.putExtra("territory_name", Dashboard.globalterritorycode);
+                                Intent i = new Intent(DashboardOld.this, ExamResultFollowup.class);
+                                i.putExtra("mpo_code", DashboardOld.globalmpocode);
+                                i.putExtra("territory_name", DashboardOld.globalterritorycode);
                                 i.putExtra("user_flag", new_version);
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
@@ -2004,9 +1976,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-                                Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
-                                i.putExtra("mpo_code", Dashboard.globalmpocode);
-                                i.putExtra("territory_name", Dashboard.globalterritorycode);
+                                Intent i = new Intent(DashboardOld.this, ExamResultFollowup.class);
+                                i.putExtra("mpo_code", DashboardOld.globalmpocode);
+                                i.putExtra("territory_name", DashboardOld.globalterritorycode);
                                 i.putExtra("user_flag", new_version);
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
@@ -2032,9 +2004,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-                                Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
-                                i.putExtra("mpo_code", Dashboard.globalmpocode);
-                                i.putExtra("territory_name", Dashboard.globalterritorycode);
+                                Intent i = new Intent(DashboardOld.this, ExamResultFollowup.class);
+                                i.putExtra("mpo_code", DashboardOld.globalmpocode);
+                                i.putExtra("territory_name", DashboardOld.globalterritorycode);
                                 i.putExtra("user_flag", new_version);
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
@@ -2059,9 +2031,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                             if (!NetInfo.isOnline(getBaseContext())) {
                                 showSnack();
                             } else {
-                                Intent i = new Intent(Dashboard.this, ExamResultFollowup.class);
-                                i.putExtra("mpo_code", Dashboard.globalmpocode);
-                                i.putExtra("territory_name", Dashboard.globalterritorycode);
+                                Intent i = new Intent(DashboardOld.this, ExamResultFollowup.class);
+                                i.putExtra("mpo_code", DashboardOld.globalmpocode);
+                                i.putExtra("territory_name", DashboardOld.globalterritorycode);
                                 i.putExtra("user_flag", new_version);
                                 i.putExtra("message_3", message_3);
                                 i.putExtra("user_flag", "M");
@@ -2083,7 +2055,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (!report.areAllPermissionsGranted()) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Dashboard.this, R.style.Theme_Design_BottomSheetDialog);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DashboardOld.this, R.style.Theme_Design_BottomSheetDialog);
                             builder.setTitle("App Require Location").setMessage("All permission must be Granted")
                                     .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
                                         @Override
@@ -2091,7 +2063,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                                             Thread server = new Thread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    dexterPermission(Dashboard.this);
+                                                    dexterPermission(DashboardOld.this);
                                                 }
                                             });
                                             server.start();
@@ -2102,7 +2074,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                                         public void onClick(DialogInterface dialog, int which) {
                                             preferenceManager.clearPreferences();
                                             count = 0;
-                                            Intent logoutIntent = new Intent(Dashboard.this, Login.class);
+                                            Intent logoutIntent = new Intent(DashboardOld.this, Login.class);
                                             startActivity(logoutIntent);
                                             finish();
                                         }
@@ -2122,7 +2094,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     private void userLog(final String key) {
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, Dashboard.track_lat, Dashboard.track_lang, build_model, build_brand, Dashboard.globalmpocode, Dashboard.track_add, globalempCode);
+        Call<Patient> call = apiInterface.userData(key, vector_version, vectorToken, DashboardOld.track_lat, DashboardOld.track_lang, build_model, build_brand, DashboardOld.globalmpocode, DashboardOld.track_add, globalempCode);
         //Log.d("tokenApi->", vectorToken);
 
         call.enqueue(new Callback<Patient>() {
@@ -2198,7 +2170,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     public void getAddress(double lat, double lng) {
-        Geocoder geocoder = new Geocoder(Dashboard.this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(DashboardOld.this, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
             Address obj = addresses.get(0);
@@ -2226,14 +2198,14 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     @SuppressLint({"MissingPermission", "HardwareIds"})
     public void getDeviceSimNumber() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-            ActivityCompat.requestPermissions(Dashboard.this, new String[]{Manifest.permission.READ_PHONE_NUMBERS}, PHONE_NUMBER_CODE);
+            ActivityCompat.requestPermissions(DashboardOld.this, new String[]{Manifest.permission.READ_PHONE_NUMBERS}, PHONE_NUMBER_CODE);
         } else {
             TelephonyManager tMgr = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             phoneNumber = tMgr.getLine1Number();
         }
 
-        if (ContextCompat.checkSelfPermission(Dashboard.this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.shouldShowRequestPermissionRationale(Dashboard.this, Manifest.permission.READ_PHONE_NUMBERS);
+        if (ContextCompat.checkSelfPermission(DashboardOld.this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.shouldShowRequestPermissionRationale(DashboardOld.this, Manifest.permission.READ_PHONE_NUMBERS);
         } else {
             SubscriptionManager subscriptionManager = SubscriptionManager.from(getApplicationContext());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -2260,7 +2232,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     private void firebaseEvent() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Dashboard.this, instanceIdResult -> {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(DashboardOld.this, instanceIdResult -> {
             vectorToken = instanceIdResult.getToken();
             Log.d("vectorToken-->", vectorToken);
 
@@ -2282,8 +2254,8 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             @Override
             public void onReceive(Context context, Intent intent) {
                 // checking for type intent filter
-                if (intent.getAction().equals(com.opl.pharmavector.app.Config.REGISTRATION_COMPLETE)) {
-                    FirebaseMessaging.getInstance().subscribeToTopic(com.opl.pharmavector.app.Config.TOPIC_GLOBAL);
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     String message = intent.getStringExtra("message");
                 }
@@ -2303,7 +2275,7 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     }
 
     private void showSnack() {
-        new Thread(() -> Dashboard.this.runOnUiThread(() -> {
+        new Thread(() -> DashboardOld.this.runOnUiThread(() -> {
             String message;
             message = "No internet Connection, Please Check Your Connection";
             Toasty.info(getApplicationContext(), message, Toast.LENGTH_LONG, true).show();
@@ -2418,11 +2390,11 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                 if (status.equals("Y")) {
                     String message = response.body().getMessage_2();
                     //Toast.makeText(Dashboard.this, "You are locked...", Toast.LENGTH_LONG).show();
-                    Toast.makeText(Dashboard.this, message, Toast.LENGTH_LONG).show();
+                    Toast.makeText(DashboardOld.this, message, Toast.LENGTH_LONG).show();
                     log_status = "N";
                     preferenceManager.clearPreferences();
                     count = 0;
-                    Intent logoutIntent = new Intent(Dashboard.this, Login.class);
+                    Intent logoutIntent = new Intent(DashboardOld.this, Login.class);
                     startActivity(logoutIntent);
                     finish();
                 }
@@ -2433,97 +2405,5 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                 //progressDialog.dismiss();
             }
         });
-    }
-
-    private void getMpoDashMenuList() {
-        ProgressDialog pDialog = new ProgressDialog(Dashboard.this);
-        pDialog.setMessage("Loading Menu ...");
-        pDialog.setCancelable(true);
-        pDialog.show();
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<MPOMenuModel> call = apiInterface.getMpoDashMenuList(userName, globalempCode, "MPO");
-
-        call.enqueue(new Callback<MPOMenuModel>() {
-            @Override
-            public void onResponse(Call<MPOMenuModel> call, Response<MPOMenuModel> response) {
-                if (response.isSuccessful()) {
-                    pDialog.dismiss();
-                    List<MPOMenuList> tempMenuList = null;
-                    ArrayList<MPOMenuList> mpoMenuList = new ArrayList<>();
-
-                    if (response.body() != null) {
-                        tempMenuList = (response.body()).getMpoMenuLists();
-                        mpoMenuList.addAll(tempMenuList);
-                    }
-                    MPOMenuAdapter mpoMenuAdapter = new MPOMenuAdapter(Dashboard.this, mpoMenuList, Dashboard.this);
-                    GridLayoutManager layoutManager = new GridLayoutManager(Dashboard.this,3);
-                    recyclerMpoMenu.setLayoutManager(layoutManager);
-                    recyclerMpoMenu.setAdapter(mpoMenuAdapter);
-                    Log.d("Month List -- : ", String.valueOf(mpoMenuList));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MPOMenuModel> call, Throwable t) {
-                pDialog.dismiss();
-                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
-                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
-
-    @Override
-    public void onMenuItemList(MPOMenuList mpoMenuModel) {
-        switch (mpoMenuModel.getMenuDesc()) {
-            case "DCR":
-                showBottomSheetDialog_DCR();
-                break;
-            case "Doctor Service":
-                showBottomSheetDialog_DOCSUPPORT();
-                break;
-            case "Doctor Gift Feedback":
-                doctorGiftFeedback();
-                break;
-            case "Exam":
-                mrcExamEventNew();
-                break;
-            case "Notice Board":
-                noticeBoardEventNew();
-                break;
-            case "Product Order":
-                showBottomSheetDialog();
-                break;
-            case "Prescription Capture":
-                showBottomSheetDialog_RXCAPTURE();
-                break;
-            case "Personal Expenses":
-                showBottomSheetDialog_PE();
-                break;
-            case "PC Conference":
-                showBottomSheetDialog_PCCONFERENCE();
-                break;
-            case "Promo Material":
-                showBottomSheetDialog_PROMOMAT();
-                break;
-            case "Sales Reports":
-                salesReportEventNew();
-                break;
-            case "MSD":
-                showBottomSheetDialog_MSD();
-                break;
-            case "PMD Contact":
-                pmdContactNew();
-                break;
-            case "Doctor List":
-                doctorListInfoNew();
-                break;
-            case "Achieve & Earn":
-                achieveEarnEventNew();
-                break;
-            case "SPI":
-                prescriberEventNew();
-                break;
-        }
     }
 }
