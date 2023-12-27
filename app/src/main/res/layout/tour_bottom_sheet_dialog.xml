@@ -128,7 +128,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_rx_summary_A"
+            android:id="@+id/cardview_tour_follow"
             android:layout_width="137dp"
             android:layout_height="75dp"
             android:layout_margin="8dp"
@@ -145,17 +145,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintBottom_toTopOf="@+id/textView5"
-                app:layout_constraintEnd_toStartOf="@+id/textView5"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toTopOf="@+id/textView5">
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/textView8">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/robotoregular"
-                    android:text="Rx\nSummary"
+                    android:text="Tour\nFollowup"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
@@ -166,13 +164,13 @@
                     app:layout_constraintVertical_bias="0.68" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/button8"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/top_button_shape"
                     android:gravity="start"
-                    android:paddingLeft="10dp"
-                    android:text="1.2"
+                    android:paddingStart="10dp"
+                    android:text="17.2"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="parent"

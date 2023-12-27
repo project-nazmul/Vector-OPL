@@ -38,7 +38,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, ff_code, toDate, fromDate, userRole;
+    String current_todate, current_fromdate, ff_code, toDate, fromDate, userRole, userName;
     Calendar myCalendar, myCalendar1;
     private RecyclerView dcfpFollowupRecycler;
     DatePickerDialog.OnDateSetListener date_form, date_to;
@@ -76,6 +76,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         ff_code = b.getString("ff_code");
         fromDate = b.getString("fromDate");
         userRole = b.getString("userRole");
+        userName = b.getString("userName");
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         backBtn = findViewById(R.id.backbt);
         dcfpFollowupRecycler = findViewById(R.id.recyclerDcfpFollowup);
@@ -209,7 +210,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         dcfpFollowDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<DcrFollowupModel>> call = apiInterface.getTourDetailFollowup(ff_code, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        Call<List<DcrFollowupModel>> call = apiInterface.getTourChildWiseFollowup(ff_code, tvtodate.getText().toString(), tvfromdate.getText().toString());
         dcfpFollowupList.clear();
 
         call.enqueue(new Callback<List<DcrFollowupModel>>() {
@@ -248,6 +249,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());
         intent.putExtra("userRole", userRole);
+        intent.putExtra("userName", userName);
         startActivity(intent);
     }
 }

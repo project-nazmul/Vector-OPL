@@ -64,6 +64,7 @@ import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.master_code.MasterCode;
 import com.opl.pharmavector.model.Patient;
+import com.opl.pharmavector.mpodcr.entry.DcrEntryActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.msd_doc_support.DocSupportFollowup;
 import com.opl.pharmavector.msd_doc_support.MSDCommitmentFollowup;
@@ -681,7 +682,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         tv_msd = findViewById(R.id.tv_msd);
         cardview_msd = findViewById(R.id.cardview_msd);
         cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
-        cardView_tourPlan.setVisibility(View.GONE);
+        //cardView_tourPlan.setVisibility(View.GONE);
         cardView_productStock = findViewById(R.id.cardView_productStock);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
@@ -753,32 +754,32 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
         CardView cardView_tourPlan = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
-        CardView cardView_spiReport = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
-        Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        //Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
         CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
         Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
         TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
-        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        //TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
-        Objects.requireNonNull(button1).setText("16.1");
-        Objects.requireNonNull(button2).setText("16.2");
-        Objects.requireNonNull(button3).setText("16.3");
-        Objects.requireNonNull(textView4).setText("Tour\nPlan Entry");
-        Objects.requireNonNull(textView5).setText("SPI \nReport");
-        Objects.requireNonNull(textView6).setText("Doctor \nReach");
-        Objects.requireNonNull(changePassword).setText("Monthly Tour Plan");
+        Objects.requireNonNull(button1).setText("17.1");
+        //Objects.requireNonNull(button2).setText("16.2");
+        Objects.requireNonNull(button3).setText("17.3");
+        Objects.requireNonNull(textView4).setText("Tour\nObservation Entry");
+        //Objects.requireNonNull(textView5).setText("SPI \nReport");
+        Objects.requireNonNull(textView6).setText("Tour \nPlan Entry");
+        Objects.requireNonNull(changePassword).setText("Tour Program");
         ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
         Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
         Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
         bottomSheetDialog.show();
 
         Objects.requireNonNull(cardView_tourPlan).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, TourPlanActivity.class);
+            Intent i = new Intent(GMDashboard1.this, DcrEntryActivity.class);
             i.putExtra("UserName", globalempName);
             i.putExtra("UserCode", globalempCode);
             i.putExtra("new_version", Login.version);
@@ -786,20 +787,12 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
             i.putExtra("UserRole", "AD");
             startActivity(i);
         });
-        Objects.requireNonNull(cardView_spiReport).setOnClickListener(v -> {
-            Intent i = new Intent(GMDashboard1.this, MRDPresReport.class);
-            i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", globalempCode);
-            i.putExtra("new_version", Login.version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("UserRole", "AD");
-            i.putExtra("report_flag", "SPI");
-            i.putExtra("asm_flag", "N");
-            i.putExtra("sm_flag", "N");
-            i.putExtra("gm_flag", "Y");
-            i.putExtra("rm_flag", "N");
-            i.putExtra("fm_flag", "N");
-            i.putExtra("mpo_flag", "N");
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalAdmin);
+            i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
         Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
@@ -930,7 +923,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         CardView cardview_report = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
-        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
+        //Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);

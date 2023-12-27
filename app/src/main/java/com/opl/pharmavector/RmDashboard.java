@@ -77,6 +77,7 @@ import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
+import com.opl.pharmavector.tourPlan.TourPlanActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -135,7 +136,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     public static String password, globalempCode, globalempName, new_version, message_3, vector_version, build_model, build_brand, build_id, build_device, build_version, os_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list, cardview_ff_contact,
-            cardView_productStock;
+            cardView_productStock, cardView_tourPlan;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
@@ -198,6 +199,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         achieveEarnEvent();
         productStockEvent();
         topPrescriberEvent();
+        monthlyTourPlanEvent();
         //pendingPC();
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(RmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
@@ -1621,6 +1623,74 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         });
     }
 
+    private void monthlyTourPlanEvent() {
+        cardView_tourPlan.setOnClickListener(v -> showBottomSheetDialog_Tour());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showBottomSheetDialog_Tour() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        CardView cardView_tourPlan = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        //Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
+        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        //TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button8);
+        Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("20.1");
+        Objects.requireNonNull(button2).setText("20.2");
+        Objects.requireNonNull(button3).setText("20.3");
+        Objects.requireNonNull(textView4).setText("Tour\nObservation Entry");
+        //Objects.requireNonNull(textView5).setText("SPI \nReport");
+        Objects.requireNonNull(textView6).setText("Tour \nPlan Entry");
+        Objects.requireNonNull(changePassword).setText("Tour Program");
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.show();
+
+        Objects.requireNonNull(cardView_tourPlan).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DcrEntryActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalRMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalRMCode);
+            i.putExtra("UserRole", "T"); // T -> TOUR
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+            Intent i = new Intent(RmDashboard.this, DoctorReachActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     private void topPrescriberEvent() {
         cardView_prescriber.setOnClickListener(pres -> {
@@ -2062,6 +2132,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
         cardView_productStock = findViewById(R.id.cardView_productStock);
+        cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -2154,17 +2225,17 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
-        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.GONE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.textView6);
-        TextView textView8 = bottomSheetDialog.findViewById(R.id.textView8);
+        TextView textView8 = bottomSheetDialog.findViewById(R.id.textView88);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button2);
         Button button3 = bottomSheetDialog.findViewById(R.id.button3);
         Button button7 = bottomSheetDialog.findViewById(R.id.button7);
-        Button button8 = bottomSheetDialog.findViewById(R.id.button8);
+        Button button8 = bottomSheetDialog.findViewById(R.id.button88);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("1.1");
         Objects.requireNonNull(button2).setText("1.2");

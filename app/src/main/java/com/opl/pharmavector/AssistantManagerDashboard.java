@@ -78,6 +78,7 @@ import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
+import com.opl.pharmavector.tourPlan.TourPlanActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -154,7 +155,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     public static String globalempCode, globalempName, build_model, build_brand, build_id, build_device, build_version, os_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode,
-            cardview_doctor_list, cardView_productStock;
+            cardview_doctor_list, cardView_productStock, cardView_tourPlan;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup, img_pmd_contact, img_doctor_list,
             img_btn_mastercode;
@@ -212,6 +213,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         achieveEarnEvent();
         productStockEvent();
         topPrescriberEvent();
+        monthlyTourPlanEvent();
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -1338,6 +1340,74 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         });
     }
 
+    private void monthlyTourPlanEvent() {
+        cardView_tourPlan.setOnClickListener(v -> showBottomSheetDialog_Tour());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showBottomSheetDialog_Tour() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        CardView cardView_tourPlan = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
+        CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        //Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
+        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.GONE);
+        TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
+        TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
+        //TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
+        Button button1 = bottomSheetDialog.findViewById(R.id.button1);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
+        Objects.requireNonNull(button1).setText("17.1");
+        //Objects.requireNonNull(button2).setText("16.2");
+        Objects.requireNonNull(button3).setText("17.3");
+        Objects.requireNonNull(textView4).setText("Tour\nObservation Entry");
+        //Objects.requireNonNull(textView5).setText("SPI \nReport");
+        Objects.requireNonNull(textView6).setText("Tour \nPlan Entry");
+        Objects.requireNonNull(changePassword).setText("Tour Program");
+        ImageView imageView3 = bottomSheetDialog.findViewById(R.id.imageView3);
+        Objects.requireNonNull(imageView3).setBackgroundResource(R.drawable.ic_dcr);
+        Objects.requireNonNull(btn_1).setOnClickListener(v -> bottomSheetDialog.dismiss());
+        bottomSheetDialog.show();
+
+        Objects.requireNonNull(cardView_tourPlan).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DcrEntryActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_tourFollow).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DcfpFollowupActivity.class);
+            i.putExtra("UserName", globalASMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalASMCode);
+            i.putExtra("UserRole", "T"); // T -> TOUR
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
+            Intent i = new Intent(AssistantManagerDashboard.this, DoctorReachActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     private void topPrescriberEvent() {
         cardView_prescriber.setOnClickListener(pres -> {
@@ -1588,6 +1658,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
         cardView_productStock = findViewById(R.id.cardView_productStock);
+        cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -1676,7 +1747,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
-        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.VISIBLE);
+        Objects.requireNonNull(cardview_tourFollow).setVisibility(View.GONE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         TextView changepassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);

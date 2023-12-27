@@ -784,7 +784,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         logout = findViewById(R.id.logout);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");
-        user_show = findViewById(R.id.user_show);
+        //user_show = findViewById(R.id.user_show);
         tvDcfpStatus = findViewById(R.id.dcfpStatusFlag);
         newversion = findViewById(R.id.newversion);
         setTitle("DCR Entry");
@@ -821,7 +821,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
 
         Bundle b = getIntent().getExtras();
         name = b.getString("UserName_1");
-        ename = b.getString("UserName_2");
+        ename = b.getString("UserCode");
         emp_code = b.getString("EmployeeCode");
         newversion_text = b.getString("new_version");
         newversion.setText("DCR Entry");
@@ -832,9 +832,9 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
             myTextView.setText(userName);
         } else {
             userName = b.getString("UserName");
-            UserName_2 = b.getString("UserName_2");
+            UserName_2 = b.getString("UserCode");
             ordernumber = b.getString("Ord_NO");
-            myTextView.setText(UserName_2 + "(" + userName + ")");
+            myTextView.setText(UserName_2 + " (" + userName + ")");
 
             if (ordernumber == null) {
                 mainlayout.setVisibility(LinearLayout.GONE);

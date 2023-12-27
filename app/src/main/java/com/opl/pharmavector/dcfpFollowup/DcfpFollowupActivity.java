@@ -59,12 +59,14 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
             dcrSelfFollowupInfo();
         } else if (userRole.equals("T")) { // T -> "TOUR"
             tourSelfFollowupInfo();
+            tourDetailFollowupInfo();
         }
         submitBtn.setOnClickListener(v -> {
             if (userRole.equals("D")) {
                 dcrSelfFollowupInfo();
             } else if (userRole.equals("T")) {
                 tourSelfFollowupInfo();
+                tourDetailFollowupInfo();
             }
         });
         backBtn.setOnClickListener(v -> finish());
@@ -287,7 +289,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         dcfpFollowDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<DcrFollowupModel>> call = apiInterface.getTourDetailFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
+        Call<List<DcrFollowupModel>> call = apiInterface.getTourRoleWiseFollowup(userName_3, tvtodate.getText().toString(), tvfromdate.getText().toString());
         dcfpFollowupList.clear();
 
         call.enqueue(new Callback<List<DcrFollowupModel>>() {
@@ -324,7 +326,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         if (Objects.equals(userRole, "D")) {
             dcrDcfpFollowupInfo();
         } else if (Objects.equals(userRole, "T")) {
-            tourDetailFollowupInfo();
+            //tourDetailFollowupInfo();
         }
     }
 
@@ -334,6 +336,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());
+        intent.putExtra("userName", userName_3);
         intent.putExtra("userRole", userRole);
         startActivity(intent);
     }

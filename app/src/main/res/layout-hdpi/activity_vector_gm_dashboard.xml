@@ -1585,7 +1585,7 @@
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="5dp"
                             android:fontFamily="@font/robotoregular"
-                            android:text="Monthly \nTour Plan"
+                            android:text="Tour\nProgram"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"

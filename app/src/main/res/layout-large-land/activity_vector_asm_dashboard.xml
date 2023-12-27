@@ -1533,7 +1533,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/linearLayout_tourPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1587,7 +1586,7 @@
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="5dp"
                             android:fontFamily="@font/robotoregular"
-                            android:text="Product Stock"
+                            android:text="Tour\nProgram"
                             android:textColor="@android:color/black"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
