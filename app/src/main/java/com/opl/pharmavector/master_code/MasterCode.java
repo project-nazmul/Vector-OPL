@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
 import com.opl.pharmavector.Dashboard;
+import com.opl.pharmavector.DashboardOld;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RmDashboard;
 import com.opl.pharmavector.SalesManagerDashboard;
@@ -253,7 +254,8 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                 Thread server = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent i = new Intent(MasterCode.this, Dashboard.class);
+                                        Intent i = new Intent(MasterCode.this, DashboardOld.class);
+                                        //Intent i = new Intent(MasterCode.this, Dashboard.class);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", user_role);
                                         i.putExtra("Designation", user_designation);

@@ -101,7 +101,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
             p_detail_totDoc.setText("Tot_Doc");
             v_detail_totDoc.setText("Tot_Doc");
         } else if (Objects.equals(userRole, "T")) {
-            title.setText("Tour Followup");
+            title.setText("Tour Program Followup");
             planned_todDoc.setText("Tot_Terri");
             visited_todDoc.setText("Tot_Terri");
             p_detail_totDoc.setText("Tot_Terri");
@@ -332,7 +332,7 @@ public class DcfpFollowupActivity extends Activity implements DcrFollowupAdapter
 
     @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
-        Intent intent = new Intent(DcfpFollowupActivity.this, AMDcfpFollowupActivity.class);
+        Intent intent = new Intent(DcfpFollowupActivity.this, SMDcfpFollowupActivity.class);
         intent.putExtra("ff_code", model.getFfCode());
         intent.putExtra("toDate", tvtodate.getText().toString());
         intent.putExtra("fromDate", tvfromdate.getText().toString());

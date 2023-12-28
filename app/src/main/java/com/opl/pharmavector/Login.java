@@ -292,7 +292,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
             tmpEmpCode = preferenceManager.getemp_code();
             tempDesignation = preferenceManager.getDesignation();
 
-            Intent i = new Intent(Login.this, Dashboard.class);
+            Intent i = new Intent(Login.this, DashboardOld.class);  // Dashboard change in API call (Below) + Master Code
+            //Intent i = new Intent(Login.this, Dashboard.class);
             i.putExtra("UserName", tempLogin);
             i.putExtra("UserName_1", tempDtl);
             i.putExtra("UserName_2", tempDtl);
@@ -622,7 +623,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
                     switch (message_3) {
                         case "MPO": {
-                            Intent i = new Intent(Login.this, Dashboard.class);
+                            Intent i = new Intent(Login.this, DashboardOld.class);
+                            //Intent i = new Intent(Login.this, Dashboard.class); // New Dashboard (28/12/23)
                             //Intent i = new Intent(Login.this, MPODashboard.class);
                             i.putExtra("UserName", message);
                             i.putExtra("UserName_1", message_1);

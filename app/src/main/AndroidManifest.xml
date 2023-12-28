@@ -137,19 +137,19 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".dcfpFollowup.FMDcfpFollowupActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".dcfpFollowup.RMDcfpFollowupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".dcfpFollowup.AMDcfpFollowupActivity"
+            android:name=".dcfpFollowup.ASMDcfpFollowupActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".dcfpFollowup.SMDcfpFollowupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan"

@@ -13,16 +13,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,11 +33,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdapter.DcfpClickListener {
-    TextView tvfromdate, tvtodate, title, planned_todDoc, visited_todDoc;
+    TextView tvfromdate, tvtodate, title, planned_todDoc, visited_todDoc, pTotDocNum, pMornNum, pEveNum, vTotDocNum, vMornNum, vEveNum, nVisitNum, vPercentNum;
     Button backBtn, submitBtn;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
-    String current_todate, current_fromdate, ff_code, toDate, fromDate, userRole, userName;
+    String current_todate, current_fromdate, ff_code, toDate, fromDate, userRole, userName, designation;
     Calendar myCalendar, myCalendar1;
     private RecyclerView dcfpFollowupRecycler;
     DatePickerDialog.OnDateSetListener date_form, date_to;
@@ -77,6 +76,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         fromDate = b.getString("fromDate");
         userRole = b.getString("userRole");
         userName = b.getString("userName");
+        designation = b.getString("designation");
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         backBtn = findViewById(R.id.backbt);
         dcfpFollowupRecycler = findViewById(R.id.recyclerDcfpFollowup);
@@ -86,6 +86,14 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060");
         title = findViewById(R.id.title);
+        pTotDocNum = findViewById(R.id.pTotDocNum);
+        pMornNum = findViewById(R.id.pMornNum);
+        pEveNum = findViewById(R.id.pEveNum);
+        vTotDocNum = findViewById(R.id.vTotDocNum);
+        vMornNum = findViewById(R.id.vMornNum);
+        vEveNum = findViewById(R.id.vEveNum);
+        nVisitNum = findViewById(R.id.nVisitNum);
+        vPercentNum = findViewById(R.id.vPercentNum);
         planned_todDoc = findViewById(R.id.planned_todDoc);
         visited_todDoc = findViewById(R.id.visited_todDoc);
 
@@ -94,7 +102,7 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
             planned_todDoc.setText("Tot_Doc");
             visited_todDoc.setText("Tot_Doc");
         } else if (Objects.equals(userRole, "T")) {
-            title.setText("Tour Followup");
+            title.setText("Tour Program Followup");
             planned_todDoc.setText("Tot_Terri");
             visited_todDoc.setText("Tot_Terri");
         }
@@ -228,6 +236,29 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
                     dcfpFollowupRecycler.setLayoutManager(manager);
                     dcfpFollowupRecycler.setAdapter(dcfpFollowupAdapter);
                     dcfpFollowupRecycler.addItemDecoration(new DividerItemDecoration(RMDcfpFollowupActivity.this, DividerItemDecoration.VERTICAL));
+
+                    int pTotDocCount = 0, pMornCount = 0, pEveCount = 0, vTotDocCount = 0, vMornCount = 0, vEveCount = 0, nVisitCount = 0;
+                    double vPercentCount = 0.0;
+
+                    for (int j=0; j<dcfpFollowupList.size(); j++) {
+                        pTotDocCount += Integer.parseInt(dcfpFollowupList.get(j).getTotTerritory());
+                        pMornCount += Integer.parseInt(dcfpFollowupList.get(j).getPlanMor());
+                        pEveCount += Integer.parseInt(dcfpFollowupList.get(j).getPlanEve());
+                        vTotDocCount += Integer.parseInt(dcfpFollowupList.get(j).getTotVisited());
+                        vMornCount += Integer.parseInt(dcfpFollowupList.get(j).getVisitedMor());
+                        vEveCount += Integer.parseInt(dcfpFollowupList.get(j).getVisitedEve());
+                        nVisitCount += Integer.parseInt(dcfpFollowupList.get(j).getNotVisited());
+                        vPercentCount += Double.parseDouble(dcfpFollowupList.get(j).getVisitPercent());
+                    }
+                    DecimalFormat formatter = new DecimalFormat("#,##,###");
+                    pTotDocNum.setText(String.valueOf(formatter.format(pTotDocCount)));
+                    pMornNum.setText(String.valueOf(formatter.format(pMornCount)));
+                    pEveNum.setText(String.valueOf(formatter.format(pEveCount)));
+                    vTotDocNum.setText(String.valueOf(formatter.format(vTotDocCount)));
+                    vMornNum.setText(String.valueOf(formatter.format(vMornCount)));
+                    vEveNum.setText(String.valueOf(formatter.format(vEveCount)));
+                    nVisitNum.setText(String.valueOf(formatter.format(nVisitCount)));
+                    vPercentNum.setText(String.valueOf(vPercentCount));
                 } else {
                     dcfpFollowDialog.dismiss();
                     Toast.makeText(RMDcfpFollowupActivity.this, "No data Available!", Toast.LENGTH_LONG).show();
@@ -244,12 +275,21 @@ public class RMDcfpFollowupActivity extends Activity implements DcfpFollowupAdap
 
     @Override
     public void onDcfpClick(int position, DcrFollowupModel model) {
-        Intent intent = new Intent(RMDcfpFollowupActivity.this, FMDcfpFollowupActivity.class);
-        intent.putExtra("ff_code", model.getFfCode());
-        intent.putExtra("toDate", tvtodate.getText().toString());
-        intent.putExtra("fromDate", tvfromdate.getText().toString());
-        intent.putExtra("userRole", userRole);
-        intent.putExtra("userName", userName);
-        startActivity(intent);
+        if (Objects.equals(userRole, "D")) {
+            Intent intent = new Intent(RMDcfpFollowupActivity.this, MPODcfpFollowupActivity.class);
+            intent.putExtra("ff_code", model.getFfCode());
+            intent.putExtra("toDate", tvtodate.getText().toString());
+            intent.putExtra("fromDate", tvfromdate.getText().toString());
+            intent.putExtra("userName", userName);
+            startActivity(intent);
+        } else if (Objects.equals(userRole, "T") && Objects.equals(designation, "SM")) {
+            Intent intent = new Intent(RMDcfpFollowupActivity.this, MPODcfpFollowupActivity.class);
+            intent.putExtra("ff_code", model.getFfCode());
+            intent.putExtra("toDate", tvtodate.getText().toString());
+            intent.putExtra("fromDate", tvfromdate.getText().toString());
+            intent.putExtra("userRole", userRole);
+            intent.putExtra("userName", userName);
+            startActivity(intent);
+        }
     }
 }
