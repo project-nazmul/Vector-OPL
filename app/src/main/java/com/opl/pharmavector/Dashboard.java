@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +32,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.github.tutorialsandroid.appxupdater.AppUpdater;
 import com.github.tutorialsandroid.appxupdater.AppUpdaterUtils;
@@ -52,8 +63,6 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
-import com.opl.pharmavector.achieve.AchieveMonthList;
-import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
@@ -68,9 +77,6 @@ import com.opl.pharmavector.geolocation.DoctorChamberLocate;
 import com.opl.pharmavector.giftfeedback.FieldFeedBack;
 import com.opl.pharmavector.giftfeedback.GiftFeedbackEntry;
 import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.mpoMenu.MPOMenuAdapter;
-import com.opl.pharmavector.mpoMenu.MPOMenuList;
-import com.opl.pharmavector.mpoMenu.MPOMenuModel;
 import com.opl.pharmavector.mpodcr.DcfpActivity;
 import com.opl.pharmavector.mpodcr.Dcr;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
@@ -82,41 +88,26 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.order_online.ReadComments;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
 import com.opl.pharmavector.pcconference.PcProposal;
-import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.MPORxSumMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup2;
-import com.opl.pharmavector.prescriptionsurvey.RxSummaryMISActivity;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.ImageLoadActivity;
 import com.opl.pharmavector.promomat.PromoMaterialFollowup;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.util.NetInfo;
+import com.opl.pharmavector.util.NotificationUtils;
+import com.opl.pharmavector.util.PreferenceManager;
+import com.opl.pharmavector.util.VectorUtils;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import android.app.ProgressDialog;
-import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -126,12 +117,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.opl.pharmavector.util.NotificationUtils;
-import com.opl.pharmavector.util.PreferenceManager;
-import com.opl.pharmavector.util.VectorUtils;
-import com.squareup.picasso.Picasso;
-
-public class Dashboard extends Activity implements View.OnClickListener, MPOMenuAdapter.MenuItemCallback {
+public class Dashboard extends Activity implements View.OnClickListener {
     public String userName_1, userName, designation, terriName, userName_2, UserName_2, global_admin_Code;
     JSONParser jsonParser;
     List<NameValuePair> params;
@@ -181,14 +167,13 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback, tv_notification, tv_rx, tv_personalexpense,
             tv_pc, tv_promomat, tv_salereports, tv_msd, tv_exam, tv_pmd_contact, tv_doctor_list;
     Button btn_dcr, btn_productorder, btn_dcc, btn_docservice, btn_docgiftfeedback, btn_notification, btn_rx, btn_personalexpense, btn_pc, btn_promomat, btn_salereports,
-            btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list, btn_old_dash;
+            btn_msd, btn_exam, btn_vector_feedback, btn_pmd_contact, btn_doctor_list;
     public TextView t4, t5, tvDesignation;
     public ImageView imageView2, logo_team;
     public static String team_logo, profile_image;
     public String base_url = ApiClient.BASE_URL + "vector_ff_image/";
     LocationManager locationManager;
     private static final int PHONE_NUMBER_CODE = 101;
-    public RecyclerView recyclerMpoMenu;
 
     public static Dashboard getInstance() {
         return instance;
@@ -197,10 +182,9 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
     @SuppressLint({"CutPasteId", "HardwareIds", "SetTextI18n"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_vector_mpo_dashboard);
-        setContentView(R.layout.activity_mpo_dashboard);
+        setContentView(R.layout.activity_vector_mpo_dashboard);
+        //setContentView(R.layout.activity_mpo_dashboard);
 
-        getMpoDashMenuList(); // --- New DashBoard ---
         isUpdateAvailable();
         VectorUtils.screenShotProtect(this);
         isAddressSubmit = true;
@@ -561,7 +545,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
 
     @SuppressLint("CutPasteId")
     private void initViews() {
-        recyclerMpoMenu = findViewById(R.id.recyclerMpoMenu);
         logout = findViewById(R.id.logout);
         user_show1 = findViewById(R.id.user_show1);
         t4 = findViewById(R.id.t4);
@@ -645,7 +628,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         img_doctor_list = findViewById(R.id.img_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
-        btn_old_dash = findViewById(R.id.btn_old_dash);
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
@@ -698,21 +680,6 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             versionname.setText(currentVersion);
         }
         lock_emp_check(globalempCode);
-        btn_old_dash.setOnClickListener(v -> {
-            Intent i = new Intent(Dashboard.this, DashboardOld.class);
-            i.putExtra("UserName", userName);
-            i.putExtra("Designation", designation);
-            i.putExtra("TerriName", terriName);
-            i.putExtra("UserName_2", UserName_2);
-            i.putExtra("new_version", new_version);
-            i.putExtra("message_3", message_3);
-            i.putExtra("password", password);
-            i.putExtra("ff_type", ff_type);
-            i.putExtra("vector_version", vector_version);
-            i.putExtra("emp_code", globalempCode);
-            i.putExtra("emp_name", globalempName);
-            startActivity(i);
-        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -2282,8 +2249,8 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
             @Override
             public void onReceive(Context context, Intent intent) {
                 // checking for type intent filter
-                if (intent.getAction().equals(com.opl.pharmavector.app.Config.REGISTRATION_COMPLETE)) {
-                    FirebaseMessaging.getInstance().subscribeToTopic(com.opl.pharmavector.app.Config.TOPIC_GLOBAL);
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
                     String message = intent.getStringExtra("message");
                 }
@@ -2433,97 +2400,5 @@ public class Dashboard extends Activity implements View.OnClickListener, MPOMenu
                 //progressDialog.dismiss();
             }
         });
-    }
-
-    private void getMpoDashMenuList() {
-        ProgressDialog pDialog = new ProgressDialog(Dashboard.this);
-        pDialog.setMessage("Loading Menu ...");
-        pDialog.setCancelable(true);
-        pDialog.show();
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<MPOMenuModel> call = apiInterface.getMpoDashMenuList(userName, globalempCode, "MPO");
-
-        call.enqueue(new Callback<MPOMenuModel>() {
-            @Override
-            public void onResponse(Call<MPOMenuModel> call, Response<MPOMenuModel> response) {
-                if (response.isSuccessful()) {
-                    pDialog.dismiss();
-                    List<MPOMenuList> tempMenuList = null;
-                    ArrayList<MPOMenuList> mpoMenuList = new ArrayList<>();
-
-                    if (response.body() != null) {
-                        tempMenuList = (response.body()).getMpoMenuLists();
-                        mpoMenuList.addAll(tempMenuList);
-                    }
-                    MPOMenuAdapter mpoMenuAdapter = new MPOMenuAdapter(Dashboard.this, mpoMenuList, Dashboard.this);
-                    GridLayoutManager layoutManager = new GridLayoutManager(Dashboard.this,3);
-                    recyclerMpoMenu.setLayoutManager(layoutManager);
-                    recyclerMpoMenu.setAdapter(mpoMenuAdapter);
-                    Log.d("Month List -- : ", String.valueOf(mpoMenuList));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MPOMenuModel> call, Throwable t) {
-                pDialog.dismiss();
-                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
-                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
-
-    @Override
-    public void onMenuItemList(MPOMenuList mpoMenuModel) {
-        switch (mpoMenuModel.getMenuDesc()) {
-            case "DCR":
-                showBottomSheetDialog_DCR();
-                break;
-            case "Doctor Service":
-                showBottomSheetDialog_DOCSUPPORT();
-                break;
-            case "Doctor Gift Feedback":
-                doctorGiftFeedback();
-                break;
-            case "Exam":
-                mrcExamEventNew();
-                break;
-            case "Notice Board":
-                noticeBoardEventNew();
-                break;
-            case "Product Order":
-                showBottomSheetDialog();
-                break;
-            case "Prescription Capture":
-                showBottomSheetDialog_RXCAPTURE();
-                break;
-            case "Personal Expenses":
-                showBottomSheetDialog_PE();
-                break;
-            case "PC Conference":
-                showBottomSheetDialog_PCCONFERENCE();
-                break;
-            case "Promo Material":
-                showBottomSheetDialog_PROMOMAT();
-                break;
-            case "Sales Reports":
-                salesReportEventNew();
-                break;
-            case "MSD":
-                showBottomSheetDialog_MSD();
-                break;
-            case "PMD Contact":
-                pmdContactNew();
-                break;
-            case "Doctor List":
-                doctorListInfoNew();
-                break;
-            case "Achieve & Earn":
-                achieveEarnEventNew();
-                break;
-            case "SPI":
-                prescriberEventNew();
-                break;
-        }
     }
 }

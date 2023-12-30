@@ -196,16 +196,25 @@
             android:textColor="@color/green1" />
     </LinearLayout>
 
-    <ListView
+<!--    <ListView-->
+<!--        android:id="@+id/pListView"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:listSelector="@color/lightgray"-->
+<!--        android:divider="@android:color/transparent"-->
+<!--        android:layout_weight="98"-->
+<!--        android:descendantFocusability="beforeDescendants"-->
+<!--        android:padding="@dimen/_4sdp">-->
+<!--    </ListView>-->
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pListView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:listSelector="@color/lightgray"
-        android:divider="@android:color/transparent"
         android:layout_weight="98"
         android:descendantFocusability="beforeDescendants"
-        android:padding="@dimen/_4sdp">
-    </ListView>
+        android:divider="@android:color/transparent"
+        android:listSelector="@drawable/active" />
 
     <LinearLayout
         android:id="@+id/total"
@@ -257,7 +266,6 @@
         android:orientation="horizontal"
         android:divider="#dfdfdf"
         android:dividerHeight="2dp"
-
         android:weightSum="90" >
 
         <RelativeLayout
@@ -265,19 +273,27 @@
             android:layout_height="wrap_content" >
 
             <Button
+                android:layout_marginTop="12dp"
                 android:id="@+id/calc"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/dcr_page_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/obsolate_color"
                 android:gravity="center"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="finishActivity"
-                android:soundEffectsEnabled="true"
-                android:text="&lt;"
                 android:textColor="#FFF"
                 android:textSize="25sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:ignore="HardcodedText,UnusedAttribute" />
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginStart="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Obsolete"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/backBtn"

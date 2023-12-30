@@ -36,9 +36,6 @@ import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.pmdVector.model.FFTeamList;
-import com.opl.pharmavector.pmdVector.model.FFTeamModel;
-import com.opl.pharmavector.prescriber.FromDateList;
-import com.opl.pharmavector.prescriber.FromDateModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.KeyboardUtils;
@@ -50,6 +47,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,24 +60,25 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
-    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
-            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "", userName, userCode, userRole, teamCode;
+    public String json, quarter_type = "XX", incentive_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
+            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", incentive_type = "", userName, userCode, userRole, teamCode;
     Button back_btn, submitBtn, submitBtn1;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2;
-    private ArrayList<Customer> customerlist;
-    private ArrayList<Customer> departmentlist;
-    private ArrayList<com.opl.pharmavector.Category> categoriesList;
+    public ArrayList<Customer> customerlist;
+    public ArrayList<Customer> departmentlist;
+    public ArrayList<com.opl.pharmavector.Category> categoriesList;
     TextView lbl_place_name;
     private RecyclerView recyclerAchieve;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<AchieveEarningList> achieveEarnList;
+    public RecyclerView.LayoutManager layoutManager;
+    public ArrayList<AchieveEarningList> achieveEarnList;
     List<FFTeamList> recyclerTeamList;
     private AchieveEarnAdapter achieveEarnAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
+    public ArrayList<String> yearLists;
     LinearLayout layoutMpo, gmLayout;
-    MaterialSpinner teamSpinner, divisionSpinner, desigSpinner;
+    MaterialSpinner quarterSpinner, yearSpinner, teamSpinner;
     private String selected_number, selected_person, profile_image;
     public String pmdImageUrl = ApiClient.BASE_URL + "vector_ff_image/sales/";
     private final String url_getfieldforce = BASE_URL + "achv_and_earn/get_ff_list.php";
@@ -87,14 +86,14 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_achieve_earn);
+        setContentView(R.layout.activity_achieve_earn_new);
 
         initViews();
         autoCompleteEvents();
-        initPlaceSpinner();
+        getLastTwoYearsList();
         initDesignationSpinner();
-        getAchieveFFTeamList();
-        getAchievementMonth();
+        getAchieveIncentive();
+        getAchieveQuarterList();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +116,16 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
+    private void getLastTwoYearsList() {
+        yearLists = new ArrayList<>();
+        int currentYear = Year.now().getValue();
+        yearLists.add(String.valueOf(currentYear));
+        Year previousYear = Year.now().minusYears(1);
+        yearLists.add(String.valueOf(previousYear));
+
+        initAchieveYearSpinner();
+    }
+
     private void initViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         back_btn = findViewById(R.id.backbt);
@@ -133,9 +142,9 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         achieveEarnList = new ArrayList<>();
         layoutMpo = findViewById(R.id.layoutMpo);
         gmLayout = findViewById(R.id.gmLayout);
+        quarterSpinner = findViewById(R.id.quarterSpinner);
         teamSpinner = findViewById(R.id.teamSpinner);
-        desigSpinner = findViewById(R.id.desigSpinner);
-        divisionSpinner = findViewById(R.id.divisionSpinner);
+        yearSpinner = findViewById(R.id.yearSpinner);
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
@@ -147,12 +156,12 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         if (Objects.equals(userRole, "MPO")) {
             gmLayout.setVisibility(View.GONE);
             layoutMpo.setVisibility(View.VISIBLE);
+            quarterSpinner.setVisibility(View.GONE);
+            yearSpinner.setVisibility(View.GONE);
             teamSpinner.setVisibility(View.GONE);
-            divisionSpinner.setVisibility(View.GONE);
-            desigSpinner.setVisibility(View.GONE);
             autoCompleteTextView2.setVisibility(View.GONE);
         } else if (Objects.equals(userRole, "FM")) {
-            divisionSpinner.setVisibility(View.GONE);
+            yearSpinner.setVisibility(View.GONE);
             autoCompleteTextView2.setVisibility(View.GONE);
         }
     }
@@ -171,7 +180,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         } else {
             ff_type = autoCompleteTextView2.getText().toString().trim();
         }
-        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, ff_type, team_type, month_name);
+        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, ff_type, quarter_type, incentive_type);
         Log.d("ff_type", ff_type);
 
         call.enqueue(new Callback<AchieveEarnModel>() {
@@ -210,11 +219,11 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
 
         Call<AchieveEarnModel> call;
         if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "PMD")) {
-            call = apiInterface.getADAchieveEarnSelfList(userCode, month_name, team_type);
+            call = apiInterface.getADAchieveEarnSelfList(userCode, incentive_type, quarter_type);
         } else {
-           call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
+           call = apiInterface.getAchieveEarnSelfList(userCode, incentive_type);
         }
-        Log.d("ff_type", team_type);
+        Log.d("ff_type", quarter_type);
 
         call.enqueue(new Callback<AchieveEarnModel>() {
             @Override
@@ -242,52 +251,55 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void getAchieveFFTeamList() {
+    private void getAchieveQuarterList() {
         ProgressDialog pDialog = new ProgressDialog(AchieveEarnActivity.this);
         pDialog.setMessage("Loading Data ...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<FFTeamModel> call;
+        Call<IncentiveQuaterModel> call;
 
         if (Objects.equals(userRole, "PMD")) {
-            call = apiInterface.getPmdAchieveTeamList(userCode);
+            //call = apiInterface.getPmdAchieveTeamList(userCode);
+            call = apiInterface.getIncentiveQuarterList();
         } else {
-            call = apiInterface.getAchieveFFTeamList();
+            call = apiInterface.getIncentiveQuarterList();
         }
 
-        call.enqueue(new Callback<FFTeamModel>() {
+        call.enqueue(new Callback<IncentiveQuaterModel>() {
             @Override
-            public void onResponse(Call<FFTeamModel> call, Response<FFTeamModel> response) {
+            public void onResponse(Call<IncentiveQuaterModel> call, Response<IncentiveQuaterModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<FFTeamList> teamList = null;
+                    List<IncentiveQuaterList> incentiveList = null;
 
                     if (response.body() != null) {
-                        teamList = (response.body()).getTeamList();
+                        incentiveList = (response.body()).getIncentiveQuaterLists();
                     }
 
-                    if (userRole.equals("FM") || userRole.equals("RM") || userRole.equals("ASM") || userRole.equals("SM")) {
-                        assert teamList != null;
-                        for (FFTeamList teamInfo: teamList) {
-                            if (Objects.equals(teamInfo.getTeamCode(), teamCode)) {
-                                teamSpinner.setText(teamInfo.getTeamName());
-                                team_type = teamInfo.getTeamCode();
-                            }
-                        }
-                    } else if (userRole.equals("PMD")) {
-                        assert teamList != null;
-                        teamSpinner.setText(teamList.get(0).getTeamName());
-                        team_type = teamList.get(0).getTeamCode();
-                    } else {
-                        initTeamSpinner(Objects.requireNonNull(teamList));
-                    }
-                    Log.d("Team List -- : ", String.valueOf(teamList));
+                    initIncentiveQtrSpinner(Objects.requireNonNull(incentiveList));
+//                    if (userRole.equals("FM") || userRole.equals("RM") || userRole.equals("ASM") || userRole.equals("SM")) {
+//                        assert incentiveList != null;
+//
+//                        for (IncentiveQuaterList incentiveInfo: incentiveList) {
+//                            if (Objects.equals(incentiveInfo.getQtrCode(), teamCode)) {
+//                                quarterSpinner.setText(incentiveInfo.getQtrDesc());
+//                                team_type = incentiveInfo.getTeamCode();
+//                            }
+//                        }
+//                    } else if (userRole.equals("PMD")) {
+//                        assert incentiveList != null;
+//                        quarterSpinner.setText(incentiveList.get(0).getTeamName());
+//                        team_type = teamList.get(0).getTeamCode();
+//                    } else {
+//                        initTeamSpinner(Objects.requireNonNull(teamList));
+//                    }
+                    Log.d("Team List -- : ", String.valueOf(quarter_type));
                 }
             }
 
             @Override
-            public void onFailure(Call<FFTeamModel> call, Throwable t) {
+            public void onFailure(Call<IncentiveQuaterModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -296,35 +308,36 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         });
     }
 
-    private void getAchievementMonth() {
+    private void getAchieveIncentive() {
         ProgressDialog pDialog = new ProgressDialog(AchieveEarnActivity.this);
-        pDialog.setMessage("Loading Month ...");
+        pDialog.setMessage("Loading Incentive Type...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<AchvMonthModel> call = apiInterface.getAchievementMonths();
+        //Call<AchvMonthModel> call = apiInterface.getAchievementMonths();
+        Call<AchvIncentiveModel> call = apiInterface.getAchievementIncentive();
 
-        call.enqueue(new Callback<AchvMonthModel>() {
+        call.enqueue(new Callback<AchvIncentiveModel>() {
             @Override
-            public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
+            public void onResponse(Call<AchvIncentiveModel> call, Response<AchvIncentiveModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    List<AchieveMonthList> achvMonthList = null;
+                    List<AchieveIncentiveList> incentiveList = null;
 
                     if (response.body() != null) {
-                        achvMonthList = (response.body()).getAchvMonthList();
+                        incentiveList = (response.body()).getIncentiveType();
                     }
                     if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
-                        initMonthSpinner(Objects.requireNonNull(achvMonthList));
+                        initIncentiveSpinner(Objects.requireNonNull(incentiveList));
                     } else {
-                        initMpoMonthSpinner(Objects.requireNonNull(achvMonthList));
+                        //initMpoMonthSpinner(Objects.requireNonNull(incentiveList));
                     }
-                    Log.d("Month List -- : ", String.valueOf(achvMonthList));
+                    Log.d("Month List -- : ", String.valueOf(incentiveList));
                 }
             }
 
             @Override
-            public void onFailure(Call<AchvMonthModel> call, Throwable t) {
+            public void onFailure(Call<AchvIncentiveModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -337,50 +350,52 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         Snackbar.make(view, message, duration).show();
     }
 
-    private void initTeamSpinner(List<FFTeamList> teamList) {
-        ArrayList<String> teamNameList = new ArrayList<>();
-        if (teamList.size() > 0) {
-            for (FFTeamList teamName : teamList) {
-                teamNameList.add(teamName.getTeamName());
+    private void initIncentiveQtrSpinner(List<IncentiveQuaterList> incentiveLists) {
+        ArrayList<String> quarterNameList = new ArrayList<>();
+
+        if (incentiveLists.size() > 0) {
+            for (IncentiveQuaterList quarterName : incentiveLists) {
+                quarterNameList.add(quarterName.getQtrDesc());
             }
         }
-        teamSpinner.setItems(teamNameList);
-        teamSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        quarterSpinner.setItems(quarterNameList);
+        quarterSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                team_name = String.valueOf(item).trim();
+                String incentive_name = String.valueOf(item).trim();
 
-                for (int i = 0; i < teamList.size(); i++) {
-                    if (teamList.get(i).getTeamName().contains(team_name)) {
-                        team_type = teamList.get(i).getTeamCode();
+                for (int i = 0; i < incentiveLists.size(); i++) {
+                    if (incentiveLists.get(i).getQtrDesc().contains(incentive_name)) {
+                        quarter_type = incentiveLists.get(i).getQtrCode();
                     }
                 }
-                Log.d("team code", team_type);
+                Log.d("team code", quarter_type);
             }
         });
     }
 
-    private void initMonthSpinner(List<AchieveMonthList> monthList) {
-        MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
-        ArrayList<String> monthNameList = new ArrayList<>();
+    private void initIncentiveSpinner(List<AchieveIncentiveList> incentiveLists) {
+        //MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
+        MaterialSpinner incentiveSpinner = findViewById(R.id.incentiveSpinner);
+        ArrayList<String> incentiveList = new ArrayList<>();
 
-        if (monthList.size() > 0) {
-            for (AchieveMonthList monthName : monthList) {
-                monthNameList.add(monthName.getMnyrDesc());
+        if (incentiveLists.size() > 0) {
+            for (AchieveIncentiveList incentiveType : incentiveLists) {
+                incentiveList.add(incentiveType.getIncentiveDesc());
             }
         }
-        monthSpinner.setItems(monthNameList);
+        incentiveSpinner.setItems(incentiveList);
 
-        monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        incentiveSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                team_name = String.valueOf(item).trim();
-                for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyr().contains(team_name)) {
-                        month_name = monthList.get(i).getMnyr();
+                incentive_name = String.valueOf(item).trim();
+                for (int i = 0; i < incentiveLists.size(); i++) {
+                    if (incentiveLists.get(i).getIncentiveDesc().contains(incentive_name)) {
+                        incentive_type = incentiveLists.get(i).getIncentiveType();
                     }
                 }
-                Log.d("month name", month_name);
+                Log.d("month name", incentive_type);
             }
         });
     }
@@ -399,110 +414,147 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         mpoSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                team_name = String.valueOf(item).trim();
+                incentive_name = String.valueOf(item).trim();
+
                 for (int i = 0; i < monthList.size(); i++) {
-                    if (monthList.get(i).getMnyr().contains(team_name)) {
-                        month_name = monthList.get(i).getMnyr();
+                    if (monthList.get(i).getMnyr().contains(incentive_name)) {
+                        incentive_type = monthList.get(i).getMnyr();
                     }
                 }
-                Log.d("month name", month_name);
+                Log.d("month name", incentive_type);
             }
         });
     }
 
     @SuppressLint("SetTextI18n")
-    private void initPlaceSpinner() {
-        if (Objects.equals(userRole, "RM")) {
-            divisionSpinner.setItems("All", "Area", "Territory");
-        } else if (Objects.equals(userRole, "ASM")) {
-            divisionSpinner.setItems("All", "Region", "Area", "Territory");
-        } else if (Objects.equals(userRole, "SM")) {
-            divisionSpinner.setItems("All", "Zone", "Region", "Area", "Territory");
-        } else {
-            divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
-        }
-        divisionSpinner.setText("All");
+    private void initAchieveYearSpinner() {
+        yearSpinner.setItems(yearLists);
+//        if (Objects.equals(userRole, "RM")) {
+//            yearSpinner.setItems("All", "Area", "Territory");
+//        } else if (Objects.equals(userRole, "ASM")) {
+//            yearSpinner.setItems("All", "Region", "Area", "Territory");
+//        } else if (Objects.equals(userRole, "SM")) {
+//            yearSpinner.setItems("All", "Zone", "Region", "Area", "Territory");
+//        } else {
+//            yearSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
+//        }
+//        yearSpinner.setText("All");
+//
+//        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
+//            place_type = userCode;
+//            autoCompleteTextView2.setText(place_type);
+//        } else {
+//            autoCompleteTextView2.setText(place_type);
+//        }
 
-        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
-            place_type = userCode;
-            autoCompleteTextView2.setText(place_type);
-        } else {
-            autoCompleteTextView2.setText(place_type);
-        }
-
-        divisionSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        yearSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 place_name = String.valueOf(item);
-                if (place_name.trim().equals("All")) {
-                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
-                        place_type = userCode;
-                    } else {
-                        place_type = "XX";
-                    }
-                } else if (place_name.trim().equals("Division")) {
-                    place_type = "D";
-                } else if (place_name.trim().equals("Zone")) {
-                    place_type = "Z";
-                } else if (place_name.trim().equals("Region")) {
-                    place_type = "R";
-                } else if (place_name.trim().equals("Area")) {
-                    place_type = "A";
-                } else if (place_name.trim().equals("Territory")) {
-                    place_type = "T";
-                }
-
-                if (place_type.equals("XX")) {
-                    autoCompleteTextView2.setText("XX");
-                } else {
-                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && place_name.trim().equals("All")) {
-                        autoCompleteTextView2.setText(place_type);
-                    } else {
-                        autoCompleteTextView2.setText("");
-                        customerlist.clear();
-                        categoriesList.clear();
-                        new GetFieldForce().execute();
-                    }
-                }
+//                if (place_name.trim().equals("All")) {
+//                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
+//                        place_type = userCode;
+//                    } else {
+//                        place_type = "XX";
+//                    }
+//                } else if (place_name.trim().equals("Division")) {
+//                    place_type = "D";
+//                } else if (place_name.trim().equals("Zone")) {
+//                    place_type = "Z";
+//                } else if (place_name.trim().equals("Region")) {
+//                    place_type = "R";
+//                } else if (place_name.trim().equals("Area")) {
+//                    place_type = "A";
+//                } else if (place_name.trim().equals("Territory")) {
+//                    place_type = "T";
+//                }
+//
+//                if (place_type.equals("XX")) {
+//                    autoCompleteTextView2.setText("XX");
+//                } else {
+//                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && place_name.trim().equals("All")) {
+//                        autoCompleteTextView2.setText(place_type);
+//                    } else {
+//                        autoCompleteTextView2.setText("");
+//                        customerlist.clear();
+//                        categoriesList.clear();
+//                        new GetFieldForce().execute();
+//                    }
+//                }
             }
         });
     }
 
     private void initDesignationSpinner() {
-        if (Objects.equals(userRole, "FM")) {
-            desigSpinner.setItems("MPO", "SELF");
-        } else if (Objects.equals(userRole, "RM")) {
-            desigSpinner.setItems("MPO", "AM", "SELF");
-        } else if (Objects.equals(userRole, "ASM")) {
-            desigSpinner.setItems("MPO", "AM", "RM", "SELF");
-        } else if (Objects.equals(userRole, "SM")) {
-            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
-        } else {
-            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM", "SELF");
-        }
+        ProgressDialog pDialog = new ProgressDialog(AchieveEarnActivity.this);
+        pDialog.setMessage("Loading Team ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        //Call<AchvMonthModel> call = apiInterface.getAchievementMonths();
+        Call<IncentiveTeamModel> call = apiInterface.getAchievementTeamList();
 
-        desigSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        call.enqueue(new Callback<IncentiveTeamModel>() {
             @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                deignation_name = String.valueOf(item);
-                if (deignation_name.trim().equals("MPO")) {
-                    deignation_type = "MPO";
-                } else if (deignation_name.trim().equals("AM")) {
-                    deignation_type = "FM";
-                } else if (deignation_name.trim().equals("RM")) {
-                    deignation_type = "RM";
-                } else if (deignation_name.trim().equals("ASM/DSM")) {
-                    deignation_type = "AM";
-                } else if (deignation_name.trim().equals("DSM")) {
-                    deignation_type = "AM";
-                } else if (deignation_name.trim().equals("SM")) {
-                    deignation_type = "SM";
-                } else if (deignation_name.trim().equals("SELF")) {
-                    deignation_type = "SELF";
+            public void onResponse(Call<IncentiveTeamModel> call, Response<IncentiveTeamModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<IncentiveTeamLists> incentiveList = null;
+
+                    if (response.body() != null) {
+                        incentiveList = (response.body()).getIncentiveTeamLists();
+                    }
+                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
+                        //initIncentiveSpinner(Objects.requireNonNull(incentiveList));
+                    } else {
+                        //initMpoMonthSpinner(Objects.requireNonNull(incentiveList));
+                    }
+                    Log.d("Month List -- : ", String.valueOf(incentiveList));
                 }
             }
+
+            @Override
+            public void onFailure(Call<IncentiveTeamModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         });
+//        if (Objects.equals(userRole, "FM")) {
+//            teamSpinner.setItems("MPO", "SELF");
+//        } else if (Objects.equals(userRole, "RM")) {
+//            teamSpinner.setItems("MPO", "AM", "SELF");
+//        } else if (Objects.equals(userRole, "ASM")) {
+//            teamSpinner.setItems("MPO", "AM", "RM", "SELF");
+//        } else if (Objects.equals(userRole, "SM")) {
+//            teamSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
+//        } else {
+//            teamSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM", "SELF");
+//        }
+
+//        teamSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//            @Override
+//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+//                deignation_name = String.valueOf(item);
+//                if (deignation_name.trim().equals("MPO")) {
+//                    deignation_type = "MPO";
+//                } else if (deignation_name.trim().equals("AM")) {
+//                    deignation_type = "FM";
+//                } else if (deignation_name.trim().equals("RM")) {
+//                    deignation_type = "RM";
+//                } else if (deignation_name.trim().equals("ASM/DSM")) {
+//                    deignation_type = "AM";
+//                } else if (deignation_name.trim().equals("DSM")) {
+//                    deignation_type = "AM";
+//                } else if (deignation_name.trim().equals("SM")) {
+//                    deignation_type = "SM";
+//                } else if (deignation_name.trim().equals("SELF")) {
+//                    deignation_type = "SELF";
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -541,7 +593,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         @Override
         protected Void doInBackground(Void... arg0) {
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("team_type", team_type));
+            params.add(new BasicNameValuePair("team_type", quarter_type));
             params.add(new BasicNameValuePair("place_type", place_type));
 
             if (Objects.equals(userRole, "AD")) {

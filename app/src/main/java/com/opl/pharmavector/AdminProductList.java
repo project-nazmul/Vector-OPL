@@ -43,7 +43,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.opl.pharmavector.master_code.MasterCode;
+import com.opl.pharmavector.master_code.adapter.MasterAdapter;
+import com.opl.pharmavector.master_code.model.MasterCList;
+import com.opl.pharmavector.mpodcr.DcfpActivity;
+import com.opl.pharmavector.mpodcr.DcfpAdapter;
 import com.opl.pharmavector.order_online.ReadComments;
+import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
 
 public class AdminProductList extends Activity implements OnClickListener {
     public static final String TAG_SUCCESS = "success";
@@ -71,6 +81,8 @@ public class AdminProductList extends Activity implements OnClickListener {
     public String message, ord_no, invoice, target, achivement, searchString, message_1, message_2;
     int textlength = 0;
     ProductListProductListAdapter adapter;
+    AdminProductAdapter adminProductAdapter;
+    RecyclerView pListView;
     JSONParser jsonParser;
     List<NameValuePair> params;
     static TextView totalsellquantity;
@@ -100,6 +112,7 @@ public class AdminProductList extends Activity implements OnClickListener {
     public int brand_total= 0;
     Toast toast1,toast2;
     ArrayList<Category> arraylist = new ArrayList<Category>();
+    ArrayList<Category> adminProdList = new ArrayList<Category>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
     public static String URL_NEW_CATEGORY = BASE_URL+"put_products.php";
     private String campaign_credit = BASE_URL+"get_opsonin_product_new.php";
@@ -118,8 +131,9 @@ public class AdminProductList extends Activity implements OnClickListener {
         submit.setTypeface(fontFamily);
         submit.setText("\uf1d8"); //&#xf1d8
         submit.setVisibility(View.GONE);
-        productListView = (ListView) findViewById(R.id.pListView);
-        productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
+        //productListView = (ListView) findViewById(R.id.pListView);
+        //productListView.setDescendantFocusability(ListView.FOCUS_AFTER_DESCENDANTS);
+        pListView = findViewById(R.id.pListView);
         TextView showorders = (TextView)findViewById(R.id.showorders);
         showorders.setTypeface(fontFamily);
         showorders.setText("\uf055"); //&#xf055
@@ -127,9 +141,9 @@ public class AdminProductList extends Activity implements OnClickListener {
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
         calc = (Button) findViewById(R.id.calc);
-        calc.setTypeface(fontFamily);
-        calc.setText("\uf1ec"); //&#xf01e &#xf1ec
-        calc.setOnClickListener(this);
+        //calc.setTypeface(fontFamily);
+        //calc.setText("\uf1ec"); //&#xf01e &#xf1ec
+        //calc.setOnClickListener(this);
         searchview = (EditText) findViewById(R.id.p_search);
         TextView search = (TextView) findViewById(R.id.search);
         search.setTypeface(fontFamily);
@@ -137,7 +151,7 @@ public class AdminProductList extends Activity implements OnClickListener {
         TextView mic=(TextView)findViewById(R.id.mic);
         mic.setTypeface(fontFamily);
         mic.setText("\uf130");
-        toast1 = Toast.makeText(AdminProductList.this, "Please select Order Quantity  !!!.", Toast.LENGTH_LONG);
+        toast1 = Toast.makeText(AdminProductList.this, "Please select Order Quantity !!!.", Toast.LENGTH_LONG);
         toast2 = Toast.makeText(AdminProductList.this, "Please select Order Quantity for acer 5 or more then 5 !!!.", Toast.LENGTH_LONG);
 
         search.setOnClickListener(new OnClickListener() {
@@ -230,11 +244,11 @@ public class AdminProductList extends Activity implements OnClickListener {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ArrayList<String> resList = new ArrayList<String>();
                 ArrayList<Integer> resList2 = new ArrayList<Integer>();
-                String searchString = s.toString().toLowerCase();
+                //String searchString = s.toString().toLowerCase();
+                String searchString = s.toString();
 
-                if (searchString!=null && adapter!=null) {
-                    adapter.getFilter().filter(searchString);
-                }
+                //adapter.getFilter().filter(searchString);
+                masterCodeFilter(searchString);
                 //adapter.getFilter().filter(s);
             }
 
@@ -285,13 +299,28 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
             };
         });
+        setUpRecyclerView();
+//        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+//                String prodcode = (String) productListView.getAdapter().getItem(arg2);
+//                Log.e("prodClick-->",prodcode);
+//            }
+//        });
+    }
 
-        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String prodcode = (String) productListView.getAdapter().getItem(arg2);
-                Log.e("prodClick-->",prodcode);
+    void masterCodeFilter(String query) {
+        List<Category> masterCodeList = new ArrayList<>();
+
+        for (Category codeList : categoriesList) {
+            if (codeList.getId() != null) {
+                if (codeList.getId().toUpperCase().contains(query.toUpperCase()) || codeList.getName().toLowerCase().contains(query.toLowerCase()) ||
+                        codeList.getP_CODE().toUpperCase().contains(query.toUpperCase()) || codeList.getPROD_VAT().toUpperCase().contains(query.toUpperCase()) ||
+                        codeList.getSHIFT_CODE().toUpperCase().contains(query.toUpperCase())) {
+                    masterCodeList.add(codeList);
+                }
             }
-        });
+        }
+        adminProductAdapter.searchMasterCode(masterCodeList);
     }
 
     @Override
@@ -318,10 +347,12 @@ public class AdminProductList extends Activity implements OnClickListener {
         super.onResume();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void populateSpinner() {
         lables = new ArrayList<String>();
         quanty = new ArrayList<Integer>();
         sl = new ArrayList<String>();
+        ArrayList<String> prodStatus = new ArrayList<String>();
         ArrayList<String> value6 = new ArrayList<String>();
         ArrayList<String> value7 = new ArrayList<String>();
         ArrayList<String> value8 = new ArrayList<String>();
@@ -344,10 +375,21 @@ public class AdminProductList extends Activity implements OnClickListener {
             int p_serial = Integer.parseInt(categoriesList.get(i).getsl());
             quanty.add(categoriesList.get(i).getQuantity());
             mapQuantity.put(o, String.valueOf(categoriesList.get(i).getQuantity()));
+            prodStatus.add(categoriesList.get(i).getPROD_STAT());
         }
-        adapter = new ProductListProductListAdapter(AdminProductList.this, sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE);
-        productListView.setAdapter(adapter);
+        adminProdList.addAll(categoriesList);
+        adminProductAdapter.notifyDataSetChanged();
+//        adapter = new ProductListProductListAdapter(AdminProductList.this, sl, lables, mapQuantity,PPM_CODE,P_CODE,PROD_RATE,PROD_VAT,p_ids,SHIFT_CODE,prodStatus);
+//        productListView.setAdapter(adapter);
 
+    }
+
+    public void setUpRecyclerView() {
+        adminProductAdapter = new AdminProductAdapter(AdminProductList.this, categoriesList);
+        LinearLayoutManager manager = new LinearLayoutManager(AdminProductList.this);
+        pListView.setLayoutManager(manager);
+        pListView.setAdapter(adminProductAdapter);
+        pListView.addItemDecoration(new DividerItemDecoration(AdminProductList.this, DividerItemDecoration.VERTICAL));
     }
 
     private class GetCategories extends AsyncTask<Void, Void, Void> {
@@ -367,12 +409,13 @@ public class AdminProductList extends Activity implements OnClickListener {
                 params.add(new BasicNameValuePair("MPO_CODE", "ADAF4"));
                 params.add(new BasicNameValuePair("CUST_CODE", "KH06007"));
                 ServiceHandler jsonParser = new ServiceHandler();
-                String json = jsonParser.makeServiceCall(campaign_credit,ServiceHandler.GET,params);
+                String json = jsonParser.makeServiceCall(campaign_credit, ServiceHandler.GET, params);
 
                 if (json != null) {
                     try {
                         JSONObject jsonObj = new JSONObject(json);
                         JSONArray categories = jsonObj.getJSONArray("categories");
+
                         for (int i = 0; i < categories.length(); i++) {
                             JSONObject catObj = (JSONObject) categories.get(i);
                             Category cat = new Category(
@@ -384,8 +427,11 @@ public class AdminProductList extends Activity implements OnClickListener {
                                     catObj.getString("PROD_VAT"),
                                     catObj.getString("PPM_CODE"),
                                     catObj.getString("P_CODE"),
-                                    catObj.getString("SHIFT_CODE")
-                                    );
+                                    catObj.getString("SHIFT_CODE"),
+                                    catObj.getString("PROD_STAT"),
+                                    catObj.getString("PROD_STAT"),
+                                    catObj.getString("PROD_STAT"),
+                                    catObj.getString("PROD_STAT"));
                             categoriesList.add(cat);
                         }
                     } catch (JSONException e) {
@@ -569,7 +615,7 @@ public class AdminProductList extends Activity implements OnClickListener {
                 }
             }
             totalsellquantity.setVisibility(View.VISIBLE);
-            String test=String.valueOf(sum );
+            String test=String.valueOf(sum);
             @SuppressLint("DefaultLocale") String total_value = String.format("%.02f", sum);
             totalsellquantity.setText("" + total_value);
         }

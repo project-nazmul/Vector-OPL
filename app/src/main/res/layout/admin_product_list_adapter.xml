@@ -8,6 +8,7 @@
     android:weightSum="25">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/productList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"

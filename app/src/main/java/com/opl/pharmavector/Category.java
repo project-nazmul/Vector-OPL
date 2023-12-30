@@ -16,6 +16,15 @@ public class Category {
 	private String FF_NAME;
 	private String MON_GROWTH;
 	private String CUM_GROWTH;
+	private String PROD_STAT;
+
+	public String getPROD_STAT() {
+		return PROD_STAT;
+	}
+
+	public void setPROD_STAT(String PROD_STAT) {
+		this.PROD_STAT = PROD_STAT;
+	}
 
 	public String getFF_NAME() {
 		return FF_NAME;
@@ -124,6 +133,19 @@ public class Category {
 		this.PACK_CODE =  PACK_CODE;
 	}
 
+	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE,String prodStatus,String prodStatus1,String prodStatus2,String prodStatus3) {
+		this.sl=sl;
+		this.id = id;
+		this.name = name;
+		this.quantity = quantity;
+		this.PROD_RATE = PROD_RATE;
+		this.PROD_VAT = PROD_VAT;
+		this.PPM_CODE = PPM_CODE;
+		this.P_CODE = P_CODE;
+		this.SHIFT_CODE = SHIFT_CODE;
+		this.PROD_STAT = prodStatus;
+	}
+
 	public Category(String sl, String id, String name,int quantity,String PROD_RATE,String PROD_VAT,String PPM_CODE,String P_CODE,String SHIFT_CODE,String PACK_CODE,String TOTAL_CODE  ){
 		this.sl=sl;
 		this.id = id;
@@ -137,7 +159,6 @@ public class Category {
 		this.PACK_CODE =  PACK_CODE;
 		this.TOTAL_CODE =  TOTAL_CODE;
 	}
-
 	public void setsl(String sl){
 		this.sl = sl;
 	}

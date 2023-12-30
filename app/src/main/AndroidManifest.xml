@@ -662,7 +662,7 @@
             android:theme="@style/EditorTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name=".DashboardOld"
+            android:name=".DashboardNew"
             android:label="@string/app_name"
             android:theme="@style/EditorTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustNothing" />

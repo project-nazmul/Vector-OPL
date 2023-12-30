@@ -3,7 +3,10 @@ package com.opl.pharmavector.remote;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchieveMonthList;
+import com.opl.pharmavector.achieve.AchvIncentiveModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
+import com.opl.pharmavector.achieve.IncentiveQuaterModel;
+import com.opl.pharmavector.achieve.IncentiveTeamModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDocTotDateModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorMpoModel;
@@ -408,6 +411,9 @@ public interface ApiInterface {
     @GET("get_team_new.php")
     Call<FFTeamModel> getAchieveFFTeamList();
 
+    @GET("incentive/get_quater.php")
+    Call<IncentiveQuaterModel> getIncentiveQuarterList();
+
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_team_new.php")
@@ -422,6 +428,14 @@ public interface ApiInterface {
 
     @GET("achv_and_earn/get_mon.php")
     Call<AchvMonthModel> getAchievementMonths();
+
+    @GET("incentive/get_incentive_type.php")
+    Call<AchvIncentiveModel> getAchievementIncentive();
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("common/get_all_team.php")
+    Call<IncentiveTeamModel> getAchievementTeamList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

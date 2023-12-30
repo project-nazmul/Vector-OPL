@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AchieveEarnAdapter extends RecyclerView.Adapter<AchieveEarnAdapter.AchieveEarnViewHolder> {
-    private ArrayList<AchieveEarningList> achieveEarnLists;
-    private ArrayList<AchieveEarningList> checkAchieveLists = new ArrayList<>();
+    ArrayList<AchieveEarningList> achieveEarnLists;
+    ArrayList<AchieveEarningList> checkAchieveLists = new ArrayList<>();
     Context context;
     String pmdImageUrl = ApiClient.BASE_URL+"vector_ff_image/sales/", profileImage, userRole, designationType;
     ContactCallback contactCallback;

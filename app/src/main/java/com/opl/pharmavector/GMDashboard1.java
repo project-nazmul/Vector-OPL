@@ -816,17 +816,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_ProdStock() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        bottomSheetDialog.setContentView(R.layout.product_stock_sheet_dialog);
         CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
-        CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
+        CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
         CardView cardView_adsPmd = bottomSheetDialog.findViewById(R.id.card_doctorReach);
         Objects.requireNonNull(cardView_adsPmd).setVisibility(View.GONE);
         TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
-        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
+        TextView textView5 = bottomSheetDialog.findViewById(R.id.textView8);
         TextView textView6 = bottomSheetDialog.findViewById(R.id.tv_doctorReach);
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
-        Button button2 = bottomSheetDialog.findViewById(R.id.button2);
+        Button button2 = bottomSheetDialog.findViewById(R.id.button8);
         Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("17.1");

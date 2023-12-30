@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.opl.pharmavector.AmDashboard;
 import com.opl.pharmavector.AssistantManagerDashboard;
 import com.opl.pharmavector.Dashboard;
-import com.opl.pharmavector.DashboardOld;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.RmDashboard;
 import com.opl.pharmavector.SalesManagerDashboard;
@@ -37,17 +35,13 @@ import com.opl.pharmavector.master_code.adapter.PromoAdapter;
 import com.opl.pharmavector.master_code.model.MasterCList;
 import com.opl.pharmavector.master_code.model.MasterModel;
 import com.opl.pharmavector.pmdVector.DashBoardPMD;
-import com.opl.pharmavector.productOffer.ProductOfferList;
 import com.opl.pharmavector.promomat.model.Promo;
 import com.opl.pharmavector.promomat.util.FixedGridLayoutManager;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -254,7 +248,7 @@ public class MasterCode extends Activity implements OnClickListener, AdapterView
                                 Thread server = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent i = new Intent(MasterCode.this, DashboardOld.class);
+                                        Intent i = new Intent(MasterCode.this, Dashboard.class);
                                         //Intent i = new Intent(MasterCode.this, Dashboard.class);
                                         i.putExtra("new_version", "new_version");
                                         i.putExtra("message_3", user_role);

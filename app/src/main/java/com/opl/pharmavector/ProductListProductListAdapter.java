@@ -3,37 +3,25 @@ package com.opl.pharmavector;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
-
-import android.text.method.TextKeyListener;
-import android.view.Gravity;
-import android.view.inputmethod.InputMethodManager;
-import com.opl.pharmavector.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.WindowManager;
+import android.graphics.Color;
 import android.widget.CheckBox;
 import android.widget.Toast;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
+import androidx.cardview.widget.CardView;
 
 @SuppressLint("ViewHolder")
 public class ProductListProductListAdapter extends BaseAdapter implements Filterable {
@@ -54,6 +42,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     ArrayList<String> value12;
     ArrayList<String> PPM_TYPE;
     ArrayList<String> PROD_REQ;
+    ArrayList<String> prodStatus;
     static HashSet<Integer> mProductSerialList;
     public static TextView edit_qnty;
     //public static String[] quantity;
@@ -85,7 +74,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
     static Set<Integer> set2 = new HashSet<Integer>();
     public static ArrayList<String> editTxtID = new ArrayList<String>();
 
-    ProductListProductListAdapter(Context con,ArrayList<String> sl, ArrayList<String> p_name,HashMap<Integer, String> p_quanty,ArrayList<String> value7,ArrayList<String> value8,ArrayList<String> value9, ArrayList<String> value10, ArrayList<String> value11,ArrayList<String> value12) {
+    ProductListProductListAdapter(Context con, ArrayList<String> sl, ArrayList<String> p_name, HashMap<Integer, String> p_quanty, ArrayList<String> value7, ArrayList<String> value8, ArrayList<String> value9, ArrayList<String> value10, ArrayList<String> value11, ArrayList<String> value12, ArrayList<String> prodStatus) {
         this.p_names = p_name;
         this.mStringList = p_name;
         this.p_quanty = p_quanty;
@@ -97,6 +86,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         this.value12 = value12;
         this.sl = sl;
         this.mContext = con;
+        this.prodStatus = prodStatus;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getFilter();
         mProductSerialList = new HashSet<Integer>();
@@ -152,6 +142,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
             holder.tp = (TextView) convertView.findViewById(R.id.tp);
             holder.TP_VT = (TextView) convertView.findViewById(R.id.TP_VT);
             edit_qnty= (TextView) convertView.findViewById(R.id.order_qnty);
+            holder.productList = (CardView) convertView.findViewById(R.id.productList);
             holder.checkbox = (CheckBox) convertView.findViewById(R.id.checkbox);
             convertView.setTag(holder);
         } else {
@@ -166,9 +157,12 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         holder.pack_size.setText(value9.get(srl-1)); // pack size
         holder.tp.setText(value10.get(srl-1)); // trade price
         holder.TP_VT.setText(value7.get(srl-1)); // vat
-        holder.quantity.setText(value12.get(srl-1) ); //mrp value
+        holder.quantity.setText(value12.get(srl-1) ); // mrp value
         holder.p_code1.setText(value11.get(srl-1)); // product code
         holder.brand_code.setText(value8.get(srl-1)); // brand code
+        if (Objects.equals(prodStatus.get(srl-1), "O")) {
+            holder.productList.setCardBackgroundColor(Color.parseColor("#F8CACA"));
+        }
         return convertView;
     }
 
@@ -187,6 +181,7 @@ public class ProductListProductListAdapter extends BaseAdapter implements Filter
         TextView tp;
         TextView TP_VT;
         CheckBox checkbox;
+        CardView productList;
     }
 
     public void filter(String charText) {

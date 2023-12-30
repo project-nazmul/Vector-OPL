@@ -1241,6 +1241,7 @@ public class PrescriptionEntry extends AppCompatActivity {
                 try {
                     JSONObject jsonObj = new JSONObject(json);
                     JSONArray customer = jsonObj.getJSONArray("customer");
+
                     for (int i = 0; i < customer.length(); i++) {
                         JSONObject catObj = (JSONObject) customer.get(i);
                         Customer custo = new Customer(catObj.getInt("id"), catObj.getString("name"));

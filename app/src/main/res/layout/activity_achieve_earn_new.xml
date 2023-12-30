@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ff_contact_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context="com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity">
+
+    <LinearLayout
+        android:id="@+id/gmLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview4"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/layout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:background="#FFD180"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/incentiveSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1.5"
+                    android:textSize="@dimen/_8sdp"
+                    app:ms_hint="Select Incentive Type"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/yearSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_8sdp"
+                    app:ms_hint="Select Year"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/base"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="#B9F6CA"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/quarterSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_8sdp"
+                    app:ms_hint="Select Quarter"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/teamSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_8sdp"
+                    app:ms_hint="Select Team"
+                    app:ms_hint_color="@color/colorAccentEditor"
+                    app:ms_text_color="@color/colorAccentEditor" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="0sp"
+                    android:layout_marginRight="0sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_weight="2"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Field force Code"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_8sdp"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spin_rm"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:ems="5"
+                    android:filterTouchesWhenObscured="true"
+                    android:hapticFeedbackEnabled="true"
+                    android:prompt="@string/customerspin"
+                    android:soundEffectsEnabled="true"
+                    android:spinnerMode="dialog"
+                    android:textSize="22sp"
+                    android:visibility="gone"
+                    tools:ignore="UnusedAttribute" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="0sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/editbox_background"
+                    android:drawableStart="@drawable/ic_medicine"
+                    android:ems="0"
+                    android:hint="Select Place"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_8sdp" />
+
+                <Button
+                    android:id="@+id/submitBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/submit_btton_selector"
+                    android:gravity="center"
+                    android:hapticFeedbackEnabled="true"
+                    android:soundEffectsEnabled="true"
+                    android:text="show"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/_8sdp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,UnusedAttribute" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutMpo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:background="#F1E5D1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:weightSum="3">
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/mpoMonthSpinner"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="2"
+            android:textSize="@dimen/_8sdp"
+            app:ms_hint="Select Month"
+            app:ms_hint_color="@color/colorAccentEditor"
+            app:ms_text_color="@color/colorAccentEditor" />
+
+        <Button
+            android:id="@+id/submitBtn1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_2sdp"
+        android:fontFamily="@font/acme"
+        android:visibility="gone"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFF8D"
+            android:fontFamily="@font/acme">
+
+            <TextView
+                android:id="@+id/txt_col1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:text="Code"
+                android:textAlignment="center"
+                android:textColor="#E91E63"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/txt_col2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.3"
+                android:gravity="left"
+                android:text="Field Force Name"
+                android:textColor="#4CAF50"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/txt_col3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.1"
+                android:gravity="left"
+                android:text="Employee name"
+                android:textColor="#FF5722"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/txt_col4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.1"
+                android:text="Contact no."
+                android:textAlignment="center"
+                android:textColor="#3F51B5"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAchieveEarn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:divider="@android:color/transparent"
+        android:padding="4dp"
+        android:scrollbars="vertical" />
+</LinearLayout>
