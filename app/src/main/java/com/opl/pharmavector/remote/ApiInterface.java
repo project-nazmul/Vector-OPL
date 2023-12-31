@@ -2,11 +2,10 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
-import com.opl.pharmavector.achieve.AchieveMonthList;
-import com.opl.pharmavector.achieve.AchvIncentiveModel;
+import com.opl.pharmavector.incentive.IncentiveModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
-import com.opl.pharmavector.achieve.IncentiveQuaterModel;
-import com.opl.pharmavector.achieve.IncentiveTeamModel;
+import com.opl.pharmavector.incentive.IncentiveQtrModel;
+import com.opl.pharmavector.incentive.IncentiveTeamModel;
 import com.opl.pharmavector.amdashboard.VacantModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDocTotDateModel;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorMpoModel;
@@ -29,10 +28,8 @@ import com.opl.pharmavector.mpoMenu.MPOMenuModel;
 import com.opl.pharmavector.mpodcr.DcfpModel;
 import com.opl.pharmavector.mpodcr.DcfpStatusModel;
 import com.opl.pharmavector.mpodcr.entry.DcrLocationModel;
-import com.opl.pharmavector.mpodcr.entry.DcrNatureList;
 import com.opl.pharmavector.mpodcr.entry.DcrNatureModel;
 import com.opl.pharmavector.mpodcr.entry.DcrSubmitModel;
-import com.opl.pharmavector.mrd_pres_report.SPIReportList;
 import com.opl.pharmavector.mrd_pres_report.SPIReportModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDApprovalModel;
 import com.opl.pharmavector.msd_doc_support.adapter.MSDCommitmentModel;
@@ -412,7 +409,7 @@ public interface ApiInterface {
     Call<FFTeamModel> getAchieveFFTeamList();
 
     @GET("incentive/get_quater.php")
-    Call<IncentiveQuaterModel> getIncentiveQuarterList();
+    Call<IncentiveQtrModel> getIncentiveQuarterList();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
@@ -430,12 +427,12 @@ public interface ApiInterface {
     Call<AchvMonthModel> getAchievementMonths();
 
     @GET("incentive/get_incentive_type.php")
-    Call<AchvIncentiveModel> getAchievementIncentive();
+    Call<IncentiveModel> getAchievementIncentive();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("common/get_all_team.php")
-    Call<IncentiveTeamModel> getAchievementTeamList();
+    Call<IncentiveTeamModel> getIncentiveTeamList(@Field("id") String user_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

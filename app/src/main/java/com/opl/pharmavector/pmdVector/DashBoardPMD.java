@@ -69,6 +69,7 @@ import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
+import com.opl.pharmavector.incentive.IncentiveActivity;
 import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.model.Patient;
@@ -110,7 +111,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
     public static String pmd_name, pmd_loc, pmd_loccode, pmd_locpass, pmd_type, pmd_code, currentVersion;
     public ImageView imageView2;
     public String base_url = ApiClient.BASE_URL + "pmd_vector/pmd_images/";
-    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock, cardview_pmd_contact;
+    CardView practiceCard2, cardview_sales_reports, cardview_ff_contact, cardview_4p_sales, cardview_achv_earn, cardView_productStock, cardview_pmd_contact, cardView_incentive;
     ImageButton img_btn_rx, img_btn_sales_reports, img_btn_ff_contact, img_btn_4p_sales;
     TextView tv_sales_reports, tv_ff_contact, tv_4p_sales, versionName;
     Button btn_sales_reports, btn_ff_contact, btn_4p_sales;
@@ -159,6 +160,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         Sales_4p_Event();
         achieveEarnEvent();
         productStockEvent();
+        incentiveEvent();
         instance = this;
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
@@ -506,6 +508,7 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         tv_ff_contact = findViewById(R.id.tv_ff_contact);
         cardview_ff_contact = findViewById(R.id.cardview_ff_contact);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
+        cardView_incentive = findViewById(R.id.cardView_incentive);
         cardview_pmd_contact = findViewById(R.id.cardview_pmd_contact);
         cardView_productStock = findViewById(R.id.cardView_productStock);
 
@@ -561,6 +564,17 @@ public class DashBoardPMD extends Activity implements View.OnClickListener {
         //cardView_productStock.setOnClickListener(v -> showBottomSheetDialog_ProdStock());
         cardView_productStock.setOnClickListener(v -> {
             Intent i = new Intent(DashBoardPMD.this, ADSStockPMDActivity.class);
+            i.putExtra("UserName", pmd_name);
+            i.putExtra("UserCode", pmd_code);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("UserRole", "PMD");
+            startActivity(i);
+        });
+    }
+
+    private void incentiveEvent() {
+        cardView_incentive.setOnClickListener(v -> {
+            Intent i = new Intent(DashBoardPMD.this, IncentiveActivity.class);
             i.putExtra("UserName", pmd_name);
             i.putExtra("UserCode", pmd_code);
             i.putExtra("new_version", Login.version);

@@ -107,6 +107,9 @@
             android:name=".achieve.AchieveEarnActivity"
             android:exported="false" />
         <activity
+            android:name=".incentive.IncentiveActivity"
+            android:exported="false" />
+        <activity
             android:name=".productOffer.ProductOfferActivity"
             android:exported="false" />
         <activity

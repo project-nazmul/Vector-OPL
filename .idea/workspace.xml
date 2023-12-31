@@ -29,10 +29,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ obsolete product status!">
-      <change afterPath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.50.apk" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ achieve and earn recover!">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_incentive.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveIncentiveList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchvIncentiveModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/IncentiveQuaterList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveQtrList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/IncentiveQuaterModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveQtrModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/IncentiveTeamLists.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveTeamList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/IncentiveTeamModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveTeamModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_dashboardpmd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large-land/activity_dashboardpmd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_achieve_earn_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_incentive.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboardpmd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboardpmd.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +150,7 @@
     "com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable": "ALL",
     "dart.analysis.tool.window.visible": "false",
     "last_directory_selection": "E:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable",
-    "last_opened_file_path": "E:/F Drive/Opsonin/SALEMATRIX/app/src/main/java/com/opl/pharmavector",
+    "last_opened_file_path": "E:/F Drive/Opsonin/SALEMATRIX/app/src/main/res/drawable",
     "project.structure.last.edited": "Suggestions",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
@@ -216,11 +229,11 @@
       <recent name="com.opl.pharmavector.dcfpFollowup" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.opl.pharmavector.incentive" />
       <recent name="com.opl.pharmavector" />
       <recent name="com.opl.pharmavector.mpoMenu" />
       <recent name="com.opl.pharmavector.mpodcr" />
       <recent name="com.opl.pharmavector.liveDepot" />
-      <recent name="com.opl.pharmavector.prescriptionsurvey" />
     </key>
     <key name="android.template.-477563215">
       <recent name="com.opl.pharmavector.liveDepot" />
@@ -229,8 +242,8 @@
       <recent name="com.opl.pharmavector.dcfpFollowup" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\java\com\opl\pharmavector" />
       <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\res\drawable" />
+      <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\java\com\opl\pharmavector" />
       <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\res\layout-sw720dp-land" />
       <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\res\layout-sw720dp" />
       <recent name="E:\F Drive\Opsonin\SALEMATRIX\app\src\main\res\layout-sw600dp-land" />
@@ -444,13 +457,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
-    </task>
-    <task id="LOCAL-00115" summary="+ prescription update!">
-      <created>1696334136161</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1696334136161</updated>
     </task>
     <task id="LOCAL-00116" summary="+ prescription update done!&#10;+ achieve and earn added in pmd!">
       <created>1696420359663</created>
@@ -788,7 +794,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703948875494</updated>
     </task>
-    <option name="localTasksCounter" value="164" />
+    <task id="LOCAL-00164" summary="+ achieve and earn recover!">
+      <created>1703951082249</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1703951082249</updated>
+    </task>
+    <option name="localTasksCounter" value="165" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -804,7 +817,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ ads pmd!" />
     <MESSAGE value="+ ADS pmd done!" />
     <MESSAGE value="+ SPI Report Update!" />
     <MESSAGE value="+ custom in-app update!" />
@@ -829,7 +841,8 @@
     <MESSAGE value="+ mpo dynamic dashboard design!" />
     <MESSAGE value="+ mpo dashboard back!" />
     <MESSAGE value="+ obsolete product status!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ obsolete product status!" />
+    <MESSAGE value="+ achieve and earn recover!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ achieve and earn recover!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1117,12 +1130,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>785</line>
+          <line>782</line>
           <option name="timeStamp" value="350" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>791</line>
+          <line>788</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1287,7 +1300,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>266</line>
+          <line>263</line>
           <option name="timeStamp" value="440" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -3227,22 +3240,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java</url>
-          <line>346</line>
+          <line>348</line>
           <option name="timeStamp" value="1555" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java</url>
-          <line>347</line>
+          <line>349</line>
           <option name="timeStamp" value="1556" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java</url>
-          <line>360</line>
+          <line>362</line>
           <option name="timeStamp" value="1557" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/DashBoardPMD.java</url>
-          <line>361</line>
+          <line>363</line>
           <option name="timeStamp" value="1558" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

@@ -1,9 +1,9 @@
-package com.opl.pharmavector.achieve;
+package com.opl.pharmavector.incentive;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class IncentiveTeamLists {
+public class IncentiveTeamList {
     @SerializedName("TEAM_NAME")
     @Expose
     private String teamName;

@@ -140,11 +140,12 @@
                     tools:ignore="UnusedAttribute" />
 
                 <AutoCompleteTextView
+                    android:visibility="gone"
                     android:id="@+id/autoCompleteTextView2"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="5sp"
-                    android:layout_marginRight="0sp"
+                    android:layout_marginStart="5sp"
+                    android:layout_marginEnd="0sp"
                     android:layout_marginBottom="0sp"
                     android:layout_weight="1"
                     android:background="@android:drawable/editbox_background"
@@ -153,7 +154,6 @@
                     android:hint="Select Place"
                     android:maxLines="1"
                     android:paddingStart="10dp"
-                    android:paddingLeft="10dp"
                     android:textAlignment="center"
                     android:textSize="@dimen/_8sdp" />
 
