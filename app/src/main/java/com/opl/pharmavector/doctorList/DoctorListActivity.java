@@ -191,7 +191,7 @@ public class DoctorListActivity extends Activity {
             @Override
             public void onFailure(@NonNull Call<DoctorFFModel> call, @NonNull Throwable t) {
                 doctorFFDialog.dismiss();
-                doctorFFListInfo();
+                //doctorFFListInfo();
             }
         });
     }
@@ -234,7 +234,7 @@ public class DoctorListActivity extends Activity {
                     doctorRecycler.setLayoutManager(manager);
                     doctorRecycler.setAdapter(doctorAdapter);
                     doctorRecycler.addItemDecoration(new DividerItemDecoration(DoctorListActivity.this, DividerItemDecoration.VERTICAL));
-                    //Log.d("company List", companyDatalist.get(0).getComDesc());
+                    //Log.d("company List", companyDataList.get(0).getComDesc());
                 } else {
                     doctorDialog.dismiss();
                     Toast.makeText(DoctorListActivity.this, "No data Available", Toast.LENGTH_LONG).show();
@@ -244,7 +244,7 @@ public class DoctorListActivity extends Activity {
             @Override
             public void onFailure(@NonNull Call<DoctorModel> call, @NonNull Throwable t) {
                 doctorDialog.dismiss();
-                doctorDetailsListInfo();
+                //doctorDetailsListInfo();
             }
         });
     }

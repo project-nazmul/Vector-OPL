@@ -69,7 +69,8 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
 //    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
 //            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "", userName, userCode, userRole, teamCode;
     public String json, quarter_type = "XX", incentive_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
-        place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", incentive_type = "", team_code, userName, userCode, userRole, teamCode;
+        place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", incentive_type = "", team_code, userName, userCode, userRole, teamCode,
+        designation_code;
     Button back_btn, submitBtn, submitBtn1;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2;
@@ -87,7 +88,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
     ArrayList<String> yearLists;
     LinearLayout layoutMpo, gmLayout;
     //MaterialSpinner teamSpinner, divisionSpinner, desigSpinner;
-    MaterialSpinner incentiveSpinner, quarterSpinner, yearSpinner, teamSpinner;
+    MaterialSpinner incentiveSpinner, quarterSpinner, yearSpinner, teamSpinner, designationSpinner;
     private String selected_number, selected_person, profile_image;
     public String pmdImageUrl = ApiClient.BASE_URL + "vector_ff_image/sales/";
     private final String url_getfieldforce = BASE_URL + "achv_and_earn/get_ff_list.php";
@@ -107,6 +108,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         getIncentiveTypeList();
         getIncentiveQtrList();
         getIncentiveTeamList();
+        getIncentiveDesignation();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +160,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         yearSpinner = findViewById(R.id.yearSpinner);
         quarterSpinner = findViewById(R.id.quarterSpinner);
         incentiveSpinner = findViewById(R.id.incentiveSpinner);
+        designationSpinner = findViewById(R.id.designationSpinner);
         //desigSpinner = findViewById(R.id.desigSpinner);
         //divisionSpinner = findViewById(R.id.divisionSpinner);
 
@@ -342,7 +345,40 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             @Override
             public void onFailure(Call<IncentiveTeamModel> call, Throwable t) {
                 pDialog.dismiss();
-                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Log.d("Data load problem --->", "Failed to Retried Data For -- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getIncentiveDesignation() {
+        ProgressDialog pDialog = new ProgressDialog(IncentiveActivity.this);
+        pDialog.setMessage("Loading Data ...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<IncentiveDsgModel> call = apiInterface.getIncentiveDesignation(userCode);
+
+        call.enqueue(new Callback<IncentiveDsgModel>() {
+            @Override
+            public void onResponse(Call<IncentiveDsgModel> call, Response<IncentiveDsgModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<IncentiveDsgList> designationList = null;
+
+                    if (response.body() != null) {
+                        designationList = (response.body()).getIncentiveDsgLists();
+                    }
+                    initIncentiveDesignation(Objects.requireNonNull(designationList));
+                    Log.d("Designation List -- : ", String.valueOf(designationList));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IncentiveDsgModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem --->", "Failed to Retried Data For -- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -458,7 +494,31 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                         team_code = incentiveLists.get(i).getTeamCode();
                     }
                 }
-                Log.d("team code", team_code);
+                //Log.d("team code", team_code);
+            }
+        });
+    }
+
+    private void initIncentiveDesignation(List<IncentiveDsgList> designationLists) {
+        ArrayList<String> designationList = new ArrayList<>();
+
+        if (designationLists.size() > 0) {
+            for (IncentiveDsgList quarterName : designationLists) {
+                designationList.add(quarterName.getTitleDesc());
+            }
+        }
+        designationSpinner.setItems(designationList);
+        designationSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String designation_name = String.valueOf(item).trim();
+
+                for (int i = 0; i < designationLists.size(); i++) {
+                    if (designationLists.get(i).getTitleDesc().contains(designation_name)) {
+                        designation_code = designationLists.get(i).getTitleCode();
+                    }
+                }
+                Log.d("designation code", designation_code);
             }
         });
     }
@@ -481,6 +541,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
 //            }
 //        }
         incentiveSpinner.setItems(incentiveList);
+        incentiveSpinner.setText(incentiveList.get(0).toString());
         //monthSpinner.setItems(monthNameList);
 
         //monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
