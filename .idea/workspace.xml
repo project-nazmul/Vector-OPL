@@ -29,16 +29,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ incentive added!">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveDsgList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveDsgModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/incentive_selected.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/incentive_selector.xml" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ incentive designation added!">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveDataList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveDataModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/doctorList/DoctorListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/doctorList/DoctorListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_incentive.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_incentive.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +70,8 @@
       <list>
         <option value="valueResourceFile" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -451,13 +445,6 @@
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
     </task>
-    <task id="LOCAL-00117" summary="+ copy image not uploaded!">
-      <created>1696679990359</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1696679990360</updated>
-    </task>
     <task id="LOCAL-00118" summary="+ brand wise sales report re-design!">
       <created>1696766158321</created>
       <option name="number" value="00118" />
@@ -794,7 +781,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704024184881</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="+ incentive designation added!">
+      <created>1704973797668</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1704973797668</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -810,7 +804,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ SPI Report Update!" />
     <MESSAGE value="+ custom in-app update!" />
     <MESSAGE value="+ pmd design!" />
     <MESSAGE value="+ pmd link up gm dashboard!" />
@@ -835,7 +828,8 @@
     <MESSAGE value="+ obsolete product status!" />
     <MESSAGE value="+ achieve and earn recover!" />
     <MESSAGE value="+ incentive added!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ incentive added!" />
+    <MESSAGE value="+ incentive designation added!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ incentive designation added!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
