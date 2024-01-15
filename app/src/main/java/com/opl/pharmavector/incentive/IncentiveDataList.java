@@ -34,6 +34,39 @@ public class IncentiveDataList {
     @SerializedName("EXPENSE_RATIO")
     @Expose
     private String expenseRatio;
+    @SerializedName("MNYR_DESC")
+    @Expose
+    private String currentMonth;
+    @SerializedName("CUR_TAR")
+    @Expose
+    private String currentTarget;
+    @SerializedName("CUR_SAL")
+    @Expose
+    private String currentSale;
+
+    public String getCurrentMonth() {
+        return currentMonth;
+    }
+
+    public void setCurrentMonth(String currentMonth) {
+        this.currentMonth = currentMonth;
+    }
+
+    public String getCurrentTarget() {
+        return currentTarget;
+    }
+
+    public void setCurrentTarget(String currentTarget) {
+        this.currentTarget = currentTarget;
+    }
+
+    public String getCurrentSale() {
+        return currentSale;
+    }
+
+    public void setCurrentSale(String currentSale) {
+        this.currentSale = currentSale;
+    }
 
     public Integer getSl() {
         return sl;

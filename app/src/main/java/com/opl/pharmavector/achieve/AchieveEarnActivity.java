@@ -204,7 +204,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
             @Override
             public void onFailure(Call<AchieveEarnModel> call, Throwable t) {
                 ppDialog.dismiss();
-                Log.e("Data load problem--->", "Failed to Retried Data For-- " + t);
+                Log.e("Data load problem--->", "Failed to Retried Data For -- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
                 toast.show();
             }

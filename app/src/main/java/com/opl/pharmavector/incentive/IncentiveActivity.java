@@ -35,6 +35,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.achieve.AchieveEarnAdapter;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchieveEarningList;
@@ -66,11 +67,9 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     public ProgressDialog pDialog;
-//    public String json, team_type = "XX", team_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
-//            place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", month_name = "", userName, userCode, userRole, teamCode;
     public String json, quarter_type = "XX", incentive_name = "All", deignation_type = "XX", deignation_name = "All", place_type = "XX",
-        place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", incentive_type = "", team_code, userName, userCode, userRole, teamCode,
-        designation_code;
+        place_name = "All", actv_rm_code_split, ff_name, ff_code = "XX", incentive_type = "XX", team_code, userName, userCode, userRole, teamCode,
+        designation_code, incentive_year;
     Button back_btn, submitBtn, submitBtn1;
     public android.widget.Spinner spin_rm;
     AutoCompleteTextView autoCompleteTextView1, autoCompleteTextView2;
@@ -78,16 +77,15 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
     public ArrayList<Customer> departmentlist;
     public ArrayList<com.opl.pharmavector.Category> categoriesList;
     TextView lbl_place_name;
-    private RecyclerView recyclerAchieve;
+    private RecyclerView recyclerIncentive;
     public RecyclerView.LayoutManager layoutManager;
     public ArrayList<AchieveEarningList> achieveEarnList;
     public List<FFTeamList> recyclerTeamList;
-    private AchieveEarnAdapter achieveEarnAdapter;
+    private IncentiveAdapter incentiveAdapter;
     ApiInterface apiInterface;
     ProgressBar progressBar;
     ArrayList<String> yearLists;
     LinearLayout layoutMpo, gmLayout;
-    //MaterialSpinner teamSpinner, divisionSpinner, desigSpinner;
     MaterialSpinner incentiveSpinner, quarterSpinner, yearSpinner, teamSpinner, designationSpinner;
     private String selected_number, selected_person, profile_image;
     public String pmdImageUrl = ApiClient.BASE_URL + "vector_ff_image/sales/";
@@ -113,19 +111,15 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerAchieve.setAdapter(null);
-                if ((Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "AD") || Objects.equals(userRole, "PMD")) && Objects.equals(deignation_type, "SELF")) {
-                    getAchieveEarnSelfList();
-                } else {
-                    getAchievementEarnList();
-                }
+                //recyclerIncentive.setAdapter(null);
+                getIncentiveDataList();
             }
         });
         submitBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                recyclerAchieve.setAdapter(null);
-                getAchieveEarnSelfList();
+                recyclerIncentive.setAdapter(null);
+                //getAchieveEarnSelfList();
             }
         });
     }
@@ -150,9 +144,9 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         autoCompleteTextView2 = findViewById(R.id.autoCompleteTextView2);
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        recyclerAchieve = findViewById(R.id.recyclerAchieveEarn);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerAchieve.setLayoutManager(layoutManager);
+        recyclerIncentive = findViewById(R.id.recyclerIncentive);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerIncentive.setLayoutManager(layoutManager);
         achieveEarnList = new ArrayList<>();
         gmLayout = findViewById(R.id.gmLayout);
         layoutMpo = findViewById(R.id.layoutMpo);
@@ -182,94 +176,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             //divisionSpinner.setVisibility(View.GONE);
             autoCompleteTextView2.setVisibility(View.GONE);
         }
-    }
-
-    private void getAchievementEarnList() {
-        String ff_type = "";
-        ProgressDialog ppDialog = new ProgressDialog(IncentiveActivity.this);
-        ppDialog.setMessage("Loading Achieve Data ...");
-        ppDialog.setCancelable(true);
-        ppDialog.show();
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-        if (Objects.equals(userRole, "FM")) {
-            //ff_type = "XX";
-            ff_type = userCode;
-        } else {
-            ff_type = autoCompleteTextView2.getText().toString().trim();
-        }
-        //Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, ff_type, team_type, month_name);
-        Call<AchieveEarnModel> call = apiInterface.getAchievementEarnList(deignation_type, ff_type, quarter_type, incentive_type);
-        Log.d("ff_type", ff_type);
-
-        call.enqueue(new Callback<AchieveEarnModel>() {
-            @Override
-            public void onResponse(Call<AchieveEarnModel> call, Response<AchieveEarnModel> response) {
-                List<AchieveEarningList> achieveLists = null;
-
-                if (response.isSuccessful()) {
-                    ppDialog.dismiss();
-                    if (response.body() != null) {
-                        achieveLists = (response.body()).getAchieveEarnList();
-                    }
-                    achieveEarnAdapter = new AchieveEarnAdapter(IncentiveActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, deignation_type, IncentiveActivity.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(IncentiveActivity.this, LinearLayoutManager.VERTICAL, false);
-                    recyclerAchieve.setLayoutManager(manager);
-                    recyclerAchieve.setAdapter(achieveEarnAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AchieveEarnModel> call, Throwable t) {
-                ppDialog.dismiss();
-                Log.e("Data load problem--->", "Failed to Retried Data For-- " + t);
-                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
-
-    private void getAchieveEarnSelfList() {
-        ProgressDialog ppDialog = new ProgressDialog(IncentiveActivity.this);
-        ppDialog.setMessage("Loading Achieve Data ...");
-        ppDialog.setCancelable(true);
-        ppDialog.show();
-        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-
-        Call<AchieveEarnModel> call;
-        if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "PMD")) {
-            call = apiInterface.getADAchieveEarnSelfList(userCode, incentive_type, quarter_type);
-            //call = apiInterface.getADAchieveEarnSelfList(userCode, month_name, team_type);
-        } else {
-           //call = apiInterface.getAchieveEarnSelfList(userCode, month_name);
-           call = apiInterface.getAchieveEarnSelfList(userCode, incentive_type);
-        }
-        Log.d("ff_type", incentive_type);
-
-        call.enqueue(new Callback<AchieveEarnModel>() {
-            @Override
-            public void onResponse(Call<AchieveEarnModel> call, Response<AchieveEarnModel> response) {
-                List<AchieveEarningList> achieveLists = null;
-                if (response.isSuccessful()) {
-                    ppDialog.dismiss();
-                    if (response.body() != null) {
-                        achieveLists = (response.body()).getAchieveEarnList();
-                    }
-                    achieveEarnAdapter = new AchieveEarnAdapter(IncentiveActivity.this, (ArrayList<AchieveEarningList>) achieveLists, userRole, deignation_type, IncentiveActivity.this);
-                    LinearLayoutManager manager = new LinearLayoutManager(IncentiveActivity.this, LinearLayoutManager.VERTICAL, false);
-                    recyclerAchieve.setLayoutManager(manager);
-                    recyclerAchieve.setAdapter(achieveEarnAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AchieveEarnModel> call, Throwable t) {
-                ppDialog.dismiss();
-                Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
-                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
     }
 
     //private void getAchieveFFTeamList() {
@@ -432,7 +338,43 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         });
     }
 
-    public void showSnackbar(View view, String message, int duration) {
+    private void getIncentiveDataList() {
+        ProgressDialog pDialog = new ProgressDialog(IncentiveActivity.this);
+        pDialog.setMessage("Loading Incentive Data...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<IncentiveDataModel> call = apiInterface.getIncentiveDataList(incentive_year, userCode, quarter_type, designation_code, incentive_type);
+
+        call.enqueue(new Callback<IncentiveDataModel>() {
+            @Override
+            public void onResponse(Call<IncentiveDataModel> call, Response<IncentiveDataModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+                    List<IncentiveDataList> incentiveDataList = null;
+
+                    if (response.body() != null) {
+                        incentiveDataList = (response.body()).getIncentiveDataLists();
+                    }
+                    incentiveAdapter = new IncentiveAdapter(IncentiveActivity.this, (ArrayList<IncentiveDataList>) incentiveDataList, userRole, deignation_type);
+                    LinearLayoutManager manager = new LinearLayoutManager(IncentiveActivity.this, LinearLayoutManager.VERTICAL, false);
+                    recyclerIncentive.setLayoutManager(manager);
+                    recyclerIncentive.setAdapter(incentiveAdapter);
+                    Log.d("incentive List -- : ", String.valueOf(incentiveDataList));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IncentiveDataModel> call, Throwable t) {
+                pDialog.dismiss();
+                Log.d("Data load problem--->", "Failed to Retried Data For -- " + t);
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    public void showSnackBar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
 
@@ -470,7 +412,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                         quarter_type = incentiveLists.get(i).getQtrCode();
                     }
                 }
-                Log.d("team code", quarter_type);
+                Log.d("quarter code", quarter_type);
             }
         });
     }
@@ -600,6 +542,13 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
     //private void initPlaceSpinner() {
     private void initAchieveYearSpinner() {
         yearSpinner.setItems(yearLists);
+
+        yearSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                incentive_year = String.valueOf(item).trim();
+            }
+        });
 //        if (Objects.equals(userRole, "RM")) {
 //            divisionSpinner.setItems("All", "Area", "Territory");
 //        } else if (Objects.equals(userRole, "ASM")) {

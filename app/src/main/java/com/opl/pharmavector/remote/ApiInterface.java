@@ -2,6 +2,8 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
+import com.opl.pharmavector.incentive.IncentiveDataList;
+import com.opl.pharmavector.incentive.IncentiveDataModel;
 import com.opl.pharmavector.incentive.IncentiveDsgList;
 import com.opl.pharmavector.incentive.IncentiveDsgModel;
 import com.opl.pharmavector.incentive.IncentiveModel;
@@ -430,6 +432,15 @@ public interface ApiInterface {
 
     @GET("incentive/get_incentive_type.php")
     Call<IncentiveModel> getAchievementIncentive();
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("incentive/get_incentive.php")
+    Call<IncentiveDataModel> getIncentiveDataList(@Field("yr") String year,
+                                                  @Field("id") String emp_code,
+                                                  @Field("qtr") String incentive_qtr,
+                                                  @Field("title_code") String dsg_code,
+                                                  @Field("incentive_type") String incentive_type);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
