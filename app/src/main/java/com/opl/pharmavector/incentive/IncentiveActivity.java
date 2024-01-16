@@ -35,14 +35,9 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
-import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.achieve.AchieveEarnAdapter;
-import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.achieve.AchieveEarningList;
-import com.opl.pharmavector.achieve.AchieveMonthList;
-import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.pmdVector.model.FFTeamList;
-import com.opl.pharmavector.pmdVector.model.FFTeamModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.KeyboardUtils;
@@ -300,17 +295,17 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         //Call<AchvMonthModel> call = apiInterface.getAchievementMonths();
         //Call<AchvMonthModel> call = apiInterface.getAchievementIncentive();
-        Call<IncentiveModel> call = apiInterface.getAchievementIncentive();
+        Call<IncentiveTypeModel> call = apiInterface.getAchievementIncentive();
 
         //call.enqueue(new Callback<AchvMonthModel>() {
-        call.enqueue(new Callback<IncentiveModel>() {
+        call.enqueue(new Callback<IncentiveTypeModel>() {
             @Override
             //public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
-            public void onResponse(Call<IncentiveModel> call, Response<IncentiveModel> response) {
+            public void onResponse(Call<IncentiveTypeModel> call, Response<IncentiveTypeModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
                     //List<AchieveMonthList> incentiveList = null;
-                    List<IncentiveList> incentiveList = null;
+                    List<IncentiveTypeList> incentiveList = null;
 
                     if (response.body() != null) {
                         incentiveList = (response.body()).getIncentiveType();
@@ -329,7 +324,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             }
 
             @Override
-            public void onFailure(Call<IncentiveModel> call, Throwable t) {
+            public void onFailure(Call<IncentiveTypeModel> call, Throwable t) {
                 pDialog.dismiss();
                 Log.d("Data load problem--->", "Failed to Retried Data For-- " + t);
                 Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data", Toast.LENGTH_SHORT);
@@ -466,14 +461,14 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
     }
 
     //private void initMonthSpinner(List<AchieveMonthList> monthList) {
-    private void initIncentiveSpinner(List<IncentiveList> incentiveLists) {
+    private void initIncentiveSpinner(List<IncentiveTypeList> incentiveLists) {
         //MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         incentiveSpinner = findViewById(R.id.incentiveSpinner);
         ArrayList<String> incentiveList = new ArrayList<>();
         //ArrayList<String> monthNameList = new ArrayList<>();
 
         if (incentiveLists.size() > 0) {
-            for (IncentiveList incentiveType : incentiveLists) {
+            for (IncentiveTypeList incentiveType : incentiveLists) {
                 incentiveList.add(incentiveType.getIncentiveDesc());
             }
         }

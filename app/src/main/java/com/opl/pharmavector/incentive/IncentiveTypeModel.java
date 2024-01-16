@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class IncentiveModel {
+public class IncentiveTypeModel {
     @SerializedName("incentive_type")
     @Expose
-    private List<IncentiveList> incentiveType;
+    private List<IncentiveTypeList> incentiveType;
 
-    public List<IncentiveList> getIncentiveType() {
+    public List<IncentiveTypeList> getIncentiveType() {
         return incentiveType;
     }
 
-    public void setIncentiveType(List<IncentiveList> incentiveType) {
+    public void setIncentiveType(List<IncentiveTypeList> incentiveType) {
         this.incentiveType = incentiveType;
     }
 }

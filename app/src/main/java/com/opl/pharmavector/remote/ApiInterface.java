@@ -2,11 +2,9 @@ package com.opl.pharmavector.remote;
 
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
-import com.opl.pharmavector.incentive.IncentiveDataList;
 import com.opl.pharmavector.incentive.IncentiveDataModel;
-import com.opl.pharmavector.incentive.IncentiveDsgList;
 import com.opl.pharmavector.incentive.IncentiveDsgModel;
-import com.opl.pharmavector.incentive.IncentiveModel;
+import com.opl.pharmavector.incentive.IncentiveTypeModel;
 import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.incentive.IncentiveQtrModel;
 import com.opl.pharmavector.incentive.IncentiveTeamModel;
@@ -431,7 +429,7 @@ public interface ApiInterface {
     Call<AchvMonthModel> getAchievementMonths();
 
     @GET("incentive/get_incentive_type.php")
-    Call<IncentiveModel> getAchievementIncentive();
+    Call<IncentiveTypeModel> getAchievementIncentive();
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
