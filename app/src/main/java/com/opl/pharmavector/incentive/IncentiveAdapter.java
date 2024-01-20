@@ -62,6 +62,11 @@ public class IncentiveAdapter extends RecyclerView.Adapter<IncentiveAdapter.Ince
                 holder.titleLayout.setVisibility(View.VISIBLE);
                 holder.dividerLayout.setVisibility(View.VISIBLE);
                 holder.incentiveTitle.setVisibility(View.VISIBLE);
+            } else if (presentSl != pastSl && Objects.equals(presentType, pastType)) {
+                holder.infoLayout.setVisibility(View.VISIBLE);
+                holder.titleLayout.setVisibility(View.VISIBLE);
+                holder.dividerLayout.setVisibility(View.VISIBLE);
+                holder.incentiveTitle.setVisibility(View.VISIBLE);
             } else {
                 holder.infoLayout.setVisibility(View.GONE);
                 holder.dividerLayout.setVisibility(View.GONE);

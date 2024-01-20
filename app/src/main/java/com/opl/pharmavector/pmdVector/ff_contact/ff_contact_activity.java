@@ -271,7 +271,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
 
     private void initDesignationSpinner() {
         MaterialSpinner mspinner3 = findViewById(R.id.mspinner3);
-        mspinner3.setItems("All","MPO", "AM", "RM", "ASM/DSM", "SM");
+        mspinner3.setItems("All","MPO", "AM", "RM", "ASM/DSM", "SM/AGM");
 
         mspinner3.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
@@ -289,7 +289,7 @@ public class ff_contact_activity extends Activity implements View.OnClickListene
                     deignation_type = "AM";
                 } else if (deignation_name.trim().equals("DSM")) {
                     deignation_type = "AM";
-                } else if (deignation_name.trim().equals("SM")) {
+                } else if (deignation_name.trim().equals("SM/AGM")) {
                     deignation_type = "SM";
                 }
             }

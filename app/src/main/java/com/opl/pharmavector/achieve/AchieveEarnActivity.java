@@ -539,7 +539,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
         } else if (Objects.equals(userRole, "SM")) {
             desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
         } else {
-            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM", "SELF");
+            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM/AGM", "SELF");
         }
 
         desigSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
@@ -556,7 +556,7 @@ public class AchieveEarnActivity extends Activity implements View.OnClickListene
                     deignation_type = "AM";
                 } else if (deignation_name.trim().equals("DSM")) {
                     deignation_type = "AM";
-                } else if (deignation_name.trim().equals("SM")) {
+                } else if (deignation_name.trim().equals("SM/AGM")) {
                     deignation_type = "SM";
                 } else if (deignation_name.trim().equals("SELF")) {
                     deignation_type = "SELF";
