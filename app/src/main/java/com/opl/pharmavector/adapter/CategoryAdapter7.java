@@ -69,9 +69,11 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
             viewHolder.categoryName9 = (TextView) convertView.findViewById(R.id.row_categoryname_textview9);
             viewHolder.categoryName10 = (TextView) convertView.findViewById(R.id.row_categoryname_textview10);
             viewHolder.categoryCheckBox = (CheckBox) convertView.findViewById(R.id.row_category_checkbox);
+
             if (flag == 1) {
               viewHolder.categoryCheckBox.setVisibility(View.GONE);
             }
+
             viewHolder.categoryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -123,8 +125,7 @@ public class CategoryAdapter7 extends ArrayAdapter<Category5> {
         viewHolder.categoryName9.setText(list.get(position).getCategory_Name9());
         viewHolder.categoryName10.setText(list.get(position).getCategory_Name10());
 
-/*
-                 genres.setCateogry_sl(MyJsonObject.getString("TERRI_NAME"));
+/*               genres.setCateogry_sl(MyJsonObject.getString("TERRI_NAME"));
                  genres.setCateogry_id(MyJsonObject.getString("SERVICE_NO"));
                  genres.setCategory_Name(MyJsonObject.getString("SERV_MONTH"));
                  genres.setCategory_Name2(MyJsonObject.getString("REQUEST_DT"));

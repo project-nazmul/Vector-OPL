@@ -93,10 +93,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
 
         initViews();
         autoCompleteEvents();
-        //initPlaceSpinner();
         initDesignationSpinner();
-        //getAchieveFFTeamList();
-        //getAchievementMonth();
         getLastTwoYearsList();
         getIncentiveTypeList();
         getIncentiveQtrList();
@@ -106,7 +103,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //recyclerIncentive.setAdapter(null);
                 getIncentiveDataList();
             }
         });
@@ -114,7 +110,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             @Override
             public void onClick(View view) {
                 recyclerIncentive.setAdapter(null);
-                //getAchieveEarnSelfList();
             }
         });
     }
@@ -140,8 +135,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         categoriesList = new ArrayList<com.opl.pharmavector.Category>();
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
         recyclerIncentive = findViewById(R.id.recyclerIncentive);
-//        layoutManager = new LinearLayoutManager(this);
-//        recyclerIncentive.setLayoutManager(layoutManager);
         achieveEarnList = new ArrayList<>();
         gmLayout = findViewById(R.id.gmLayout);
         layoutMpo = findViewById(R.id.layoutMpo);
@@ -150,8 +143,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         quarterSpinner = findViewById(R.id.quarterSpinner);
         incentiveSpinner = findViewById(R.id.incentiveSpinner);
         designationSpinner = findViewById(R.id.designationSpinner);
-        //desigSpinner = findViewById(R.id.desigSpinner);
-        //divisionSpinner = findViewById(R.id.divisionSpinner);
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
@@ -164,45 +155,28 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             gmLayout.setVisibility(View.GONE);
             layoutMpo.setVisibility(View.VISIBLE);
             teamSpinner.setVisibility(View.GONE);
-            //divisionSpinner.setVisibility(View.GONE);
-            //desigSpinner.setVisibility(View.GONE);
             autoCompleteTextView2.setVisibility(View.GONE);
         } else if (Objects.equals(userRole, "FM")) {
-            //divisionSpinner.setVisibility(View.GONE);
             autoCompleteTextView2.setVisibility(View.GONE);
         }
     }
 
-    //private void getAchieveFFTeamList() {
     private void getIncentiveQtrList() {
         ProgressDialog pDialog = new ProgressDialog(IncentiveActivity.this);
         pDialog.setMessage("Loading Data ...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        //Call<FFTeamModel> call;
-        Call<IncentiveQtrModel> call;
+        Call<IncentiveQtrModel> call = apiInterface.getIncentiveQuarterList();
 
-        if (Objects.equals(userRole, "PMD")) {
-            //call = apiInterface.getPmdAchieveTeamList(userCode);
-            call = apiInterface.getIncentiveQuarterList();
-        } else {
-            //call = apiInterface.getAchieveFFTeamList();
-            call = apiInterface.getIncentiveQuarterList();
-        }
-
-        //call.enqueue(new Callback<FFTeamModel>() {
         call.enqueue(new Callback<IncentiveQtrModel>() {
             @Override
-            //public void onResponse(Call<FFTeamModel> call, Response<FFTeamModel> response) {
             public void onResponse(Call<IncentiveQtrModel> call, Response<IncentiveQtrModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    //List<FFTeamList> teamList = null;
                     List<IncentiveQtrList> incentiveList = null;
 
                     if (response.body() != null) {
-                        //teamList = (response.body()).getTeamList();
                         incentiveList = (response.body()).getIncentiveQtrLists();
                     }
                     initIncentiveQtrSpinner(Objects.requireNonNull(incentiveList));
@@ -286,39 +260,25 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         });
     }
 
-    //private void getAchievementMonth() {
     private void getIncentiveTypeList() {
         ProgressDialog pDialog = new ProgressDialog(IncentiveActivity.this);
         pDialog.setMessage("Loading Incentive Type...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        //Call<AchvMonthModel> call = apiInterface.getAchievementMonths();
-        //Call<AchvMonthModel> call = apiInterface.getAchievementIncentive();
         Call<IncentiveTypeModel> call = apiInterface.getAchievementIncentive();
 
-        //call.enqueue(new Callback<AchvMonthModel>() {
         call.enqueue(new Callback<IncentiveTypeModel>() {
             @Override
-            //public void onResponse(Call<AchvMonthModel> call, Response<AchvMonthModel> response) {
             public void onResponse(Call<IncentiveTypeModel> call, Response<IncentiveTypeModel> response) {
                 if (response.isSuccessful()) {
                     pDialog.dismiss();
-                    //List<AchieveMonthList> incentiveList = null;
                     List<IncentiveTypeList> incentiveList = null;
 
                     if (response.body() != null) {
                         incentiveList = (response.body()).getIncentiveType();
                     }
                     initIncentiveSpinner(Objects.requireNonNull(incentiveList));
-//                    if (Objects.equals(userRole, "AD") || Objects.equals(userRole, "FM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM") || Objects.equals(userRole, "PMD")) {
-//                        //initMonthSpinner(Objects.requireNonNull(incentiveList));
-//                        initIncentiveSpinner(Objects.requireNonNull(incentiveList));
-//                    } else {
-//                        initIncentiveSpinner(Objects.requireNonNull(incentiveList));
-//                        //initMonthSpinner(Objects.requireNonNull(incentiveList));
-//                        //initMpoMonthSpinner(Objects.requireNonNull(incentiveList));
-//                    }
                     Log.d("Month List -- : ", String.valueOf(incentiveList));
                 }
             }
@@ -373,7 +333,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         Snackbar.make(view, message, duration).show();
     }
 
-    //private void initTeamSpinner(List<FFTeamList> teamList) {
     private void initIncentiveQtrSpinner(List<IncentiveQtrList> incentiveLists) {
         ArrayList<String> quarterNameList = new ArrayList<>();
 
@@ -382,26 +341,12 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                 quarterNameList.add(quarterName.getQtrDesc());
             }
         }
-//        ArrayList<String> teamNameList = new ArrayList<>();
-//        if (teamList.size() > 0) {
-//            for (FFTeamList teamName : teamList) {
-//                teamNameList.add(teamName.getTeamName());
-//            }
-//        }
-        //teamSpinner.setItems(teamNameList);
-        //teamSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
         quarterSpinner.setItems(quarterNameList);
         quarterSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 String incentive_name = String.valueOf(item).trim();
-                //team_name = String.valueOf(item).trim();
 
-//                for (int i = 0; i < teamList.size(); i++) {
-//                    if (teamList.get(i).getTeamName().contains(team_name)) {
-//                        team_type = teamList.get(i).getTeamCode();
-//                    }
-//                }
                 for (int i = 0; i < incentiveLists.size(); i++) {
                     if (incentiveLists.get(i).getQtrDesc().contains(incentive_name)) {
                         quarter_type = incentiveLists.get(i).getQtrCode();
@@ -431,7 +376,6 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                         team_code = incentiveLists.get(i).getTeamCode();
                     }
                 }
-                //Log.d("team code", team_code);
             }
         });
     }
@@ -451,7 +395,7 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                 String designation_name = String.valueOf(item).trim();
 
                 for (int i = 0; i < designationLists.size(); i++) {
-                    if (designationLists.get(i).getTitleDesc().contains(designation_name)) {
+                    if (designationLists.get(i).getTitleDesc().equals(designation_name)) {
                         designation_code = designationLists.get(i).getTitleCode();
                     }
                 }
@@ -460,37 +404,21 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
         });
     }
 
-    //private void initMonthSpinner(List<AchieveMonthList> monthList) {
     private void initIncentiveSpinner(List<IncentiveTypeList> incentiveLists) {
-        //MaterialSpinner monthSpinner = findViewById(R.id.monthSpinner);
         incentiveSpinner = findViewById(R.id.incentiveSpinner);
         ArrayList<String> incentiveList = new ArrayList<>();
-        //ArrayList<String> monthNameList = new ArrayList<>();
 
         if (incentiveLists.size() > 0) {
             for (IncentiveTypeList incentiveType : incentiveLists) {
                 incentiveList.add(incentiveType.getIncentiveDesc());
             }
         }
-//        if (monthList.size() > 0) {
-//            for (AchieveMonthList monthName : monthList) {
-//                monthNameList.add(monthName.getMnyrDesc());
-//            }
-//        }
         incentiveSpinner.setItems(incentiveList);
         incentiveSpinner.setText(incentiveList.get(0).toString());
-        //monthSpinner.setItems(monthNameList);
 
-        //monthSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
         incentiveSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                team_name = String.valueOf(item).trim();
-//                for (int i = 0; i < monthList.size(); i++) {
-//                    if (monthList.get(i).getMnyr().contains(team_name)) {
-//                        month_name = monthList.get(i).getMnyr();
-//                    }
-//                }
                 incentive_name = String.valueOf(item).trim();
 
                 for (int i = 0; i < incentiveLists.size(); i++) {
@@ -502,39 +430,8 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
             }
         });
     }
-//    private void initMpoMonthSpinner(List<AchieveMonthList> monthList) {
-//        MaterialSpinner mpoSpinner = findViewById(R.id.mpoMonthSpinner);
-//        ArrayList<String> monthNameList = new ArrayList<>();
-//
-//        if (monthList.size() > 0) {
-//            for (AchieveMonthList monthName : monthList) {
-//                monthNameList.add(monthName.getMnyrDesc());
-//            }
-//        }
-//        mpoSpinner.setItems(monthNameList);
-//
-//        mpoSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-//            @Override
-//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                team_name = String.valueOf(item).trim();
-//
-//                for (int i = 0; i < monthList.size(); i++) {
-//                    if (monthList.get(i).getMnyr().contains(team_name)) {
-//                        month_name = monthList.get(i).getMnyr();
-//                    }
-//                }
-////                for (int i = 0; i < monthList.size(); i++) {
-////                    if (monthList.get(i).getMnyr().contains(incentive_name)) {
-////                        incentive_type = monthList.get(i).getMnyr();
-////                    }
-////                }
-//                Log.d("month name", month_name);
-//            }
-//        });
-//    }
 
     @SuppressLint("SetTextI18n")
-    //private void initPlaceSpinner() {
     private void initAchieveYearSpinner() {
         yearSpinner.setItems(yearLists);
 
@@ -544,96 +441,10 @@ public class IncentiveActivity extends Activity implements View.OnClickListener,
                 incentive_year = String.valueOf(item).trim();
             }
         });
-//        if (Objects.equals(userRole, "RM")) {
-//            divisionSpinner.setItems("All", "Area", "Territory");
-//        } else if (Objects.equals(userRole, "ASM")) {
-//            divisionSpinner.setItems("All", "Region", "Area", "Territory");
-//        } else if (Objects.equals(userRole, "SM")) {
-//            divisionSpinner.setItems("All", "Zone", "Region", "Area", "Territory");
-//        } else {
-//            divisionSpinner.setItems("All", "Division", "Zone", "Region", "Area", "Territory");
-//        }
-//        divisionSpinner.setText("All");
-//
-//        if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
-//            place_type = userCode;
-//            autoCompleteTextView2.setText(place_type);
-//        } else {
-//            autoCompleteTextView2.setText(place_type);
-//        }
-//
-//        divisionSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                place_name = String.valueOf(item);
-//                if (place_name.trim().equals("All")) {
-//                    if (Objects.equals(userRole, "AM") || Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) {
-//                        place_type = userCode;
-//                    } else {
-//                        place_type = "XX";
-//                    }
-//                } else if (place_name.trim().equals("Division")) {
-//                    place_type = "D";
-//                } else if (place_name.trim().equals("Zone")) {
-//                    place_type = "Z";
-//                } else if (place_name.trim().equals("Region")) {
-//                    place_type = "R";
-//                } else if (place_name.trim().equals("Area")) {
-//                    place_type = "A";
-//                } else if (place_name.trim().equals("Territory")) {
-//                    place_type = "T";
-//                }
-//
-//                if (place_type.equals("XX")) {
-//                    autoCompleteTextView2.setText("XX");
-//                } else {
-//                    if ((Objects.equals(userRole, "RM") || Objects.equals(userRole, "ASM") || Objects.equals(userRole, "SM")) && place_name.trim().equals("All")) {
-//                        autoCompleteTextView2.setText(place_type);
-//                    } else {
-//                        autoCompleteTextView2.setText("");
-//                        customerlist.clear();
-//                        categoriesList.clear();
-//                        new GetFieldForce().execute();
-//                    }
-//                }
-//            }
-//        });
     }
 
     private void initDesignationSpinner() {
-//        if (Objects.equals(userRole, "FM")) {
-//            desigSpinner.setItems("MPO", "SELF");
-//        } else if (Objects.equals(userRole, "RM")) {
-//            desigSpinner.setItems("MPO", "AM", "SELF");
-//        } else if (Objects.equals(userRole, "ASM")) {
-//            desigSpinner.setItems("MPO", "AM", "RM", "SELF");
-//        } else if (Objects.equals(userRole, "SM")) {
-//            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SELF");
-//        } else {
-//            desigSpinner.setItems("MPO", "AM", "RM", "ASM/DSM", "SM", "SELF");
-//        }
-//        desigSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
-//            @Override
-//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-//                deignation_name = String.valueOf(item);
-//                if (deignation_name.trim().equals("MPO")) {
-//                    deignation_type = "MPO";
-//                } else if (deignation_name.trim().equals("AM")) {
-//                    deignation_type = "FM";
-//                } else if (deignation_name.trim().equals("RM")) {
-//                    deignation_type = "RM";
-//                } else if (deignation_name.trim().equals("ASM/DSM")) {
-//                    deignation_type = "AM";
-//                } else if (deignation_name.trim().equals("DSM")) {
-//                    deignation_type = "AM";
-//                } else if (deignation_name.trim().equals("SM")) {
-//                    deignation_type = "SM";
-//                } else if (deignation_name.trim().equals("SELF")) {
-//                    deignation_type = "SELF";
-//                }
-//            }
-//        });
+
     }
 
     @Override

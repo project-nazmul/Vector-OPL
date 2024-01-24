@@ -60,6 +60,7 @@ import com.opl.pharmavector.doctorList.DoctorListActivity;
 import com.opl.pharmavector.doctorservice.DoctorServiceTrackMonthly;
 import com.opl.pharmavector.doctorservice.ManagerDoctorServiceFollowup;
 import com.opl.pharmavector.giftfeedback.FieldFeedbackMaster;
+import com.opl.pharmavector.incentive.IncentiveActivity;
 import com.opl.pharmavector.liveDepot.ADSStockPMDActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.master_code.MasterCode;
@@ -72,6 +73,7 @@ import com.opl.pharmavector.msd_doc_support.MSDProgramApproval;
 import com.opl.pharmavector.msd_doc_support.MSDProgramFollowup;
 import com.opl.pharmavector.pcconference.PcApproval;
 import com.opl.pharmavector.pcconference.PcConferenceFollowup;
+import com.opl.pharmavector.pmdVector.DashBoardPMD;
 import com.opl.pharmavector.pmdVector.ff_contact.ff_contact_activity;
 import com.opl.pharmavector.prescriber.TopPrescriberActivity;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionFollowup;
@@ -153,7 +155,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     Typeface fontFamily;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn, practiceCard7,
             practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact,
-            cardview_ff_contact, cardView_tourPlan, cardView_productStock;
+            cardview_ff_contact, cardView_tourPlan, cardView_productStock, cardView_incentive;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_notification, img_btn_rx, img_btn_pc,
             img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
@@ -233,6 +235,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         topPrescriberEvent();
         achievementEarnEvent();
         monthlyTourPlanEvent();
+        incentiveEvent();
 
         PackageManager pm = getApplicationContext().getPackageManager();
         String pkgName = getApplicationContext().getPackageName();
@@ -496,6 +499,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         cardView_tourPlan.setOnClickListener(v -> showBottomSheetDialog_Tour());
     }
 
+    private void incentiveEvent() {
+        cardView_incentive.setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, IncentiveActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("UserRole", "AD");
+            startActivity(i);
+        });
+    }
+
     private void productStockEvent() {
         cardView_productStock.setOnClickListener(v -> showBottomSheetDialog_ProdStock());
     }
@@ -684,6 +698,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
         //cardView_tourPlan.setVisibility(View.GONE);
         cardView_productStock = findViewById(R.id.cardView_productStock);
+        cardView_incentive = findViewById(R.id.cardView_incentive);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
         img_btn_mastercode = findViewById(R.id.img_btn_mastercode);

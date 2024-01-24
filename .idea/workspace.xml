@@ -29,21 +29,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ incentive calculator done 2!">
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ pmd incentive done!">
+      <change afterPath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.51.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/output-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.50.apk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/achieve/AchieveEarnActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/ff_contact/ff_contact_activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/pmdVector/ff_contact/ff_contact_activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/adapter/CategoryAdapter7.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/adapter/CategoryAdapter7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/doctorservice/DoctorServiceAck.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/doctorservice/DoctorServiceAck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_vector_gm_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_vector_gm_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/doc_service_approval_follow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/doc_service_approval_follow.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/row_category_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/row_category_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-large-land/activity_vector_gm_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-large-land/activity_vector_gm_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vector_gm_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vector_gm_dashboard.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[987473067500021]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -449,13 +453,6 @@
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
     </task>
-    <task id="LOCAL-00121" summary="+ camera image problem solved!">
-      <created>1697285696845</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1697285696845</updated>
-    </task>
     <task id="LOCAL-00122" summary="+ prescription survey done!">
       <created>1697457561512</created>
       <option name="number" value="00122" />
@@ -792,7 +789,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705406476478</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="+ pmd incentive done!">
+      <created>1705750998085</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1705750998086</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -808,7 +812,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ dailys chedule pop-up!" />
     <MESSAGE value="+ dcr follow-up update!" />
     <MESSAGE value="+ popUp checker!" />
     <MESSAGE value="+ popUp checker design done!" />
@@ -833,7 +836,8 @@
     <MESSAGE value="+ incentive data list added!" />
     <MESSAGE value="+ incentive calculator done!!" />
     <MESSAGE value="+ incentive calculator done 2!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ incentive calculator done 2!" />
+    <MESSAGE value="+ pmd incentive done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ pmd incentive done!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -976,7 +980,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1224</line>
+          <line>1239</line>
           <option name="timeStamp" value="256" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1166,32 +1170,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1777</line>
+          <line>1792</line>
           <option name="timeStamp" value="390" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1778</line>
+          <line>1793</line>
           <option name="timeStamp" value="391" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1788</line>
+          <line>1803</line>
           <option name="timeStamp" value="392" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1789</line>
+          <line>1804</line>
           <option name="timeStamp" value="393" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1799</line>
+          <line>1814</line>
           <option name="timeStamp" value="394" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1800</line>
+          <line>1815</line>
           <option name="timeStamp" value="395" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1226,22 +1230,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1744</line>
+          <line>1759</line>
           <option name="timeStamp" value="416" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1745</line>
+          <line>1760</line>
           <option name="timeStamp" value="417" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1746</line>
+          <line>1761</line>
           <option name="timeStamp" value="418" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1747</line>
+          <line>1762</line>
           <option name="timeStamp" value="419" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1281,12 +1285,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1801</line>
+          <line>1816</line>
           <option name="timeStamp" value="435" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1802</line>
+          <line>1817</line>
           <option name="timeStamp" value="436" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1916,7 +1920,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>604</line>
+          <line>618</line>
           <option name="timeStamp" value="666" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1931,32 +1935,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>592</line>
+          <line>606</line>
           <option name="timeStamp" value="686" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>589</line>
+          <line>603</line>
           <option name="timeStamp" value="688" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>588</line>
+          <line>602</line>
           <option name="timeStamp" value="689" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1813</line>
+          <line>1828</line>
           <option name="timeStamp" value="690" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1815</line>
+          <line>1830</line>
           <option name="timeStamp" value="691" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>587</line>
+          <line>601</line>
           <option name="timeStamp" value="692" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -3096,12 +3100,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1443</line>
+          <line>1458</line>
           <option name="timeStamp" value="1516" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1444</line>
+          <line>1459</line>
           <option name="timeStamp" value="1517" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3116,7 +3120,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1442</line>
+          <line>1457</line>
           <option name="timeStamp" value="1527" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3161,12 +3165,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>861</line>
+          <line>876</line>
           <option name="timeStamp" value="1541" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>862</line>
+          <line>877</line>
           <option name="timeStamp" value="1542" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3251,7 +3255,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>2008</line>
+          <line>2023</line>
           <option name="timeStamp" value="1596" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3291,12 +3295,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>557</line>
+          <line>571</line>
           <option name="timeStamp" value="1615" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>558</line>
+          <line>572</line>
           <option name="timeStamp" value="1616" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3336,7 +3340,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>1969</line>
+          <line>1984</line>
           <option name="timeStamp" value="1624" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3401,12 +3405,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>782</line>
+          <line>797</line>
           <option name="timeStamp" value="1657" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/GMDashboard1.java</url>
-          <line>783</line>
+          <line>798</line>
           <option name="timeStamp" value="1658" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -3501,18 +3505,98 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
-          <line>109</line>
+          <line>105</line>
           <option name="timeStamp" value="1677" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
-          <line>341</line>
+          <line>301</line>
           <option name="timeStamp" value="1681" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
-          <line>351</line>
+          <line>311</line>
           <option name="timeStamp" value="1682" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>805</line>
+          <option name="timeStamp" value="1683" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>806</line>
+          <option name="timeStamp" value="1684" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>807</line>
+          <option name="timeStamp" value="1685" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>808</line>
+          <option name="timeStamp" value="1686" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>809</line>
+          <option name="timeStamp" value="1687" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>810</line>
+          <option name="timeStamp" value="1688" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>812</line>
+          <option name="timeStamp" value="1689" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Login.java</url>
+          <line>813</line>
+          <option name="timeStamp" value="1690" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>398</line>
+          <option name="timeStamp" value="1698" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>394</line>
+          <option name="timeStamp" value="1699" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>387</line>
+          <option name="timeStamp" value="1700" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>247</line>
+          <option name="timeStamp" value="1701" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>235</line>
+          <option name="timeStamp" value="1702" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Dashboard.java</url>
+          <line>1104</line>
+          <option name="timeStamp" value="1703" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Dashboard.java</url>
+          <line>1095</line>
+          <option name="timeStamp" value="1704" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/incentive/IncentiveActivity.java</url>
+          <line>401</line>
+          <option name="timeStamp" value="1706" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

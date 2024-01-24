@@ -19,7 +19,6 @@
             android:background="@android:color/transparent"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:id="@+id/row_categoryname_textview_sl"
                 android:layout_width="0dp"

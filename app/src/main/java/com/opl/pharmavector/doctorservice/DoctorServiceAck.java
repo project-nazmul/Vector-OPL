@@ -80,6 +80,7 @@ public class DoctorServiceAck extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void intiViews() {
         Typeface fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         button = findViewById(R.id.selectCategoryButton);
@@ -121,7 +122,7 @@ public class DoctorServiceAck extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void s) {
             ListView mListViewBooks =  findViewById(R.id.category_listView);
-            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list, 0);
+            final CategoryAdapter7 CategoryAdapter7 = new CategoryAdapter7(context, R.layout.row_category_4, array_list, 1);
             mListViewBooks.setAdapter(CategoryAdapter7);
             super.onPostExecute(s);
             dialog.dismiss();
