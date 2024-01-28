@@ -7,15 +7,15 @@ public class TourMorningList {
     @SerializedName("SL")
     @Expose
     private Integer sl;
-    @SerializedName("REGION")
+    @SerializedName("MPO_CODE")
     @Expose
-    private String region;
+    private String mpoCode;
+    @SerializedName("TERRI_NAME")
+    @Expose
+    private String terriName;
     @SerializedName("ENAME")
     @Expose
     private String ename;
-    @SerializedName("RM_CODE")
-    @Expose
-    private String rmCode;
 
     public Integer getSl() {
         return sl;
@@ -25,12 +25,20 @@ public class TourMorningList {
         this.sl = sl;
     }
 
-    public String getRegion() {
-        return region;
+    public String getMpoCode() {
+        return mpoCode;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setMpoCode(String mpoCode) {
+        this.mpoCode = mpoCode;
+    }
+
+    public String getTerriName() {
+        return terriName;
+    }
+
+    public void setTerriName(String terriName) {
+        this.terriName = terriName;
     }
 
     public String getEname() {
@@ -39,13 +47,5 @@ public class TourMorningList {
 
     public void setEname(String ename) {
         this.ename = ename;
-    }
-
-    public String getRmCode() {
-        return rmCode;
-    }
-
-    public void setRmCode(String rmCode) {
-        this.rmCode = rmCode;
     }
 }

@@ -1,17 +1,27 @@
 package com.opl.pharmavector.tourPlan;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
+import com.opl.pharmavector.util.KeyboardUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +33,13 @@ import retrofit2.Response;
 public class TourPlanActivity extends Activity {
     public Typeface fontFamily;
     public TextView tourRemarks;
-    public MaterialSpinner tourNature, tourMode, tourClass, tourMorning, tourEvening;
-    public String userName, userCode, tourNatureVal, tourModeVal, tourClassVal, tourMorningVal, tourEveningVal, tourMorningCode;
+    public AutoCompleteTextView tourMorning, tourEvening;
+    public MaterialSpinner tourNature, tourMode, tourClass, tourMonth;
+    public String userName, userCode, terriCode, tourNatureVal, tourModeVal, tourClassVal, tourMorningVal, tourEveningVal, tourMorningCode, tourEveningCode, tourMonthVal;
     public List<TourNatureList> tourNatureLists;
     public List<TourModeList> tourModeLists;
     public List<TourClassList> tourClassLists;
+    public List<TourMonthList> tourMonthLists;
     public List<TourMorningList> tourMorningLists;
     public List<TourMorningList> tourEveningLists;
 
@@ -37,20 +49,25 @@ public class TourPlanActivity extends Activity {
         setContentView(R.layout.activity_tour_plan);
 
         initViews();
-        getDailyTourNatureList();
-        getDailyTourModeList();
-        getDailyTourClassList();
-        getDailyTourMorningList();
+        getTourMonthList();
+        getTourNatureList();
+        getTourModeList();
+        getTourClassList();
+        getTourMorningList();
+        autoTourMorningEvent();
+        autoTourEveningEvent();
     }
 
     private void initViews() {
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         tourNature = findViewById(R.id.tourNature);
         tourMode = findViewById(R.id.tourMode);
-        tourClass= findViewById(R.id.tourClass);
+        tourClass = findViewById(R.id.tourClass);
+        tourMonth = findViewById(R.id.tourMonth);
         tourMorning = findViewById(R.id.tourMorning);
         tourEvening = findViewById(R.id.tourEvening);
         tourRemarks = findViewById(R.id.tourRemark);
+        tourMonthLists = new ArrayList<>();
         tourNatureLists = new ArrayList<>();
         tourModeLists = new ArrayList<>();
         tourClassLists = new ArrayList<>();
@@ -60,6 +77,7 @@ public class TourPlanActivity extends Activity {
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
         userCode = b.getString("UserCode");
+        terriCode = b.getString("TerriCode");
     }
 
     private void initTourNatureSpinner(List<TourNatureList> tourNatureLists) {
@@ -131,22 +149,101 @@ public class TourPlanActivity extends Activity {
     private void initTourMorningSpinner(List<TourMorningList> tourMorningLists) {
         List<String> tourMorningList = new ArrayList<String>();
 
-        for (int i = 0; i < tourMorningLists.size(); i++) {
-            tourMorningList.add(tourMorningLists.get(i).getRegion());
-        }
-        tourMorning.setItems(tourMorningList);
+//        for (int i = 0; i < tourMorningLists.size(); i++) {
+//            tourMorningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+//        }
+//        tourMorning.setItems(tourMorningList);
+//
+//        tourMorning.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//            @Override
+//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+//                String tempMorningVal = String.valueOf(item).trim();
+//                tourMorningVal = tempMorningVal.split("-")[0];
+//
+//                for (int i = 0; i < tourMorningList.size(); i++) {
+//                    if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+//                        tourMorningCode = tourMorningLists.get(i).getMpoCode();
+//                        getTourEveningList(tourMorningCode);
+//                    }
+//                }
+//                Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
+//            }
+//        });
 
-        tourMorning.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        for (int i = 0; i < tourMorningLists.size(); i++) {
+            tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
+        }
+        String[] customer = tourMorningList.toArray(new String[0]);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+        tourMorning.setThreshold(2);
+        tourMorning.setAdapter(Adapter);
+        tourMorning.setTextColor(Color.BLUE);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void autoTourMorningEvent() {
+        tourMorning.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                tourMorning.showDropDown();
+                return false;
+            }
+        });
+        tourMorning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+        tourMorning.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tourMorning.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                tourMorning.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    String tempMorningVal = s.toString().trim();
+                    tourMorningVal = tempMorningVal.split("-")[0];
+
+                    for (int i = 0; i < tourMorningLists.size(); i++) {
+                        if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+                            tourMorningCode = tourMorningLists.get(i).getMpoCode();
+                            getTourEveningList(tourMorningCode);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            private void length() {}
+        });
+    }
+
+    private void initTourMonthSpinner(List<TourMonthList> tourMonthLists) {
+        List<String> tourMonthList = new ArrayList<String>();
+
+        for (int i = 0; i < tourMonthLists.size(); i++) {
+            tourMonthList.add(tourMonthLists.get(i).getCalDay());
+        }
+        tourMonth.setItems(tourMonthList);
+
+        tourMonth.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                tourMorningVal = String.valueOf(item).trim();
+                tourMonthVal = String.valueOf(item).trim();
+                //tourMonthVal = tempMorningVal.split("-")[0];
 
-                for (int i = 0; i < tourMorningList.size(); i++) {
-                    if (tourMorningLists.get(i).getRegion().contains(tourMorningVal)) {
-                        tourMorningCode = tourMorningLists.get(i).getRmCode();
-                        getDailyTourEveningList(tourMorningCode);
-                    }
-                }
+//                for (int i = 0; i < tourMorningList.size(); i++) {
+//                    if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+//                        tourMorningCode = tourMorningLists.get(i).getMpoCode();
+//                        getTourEveningList(tourMorningCode);
+//                    }
+//                }
                 Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
             }
         });
@@ -155,26 +252,78 @@ public class TourPlanActivity extends Activity {
     private void initTourEveningSpinner(List<TourMorningList> tourEveningLists) {
         List<String> tourEveningList = new ArrayList<String>();
 
-        for (int i = 0; i < tourEveningLists.size(); i++) {
-            tourEveningList.add(tourEveningLists.get(i).getRegion());
-        }
-        tourEvening.setItems(tourEveningList);
+//        for (int i = 0; i < tourEveningLists.size(); i++) {
+//            tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+//        }
+//        tourEvening.setItems(tourEveningList);
+//
+//        tourEvening.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+//            @Override
+//            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+//                tourEveningVal = String.valueOf(item).trim();
+////                for (int i = 0; i < monthList.size(); i++) {
+////                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
+////                        month_name = monthList.get(i).getMnyr();
+////                    }
+////                }
+//                Log.d("tourEven1", tourEveningVal);
+//            }
+//        });
 
-        tourEvening.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        for (int i = 0; i < tourEveningLists.size(); i++) {
+            tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+        }
+        String[] customer = tourEveningList.toArray(new String[0]);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+        tourEvening.setThreshold(2);
+        tourEvening.setAdapter(Adapter);
+        tourEvening.setTextColor(Color.BLUE);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void autoTourEveningEvent() {
+        tourEvening.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                tourEveningVal = String.valueOf(item).trim();
-//                for (int i = 0; i < monthList.size(); i++) {
-//                    if (monthList.get(i).getMnyrDesc().contains(team_name)) {
-//                        month_name = monthList.get(i).getMnyr();
-//                    }
-//                }
-                Log.d("tourEven1", tourEveningVal);
+            public boolean onTouch(View v, MotionEvent event) {
+                tourEvening.showDropDown();
+                return false;
             }
+        });
+        tourEvening.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+        tourEvening.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tourEvening.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                tourEvening.setTextColor(Color.BLUE);
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                try {
+                    String tempEveningVal = s.toString().trim();
+                    tourEveningVal = tempEveningVal.split("-")[0];
+
+                    for (int i = 0; i < tourEveningLists.size(); i++) {
+                        if (tourEveningLists.get(i).getMpoCode().contains(tourEveningVal)) {
+                            tourEveningCode = tourEveningLists.get(i).getMpoCode();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            private void length() {}
         });
     }
 
-    private void getDailyTourNatureList() {
+    private void getTourNatureList() {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
         pDialog.setMessage("Loading Tour Nature...");
         pDialog.setCancelable(true);
@@ -206,7 +355,7 @@ public class TourPlanActivity extends Activity {
         });
     }
 
-    private void getDailyTourModeList() {
+    private void getTourModeList() {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
         pDialog.setMessage("Loading Tour Mode...");
         pDialog.setCancelable(true);
@@ -238,7 +387,7 @@ public class TourPlanActivity extends Activity {
         });
     }
 
-    private void getDailyTourClassList() {
+    private void getTourClassList() {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
         pDialog.setMessage("Loading Tour Class...");
         pDialog.setCancelable(true);
@@ -270,13 +419,13 @@ public class TourPlanActivity extends Activity {
         });
     }
 
-    private void getDailyTourMorningList() {
+    private void getTourMorningList() {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
         pDialog.setMessage("Loading Tour Location...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TourMorningModel> call = apiInterface.getDailyTourMorningList(userCode);
+        Call<TourMorningModel> call = apiInterface.getDailyTourMorningList(terriCode);
         tourMorningLists.clear();
 
         call.enqueue(new Callback<TourMorningModel>() {
@@ -302,13 +451,45 @@ public class TourPlanActivity extends Activity {
         });
     }
 
-    private void getDailyTourEveningList(String tourMorningCode) {
+    private void getTourMonthList() {
+        ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
+        pDialog.setMessage("Loading Tour Month...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourMonthModel> call = apiInterface.getDailyTourMonthList(terriCode);
+        tourMonthLists.clear();
+
+        call.enqueue(new Callback<TourMonthModel>() {
+            @Override
+            public void onResponse(Call<TourMonthModel> call, Response<TourMonthModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourMonthLists.addAll((response.body()).getTourMonthLists());
+                    }
+                    initTourMonthSpinner(tourMonthLists);
+                    Log.d("tourMorn: ", String.valueOf(tourMorningLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourMonthModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourEveningList(String tourMorningCode) {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);
         pDialog.setMessage("Loading Tour Location...");
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<TourMorningModel> call = apiInterface.getDailyTourEveningList(userCode, tourMorningCode);
+        Call<TourMorningModel> call = apiInterface.getDailyTourEveningList(terriCode, tourMorningCode);
         tourEveningLists.clear();
 
         call.enqueue(new Callback<TourMorningModel>() {

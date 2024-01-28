@@ -55,6 +55,7 @@ import com.opl.pharmavector.prescriptionsurvey.rx_model;
 import com.opl.pharmavector.report.LocationReportModel;
 import com.opl.pharmavector.tourPlan.TourClassModel;
 import com.opl.pharmavector.tourPlan.TourModeModel;
+import com.opl.pharmavector.tourPlan.TourMonthModel;
 import com.opl.pharmavector.tourPlan.TourMorningModel;
 import com.opl.pharmavector.tourPlan.TourNatureModel;
 import com.opl.pharmavector.util.PopUpUrlModel;
@@ -477,6 +478,11 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("tour_plan/get_tour_class.php")
     Call<TourClassModel> getDailyTourClassList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_month.php")
+    Call<TourMonthModel> getDailyTourMonthList(@Field("id") String user_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

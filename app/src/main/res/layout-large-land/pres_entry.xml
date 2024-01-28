@@ -374,8 +374,7 @@
                 android:background="@android:drawable/gallery_thumb"
                 android:numColumns="5"
                 android:scrollbars="vertical"
-                android:visibility="gone"></GridView>
-
+                android:visibility="gone" />
         </LinearLayout>
 
         <Button
@@ -383,7 +382,5 @@
             android:layout_height="wrap_content"
             android:onClick="ButtonClick"
             android:visibility="gone" />
-
-
     </LinearLayout>
 </ScrollView>

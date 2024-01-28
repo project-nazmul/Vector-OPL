@@ -14,8 +14,8 @@ public class ApiClient {
     public static String BASE_URL    = "http://opsonin.com.bd/vector_opl_v1/";
     //public static String BASE_URL =   "http://opsonin.com.bd:83/vector_opl_v1/";
     private static Retrofit retrofit;
-    public static Retrofit getApiClient(){
 
+    public static Retrofit getApiClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -25,7 +25,7 @@ public class ApiClient {
         httpClient.readTimeout(60, TimeUnit.SECONDS);
         httpClient.writeTimeout(60,TimeUnit.SECONDS);
 
-        if (retrofit==null){
+        if (retrofit==null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class TourMorningModel {
-    @SerializedName("tour_mode")
+    @SerializedName("tour_from")
     @Expose
     private List<TourMorningList> tourMorningLists;
 

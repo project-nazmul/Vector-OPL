@@ -2130,8 +2130,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         CardView cardView_tourPlan = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
         //Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
-        CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
-        Objects.requireNonNull(cardView_doctorReach).setVisibility(View.VISIBLE);
+        CardView cardView_tourEntry = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        Objects.requireNonNull(cardView_tourEntry).setVisibility(View.VISIBLE);
         TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2169,21 +2169,21 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserRole", "T"); // T -> TOUR
             startActivity(i);
         });
-        Objects.requireNonNull(cardView_doctorReach).setOnClickListener(v -> {
-//            Intent i = new Intent(AmDashboard.this, DoctorReachActivity.class);
-//            i.putExtra("UserName", globalempName);
-//            i.putExtra("UserCode", globalempCode);
-//            i.putExtra("new_version", Login.version);
-//            i.putExtra("message_3", message_3);
-//            i.putExtra("UserRole", "AD");
-//            i.putExtra("report_flag", "SPI");
-//            i.putExtra("asm_flag", "N");
-//            i.putExtra("sm_flag", "N");
-//            i.putExtra("gm_flag", "Y");
-//            i.putExtra("rm_flag", "N");
-//            i.putExtra("fm_flag", "N");
-//            i.putExtra("mpo_flag", "N");
-//            startActivity(i);
+        Objects.requireNonNull(cardView_tourEntry).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, TourPlanActivity.class);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("TerriCode", userName);
+            i.putExtra("message_3", message_3);
+            i.putExtra("UserRole", "AD");
+            i.putExtra("report_flag", "SPI");
+            i.putExtra("asm_flag", "N");
+            i.putExtra("sm_flag", "N");
+            i.putExtra("gm_flag", "Y");
+            i.putExtra("rm_flag", "N");
+            i.putExtra("fm_flag", "N");
+            i.putExtra("mpo_flag", "N");
+            startActivity(i);
         });
     }
 
