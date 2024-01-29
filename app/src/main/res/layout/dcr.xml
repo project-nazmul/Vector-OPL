@@ -111,6 +111,7 @@
                 android:textSize="@dimen/_8sdp"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/userinput"
             android:layout_width="fill_parent"

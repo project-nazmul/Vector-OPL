@@ -58,6 +58,7 @@ import com.opl.pharmavector.tourPlan.TourModeModel;
 import com.opl.pharmavector.tourPlan.TourMonthModel;
 import com.opl.pharmavector.tourPlan.TourMorningModel;
 import com.opl.pharmavector.tourPlan.TourNatureModel;
+import com.opl.pharmavector.tourPlan.TourPlanResponse;
 import com.opl.pharmavector.util.PopUpUrlModel;
 
 import java.util.ArrayList;
@@ -478,6 +479,16 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("tour_plan/get_tour_class.php")
     Call<TourClassModel> getDailyTourClassList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/tour_plan_submit.php")
+    Call<TourPlanResponse> submitDailyTourPlanEntry(@Field("id") String user_code, @Field("emp_code") String emp_code, @Field("tour_date") String tour_date,
+                                                    @Field("objective") String objective, @Field("remarks") String remarks, @Field("LOCATION_FROM") String location_from,
+                                                    @Field("LOCATION_TO") String location_to, @Field("TN_CODE") String tn_code, @Field("TM_CODE") String tm_code,
+                                                    @Field("TMC_CODE") String tmc_code, @Field("FROM_H") String from_hour, @Field("FROM_M") String from_min,
+                                                    @Field("FROM_AM") String from_am, @Field("TO_DT") String to_date, @Field("TO_H") String to_hour,
+                                                    @Field("TO_M") String to_min, @Field("TO_AM") String to_am);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
