@@ -487,8 +487,7 @@ public interface ApiInterface {
                                                     @Field("objective") String objective, @Field("remarks") String remarks, @Field("LOCATION_FROM") String location_from,
                                                     @Field("LOCATION_TO") String location_to, @Field("TN_CODE") String tn_code, @Field("TM_CODE") String tm_code,
                                                     @Field("TMC_CODE") String tmc_code, @Field("FROM_H") String from_hour, @Field("FROM_M") String from_min,
-                                                    @Field("FROM_AM") String from_am, @Field("TO_DT") String to_date, @Field("TO_H") String to_hour,
-                                                    @Field("TO_M") String to_min, @Field("TO_AM") String to_am);
+                                                    @Field("FROM_AM") String from_am, @Field("TO_H") String to_hour, @Field("TO_M") String to_min, @Field("TO_AM") String to_am);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

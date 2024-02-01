@@ -2155,7 +2155,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         Objects.requireNonNull(cardView_tourPlan).setOnClickListener(v -> {
             Intent i = new Intent(AmDashboard.this, DcrEntryActivity.class);
             i.putExtra("UserName", globalempName);
-            i.putExtra("UserCode", globalempCode);
+            i.putExtra("UserCode", globalFMCode);
+            i.putExtra("TerriCode", globalFMCode);
             i.putExtra("new_version", Login.version);
             i.putExtra("message_3", message_3);
             i.putExtra("UserRole", "AD");
@@ -2543,6 +2544,8 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_dcfp_mpo = bottomSheetDialog.findViewById(R.id.cardview_dcfp_mpo);
         CardView cardview_dcfpDocList = bottomSheetDialog.findViewById(R.id.cardview_dcfp_docList);
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
+        CardView cardview_dcrEntry = bottomSheetDialog.findViewById(R.id.cardview_dcr_entry);
+        Objects.requireNonNull(cardview_dcrEntry).setVisibility(View.GONE);
         Objects.requireNonNull(cardview_tourFollow).setVisibility(View.GONE);
         Objects.requireNonNull(cardview_dcfpDocList).setVisibility(View.VISIBLE);
         Objects.requireNonNull(cardview_dcfp_mpo).setVisibility(View.VISIBLE);
@@ -2604,6 +2607,13 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("UserName", globalFMCode);
             i.putExtra("UserName_2", globalAreaCode);
             i.putExtra("UserRole", "FM");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardview_dcrEntry).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, DcrEntryActivity.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", globalAreaCode);
+            i.putExtra("UserRole", "AM");
             startActivity(i);
         });
         bottomSheetDialog.setOnDismissListener(dialog -> {

@@ -89,7 +89,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
     private Button logout;
     private SessionManager session;
     public Button next, back, dcr_submit, chemist_ppm;
-    public static String name = null, newversion_text = null, ename = null, mpo_code, emp_code;
+    public static String name = null, newversion_text = null, ename = null, mpo_code, emp_code, terri_code;
     public int credit_party = 0, cash_party = 0;
     public EditText osi, op, od, dateResult, ref, date_ext;
     private ArrayList<Customer> customerlist;
@@ -115,7 +115,7 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
     public String message, ord_no, invoice, target_data, achivement, searchString, select_party;
     ArrayList<HashMap<String, String>> dcrdatelist;
     ArrayList<HashMap<String, String>> dcrdaterange;
-    public String shift_status = "AM";
+    public String shift_status = "M";
     public String get_ext_dt;
     public String doc_code, doc_name;
     private final String URL_CUSOTMER = BASE_URL + "tour_plan_observation/get_doctor.php";
@@ -825,7 +825,8 @@ public class DcrEntryActivity extends AppCompatActivity implements OnItemSelecte
         emp_code = b.getString("EmployeeCode");
         newversion_text = b.getString("new_version");
         newversion.setText("DCR Entry");
-        mpo_code = b.getString("UserName");
+        mpo_code = b.getString("UserCode");
+        //terri_code = b.getString("TerriCode");
 
         if (b.isEmpty()) {
             String userName = "";

@@ -1,9 +1,7 @@
 package com.opl.pharmavector.geolocation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
+import static com.opl.pharmavector.util.KeyboardUtils.hideKeyboard;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -31,7 +29,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -39,6 +36,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -50,30 +52,17 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.opl.pharmavector.Customer;
 import com.opl.pharmavector.Dashboard;
-import com.opl.pharmavector.GalleryAdapter;
 import com.opl.pharmavector.ImageUtil;
 import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.ServiceHandler;
 import com.opl.pharmavector.app.AppController;
-import com.opl.pharmavector.doctorgift.DocGiftDashBoard;
-import com.opl.pharmavector.doctorgift.DocGiftEntryApproval;
-import com.opl.pharmavector.model.Patient;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionEntry;
-//import com.opl.pharmavector.remote.ApiClient;
-//import com.opl.pharmavector.remote.ApiInterface;
-
-import com.opl.pharmavector.network.ApiClient;
-import com.opl.pharmavector.network.ApiService;
-
 import com.opl.pharmavector.util.NetInfo;
 
 import org.apache.http.NameValuePair;
@@ -93,13 +82,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
-import io.grpc.Context;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
-import static com.opl.pharmavector.util.KeyboardUtils.hideKeyboard;
 
 public class DoctorChamberLocate extends AppCompatActivity {
     private Toolbar toolbar;

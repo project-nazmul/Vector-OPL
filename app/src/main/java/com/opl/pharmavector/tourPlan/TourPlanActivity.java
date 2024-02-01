@@ -28,6 +28,7 @@ import com.opl.pharmavector.remote.ApiInterface;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +73,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
                 startTimeHour.setText(String.valueOf(fromTimeHour));
                 startTimeMin.setText(String.valueOf(fromTimeMin));
                 startTimeAm.setText(fromTimeAm);
@@ -89,7 +90,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
                 startTimeHour.setText(String.valueOf(fromTimeHour));
                 startTimeMin.setText(String.valueOf(fromTimeMin));
                 startTimeAm.setText(fromTimeAm);
@@ -105,7 +106,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
                 startTimeHour.setText(String.valueOf(fromTimeHour));
                 startTimeMin.setText(String.valueOf(fromTimeMin));
                 startTimeAm.setText(fromTimeAm);
@@ -121,7 +122,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
                 endTimeHour.setText(String.valueOf(toTimeHour));
                 endTimeMin.setText(String.valueOf(toTimeMin));
                 endTimeAM.setText(toTimeAm);
@@ -137,7 +138,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
                 endTimeHour.setText(String.valueOf(toTimeHour));
                 endTimeMin.setText(String.valueOf(toTimeMin));
                 endTimeAM.setText(toTimeAm);
@@ -153,7 +154,7 @@ public class TourPlanActivity extends Activity {
             TimePickerDialog mTimePicker;
 
             mTimePicker = new TimePickerDialog(TourPlanActivity.this, (timePicker, selectedHour, selectedMinute) -> {
-                timeCheckerAmPm(selectedHour, selectedMinute);
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
                 endTimeHour.setText(String.valueOf(toTimeHour));
                 endTimeMin.setText(String.valueOf(toTimeMin));
                 endTimeAM.setText(toTimeAm);
@@ -181,8 +182,8 @@ public class TourPlanActivity extends Activity {
                                 pDialog.setCancelable(true);
                                 pDialog.show();
                                 ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-                                Call<TourPlanResponse> call = apiInterface.submitDailyTourPlanEntry(userCode, terriCode, tourMonthVal, tourObjectVal, tourRemarkVal, tourMorningVal,
-                                        tourEveningVal, tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, "", toTimeHour, toTimeMin, toTimeAm);
+                                Call<TourPlanResponse> call = apiInterface.submitDailyTourPlanEntry(terriCode, userCode, tourMonthVal, tourObjectVal, tourRemarkVal, tourMorningVal,
+                                        tourEveningVal, tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, toTimeHour, toTimeMin, toTimeAm);
 
                                 call.enqueue(new Callback<TourPlanResponse>() {
                                     @Override
@@ -219,49 +220,61 @@ public class TourPlanActivity extends Activity {
         });
     }
 
-    private void timeCheckerAmPm(int selectedHour, int selectedMinute) {
-        if (selectedHour == 12) {
-            fromTimeHour = "00";
-            fromTimeAm = "PM";
-            toTimeHour = "00";
-            toTimeAm = "PM";
-        } else if (selectedHour > 12) {
-            fromTimeHour = String.valueOf(selectedHour - 12);
-            if (Integer.parseInt(fromTimeHour) < 10) {
-                fromTimeHour = "0" + fromTimeHour;
+    private void timeCheckerAmPm(int selectedHour, int selectedMinute, String timeFlag) {
+        if (Objects.equals(timeFlag, "start")) {
+            if (selectedHour == 12) {
+                fromTimeHour = "00";
+                fromTimeAm = "PM";
+            } else if (selectedHour > 12) {
+                fromTimeHour = String.valueOf(selectedHour - 12);
+                if (Integer.parseInt(fromTimeHour) < 10) {
+                    fromTimeHour = "0" + fromTimeHour;
+                } else {
+                    fromTimeHour = fromTimeHour;
+                }
+                fromTimeAm = "PM";
             } else {
-                fromTimeHour = fromTimeHour;
+                fromTimeHour = String.valueOf(selectedHour);
+                if (Integer.parseInt(fromTimeHour) < 10) {
+                    fromTimeHour = "0" + fromTimeHour;
+                } else {
+                    fromTimeHour = fromTimeHour;
+                }
+                fromTimeAm = "AM";
             }
-            fromTimeAm = "PM";
-            toTimeHour = String.valueOf(selectedHour - 12);
-            if (Integer.parseInt(toTimeHour) < 10) {
-                toTimeHour = "0" + toTimeHour;
+
+            if (selectedMinute < 10) {
+                fromTimeMin = "0" + String.valueOf(selectedMinute);
             } else {
-                toTimeHour = toTimeHour;
+                fromTimeMin = String.valueOf(selectedMinute);
             }
-            toTimeAm = "PM";
         } else {
-            fromTimeHour = String.valueOf(selectedHour);
-            if (Integer.parseInt(fromTimeHour) < 10) {
-                fromTimeHour = "0" + fromTimeHour;
+            if (selectedHour == 12) {
+                toTimeHour = "00";
+                toTimeAm = "PM";
+            } else if (selectedHour > 12) {
+                toTimeHour = String.valueOf(selectedHour - 12);
+                if (Integer.parseInt(toTimeHour) < 10) {
+                    toTimeHour = "0" + toTimeHour;
+                } else {
+                    toTimeHour = toTimeHour;
+                }
+                toTimeAm = "PM";
             } else {
-                fromTimeHour = fromTimeHour;
+                toTimeHour = String.valueOf(selectedHour);
+                if (Integer.parseInt(toTimeHour) < 10) {
+                    toTimeHour = "0" + toTimeHour;
+                } else {
+                    toTimeHour = toTimeHour;
+                }
+                toTimeAm = "PM";
             }
-            fromTimeAm = "AM";
-            toTimeHour = String.valueOf(selectedHour);
-            if (Integer.parseInt(toTimeHour) < 10) {
-                toTimeHour = "0" + toTimeHour;
+
+            if (selectedMinute < 10) {
+                toTimeMin = "0" + String.valueOf(selectedMinute);
             } else {
-                toTimeHour = toTimeHour;
+                toTimeMin = String.valueOf(selectedMinute);
             }
-            toTimeAm = "PM";
-        }
-        if (selectedMinute < 10) {
-            fromTimeMin = "0" + String.valueOf(selectedMinute);
-            toTimeMin = "0" + String.valueOf(selectedMinute);
-        } else {
-            fromTimeMin = String.valueOf(selectedMinute);
-            toTimeMin = String.valueOf(selectedMinute);
         }
     }
 
@@ -384,7 +397,7 @@ public class TourPlanActivity extends Activity {
 
         tourMorning.setOnItemClickListener((parent, view, position, id) -> {
             String tempMorningVal = adapter.getItem(position).toString().trim();
-            tourMorningVal = tempMorningVal.split("-")[0];
+            tourMorningVal = tempMorningVal.split("-")[0].trim();
         });
     }
 
@@ -471,7 +484,7 @@ public class TourPlanActivity extends Activity {
 
         tourEvening.setOnItemClickListener((parent, view, position, id) -> {
             String tempEveningVal = adapter.getItem(position).toString().trim();
-            tourEveningVal = tempEveningVal.split("-")[0];
+            tourEveningVal = tempEveningVal.split("-")[0].trim();
         });
     }
 

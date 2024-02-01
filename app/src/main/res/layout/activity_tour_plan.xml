@@ -250,7 +250,7 @@
         android:inputType="textMultiLine"
         android:paddingStart="10dp"
         android:selectAllOnFocus="true"
-        android:text="Tour Objective"
+        android:hint="Tour Objective"
         android:textSize="@dimen/_10sdp"
         tools:ignore="RtlSymmetry" />
 
@@ -268,7 +268,7 @@
         android:inputType="textMultiLine"
         android:paddingStart="10dp"
         android:selectAllOnFocus="true"
-        android:text="Remarks"
+        android:hint="Remarks"
         android:textSize="@dimen/_10sdp"
         tools:ignore="RtlSymmetry" />
 
