@@ -101,6 +101,13 @@
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name=".chemistList.ChemistListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".dcfpFollowup.MpoDcfpFollowActivity"
             android:exported="false" />
         <activity

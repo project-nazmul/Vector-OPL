@@ -43,8 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class DoctorListActivity extends Activity {
-    private int count;
-    private Context context;
+    public int count;
+    public Context context;
     public String userName, userName_2, new_version, message_3;
     PreferenceManager preferenceManager;
     public ProgressDialog doctorFFDialog, doctorDialog;

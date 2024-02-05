@@ -52,6 +52,7 @@ import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.achieve.AchieveMonthList;
 import com.opl.pharmavector.achieve.AchvMonthModel;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.chemistList.ChemistListActivity;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -155,7 +156,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     Typeface fontFamily;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard6, cardview_doctor_list, cardView_prescriber, cardview_achv_earn, practiceCard7,
             practiceCard8, cardview_pc, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode, cardview_pmd_contact,
-            cardview_ff_contact, cardView_tourPlan, cardView_productStock, cardView_incentive;
+            cardview_ff_contact, cardView_tourPlan, cardView_productStock, cardView_incentive, cardView_chemist_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_notification, img_btn_rx, img_btn_pc,
             img_btn_salereports, img_btn_msd, img_btn_salesfollowup, img_btn_mastercode, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice,
@@ -236,6 +237,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         achievementEarnEvent();
         monthlyTourPlanEvent();
         incentiveEvent();
+        chemistListEvent();
 
         PackageManager pm = getApplicationContext().getPackageManager();
         String pkgName = getApplicationContext().getPackageName();
@@ -699,6 +701,7 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
         //cardView_tourPlan.setVisibility(View.GONE);
         cardView_productStock = findViewById(R.id.cardView_productStock);
         cardView_incentive = findViewById(R.id.cardView_incentive);
+        cardView_chemist_list = findViewById(R.id.cardView_chemist_list);
 
         btn_mastercode = findViewById(R.id.btn_mastercode);
         img_btn_mastercode = findViewById(R.id.img_btn_mastercode);
@@ -1818,6 +1821,17 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
                 i.putExtra("message_3", message_3);
                 startActivity(i);
             }
+        });
+    }
+
+    private void chemistListEvent() {
+        cardView_chemist_list.setOnClickListener(v -> {
+            Intent i = new Intent(GMDashboard1.this, ChemistListActivity.class);
+            i.putExtra("UserName", global_admin_Code);
+            i.putExtra("UserName_2", global_admin_name);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            startActivity(i);
         });
     }
 

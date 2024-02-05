@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/page_background"
+    android:paddingStart="@dimen/_5sdp"
+    android:paddingEnd="@dimen/_5sdp"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/dcr_page_button"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text=""
+                android:textColor="#FFF"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+        </LinearLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoDoctorMpoList"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="0sp"
+            android:layout_marginRight="0sp"
+            android:layout_marginBottom="0sp"
+            android:layout_weight="8"
+            android:background="@android:drawable/editbox_background"
+            android:drawableStart="@drawable/ic_medicine"
+            android:ems="0"
+            android:hint="Select MPO Code"
+            android:imeOptions="flagNoExtractUi"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/_8sdp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/doctorListBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/submit_btton_selector"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:soundEffectsEnabled="true"
+                android:text="show"
+                android:textColor="#FFF"
+                android:textSize="@dimen/_8sdp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        card_view:cardBackgroundColor="#FFFFFF"
+        card_view:cardCornerRadius="0dp"
+        card_view:contentPadding="2dp">
+
+        <LinearLayout
+            android:paddingTop="@dimen/_4sdp"
+            android:paddingBottom="@dimen/_4sdp"
+            android:id="@+id/chemistLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cust Code"
+                android:textColor="#2CA631"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Cust Name"
+                android:textColor="#2F81A6"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Market Code"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Market Name"
+                android:textColor="#A42E56"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:text="Depot Desc"
+                android:textColor="#673AB7"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="Address"
+                android:textColor="#C26F54"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDoctorList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_weight="98"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/transparent"
+        android:listSelector="@color/lightgray" />
+</LinearLayout>

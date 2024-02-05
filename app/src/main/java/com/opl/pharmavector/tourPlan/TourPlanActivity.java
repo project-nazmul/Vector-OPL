@@ -38,8 +38,8 @@ public class TourPlanActivity extends Activity {
     public Button submitPlan;
     public Typeface fontFamily;
     public TextView tourRemarks, startTimeHour, startTimeMin, startTimeSec, endTimeHour, endTimeMin, endTimeSec, tourObjective, successMessage, startTimeAm, endTimeAM;
-    public AutoCompleteTextView tourMorning, tourEvening;
-    public MaterialSpinner tourNature, tourMode, tourClass, tourMonth;
+    //public AutoCompleteTextView tourMorning, tourEvening;
+    public MaterialSpinner tourNature, tourMode, tourClass, tourMonth, tourMorning, tourEvening;
     public String userName, userCode, terriCode, tourNatureVal, tourModeVal, tourClassVal, tourMorningVal, tourEveningVal, tourMorningCode, tourEveningCode, tourMonthVal,
     tourObjectVal, tourRemarkVal, tourNatureCode = "00001", tourModeCode = "00007", tourClassCode = "00006", fromTimeHour = "09", fromTimeMin = "00", fromTimeAm = "AM",
             toTimeHour = "10", toTimeMin = "00", toTimeAm = "PM";
@@ -62,8 +62,8 @@ public class TourPlanActivity extends Activity {
         getTourClassList();
         getTourMorningList();
         getTourEveningList("");
-        autoTourMorningEvent();
-        autoTourEveningEvent();
+        //autoTourMorningEvent();
+        //autoTourEveningEvent();
 
         startTimeHour.setOnClickListener(v -> {
             Calendar mCurrentTime = Calendar.getInstance();
@@ -386,64 +386,84 @@ public class TourPlanActivity extends Activity {
         ArrayAdapter<String> Adapter;
         List<String> tourMorningList = new ArrayList<String>();
 
+//        for (int i = 0; i < tourMorningLists.size(); i++) {
+//            tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
+//        }
+//        String[] customer = tourMorningList.toArray(new String[0]);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+//        tourMorning.setThreshold(2);
+//        tourMorning.setAdapter(adapter);
+//        tourMorning.setTextColor(Color.BLUE);
+//
+//        tourMorning.setOnItemClickListener((parent, view, position, id) -> {
+//            String tempMorningVal = adapter.getItem(position).toString().trim();
+//            tourMorningVal = tempMorningVal.split("-")[0].trim();
+//        });
+
         for (int i = 0; i < tourMorningLists.size(); i++) {
             tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
         }
-        String[] customer = tourMorningList.toArray(new String[0]);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        tourMorning.setThreshold(2);
-        tourMorning.setAdapter(adapter);
-        tourMorning.setTextColor(Color.BLUE);
+        tourMorning.setItems(tourMorningList);
 
-        tourMorning.setOnItemClickListener((parent, view, position, id) -> {
-            String tempMorningVal = adapter.getItem(position).toString().trim();
-            tourMorningVal = tempMorningVal.split("-")[0].trim();
+        tourMorning.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String tempMorningVal = String.valueOf(item).trim();
+                tourMorningVal = tempMorningVal.split("-")[0].trim();
+
+//                for (int i = 0; i < tourMorningLists.size(); i++) {
+//                    if (tourClassLists.get(i).getTmcDesc().contains(tourClassVal)) {
+//                        tourClassCode = tourClassLists.get(i).getTmcCode();
+//                    }
+//                }
+                Log.d("tourClass1", tourClassVal);
+            }
         });
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void autoTourMorningEvent() {
-        tourMorning.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                tourMorning.showDropDown();
-                return false;
-            }
-        });
-        tourMorning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-        tourMorning.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tourMorning.setTextColor(Color.BLUE);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                tourMorning.setTextColor(Color.BLUE);
-            }
-
-            @Override
-            public void afterTextChanged(final Editable s) {
-//                try {
-//                    String tempMorningVal = s.toString().trim();
-//                    tourMorningVal = tempMorningVal.split("-")[0];
+//    private void autoTourMorningEvent() {
+//        tourMorning.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                tourMorning.showDropDown();
+//                return false;
+//            }
+//        });
+//        tourMorning.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//        tourMorning.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                tourMorning.setTextColor(Color.BLUE);
+//            }
 //
-//                    for (int i = 0; i < tourMorningLists.size(); i++) {
-//                        if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
-//                            tourMorningCode = tourMorningLists.get(i).getMpoCode();
-//                            getTourEveningList(tourMorningCode);
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-            }
-            private void length() {}
-        });
-    }
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                tourMorning.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(final Editable s) {
+////                try {
+////                    String tempMorningVal = s.toString().trim();
+////                    tourMorningVal = tempMorningVal.split("-")[0];
+////
+////                    for (int i = 0; i < tourMorningLists.size(); i++) {
+////                        if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+////                            tourMorningCode = tourMorningLists.get(i).getMpoCode();
+////                            getTourEveningList(tourMorningCode);
+////                        }
+////                    }
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//            private void length() {}
+//        });
+//    }
 
     private void initTourMonthSpinner(List<TourMonthList> tourMonthLists) {
         List<String> tourMonthList = new ArrayList<String>();
@@ -473,63 +493,86 @@ public class TourPlanActivity extends Activity {
     private void initTourEveningSpinner(List<TourMorningList> tourEveningLists) {
         List<String> tourEveningList = new ArrayList<String>();
 
+//        for (int i = 0; i < tourEveningLists.size(); i++) {
+//            tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+//        }
+//        String[] customer = tourEveningList.toArray(new String[0]);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+//        tourEvening.setThreshold(2);
+//        tourEvening.setAdapter(adapter);
+//        tourEvening.setTextColor(Color.BLUE);
+//
+//        tourEvening.setOnItemClickListener((parent, view, position, id) -> {
+//            String tempEveningVal = adapter.getItem(position).toString().trim();
+//            tourEveningVal = tempEveningVal.split("-")[0].trim();
+//        });
+
         for (int i = 0; i < tourEveningLists.size(); i++) {
             tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
         }
-        String[] customer = tourEveningList.toArray(new String[0]);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
-        tourEvening.setThreshold(2);
-        tourEvening.setAdapter(adapter);
-        tourEvening.setTextColor(Color.BLUE);
+        tourEvening.setItems(tourEveningList);
 
-        tourEvening.setOnItemClickListener((parent, view, position, id) -> {
-            String tempEveningVal = adapter.getItem(position).toString().trim();
-            tourEveningVal = tempEveningVal.split("-")[0].trim();
+        tourEvening.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String tempEveningVal = String.valueOf(item).trim();
+                tourEveningVal = tempEveningVal.split("-")[0].trim();
+
+                //tourMonthVal = tempMorningVal.split("-")[0];
+
+//                for (int i = 0; i < tourMorningList.size(); i++) {
+//                    if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+//                        tourMorningCode = tourMorningLists.get(i).getMpoCode();
+//                        getTourEveningList(tourMorningCode);
+//                    }
+//                }
+                Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
+            }
         });
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void autoTourEveningEvent() {
-        tourEvening.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                tourEvening.showDropDown();
-                return false;
-            }
-        });
-        tourEvening.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-        tourEvening.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tourEvening.setTextColor(Color.BLUE);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                tourEvening.setTextColor(Color.BLUE);
-            }
-
-            @Override
-            public void afterTextChanged(final Editable s) {
-//                try {
-//                    String tempEveningVal = s.toString().trim();
-//                    tourEveningVal = tempEveningVal.split("-")[0];
+//    private void autoTourEveningEvent() {
+//        tourEvening.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                tourEvening.showDropDown();
+//                return false;
+//            }
+//        });
+//        tourEvening.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//        tourEvening.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                tourEvening.setTextColor(Color.BLUE);
+//            }
 //
-//                    for (int i = 0; i < tourEveningLists.size(); i++) {
-//                        if (tourEveningLists.get(i).getMpoCode().contains(tourEveningVal)) {
-//                            tourEveningCode = tourEveningLists.get(i).getMpoCode();
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-            }
-            private void length() {}
-        });
-    }
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                tourEvening.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(final Editable s) {
+////                try {
+////                    String tempEveningVal = s.toString().trim();
+////                    tourEveningVal = tempEveningVal.split("-")[0];
+////
+////                    for (int i = 0; i < tourEveningLists.size(); i++) {
+////                        if (tourEveningLists.get(i).getMpoCode().contains(tourEveningVal)) {
+////                            tourEveningCode = tourEveningLists.get(i).getMpoCode();
+////                        }
+////                    }
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//            private void length() {}
+//        });
+//    }
 
     private void getTourNatureList() {
         ProgressDialog pDialog = new ProgressDialog(TourPlanActivity.this);

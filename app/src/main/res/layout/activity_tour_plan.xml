@@ -71,7 +71,7 @@
             android:background="@android:drawable/editbox_background"
             android:gravity="center"
             android:paddingStart="10dp"
-            android:text="09"
+            android:text="08"
             android:textSize="@dimen/_10sdp"
             tools:ignore="RtlSymmetry" />
 
@@ -84,7 +84,7 @@
             android:background="@android:drawable/editbox_background"
             android:gravity="center"
             android:paddingStart="10dp"
-            android:text="00"
+            android:text="30"
             android:textSize="@dimen/_10sdp"
             tools:ignore="RtlSymmetry" />
 
@@ -130,7 +130,7 @@
             android:background="@android:drawable/editbox_background"
             android:gravity="center"
             android:paddingStart="10dp"
-            android:text="10"
+            android:text="11"
             android:textSize="@dimen/_10sdp"
             tools:ignore="RtlSymmetry" />
 
@@ -208,33 +208,27 @@
         app:ms_hint_color="@color/colorAccentEditor"
         app:ms_text_color="@color/colorAccentEditor" />
 
-    <AutoCompleteTextView
+    <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/tourMorning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_4sdp"
         android:background="@android:drawable/editbox_background"
-        android:drawableStart="@drawable/ic_medicine"
-        android:ems="0"
-        android:hint="Select Location (Mor)"
-        android:maxLines="1"
-        android:paddingStart="10dp"
-        android:textAlignment="textStart"
-        android:textSize="@dimen/_8sdp" />
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Tour Mode"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
 
-    <AutoCompleteTextView
+    <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/tourEvening"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_4sdp"
         android:background="@android:drawable/editbox_background"
-        android:drawableStart="@drawable/ic_medicine"
-        android:ems="0"
-        android:hint="Select Location (Eve)"
-        android:maxLines="1"
-        android:paddingStart="10dp"
-        android:textAlignment="textStart"
-        android:textSize="@dimen/_8sdp" />
+        android:textSize="@dimen/_8sdp"
+        app:ms_hint="Select Tour Mode"
+        app:ms_hint_color="@color/colorAccentEditor"
+        app:ms_text_color="@color/colorAccentEditor" />
 
     <TextView
         android:id="@+id/tourObjective"
@@ -255,6 +249,7 @@
         tools:ignore="RtlSymmetry" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tourRemark"
         android:layout_width="match_parent"
         android:layout_height="40dp"

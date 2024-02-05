@@ -52,6 +52,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.chemistList.ChemistListActivity;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -155,7 +156,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     public static String globalempCode, globalempName, build_model, build_brand, build_id, build_device, build_version, os_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardview_ff_contact, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_salesfollowup, cardview_mastercode,
-            cardview_doctor_list, cardView_productStock, cardView_tourPlan;
+            cardview_doctor_list, cardView_productStock, cardView_tourPlan, cardView_chemist_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_btn_salesfollowup, img_pmd_contact, img_doctor_list,
             img_btn_mastercode;
@@ -214,6 +215,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         productStockEvent();
         topPrescriberEvent();
         monthlyTourPlanEvent();
+        chemistListEvent();
 
         preferenceManager = new PreferenceManager(this);
         count = preferenceManager.getTasbihCounter();
@@ -1659,6 +1661,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
         cardView_productStock = findViewById(R.id.cardView_productStock);
         cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
+        cardView_chemist_list = findViewById(R.id.cardView_chemist_list);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -2644,6 +2647,20 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             @Override
             public void onClick(final View v) {
                 Intent i = new Intent(AssistantManagerDashboard.this, DoctorListActivity.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void chemistListEvent() {
+        cardView_chemist_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(AssistantManagerDashboard.this, ChemistListActivity.class);
                 i.putExtra("UserName", userName);
                 i.putExtra("UserName_2", UserName_2);
                 i.putExtra("new_version", Login.version);
