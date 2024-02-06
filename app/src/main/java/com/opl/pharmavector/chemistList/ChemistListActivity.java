@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ import retrofit2.Callback;
 public class ChemistListActivity extends Activity {
     public int count;
     public Context context;
+    public TextView customerCount;
     public String userName, userName_2, new_version, message_3;
     PreferenceManager preferenceManager;
     public ProgressDialog doctorFFDialog, doctorDialog;
@@ -94,6 +96,7 @@ public class ChemistListActivity extends Activity {
         backBtn.setTypeface(fontFamily);
         backBtn.setText("\uf060 ");
 
+        customerCount = findViewById(R.id.customerCount);
         doctorListBtn = findViewById(R.id.doctorListBtn);
         doctorRecycler = findViewById(R.id.recyclerDoctorList);
         autoDoctorFFList = findViewById(R.id.autoDoctorMpoList);
@@ -163,7 +166,7 @@ public class ChemistListActivity extends Activity {
         doctorFFList.clear();
 
         call.enqueue(new Callback<DoctorFFModel>() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onResponse(@NonNull Call<DoctorFFModel> call, @NonNull retrofit2.Response<DoctorFFModel> response) {
                 List<DoctorFFList> doctorFFData = null;
@@ -205,7 +208,7 @@ public class ChemistListActivity extends Activity {
         doctorList.clear();
 
         call.enqueue(new Callback<ChemistModel>() {
-            @SuppressLint("NotifyDataSetChanged")
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
             @Override
             public void onResponse(@NonNull Call<ChemistModel> call, @NonNull retrofit2.Response<ChemistModel> response) {
                 List<ChemistList> chemistLists = null;
@@ -224,6 +227,10 @@ public class ChemistListActivity extends Activity {
                 } else {
                     doctorDialog.dismiss();
                     Toast.makeText(ChemistListActivity.this, "No data Available", Toast.LENGTH_LONG).show();
+                }
+
+                if (chemistLists != null && chemistLists.size() > 0) {
+                    customerCount.setText("No of Customer : " + chemistLists.size());
                 }
             }
 

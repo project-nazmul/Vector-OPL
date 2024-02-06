@@ -1277,7 +1277,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_ProdStock() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        bottomSheetDialog.setContentView(R.layout.stock_bottom_sheet_dialog);
         CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);

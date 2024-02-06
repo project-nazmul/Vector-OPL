@@ -1723,7 +1723,7 @@
                             android:layout_height="36dp"
                             android:layout_marginStart="2dp"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/doctor_list"
+                            android:background="@drawable/chemist_logo"
                             android:clickable="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

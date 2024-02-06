@@ -48,6 +48,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.chemistList.ChemistListActivity;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DcfpFollowupActivity;
@@ -136,7 +137,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     public static String password, globalempCode, globalempName, new_version, message_3, vector_version, build_model, build_brand, build_id, build_device, build_version, os_version;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardview_pmd_contact, cardView_prescriber, cardview_achv_earn,
             practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_doctor_list, cardview_ff_contact,
-            cardView_productStock, cardView_tourPlan;
+            cardView_productStock, cardView_tourPlan, cardView_chemist_list;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam, img_pmd_contact, img_doctor_list;
     TextView tv_dcr, tv_productorder, tv_dcc, tv_docservice, tv_docgiftfeedback,
@@ -200,6 +201,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         productStockEvent();
         topPrescriberEvent();
         monthlyTourPlanEvent();
+        chemistListEvent();
         //pendingPC();
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(RmDashboard.this, instanceIdResult -> vectorToken = instanceIdResult.getToken());
@@ -1558,7 +1560,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private void showBottomSheetDialog_ProdStock() {
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(R.layout.tour_bottom_sheet_dialog);
+        bottomSheetDialog.setContentView(R.layout.stock_bottom_sheet_dialog);
         CardView cardView_adsStock = bottomSheetDialog.findViewById(R.id.cardview_rx_image);
         CardView cardView_dailyStock = bottomSheetDialog.findViewById(R.id.cardview_rx_summary_A);
         CardView cardView_doctorReach = bottomSheetDialog.findViewById(R.id.card_doctorReach);
@@ -2133,6 +2135,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
         cardView_productStock = findViewById(R.id.cardView_productStock);
         cardView_tourPlan = findViewById(R.id.cardView_tourPlan);
+        cardView_chemist_list = findViewById(R.id.cardView_chemist_list);
 
         btn_doctor_list = findViewById(R.id.btn_doctor_list);
         tv_doctor_list = findViewById(R.id.tv_doctor_list);
@@ -3102,6 +3105,20 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             @Override
             public void onClick(final View v) {
                 Intent i = new Intent(RmDashboard.this, Activity_PMD_Contact.class);
+                i.putExtra("UserName", userName);
+                i.putExtra("UserName_2", UserName_2);
+                i.putExtra("new_version", Login.version);
+                i.putExtra("message_3", message_3);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void chemistListEvent() {
+        cardView_chemist_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent i = new Intent(RmDashboard.this, ChemistListActivity.class);
                 i.putExtra("UserName", userName);
                 i.putExtra("UserName_2", UserName_2);
                 i.putExtra("new_version", Login.version);

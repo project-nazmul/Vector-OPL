@@ -64,6 +64,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.opl.pharmavector.achieve.AchieveEarnActivity;
 import com.opl.pharmavector.app.Config;
+import com.opl.pharmavector.chemistList.ChemistListActivity;
 import com.opl.pharmavector.contact.Activity_PMD_Contact;
 import com.opl.pharmavector.dcfpFollowup.DcfpDoctorListActivity;
 import com.opl.pharmavector.dcfpFollowup.DoctorReachActivity;
@@ -160,7 +161,8 @@ public class Dashboard extends Activity implements View.OnClickListener {
     Context context;
     BroadcastReceiver updateUIReciver;
     CardView cardview_dcr, practiceCard2, practiceCard3, practiceCard4, practiceCard5, practiceCard6, cardView_prescriber, cardview_achv_earn,
-            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact, cardview_doctor_list;
+            practiceCard7, practiceCard8, practiceCard9, cardview_pc, cardview_promomat, cardview_salereports, cardview_msd, cardview_pmd_contact,
+            cardview_doctor_list, cardView_chemistList;
     ImageButton profileB, img_btn_dcr, img_btn_dcc, img_btn_productorder, img_btn_docservice, img_btn_docgiftfeedback, img_doctor_list,
             img_btn_notification, img_btn_rx, img_btn_personalexpense, img_btn_pc, img_btn_promomat, img_btn_salereports, img_btn_msd, img_btn_exam,
             img_pmd_contact;
@@ -220,6 +222,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         prescriberEvent();
         achieveEarnEvent();
         getDeviceSimNumber();
+        chemistListEvent();
 
         session = new SessionManager(getApplicationContext());
         PackageManager pm = getApplicationContext().getPackageManager();
@@ -230,7 +233,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        vector_version = pkgInfo.versionName;
+        vector_version = Objects.requireNonNull(pkgInfo).versionName;
 
         logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -631,6 +634,7 @@ public class Dashboard extends Activity implements View.OnClickListener {
         btn_vector_feedback = findViewById(R.id.btn_vector_feedback);
         cardView_prescriber = findViewById(R.id.cardView_prescriber);
         cardview_achv_earn = findViewById(R.id.cardview_achv_earn);
+        cardView_chemistList = findViewById(R.id.cardView_chemistList);
         tvDesignation = findViewById(R.id.textView3);
 
         ff_type = null;
@@ -1870,6 +1874,17 @@ public class Dashboard extends Activity implements View.OnClickListener {
         });
         tv_doctor_list.setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, DoctorListActivity.class);
+            i.putExtra("UserName", globalmpocode);
+            i.putExtra("UserName_2", globalterritorycode);
+            i.putExtra("new_version", Login.version);
+            i.putExtra("message_3", message_3);
+            startActivity(i);
+        });
+    }
+
+    private void chemistListEvent() {
+        cardView_chemistList.setOnClickListener(v -> {
+            Intent i = new Intent(Dashboard.this, ChemistListActivity.class);
             i.putExtra("UserName", globalmpocode);
             i.putExtra("UserName_2", globalterritorycode);
             i.putExtra("new_version", Login.version);
