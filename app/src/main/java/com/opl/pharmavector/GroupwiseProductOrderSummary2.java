@@ -117,15 +117,15 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
         categoriesList = new ArrayList<Category3>();
         categoriesList2 = new ArrayList<Category6>();
         Bundle b = getIntent().getExtras();
-        UserName_1=b.getString("userName");
-        UserName_2=b.getString("userName");
-        message_3 = b.getString("userName");
+        UserName_1 = b.getString("userName");
+        UserName_2 = b.getString("userName");
+        message_3  = b.getString("userName");
 
         submitBtn = (Button) findViewById(R.id.submitBtn);
-        TextView mTextView=(TextView) findViewById(R.id.aprv_head);
+        TextView mTextView = (TextView) findViewById(R.id.aprv_head);
         deleteCache(this);
         todate = (TextView) findViewById(R.id.todate);
-        Calendar c_todate = Calendar .getInstance();
+        Calendar c_todate = Calendar.getInstance();
         //System.out.println("Current time => "+c.getTime());
         SimpleDateFormat dftodate = new SimpleDateFormat("dd/MM/yyyy");
         String current_todate = dftodate.format(c_todate.getTime());
@@ -359,7 +359,6 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
         }
 
         private float round(float x, int i) {
-            // TODO Auto-generated method stub
             return 0;
         }
         public String getTotalQ() {
@@ -369,10 +368,6 @@ public class GroupwiseProductOrderSummary2 extends Activity implements OnClickLi
             return TotalV;
         }
     }
-
-
-
-
 
 
     private class GetCategories extends AsyncTask<Void, Void, Void> {

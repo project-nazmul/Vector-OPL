@@ -49,7 +49,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Viewbycustomersale extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
     private ArrayList<Category3> categoriesList;
@@ -72,13 +71,11 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
     public static ArrayList<String> p_quanty;
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
-
     private ArrayList<String> array_sort = new ArrayList<String>();
     private String URL_PRODUCT_VIEW = BASE_URL+"mposalesreports/depo_report/viewbycustomersale.php";
     private String URL_CUSOTMER = BASE_URL+"mposalesreports/depo_report/ord_wise_customerlist.php";
     private String URL_ORD = BASE_URL+"mposalesreports/depo_report/customerwiseordno.php";
     Button back_btn, submitBtn;
-
     LinearLayout ln;
     Calendar c_todate, c_fromdate;
     SimpleDateFormat dftodate, dffromdate;
@@ -86,15 +83,14 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewbycustomersale);
+
         initViews();
 		calenderinitViews();
 		new GetCategories1().execute();
 		spinnerinitViews();
-
 
         back_btn.setOnClickListener(new OnClickListener() {
             Bundle b = getIntent().getExtras();
@@ -102,12 +98,9 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
 
             @Override
             public void onClick(final View v) {
-                // TODO Auto-generated method stub
                 Thread backthred = new Thread(new Runnable() {
-
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         try {
                             finishActivity(v);
                         } catch (Exception e) {
@@ -116,8 +109,6 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
                     }
                 });
                 backthred.start();
-
-
             }
         });
 
@@ -125,11 +116,13 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
             Bundle b = getIntent().getExtras();
             String userName = b.getString("UserName");
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(final View v) {
                 try {
                     String fromdate1 = fromdate.getText().toString();
                     String todate1 = todate.getText().toString();
+
                     if (fromdate1.isEmpty() || (fromdate1.equals("From Date"))) {
                         fromdate.setError("From Date is required!");
                     } else if (todate1.isEmpty() || (todate1.equals("To Date"))) {
@@ -140,7 +133,6 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
 
                         new GetCategories().execute();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -148,23 +140,18 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
         });
 
         ln.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
             }
         });
     }
 
 	private void spinnerinitViews() {
-
 		ordspin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 				CurrenCustomer = ordspin.getSelectedItem().toString();
-				//	ordspin.getSelectedItem().toString().setTextSize(5);
-
-
+				//ordspin.getSelectedItem().toString().setTextSize(5);
 				System.out.println("Currenustomer ordspin.setOnItemSelectedListener" + CurrenCustomer);
 			}
 
@@ -173,10 +160,8 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
 			}
 		});
 		actv.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				CurrenCustomer = actv.getText().toString();
 				active_string = actv.getText().toString();
 
@@ -186,10 +171,7 @@ public class Viewbycustomersale extends Activity implements OnClickListener {
 					actv2.setText("");
 					actv.setText("");
 					new GetCategories2().execute();
-
 				}
-
-
 			}
 		});
 		actv.addTextChangedListener(new TextWatcher() {

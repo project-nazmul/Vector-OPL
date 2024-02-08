@@ -1,7 +1,6 @@
 //PcConferenceFollowupAdapter
 
 //GroupwiseProductListAdapter2
-
 package com.opl.pharmavector;
 
 import java.text.DecimalFormat;
@@ -22,7 +21,6 @@ import com.opl.pharmavector.R;
 
 @SuppressLint("ViewHolder")
 public class GroupwiseProductListAdapter2 extends BaseAdapter {
-
     TextView serial;
     // TextView p_name;
     // EditText quanty;
@@ -68,9 +66,6 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
     static ArrayList<String> qntyVal;
 
 
-
-
-
     GroupwiseProductListAdapter2(Context con, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor) {
         this.product_name = product_name;
         this.qnty = qnty_3;
@@ -96,14 +91,11 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
         this.value4 = value_4;
         this.value5 = value_5;
         this.mContext = con;
-
     }
-
 
 
     GroupwiseProductListAdapter2(Context con,ArrayList<String> sl, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor,
                                 ArrayList<String> value_4,ArrayList<String> value_5,ArrayList<String> value_6,ArrayList<String> value_7) {
-
         this.sl = sl;
         this.product_name = product_name;
         this.qnty = qnty_3;
@@ -113,21 +105,14 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
         this.value6 = value_6;
         this.value7 = value_7;
         this.mContext = con;
-
-
     }
-
 
 
     GroupwiseProductListAdapter2(Context con,ArrayList<String> sl, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor,
                                 ArrayList<String> value_4,ArrayList<String> value_5,ArrayList<String> value_6,ArrayList<String> value_7
-
             , ArrayList<String> value_8,ArrayList<String> value_9,ArrayList<String> value_10,ArrayList<String> value_11,
                                 ArrayList<String> value_12,ArrayList<String> value_13,ArrayList<String> value_14,ArrayList<String> value_15
-
-
     ) {
-
         this.sl = sl;
         this.product_name = product_name;
         this.qnty = qnty_3;
@@ -190,18 +175,8 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
 
         this.value16 = value_16;
         this.value17 = value_17;
-
-
-
         this.mContext = con;
-
-
     }
-
-
-
-
-
 
     GroupwiseProductListAdapter2(Context con,ArrayList<String> sl, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor,
                                 ArrayList<String> value_4,ArrayList<String> value_5,ArrayList<String> value_6,ArrayList<String> value_7
@@ -240,24 +215,13 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
 
     }
 
-
-
-
-
-
-
-
     GroupwiseProductListAdapter2(Context con,ArrayList<String> sl, ArrayList<String> product_name, ArrayList<String> qnty_3, ArrayList<String> value_doctor,
                                 ArrayList<String> value_4,ArrayList<String> value_5,ArrayList<String> value_6,ArrayList<String> value_7
-
             , ArrayList<String> value_8,ArrayList<String> value_9,ArrayList<String> value_10,ArrayList<String> value_11,
                                 ArrayList<String> value_12,ArrayList<String> value_13,ArrayList<String> value_14,ArrayList<String> value_15,
                                 ArrayList<String> value_16,ArrayList<String> value_17,ArrayList<String> value_18,
                                 ArrayList<String> value_19,ArrayList<String> value_20
-
-
     ) {
-
         this.sl = sl;
         this.product_name = product_name;
         this.qnty = qnty_3;
@@ -323,12 +287,6 @@ public class GroupwiseProductListAdapter2 extends BaseAdapter {
         //rowView = inflater.inflate(R.layout.pcconferencefollowupadapter, parent, false);
 
         rowView = inflater.inflate(R.layout.grp_wise_prd_ord2_adapter, parent, false);
-
-
-
-
-
-
         serial = (TextView) rowView.findViewById(R.id.serial_1);
         holder.product_name = (TextView) rowView.findViewById(R.id.pc_product_name);
 

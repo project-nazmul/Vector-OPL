@@ -77,7 +77,6 @@
                 android:textSize="15sp"
                 tools:ignore="RtlSymmetry" />
 
-
             <Button
                 android:id="@+id/submitBtn"
                 android:layout_width="50dp"
@@ -90,7 +89,6 @@
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText,UnusedAttribute" />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -129,9 +127,7 @@
                 android:paddingLeft="10dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/_8sdp" />
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -152,7 +148,6 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView2"
                 android:layout_width="0dp"
@@ -165,12 +160,9 @@
                 android:drawableStart="@drawable/ic_medicine"
                 android:ems="1"
                 android:hint="Enter Order No. like 2021.."
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:textSize="@dimen/_8sdp" />
-
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -180,11 +172,9 @@
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <LinearLayout
                 android:id="@+id/slistLayout"
@@ -208,7 +198,6 @@
                     android:gravity="start"
                     android:text="@string/pn"
                     android:textColor="@color/blue"
-
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
@@ -229,7 +218,6 @@
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_8sdp" />
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -241,8 +229,7 @@
         android:clickable="true"
         android:divider="@android:color/transparent"
         android:focusable="true"
-        android:listSelector="@drawable/active"></ListView>
-
+        android:listSelector="@drawable/active" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
@@ -250,7 +237,6 @@
         android:layout_margin="5dp"
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -289,10 +275,8 @@
                     android:gravity="center"
                     android:textColor="@color/blue" />
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -313,8 +297,5 @@
             android:textColor="#FFF"
             android:textSize="@dimen/_12sdp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

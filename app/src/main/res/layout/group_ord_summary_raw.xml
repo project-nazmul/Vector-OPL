@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/grpOrdSerial"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:text="@string/serial"
+                android:gravity="center"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/darkblue" />
+
+            <TextView
+                android:id="@+id/grpOrdProdCode"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:text="Product\nCode"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:id="@+id/grpOrdProdName"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:text="@string/pn"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/green1" />
+
+            <TextView
+                android:id="@+id/grpOrdProdGroup"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:text="Prod\nGroup"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@android:color/holo_blue_light" />
+
+            <TextView
+                android:id="@+id/grpOrdPackSize"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:text="Pack\nSize"
+                android:gravity="center"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@android:color/holo_red_dark"  />
+
+            <TextView
+                android:id="@+id/grpOrdQuantity"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:text="Order\nQuantity"
+                android:gravity="center"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/green1"/>
+
+            <TextView
+                android:id="@+id/grpOrderValue"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:text="Order\nValue"
+                android:gravity="center"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

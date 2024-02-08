@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/page_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/searchbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/fromDateOrd"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:hint="@string/select_date"
+            android:inputType="textAutoComplete"
+            android:padding="@dimen/_5sdp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/toDateOrder"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@android:drawable/editbox_background"
+            android:ems="5"
+            android:focusable="true"
+            android:hint="@string/select_date"
+            android:inputType="textAutoComplete"
+            android:padding="@dimen/_5sdp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:textColor="@android:color/holo_blue_dark" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/submit_btton_selector"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
+            android:text="show"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/serial"
+                android:textColor="@color/darkblue"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Product\nCode"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/pn"
+                android:textColor="@color/green1"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Product\nGroup"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Pack\nSize"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Order\nQuantity"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="Order\nValue"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_9sdp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="95"
+        android:id="@+id/recyclerOrderSumNew"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@android:color/transparent"
+        android:listSelector="@color/lightgray" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/dcr_page_button"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:onClick="finishActivity"
+            android:soundEffectsEnabled="true"
+            android:text="&lt;"
+            android:textColor="#FFF"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText,UnusedAttribute" />
+    </RelativeLayout>
+</LinearLayout>

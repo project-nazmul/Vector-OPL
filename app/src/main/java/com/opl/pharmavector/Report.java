@@ -20,6 +20,7 @@ import com.opl.pharmavector.depot_report.CustReplacementActivity;
 import com.opl.pharmavector.depot_report.Cust_Sp_Pct_Activity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.prescriptionsurvey.PrescriptionSurveyReport;
+import com.opl.pharmavector.saleReport.GroupOderSummaryNew;
 import com.opl.pharmavector.util.NetInfo;
 
 import android.app.Activity;
@@ -67,8 +68,9 @@ public class Report extends Activity implements OnClickListener {
     private final String URL_Achievement = BASE_URL + "mposalesreports/Achievement1.php";
     Button viewbycustomer_btn, viewbycustomersale_btn, viewbycustomerreturn_btn, viewbycustomerorderstatus_btn;
     Button viewstock_btn, targetquantity_btn, targetvalue_btn, customervalue_btn, btn_cust_credit, btn_cust_sp_pct, btn_cust_outstanding, btn_cust_replacement;
-    CardView cardProductQuantity, cardProductValue, cardOrderQuantity, cardOrderValue, cardReturnStatus, cardCurrentStock, cardPartyOrder, cardSaleGrowth, cardOpsoninList, cardGroupProduct,
-            cardMrdPrescription, cardMspPrescription, card4pPrescription, cardCreditList, cardSpecialRate, cardOutstandingList, cardCustomerReplacement, cardBrandSale;
+    CardView cardProductQuantity, cardProductValue, cardOrderQuantity, cardOrderValue, cardReturnStatus, cardCurrentStock, cardPartyOrder, cardSaleGrowth, cardOpsoninList,
+            cardGroupProduct, cardMrdPrescription, cardMspPrescription, card4pPrescription, cardCreditList, cardSpecialRate, cardOutstandingList, cardCustomerReplacement,
+            cardBrandSale, cardGroupProductNew;
     Button orderinvoice_btn, achivement_btn, admin_product_list, group_wise_product_ord_summary, back_btn, mrd_pres_report, fourp_pres_report, msp_pres_report;
     String message_3;
 
@@ -422,12 +424,31 @@ public class Report extends Activity implements OnClickListener {
                         i.putExtra("userName", userName);
                         i.putExtra("userName_1", userName);
                         i.putExtra("userName_2", userName);
-                        //Log.e("passedvalues==>",userName);
                         startActivity(i);
                     }
                 }
             });
             mysells.start();
+        });
+        cardGroupProductNew.setOnClickListener(v -> {
+            Thread mySale = new Thread(new Runnable() {
+                final Bundle b = getIntent().getExtras();
+                final String userName = b.getString("UserName");
+                final String UserName_1 = b.getString("userName_1");
+                final String UserName_2 = b.getString("userName_2");
+
+                @Override
+                public void run() {
+                    if (!NetInfo.isOnline(getBaseContext())) {
+                        showSnack();
+                    } else {
+                        Intent i = new Intent(Report.this, GroupOderSummaryNew.class);
+                        i.putExtra("UserCode", userName);
+                        startActivity(i);
+                    }
+                }
+            });
+            mySale.start();
         });
 
 //		customervalue_btn.setOnClickListener(new OnClickListener() {
@@ -592,6 +613,7 @@ public class Report extends Activity implements OnClickListener {
         cardMrdPrescription = findViewById(R.id.cardMrdPrescription);
         card4pPrescription = findViewById(R.id.card4pPrescription);
         cardMspPrescription = findViewById(R.id.cardMspPrescription);
+        cardGroupProductNew = findViewById(R.id.cardGroupProductNew);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060
         cardBrandSale = findViewById(R.id.cardBrandSale);

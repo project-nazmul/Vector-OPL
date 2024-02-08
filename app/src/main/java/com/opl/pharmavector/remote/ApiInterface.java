@@ -54,6 +54,7 @@ import com.opl.pharmavector.prescriber.TopPrescriberModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
 import com.opl.pharmavector.report.LocationReportModel;
+import com.opl.pharmavector.saleReport.GroupOrdSummaryModel;
 import com.opl.pharmavector.tourPlan.TourClassModel;
 import com.opl.pharmavector.tourPlan.TourModeModel;
 import com.opl.pharmavector.tourPlan.TourMonthModel;
@@ -634,6 +635,11 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("incentive/get_designation.php")
     Call<IncentiveDsgModel> getIncentiveDesignation(@Field("id") String emp_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("order_summary/GroupwiseProductOrderSummary.php")
+    Call<GroupOrdSummaryModel> getGroupProdOrderSummary(@Field("id") String emp_code, @Field("from_date") String from_date, @Field("to_date") String to_date);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
