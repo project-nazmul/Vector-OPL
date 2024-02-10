@@ -54,6 +54,7 @@ import com.opl.pharmavector.prescriber.TopPrescriberModel;
 import com.opl.pharmavector.prescriptionsurvey.imageloadmore.MovieModel;
 import com.opl.pharmavector.prescriptionsurvey.rx_model;
 import com.opl.pharmavector.report.LocationReportModel;
+import com.opl.pharmavector.saleReport.GroupOrdSumDetailModel;
 import com.opl.pharmavector.saleReport.GroupOrdSummaryModel;
 import com.opl.pharmavector.tourPlan.TourClassModel;
 import com.opl.pharmavector.tourPlan.TourModeModel;
@@ -640,6 +641,11 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("order_summary/GroupwiseProductOrderSummary.php")
     Call<GroupOrdSummaryModel> getGroupProdOrderSummary(@Field("id") String emp_code, @Field("from_date") String from_date, @Field("to_date") String to_date);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("order_summary/GroupwiseProductOrderSummaryDetails.php")
+    Call<GroupOrdSumDetailModel> getGroupOrderSummaryDetail(@Field("id") String emp_code, @Field("from_date") String from_date, @Field("to_date") String to_date);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

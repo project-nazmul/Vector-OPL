@@ -28,6 +28,7 @@ import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.report.LocationTrackerActivity;
 import com.opl.pharmavector.rxdcc.DccRxCamp;
+import com.opl.pharmavector.saleReport.GroupOrderSummaryNew;
 
 public class RmSalesReportDashboard extends Activity implements OnClickListener {
     public static final String TAG_SUCCESS = "success";
@@ -57,7 +58,8 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
     Button targetquantity_btn, targetvalue_btn, brand_wise_sale, achivement_btn, mpo_wise_product_sale_btn,
             mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,back_btn,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock, cardAdsDepotStock;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock, cardAdsDepotStock,
+            cardGroupProductNew;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -407,6 +409,36 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
                 mysells.start();
             }
         });
+        cardGroupProductNew.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread mySale = new Thread(new Runnable() {
+                    Bundle b = getIntent().getExtras();
+                    String userName = b.getString("UserName");
+                    String UserName_1 = b.getString("userName_1");
+                    String UserName_2 = b.getString("userName_2");
+
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(RmSalesReportDashboard.this, GroupOrderSummaryNew.class);
+                        i.putExtra("UserName", UserName);
+                        i.putExtra("UserCode", userName);
+                        i.putExtra("UserName_1", UserName_1);
+                        i.putExtra("UserName_2", UserName_2);
+                        i.putExtra("userName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("userName_1", UserName_1);
+                        i.putExtra("userName_2", UserName_2);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("userName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("UserFlag", "RM");
+                        startActivity(i);
+                    }
+                });
+                mySale.start();
+            }
+        });
     }
 
     private void initViews() {
@@ -426,6 +458,7 @@ public class RmSalesReportDashboard extends Activity implements OnClickListener 
         cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
         cardAdsDepotStock = findViewById(R.id.cardAdsDepotStock);
+        cardGroupProductNew = findViewById(R.id.cardGroupProductNew);
         //mpo_wise_product_sale_btn.setText("4. Product wise Sales Follow-up");
         //mpo_achv_followup.setText("6. Target, Sale, Achievement \nand Growth of Area Manager");
         back_btn = findViewById(R.id.backbt);

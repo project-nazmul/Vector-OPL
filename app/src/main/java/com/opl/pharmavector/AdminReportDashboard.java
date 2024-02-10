@@ -15,6 +15,7 @@ import com.opl.pharmavector.liveDepot.ADSStockInfoActivity;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.productOffer.ProductOfferActivity;
+import com.opl.pharmavector.saleReport.GroupOrderSummaryNew;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -53,9 +54,10 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
     Typeface fontFamily;
     private SessionManager session;
     Bundle b;
-    Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary, msp_pres_report, backbt;
+    Button fourp_pres_report, mrd_pres_report, brand_wise_sale_btn, admin_product_list, product_wise_sale, group_wise_product_ord_summary,
+            msp_pres_report, backbt;
     CardView cardBrandSale, cardProductSale, cardOpsoProduct, cardGroupProduct, cardMrdPrescription, card4pPrescription, cardMspPrescription,
-            cardLocationTracker, cardProductOffer, cardLiveDepotStock, cardAdsDepotStock;
+            cardLocationTracker, cardProductOffer, cardLiveDepotStock, cardAdsDepotStock, cardGroupProductNew;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +164,33 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
                 }
             });
             mysells.start();
+        });
+        cardGroupProductNew.setOnClickListener(v -> {
+            Thread mySale = new Thread(() -> {
+                if (asm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupOrderSummaryNew.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserCode", userName);
+                    i.putExtra("UserFlag", "ASM");
+                    startActivity(i);
+                } else if (sm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupOrderSummaryNew.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserCode", userName);
+                    i.putExtra("UserFlag", "SM");
+                    startActivity(i);
+                } else if (gm_flag.equals("Y")) {
+                    Intent i = new Intent(AdminReportDashboard.this, GroupOrderSummaryNew.class);
+                    i.putExtra("userName", userName);
+                    i.putExtra("UserName", userName);
+                    i.putExtra("UserCode", userName);
+                    i.putExtra("UserFlag", "AD");
+                    startActivity(i);
+                }
+            });
+            mySale.start();
         });
         cardBrandSale.setOnClickListener(v -> {
             Thread mysells = new Thread(() -> {
@@ -316,6 +345,7 @@ public class AdminReportDashboard extends Activity implements View.OnClickListen
         cardAdsDepotStock = findViewById(R.id.cardAdsDepotStock);
         //cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardProductOffer = findViewById(R.id.cardProductOffer);
+        cardGroupProductNew = findViewById(R.id.cardGroupProductNew);
         logout.setTypeface(fontFamily);
         logout.setText("\uf08b");
         b = getIntent().getExtras();

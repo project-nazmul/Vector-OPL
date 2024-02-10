@@ -1,10 +1,7 @@
 package com.opl.pharmavector;
 
-import static com.nativecss.enums.RemoteContentRefreshPeriod.Never;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +10,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.opl.pharmavector.R;
 import com.opl.pharmavector.depot_report.CustCreditActivity;
 import com.opl.pharmavector.depot_report.CustOutstandingActivity;
 import com.opl.pharmavector.depot_report.CustReplacementActivity;
 import com.opl.pharmavector.depot_report.Cust_Sp_Pct_Activity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
-import com.opl.pharmavector.prescriptionsurvey.PrescriptionSurveyReport;
-import com.opl.pharmavector.saleReport.GroupOderSummaryNew;
+import com.opl.pharmavector.saleReport.GroupOrderSummaryNew;
 import com.opl.pharmavector.util.NetInfo;
 
 import android.app.Activity;
@@ -33,8 +28,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -442,8 +435,9 @@ public class Report extends Activity implements OnClickListener {
                     if (!NetInfo.isOnline(getBaseContext())) {
                         showSnack();
                     } else {
-                        Intent i = new Intent(Report.this, GroupOderSummaryNew.class);
+                        Intent i = new Intent(Report.this, GroupOrderSummaryNew.class);
                         i.putExtra("UserCode", userName);
+                        i.putExtra("UserFlag", "MPO");
                         startActivity(i);
                     }
                 }

@@ -18,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import com.opl.pharmavector.liveDepot.LiveDepotStockActivity;
 import com.opl.pharmavector.mrd_pres_report.MRDPresReport;
 import com.opl.pharmavector.report.LocationTrackerActivity;
+import com.opl.pharmavector.saleReport.GroupOrderSummaryNew;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -53,7 +54,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
     Button mpo_wise_product_sale_btn, brand_wise_sale_btn, targetquantity_btn, targetvalue_btn, achivement_btn,
             back_btn, mpo_achv_followup, admin_product_list, group_wise_product_ord_summary,mrd_pres_report,fourp_pres_report,msp_pres_report,dcc_rx_camp;
     CardView cardProductQuantity, cardProductValue, cardSaleGrowth, cardSalesReport, cardSalesFollowUp, cardMpoGrowth, cardOpsoninList, cardProductOrder,
-            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock;
+            cardMrdPrescription, card4pPrescription, cardMspPrescription, cardDccCampaign, cardLocationTracker, cardLiveDepotStock, cardGroupProductNew;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -336,6 +337,36 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
                 mysells.start();
             }
         });
+        cardGroupProductNew.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread mySale = new Thread(new Runnable() {
+                    Bundle b = getIntent().getExtras();
+                    String userName = b.getString("UserName");
+                    String UserName_1 = b.getString("userName_1");
+                    String UserName_2 = b.getString("userName_2");
+
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(AmSalesReportDashboard.this, GroupOrderSummaryNew.class);
+                        i.putExtra("UserName", UserName);
+                        i.putExtra("UserCode", userName);
+                        i.putExtra("UserName_1", UserName_1);
+                        i.putExtra("UserName_2", UserName_2);
+                        i.putExtra("userName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("userName_1", UserName_1);
+                        i.putExtra("userName_2", UserName_2);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("userName", userName);
+                        i.putExtra("new_version", userName);
+                        i.putExtra("UserFlag", "FM");
+                        startActivity(i);
+                    }
+                });
+                mySale.start();
+            }
+        });
         cardMrdPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -419,6 +450,7 @@ public class AmSalesReportDashboard extends Activity implements OnClickListener 
         cardDccCampaign = findViewById(R.id.cardDccCampaign);
         cardLocationTracker = findViewById(R.id.cardLocationTracker);
         cardLiveDepotStock = findViewById(R.id.cardLiveDepotStock);
+        cardGroupProductNew = findViewById(R.id.cardGroupProductNew);
         cardDccCampaign.setVisibility(View.GONE);
         back_btn.setTypeface(fontFamily);
         back_btn.setText("\uf060 "); //&#xf060

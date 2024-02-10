@@ -10,15 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        card_view:cardBackgroundColor="#FFFFFF"
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/_4sdp"
-            android:paddingBottom="@dimen/_4sdp">
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp">
 
             <TextView
                 android:id="@+id/grpOrdSerial"
@@ -29,78 +28,55 @@
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:text="@string/serial"
-                android:textColor="@color/darkblue"
+                android:textColor="#000000"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/grpOrdProdCode"
+                android:id="@+id/grpOrdFfCode"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
-                android:text="Product\nCode"
-                android:textColor="@color/blue"
+                android:text="FF Code"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/grpOrdProdName"
+                android:id="@+id/grpOrdFfName"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="2"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
-                android:text="@string/pn"
+                android:text="FF Name"
                 android:textColor="@color/green1"
-                android:textSize="@dimen/_8sdp" />
-
-            <TextView
-                android:id="@+id/grpOrdProdGroup"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:text="Prod\nGroup"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="@dimen/_8sdp" />
-
-            <TextView
-                android:id="@+id/grpOrdPackSize"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:text="Pack\nSize"
-                android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
                 android:id="@+id/grpOrdQuantity"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
-                android:text="Order\nQuantity"
-                android:textColor="@color/green1"
+                android:text="Order Quantity"
+                android:textColor="#0F8FF4"
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
                 android:id="@+id/grpOrderValue"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center"
-                android:text="Order\nValue"
+                android:text="Order Value"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_8sdp" />
         </LinearLayout>

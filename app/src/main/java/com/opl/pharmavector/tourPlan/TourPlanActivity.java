@@ -469,23 +469,23 @@ public class TourPlanActivity extends Activity {
         List<String> tourMonthList = new ArrayList<String>();
 
         for (int i = 0; i < tourMonthLists.size(); i++) {
-            tourMonthList.add(tourMonthLists.get(i).getCalDay());
+            tourMonthList.add(tourMonthLists.get(i).getCalDayDesc());
         }
         tourMonth.setItems(tourMonthList);
 
         tourMonth.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                tourMonthVal = String.valueOf(item).trim();
+                String tourMonthDesc = String.valueOf(item).trim();
                 //tourMonthVal = tempMorningVal.split("-")[0];
 
-//                for (int i = 0; i < tourMorningList.size(); i++) {
-//                    if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
-//                        tourMorningCode = tourMorningLists.get(i).getMpoCode();
-//                        getTourEveningList(tourMorningCode);
-//                    }
-//                }
-                Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
+                for (int i = 0; i < tourMonthLists.size(); i++) {
+                    if (tourMonthLists.get(i).getCalDayDesc().equals(tourMonthDesc)) {
+                        tourMonthVal = tourMonthLists.get(i).getCalDay();
+                        //getTourEveningList(tourMorningCode);
+                    }
+                }
+                Log.d("tourMorn1", tourMonthVal + "::" + tourMorningCode);
             }
         });
     }

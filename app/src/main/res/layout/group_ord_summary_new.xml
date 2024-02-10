@@ -23,7 +23,7 @@
         <TextView
             android:gravity="center"
             android:id="@+id/fromDateOrd"
-            android:layout_width="120dp"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -39,6 +39,7 @@
             android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
+            android:visibility="gone"
             android:gravity="center"
             android:id="@+id/toDateOrder"
             android:layout_width="120dp"
@@ -79,10 +80,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
+        card_view:cardElevation="4dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="1dp">
+        card_view:contentPadding="4dp">
 
         <LinearLayout
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -180,7 +184,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_weight="95"
+        android:layout_weight="99"
         android:id="@+id/recyclerOrderSumNew"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -191,8 +195,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp">
+        android:paddingTop="@dimen/_4sdp">
 
         <Button
             android:id="@+id/backButton"

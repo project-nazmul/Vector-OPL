@@ -41,7 +41,27 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".saleReport.GroupOderSummaryNew"
+            android:name=".saleReport.GroupOrderSummaryNew"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".saleReport.SMGroupOrderSumDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".saleReport.ASMGroupOrdSumDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".saleReport.RMGroupOrderSumDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".saleReport.AMGroupOrdSumDetails"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".saleReport.MPOGroupOrdSumDetails"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
