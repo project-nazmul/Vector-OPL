@@ -39,7 +39,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".tourPlan.TourReviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".saleReport.GroupOrderSummaryNew"
             android:exported="false"

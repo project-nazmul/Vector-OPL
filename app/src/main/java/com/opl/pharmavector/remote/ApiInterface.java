@@ -56,6 +56,8 @@ import com.opl.pharmavector.prescriptionsurvey.rx_model;
 import com.opl.pharmavector.report.LocationReportModel;
 import com.opl.pharmavector.saleReport.GroupOrdSumDetailModel;
 import com.opl.pharmavector.saleReport.GroupOrdSummaryModel;
+import com.opl.pharmavector.tourPlan.TReviewDetailModel;
+import com.opl.pharmavector.tourPlan.TReviewMonModel;
 import com.opl.pharmavector.tourPlan.TourClassModel;
 import com.opl.pharmavector.tourPlan.TourModeModel;
 import com.opl.pharmavector.tourPlan.TourMonthModel;
@@ -631,6 +633,16 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("common/get_customer.php")
     Call<ChemistModel> getChemistDetailsList(@Field("ff_code") String ff_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_entry_month.php")
+    Call<TReviewMonModel> getTourReviewMonthList(@Field("id") String emp_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_plan_details.php")
+    Call<TReviewDetailModel> getTourReviewDetailList(@Field("id") String emp_code, @Field("p_mon") String month);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

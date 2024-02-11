@@ -80,6 +80,7 @@ import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.service.MyLocationService;
 import com.opl.pharmavector.tourPlan.TourPlanActivity;
+import com.opl.pharmavector.tourPlan.TourReviewActivity;
 import com.opl.pharmavector.util.NetInfo;
 import com.opl.pharmavector.util.NotificationUtils;
 import com.opl.pharmavector.util.PreferenceManager;
@@ -2133,7 +2134,9 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         CardView cardview_tourFollow = bottomSheetDialog.findViewById(R.id.cardview_tour_follow);
         //Objects.requireNonNull(cardView_spiReport).setVisibility(View.GONE);
         CardView cardView_tourEntry = bottomSheetDialog.findViewById(R.id.card_doctorReach);
+        CardView cardView_tourReview = bottomSheetDialog.findViewById(R.id.cardView_tourReview);
         Objects.requireNonNull(cardView_tourEntry).setVisibility(View.VISIBLE);
+        Objects.requireNonNull(cardView_tourReview).setVisibility(View.VISIBLE);
         TextView changePassword = bottomSheetDialog.findViewById(R.id.changepassword);
         TextView textView4 = bottomSheetDialog.findViewById(R.id.textView4);
         TextView textView5 = bottomSheetDialog.findViewById(R.id.textView5);
@@ -2141,10 +2144,12 @@ public class AmDashboard extends Activity implements View.OnClickListener {
         Button button1 = bottomSheetDialog.findViewById(R.id.button1);
         Button button2 = bottomSheetDialog.findViewById(R.id.button8);
         Button button3 = bottomSheetDialog.findViewById(R.id.btn_doctorReach);
+        Button btnTourReview = bottomSheetDialog.findViewById(R.id.btnTourReview);
         Button btn_1 = bottomSheetDialog.findViewById(R.id.btn_1);
         Objects.requireNonNull(button1).setText("19.1");
         Objects.requireNonNull(button2).setText("19.2");
         Objects.requireNonNull(button3).setText("19.3");
+        Objects.requireNonNull(btnTourReview).setText("19.4");
         Objects.requireNonNull(textView4).setText("Tour\nObservation Entry");
         //Objects.requireNonNull(textView5).setText("SPI \nReport");
         Objects.requireNonNull(textView6).setText("Tour \nPlan Entry");
@@ -2186,6 +2191,13 @@ public class AmDashboard extends Activity implements View.OnClickListener {
             i.putExtra("rm_flag", "N");
             i.putExtra("fm_flag", "N");
             i.putExtra("mpo_flag", "N");
+            startActivity(i);
+        });
+        Objects.requireNonNull(cardView_tourReview).setOnClickListener(v -> {
+            Intent i = new Intent(AmDashboard.this, TourReviewActivity.class);
+            i.putExtra("UserName", globalFMCode);
+            i.putExtra("UserName_2", userName_2);
+            i.putExtra("UserName_3", globalFMCode);
             startActivity(i);
         });
     }
