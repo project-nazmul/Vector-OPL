@@ -501,6 +501,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("tour_plan/get_tour_day.php")
+    Call<TourMonthModel> getTourUpdateMonthList(@Field("id") String user_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("tour_plan/get_tour_location_from.php")
     Call<TourMorningModel> getDailyTourMorningList(@Field("id") String user_code);
 

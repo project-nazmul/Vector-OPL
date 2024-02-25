@@ -49,40 +49,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Viewbycustomerreturn extends Activity implements OnClickListener {
-
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_MESSAGE = "message";
-    // array list for spinner adapter
+    //array list for spinner adapter
     private ArrayList<Category3> categoriesList;
     private ArrayList<Category1> categoriesList1;
     private ArrayList<Category2> categoriesList2;
     ProgressDialog pDialog;
     ListView productListView;
-
     public int success;
     public String message, ord_no;
-
     public TextView totqty, totval, product_name, sqnty, velue, returnpercentage, heading;
     public android.widget.Spinner ordspin;
-
-
     TextView fromdate, todate;
     public String userName_1, userName, active_string, act_desiredString, active_string2;
     public String CurrenCustomer = "";
-
     public AutoCompleteTextView actv, actv2;
     Button submitBtn;
-
     public static ArrayList<String> p_ids;
     public static ArrayList<String> p_quanty;
-
     public static ArrayList<String> PROD_RATE;
     public static ArrayList<String> PROD_VAT;
     public static ArrayList<String> percentage;
     private String URL_PRODUCT_VIEW = BASE_URL+"mposalesreports/depo_report/viewbycustomerreturn.php";
     private String URL_CUSOTMER = BASE_URL+"mposalesreports/depo_report/ord_wise_customerlist.php";
     private String URL_ORD = BASE_URL+"mposalesreports/depo_report/customerwiseordno.php";
-
     Button back_btn, view_btn;
     LinearLayout ln;
     Calendar c_todate, c_fromdate;
@@ -90,7 +81,6 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
     String current_todate, current_fromdate;
     Calendar myCalendar, myCalendar1;
     DatePickerDialog.OnDateSetListener date_form, date_to;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +94,6 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 CurrenCustomer = ordspin.getSelectedItem().toString();
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
@@ -112,10 +101,10 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
         actv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 CurrenCustomer = actv.getText().toString();
                 active_string = actv.getText().toString();
-                if (active_string.indexOf("//") != -1) {
+
+                if (active_string.contains("//")) {
                     categoriesList2.clear();
                     categoriesList.clear();
                     actv.setText("");
@@ -301,7 +290,7 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
         fromdate = findViewById(R.id.fromdate);
         todate = findViewById(R.id.todate);
         back_btn.setTypeface(fontFamily);
-        back_btn.setText("\uf060 ");// &#xf060
+        back_btn.setText("\uf060 "); //&#xf060
         ln = findViewById(R.id.totalshow);
 
         heading = findViewById(R.id.heading);
@@ -331,11 +320,10 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
         for (int i = 0; i < categoriesList1.size(); i++) {
             description.add(categoriesList1.get(i).getId());
         }
-
         description = Utils.removeDuplicatesFromList(description);
         ArrayAdapter<String> dataAdapterDes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, description);
         ordspin.setAdapter(dataAdapterDes);
-        String[] customer = description.toArray(new String[description.size()]);
+        String[] customer = description.toArray(new String[0]);
         ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, customer);
         actv.setThreshold(0);
         actv.setAdapter(Adapter);
@@ -511,8 +499,8 @@ public class Viewbycustomerreturn extends Activity implements OnClickListener {
                     JSONObject jsonObj = new JSONObject(json);
 
                     if (jsonObj != null) {
-
                         JSONArray categories1 = jsonObj.getJSONArray("categories");
+
                         for (int i = 0; i < categories1.length(); i++) {
                             JSONObject catObj = (JSONObject) categories1.get(i);
                             Category1 cat1 = new Category1(

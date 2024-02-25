@@ -40,6 +40,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:screenOrientation="landscape"
             android:name=".tourPlan.TourReviewActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
@@ -72,6 +73,9 @@
             android:exported="false" />
         <activity
             android:name=".tourPlan.TourPlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tourPlan.TourUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".liveDepot.ADSStockInfoActivity"

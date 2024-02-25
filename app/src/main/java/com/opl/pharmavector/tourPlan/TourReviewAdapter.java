@@ -39,6 +39,15 @@ public class TourReviewAdapter extends RecyclerView.Adapter<TourReviewAdapter.To
         holder.trEveLocCode.setText(tourReviewModel.getEveLocCode());
         holder.trEveLocName.setText(tourReviewModel.getEveLocName());
 
+        if (tourReviewModel.getApprovedStat().equals("Y")) {
+            holder.trApproveStatus.setText(tourReviewModel.getApprovedStat());
+            holder.trApproveStatus.setVisibility(View.VISIBLE);
+            holder.trApproveStatuss.setVisibility(View.INVISIBLE);
+        } else {
+            holder.trApproveStatuss.setVisibility(View.VISIBLE);
+            holder.trApproveStatus.setVisibility(View.INVISIBLE);
+        }
+
         holder.itemView.setOnClickListener(view -> {
             itemClickListener.onClick(position, tourReviewModel);
         });
@@ -50,7 +59,7 @@ public class TourReviewAdapter extends RecyclerView.Adapter<TourReviewAdapter.To
     }
 
     public class TourReviewViewHolder extends RecyclerView.ViewHolder {
-        public TextView trVisitDate, trMorLocCode, trMorLocName, trEveLocCode, trEveLocName, trApproveStatus;
+        public TextView trVisitDate, trMorLocCode, trMorLocName, trEveLocCode, trEveLocName, trApproveStatus, trApproveStatuss;
 
         public TourReviewViewHolder(View view) {
             super(view);
@@ -60,6 +69,7 @@ public class TourReviewAdapter extends RecyclerView.Adapter<TourReviewAdapter.To
             trEveLocCode = view.findViewById(R.id.trEveLocCode);
             trEveLocName = view.findViewById(R.id.trEveLocName);
             trApproveStatus = view.findViewById(R.id.trApproveStatus);
+            trApproveStatuss = view.findViewById(R.id.trApproveStatuss);
         }
     }
 

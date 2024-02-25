@@ -1,6 +1,5 @@
 package com.opl.pharmavector;
 
-
 import com.opl.pharmavector.R;
 
 import android.app.Activity;
@@ -14,7 +13,6 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 public class Help extends Activity {
-
 	private VideoView myVideoView;
 	private int position = 0;
 	private ProgressDialog progressDialog;
@@ -24,7 +22,6 @@ public class Help extends Activity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		// set the main layout of the activity
 		setContentView(R.layout.help);
 
@@ -51,7 +48,6 @@ public class Help extends Activity {
 			//set the media controller in the VideoView
 			myVideoView.setMediaController(mediaControls);
 			Uri video = Uri.parse(VideoURL);
-
 			//set the uri of the video to be played
 		myVideoView.setVideoURI(video);
 
@@ -63,7 +59,6 @@ public class Help extends Activity {
 		myVideoView.requestFocus();
 		//we also set an setOnPreparedListener in order to know when the video file is ready for playback
 		myVideoView.setOnPreparedListener(new OnPreparedListener() {
-		
 			public void onPrepared(MediaPlayer mediaPlayer) {
 				// close the progress bar and play the video
 				progressDialog.dismiss();
@@ -77,7 +72,6 @@ public class Help extends Activity {
 				}
 			}
 		});
-
 	}
 
 	@Override

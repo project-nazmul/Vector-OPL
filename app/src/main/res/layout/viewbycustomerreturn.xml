@@ -106,15 +106,12 @@
             android:textSize="@dimen/_10sdp"
             android:textStyle="bold"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
     </LinearLayout>
-
 
     <!--LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView2"
@@ -129,12 +126,7 @@
             android:paddingLeft="10dp"
             android:hint="Enter Order No."
             android:textSize="12sp" />
-
-
-
-
     </LinearLayout -->
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
@@ -143,11 +135,9 @@
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <LinearLayout
                 android:id="@+id/slistLayout"
@@ -173,7 +163,6 @@
                     android:gravity="start"
                     android:text="Party Name"
                     android:textColor="@color/blue"
-
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
@@ -194,9 +183,7 @@
                     android:gravity="right"
                     android:text="Invoice(TK)"
                     android:textColor="@color/blue"
-
                     android:textSize="@dimen/_8sdp" />
-
 
                 <TextView
                     android:id="@+id/returnpercentage"
@@ -222,7 +209,6 @@
         android:listSelector="@drawable/active"
         android:paddingTop="@dimen/_2sdp"></ListView>
 
-
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -230,11 +216,9 @@
         card_view:cardCornerRadius="2dp"
         card_view:contentPadding="1dp">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <LinearLayout
                 android:id="@+id/totalshow"
@@ -292,8 +276,5 @@
             android:textColor="#FFF"
             android:textSize="@dimen/_12sdp"
             tools:ignore="HardcodedText,UnusedAttribute" />
-
-
     </RelativeLayout>
-
 </LinearLayout>
