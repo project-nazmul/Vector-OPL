@@ -43,6 +43,7 @@ public class TourUpdateActivity extends Activity {
     public List<TourMonthList> tourMonthLists;
     public List<TourMorningList> tourMorningLists;
     public List<TourMorningList> tourEveningLists;
+    public List<TUpdateDetailList> updateDetailLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class TourUpdateActivity extends Activity {
         getTourClassList();
         getTourMorningList();
         getTourEveningList("");
+        //getTourUpdateDetailList();
         //autoTourMorningEvent();
         //autoTourEveningEvent();
 
@@ -158,16 +160,38 @@ public class TourUpdateActivity extends Activity {
         });
 
         submitPlan.setOnClickListener(v -> {
-            tourObjectVal = tourObjective.getText().toString();
-            tourRemarkVal = tourRemarks.getText().toString();
-            /*fromTimeHour = startTimeHour.getText().toString();
-            fromTimeMin = startTimeMin.getText().toString();
-            toTimeHour = endTimeHour.getText().toString();
-            toTimeMin = endTimeMin.getText().toString();*/
+            String tourObjectVal = tourObjective.getText().toString();
+            String fromTimeHour = startTimeHour.getText().toString();
+            String fromTimeMin = startTimeMin.getText().toString();
+            String fromTimeAm = startTimeAm.getText().toString();
+            String toTimeHour = endTimeHour.getText().toString();
+            String toTimeMin = endTimeMin.getText().toString();
+            String toTimeAm = endTimeAM.getText().toString();
+            String tourMorningVal = tourMorning.getText().toString().split("-")[1];
+            String tourEveningVal = tourEvening.getText().toString().split("-")[1];
+
+            String tourNatureName = tourNature.getText().toString().trim();
+            for (int i = 0; i < tourNatureLists.size(); i++) {
+                if (tourNatureLists.get(i).getTnDesc().equals(tourNatureName)) {
+                    tourNatureCode = tourNatureLists.get(i).getTnCode();
+                }
+            }
+            String tourModeName = tourMode.getText().toString().trim();
+            for (int i = 0; i < tourModeLists.size(); i++) {
+                if (tourModeLists.get(i).getTmDesc().contains(tourModeName)) {
+                    tourModeCode = tourModeLists.get(i).getTmCode();
+                }
+            }
+            String tourClassName = tourClass.getText().toString().trim();
+            for (int i = 0; i < tourClassLists.size(); i++) {
+                if (tourClassLists.get(i).getTmcDesc().contains(tourClassName)) {
+                    tourClassCode = tourClassLists.get(i).getTmcCode();
+                }
+            }
 
             if (tourMonthVal != null && tourMorningVal != null && tourEveningVal != null) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TourUpdateActivity.this);
-                builder.setTitle("Tour Plan").setMessage("Are you want to submit Tour Plan?")
+                builder.setTitle("Tour Plan").setMessage("Are you want to update Tour Plan?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -176,8 +200,8 @@ public class TourUpdateActivity extends Activity {
                                 pDialog.setCancelable(true);
                                 pDialog.show();
                                 ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-                                Call<TourPlanResponse> call = apiInterface.submitDailyTourPlanEntry(terriCode, userCode, tourMonthVal, tourObjectVal, tourRemarkVal, tourMorningVal,
-                                        tourEveningVal, tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, toTimeHour, toTimeMin, toTimeAm);
+                                Call<TourPlanResponse> call = apiInterface.submitDailyTourPlanUpdate(terriCode, userCode, tourMonthVal, tourObjectVal, "", tourMorningVal.trim(),
+                                        tourEveningVal.trim(), tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, toTimeHour, toTimeMin, toTimeAm);
 
                                 call.enqueue(new Callback<TourPlanResponse>() {
                                     @Override
@@ -277,20 +301,28 @@ public class TourUpdateActivity extends Activity {
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         tourMode = findViewById(R.id.tourMode);
         endTimeAM = findViewById(R.id.endTimeAm);
+        endTimeAM.setText("");
         tourClass = findViewById(R.id.tourClass);
         tourMonth = findViewById(R.id.tourMonth);
         endTimeMin = findViewById(R.id.endTimeMin);
+        endTimeMin.setText("");
         endTimeSec = findViewById(R.id.endTimeSec);
+        endTimeSec.setText("");
         submitPlan = findViewById(R.id.submitPlan);
         tourNature = findViewById(R.id.tourNature);
         tourRemarks = findViewById(R.id.tourRemark);
         startTimeAm = findViewById(R.id.startTimeAm);
+        startTimeAm.setText("");
         tourMorning = findViewById(R.id.tourMorning);
         tourEvening = findViewById(R.id.tourEvening);
         endTimeHour = findViewById(R.id.endTimeHour);
+        endTimeHour.setText("");
         startTimeMin = findViewById(R.id.startTimeMin);
+        startTimeMin.setText("");
         startTimeSec = findViewById(R.id.startTimeSec);
+        startTimeSec.setText("");
         startTimeHour = findViewById(R.id.startTimeHour);
+        startTimeHour.setText("");
         tourObjective = findViewById(R.id.tourObjective);
         successMessage = findViewById(R.id.successMessage);
         tourPlanTitle = findViewById(R.id.tourPlanTitle);
@@ -302,6 +334,7 @@ public class TourUpdateActivity extends Activity {
         tourNatureLists = new ArrayList<>();
         tourMorningLists = new ArrayList<>();
         tourEveningLists = new ArrayList<>();
+        updateDetailLists = new ArrayList<>();
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
@@ -473,16 +506,20 @@ public class TourUpdateActivity extends Activity {
         tourMonth.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                String tourMonthDesc = String.valueOf(item).trim();
-                //tourMonthVal = tempMorningVal.split("-")[0];
+                String tempMonthDesc = String.valueOf(item).trim();
+                String tourUpdateDay = tempMonthDesc.split("\\(")[0];
+                tourMonthVal = tourUpdateDay;
 
-                for (int i = 0; i < tourMonthLists.size(); i++) {
-                    if (tourMonthLists.get(i).getCalDayDesc().equals(tourMonthDesc)) {
-                        tourMonthVal = tourMonthLists.get(i).getCalDay();
-                        //getTourEveningList(tourMorningCode);
-                    }
+                if (tourUpdateDay != null) {
+                    getTourUpdateDetailList(tourUpdateDay);
                 }
-                Log.d("tourMorn1", tourMonthVal + "::" + tourMorningCode);
+//                for (int i = 0; i < tourMonthLists.size(); i++) {
+//                    if (tourMonthLists.get(i).getCalDayDesc().equals(tourMonthDesc)) {
+//                        tourMonthVal = tourMonthLists.get(i).getCalDay();
+//                        //getTourEveningList(tourMorningCode);
+//                    }
+//                }
+                Log.d("tourUDate", tempMonthDesc + "::" + tourUpdateDay);
             }
         });
     }
@@ -591,7 +628,7 @@ public class TourUpdateActivity extends Activity {
                     }
                     if (tourNatureLists.size() > 0) {
                         initTourNatureSpinner(tourNatureLists);
-                        tourNature.setText(tourNatureLists.get(0).getTnDesc());
+                        //tourNature.setText(tourNatureLists.get(0).getTnDesc());
                     }
                     Log.d("tourNature: ", String.valueOf(tourNatureLists));
                 }
@@ -626,7 +663,7 @@ public class TourUpdateActivity extends Activity {
                     }
                     if (tourModeLists.size() > 0) {
                         initTourModeSpinner(tourModeLists);
-                        tourMode.setText(tourModeLists.get(6).getTmDesc());
+                        //tourMode.setText(tourModeLists.get(6).getTmDesc());
                     }
                     Log.d("tourMode: ", String.valueOf(tourModeLists));
                 }
@@ -661,7 +698,7 @@ public class TourUpdateActivity extends Activity {
                     }
                     if (tourClassLists.size() > 0) {
                         initTourClassSpinner(tourClassLists);
-                        tourClass.setText(tourClassLists.get(5).getTmcDesc());
+                        //tourClass.setText(tourClassLists.get(5).getTmcDesc());
                     }
                     Log.d("tourClass: ", String.valueOf(tourClassLists));
                 }
@@ -738,6 +775,92 @@ public class TourUpdateActivity extends Activity {
                 toast.show();
             }
         });
+    }
+
+    private void getTourUpdateDetailList(String tourUpdateDay) {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Update Details...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TUpdateDetailModel> call = apiInterface.getTourUpdateDetailList(terriCode, userCode, tourUpdateDay);
+        updateDetailLists.clear();
+
+        call.enqueue(new Callback<TUpdateDetailModel>() {
+            @Override
+            public void onResponse(Call<TUpdateDetailModel> call, Response<TUpdateDetailModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        updateDetailLists.addAll((response.body()).getUpdateDetailLists());
+                    }
+                    if (updateDetailLists.size() > 0) {
+                        setTUpdateDetailView(updateDetailLists);
+                    }
+                    Log.d("updateDetail: ", String.valueOf(updateDetailLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TUpdateDetailModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setTUpdateDetailView(List<TUpdateDetailList> updateDetailLists) {
+        startTimeHour.setText(updateDetailLists.get(0).getFromH());
+        startTimeMin.setText(updateDetailLists.get(0).getFromM());
+        startTimeSec.setText("00");
+        startTimeAm.setText(updateDetailLists.get(0).getFromAm());
+        endTimeHour.setText(updateDetailLists.get(0).getToH());
+        endTimeMin.setText(updateDetailLists.get(0).getToM());
+        endTimeSec.setText("00");
+        endTimeAM.setText(updateDetailLists.get(0).getToAm());
+
+        String tempTourNature = updateDetailLists.get(0).getTnCode();
+        for (int i = 0; i < tourNatureLists.size(); i++) {
+            if (tourNatureLists.get(i).getTnCode().equals(tempTourNature)) {
+                String tourNatureName = tourNatureLists.get(i).getTnDesc();
+                tourNature.setText(tourNatureName);
+            }
+        }
+        String tempTourMode = updateDetailLists.get(0).getTmCode();
+        for (int i = 0; i < tourModeLists.size(); i++) {
+            if (tourModeLists.get(i).getTmCode().contains(tempTourMode)) {
+                String tourModeName = tourModeLists.get(i).getTmDesc();
+                tourMode.setText(tourModeName);
+            }
+        }
+        String tempTourClass = updateDetailLists.get(0).getTmcCode();
+        for (int i = 0; i < tourClassLists.size(); i++) {
+            if (tourClassLists.get(i).getTmcCode().contains(tempTourClass)) {
+                String tourClassName = tourClassLists.get(i).getTmcDesc();
+                tourClass.setText(tourClassName);
+            }
+        }
+        String tempTourMorning = updateDetailLists.get(0).getLocationFrom();
+        for (int i = 0; i < tourMorningLists.size(); i++) {
+            if (tourMorningLists.get(i).getMpoCode().contains(tempTourMorning)) {
+                String tourMorningName = tourMorningLists.get(i).getTerriName();
+                tourMorning.setText(tourMorningName + "-" + tempTourMorning);
+            }
+        }
+        String tempTourEvening = updateDetailLists.get(0).getLocationTo();
+        for (int i = 0; i < tourEveningLists.size(); i++) {
+            if (tourEveningLists.get(i).getMpoCode().contains(tempTourEvening)) {
+                String tourEveningName = tourEveningLists.get(i).getTerriName();
+                tourEvening.setText(tourEveningName + "-" + tempTourEvening);
+            }
+        }
+        String tempTourObjective = updateDetailLists.get(0).getObjective();
+        if (tempTourObjective != null) {
+            tourObjective.setText(tempTourObjective);
+        }
     }
 
     private void getTourEveningList(String tourMorningCode) {

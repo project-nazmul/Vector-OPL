@@ -29,28 +29,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ tour review working!!">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_tour_review.xml" afterDir="false" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ tour update working!!">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TUpdateDetailList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TUpdateDetailModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.52.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/vector-opsonin-release-v65.2.52.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/AmDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Viewbycustomerreturn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/Viewbycustomerreturn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourReviewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourReviewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tour_plan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tour_plan.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/tour_bottom_sheet_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tour_bottom_sheet_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/tour_review_raw.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tour_review_raw.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/viewbycustomerreturn.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/viewbycustomerreturn.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[987473067500021]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\m.hasan\.android\avd\Pixel_5_API_33.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -81,8 +72,8 @@
       <list>
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -154,7 +145,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Suggestions&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
     &quot;show.do.not.copy.http.proxy.settings.to.gradle&quot;: &quot;false&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
@@ -463,13 +454,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624870773584</updated>
-    </task>
-    <task id="LOCAL-00131" summary="+ Vector Feedback Update!">
-      <created>1699530920637</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1699530920637</updated>
     </task>
     <task id="LOCAL-00132" summary="+ Vector Feedback done!">
       <created>1699703743333</created>
@@ -807,7 +791,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707655537384</updated>
     </task>
-    <option name="localTasksCounter" value="180" />
+    <task id="LOCAL-00180" summary="+ tour update working!!">
+      <created>1708842489748</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1708842489748</updated>
+    </task>
+    <option name="localTasksCounter" value="181" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -823,7 +814,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="+ dcr entry done I!" />
     <MESSAGE value="+ dcr entry done II!" />
     <MESSAGE value="+ dcr entry done!" />
     <MESSAGE value="+ mpo dynamic dashboard!" />
@@ -848,7 +838,8 @@
     <MESSAGE value="+ new group wise product order done!" />
     <MESSAGE value="+ new group wise product order done!!" />
     <MESSAGE value="+ tour review working!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ tour review working!!" />
+    <MESSAGE value="+ tour update working!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ tour update working!!" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1136,12 +1127,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>849</line>
+          <line>864</line>
           <option name="timeStamp" value="350" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>855</line>
+          <line>870</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -1306,7 +1297,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/remote/ApiInterface.java</url>
-          <line>272</line>
+          <line>273</line>
           <option name="timeStamp" value="440" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
@@ -3718,6 +3709,26 @@
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourReviewActivity.java</url>
           <line>117</line>
           <option name="timeStamp" value="1751" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java</url>
+          <line>341</line>
+          <option name="timeStamp" value="1752" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java</url>
+          <line>340</line>
+          <option name="timeStamp" value="1753" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java</url>
+          <line>785</line>
+          <option name="timeStamp" value="1754" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/tourPlan/TourUpdateActivity.java</url>
+          <line>795</line>
+          <option name="timeStamp" value="1755" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
