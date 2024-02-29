@@ -3,6 +3,7 @@ package com.opl.pharmavector.remote;
 import com.opl.pharmavector.RecyclerData;
 import com.opl.pharmavector.achieve.AchieveEarnModel;
 import com.opl.pharmavector.chemistList.model.ChemistModel;
+import com.opl.pharmavector.chemistList.model.ContactModel;
 import com.opl.pharmavector.incentive.IncentiveDataModel;
 import com.opl.pharmavector.incentive.IncentiveDsgModel;
 import com.opl.pharmavector.incentive.IncentiveTypeModel;
@@ -585,6 +586,12 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("get_mrd_doctor_ff_list.php")
     Call<DoctorFFModel> getDoctorFFList(@Field("ff_code") String ff_code);
+
+    @FormUrlEncoded
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @POST("common/customer_contact_update.php")
+    Call<ContactModel> updateChemistNumber(@Field("id") String user_code, @Field("emp_code") String emp_code, @Field("cust_code") String cust_code,
+                                           @Field("MOBILE_NO_1") String MOBILE_NO_1);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

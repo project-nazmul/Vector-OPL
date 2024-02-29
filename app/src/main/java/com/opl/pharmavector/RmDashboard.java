@@ -3119,10 +3119,9 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             @Override
             public void onClick(final View v) {
                 Intent i = new Intent(RmDashboard.this, ChemistListActivity.class);
-                i.putExtra("UserName", userName);
-                i.putExtra("UserName_2", UserName_2);
-                i.putExtra("new_version", Login.version);
-                i.putExtra("message_3", message_3);
+                i.putExtra("UserName", globalempName);
+                i.putExtra("UserCode", globalempCode);
+                i.putExtra("TerriCode", userName);;
                 startActivity(i);
             }
         });

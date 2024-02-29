@@ -1885,10 +1885,9 @@ public class Dashboard extends Activity implements View.OnClickListener {
     private void chemistListEvent() {
         cardView_chemistList.setOnClickListener(v -> {
             Intent i = new Intent(Dashboard.this, ChemistListActivity.class);
-            i.putExtra("UserName", globalmpocode);
-            i.putExtra("UserName_2", globalterritorycode);
-            i.putExtra("new_version", Login.version);
-            i.putExtra("message_3", message_3);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("TerriCode", userName);
             startActivity(i);
         });
     }

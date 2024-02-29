@@ -1827,10 +1827,9 @@ public class GMDashboard1 extends Activity implements View.OnClickListener { // 
     private void chemistListEvent() {
         cardView_chemist_list.setOnClickListener(v -> {
             Intent i = new Intent(GMDashboard1.this, ChemistListActivity.class);
-            i.putExtra("UserName", global_admin_Code);
-            i.putExtra("UserName_2", global_admin_name);
-            i.putExtra("new_version", Login.version);
-            i.putExtra("message_3", message_3);
+            i.putExtra("UserName", globalempName);
+            i.putExtra("UserCode", globalempCode);
+            i.putExtra("TerriCode", userName);
             startActivity(i);
         });
     }

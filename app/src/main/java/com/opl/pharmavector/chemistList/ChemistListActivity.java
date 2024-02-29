@@ -14,10 +14,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,26 +28,26 @@ import com.opl.pharmavector.R;
 import com.opl.pharmavector.chemistList.adapter.ChemistAdapter;
 import com.opl.pharmavector.chemistList.model.ChemistList;
 import com.opl.pharmavector.chemistList.model.ChemistModel;
-import com.opl.pharmavector.doctorList.adapter.DoctorAdapter;
+import com.opl.pharmavector.chemistList.model.ContactModel;
 import com.opl.pharmavector.doctorList.model.DoctorFFList;
 import com.opl.pharmavector.doctorList.model.DoctorFFModel;
 import com.opl.pharmavector.doctorList.model.DoctorList;
-import com.opl.pharmavector.doctorList.model.DoctorModel;
 import com.opl.pharmavector.remote.ApiClient;
 import com.opl.pharmavector.remote.ApiInterface;
 import com.opl.pharmavector.util.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ChemistListActivity extends Activity {
+public class ChemistListActivity extends Activity implements ChemistAdapter.ContactCallback {
     public int count;
     public Context context;
     public TextView customerCount;
-    public String userName, userName_2, new_version, message_3;
+    public String userName, userCode, terriCode;
     PreferenceManager preferenceManager;
     public ProgressDialog doctorFFDialog, doctorDialog;
     AutoCompleteTextView autoDoctorFFList, autoDoctorTerriList;
@@ -88,9 +90,8 @@ public class ChemistListActivity extends Activity {
 
         Bundle b = getIntent().getExtras();
         userName = b.getString("UserName");
-        userName_2 = b.getString("UserName_2");
-        new_version = b.getString("new_version");
-        message_3 = b.getString("message_3");
+        userCode = b.getString("UserCode");
+        terriCode = b.getString("TerriCode");
 
         backBtn = findViewById(R.id.backBtn);
         backBtn.setTypeface(fontFamily);
@@ -218,7 +219,7 @@ public class ChemistListActivity extends Activity {
 
                 if (response.isSuccessful()) {
                     doctorDialog.dismiss();
-                    chemistAdapter = new ChemistAdapter(ChemistListActivity.this, chemistLists);
+                    chemistAdapter = new ChemistAdapter(ChemistListActivity.this, chemistLists, ChemistListActivity.this);
                     LinearLayoutManager manager = new LinearLayoutManager(ChemistListActivity.this);
                     doctorRecycler.setLayoutManager(manager);
                     doctorRecycler.setAdapter(chemistAdapter);
@@ -237,7 +238,81 @@ public class ChemistListActivity extends Activity {
             @Override
             public void onFailure(@NonNull Call<ChemistModel> call, @NonNull Throwable t) {
                 doctorDialog.dismiss();
-                //doctorDetailsListInfo();
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onContactPhone(ChemistList chemistList) {
+        if (chemistList != null) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChemistListActivity.this);
+            final View customLayout = getLayoutInflater().inflate(R.layout.dialog_contact_update, null);
+            alertDialog.setView(customLayout);
+            AlertDialog alert = alertDialog.create();
+            alert.setCancelable(false);
+            alert.setCanceledOnTouchOutside(false);
+
+            TextView chemistCode = customLayout.findViewById(R.id.chemistCode);
+            TextView chemistName = customLayout.findViewById(R.id.chemistName);
+            Button contactUpdate = customLayout.findViewById(R.id.contactUpdate);
+            Button contactCancel = customLayout.findViewById(R.id.contactCancel);
+            EditText phoneNumber = customLayout.findViewById(R.id.phoneNumber);
+
+            if (chemistList.getCustCode() != null) {
+                chemistCode.setText("[" + chemistList.getCustCode() + "]");
+            }
+            if (chemistList.getCustName() != null) {
+                chemistName.setText(chemistList.getCustName());
+            }
+
+            contactUpdate.setOnClickListener(v -> {
+                String contactNumber = phoneNumber.getText().toString().trim();
+
+                if (!contactNumber.equals("")) {
+                    alert.dismiss();
+                    updateChemistContactNo(chemistList.getCustCode(), contactNumber);
+                } else {
+                    alert.dismiss();
+                }
+            });
+
+            contactCancel.setOnClickListener(v -> {
+                alert.dismiss();
+            });
+            alert.show();
+        }
+    }
+
+    public void updateChemistContactNo(String custCode, String contactNumber) {
+        ProgressDialog contactDialog = new ProgressDialog(ChemistListActivity.this);
+        contactDialog.setMessage("Chemist Contact Update...");
+        contactDialog.setTitle("Chemist Contact Number");
+        contactDialog.show();
+
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<ContactModel> call = apiInterface.updateChemistNumber(terriCode, userCode, custCode, contactNumber);
+
+        call.enqueue(new Callback<ContactModel>() {
+            @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+            @Override
+            public void onResponse(@NonNull Call<ContactModel> call, @NonNull retrofit2.Response<ContactModel> response) {
+                if (response.isSuccessful()) {
+                    contactDialog.dismiss();
+
+                    if (response.body() != null) {
+                        Toast.makeText(ChemistListActivity.this, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    //Log.d("tourNature: ", String.valueOf(tourNatureLists));
+                } else {
+                    contactDialog.dismiss();
+                    Toast.makeText(ChemistListActivity.this, "" + Objects.requireNonNull(response.body()).getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ContactModel> call, @NonNull Throwable t) {
+                contactDialog.dismiss();
             }
         });
     }

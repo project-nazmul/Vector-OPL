@@ -22,6 +22,17 @@ public class ChemistList {
     @SerializedName("ADDRESS")
     @Expose
     private String address;
+    @SerializedName("MOBILE_NO_1")
+    @Expose
+    private String mobileNumber;
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
     public String getDepotDesc() {
         return depotDesc;

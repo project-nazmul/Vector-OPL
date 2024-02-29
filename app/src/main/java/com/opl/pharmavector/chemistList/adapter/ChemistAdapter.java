@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.opl.pharmavector.R;
+import com.opl.pharmavector.achieve.AchieveEarnAdapter;
+import com.opl.pharmavector.achieve.AchieveEarningList;
 import com.opl.pharmavector.chemistList.model.ChemistList;
 import com.opl.pharmavector.doctorList.model.DoctorList;
 
@@ -16,9 +19,11 @@ import java.util.List;
 
 public class ChemistAdapter extends RecyclerView.Adapter<ChemistAdapter.DoctorViewHolder> {
     public List<ChemistList> chemistLists;
+    public ContactCallback contactCallback;
 
-    public ChemistAdapter(Context context, List<ChemistList> chemistList) {
+    public ChemistAdapter(Context context, List<ChemistList> chemistList, ContactCallback contactCallback) {
         this.chemistLists = chemistList;
+        this.contactCallback = contactCallback;
     }
 
     @Override
@@ -36,7 +41,12 @@ public class ChemistAdapter extends RecyclerView.Adapter<ChemistAdapter.DoctorVi
         holder.marketCode.setText(chemistData.getMarketCode());
         holder.marketName.setText(chemistData.getMarketName());
         holder.dopotDesc.setText(chemistData.getDepotDesc());
-        holder.chemAddresss.setText(chemistData.getAddress());
+        holder.chemAddress.setText(chemistData.getAddress());
+        holder.phoneNumber.setText(chemistData.getMobileNumber());
+
+        holder.contactUpdate.setOnClickListener(v -> {
+            contactCallback.onContactPhone(chemistData);
+        });
     }
 
     @Override
@@ -45,7 +55,8 @@ public class ChemistAdapter extends RecyclerView.Adapter<ChemistAdapter.DoctorVi
     }
 
     public class DoctorViewHolder extends RecyclerView.ViewHolder {
-        public TextView chemistCode, chemistName, marketCode, marketName, dopotDesc, chemAddresss;
+        public TextView chemistCode, chemistName, marketCode, marketName, dopotDesc, chemAddress, phoneNumber;
+        public Button contactUpdate;
 
         public DoctorViewHolder(View view) {
             super(view);
@@ -54,7 +65,13 @@ public class ChemistAdapter extends RecyclerView.Adapter<ChemistAdapter.DoctorVi
             marketCode = view.findViewById(R.id.marketCode);
             marketName = view.findViewById(R.id.marketName);
             dopotDesc = view.findViewById(R.id.dopotDesc);
-            chemAddresss = view.findViewById(R.id.chemAddress);
+            chemAddress = view.findViewById(R.id.chemAddress);
+            phoneNumber = view.findViewById(R.id.phoneNumber);
+            contactUpdate = view.findViewById(R.id.contactUpdate);
         }
+    }
+
+    public interface ContactCallback {
+        void onContactPhone(ChemistList chemistList);
     }
 }

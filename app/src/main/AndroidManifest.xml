@@ -40,9 +40,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:screenOrientation="landscape"
             android:name=".tourPlan.TourReviewActivity"
             android:exported="false"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".saleReport.GroupOrderSummaryNew"
@@ -137,6 +137,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:exported="false"
             android:screenOrientation="landscape"
+            android:theme="@style/EditorTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             tools:ignore="LockedOrientationActivity" />
         <activity

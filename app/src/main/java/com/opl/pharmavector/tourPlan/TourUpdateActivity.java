@@ -160,13 +160,13 @@ public class TourUpdateActivity extends Activity {
         });
 
         submitPlan.setOnClickListener(v -> {
-            String tourObjectVal = tourObjective.getText().toString();
-            String fromTimeHour = startTimeHour.getText().toString();
-            String fromTimeMin = startTimeMin.getText().toString();
-            String fromTimeAm = startTimeAm.getText().toString();
-            String toTimeHour = endTimeHour.getText().toString();
-            String toTimeMin = endTimeMin.getText().toString();
-            String toTimeAm = endTimeAM.getText().toString();
+            String tourObjectVal = tourObjective.getText().toString().trim();
+            String fromTimeHour = startTimeHour.getText().toString().trim();
+            String fromTimeMin = startTimeMin.getText().toString().trim();
+            String fromTimeAm = startTimeAm.getText().toString().trim();
+            String toTimeHour = endTimeHour.getText().toString().trim();
+            String toTimeMin = endTimeMin.getText().toString().trim();
+            String toTimeAm = endTimeAM.getText().toString().trim();
             String tourMorningVal = tourMorning.getText().toString().split("-")[1];
             String tourEveningVal = tourEvening.getText().toString().split("-")[1];
 
@@ -196,7 +196,7 @@ public class TourUpdateActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
-                                pDialog.setMessage("Tour Plan Submit...");
+                                pDialog.setMessage("Tour Plan Update...");
                                 pDialog.setCancelable(true);
                                 pDialog.show();
                                 ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
