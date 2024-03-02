@@ -31,6 +31,27 @@
 
             <TextView
                 android:paddingStart="@dimen/_9sdp"
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="start"
+                android:text="Date"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="normal"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:paddingStart="@dimen/_9sdp"
                 android:id="@+id/tvProductName"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"

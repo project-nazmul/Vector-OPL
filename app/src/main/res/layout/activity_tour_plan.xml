@@ -216,7 +216,7 @@
         android:layout_margin="@dimen/_4sdp"
         android:background="@android:drawable/editbox_background"
         android:textSize="@dimen/_8sdp"
-        app:ms_hint="Select Tour Mode"
+        app:ms_hint="Select Morning Location"
         app:ms_hint_color="@color/colorAccentEditor"
         app:ms_text_color="@color/colorAccentEditor" />
 
@@ -227,7 +227,7 @@
         android:layout_margin="@dimen/_4sdp"
         android:background="@android:drawable/editbox_background"
         android:textSize="@dimen/_8sdp"
-        app:ms_hint="Select Tour Mode"
+        app:ms_hint="Select Evening Location"
         app:ms_hint_color="@color/colorAccentEditor"
         app:ms_text_color="@color/colorAccentEditor" />
 

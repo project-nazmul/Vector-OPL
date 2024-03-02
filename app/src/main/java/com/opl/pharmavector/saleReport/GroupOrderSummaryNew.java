@@ -168,6 +168,7 @@ public class GroupOrderSummaryNew extends Activity implements GrpOrdSummaryAdapt
 
                     if (response.body() != null) {
                         orderSummaryLists = (response.body()).getGroupOrdSummaryLists();
+                        System.out.print(orderSummaryLists);
                         grpOrdSummaryAdapter = new GrpOrdSummaryAdapter(GroupOrderSummaryNew.this, orderSummaryLists, GroupOrderSummaryNew.this);
                         LinearLayoutManager linearManager = new LinearLayoutManager(GroupOrderSummaryNew.this);
                         recyclerOrderSumNew.setLayoutManager(linearManager);

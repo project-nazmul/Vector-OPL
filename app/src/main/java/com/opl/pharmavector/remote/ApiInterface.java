@@ -684,7 +684,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("order_summary/GroupwiseProductOrderSummaryDetails.php")
-    Call<GroupOrdSumDetailModel> getGroupOrderSummaryDetail(@Field("id") String emp_code, @Field("from_date") String from_date, @Field("to_date") String to_date);
+    Call<GroupOrdSumDetailModel> getGroupOrderSummaryDetail(@Field("id") String emp_code, @Field("from_date") String from_date, @Field("to_date") String to_date, @Field("p_code") String p_code);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

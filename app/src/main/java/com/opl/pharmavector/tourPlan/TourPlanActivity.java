@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TourPlanActivity extends Activity {
+    ArrayAdapter<String> adapter;
     public Button submitPlan;
     public Typeface fontFamily;
     public TextView tourRemarks, startTimeHour, startTimeMin, startTimeSec, endTimeHour, endTimeMin, endTimeSec, tourObjective, successMessage, startTimeAm, endTimeAM;
@@ -186,6 +188,7 @@ public class TourPlanActivity extends Activity {
                                         tourEveningVal, tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, toTimeHour, toTimeMin, toTimeAm);
 
                                 call.enqueue(new Callback<TourPlanResponse>() {
+                                    @SuppressLint("SetTextI18n")
                                     @Override
                                     public void onResponse(Call<TourPlanResponse> call, Response<TourPlanResponse> response) {
                                         if (response.isSuccessful()) {
@@ -195,6 +198,23 @@ public class TourPlanActivity extends Activity {
                                                 successMessage.setVisibility(View.VISIBLE);
                                                 successMessage.setText(response.body().getMessage());
                                                 Toast.makeText(TourPlanActivity.this, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                                startTimeHour.setText("08");
+                                                startTimeMin.setText("30");
+                                                startTimeSec.setText("00");
+                                                startTimeAm.setText("AM");
+                                                endTimeHour.setText("11");
+                                                endTimeMin.setText("00");
+                                                endTimeSec.setText("00");
+                                                endTimeAM.setText("PM");
+                                                tourMorning.setHint("Select Morning Location");
+                                                tourMorning.setText("");
+                                                tourEvening.setHint("Select Evening Location");
+                                                tourEvening.setText("");
+                                                tourObjective.setText("");
+                                                getTourMonthList();
+                                                getTourNatureList();
+                                                getTourModeList();
+                                                getTourClassList();
                                             }
                                             Log.d("tourNature: ", String.valueOf(tourNatureLists));
                                         }
@@ -383,7 +403,7 @@ public class TourPlanActivity extends Activity {
     }
 
     private void initTourMorningSpinner(List<TourMorningList> tourMorningLists) {
-        ArrayAdapter<String> Adapter;
+        //ArrayAdapter<String> Adapter;
         List<String> tourMorningList = new ArrayList<String>();
 
 //        for (int i = 0; i < tourMorningLists.size(); i++) {
@@ -403,7 +423,9 @@ public class TourPlanActivity extends Activity {
         for (int i = 0; i < tourMorningLists.size(); i++) {
             tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
         }
-        tourMorning.setItems(tourMorningList);
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, tourMorningList);
+        tourMorning.setAdapter(adapter);
+        //tourMorning.setItems(tourMorningList);
 
         tourMorning.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
@@ -416,7 +438,7 @@ public class TourPlanActivity extends Activity {
 //                        tourClassCode = tourClassLists.get(i).getTmcCode();
 //                    }
 //                }
-                Log.d("tourClass1", tourClassVal);
+                //Log.d("tourClass1", tourClassVal);
             }
         });
     }
@@ -510,7 +532,9 @@ public class TourPlanActivity extends Activity {
         for (int i = 0; i < tourEveningLists.size(); i++) {
             tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
         }
-        tourEvening.setItems(tourEveningList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, tourEveningList);
+        tourEvening.setAdapter(adapter);
+        //tourEvening.setItems(tourEveningList);
 
         tourEvening.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override

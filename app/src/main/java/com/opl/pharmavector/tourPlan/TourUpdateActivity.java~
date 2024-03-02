@@ -1,0 +1,897 @@
+package com.opl.pharmavector.tourPlan;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.opl.pharmavector.R;
+import com.opl.pharmavector.remote.ApiClient;
+import com.opl.pharmavector.remote.ApiInterface;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TourUpdateActivity extends Activity {
+    public Button submitPlan;
+    public Typeface fontFamily;
+    public TextView tourRemarks, startTimeHour, startTimeMin, startTimeSec, endTimeHour, endTimeMin, endTimeSec, tourObjective, successMessage, startTimeAm, endTimeAM, tourPlanTitle;
+    public MaterialSpinner tourNature, tourMode, tourClass, tourMonth, tourMorning, tourEvening;
+    public String userName, userCode, terriCode, tourNatureVal, tourModeVal, tourClassVal, tourMorningVal, tourEveningVal, tourMorningCode, tourEveningCode, tourMonthVal,
+    tourObjectVal, tourRemarkVal, tourNatureCode = "00001", tourModeCode = "00007", tourClassCode = "00006", fromTimeHour = "09", fromTimeMin = "00", fromTimeAm = "AM",
+            toTimeHour = "10", toTimeMin = "00", toTimeAm = "PM";
+    public List<TourNatureList> tourNatureLists;
+    public List<TourModeList> tourModeLists;
+    public List<TourClassList> tourClassLists;
+    public List<TourMonthList> tourMonthLists;
+    public List<TourMorningList> tourMorningLists;
+    public List<TourMorningList> tourEveningLists;
+    public List<TUpdateDetailList> updateDetailLists;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tour_plan);
+
+        initViews();
+        getTourMonthList();
+        getTourNatureList();
+        getTourModeList();
+        getTourClassList();
+        getTourMorningList();
+        getTourEveningList("");
+        //getTourUpdateDetailList();
+        //autoTourMorningEvent();
+        //autoTourEveningEvent();
+
+        startTimeHour.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            int amPm = mCurrentTime.get(Calendar.AM_PM);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
+                startTimeHour.setText(String.valueOf(fromTimeHour));
+                startTimeMin.setText(String.valueOf(fromTimeMin));
+                startTimeAm.setText(fromTimeAm);
+                //fromTimeAm = (mCurrentTime.get(Calendar.AM_PM) == Calendar.AM) ? "am" : "pm";
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        startTimeMin.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
+                startTimeHour.setText(String.valueOf(fromTimeHour));
+                startTimeMin.setText(String.valueOf(fromTimeMin));
+                startTimeAm.setText(fromTimeAm);
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        startTimeSec.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "start");
+                startTimeHour.setText(String.valueOf(fromTimeHour));
+                startTimeMin.setText(String.valueOf(fromTimeMin));
+                startTimeAm.setText(fromTimeAm);
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        endTimeHour.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
+                endTimeHour.setText(String.valueOf(toTimeHour));
+                endTimeMin.setText(String.valueOf(toTimeMin));
+                endTimeAM.setText(toTimeAm);
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        endTimeMin.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
+                endTimeHour.setText(String.valueOf(toTimeHour));
+                endTimeMin.setText(String.valueOf(toTimeMin));
+                endTimeAM.setText(toTimeAm);
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        endTimeSec.setOnClickListener(v -> {
+            Calendar mCurrentTime = Calendar.getInstance();
+            int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+            int minute = mCurrentTime.get(Calendar.MINUTE);
+            TimePickerDialog mTimePicker;
+
+            mTimePicker = new TimePickerDialog(TourUpdateActivity.this, (timePicker, selectedHour, selectedMinute) -> {
+                timeCheckerAmPm(selectedHour, selectedMinute, "end");
+                endTimeHour.setText(String.valueOf(toTimeHour));
+                endTimeMin.setText(String.valueOf(toTimeMin));
+                endTimeAM.setText(toTimeAm);
+            }, hour, minute, false);
+            mTimePicker.setTitle("Select Time");
+            mTimePicker.show();
+        });
+
+        submitPlan.setOnClickListener(v -> {
+            String tourObjectVal = tourObjective.getText().toString().trim();
+            String fromTimeHour = startTimeHour.getText().toString().trim();
+            String fromTimeMin = startTimeMin.getText().toString().trim();
+            String fromTimeAm = startTimeAm.getText().toString().trim();
+            String toTimeHour = endTimeHour.getText().toString().trim();
+            String toTimeMin = endTimeMin.getText().toString().trim();
+            String toTimeAm = endTimeAM.getText().toString().trim();
+            String tourMorningVal = tourMorning.getText().toString().split("-")[0];
+            String tourEveningVal = tourEvening.getText().toString().split("-")[0];
+
+            String tourNatureName = tourNature.getText().toString().trim();
+            for (int i = 0; i < tourNatureLists.size(); i++) {
+                if (tourNatureLists.get(i).getTnDesc().equals(tourNatureName)) {
+                    tourNatureCode = tourNatureLists.get(i).getTnCode();
+                }
+            }
+            String tourModeName = tourMode.getText().toString().trim();
+            for (int i = 0; i < tourModeLists.size(); i++) {
+                if (tourModeLists.get(i).getTmDesc().contains(tourModeName)) {
+                    tourModeCode = tourModeLists.get(i).getTmCode();
+                }
+            }
+            String tourClassName = tourClass.getText().toString().trim();
+            for (int i = 0; i < tourClassLists.size(); i++) {
+                if (tourClassLists.get(i).getTmcDesc().contains(tourClassName)) {
+                    tourClassCode = tourClassLists.get(i).getTmcCode();
+                }
+            }
+
+            if (tourMonthVal != null && tourMorningVal != null && tourEveningVal != null) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TourUpdateActivity.this);
+                builder.setTitle("Tour Plan").setMessage("Are you want to update Tour Plan?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+                                pDialog.setMessage("Tour Plan Update...");
+                                pDialog.setCancelable(true);
+                                pDialog.show();
+                                ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+                                Call<TourPlanResponse> call = apiInterface.submitDailyTourPlanUpdate(terriCode, userCode, tourMonthVal, tourObjectVal, "", tourMorningVal.trim(),
+                                        tourEveningVal.trim(), tourNatureCode, tourModeCode, tourClassCode, fromTimeHour, fromTimeMin, fromTimeAm, toTimeHour, toTimeMin, toTimeAm);
+
+                                call.enqueue(new Callback<TourPlanResponse>() {
+                                    @Override
+                                    public void onResponse(Call<TourPlanResponse> call, Response<TourPlanResponse> response) {
+                                        if (response.isSuccessful()) {
+                                            pDialog.dismiss();
+
+                                            if (response.body() != null) {
+                                                successMessage.setVisibility(View.VISIBLE);
+                                                successMessage.setText(response.body().getMessage());
+                                                Toast.makeText(TourUpdateActivity.this, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                                            }
+                                            //Log.d("tourNature: ", String.valueOf(tourNatureLists));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<TourPlanResponse> call, Throwable t) {
+                                        pDialog.dismiss();
+                                        Toast toast = Toast.makeText(getBaseContext(), "Failed to submit tour plan!", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .show();
+            } else {
+                Toast.makeText(TourUpdateActivity.this, "Please select necessary field!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void timeCheckerAmPm(int selectedHour, int selectedMinute, String timeFlag) {
+        if (Objects.equals(timeFlag, "start")) {
+            if (selectedHour == 12) {
+                fromTimeHour = "00";
+                fromTimeAm = "PM";
+            } else if (selectedHour > 12) {
+                fromTimeHour = String.valueOf(selectedHour - 12);
+                if (Integer.parseInt(fromTimeHour) < 10) {
+                    fromTimeHour = "0" + fromTimeHour;
+                } else {
+                    fromTimeHour = fromTimeHour;
+                }
+                fromTimeAm = "PM";
+            } else {
+                fromTimeHour = String.valueOf(selectedHour);
+                if (Integer.parseInt(fromTimeHour) < 10) {
+                    fromTimeHour = "0" + fromTimeHour;
+                } else {
+                    fromTimeHour = fromTimeHour;
+                }
+                fromTimeAm = "AM";
+            }
+
+            if (selectedMinute < 10) {
+                fromTimeMin = "0" + String.valueOf(selectedMinute);
+            } else {
+                fromTimeMin = String.valueOf(selectedMinute);
+            }
+        } else {
+            if (selectedHour == 12) {
+                toTimeHour = "00";
+                toTimeAm = "PM";
+            } else if (selectedHour > 12) {
+                toTimeHour = String.valueOf(selectedHour - 12);
+                if (Integer.parseInt(toTimeHour) < 10) {
+                    toTimeHour = "0" + toTimeHour;
+                } else {
+                    toTimeHour = toTimeHour;
+                }
+                toTimeAm = "PM";
+            } else {
+                toTimeHour = String.valueOf(selectedHour);
+                if (Integer.parseInt(toTimeHour) < 10) {
+                    toTimeHour = "0" + toTimeHour;
+                } else {
+                    toTimeHour = toTimeHour;
+                }
+                toTimeAm = "PM";
+            }
+
+            if (selectedMinute < 10) {
+                toTimeMin = "0" + String.valueOf(selectedMinute);
+            } else {
+                toTimeMin = String.valueOf(selectedMinute);
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void initViews() {
+        fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
+        tourMode = findViewById(R.id.tourMode);
+        endTimeAM = findViewById(R.id.endTimeAm);
+        endTimeAM.setText("");
+        tourClass = findViewById(R.id.tourClass);
+        tourMonth = findViewById(R.id.tourMonth);
+        endTimeMin = findViewById(R.id.endTimeMin);
+        endTimeMin.setText("");
+        endTimeSec = findViewById(R.id.endTimeSec);
+        endTimeSec.setText("");
+        submitPlan = findViewById(R.id.submitPlan);
+        tourNature = findViewById(R.id.tourNature);
+        tourRemarks = findViewById(R.id.tourRemark);
+        startTimeAm = findViewById(R.id.startTimeAm);
+        startTimeAm.setText("");
+        tourMorning = findViewById(R.id.tourMorning);
+        tourEvening = findViewById(R.id.tourEvening);
+        endTimeHour = findViewById(R.id.endTimeHour);
+        endTimeHour.setText("");
+        startTimeMin = findViewById(R.id.startTimeMin);
+        startTimeMin.setText("");
+        startTimeSec = findViewById(R.id.startTimeSec);
+        startTimeSec.setText("");
+        startTimeHour = findViewById(R.id.startTimeHour);
+        startTimeHour.setText("");
+        tourObjective = findViewById(R.id.tourObjective);
+        successMessage = findViewById(R.id.successMessage);
+        tourPlanTitle = findViewById(R.id.tourPlanTitle);
+        submitPlan.setText("\uf1d8");
+        submitPlan.setTypeface(fontFamily);
+        tourModeLists = new ArrayList<>();
+        tourMonthLists = new ArrayList<>();
+        tourClassLists = new ArrayList<>();
+        tourNatureLists = new ArrayList<>();
+        tourMorningLists = new ArrayList<>();
+        tourEveningLists = new ArrayList<>();
+        updateDetailLists = new ArrayList<>();
+
+        Bundle b = getIntent().getExtras();
+        userName = b.getString("UserName");
+        userCode = b.getString("UserCode");
+        terriCode = b.getString("TerriCode");
+        tourPlanTitle.setText("Tour Plan Update");
+    }
+
+    private void initTourNatureSpinner(List<TourNatureList> tourNatureLists) {
+        List<String> tourNatureList = new ArrayList<String>();
+
+        for (int i = 0; i < tourNatureLists.size(); i++) {
+            tourNatureList.add(tourNatureLists.get(i).getTnDesc());
+        }
+        tourNature.setItems(tourNatureList);
+
+        tourNature.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                tourNatureVal = String.valueOf(item).trim();
+
+                for (int i = 0; i < tourNatureLists.size(); i++) {
+                    if (tourNatureLists.get(i).getTnDesc().equals(tourNatureVal)) {
+                        tourNatureCode = tourNatureLists.get(i).getTnCode();
+                    }
+                }
+                //Log.d("tourNature1", tourNatureVal);
+            }
+        });
+    }
+
+    private void initTourModeSpinner(List<TourModeList> tourModeLists) {
+        List<String> tourModeList = new ArrayList<String>();
+
+        for (int i = 0; i < tourModeLists.size(); i++) {
+            tourModeList.add(tourModeLists.get(i).getTmDesc());
+        }
+        tourMode.setItems(tourModeList);
+
+        tourMode.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                tourModeVal = String.valueOf(item).trim();
+
+                for (int i = 0; i < tourModeLists.size(); i++) {
+                    if (tourModeLists.get(i).getTmDesc().contains(tourModeVal)) {
+                        tourModeCode = tourModeLists.get(i).getTmCode();
+                    }
+                }
+                //Log.d("tourMode1", tourNatureVal);
+            }
+        });
+    }
+
+    private void initTourClassSpinner(List<TourClassList> tourClassLists) {
+        List<String> tourClassList = new ArrayList<String>();
+
+        for (int i = 0; i < tourClassLists.size(); i++) {
+            tourClassList.add(tourClassLists.get(i).getTmcDesc());
+        }
+        tourClass.setItems(tourClassList);
+
+        tourClass.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                tourClassVal = String.valueOf(item).trim();
+
+                for (int i = 0; i < tourClassLists.size(); i++) {
+                    if (tourClassLists.get(i).getTmcDesc().contains(tourClassVal)) {
+                        tourClassCode = tourClassLists.get(i).getTmcCode();
+                    }
+                }
+                //Log.d("tourClass1", tourClassVal);
+            }
+        });
+    }
+
+    private void initTourMorningSpinner(List<TourMorningList> tourMorningLists) {
+        ArrayAdapter<String> Adapter;
+        List<String> tourMorningList = new ArrayList<String>();
+
+//        for (int i = 0; i < tourMorningLists.size(); i++) {
+//            tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
+//        }
+//        String[] customer = tourMorningList.toArray(new String[0]);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+//        tourMorning.setThreshold(2);
+//        tourMorning.setAdapter(adapter);
+//        tourMorning.setTextColor(Color.BLUE);
+//
+//        tourMorning.setOnItemClickListener((parent, view, position, id) -> {
+//            String tempMorningVal = adapter.getItem(position).toString().trim();
+//            tourMorningVal = tempMorningVal.split("-")[0].trim();
+//        });
+
+        for (int i = 0; i < tourMorningLists.size(); i++) {
+            tourMorningList.add(tourMorningLists.get(i).getMpoCode() + " - " + tourMorningLists.get(i).getTerriName());
+        }
+        tourMorning.setItems(tourMorningList);
+
+        tourMorning.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String tempMorningVal = String.valueOf(item).trim();
+                tourMorningVal = tempMorningVal.split("-")[0].trim();
+
+//                for (int i = 0; i < tourMorningLists.size(); i++) {
+//                    if (tourClassLists.get(i).getTmcDesc().contains(tourClassVal)) {
+//                        tourClassCode = tourClassLists.get(i).getTmcCode();
+//                    }
+//                }
+                //Log.d("tourClass1", tourClassVal);
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+//    private void autoTourMorningEvent() {
+//        tourMorning.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                tourMorning.showDropDown();
+//                return false;
+//            }
+//        });
+//        tourMorning.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//        tourMorning.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                tourMorning.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                tourMorning.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(final Editable s) {
+////                try {
+////                    String tempMorningVal = s.toString().trim();
+////                    tourMorningVal = tempMorningVal.split("-")[0];
+////
+////                    for (int i = 0; i < tourMorningLists.size(); i++) {
+////                        if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+////                            tourMorningCode = tourMorningLists.get(i).getMpoCode();
+////                            getTourEveningList(tourMorningCode);
+////                        }
+////                    }
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//            private void length() {}
+//        });
+//    }
+
+    private void initTourMonthSpinner(List<TourMonthList> tourMonthLists) {
+        List<String> tourMonthList = new ArrayList<String>();
+
+        for (int i = 0; i < tourMonthLists.size(); i++) {
+            tourMonthList.add(tourMonthLists.get(i).getCalDayDesc());
+        }
+        tourMonth.setItems(tourMonthList);
+
+        tourMonth.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String tempMonthDesc = String.valueOf(item).trim();
+                String tourUpdateDay = tempMonthDesc.split("\\(")[0];
+                tourMonthVal = tourUpdateDay;
+
+                if (tourUpdateDay != null) {
+                    getTourUpdateDetailList(tourUpdateDay);
+                }
+//                for (int i = 0; i < tourMonthLists.size(); i++) {
+//                    if (tourMonthLists.get(i).getCalDayDesc().equals(tourMonthDesc)) {
+//                        tourMonthVal = tourMonthLists.get(i).getCalDay();
+//                        //getTourEveningList(tourMorningCode);
+//                    }
+//                }
+                //Log.d("tourUDate", tempMonthDesc + "::" + tourUpdateDay);
+            }
+        });
+    }
+
+    private void initTourEveningSpinner(List<TourMorningList> tourEveningLists) {
+        List<String> tourEveningList = new ArrayList<String>();
+
+//        for (int i = 0; i < tourEveningLists.size(); i++) {
+//            tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+//        }
+//        String[] customer = tourEveningList.toArray(new String[0]);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, customer);
+//        tourEvening.setThreshold(2);
+//        tourEvening.setAdapter(adapter);
+//        tourEvening.setTextColor(Color.BLUE);
+//
+//        tourEvening.setOnItemClickListener((parent, view, position, id) -> {
+//            String tempEveningVal = adapter.getItem(position).toString().trim();
+//            tourEveningVal = tempEveningVal.split("-")[0].trim();
+//        });
+
+        for (int i = 0; i < tourEveningLists.size(); i++) {
+            tourEveningList.add(tourEveningLists.get(i).getMpoCode() + " - " + tourEveningLists.get(i).getTerriName());
+        }
+        tourEvening.setItems(tourEveningList);
+
+        tourEvening.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                String tempEveningVal = String.valueOf(item).trim();
+                tourEveningVal = tempEveningVal.split("-")[0].trim();
+
+                //tourMonthVal = tempMorningVal.split("-")[0];
+
+//                for (int i = 0; i < tourMorningList.size(); i++) {
+//                    if (tourMorningLists.get(i).getMpoCode().contains(tourMorningVal)) {
+//                        tourMorningCode = tourMorningLists.get(i).getMpoCode();
+//                        getTourEveningList(tourMorningCode);
+//                    }
+//                }
+                //Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+//    private void autoTourEveningEvent() {
+//        tourEvening.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                tourEvening.showDropDown();
+//                return false;
+//            }
+//        });
+//        tourEvening.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {}
+//        });
+//        tourEvening.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                tourEvening.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                tourEvening.setTextColor(Color.BLUE);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(final Editable s) {
+////                try {
+////                    String tempEveningVal = s.toString().trim();
+////                    tourEveningVal = tempEveningVal.split("-")[0];
+////
+////                    for (int i = 0; i < tourEveningLists.size(); i++) {
+////                        if (tourEveningLists.get(i).getMpoCode().contains(tourEveningVal)) {
+////                            tourEveningCode = tourEveningLists.get(i).getMpoCode();
+////                        }
+////                    }
+////                } catch (Exception e) {
+////                    e.printStackTrace();
+////                }
+//            }
+//            private void length() {}
+//        });
+//    }
+
+    private void getTourNatureList() {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Nature...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourNatureModel> call = apiInterface.getDailyTourNatureList(userCode);
+        tourNatureLists.clear();
+
+        call.enqueue(new Callback<TourNatureModel>() {
+            @Override
+            public void onResponse(Call<TourNatureModel> call, Response<TourNatureModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourNatureLists.addAll((response.body()).getTourNatureLists());
+                    }
+                    if (tourNatureLists.size() > 0) {
+                        initTourNatureSpinner(tourNatureLists);
+                        //tourNature.setText(tourNatureLists.get(0).getTnDesc());
+                    }
+                   //Log.d("tourNature: ", String.valueOf(tourNatureLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourNatureModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourModeList() {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Mode...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourModeModel> call = apiInterface.getDailyTourModeList(userCode);
+        tourModeLists.clear();
+
+        call.enqueue(new Callback<TourModeModel>() {
+            @Override
+            public void onResponse(Call<TourModeModel> call, Response<TourModeModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourModeLists.addAll((response.body()).getTourModeLists());
+                    }
+                    if (tourModeLists.size() > 0) {
+                        initTourModeSpinner(tourModeLists);
+                        //tourMode.setText(tourModeLists.get(6).getTmDesc());
+                    }
+                    //Log.d("tourMode: ", String.valueOf(tourModeLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourModeModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourClassList() {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Class...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourClassModel> call = apiInterface.getDailyTourClassList(userCode);
+        tourClassLists.clear();
+
+        call.enqueue(new Callback<TourClassModel>() {
+            @Override
+            public void onResponse(Call<TourClassModel> call, Response<TourClassModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourClassLists.addAll((response.body()).getTourClassLists());
+                    }
+                    if (tourClassLists.size() > 0) {
+                        initTourClassSpinner(tourClassLists);
+                        //tourClass.setText(tourClassLists.get(5).getTmcDesc());
+                    }
+                    //Log.d("tourClass: ", String.valueOf(tourClassLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourClassModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourMorningList() {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Location...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourMorningModel> call = apiInterface.getDailyTourMorningList(terriCode);
+        tourMorningLists.clear();
+
+        call.enqueue(new Callback<TourMorningModel>() {
+            @Override
+            public void onResponse(Call<TourMorningModel> call, Response<TourMorningModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourMorningLists.addAll((response.body()).getTourMorningLists());
+                    }
+                    initTourMorningSpinner(tourMorningLists);
+                    //Log.d("tourMorn: ", String.valueOf(tourMorningLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourMorningModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourMonthList() {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Month...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourMonthModel> call = apiInterface.getTourUpdateMonthList(terriCode);
+        tourMonthLists.clear();
+
+        call.enqueue(new Callback<TourMonthModel>() {
+            @Override
+            public void onResponse(Call<TourMonthModel> call, Response<TourMonthModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourMonthLists.addAll((response.body()).getTourMonthLists());
+                    }
+                    initTourMonthSpinner(tourMonthLists);
+                    //Log.d("tourMorn: ", String.valueOf(tourMorningLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourMonthModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void getTourUpdateDetailList(String tourUpdateDay) {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Update Details...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TUpdateDetailModel> call = apiInterface.getTourUpdateDetailList(terriCode, userCode, tourUpdateDay);
+        updateDetailLists.clear();
+
+        call.enqueue(new Callback<TUpdateDetailModel>() {
+            @Override
+            public void onResponse(Call<TUpdateDetailModel> call, Response<TUpdateDetailModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        updateDetailLists.addAll((response.body()).getUpdateDetailLists());
+                    }
+                    if (updateDetailLists.size() > 0) {
+                        setTUpdateDetailView(updateDetailLists);
+                    }
+                    //.d("updateDetail: ", String.valueOf(updateDetailLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TUpdateDetailModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setTUpdateDetailView(List<TUpdateDetailList> updateDetailLists) {
+        startTimeHour.setText(updateDetailLists.get(0).getFromH());
+        startTimeMin.setText(updateDetailLists.get(0).getFromM());
+        startTimeSec.setText("00");
+        startTimeAm.setText(updateDetailLists.get(0).getFromAm());
+        endTimeHour.setText(updateDetailLists.get(0).getToH());
+        endTimeMin.setText(updateDetailLists.get(0).getToM());
+        endTimeSec.setText("00");
+        endTimeAM.setText(updateDetailLists.get(0).getToAm());
+
+        String tempTourNature = updateDetailLists.get(0).getTnCode();
+        for (int i = 0; i < tourNatureLists.size(); i++) {
+            if (tourNatureLists.get(i).getTnCode().equals(tempTourNature)) {
+                String tourNatureName = tourNatureLists.get(i).getTnDesc();
+                tourNature.setText(tourNatureName);
+            }
+        }
+        String tempTourMode = updateDetailLists.get(0).getTmCode();
+        for (int i = 0; i < tourModeLists.size(); i++) {
+            if (tourModeLists.get(i).getTmCode().contains(tempTourMode)) {
+                String tourModeName = tourModeLists.get(i).getTmDesc();
+                tourMode.setText(tourModeName);
+            }
+        }
+        String tempTourClass = updateDetailLists.get(0).getTmcCode();
+        for (int i = 0; i < tourClassLists.size(); i++) {
+            if (tourClassLists.get(i).getTmcCode().contains(tempTourClass)) {
+                String tourClassName = tourClassLists.get(i).getTmcDesc();
+                tourClass.setText(tourClassName);
+            }
+        }
+        String tempTourMorning = updateDetailLists.get(0).getLocationFrom();
+        for (int i = 0; i < tourMorningLists.size(); i++) {
+            if (tourMorningLists.get(i).getMpoCode().contains(tempTourMorning)) {
+                String tourMorningName = tourMorningLists.get(i).getTerriName();
+                tourMorning.setText(tourMorningName + "-" + tempTourMorning);
+            }
+        }
+        String tempTourEvening = updateDetailLists.get(0).getLocationTo();
+        for (int i = 0; i < tourEveningLists.size(); i++) {
+            if (tourEveningLists.get(i).getMpoCode().contains(tempTourEvening)) {
+                String tourEveningName = tourEveningLists.get(i).getTerriName();
+                tourEvening.setText(tourEveningName + "-" + tempTourEvening);
+            }
+        }
+        String tempTourObjective = updateDetailLists.get(0).getObjective();
+        if (tempTourObjective != null) {
+            tourObjective.setText(tempTourObjective);
+        }
+    }
+
+    private void getTourEveningList(String tourMorningCode) {
+        ProgressDialog pDialog = new ProgressDialog(TourUpdateActivity.this);
+        pDialog.setMessage("Loading Tour Location...");
+        pDialog.setCancelable(true);
+        pDialog.show();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<TourMorningModel> call = apiInterface.getDailyTourEveningList(terriCode, tourMorningCode);
+        tourEveningLists.clear();
+
+        call.enqueue(new Callback<TourMorningModel>() {
+            @Override
+            public void onResponse(Call<TourMorningModel> call, Response<TourMorningModel> response) {
+                if (response.isSuccessful()) {
+                    pDialog.dismiss();
+
+                    if (response.body() != null) {
+                        tourEveningLists.addAll((response.body()).getTourMorningLists());
+                    }
+                    initTourEveningSpinner(tourEveningLists);
+                    //Log.d("tourEven: ", String.valueOf(tourEveningLists));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TourMorningModel> call, Throwable t) {
+                pDialog.dismiss();
+                Toast toast = Toast.makeText(getBaseContext(), "Failed to Retried Data!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+}

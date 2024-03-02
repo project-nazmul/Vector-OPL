@@ -167,8 +167,8 @@ public class TourUpdateActivity extends Activity {
             String toTimeHour = endTimeHour.getText().toString().trim();
             String toTimeMin = endTimeMin.getText().toString().trim();
             String toTimeAm = endTimeAM.getText().toString().trim();
-            String tourMorningVal = tourMorning.getText().toString().split("-")[1];
-            String tourEveningVal = tourEvening.getText().toString().split("-")[1];
+            String tourMorningVal = tourMorning.getText().toString().split("-")[0];
+            String tourEveningVal = tourEvening.getText().toString().split("-")[0];
 
             String tourNatureName = tourNature.getText().toString().trim();
             for (int i = 0; i < tourNatureLists.size(); i++) {
@@ -214,7 +214,7 @@ public class TourUpdateActivity extends Activity {
                                                 successMessage.setText(response.body().getMessage());
                                                 Toast.makeText(TourUpdateActivity.this, "" + response.body().getMessage(), Toast.LENGTH_LONG).show();
                                             }
-                                            Log.d("tourNature: ", String.valueOf(tourNatureLists));
+                                            //Log.d("tourNature: ", String.valueOf(tourNatureLists));
                                         }
                                     }
 
@@ -361,7 +361,7 @@ public class TourUpdateActivity extends Activity {
                         tourNatureCode = tourNatureLists.get(i).getTnCode();
                     }
                 }
-                Log.d("tourNature1", tourNatureVal);
+                //Log.d("tourNature1", tourNatureVal);
             }
         });
     }
@@ -384,7 +384,7 @@ public class TourUpdateActivity extends Activity {
                         tourModeCode = tourModeLists.get(i).getTmCode();
                     }
                 }
-                Log.d("tourMode1", tourNatureVal);
+                //Log.d("tourMode1", tourNatureVal);
             }
         });
     }
@@ -407,7 +407,7 @@ public class TourUpdateActivity extends Activity {
                         tourClassCode = tourClassLists.get(i).getTmcCode();
                     }
                 }
-                Log.d("tourClass1", tourClassVal);
+                //Log.d("tourClass1", tourClassVal);
             }
         });
     }
@@ -446,7 +446,7 @@ public class TourUpdateActivity extends Activity {
 //                        tourClassCode = tourClassLists.get(i).getTmcCode();
 //                    }
 //                }
-                Log.d("tourClass1", tourClassVal);
+                //Log.d("tourClass1", tourClassVal);
             }
         });
     }
@@ -519,7 +519,7 @@ public class TourUpdateActivity extends Activity {
 //                        //getTourEveningList(tourMorningCode);
 //                    }
 //                }
-                Log.d("tourUDate", tempMonthDesc + "::" + tourUpdateDay);
+                //Log.d("tourUDate", tempMonthDesc + "::" + tourUpdateDay);
             }
         });
     }
@@ -560,7 +560,7 @@ public class TourUpdateActivity extends Activity {
 //                        getTourEveningList(tourMorningCode);
 //                    }
 //                }
-                Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
+                //Log.d("tourMorn1", tourMorningVal + "::" + tourMorningCode);
             }
         });
     }
@@ -630,7 +630,7 @@ public class TourUpdateActivity extends Activity {
                         initTourNatureSpinner(tourNatureLists);
                         //tourNature.setText(tourNatureLists.get(0).getTnDesc());
                     }
-                    Log.d("tourNature: ", String.valueOf(tourNatureLists));
+                   //Log.d("tourNature: ", String.valueOf(tourNatureLists));
                 }
             }
 
@@ -665,7 +665,7 @@ public class TourUpdateActivity extends Activity {
                         initTourModeSpinner(tourModeLists);
                         //tourMode.setText(tourModeLists.get(6).getTmDesc());
                     }
-                    Log.d("tourMode: ", String.valueOf(tourModeLists));
+                    //Log.d("tourMode: ", String.valueOf(tourModeLists));
                 }
             }
 
@@ -700,7 +700,7 @@ public class TourUpdateActivity extends Activity {
                         initTourClassSpinner(tourClassLists);
                         //tourClass.setText(tourClassLists.get(5).getTmcDesc());
                     }
-                    Log.d("tourClass: ", String.valueOf(tourClassLists));
+                    //Log.d("tourClass: ", String.valueOf(tourClassLists));
                 }
             }
 
@@ -732,7 +732,7 @@ public class TourUpdateActivity extends Activity {
                         tourMorningLists.addAll((response.body()).getTourMorningLists());
                     }
                     initTourMorningSpinner(tourMorningLists);
-                    Log.d("tourMorn: ", String.valueOf(tourMorningLists));
+                    //Log.d("tourMorn: ", String.valueOf(tourMorningLists));
                 }
             }
 
@@ -764,7 +764,7 @@ public class TourUpdateActivity extends Activity {
                         tourMonthLists.addAll((response.body()).getTourMonthLists());
                     }
                     initTourMonthSpinner(tourMonthLists);
-                    Log.d("tourMorn: ", String.valueOf(tourMorningLists));
+                    //Log.d("tourMorn: ", String.valueOf(tourMorningLists));
                 }
             }
 
@@ -798,7 +798,7 @@ public class TourUpdateActivity extends Activity {
                     if (updateDetailLists.size() > 0) {
                         setTUpdateDetailView(updateDetailLists);
                     }
-                    Log.d("updateDetail: ", String.valueOf(updateDetailLists));
+                    //.d("updateDetail: ", String.valueOf(updateDetailLists));
                 }
             }
 
@@ -847,14 +847,14 @@ public class TourUpdateActivity extends Activity {
         for (int i = 0; i < tourMorningLists.size(); i++) {
             if (tourMorningLists.get(i).getMpoCode().contains(tempTourMorning)) {
                 String tourMorningName = tourMorningLists.get(i).getTerriName();
-                tourMorning.setText(tourMorningName + "-" + tempTourMorning);
+                tourMorning.setText(tempTourMorning + "-" + tourMorningName);
             }
         }
         String tempTourEvening = updateDetailLists.get(0).getLocationTo();
         for (int i = 0; i < tourEveningLists.size(); i++) {
             if (tourEveningLists.get(i).getMpoCode().contains(tempTourEvening)) {
                 String tourEveningName = tourEveningLists.get(i).getTerriName();
-                tourEvening.setText(tourEveningName + "-" + tempTourEvening);
+                tourEvening.setText(tempTourEvening + "-" + tourEveningName);
             }
         }
         String tempTourObjective = updateDetailLists.get(0).getObjective();
@@ -882,7 +882,7 @@ public class TourUpdateActivity extends Activity {
                         tourEveningLists.addAll((response.body()).getTourMorningLists());
                     }
                     initTourEveningSpinner(tourEveningLists);
-                    Log.d("tourEven: ", String.valueOf(tourEveningLists));
+                    //Log.d("tourEven: ", String.valueOf(tourEveningLists));
                 }
             }
 

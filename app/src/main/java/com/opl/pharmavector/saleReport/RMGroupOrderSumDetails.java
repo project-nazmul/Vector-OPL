@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class RMGroupOrderSumDetails extends Activity implements GrpOrdSumDetailAdapter.ItemClickListener {
     public String userName, userCode, productCode, productName, productPack, productTeam, selectDate;
     public Button submitButton, backButton;
-    public TextView fromDateOrd, toDateOrder, tvProductCode, tvProductName, tvProductPack, tvProductTeam;
+    public TextView fromDateOrd, toDateOrder, tvProductCode, tvProductName,tvDate, tvProductPack, tvProductTeam;
     private RecyclerView recyclerOrderSumNew;
     private Calendar fromCalendar, toCalendar;
     private GrpOrdSumDetailAdapter grpOrdSumDetailAdapter;
@@ -75,6 +75,7 @@ public class RMGroupOrderSumDetails extends Activity implements GrpOrdSumDetailA
         backButton = findViewById(R.id.backButton);
         tvProductCode = findViewById(R.id.tvProductCode);
         tvProductName = findViewById(R.id.tvProductName);
+        tvDate = findViewById(R.id.tvDate);
         tvProductPack = findViewById(R.id.tvProductPack);
         tvProductTeam = findViewById(R.id.tvProductTeam);
         backButton.setTypeface(fontFamily);
@@ -99,6 +100,10 @@ public class RMGroupOrderSumDetails extends Activity implements GrpOrdSumDetailA
         if (productName != null) {
             String prodNameHtml = "<font color=#000000>Product Name: </font>" + "<font color=#FFCC0000>" + "<b>" + productName + "</b>" + "</font>";
             tvProductName.setText(Html.fromHtml(prodNameHtml));
+        }
+        if (tvDate != null) {
+            String prodNameHtml = "<font color=#000000>Date: </font>" + "<font color=#FFCC0000>" + "<b>" + selectDate + "</b>" + "</font>";
+            tvDate.setText(Html.fromHtml(prodNameHtml));
         }
         if (productPack != null) {
             String prodPackHtml = "<font color=#000000>Pack Size: </font>" + "<font color=#FFCC0000>" + "<b>" + productPack + "</b>" + "</font>";
@@ -169,7 +174,7 @@ public class RMGroupOrderSumDetails extends Activity implements GrpOrdSumDetailA
         pDialog.setCancelable(true);
         pDialog.show();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<GroupOrdSumDetailModel> call = apiInterface.getGroupOrderSummaryDetail(userCode, selectDate, selectDate);
+        Call<GroupOrdSumDetailModel> call = apiInterface.getGroupOrderSummaryDetail(userCode, selectDate, selectDate,productCode);
 
         call.enqueue(new Callback<GroupOrdSumDetailModel>() {
             @Override
