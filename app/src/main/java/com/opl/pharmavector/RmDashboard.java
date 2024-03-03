@@ -3120,7 +3120,7 @@ public class RmDashboard extends Activity implements View.OnClickListener {
             public void onClick(final View v) {
                 Intent i = new Intent(RmDashboard.this, ChemistListActivity.class);
                 i.putExtra("UserName", globalempName);
-                i.putExtra("UserCode", globalempCode);
+                i.putExtra("UserCode", globalRMCode);
                 i.putExtra("TerriCode", userName);;
                 startActivity(i);
             }

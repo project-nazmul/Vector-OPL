@@ -2014,7 +2014,7 @@ public class SalesManagerDashboard extends Activity implements View.OnClickListe
             public void onClick(final View v) {
                 Intent i = new Intent(SalesManagerDashboard.this, ChemistListActivity.class);
                 i.putExtra("UserName", globalempName);
-                i.putExtra("UserCode", globalempCode);
+                i.putExtra("UserCode", globalSMCode);
                 i.putExtra("TerriCode", userName);
                 startActivity(i);
             }

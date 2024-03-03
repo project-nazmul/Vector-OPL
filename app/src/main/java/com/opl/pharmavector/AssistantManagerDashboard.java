@@ -2662,7 +2662,7 @@ public class AssistantManagerDashboard extends Activity implements View.OnClickL
             public void onClick(final View v) {
                 Intent i = new Intent(AssistantManagerDashboard.this, ChemistListActivity.class);
                 i.putExtra("UserName", globalempName);
-                i.putExtra("UserCode", globalempCode);
+                i.putExtra("UserCode", globalASMCode);
                 i.putExtra("TerriCode", userName);
                 startActivity(i);
             }

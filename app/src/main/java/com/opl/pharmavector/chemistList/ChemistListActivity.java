@@ -163,7 +163,7 @@ public class ChemistListActivity extends Activity implements ChemistAdapter.Cont
         doctorFFDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<DoctorFFModel> call = apiInterface.getDoctorFFList(userName);
+        Call<DoctorFFModel> call = apiInterface.getDoctorFFList(userCode);
         doctorFFList.clear();
 
         call.enqueue(new Callback<DoctorFFModel>() {
