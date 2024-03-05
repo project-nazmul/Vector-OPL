@@ -271,12 +271,8 @@ public class ChemistListActivity extends Activity implements ChemistAdapter.Cont
                 String contactNumber = phoneNumber.getText().toString().trim();
                 String contactNumber2 = phoneNumber2.getText().toString().trim();
 
-                if (!contactNumber.equals("") && !contactNumber2.equals("")) {
-                    alert.dismiss();
-                    updateChemistContactNo(chemistList.getCustCode(), contactNumber, contactNumber2);
-                } else {
-                    alert.dismiss();
-                }
+                updateChemistContactNo(chemistList.getCustCode(), contactNumber, contactNumber2);
+                alert.dismiss();
             });
 
             contactCancel.setOnClickListener(v -> {

@@ -29,7 +29,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ chemist contact update!!" />
+    <list default="true" id="99c1c51b-d043-4e5e-9d70-ed18ef0a98b7" name="Default Changelist" comment="+ chemist contact update!!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_contact_update.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_contact_update.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,6 +80,7 @@
     <option name="KEY_STORE_PATH" value="F:\SALEMATRIX\pharmavector.jks" />
     <option name="KEY_ALIAS" value="key0" />
     <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
@@ -3692,27 +3697,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java</url>
-          <line>295</line>
+          <line>291</line>
           <option name="timeStamp" value="1758" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java</url>
-          <line>305</line>
+          <line>301</line>
           <option name="timeStamp" value="1759" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java</url>
-          <line>310</line>
+          <line>306</line>
           <option name="timeStamp" value="1760" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java</url>
-          <line>316</line>
+          <line>312</line>
           <option name="timeStamp" value="1761" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/opl/pharmavector/chemistList/ChemistListActivity.java</url>
-          <line>301</line>
+          <line>297</line>
           <option name="timeStamp" value="1762" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
