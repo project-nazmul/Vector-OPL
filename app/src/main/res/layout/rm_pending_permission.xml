@@ -11,7 +11,6 @@
 
     <LinearLayout
 
-        android:id="@+id/searchbar"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:background="@android:drawable/editbox_dropdown_light_frame"
@@ -138,7 +137,6 @@
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioMale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Regular"
@@ -147,7 +145,6 @@
 
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -286,7 +283,6 @@
 
 
                 <TextView
-                    android:id="@+id/ssel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"

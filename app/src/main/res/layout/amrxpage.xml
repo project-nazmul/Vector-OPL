@@ -145,7 +145,6 @@
 
 
             <Spinner
-                android:id="@+id/dcr_date_extend"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:ems="5"
@@ -216,7 +215,6 @@
 
 
             <LinearLayout
-                android:id="@+id/dtype"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -243,7 +241,6 @@
 
 
             <LinearLayout
-                android:id="@+id/sh"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -285,7 +282,6 @@
 
 
             <LinearLayout
-                android:id="@+id/loc"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -334,7 +330,6 @@
 
 
             <LinearLayout
-                android:id="@+id/sh_spin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -366,7 +361,6 @@
 
 
             <LinearLayout
-                android:id="@+id/cord"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -393,7 +387,6 @@
 
 
             <LinearLayout
-                android:id="@+id/p_t"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -416,7 +409,6 @@
 
 
             <LinearLayout
-                android:id="@+id/customerlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -436,7 +428,6 @@
 
 
             <LinearLayout
-                android:id="@+id/rxlay"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -466,7 +457,6 @@
 
 
             <LinearLayout
-                android:id="@+id/chemistlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -497,7 +487,6 @@
 
 
             <LinearLayout
-                android:id="@+id/visit_with_emp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -527,7 +516,6 @@
             <!--- start rx layout -->
 
             <LinearLayout
-                android:id="@+id/visit_pos"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -557,7 +545,6 @@
 
             <!-- row for rx-->
             <LinearLayout
-                android:id="@+id/rx_row"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -590,7 +577,6 @@
 
 
             <LinearLayout
-                android:id="@+id/count_prod"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -619,7 +605,6 @@
 
 
             <LinearLayout
-                android:id="@+id/opso_prod"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -647,7 +632,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ratio"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -711,7 +695,6 @@
 
 
             <LinearLayout
-                android:id="@+id/s_time"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -738,7 +721,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/e_time"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -774,7 +756,6 @@
 
 
             <Spinner
-                android:id="@+id/dcrspinner"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@android:color/holo_green_dark"
@@ -788,7 +769,6 @@
 
 
             <LinearLayout
-                android:id="@+id/text_input2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -819,7 +799,6 @@
 
 
             <LinearLayout
-                android:id="@+id/text_input"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -853,7 +832,6 @@
 
 
             <Spinner
-                android:id="@+id/doc"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@android:color/holo_green_dark"
@@ -991,7 +969,6 @@
                 android:visibility="gone"
                 tools:ignore="UnusedAttribute" />
             <LinearLayout
-                android:id="@+id/paymentmode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

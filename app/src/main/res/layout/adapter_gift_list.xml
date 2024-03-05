@@ -16,7 +16,6 @@
         card_view:contentPadding="2dp">
 
         <LinearLayout
-            android:id="@+id/polistLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:weightSum="16">

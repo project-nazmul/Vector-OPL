@@ -5,7 +5,6 @@
     <color name="bg_gradient_end">#147171</color>
     <color name="colorPrimary">#FFC107</color>
     <color name="colorPrimaryDark">#FFA000</color>
-    <color name="backgroundcolor">#fcfcfc</color>
     <color name="lightgray">#EDEDED</color>
     <color name="deeppurple">#7C4DFF</color>
     <color name="yello">#ffb300</color>
@@ -28,9 +27,7 @@
     <color name="contact_name">#333333</color>
     <color name="contact_number">#8c8c8c</color>
     <color name="vector_logo_color">#34438d</color>
-    <color name="mySnackbarBackgroundColor">#006199</color>
     <color name="base">#354592</color>
     <color name="text1">#1e73be</color>
-    <color name="head">#344955</color>
     <color name="achieveEarn">#D2F6F4</color>
 </resources>

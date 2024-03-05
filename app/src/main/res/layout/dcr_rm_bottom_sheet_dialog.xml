@@ -385,7 +385,6 @@
                 app:layout_constraintStart_toStartOf="@+id/textView8">
 
                 <TextView
-                    android:id="@+id/textView88"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/robotoregular"
@@ -400,7 +399,6 @@
                     app:layout_constraintVertical_bias="0.68" />
 
                 <Button
-                    android:id="@+id/button88"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/top_button_shape"

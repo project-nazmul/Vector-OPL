@@ -110,7 +110,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -172,7 +171,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -230,7 +228,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text41"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -367,7 +364,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -424,7 +420,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -453,7 +448,6 @@
             >
 
             <LinearLayout
-                android:id="@+id/pc_bill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -492,7 +486,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -565,7 +558,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pc_bill_followup_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -605,7 +597,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -637,7 +628,6 @@
 
 
             <LinearLayout
-                android:id="@+id/pc_bill_followup_adm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -677,7 +667,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -731,7 +720,6 @@
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
                     <TextView
-                        android:id="@+id/progress_circle_text8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -777,7 +765,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/logut"
                 android:layout_width="50sp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

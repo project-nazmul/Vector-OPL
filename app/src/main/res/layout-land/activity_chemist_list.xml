@@ -109,7 +109,6 @@
         <LinearLayout
             android:paddingTop="@dimen/_4sdp"
             android:paddingBottom="@dimen/_4sdp"
-            android:id="@+id/chemistLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

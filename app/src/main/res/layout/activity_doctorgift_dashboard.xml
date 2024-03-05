@@ -60,7 +60,6 @@
 
 
     <LinearLayout
-        android:id="@+id/layout_gift_feedback"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
@@ -110,7 +109,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/tv_gift_feedback_entry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -125,7 +123,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_gift_feedback_followup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -169,7 +166,6 @@
                     />
 
                 <TextView
-                    android:id="@+id/tv_gift_feedback_followup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -237,7 +233,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -296,7 +291,6 @@
                     />
 
                 <TextView
-                    android:id="@+id/progress_circle_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -363,7 +357,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

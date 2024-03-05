@@ -14,7 +14,6 @@
 
 
         <TextView
-            android:id="@+id/hea"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:fontFamily="cursive"
@@ -26,7 +25,6 @@
             android:typeface="normal"
             />
         <LinearLayout
-            android:id="@+id/slistLayout1"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -240,7 +238,6 @@
 
 
             <TextView
-                android:id="@+id/header_dec"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -302,7 +299,6 @@
 
 
             <TextView
-                android:id="@+id/header_nov"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -365,7 +361,6 @@
 
 
             <TextView
-                android:id="@+id/header_oct"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -434,7 +429,6 @@
 
 
             <TextView
-                android:id="@+id/header_sep"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -498,7 +492,6 @@
 
 
             <TextView
-                android:id="@+id/header_aug"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -565,7 +558,6 @@
 
 
             <TextView
-                android:id="@+id/header_jul"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -633,7 +625,6 @@
 
 
             <TextView
-                android:id="@+id/header_jun"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -701,7 +692,6 @@
 
 
             <TextView
-                android:id="@+id/header_may"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -767,7 +757,6 @@
 
 
             <TextView
-                android:id="@+id/header_apr"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -832,7 +821,6 @@
 
 
             <TextView
-                android:id="@+id/header_mar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -900,7 +888,6 @@
 
 
             <TextView
-                android:id="@+id/header_feb"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -965,7 +952,6 @@
             android:layout_height="1dp"
             android:background="@color/black_overlay"/>
         <LinearLayout
-            android:id="@+id/jan"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -975,7 +961,6 @@
 
 
             <TextView
-                android:id="@+id/header_jan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

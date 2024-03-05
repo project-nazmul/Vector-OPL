@@ -104,7 +104,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -163,7 +162,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -194,7 +192,6 @@
 
 
         <LinearLayout
-            android:id="@+id/individual_service_track"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -235,7 +232,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -293,7 +289,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -352,7 +347,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

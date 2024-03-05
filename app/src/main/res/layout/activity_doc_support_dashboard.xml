@@ -95,7 +95,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/txt_doc_support_req"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -151,7 +150,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/txt_doc_support_followup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -221,7 +219,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/txt_msd_program_followup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

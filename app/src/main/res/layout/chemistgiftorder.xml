@@ -10,7 +10,6 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/searchbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_dropdown_light_frame"
@@ -75,7 +74,6 @@
 
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -88,7 +86,6 @@
 
 
         <TextView
-            android:id="@+id/dco_chem_name"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -100,7 +97,6 @@
             android:textColor="@color/blue"/>
 
         <TextView
-            android:id="@+id/ppm_pm_name"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -114,7 +110,6 @@
             />
 
         <TextView
-            android:id="@+id/shift_gift"
             android:layout_width="20dp"
             android:layout_height="fill_parent"
             android:layout_gravity="right"
@@ -129,7 +124,6 @@
 
 
         <TextView
-            android:id="@+id/all_re"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -141,7 +135,6 @@
 
 
         <TextView
-            android:id="@+id/Rest"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -153,7 +146,6 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -229,7 +221,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btnLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

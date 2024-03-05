@@ -15,7 +15,6 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
@@ -23,7 +22,6 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -109,7 +107,6 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:id="@+id/polistLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_2sdp"

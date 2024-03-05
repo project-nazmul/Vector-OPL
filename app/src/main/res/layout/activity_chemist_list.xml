@@ -107,7 +107,6 @@
         card_view:contentPadding="2dp">
 
         <LinearLayout
-            android:id="@+id/chemistLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="@dimen/_4sdp"

@@ -68,7 +68,6 @@
                 android:layout_marginBottom="@dimen/_4sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -120,7 +119,6 @@
             android:weightSum="7">
 
             <TextView
-                android:id="@+id/dcr_sl"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="start"
@@ -131,7 +129,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/dco_chem_name"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.7"
@@ -141,7 +138,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/ppm_pm_name"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="3"
@@ -163,7 +159,6 @@
                 android:textSize="@dimen/_9sdp" />
 
             <TextView
-                android:id="@+id/all_rest_quant"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="2"

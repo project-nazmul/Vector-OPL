@@ -258,6 +258,7 @@ public class ChemistListActivity extends Activity implements ChemistAdapter.Cont
             Button contactUpdate = customLayout.findViewById(R.id.contactUpdate);
             Button contactCancel = customLayout.findViewById(R.id.contactCancel);
             EditText phoneNumber = customLayout.findViewById(R.id.phoneNumber);
+            EditText phoneNumber2 = customLayout.findViewById(R.id.phoneNumber2);
 
             if (chemistList.getCustCode() != null) {
                 chemistCode.setText("[" + chemistList.getCustCode() + "]");
@@ -268,10 +269,11 @@ public class ChemistListActivity extends Activity implements ChemistAdapter.Cont
 
             contactUpdate.setOnClickListener(v -> {
                 String contactNumber = phoneNumber.getText().toString().trim();
+                String contactNumber2 = phoneNumber2.getText().toString().trim();
 
-                if (!contactNumber.equals("")) {
+                if (!contactNumber.equals("") && !contactNumber2.equals("")) {
                     alert.dismiss();
-                    updateChemistContactNo(chemistList.getCustCode(), contactNumber);
+                    updateChemistContactNo(chemistList.getCustCode(), contactNumber, contactNumber2);
                 } else {
                     alert.dismiss();
                 }
@@ -284,14 +286,14 @@ public class ChemistListActivity extends Activity implements ChemistAdapter.Cont
         }
     }
 
-    public void updateChemistContactNo(String custCode, String contactNumber) {
+    public void updateChemistContactNo(String custCode, String contactNumber, String contactNumber2) {
         ProgressDialog contactDialog = new ProgressDialog(ChemistListActivity.this);
         contactDialog.setMessage("Chemist Contact Update...");
         contactDialog.setTitle("Chemist Contact Number");
         contactDialog.show();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<ContactModel> call = apiInterface.updateChemistNumber(terriCode, userCode, custCode, contactNumber);
+        Call<ContactModel> call = apiInterface.updateChemistNumber(terriCode, userCode, custCode, contactNumber, contactNumber2);
 
         call.enqueue(new Callback<ContactModel>() {
             @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})

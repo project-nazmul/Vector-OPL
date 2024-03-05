@@ -110,7 +110,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -166,7 +165,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

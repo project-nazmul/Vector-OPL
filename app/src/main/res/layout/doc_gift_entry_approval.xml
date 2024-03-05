@@ -37,7 +37,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/GlistLayout"
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -198,7 +197,6 @@
             />
 
         <TextView
-            android:id="@+id/Checkbox"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight=".5"

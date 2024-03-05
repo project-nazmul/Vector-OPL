@@ -347,7 +347,6 @@
     <LinearLayout
         android:weightSum="12"
         android:background="@drawable/dcr_border"
-        android:id="@+id/slistLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
@@ -369,7 +368,6 @@
             android:background="#424242"/>
 
         <TextView
-            android:id="@+id/p_detail_todDoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"

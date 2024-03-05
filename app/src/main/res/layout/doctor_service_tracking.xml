@@ -70,7 +70,6 @@
 
 
         <Spinner
-            android:id="@+id/sp_area"
             android:layout_width="0dp"
             android:layout_height="4dp"
             android:layout_weight="0"
@@ -189,14 +188,12 @@
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:id="@+id/mpoli"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5">
 
             <TextView
-                android:id="@+id/t1"
                 android:layout_width="0sp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -212,7 +209,6 @@
                 tools:ignore="RtlSymmetry" />
 
             <LinearLayout
-                android:id="@+id/customerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -258,7 +254,6 @@
                 tools:ignore="UnusedAttribute" />
 
             <TextView
-                android:id="@+id/t2"
                 android:layout_width="20sp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -285,7 +280,6 @@
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:id="@+id/doc_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -351,7 +345,6 @@
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -414,7 +407,6 @@
     <!--- doctor detail layput end-->
 
     <LinearLayout
-        android:id="@+id/mpo_am_report"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_5sdp"
@@ -471,7 +463,6 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/dcr_sl"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -482,7 +473,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/ppm_pm_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -494,7 +484,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/Rest"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -505,7 +494,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/am_pm_shift"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -527,7 +515,6 @@
                 android:textSize="@dimen/_8sdp" />
 
             <TextView
-                android:id="@+id/v_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"

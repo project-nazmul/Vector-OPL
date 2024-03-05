@@ -249,7 +249,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/customerlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -309,7 +308,6 @@
                 tools:ignore="UnusedAttribute" />
 
             <LinearLayout
-                android:id="@+id/paymentmode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

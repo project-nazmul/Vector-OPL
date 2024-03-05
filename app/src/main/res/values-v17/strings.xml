@@ -2,9 +2,7 @@
 <resources>
     <string name="capture_image_from_camera">Capture image from Camera</string>
     <string name="select_from_gallery">Select from Gallery</string>
-    <string name="show">show</string>
     <string name="select_date">Select Date</string>
     <string name="personal_expense_entry">Personal Expense Entry</string>
     <string name="vector_version">1.0.1</string>
-    <string name="user_code">UserCode</string>
 </resources>

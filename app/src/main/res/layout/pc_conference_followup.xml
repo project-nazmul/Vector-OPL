@@ -46,7 +46,6 @@
 
 
     <LinearLayout
-        android:id="@+id/slistLayout1"
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -58,7 +57,6 @@
 
 
         <TextView
-            android:id="@+id/rname"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="fill_parent"

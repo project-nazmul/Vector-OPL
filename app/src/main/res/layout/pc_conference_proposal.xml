@@ -107,7 +107,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/us"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/alert_light_frame"
@@ -121,7 +120,6 @@
                 android:weightSum="2">
 
                 <RadioButton
-                    android:id="@+id/radioMale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -129,7 +127,6 @@
                     android:text="Regular" />
 
                 <RadioButton
-                    android:id="@+id/radioFemale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -162,7 +159,6 @@
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i3"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -443,7 +439,6 @@
 
 
             <LinearLayout
-                android:id="@+id/impact_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -494,7 +489,6 @@
 
 
         <LinearLayout
-            android:id="@+id/userinput1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -523,7 +517,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 

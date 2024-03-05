@@ -14,7 +14,6 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/productLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
@@ -91,7 +90,6 @@
 
         <RelativeLayout
             android:layout_margin="@dimen/_6sdp"
-            android:id="@+id/searchbar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/editbox_dropdown_light_frame"

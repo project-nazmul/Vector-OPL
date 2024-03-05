@@ -61,7 +61,6 @@
         android:layout_below="@+id/linearLayout1">
 
         <LinearLayout
-            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -124,7 +123,6 @@
 
 
                 <TextView
-                    android:id="@+id/dcr_sl"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_gravity="left"
@@ -137,7 +135,6 @@
 
 
                 <TextView
-                    android:id="@+id/dco_chem_name"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
 
@@ -149,7 +146,6 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
-                    android:id="@+id/ppm_pm_name"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -162,7 +158,6 @@
                     />
 
                 <TextView
-                    android:id="@+id/shift_gift"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -176,7 +171,6 @@
 
 
                 <TextView
-                    android:id="@+id/all_re"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -188,7 +182,6 @@
 
 
                 <TextView
-                    android:id="@+id/Rest"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
@@ -199,7 +192,6 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
-                    android:id="@+id/am_pm_shift"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"

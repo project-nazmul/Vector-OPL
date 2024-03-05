@@ -9,7 +9,6 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/mpoli"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -108,7 +107,6 @@
 
     <LinearLayout
 
-        android:id="@+id/mpo_am_report"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -176,7 +174,6 @@
 
 
     <LinearLayout
-        android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -191,7 +188,6 @@
 
 
     <LinearLayout
-        android:id="@+id/slistLayout2"
         android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -200,7 +196,6 @@
 
 
         <TextView
-            android:id="@+id/row_1"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -214,7 +209,6 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/row_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left"
@@ -227,7 +221,6 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/row_3"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -243,7 +236,6 @@
 
 
         <TextView
-            android:id="@+id/row_6"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -255,7 +247,6 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/row_7"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"

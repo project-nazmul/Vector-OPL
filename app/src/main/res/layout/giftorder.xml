@@ -64,7 +64,6 @@
     </LinearLayout>
 -->
     <LinearLayout
-        android:id="@+id/searchbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_dropdown_light_frame"
@@ -137,14 +136,12 @@
         card_view:contentPadding="1dp">
 
         <LinearLayout
-            android:id="@+id/polistLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_5sdp"
             android:weightSum="16" >
 
             <TextView
-                android:id="@+id/hserial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,7 +153,6 @@
                 />
 
             <TextView
-                android:id="@+id/hproduct_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -329,7 +325,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/btnLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

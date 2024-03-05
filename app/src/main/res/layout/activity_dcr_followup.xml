@@ -336,7 +336,6 @@
     <LinearLayout
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/dcr_border"
-        android:id="@+id/slistLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"

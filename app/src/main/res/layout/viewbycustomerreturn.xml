@@ -146,7 +146,6 @@
                 android:weightSum="25">
 
                 <TextView
-                    android:id="@+id/sseal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -156,7 +155,6 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
-                    android:id="@+id/spruct_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="11"
@@ -166,7 +164,6 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
-                    android:id="@+id/snty1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -176,7 +173,6 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <TextView
-                    android:id="@+id/sselllue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"

@@ -110,7 +110,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -131,7 +130,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:id="@+id/promo_ppm"
             android:background="@color/lightgray"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -169,7 +167,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -204,7 +201,6 @@
             android:layout_height="wrap_content"
 
             android:layout_weight="1"
-            android:id="@+id/individual_service_track"
             android:background="@color/lightgray"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -242,7 +238,6 @@
                     android:progressDrawable="@drawable/circular_progress_bar" />
 
                 <TextView
-                    android:id="@+id/progress_circle_text42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

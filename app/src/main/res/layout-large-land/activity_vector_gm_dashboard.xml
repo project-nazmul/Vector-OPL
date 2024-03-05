@@ -133,7 +133,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/t5">
 
                 <ImageButton
-                    android:id="@+id/img_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/icon_location"
@@ -1249,7 +1248,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout_ffContact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -1458,7 +1456,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_achv_earn"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1527,7 +1524,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_productStock"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1545,7 +1541,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout_tourPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -1607,7 +1602,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_tourPlan"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1678,7 +1672,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_incentive"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1696,7 +1689,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout_chemList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -1760,7 +1752,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_chemist_list"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1851,7 +1842,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

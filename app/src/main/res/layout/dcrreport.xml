@@ -57,7 +57,6 @@
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -113,7 +112,6 @@
         android:weightSum="34">
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_gravity="left"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -124,7 +122,6 @@
             android:textColor="@color/darkblue" />
 
         <TextView
-            android:id="@+id/dco_chem_name"
             android:text="Visit"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -134,7 +131,6 @@
             android:textColor="@color/blue" />
 
         <TextView
-            android:id="@+id/ppm_pm_name"
             android:text="PPM "
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -144,7 +140,6 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/shift_gift"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="4"
@@ -153,7 +148,6 @@
             android:textColor="@color/green1" />
 
         <TextView
-            android:id="@+id/all_rest_quant"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="4"
@@ -163,7 +157,6 @@
             android:textColor="@color/pink" />
 
         <TextView
-            android:id="@+id/all_re"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="4"
@@ -173,7 +166,6 @@
             android:textColor="@color/deeppurple" />
 
         <TextView
-            android:id="@+id/Rest"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="4"
@@ -183,7 +175,6 @@
             android:textColor="@color/bg_gradient_end" />
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="4"

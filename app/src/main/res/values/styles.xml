@@ -39,25 +39,8 @@
         <item name="snackbarStyle">@style/MySnackBarStyle</item>
     </style>
 
-    <style name="EditorTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:background">#3c4c93</item>
-        <item name="colorControlNormal">@color/white</item>
-    </style>
-
-    <style name="EditorTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">#3c4c93</item>
-        <item name="colorControlNormal">@color/white</item>
-        <item name="font">@font/acme</item>
-    </style>
-
     <style name="OutlinedRoundedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
-        <item name="boxStrokeColor">#3c4c93</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="hintColor_">#3c4c93</item>
-    </style>
-
-    <style name="FeedbackBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">#3c4c93</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="hintColor_">#3c4c93</item>
@@ -68,59 +51,11 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <style name="mybox" parent="Base.Widget.MaterialComponents.TextInputLayout">
-        <item name="materialThemeOverlay">
-            @style/ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox
-        </item>
-        <item name="boxBackgroundMode">filled</item>
-        <item name="boxBackgroundColor">@color/mtrl_filled_background_color</item>
-        <item name="endIconTint">@color/mtrl_filled_icon_tint</item>
-        <item name="startIconTint">@color/mtrl_filled_icon_tint</item>
-        <item name="boxCollapsedPaddingTop">10dp</item>
-        <item name="boxStrokeColor">@color/mtrl_filled_stroke_color</item>
-        <item name="shapeAppearanceOverlay">
-            @style/ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox
-        </item>
-    </style>
-
-    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">#3c4c93</item>
-        <item name="boxStrokeWidth">2dp</item>
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">32dp</item>
-        <item name="hintColor_">#3c4c93</item>
-    </style>
-
     <!---  ########################################endtelemedicine style import######################################### -->
     <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@android:color/background_dark</item>
-    </style>
-
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <style name="customer">
-        <item name="android:padding">20dp</item>
-        <item name="android:textSize">5sp</item>
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
-
-    <style name="spinnerItemStyle">
-        <item name="android:padding">10dp</item>
-        <item name="android:textSize">10px</item>
-        <item name="android:textColor">#ff29549f</item>
-    </style>
-
-    <style name="spinnerDropDownItemStyle">
-        <item name="android:padding">20dp</item>
-        <item name="android:textSize">3sp</item>
-        <item name="android:textColor">@color/colorAccentEditor</item>
     </style>
 
     <style name="DefaultButton" parent="@android:style/Widget.Button">
@@ -132,78 +67,10 @@
         <item name="android:minWidth">200dp</item>
     </style>
 
-    <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:dropDownListViewStyle">@style/MyTheme.MySpinnerStyle</item>
-    </style>
-
-    <style name="MyTheme.MySpinnerStyle" parent="android:style/Widget.Holo.Light.ListView.DropDown">
-        <item name="android:itemBackground">@color/colorAccentEditor</item>
-        <item name="android:dividerHeight">1dp</item>
-        <item name="android:textSize">10dp</item>
-    </style>
-
-    <style name="DashboardButton">
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:drawablePadding">2dp</item>
-        <item name="android:textSize">16dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#ff29549f</item>
-        <item name="android:background">@null</item>
-    </style>
-
-    <style name="ActionBarCompat">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:background">#ff29549f</item>
-    </style>
-
-    <style name="spinner" parent="android:Widget.TextView.SpinnerItem">
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:textSize">10px</item>
-        <item name="android:textColor">#ff29549f</item>
-    </style>
-
-    <style name="spinner_item" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:dividerHeight">1dp</item>
-        <item name="android:textSize">10px</item>
-    </style>
-
     <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/rounded_shape</item>
         <item name="android:fontFamily">@font/acme</item>
         <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="mytheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">#212121</item>
-        <item name="colorPrimaryVariant">#000000</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#006199</item>
-        <item name="colorSecondaryVariant">#006199</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
-        <item name="colorError">#F44336</item>
-        <item name="colorOnError">#FFFFFF</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">#212121</item>
-        <item name="android:colorBackground">#212121</item>
-        <item name="colorOnBackground">#212121</item>
-        <item name="snackbarStyle">@style/MySnackBarStyle</item>
-    </style>
-
-    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorAccentEditor</item>
-        <item name="colorAccent">@color/colorAccentEditor</item>
-        <item name="snackbarStyle">@style/MySnackBarStyle</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorAccentEditor</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -230,23 +97,9 @@
         <item name="tabSelectedTextColor">@color/colorAccentEditor</item>
     </style>
 
-    <style name="vector_spinner_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/gradient_spinner</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">20dp</item>
-        <item name="android:popupBackground">#DFFFFFFF</item>
-    </style>
-
     <style name="BasicToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">#ff29549f</item>
         <item name="colorControlNormal">#FFFFFF</item>
     </style>
 
-    <style name="MasterCode" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/vector_logo_color</item>
-        <item name="windowActionBar">true</item>
-    </style>
 </resources>

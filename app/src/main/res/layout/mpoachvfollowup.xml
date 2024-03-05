@@ -64,7 +64,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/date2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_2sdp"

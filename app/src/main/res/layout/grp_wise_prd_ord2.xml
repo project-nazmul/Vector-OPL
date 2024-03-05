@@ -10,7 +10,6 @@
     android:weightSum="100">
 
     <RelativeLayout
-        android:id="@+id/searchbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_dropdown_light_frame"
@@ -131,7 +130,6 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/slistLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -142,7 +140,6 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/rname"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="0.6"

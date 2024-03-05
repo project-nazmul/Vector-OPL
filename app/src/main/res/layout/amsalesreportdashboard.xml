@@ -23,7 +23,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/li"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/alert_light_frame"
@@ -31,7 +30,6 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/head_report"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -87,7 +85,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvProductQuantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -140,7 +137,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvProductValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -199,7 +195,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvSaleGrowth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -252,7 +247,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvSalesReport"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -311,7 +305,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvSalesFollowUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -364,7 +357,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvMpoGrowth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -424,7 +416,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvOpsoninList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -477,7 +468,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvProductOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -539,7 +529,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tv4pPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -601,7 +590,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvMspPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -655,7 +643,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvDccCampaign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -709,7 +696,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvMrdPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -763,7 +749,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvLocationTracker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -820,7 +805,6 @@
                         app:layout_constraintTop_toTopOf="@+id/textView7">
 
                         <TextView
-                            android:id="@+id/tvLiveDepotStock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -880,7 +864,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvGroupProductNew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"

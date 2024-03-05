@@ -19,7 +19,6 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/header_0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,7 +45,6 @@
 
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_gravity="left"
             android:layout_width="0dp"
             android:layout_weight="0.5"
@@ -58,7 +56,6 @@
             />
 
         <TextView
-            android:id="@+id/dco_chem_name"
             android:text="PPM CODE"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -74,7 +71,6 @@
 
 
         <TextView
-            android:id="@+id/all_re"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="2"
@@ -89,7 +85,6 @@
 
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -108,7 +103,6 @@
 
     <LinearLayout
 
-        android:id="@+id/slistLayout0"
         android:layout_weight="6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -138,7 +132,6 @@
 
     <LinearLayout
 
-        android:id="@+id/slistLayouttext"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -173,7 +166,6 @@
     <!--0.5-->
 
     <LinearLayout
-        android:id="@+id/s_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -207,7 +199,6 @@
             />
 
         <TextView
-            android:id="@+id/v_date2"
             android:text="Name of Area"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -221,7 +212,6 @@
             />
 
         <TextView
-            android:id="@+id/doc_name2"
             android:text="Total Sold quantity"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -253,7 +243,6 @@
 
     <LinearLayout
 
-        android:id="@+id/slistLayout3"
         android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -289,7 +278,6 @@
 
     <LinearLayout
 
-        android:id="@+id/slistLayouttext3"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -322,7 +310,6 @@
     </LinearLayout><!--0.5-->
 
     <LinearLayout
-        android:id="@+id/s_head2"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -331,7 +318,6 @@
 
 
         <TextView
-            android:id="@+id/sl2"
             android:layout_gravity="left"
             android:layout_width="0dp"
             android:layout_weight="0.5"
@@ -357,7 +343,6 @@
             />
 
         <TextView
-            android:id="@+id/doc_name3"
             android:text="Total Sold quantity"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -386,7 +371,6 @@
 
     <LinearLayout
 
-        android:id="@+id/slistLayout4"
         android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="0dp"

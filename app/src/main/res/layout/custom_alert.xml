@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             android:layout_marginTop="32dp"
-            android:id="@+id/congratulation_card"
             app:cardBackgroundColor="#FAFAFA"
             app:cardElevation="0dp"
             android:layout_gravity="bottom">

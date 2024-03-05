@@ -139,7 +139,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/masterPassword"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_12sdp"

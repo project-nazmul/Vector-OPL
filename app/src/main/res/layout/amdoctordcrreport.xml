@@ -9,14 +9,12 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/mpoli"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="5">
 
         <TextView
-            android:id="@+id/t1"
             android:layout_width="20sp"
             android:layout_height="42dp"
             android:background="@android:drawable/editbox_background"
@@ -51,7 +49,6 @@
 
 
         <TextView
-            android:id="@+id/t2"
             android:layout_width="20sp"
             android:layout_height="42dp"
             android:background="@android:drawable/editbox_background"
@@ -77,7 +74,6 @@
 
 
     <LinearLayout
-        android:id="@+id/mpo_am_report"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -85,7 +81,6 @@
 
 
         <TextView
-            android:id="@+id/dfasfa"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@android:drawable/editbox_background"
@@ -189,7 +184,6 @@
 
 
     <LinearLayout
-        android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -214,7 +208,6 @@
 
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -224,7 +217,6 @@
             android:textColor="@color/darkblue" />
 
         <TextView
-            android:id="@+id/shift"
             android:layout_width="25dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -236,7 +228,6 @@
             android:textColor="@color/darkblue" />
 
         <TextView
-            android:id="@+id/ppm_pm_name"
             android:layout_width="25dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -250,7 +241,6 @@
 
 
         <TextView
-            android:id="@+id/Rest"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -263,7 +253,6 @@
 
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -290,7 +279,6 @@
 
 
         <TextView
-            android:id="@+id/v_date"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="left"

@@ -42,7 +42,6 @@
             app:tabMode="fixed">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/patient_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/in_chamber" />
@@ -81,7 +80,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4">
 
             <RadioButton
-                android:id="@+id/patientRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -92,7 +90,6 @@
                 tools:targetApi="lollipop" />
 
             <RadioButton
-                android:id="@+id/doctorRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

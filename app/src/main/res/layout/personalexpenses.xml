@@ -139,7 +139,6 @@
 
 
             <LinearLayout
-                android:id="@+id/customerlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -170,7 +169,6 @@
 
 
             <LinearLayout
-                android:id="@+id/nature_location"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/_10sdp"
@@ -200,7 +198,6 @@
 
 
             <LinearLayout
-                android:id="@+id/v_status"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -274,7 +271,6 @@
 
 
             <LinearLayout
-                android:id="@+id/dtype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -301,7 +297,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/s_ta"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -310,7 +305,6 @@
                 android:weightSum="98">
 
                 <Spinner
-                    android:id="@+id/both_ta"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:background="@android:drawable/editbox_background"
@@ -327,7 +321,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dkm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -390,7 +383,6 @@
                     android:layout_height="match_parent">
 
                     <AutoCompleteTextView
-                        android:id="@+id/eta"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true"
@@ -405,7 +397,6 @@
                         tools:ignore="HardcodedText,UnusedAttribute" />
 
                     <AutoCompleteTextView
-                        android:id="@+id/eda"
                         android:layout_width="140dp"
                         android:layout_height="40dp"
                         android:layout_alignParentLeft="true"
@@ -429,7 +420,6 @@
 
 
             <LinearLayout
-                android:id="@+id/ota"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -453,7 +443,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/pl"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -477,7 +466,6 @@
 
 
             <LinearLayout
-                android:id="@+id/i_da"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -502,7 +490,6 @@
 
 
             <LinearLayout
-                android:id="@+id/sh"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -591,7 +578,6 @@
                 tools:ignore="UnusedAttribute" />
 
             <LinearLayout
-                android:id="@+id/paymentmode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

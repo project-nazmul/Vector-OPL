@@ -9,7 +9,6 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/mpoli"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -68,7 +67,6 @@
 
     <LinearLayout
 
-        android:id="@+id/mpo_am_report"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -213,7 +211,6 @@
 
 
     <LinearLayout
-        android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -238,7 +235,6 @@
 
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -249,7 +245,6 @@
             />
 
         <TextView
-            android:id="@+id/dco_chem_name"
             android:text="@string/visit_to5"
             android:layout_width="25dp"
             android:layout_height="fill_parent"
@@ -263,7 +258,6 @@
             android:layout_marginLeft="10dp" />
 
         <TextView
-            android:id="@+id/ppm_pm_name"
             android:text="@string/promo_mat"
             android:layout_width="25dp"
             android:layout_height="fill_parent"
@@ -280,7 +274,6 @@
 
 
         <TextView
-            android:id="@+id/shift_gift"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -295,7 +288,6 @@
             android:visibility="visible"
             android:focusable="true" />
         <TextView
-            android:id="@+id/all_rest_quant"
             android:layout_width="12dp"
             android:layout_height="fill_parent"
             android:layout_weight="0.8"
@@ -309,7 +301,6 @@
             android:focusable="true" />
 
         <TextView
-            android:id="@+id/all_re"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -323,7 +314,6 @@
 
 
         <TextView
-            android:id="@+id/Rest"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -337,7 +327,6 @@
 
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="10dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"

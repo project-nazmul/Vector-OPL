@@ -9,7 +9,6 @@
     android:weightSum="100" >
 
     <LinearLayout
-        android:id="@+id/row_0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -86,7 +85,6 @@
 
 
     <LinearLayout
-        android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/_200sdp"
         android:orientation="horizontal"
@@ -312,7 +310,6 @@
 
         
         <LinearLayout
-            android:id="@+id/col_1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -320,7 +317,6 @@
             >
 
             <TextView
-                android:id="@+id/txt_1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -362,7 +358,6 @@
 
 
         <LinearLayout
-            android:id="@+id/col_2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -370,7 +365,6 @@
             >
 
             <TextView
-                android:id="@+id/txt_2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -441,7 +435,6 @@
 
 
         <LinearLayout
-            android:id="@+id/col_3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -449,7 +442,6 @@
             >
 
             <TextView
-                android:id="@+id/txt_3"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -468,7 +460,6 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
-                android:id="@+id/dcrreqmpo"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="2"
@@ -485,7 +476,6 @@
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/col_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -575,7 +565,6 @@
 
 
     <LinearLayout
-        android:id="@+id/slistLayout2"
         android:layout_weight="5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -583,7 +572,6 @@
 
 
         <TextView
-            android:id="@+id/row_1"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -593,7 +581,6 @@
             android:textSize="@dimen/_8sdp" />
 
         <TextView
-            android:id="@+id/row_2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left"
@@ -605,7 +592,6 @@
                 android:textSize="@dimen/_8sdp" />
 
         <TextView
-            android:id="@+id/row_3"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -620,7 +606,6 @@
 
 
         <TextView
-            android:id="@+id/row_6"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"
@@ -630,7 +615,6 @@
                 android:textSize="@dimen/_8sdp" />
 
         <TextView
-            android:id="@+id/row_7"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_gravity="left"

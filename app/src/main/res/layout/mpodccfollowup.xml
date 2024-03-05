@@ -50,7 +50,6 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/mpotext"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -121,7 +120,6 @@
 
 
     <LinearLayout
-        android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -145,7 +143,6 @@
 
 
         <TextView
-            android:id="@+id/dcr_sl"
             android:layout_gravity="left"
             android:layout_width="0dp"
             android:layout_weight="0.5"
@@ -156,7 +153,6 @@
             />
 
         <TextView
-            android:id="@+id/dco_chem_name"
             android:text="Visit\nDate"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -169,7 +165,6 @@
             />
 
         <TextView
-            android:id="@+id/ppm_pm_name"
             android:text="Doctor"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
@@ -186,7 +181,6 @@
 
 
         <TextView
-            android:id="@+id/shift_gift"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -199,7 +193,6 @@
 
             />
         <TextView
-            android:id="@+id/all_rest_quant"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -212,7 +205,6 @@
             />
 
         <TextView
-            android:id="@+id/all_re"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -228,7 +220,6 @@
 
 
         <TextView
-            android:id="@+id/am_pm_shift"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"

@@ -190,7 +190,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/customerlayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -287,7 +286,6 @@
                 tools:ignore="UnusedAttribute" />
 
             <LinearLayout
-                android:id="@+id/paymentmode"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -497,7 +495,6 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/achtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -510,7 +507,6 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/invtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

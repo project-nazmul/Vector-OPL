@@ -591,7 +591,7 @@ public interface ApiInterface {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("common/customer_contact_update.php")
     Call<ContactModel> updateChemistNumber(@Field("id") String user_code, @Field("emp_code") String emp_code, @Field("cust_code") String cust_code,
-                                           @Field("MOBILE_NO_1") String MOBILE_NO_1);
+                                           @Field("MOBILE_NO_1") String MOBILE_NO_1, @Field("MOBILE_NO_2") String MOBILE_NO_2);
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

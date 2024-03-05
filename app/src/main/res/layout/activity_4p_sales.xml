@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ff_contact_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pmdVector.sales_4p.Activity_4p_Sales">
@@ -32,7 +31,6 @@
                 android:paddingBottom="@dimen/_4sdp">
 
                 <LinearLayout
-                    android:id="@+id/layout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -65,7 +63,6 @@
                         app:ms_text_color="@color/colorAccentEditor" />
 
                     <Spinner
-                        android:id="@+id/mspinner22"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginBottom="4dp"
@@ -227,7 +224,6 @@
             android:scrollbars="vertical" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_title_2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_2sdp"
@@ -330,7 +326,6 @@
 
         <androidx.cardview.widget.CardView
             android:backgroundTint="#A7E5ED"
-            android:id="@+id/cardview_title3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_2sdp"
@@ -433,7 +428,6 @@
 
         <androidx.cardview.widget.CardView
             android:backgroundTint="#A7E5ED"
-            android:id="@+id/cardview_title4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_2sdp"

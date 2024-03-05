@@ -132,7 +132,6 @@
                 android:layout_height="match_parent">
 
                 <ImageButton
-                    android:id="@+id/img_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/icon_location"
@@ -1400,7 +1399,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_achv_earn"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1418,7 +1416,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout_Prescriber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -1551,7 +1548,6 @@
                             app:layout_constraintVertical_bias="0.68" />
 
                         <Button
-                            android:id="@+id/btn_chemist_list"
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:background="@drawable/top_button_shape"
@@ -1643,7 +1639,6 @@
 
             <LinearLayout
                 android:layout_marginBottom="@dimen/_24sdp"
-                android:id="@+id/linearLayout9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

@@ -121,7 +121,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i3"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +144,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/il_d1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,7 +168,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -199,7 +196,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/isp2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -238,7 +234,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -261,7 +256,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/iv1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -284,7 +278,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i7"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -318,7 +311,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/iou_sl"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -372,7 +364,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/venue_voucher"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -396,7 +387,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ivsdd1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -422,7 +412,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_name_iou"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -476,7 +465,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/food_voucher"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -500,7 +488,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fvdt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -525,7 +512,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/food_layout_iou"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -557,7 +543,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i4"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -589,7 +574,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i5"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -614,7 +598,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i6"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -651,7 +634,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/rl_2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -676,7 +658,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/miscell_bdt_voucher"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -700,7 +681,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/mvdt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -726,7 +706,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/rl_iou"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -752,7 +731,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/i10"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -776,7 +754,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -801,13 +778,11 @@
 
 
             <LinearLayout
-                android:id="@+id/impact_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ed_layout_1"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -851,7 +826,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -875,7 +849,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -900,7 +873,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l3"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -926,7 +898,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l4"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -954,7 +925,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l5"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -980,7 +950,6 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/attn_l6"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1027,7 +996,6 @@
 
 
         <LinearLayout
-            android:id="@+id/userinput1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -1056,7 +1024,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 

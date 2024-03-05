@@ -23,7 +23,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/li"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/alert_light_frame"
@@ -31,7 +30,6 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/head_report"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -89,7 +87,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvProductQuantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -142,7 +139,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvProductValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -201,7 +197,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvOrderQuantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -254,7 +249,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvOrderValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -313,7 +307,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvReturnStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -366,7 +359,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvCurrentStock"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -426,7 +418,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvPartyOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -479,7 +470,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvSaleGrowth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -540,7 +530,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvOpsoninList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -593,7 +582,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvGroupProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -655,7 +643,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvMspPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -717,7 +704,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tv4pPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -770,7 +756,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvCreditList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -824,7 +809,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvSpecialRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -884,7 +868,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvOutstandingList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -938,7 +921,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvCustomerReplacement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -1002,7 +984,6 @@
                         app:layout_constraintTop_toTopOf="@+id/textView7">
 
                         <TextView
-                            android:id="@+id/tvBrandSale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -1055,7 +1036,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvMrdPrescription"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -1115,7 +1095,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tvGroupProdNew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
