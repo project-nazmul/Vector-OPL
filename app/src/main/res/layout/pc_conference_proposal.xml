@@ -113,20 +113,21 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <RadioButton
+                    android:id="@+id/simpleRadioButton1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:text="Regular" />
 
                 <RadioButton
+                    android:id="@+id/simpleRadioButton2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

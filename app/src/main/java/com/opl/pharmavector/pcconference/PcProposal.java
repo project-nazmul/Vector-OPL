@@ -111,7 +111,6 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
     private final String pc_conference_setup_date = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_setup_date.php";
     private final String pc_conference_date_check = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_date_check.php";
     private final String pc_conference_check_flag = BASE_URL+"pcconference/mpo_pc_conference/pc_conference_check_flag.php";
-    private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
     public String conf_type_val;
     TextView error_dt;
@@ -123,11 +122,33 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
     String new_version,ordernumber;
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
+    RadioButton simpleRadioButton1,simpleRadioButton2;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pc_conference_proposal);
+        simpleRadioButton1 = (RadioButton) findViewById(R.id.simpleRadioButton1);
+        simpleRadioButton2 = (RadioButton) findViewById(R.id.simpleRadioButton2);
+        simpleRadioButton1.setChecked(true);
+
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+                String text = checkedRadioButton.getText().toString();
+
+                if(text.equals("Regular")){
+                    conf_type_val = "R";
+                }else {
+                    conf_type_val = "S";
+                }
+            }
+        });
 
         initViews();
         marketEvents();
@@ -981,12 +1002,12 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
                 ded.setText(sdf.format(myCalendar.getTime()));
                 proposed_conference_date = ded.getText().toString().trim();
-                int selectedId = radioSexGroup.getCheckedRadioButtonId();
-                radioSexButton = (RadioButton) findViewById(selectedId);
-                //Toast.makeText(PcProposal.this, radioSexButton.getText(), Toast.LENGTH_SHORT).show();
 
-                final String conf_type = String.valueOf(radioSexButton.getText());
-                conf_type_val = conf_type.substring(0, 1);
+                if(simpleRadioButton1.isChecked()){
+                    conf_type_val = "R";
+                }else {
+                    conf_type_val = "S";
+                }
 
                 new GeTPcConferenceDate().execute();
                 new GeTPcConferenceFlag().execute();
@@ -1054,16 +1075,6 @@ public class PcProposal extends Activity implements AdapterView.OnItemSelectedLi
         checkflag = new ArrayList<Customer>();
         fontFamily = Typeface.createFromAsset(getAssets(), "fonts/fontawesome.ttf");
         cust.setOnItemSelectedListener(this);
-        radioSexGroup = findViewById(R.id.radioSex);
-        radioSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int selectedId = radioSexGroup.getCheckedRadioButtonId();
-                radioSexButton =  findViewById(selectedId);
-                final String conf_type = String.valueOf(radioSexButton.getText());
-                conf_type_val = conf_type.substring(0, 1);
-            }
-        });
         mainlayout =  findViewById(R.id.successmsg);
         succ_msg =  findViewById(R.id.succ_msg);
         ordno =  findViewById(R.id.ordno);

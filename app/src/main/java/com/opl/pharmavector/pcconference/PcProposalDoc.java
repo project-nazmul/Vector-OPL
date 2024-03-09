@@ -1,5 +1,7 @@
 package com.opl.pharmavector.pcconference;
 
+import static com.opl.pharmavector.Dashboard.globalmpocode;
+import static com.opl.pharmavector.Dashboard.globalterritorycode;
 import static com.opl.pharmavector.remote.ApiClient.BASE_URL;
 
 import android.app.ProgressDialog;
@@ -20,6 +22,7 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.opl.pharmavector.Dashboard;
 import com.opl.pharmavector.JSONParser;
 import com.opl.pharmavector.R;
 import com.opl.pharmavector.adapter.CategoryAdapter;
@@ -144,6 +147,7 @@ public class PcProposalDoc extends AppCompatActivity{
                             params.add(new BasicNameValuePair("conf_type_val", conf_type_val));
                             JSONObject json = jsonParser.makeHttpRequest(pc_conference_submit, "POST", params);
 
+                            /*
                             try {
                                 success = json.getInt(TAG_SUCCESS);
                                 message = json.getString(TAG_MESSAGE);
@@ -152,18 +156,12 @@ public class PcProposalDoc extends AppCompatActivity{
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
+                            */
 
-                            Intent in = getIntent();
-                            Intent inten = getIntent();
-                            Bundle bundle = in.getExtras();
-                            inten.getExtras();
-                            String MPO_CODE = bundle.getString("MPO_CODE");
-                            String pc_sl_no = message;
-                            Intent sameint = new Intent(PcProposalDoc.this, PcProposal.class);
-                            sameint.putExtra("UserName", UserName);
-                            sameint.putExtra("UserName_2", UserName_2);
-                            sameint.putExtra("Ord_NO", message);
-                            startActivity(sameint);
+                            Intent i = new Intent(PcProposalDoc.this, PcProposal.class);
+                            i.putExtra("UserName", globalmpocode);
+                            i.putExtra("UserName_2", globalterritorycode);
+                            startActivity(i);
                         }
                     });
                     server.start();
