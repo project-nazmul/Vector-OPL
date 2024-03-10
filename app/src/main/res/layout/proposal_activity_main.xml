@@ -109,26 +109,24 @@
             android:layout_height="match_parent">
 
             <RadioGroup
-                android:id="@+id/radioSex"
+                android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:fontFamily="@font/acme"
                 android:weightSum="2">
 
                 <RadioButton
+                    android:id="@+id/radioButton1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
-                    android:fontFamily="@font/acme"
                     android:text="Regular" />
 
                 <RadioButton
+                    android:id="@+id/radioButton2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/acme"
                     android:text="Special" />
             </RadioGroup>
         </LinearLayout>

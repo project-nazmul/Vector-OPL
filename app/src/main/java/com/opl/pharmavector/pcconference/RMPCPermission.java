@@ -124,11 +124,34 @@ public class RMPCPermission extends AppCompatActivity {
     public static final String tag_get_count_of_pc = "PC_COUNT";
     private Spinner cust;
     ProgressDialog pDialog;
+    RadioButton radioButton1,radioButton2;
+    RadioGroup group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.proposal_activity_main);
+
+        radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
+        radioButton1.setChecked(true);
+
+        group = (RadioGroup) findViewById(R.id.group);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                RadioButton checkedRadioButton = (RadioButton) findViewById(checkedId);
+                String text = checkedRadioButton.getText().toString();
+
+                if(text.equals("Regular")){
+                    conf_type = "R";
+                }else {
+                    conf_type = "S";
+                }
+            }
+        });
 
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -146,7 +169,7 @@ public class RMPCPermission extends AppCompatActivity {
         cust = (Spinner) findViewById(R.id.customer);
         mListViewBooks = (ListView) findViewById(R.id.category_listView);
         layout1.setVisibility(View.GONE);
-        radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
+        //radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
         checkdatelist = new ArrayList<Customer>();
         customerlist = new ArrayList<Customer>();
         context = this;
@@ -265,9 +288,14 @@ public class RMPCPermission extends AppCompatActivity {
 
             public void onClick(View v) {
                 Bundle b = getIntent().getExtras();
-                int selectedId = radioSexGroup.getCheckedRadioButtonId();
-                radioSexButton = (RadioButton) findViewById(selectedId);
-                String conf_type_val = String.valueOf(radioSexButton.getText());
+                //int selectedId = radioSexGroup.getCheckedRadioButtonId();
+                //radioSexButton = (RadioButton) findViewById(selectedId);
+                //String conf_type_val = String.valueOf(radioSexButton.getText());
+                if(radioButton1.isChecked()){
+                    conf_type = "R";
+                }else {
+                    conf_type = "S";
+                }
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 String Today = df.format(c);
@@ -308,7 +336,7 @@ public class RMPCPermission extends AppCompatActivity {
                     toast.show();
                 } else {
 
-                    conf_type = conf_type_val.substring(0, 1);
+                   // conf_type = conf_type_val.substring(0, 1);
                     layout1.setVisibility(View.VISIBLE);
                     submit.setVisibility(View.VISIBLE);
                     delete_mpo.setVisibility(View.GONE);
@@ -323,11 +351,16 @@ public class RMPCPermission extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Bundle b = getIntent().getExtras();
-                int selectedId = radioSexGroup.getCheckedRadioButtonId();
-                radioSexButton = (RadioButton) findViewById(selectedId);
-                Toast.makeText(RMPCPermission.this, radioSexButton.getText(), Toast.LENGTH_SHORT).show();
-                String conf_type_val = String.valueOf(radioSexButton.getText());
-                conf_type = conf_type_val.substring(0, 1);
+               // int selectedId = radioSexGroup.getCheckedRadioButtonId();
+                //radioSexButton = (RadioButton) findViewById(selectedId);
+               // Toast.makeText(RMPCPermission.this, radioSexButton.getText(), Toast.LENGTH_SHORT).show();
+
+                if(radioButton1.isChecked()){
+                    conf_type = "R";
+                }else {
+                    conf_type = "S";
+                }
+
                 layout1.setVisibility(View.VISIBLE);
                 new asyncTask_getCategories2().execute();
                 submit.setVisibility(View.GONE);
